@@ -1,22 +1,40 @@
 import React, { useState } from 'react';
-import { useLazyQuery, gql } from '@apollo/client';
+import { useLazyQuery, gql, QueryTuple } from '@apollo/client';
+import { PokemonGQLResult, Pokemon } from '../typeDefs/Pokemon';
 
 const POKEMON_SEARCH_QUERY = gql`
   query PokemonSearchQuery($filter: String!) {
     pokemon(filter: {startsWith: $filter}) {
       id
       name
+      baseStats {
+        hp
+        attack
+        defense
+        specialAttack
+        specialDefense
+        speed
+      }
+      typing {
+        edges {
+          node {
+            name
+          }
+        }
+      }
     }
   }
 `;
 
-const PokemonSearch = (props) => {
+type props = {
+  addPokemonToTeam: (pokemon: Pokemon) => void
+}
+
+const PokemonSearch = (props: props) => {
   const [searchFilter, setSearchFilter] = useState('');
   const [executeSearch, { data }] = useLazyQuery(
     POKEMON_SEARCH_QUERY
   );
-
-  const { addPokemonToTeam } = props;
 
   return (
     <>
@@ -37,12 +55,12 @@ const PokemonSearch = (props) => {
         </button>
       </div>
       {data && 
-        data.pokemon.map(pokemon => (
+        data.pokemon.map((pokemon: PokemonGQLResult, idx: number) => (
             <div 
               key={pokemon.id}
               onClick={(e) => {
                 e.preventDefault();
-                addPokemonToTeam(pokemon);
+                props.addPokemonToTeam(new Pokemon(pokemon));
               }}
             >
               {pokemon.name}
