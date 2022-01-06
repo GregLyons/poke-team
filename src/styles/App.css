@@ -14,4 +14,37 @@
   border: 1px solid black;
 }
 
+/* Sprite */
+
+.pokemon-team__sprite-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100px;
+}
+
+.pokemon-team__sprite {
+  position: relative;
+  max-height: 100px;
+  width: auto;
+}
+
+
+/* Base stat info */
+
+.pokemon-team__stats-list {
+  border: 1px solid black;
+}
+
+/* Type info */
+
+.pokemon-team__type-icon {
+  border: 1px solid black;
+}
+
+.pokemon-team__type-icon {
+  border: 1px solid black;
+}
+
 /* #endregion */

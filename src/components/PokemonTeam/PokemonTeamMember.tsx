@@ -34,13 +34,16 @@ const PokemonTeamMember = (
   return (
     <div className="pokemon-team__member">
       {/* Sprite */}
-      <img 
-        src={url}
-        width={width}
-        height={height}
-        style={{imageRendering: `${pixelated ? 'pixelated' : 'auto'}`}}
-        className="pokemon-team__sprite"
-      />
+      <div className="pokemon-team__sprite-container">
+        <img 
+          src={url}
+          alt={`Sprite for ${pokemon.name}.`}
+          width={width}
+          height={height}
+          style={{imageRendering: `${pixelated ? 'pixelated' : 'auto'}`}}
+          className="pokemon-team__sprite"
+        />
+      </div>
       {/* Name */}
       <p className="pokemon-team__pokemon-name">
         {pokemon.formattedName}
@@ -66,9 +69,15 @@ const PokemonTeamMember = (
 
 
       {/* Type info */}
-      <p>
-        Typing: {pokemon.typing.join(' ')}
-      </p>
+      <div className="pokemon-team__type-info">
+        {pokemon.typing.map(typeName => (
+          <img 
+            src={`/images/types/${typeName}.svg`}
+            alt={`Icon for ${typeName}-type.`}
+            className="pokemon-team__type-icon"
+          />
+        ))}
+      </div>
 
 
       {/* Move info */}

@@ -1,5 +1,6 @@
-import TypeName from './Type.js';
+import { TypeName } from './Type.js';
 import { Sprites } from '@pkmn/img';
+import { GenerationNum } from './Generation.js';
 
 // An object containing the base stats for the Pokemon
 type BaseStats = {
@@ -58,16 +59,15 @@ export class Pokemon {
   }
 }
 
-type GenerationNum = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 // Get Pokemon sprites
 //#region 
 
-// 
+// The 
 type spriteGen = "gen1rg" | "gen1rb" | "gen1" | "gen2g" | "gen2s" | "gen2" | "gen3rs" | "gen3frlg" | "gen3" | "gen3-2" | "gen4dp" | "gen4dp-2" | "gen4" | "gen5" | "gen5ani" | "ani" | GenerationNum | undefined;
 
 export const getPokemonSprite = (pokemon: Pokemon, gen: spriteGen = 8) => {
-  let {url} = Sprites.getPokemon(pokemon.name, {gen: gen});
+  let {url} = Sprites.getPokemon(pokemon.name.replace('_', ''), {gen: gen});
 
   // If the pokemon.name is incompatible, use the speciesName instead.
   if (url.includes('0.png')) {
