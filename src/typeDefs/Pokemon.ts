@@ -36,7 +36,10 @@ export class Pokemon {
   ) {
     this.id = gqlPokemon.id;
     this.name = gqlPokemon.name;
-    this.baseStats = gqlPokemon.baseStats;
+
+    const {hp, attack, defense, specialAttack, specialDefense, speed} = gqlPokemon.baseStats;
+    this.baseStats = {hp, attack, defense, specialAttack, specialDefense, speed};
+    
     this.typing = gqlPokemon.typing.edges.map(edge => edge.node.name);
     this.ability = '';
     this.moveset = [];

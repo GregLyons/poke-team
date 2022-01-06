@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useLazyQuery, gql, QueryTuple } from '@apollo/client';
+import { useState } from 'react';
+import { useLazyQuery, gql } from '@apollo/client';
 import { PokemonGQLResult, Pokemon } from '../typeDefs/Pokemon';
 
 const POKEMON_SEARCH_QUERY = gql`
@@ -26,11 +26,11 @@ const POKEMON_SEARCH_QUERY = gql`
   }
 `;
 
-type props = {
+type PokemonSearchProps = {
   addPokemonToTeam: (pokemon: Pokemon) => void
 }
 
-const PokemonSearch = (props: props) => {
+const PokemonSearch = (props: PokemonSearchProps) => {
   const [searchFilter, setSearchFilter] = useState('');
   const [executeSearch, { data }] = useLazyQuery(
     POKEMON_SEARCH_QUERY

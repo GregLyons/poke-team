@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PokemonSearch from './PokemonSearch';
-import PokemonTeam from './PokemonTeam';
+import PokemonTeam from './PokemonTeam/PokemonTeam';
 import { Pokemon } from '../typeDefs/Pokemon';
 
 import './../styles/App.css';
@@ -15,6 +15,12 @@ function App() {
     );
   }
 
+  const removePokemonFromTeam = (idx: number) => {
+    setPokemonTeam(
+      pokemonTeam.filter((_: Pokemon, i: number) => idx !== i)
+    );
+  }
+
   return (
     <>
       <PokemonSearch 
@@ -22,6 +28,7 @@ function App() {
       />
       <PokemonTeam 
         pokemonList={pokemonTeam}
+        removePokemonFromTeam={removePokemonFromTeam}
       />
     </>
   );
