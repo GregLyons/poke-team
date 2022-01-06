@@ -7,6 +7,8 @@ const POKEMON_SEARCH_QUERY = gql`
     pokemon(filter: {startsWith: $filter}) {
       id
       name
+      formattedName
+      speciesName
       baseStats {
         hp
         attack

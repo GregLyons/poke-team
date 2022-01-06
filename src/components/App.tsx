@@ -23,12 +23,12 @@ function App() {
 
   return (
     <>
-      <PokemonSearch 
-        addPokemonToTeam={addPokemonToTeam}
-      />
       <PokemonTeam 
         pokemonList={pokemonTeam}
         removePokemonFromTeam={removePokemonFromTeam}
+      />
+      <PokemonSearch 
+        addPokemonToTeam={addPokemonToTeam}
       />
     </>
   );
