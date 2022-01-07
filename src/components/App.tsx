@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import NavBar from './NavBar/NavBar';
 import Planner from './Planner/Planner';
-import PlannerPage from './Planner/PlannerPage';
+import PlannerPage from './Planner/EntityLists/PlannerPage';
+import MoveList from './Planner/EntityLists/MoveList';
+
 import Builder from './Builder/Builder';
 import Analyzer from './Analyzer/Analyzer';
 
@@ -30,6 +32,7 @@ function App() {
     <Router>
       <NavBar />
       <Routes>
+        {/* */}
         <Route path='/planner' element={
           <Planner  
             pokemonList={pokemonTeam}
@@ -40,7 +43,7 @@ function App() {
           {/* */}
           <Route path='abilities' element={<PlannerPage />}/>
           <Route path='items' element={<PlannerPage />}/>
-          <Route path='moves' element={<PlannerPage />}/>
+          <Route path='moves' element={<MoveList />}/>
 
           {/* */}
           <Route path='effects' element={<PlannerPage />}/>
@@ -50,6 +53,8 @@ function App() {
           <Route path='types' element={<PlannerPage />}/>
           <Route path='usage-methods' element={<PlannerPage />}/>
         </Route>
+
+        {/* */}
         <Route path='/builder' element={
           <Builder 
             pokemonList={pokemonTeam}
@@ -57,6 +62,8 @@ function App() {
             removePokemonFromTeam={removePokemonFromTeam}
           />
         }/>
+
+        {/* */}
         <Route path='/analyzer' element={
           <Analyzer 
             pokemonList={pokemonTeam}

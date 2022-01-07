@@ -7,7 +7,7 @@ import {
 import { Pokemon } from '../../typeDefs/Pokemon';
 
 
-import PlannerPokemonTeam from './PlannerPokemonTeam/PlannerPokemonTeam';
+import PlannerPokemonTeam from './PokemonTeam/PlannerPokemonTeam';
 import PlannerNavBar from './PlannerNavBar';
 
 import './Planner.css';

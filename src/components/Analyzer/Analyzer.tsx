@@ -1,6 +1,6 @@
 import { Pokemon } from '../../typeDefs/Pokemon';
 
-import AnalyzerPokemonTeam from './AnalyzerPokemonTeam/AnalyzerPokemonTeam';
+import AnalyzerPokemonTeam from './PokemonTeam/AnalyzerPokemonTeam';
 
 type AnalyzerProps = {
   pokemonList: Pokemon[]

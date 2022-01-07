@@ -40,7 +40,7 @@ export class Pokemon {
   public moveset: string[]
 
   constructor(
-    private readonly gqlPokemon: PokemonGQLResult
+    gqlPokemon: PokemonGQLResult
   ) {
     this.id = gqlPokemon.id;
 

@@ -1,6 +1,6 @@
 import { Pokemon } from '../../typeDefs/Pokemon';
 
-import BuilderPokemonTeam from './BuilderPokemonTeam/BuilderPokemonTeam';
+import BuilderPokemonTeam from './PokemonTeam/BuilderPokemonTeam';
 import PokemonSearch from './PokemonSearch';
 
 type BuilderProps = {
