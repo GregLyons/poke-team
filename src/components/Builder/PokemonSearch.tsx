@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLazyQuery, gql } from '@apollo/client';
-import { PokemonGQLResult, Pokemon } from '../typeDefs/Pokemon';
+import { PokemonGQLResult, Pokemon } from '../../typeDefs/Pokemon';
 
 const POKEMON_SEARCH_QUERY = gql`
   query PokemonSearchQuery($filter: String!) {

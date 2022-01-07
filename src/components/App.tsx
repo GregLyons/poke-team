@@ -1,6 +1,11 @@
 import { useState } from 'react';
-import PokemonSearch from './PokemonSearch';
-import PokemonTeam from './PokemonTeam/PokemonTeam';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
+import NavBar from './NavBar/NavBar';
+import Planner from './Planner/Planner';
+import Builder from './Builder/Builder';
+import Analyzer from './Analyzer/Analyzer';
+
 import { Pokemon } from '../typeDefs/Pokemon';
 
 import './../styles/App.css';
@@ -22,15 +27,31 @@ function App() {
   }
 
   return (
-    <>
-      <PokemonTeam 
-        pokemonList={pokemonTeam}
-        removePokemonFromTeam={removePokemonFromTeam}
-      />
-      <PokemonSearch 
-        addPokemonToTeam={addPokemonToTeam}
-      />
-    </>
+    <Router>
+      <NavBar />
+      <Routes>
+        <Route path='/planner' element={
+          <Planner  
+            pokemonList={pokemonTeam}
+            addPokemonToTeam={addPokemonToTeam}
+            removePokemonFromTeam={removePokemonFromTeam}
+          />
+        }/>
+        <Route path='/builder' element={
+          <Builder 
+            pokemonList={pokemonTeam}
+            addPokemonToTeam={addPokemonToTeam}
+            removePokemonFromTeam={removePokemonFromTeam}
+          />
+        }/>
+        <Route path='/analyzer' element={
+          <Analyzer 
+            pokemonList={pokemonTeam}
+            removePokemonFromTeam={removePokemonFromTeam}
+          />
+        }/>
+      </Routes>
+    </Router>
   );
 }
 

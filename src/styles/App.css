@@ -1,4 +1,6 @@
 
+
+
 /* pokemon-team */
 /* #region */
 
@@ -7,6 +9,7 @@
   grid-template-columns: repeat(6, 1fr);
 
   width: 80vw;
+  min-height: 100px;
   border: 1px solid black;
 }
 

@@ -1,21 +1,19 @@
-import { Pokemon } from '../../typeDefs/Pokemon';
-import PokemonTeamMember from './PokemonTeamMember';
+import { Pokemon } from '../../../typeDefs/Pokemon';
+import BuilderPokemonTeamMember from './BuilderPokemonTeamMember';
 
-type PokemonTeamProps = {
+type BuilderPokemonTeamProps = {
   pokemonList: Pokemon[]
   removePokemonFromTeam: (idx: number) => void
 }
 
-const PokemonTeam = (props: PokemonTeamProps) => {
-  const { pokemonList, removePokemonFromTeam } = props;
-
+const BuilderPokemonTeam = ({ pokemonList, removePokemonFromTeam }: BuilderPokemonTeamProps) => {
   return (
     <div className="pokemon-team">
       {pokemonList && pokemonList.length > 0 && 
         [
           // Actual members of the team
           ...pokemonList.map((pokemon: Pokemon, idx: number) => (
-          <PokemonTeamMember
+          <BuilderPokemonTeamMember
             pokemon={pokemon}
             idx={idx}
             removePokemonFromTeam={removePokemonFromTeam}
@@ -35,4 +33,4 @@ const PokemonTeam = (props: PokemonTeamProps) => {
   );
 };
 
-export default PokemonTeam;
+export default BuilderPokemonTeam;

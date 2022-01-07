@@ -1,6 +1,6 @@
-import { Pokemon, getPokemonSprite } from '../../typeDefs/Pokemon';
+import { Pokemon, getPokemonSprite } from '../../../typeDefs/Pokemon';
 
-type PokemonTeamMemberProps = {
+type BuilderPokemonTeamMember = {
   pokemon: Pokemon
   idx: number
   removePokemonFromTeam: (idx: number) => void
@@ -26,8 +26,8 @@ const baseStatMap_abbr = new Map([
   ['speed', 'Spe'],
 ]);
 
-const PokemonTeamMember = (
-  {pokemon, idx, removePokemonFromTeam}: PokemonTeamMemberProps
+const BuilderPokemonTeamMember = (
+  {pokemon, idx, removePokemonFromTeam}: BuilderPokemonTeamMember
 ) => {
   const {url, w: width, h: height, pixelated} = getPokemonSprite(pokemon);
 
@@ -44,56 +44,13 @@ const PokemonTeamMember = (
           className="pokemon-team__sprite"
         />
       </div>
+
+      
       {/* Name */}
       <p className="pokemon-team__pokemon-name">
         {pokemon.formattedName}
       </p>
-
-
-      {/* Base stat info */}
-      <ul className="pokemon-team__stats-list">
-        {Object.entries(pokemon.baseStats).map(stat => {
-          const [statName, statValue] = stat;
-
-          // Remove __typename
-          if (statName === '__typename') return null;
-
-
-          return (
-          <li key={pokemon.id + '_' + idx + '_' + statName}>
-            {baseStatMap_abbr.get(statName)}: {statValue}
-          </li>
-          );
-        })}
-      </ul>
-
-
-      {/* Type info */}
-      <div className="pokemon-team__type-info">
-        {pokemon.typing.map(typeName => (
-          <img 
-            src={`/images/types/${typeName}.svg`}
-            alt={`Icon for ${typeName}-type.`}
-            className="pokemon-team__type-icon"
-          />
-        ))}
-      </div>
-
-
-      {/* Move info */}
-      {pokemon.moveset.length > 0 ? (
-        <ul>
-          {pokemon.moveset.map(moveName => (
-            <li 
-              key={pokemon.id + '_' + idx + '_' + moveName}
-            >
-              {moveName}
-            </li>
-          ))}
-        </ul>
-      ) : ''}
-
-
+      
       {/* Remove button */}
       <button
         className="pokemon-team__remove-btn"
@@ -105,4 +62,4 @@ const PokemonTeamMember = (
   );
 }
 
-export default PokemonTeamMember;
+export default BuilderPokemonTeamMember;
