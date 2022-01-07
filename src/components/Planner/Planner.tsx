@@ -1,6 +1,14 @@
+import {
+  Outlet,
+  Route,
+  Routes,
+} from "react-router-dom";
+
 import { Pokemon } from '../../typeDefs/Pokemon';
 
+
 import PlannerPokemonTeam from './PlannerPokemonTeam/PlannerPokemonTeam';
+import PlannerNavBar from './PlannerNavBar';
 
 import './Planner.css';
 
@@ -17,6 +25,8 @@ const Planner = ({ pokemonList, addPokemonToTeam, removePokemonFromTeam }: Plann
         pokemonList={pokemonList}
         removePokemonFromTeam={removePokemonFromTeam}
       />
+      <PlannerNavBar />
+      <Outlet />
     </div>
   );
 }

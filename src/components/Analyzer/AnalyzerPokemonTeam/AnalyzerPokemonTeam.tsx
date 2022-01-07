@@ -9,26 +9,26 @@ type AnalyzerPokemonTeamProps = {
 const AnalyzerPokemonTeam = ({ pokemonList, removePokemonFromTeam }: AnalyzerPokemonTeamProps) => {
   return (
     <div className="pokemon-team">
-      {pokemonList && pokemonList.length > 0 && 
-        [
-          // Actual members of the team
-          ...pokemonList.map((pokemon: Pokemon, idx: number) => (
-          <AnalyzerPokemonTeamMember
-            pokemon={pokemon}
-            idx={idx}
-            removePokemonFromTeam={removePokemonFromTeam}
-          />
-          )),
-          // Placeholder for missing team members
-          ...(new Array(6 - pokemonList.length)
-              .fill(0)
-              .map(d => (
+      {[
+        // Actual members of the team
+        ...pokemonList.map((pokemon: Pokemon, idx: number) => (
+        <AnalyzerPokemonTeamMember
+          pokemon={pokemon}
+          idx={idx}
+          removePokemonFromTeam={removePokemonFromTeam}
+        />
+        )),
+        // Placeholder for missing team members
+        ...(new Array(6 - pokemonList.length)
+            .fill(0)
+            .map(d => {
+              return (
                 <div className="pokemon-team__member">
                 </div>
-              ))
-            ),
-        ]
-      }
+              );
+            })
+          ),
+      ]}
     </div>
   );
 };

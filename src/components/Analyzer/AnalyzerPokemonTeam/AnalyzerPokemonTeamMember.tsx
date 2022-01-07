@@ -1,4 +1,5 @@
-import { Pokemon, getPokemonSprite } from '../../../typeDefs/Pokemon';
+import { Pokemon } from '../../../typeDefs/Pokemon';
+import { getPokemonSprite } from '../../../utils/sprites';
 
 type AnalyzerPokemonTeamMember = {
   pokemon: Pokemon
