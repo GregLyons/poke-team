@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import NavBar from './NavBar/NavBar';
@@ -12,24 +12,18 @@ import Analyzer from './Analyzer/Analyzer';
 import { Pokemon } from '../typeDefs/Pokemon';
 
 import './../styles/App.css';
+import { NUMBER_OF_GENS } from '../utils/constants';
+
+import { 
+  ContextProvider,
+} from '../contexts';
 
 function App() {
   const [pokemonTeam, setPokemonTeam] = useState<Pokemon[]>([]);
-
-  const addPokemonToTeam = (pokemon: Pokemon) => {
-    if (pokemonTeam.length < 6) setPokemonTeam(
-      pokemonTeam.concat(pokemon)
-    );
-  }
-
-  const removePokemonFromTeam = (idx: number) => {
-    setPokemonTeam(
-      pokemonTeam.filter((_: Pokemon, i: number) => idx !== i)
-    );
-  }
-
+  const [pokemonCart, setPokemonCart] = useState<Pokemon[]>([]);
+  
   return (
-    <Router>
+    <ContextProvider>
       <NavBar />
       <Routes>
         {/* */}
@@ -78,7 +72,7 @@ function App() {
           />
         }/>
       </Routes>
-    </Router>
+    </ContextProvider>
   );
 }
 
