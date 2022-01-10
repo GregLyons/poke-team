@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useLazyQuery, gql } from '@apollo/client';
 import MoveEntry from './MoveEntry';
 
-import { MoveGQLResult, Move } from '../../../typeDefs/Move';
+import { MoveGQLResult, Move } from '../../../../typeDefs/Move';
+import { Pokemon } from '../../../../typeDefs/Pokemon';
 
 const MOVE_SEARCH_QUERY = gql`
   query MoveSearchQuery($filter: String!) {
@@ -30,6 +31,7 @@ const MOVE_SEARCH_QUERY = gql`
         edges {
           node {
             name
+            formattedName
             speciesName
           }
         }
@@ -38,7 +40,11 @@ const MOVE_SEARCH_QUERY = gql`
   }
 `;
 
-const MoveList = () => {
+type MoveListProps = {
+  addPokemonToTeam: (pokemon: Pokemon) => void
+}
+
+const MoveList = ({ addPokemonToTeam }: MoveListProps) => {
   const [searchFilter, setSearchFilter] = useState('');
   const [executeSearch, { data }] = useLazyQuery(
     MOVE_SEARCH_QUERY
@@ -70,7 +76,11 @@ const MoveList = () => {
         </div>
         {data && 
           data.moves.map((move: MoveGQLResult) => (
-              <MoveEntry key={move.id} move={new Move(move)} />
+              <MoveEntry 
+                key={move.id} 
+                addPokemonToTeam={addPokemonToTeam}
+                move={new Move(move)} 
+              />
             ))
         }
       </div>

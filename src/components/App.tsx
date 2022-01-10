@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './NavBar/NavBar';
 import Planner from './Planner/Planner';
 import PlannerPage from './Planner/EntityLists/PlannerPage';
-import MoveList from './Planner/EntityLists/MoveList';
+import MoveList from './Planner/EntityLists/Moves/MoveList';
 
 import Builder from './Builder/Builder';
 import Analyzer from './Analyzer/Analyzer';
@@ -43,7 +43,14 @@ function App() {
           {/* */}
           <Route path='abilities' element={<PlannerPage />}/>
           <Route path='items' element={<PlannerPage />}/>
-          <Route path='moves' element={<MoveList />}/>
+          <Route 
+            path='moves' 
+            element={
+              <MoveList 
+                addPokemonToTeam={addPokemonToTeam}
+              />
+            } 
+          />
 
           {/* */}
           <Route path='effects' element={<PlannerPage />}/>

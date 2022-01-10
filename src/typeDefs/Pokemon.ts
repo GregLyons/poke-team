@@ -25,7 +25,6 @@ export interface PokemonGQLResult {
   }
 }
 
-
 // 
 export class Pokemon {
   public id: string

@@ -3,6 +3,7 @@ import { TypeName } from './Type.js';
 type TypeEdge = { node: { name: TypeName }}
 type PokemonEdge = { node: { 
   name: string 
+  formattedName: string
   speciesName: string
 }}
 
@@ -49,6 +50,7 @@ export class Move {
 
   public pokemon: {
     name: string
+    formattedName: string
     speciesName: string
   }[]
 
@@ -73,6 +75,7 @@ export class Move {
     this.pokemon = gqlMove.pokemon.edges.map(edge => {
       return {
         name: edge.node.name,
+        formattedName: edge.node.formattedName,
         speciesName: edge.node.speciesName,
       };
     });
