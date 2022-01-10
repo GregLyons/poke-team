@@ -24,8 +24,10 @@ const Team = () => {
         // Placeholder for missing team members
         ...(new Array(6 - team.length)
             .fill(0)
-            .map(d => (
-              <div className="pokemon-team__member">
+            .map((d, idx) => (
+              <div 
+                key={'blank' + idx}
+                className="pokemon-team__member">
               </div>
             ))
           ),

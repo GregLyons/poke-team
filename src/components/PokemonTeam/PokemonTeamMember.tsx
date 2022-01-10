@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { GenContext } from '../../contexts';
 import { Pokemon } from '../../typeDefs/Pokemon';
 import { getPokemonSprite } from '../../utils/sprites';
 
@@ -30,7 +32,8 @@ const baseStatMap_abbr = new Map([
 const TeamMember = (
   {pokemon, idx, removeFromTeam}: TeamMember
 ) => {
-  const {url, w: width, h: height, pixelated} = getPokemonSprite(pokemon);
+  const { gen } = useContext(GenContext);
+  const {url, w: width, h: height, pixelated} = getPokemonSprite(pokemon, gen);
 
   return (
     <div className="pokemon-team__member">

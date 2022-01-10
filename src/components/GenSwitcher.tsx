@@ -2,16 +2,21 @@ import { useContext } from "react";
 import { GenContext } from "../contexts"
 import { NUMBER_OF_GENS } from "../utils/constants";
 
+import {
+  GenerationNum,
+  stringToGenNumber,
+} from "../typeDefs/Generation";
+
 const GenSwitcher = () => {
   const genContext = useContext(GenContext);
-  
+
   return (
     <input
       type="range"
       min="1"
       max={NUMBER_OF_GENS}
       onChange={(e) => {
-        genContext.setGen(parseInt(e.target.value, 10));
+        genContext.setGen(stringToGenNumber(e.target.value));
       }}
 
       className="slider"

@@ -1,4 +1,11 @@
-import { TypeName } from './Type.js';
+import {
+  GenerationNum,
+  IntroductionEdge
+} from './Generation.js';
+import {
+  TypeEdge,
+  TypeName,
+} from './Type.js';
 
 // An object containing the base stats for the Pokemon
 type BaseStats = {
@@ -10,8 +17,6 @@ type BaseStats = {
   speed: number
 }
 
-type TypeEdge = { node: { name: TypeName }}
-
 export interface PokemonGQLResult {
   id: string
 
@@ -19,7 +24,12 @@ export interface PokemonGQLResult {
   formattedName: string
   speciesName: string
 
+  introduced: {
+    edges: IntroductionEdge[]
+  }
+
   baseStats: BaseStats
+
   typing: {
     edges: TypeEdge[]
   }
@@ -32,6 +42,8 @@ export class Pokemon {
   public name: string
   public formattedName: string
   public speciesName: string
+
+  public introduced: GenerationNum
 
   public baseStats: BaseStats
   public typing: TypeName[]
@@ -49,8 +61,11 @@ export class Pokemon {
 
     const {hp, attack, defense, specialAttack, specialDefense, speed} = gqlPokemon.baseStats;
     this.baseStats = {hp, attack, defense, specialAttack, specialDefense, speed};
+
+    this.introduced = gqlPokemon.introduced.edges[0].node.number;
     
     this.typing = gqlPokemon.typing.edges.map(edge => edge.node.name);
+
     this.ability = '';
     this.moveset = [];
   }

@@ -1,25 +1,36 @@
+import { useContext } from 'react';
+
+import {
+  Link, Outlet,
+} from 'react-router-dom';
+import { GenContext } from '../../../../contexts';
+
 import { Move } from '../../../../typeDefs/Move';
 import { Pokemon } from '../../../../typeDefs/Pokemon';
 import { getPokemonIcon } from '../../../../utils/sprites'
 
 type MoveEntryProps = {
-  addPokemonToTeam: (pokemon: Pokemon) => void
+  addToTeam: (pokemon: Pokemon) => void
   move: Move
 }
 
 const MoveEntry = ({
-  addPokemonToTeam,
+  addToTeam,
   move,
 }: MoveEntryProps) => {
   // Since Pokemon can learn Moves in multiple ways, we need to worry about duplicates. The keys of this object are Pokemon names, and the value is always 'true'; we only care about the keys.
   let seenPokemon: {[k: string]: boolean} = {};
+  const { gen } = useContext(GenContext);
 
   return (
     <div className="planner__table-row">
       {/* Move name */}
-      <div className="planner__move-name">
+      <Link 
+        to={`${move.name}`}
+        className="planner__move-name"
+      >
         {move.formattedName}
-      </div>
+      </Link>
 
       {/* Move data */}
       <div className="planner__move-data">
@@ -46,7 +57,7 @@ const MoveEntry = ({
           return (
             <div
               title={`Icon for ${pokemon.formattedName}`}
-              key={move.id + '_' + pokemon.name}
+              key={'move_' + move.id + '_' + pokemon.name + '_icon'}
               style={{
                 width: '40px',
                 height: '30px',
@@ -54,13 +65,12 @@ const MoveEntry = ({
                 backgroundImage: `url(${process.env.PUBLIC_URL + '/images/icons/pokemonicons-sheet.png'})`,
                 backgroundPosition: `${left}px ${top}px`,
                 backgroundRepeat: 'no-repeat',
-              }}
-
-              
+              }}              
             />
           )
         })}</div>
       </div>
+      <Outlet />
     </div>
   );
 }

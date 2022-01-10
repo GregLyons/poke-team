@@ -1,1 +1,0 @@
-export const GET_TYPEDEFS_PATH = '../../../../../typeDefs/';

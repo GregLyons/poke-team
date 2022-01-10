@@ -9,29 +9,33 @@ import { Pokemon } from '../typeDefs/Pokemon.js';
 type PokemonNameData = {
   name: string
   speciesName: string
+
+  introduced: GenerationNum
 }
 
-type spriteGen = "gen1rg" | "gen1rb" | "gen1" | "gen2g" | "gen2s" | "gen2" | "gen3rs" | "gen3frlg" | "gen3" | "gen3-2" | "gen4dp" | "gen4dp-2" | "gen4" | "gen5" | "gen5ani" | "ani" | GenerationNum | undefined;
-
-export const getPokemonSprite = (pokemon: Pokemon | PokemonNameData, gen: spriteGen = 8) => {
+export const getPokemonSprite = (pokemon: Pokemon | PokemonNameData, gen: GenerationNum = 8) => {
   let {url} = Sprites.getPokemon(pokemon.name.replace('_', ''), {gen: gen});
+
+  if (gen < pokemon.introduced) {
+    return Sprites.getPokemon(pokemon.name.replace('_', ''), {gen: pokemon.introduced})
+  }
 
   // If the pokemon.name is incompatible, use the speciesName instead.
   if (url.includes('0.png')) {
-    return Sprites.getPokemon(pokemon.speciesName, {gen: gen});
+    return Sprites.getPokemon(pokemon.speciesName.replace('_', ''), {gen: gen});
   } else {
-    return Sprites.getPokemon(pokemon.name, {gen: gen});
+    return Sprites.getPokemon(pokemon.name.replace('_', ''), {gen: gen});
   }
 }
 
-export const getPokemonIcon = (pokemon: Pokemon | PokemonNameData, gen: spriteGen = 8) => {
+export const getPokemonIcon = (pokemon: Pokemon | PokemonNameData, gen: GenerationNum = 8) => {
   let {url} = Icons.getPokemon(pokemon.name.replace('_', ''));
 
   // If the pokemon.name is incompatible, use the speciesName instead.
   if (url.includes('0.png')) {
-    return Icons.getPokemon(pokemon.speciesName);
+    return Icons.getPokemon(pokemon.speciesName.replace('_', ''));
   } else {
-    return Icons.getPokemon(pokemon.name);
+    return Icons.getPokemon(pokemon.name.replace('_', ''));
   }
 }
 

@@ -6,6 +6,7 @@ import {
 
 import { NUMBER_OF_GENS } from "./utils/constants";
 import { Pokemon } from "./typeDefs/Pokemon";
+import { GenerationNum } from "./typeDefs/Generation";
 
 // Team context
 // #region
@@ -26,11 +27,11 @@ export const TeamProvider: FC = ({ children }) => {
   const [team, setTeam] = useState<Pokemon[]>([]);
 
   const addToTeam = (pokemon: Pokemon) => {
-    if (team.length > 6) return; 
-
-    setTeam(
-      team.concat(pokemon)
-    );
+    if (team.length < 6) {
+      setTeam(
+        team.concat(pokemon)
+      );
+    }
   };
 
   const removeFromTeam = (idx: number) => {
@@ -105,19 +106,19 @@ export const CartProvider: FC = ({ children }) => {
 // #region
 
 interface GenContextInterface {
-  gen: number,
-  setGen: (newGen: number) => void,
+  gen: GenerationNum,
+  setGen: (newGen: GenerationNum) => void,
 }
 
 export const GenContext = createContext<GenContextInterface>({
   gen: NUMBER_OF_GENS,
-  setGen: (newGen) => { return; },
+  setGen: (GenerationNum) => { return; },
 });
 
 export const GenProvider: FC = ({ children }) => {
-  const [gen, setTheGen] = useState<number>(NUMBER_OF_GENS);
+  const [gen, setTheGen] = useState<GenerationNum>(NUMBER_OF_GENS);
 
-  const setGen = (gen: number) => {
+  const setGen = (gen: GenerationNum) => {
     setTheGen(gen);
   };
 

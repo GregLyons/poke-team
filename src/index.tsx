@@ -30,9 +30,10 @@ import Builder from './components/Builder/Builder';
 // #region 
 
 import Planner from './components/Planner/Planner';
-import PlannerPage from './components/Planner/EntityLists/PlannerPage';
+import PlannerHome from './components/Planner/EntityLists/PlannerHome';
 
-import MoveList from './components/Planner/EntityLists/Moves/MoveList';
+import MoveSearch from './components/Planner/EntityLists/Moves/MoveSearch';
+import MovePage from './components/Planner/EntityLists/Moves/MovePage';
 
 // #endregion
 
@@ -78,43 +79,61 @@ ReactDOM.render(
         {/* Routing for Planner */}
         <Route path="/planner" element={<Planner />}>
           {/* */}
-          <Route 
-            path='abilities' 
-            element={<PlannerPage />}
-          />
-          <Route 
-            path='items' 
-            element={<PlannerPage />}
-          />
-          <Route 
-            path='moves' 
-            element={<PlannerPage />} 
+          <Route
+            index
+            element={<PlannerHome />}
           />
 
           {/* */}
           <Route 
+            path='abilities' 
+            element={<PlannerHome />}
+          />
+          <Route 
+            path='items' 
+            element={<PlannerHome />}
+          />
+          <Route 
+            path='moves' 
+            element={<MoveSearch />} 
+          >
+          </Route>
+          <Route path="moves/:moveId" element={<MovePage />} />
+
+          {/* */}
+          <Route 
             path='effects' 
-            element={<PlannerPage />}
+            element={<PlannerHome />}
           />
           <Route 
             path='field-states' 
-            element={<PlannerPage />}
+            element={<PlannerHome />}
           />
           <Route 
             path='stats' 
-            element={<PlannerPage />}
+            element={<PlannerHome />}
           />
           <Route 
             path='statuses' 
-            element={<PlannerPage />}
+            element={<PlannerHome />}
           />
           <Route 
             path='types' 
-            element={<PlannerPage />}
+            element={<PlannerHome />}
           />
           <Route 
             path='usage-methods' 
-            element={<PlannerPage />}
+            element={<PlannerHome />}
+          />
+
+          {/* */}
+          <Route
+            path='*'
+            element={
+              <main>
+                Bad Planner link
+              </main>
+            }
           />
         </Route>
 

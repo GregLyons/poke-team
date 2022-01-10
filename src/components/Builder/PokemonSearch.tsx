@@ -1,14 +1,44 @@
-import { useState } from 'react';
-import { useLazyQuery, gql } from '@apollo/client';
-import { PokemonGQLResult, Pokemon } from '../../typeDefs/Pokemon';
+import {
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
+
+import {
+  useLazyQuery,
+  gql,
+} from '@apollo/client';
+
+import {
+  Pokemon,
+  PokemonGQLResult,
+} from '../../typeDefs/Pokemon';
+
+import { GenContext } from '../../contexts';
 
 const POKEMON_SEARCH_QUERY = gql`
-  query PokemonSearchQuery($filter: String!) {
-    pokemon(filter: {startsWith: $filter}) {
+  query PokemonSearchQuery(
+    $gen: Int!
+    $startsWith: String!
+  ) {
+    pokemon(
+      generation: $gen
+      filter: {startsWith: $startsWith}
+    ) {
       id
+
       name
       formattedName
       speciesName
+
+      introduced {
+        edges {
+          node {
+            number
+          }
+        }
+      }
+
       baseStats {
         hp
         attack
@@ -17,6 +47,7 @@ const POKEMON_SEARCH_QUERY = gql`
         specialDefense
         speed
       }
+
       typing {
         edges {
           node {
@@ -33,10 +64,26 @@ type PokemonSearchProps = {
 }
 
 const PokemonSearch = (props: PokemonSearchProps) => {
-  const [searchFilter, setSearchFilter] = useState('');
+  const [searchFilter, setSearchFilter] = useState({});
+  const [executedSearch, setExecutedSearch] = useState<boolean>(false);
+
   const [executeSearch, { data }] = useLazyQuery(
     POKEMON_SEARCH_QUERY
   );
+
+  const { gen } = useContext(GenContext);
+
+  useEffect(() => {
+    console.log(searchFilter);
+    if (executedSearch) {
+      executeSearch({
+        variables: {
+          gen: gen,
+          ...searchFilter,
+        }
+      })
+    } 
+  }, [gen]);
 
   return (
     <>
@@ -44,14 +91,21 @@ const PokemonSearch = (props: PokemonSearchProps) => {
         Search
         <input
           type="text"
-          onChange={(e) => setSearchFilter(e.target.value)}
+          onChange={(e) => setSearchFilter({
+            ...searchFilter,
+            startsWith: e.target.value,
+          })}
         />
         <button
-          onClick={() =>
+          onClick={() => {
+            setExecutedSearch(true); 
             executeSearch({
-              variables: { filter: searchFilter }
+              variables: {
+                gen: gen,
+                ...searchFilter,
+              }
             })
-          }
+          }}
         >
           OK
         </button>

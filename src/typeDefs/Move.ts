@@ -1,3 +1,4 @@
+import { GenerationNum, IntroductionEdge } from './Generation.js';
 import { TypeName } from './Type.js';
 
 type TypeEdge = { node: { name: TypeName }}
@@ -5,6 +6,10 @@ type PokemonEdge = { node: {
   name: string 
   formattedName: string
   speciesName: string
+
+  introduced: {
+    edges: IntroductionEdge[]
+  }
 }}
 
 export interface MoveGQLResult {
@@ -12,6 +17,10 @@ export interface MoveGQLResult {
 
   name: string
   formattedName: string
+
+  introduced: {
+    edges: IntroductionEdge[]
+  }
 
   accuracy: number
   category: string
@@ -38,6 +47,8 @@ export class Move {
   public name: string
   public formattedName: string
 
+  public introduced: GenerationNum
+
   public accuracy: number
   public category: string
   public contact: boolean
@@ -52,6 +63,8 @@ export class Move {
     name: string
     formattedName: string
     speciesName: string
+
+    introduced: GenerationNum
   }[]
 
   constructor(
@@ -70,6 +83,8 @@ export class Move {
     this.priority = gqlMove.priority;
     this.target = gqlMove.target;
 
+    this.introduced = gqlMove.introduced.edges[0].node.number;
+
     this.type = gqlMove.type.edges.map(edge => edge.node.name)[0];
 
     this.pokemon = gqlMove.pokemon.edges.map(edge => {
@@ -77,6 +92,8 @@ export class Move {
         name: edge.node.name,
         formattedName: edge.node.formattedName,
         speciesName: edge.node.speciesName,
+
+        introduced: edge.node.introduced.edges[0].node.number
       };
     });
   }
