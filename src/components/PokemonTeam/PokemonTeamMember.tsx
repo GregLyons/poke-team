@@ -1,10 +1,10 @@
-import { Pokemon } from '../../../typeDefs/Pokemon';
-import { getPokemonSprite } from '../../../utils/sprites';
+import { Pokemon } from '../../typeDefs/Pokemon';
+import { getPokemonSprite } from '../../utils/sprites';
 
-type BuilderPokemonTeamMember = {
+type TeamMember = {
   pokemon: Pokemon
   idx: number
-  removePokemonFromTeam: (idx: number) => void
+  removeFromTeam: (idx: number) => void
 }
 
 // Converts keys from BaseStat object to formatted names.
@@ -27,8 +27,8 @@ const baseStatMap_abbr = new Map([
   ['speed', 'Spe'],
 ]);
 
-const BuilderPokemonTeamMember = (
-  {pokemon, idx, removePokemonFromTeam}: BuilderPokemonTeamMember
+const TeamMember = (
+  {pokemon, idx, removeFromTeam}: TeamMember
 ) => {
   const {url, w: width, h: height, pixelated} = getPokemonSprite(pokemon);
 
@@ -55,7 +55,7 @@ const BuilderPokemonTeamMember = (
       {/* Remove button */}
       <button
         className="pokemon-team__remove-btn"
-        onClick={() => removePokemonFromTeam(idx)}
+        onClick={() => removeFromTeam(idx)}
       >
         Remove
       </button>
@@ -63,4 +63,4 @@ const BuilderPokemonTeamMember = (
   );
 }
 
-export default BuilderPokemonTeamMember;
+export default TeamMember;

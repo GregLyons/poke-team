@@ -29,7 +29,7 @@ const POKEMON_SEARCH_QUERY = gql`
 `;
 
 type PokemonSearchProps = {
-  addPokemonToTeam: (pokemon: Pokemon) => void
+  addToTeam: (pokemon: Pokemon) => void
 }
 
 const PokemonSearch = (props: PokemonSearchProps) => {
@@ -62,7 +62,7 @@ const PokemonSearch = (props: PokemonSearchProps) => {
               key={pokemon.id}
               onClick={(e) => {
                 e.preventDefault();
-                props.addPokemonToTeam(new Pokemon(pokemon));
+                props.addToTeam(new Pokemon(pokemon));
               }}
             >
               {pokemon.name}

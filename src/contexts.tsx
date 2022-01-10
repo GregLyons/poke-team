@@ -1,4 +1,4 @@
-import React, { 
+import { 
   createContext,
   FC,
   useState,
@@ -135,6 +135,7 @@ export const GenProvider: FC = ({ children }) => {
 
 // #endregion
 
+// Component composing all the providers
 export const ContextProvider: FC = ({ children }) => {
   return (
     <GenProvider>

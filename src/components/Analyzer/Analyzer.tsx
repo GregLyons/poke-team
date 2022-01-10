@@ -1,18 +1,7 @@
-import { Pokemon } from '../../typeDefs/Pokemon';
 
-import AnalyzerPokemonTeam from './PokemonTeam/AnalyzerPokemonTeam';
-
-type AnalyzerProps = {
-  pokemonList: Pokemon[]
-  removePokemonFromTeam: (idx: number) => void
-}
-
-const Analyzer = ({ pokemonList, removePokemonFromTeam }: AnalyzerProps) => {
+const Analyzer = () => {
   return (
-    <AnalyzerPokemonTeam 
-      pokemonList={pokemonList}
-      removePokemonFromTeam={removePokemonFromTeam}
-    />
+    <div>I'm the analyzer</div>
   );
 }
 export default Analyzer;
