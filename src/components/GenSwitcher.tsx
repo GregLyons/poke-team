@@ -10,9 +10,7 @@ const GenSwitcher = () => {
       type="range"
       min="1"
       max={NUMBER_OF_GENS}
-      value={NUMBER_OF_GENS}
       onChange={(e) => {
-        e.preventDefault();
         genContext.setGen(parseInt(e.target.value, 10));
       }}
 
