@@ -24,9 +24,11 @@ import {
 // #region
 
 import {
-  gql,
   useLazyQuery,
 } from '@apollo/client';
+import {
+  MOVE_SEARCH_QUERY,
+} from './queries';
 
 // #endregion
 
@@ -48,61 +50,7 @@ import MoveEntry from './MoveEntry';
 
 // #endregion
 
-const MOVE_SEARCH_QUERY = gql`
-  query MoveSearchQuery(
-    $gen: Int!
-    $startsWith: String!
-  ) {
-    moves(
-      generation: $gen
-      filter: {startsWith: $startsWith}
-    ) {
-      id
-      name
-      formattedName
-      accuracy
-      category
-      contact
-      power
-      pp
-      priority
-      target
 
-      introduced {
-        edges {
-          node {
-            number
-          }
-        }
-      }
-
-      type {
-        edges {
-          node {
-            name
-          }
-        }
-      }
-
-      pokemon {
-        edges {
-          node {
-            name
-            formattedName
-            speciesName
-            introduced {
-              edges {
-                node {
-                  number
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
 
 const MoveSearch = () => {
   const [searchFilter, setSearchFilter] = useState('');
