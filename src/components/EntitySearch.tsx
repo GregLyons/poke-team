@@ -2,7 +2,6 @@
 // #region
 
 import {
-  FC,
   useContext,
   useEffect,
   useRef,
@@ -10,8 +9,6 @@ import {
 } from 'react';
 
 import {
-  Link,
-  Outlet,
   useSearchParams,
 } from 'react-router-dom';
 
@@ -73,87 +70,111 @@ const EntitySearch = ({
   // Hooks
   const { gen, setGen } = useContext(GenContext);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchBox, setSearchBox] = useState<string>(searchParams.get('startsWith') || '');
+
+  // searchBox.ready = false means that we have just navigated to the page. If the URL contains search parameters, then a search will execute based on the searchParams.
+  // searchBox.ready = true means that we have modified the search box on the page. The next search will take place based on the search box, rather than the searchParams.
+  const [searchBox, setSearchBox] = useState({
+    value: searchParams.get('startsWith') || '',
+    ready: false,
+  })
   const [executeSearch, { data, loading, error }] = useLazyQuery(query);
 
-  const firstSearch = useRef(false);
-
-  // When search button is clicked, update searchParams based on searchBox.
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    
-    const genString = gen + '';
-
-    setSearchParams({
-      ...searchParams,
-      gen: genString,
-      startsWith: searchBox,
-    });
-  };
-
-  // Initial render according to searchParams, if present
+  // Update search on gen change
+  const searched = useRef(false);
   useEffect(() => {
-    if (searchParams) {
-      // Set gen
-      setGen(stringToGenNumber(searchParams.get('gen')));
-    } 
-  }, []);
+    // If we haven't started a search yet, return to avoid doing it automatically
+    if (!searched.current) return;
 
-  // When gen changes, synthetically click search button to update search params
-  useEffect(() => {
-    if (!firstSearch.current) return;
+    // If search button is present, execute search
     if (searchButtonRef.current) searchButtonRef.current.click();
   }, [gen]);
 
-  // Execute search when searchParams change
   useEffect(() => {
-    // user has gone to /planner/[entity name] with no search parameters; so don't search
-    if (!searchParams.get('gen')) return;
-
-    // first search will have executed, now gen slider updates search
-    firstSearch.current = true;
-
-    // Unpack searchParams 
-    let searchVariables: {[key: string]: string | number} = {}
-    searchParams.forEach((value, key) => {
-      if (key === 'gen') searchVariables.gen = stringToGenNumber(value);
-      else searchVariables[key] = value;
-      console.log(key, value);
-    });
-
-    // Execute search
-    executeSearch({
-      variables: {
-        ...searchVariables
-      }
+    // If search button is present and searchBox.ready is false, execute search using searchParams
+    if (searchButtonRef.current && searchBox.ready === false) 
+    searchButtonRef.current.click();
+    setSearchBox({
+      ...searchBox,
+      ready: false,
     })
-  }, [searchParams, executeSearch]);
+  }, [searchParams]);
+
+  // When search button is clicked, execute search based on searchParams and gen.
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // We've completed a search, so now we can update search based on gen
+    searched.current = true;
+    
+    // Initialize variables for query
+    let queryVariables: {[key: string]: string | number} = {gen: gen}
+
+    // Execute search using value in searchBox
+    if (searchBox.ready) {
+      setSearchParams({
+        ...searchParams,
+        startsWith: searchBox.value,
+      });
+
+      queryVariables.startsWith = searchBox.value;
+      
+      // Execute search
+      executeSearch({
+        variables: {
+          ...queryVariables
+        }
+      })
+      
+    }
+    // Execute search using searchParams
+    else {
+      searchParams.forEach((value, key) => {
+        queryVariables[key] = value;
+      });
+      
+      // Execute search
+      executeSearch({
+        variables: {
+          ...queryVariables
+        }
+      })
+    }
+  };
+
 
   // Ref so that we can programatically click search button.
   const searchButtonRef = useRef<HTMLButtonElement|null>(null);
 
-  if (loading) { return (<div>Loading...</div>)}
   if (error) { return (<div>{error.message}</div>)}
 
   return (
     <>
       <div>
         Search
-        <input
-          type="text"
-          value={searchBox}
-          onChange={(e) => setSearchBox(e.target.value)}
-        />
-        <button
-          ref={searchButtonRef}
-          onClick={e => handleClick(e)}
-        >
-          OK
-        </button>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={searchBox.value}
+            onChange={(e) => {
+              setSearchBox({
+                value: e.target.value,
+                ready: true,
+              });
+            }}
+          />
+          <button
+            ref={searchButtonRef}
+            type="submit"
+          >
+            OK
+          </button>
+        </form>
       </div>
       <div className="planner__table planner__table--move">
-        {data && 
-          data[keyName].map(listRender)
+        {loading 
+          ? (<div>Loading...</div>)
+          : data && 
+            data[keyName].map(listRender)
         }
       </div>
     </>

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
 import {
-  Link, Outlet,
+  Link, Outlet, useLocation,
 } from 'react-router-dom';
 import { GenContext } from '../../../../contexts';
 
@@ -22,11 +22,14 @@ const MoveEntry = ({
   let seenPokemon: {[k: string]: boolean} = {};
   const { gen } = useContext(GenContext);
 
+  const location = useLocation();
+  const genSearchString = location.search.split('&').filter(param => param.includes('gen='))[0];
+
   return (
     <div className="planner__table-row">
       {/* Move name */}
       <Link 
-        to={`${move.name}`}
+        to={`${move.name + genSearchString}`}
         className="planner__move-name"
       >
         {move.formattedName}
@@ -58,7 +61,7 @@ const MoveEntry = ({
             return (
               <div
                 title={`Icon for ${pokemon.formattedName}`}
-                key={'move_' + move.id + '_' + pokemon.name + '_icon'}
+                key={'moveEntry_' + move.id + '_' + pokemon.name + '_icon'}
                 style={{
                   width: '40px',
                   height: '30px',

@@ -66,7 +66,7 @@ const MoveSearch = () => {
         listRender={(move: MoveGQLResult) => (
           <>
             <MoveEntry 
-              key={move.id} 
+              key={'moveEntry_' + move.id} 
               addToTeam={addToTeam}
               move={new Move(move)} 
             />

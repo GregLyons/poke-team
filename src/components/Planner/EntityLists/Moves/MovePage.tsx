@@ -1,7 +1,14 @@
-import { useContext } from 'react';
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+} from 'react';
 
 import {
-  useParams
+  URLSearchParamsInit,
+  useParams,
+  useSearchParams,
 } from 'react-router-dom';
 
 import {
@@ -11,12 +18,25 @@ import {
 import { MOVE_PAGE_QUERY } from './queries';
 
 import { GenContext } from '../../../../contexts';
+import { stringToGenNumber } from '../../../../typeDefs/Generation';
 
 const MovePage = () => {
   const params = useParams();
+
+  const { gen, setGen } = useContext(GenContext);
+
+  // On gen change, update searchParams
+  const firstRender = useRef(true);
+  // useEffect(() => {
+  //   // First render comes from MoveEntry, in which searchParam is already provided; so skip on first render
+  //   if (firstRender.current) {
+  //     firstRender.current = false;
+  //     return;
+  //   }
+  // }, [gen]);
+  
   const moveName = params.moveId;
 
-  const { gen } = useContext(GenContext);
   const { loading, error, data } = useQuery(
     MOVE_PAGE_QUERY,
     {
