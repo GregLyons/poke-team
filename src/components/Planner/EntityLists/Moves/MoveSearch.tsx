@@ -4,6 +4,7 @@
 import {
   useContext,
   useEffect,
+  useRef,
   useState,
 } from 'react';
 
@@ -47,40 +48,74 @@ import {
 // #region
 
 import MoveEntry from './MoveEntry';
+import { stringToGenNumber } from '../../../../typeDefs/Generation';
+import { exec } from 'child_process';
 
 // #endregion
 
 
 
 const MoveSearch = () => {
-  const [searchFilter, setSearchFilter] = useState('');
-  const [executedSearch, setExecutedSearch] = useState<boolean>(false);
-  
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const [executeSearch, { data, loading, error }] = useLazyQuery(
-    MOVE_SEARCH_QUERY
-  );
-
-  const { gen } = useContext(GenContext);
+  const { gen, setGen } = useContext(GenContext);
   const { addToTeam } = useContext(TeamContext);
 
-  useEffect(() => {
-    if (executedSearch) {
-      executeSearch({
-        variables: {
-          gen: gen,
-          startsWith: searchFilter,
-        }
-      })
-    }
+  const [searchBox, setSearchBox] = useState<string>('');
+  const [searchParams, setSearchParams] = useSearchParams();
 
-    const genString = gen + '';
-    setSearchParams({
-      gen: genString,
-    });
+  const [executeSearch, { data, loading, error }] = useLazyQuery(MOVE_SEARCH_QUERY);
+
+  // When search button is clicked, update searchParams based on searchBox.
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     
-  }, [gen])
+    const genString = gen + '';
+
+    setSearchParams({
+      ...searchParams,
+      gen: genString,
+      startsWith: searchBox,
+    });
+  };
+
+  // Initial render according to searchParams, if present
+  useEffect(() => {
+    if (searchParams) {
+      // Set gen
+      setGen(stringToGenNumber(searchParams.get('gen')));
+
+      // Set search box
+      setSearchBox(searchParams.get('startsWith') || '');
+    } 
+  }, []);
+
+  // When gen changes, synthetically click search button to update search params
+  useEffect(() => {
+    if (searchButtonRef.current) searchButtonRef.current.click();
+  }, [gen]);
+
+  // Execute search when searchParams change
+  useEffect(() => {
+    // Unpack searchParams 
+    let searchVariables: {[key: string]: string | number} = {}
+    searchParams.forEach((value, key) => {
+      if (key === 'gen') searchVariables.gen = stringToGenNumber(value);
+      else searchVariables[key] = value;
+      console.log(key, value);
+    });
+
+    // Execute search
+    executeSearch({
+      variables: {
+        ...searchVariables
+      }
+    })
+  }, [searchParams, executeSearch]);
+
+  // Ref so that we can programatically click search button.
+  const searchButtonRef = useRef<HTMLButtonElement|null>(null);
+
+  if (loading) { return (<div>Loading...</div>)}
+  if (error) { return (<div>{error.message}</div>)}
 
   return (
     <>
@@ -88,23 +123,12 @@ const MoveSearch = () => {
         Search
         <input
           type="text"
-          onChange={(e) => setSearchFilter(e.target.value)}
+          value={searchBox}
+          onChange={(e) => setSearchBox(e.target.value)}
         />
         <button
-          onClick={() => {
-            const genString = gen + '';
-            setSearchParams({
-              gen: genString,
-            })
-            executeSearch({
-              variables: {
-                gen: gen,
-                startsWith: searchFilter,
-              }
-            })
-            setExecutedSearch(true);
-          }
-          }
+          ref={searchButtonRef}
+          onClick={e => handleClick(e)}
         >
           OK
         </button>

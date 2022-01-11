@@ -46,29 +46,31 @@ const MoveEntry = ({
 
       {/* Pokemon icons */}
       <div className="planner__move-pokemon">
-        <div>{move.pokemon.map(pokemon => {
-          // Ignore duplicate Pokemon
-          if(seenPokemon.hasOwnProperty(pokemon.name)) return;
-          // Add Pokemon to list of seen Pokemon
-          else seenPokemon[pokemon.name] = true;
-          
-          const {left, top} = getPokemonIcon(pokemon);
-          
-          return (
-            <div
-              title={`Icon for ${pokemon.formattedName}`}
-              key={'move_' + move.id + '_' + pokemon.name + '_icon'}
-              style={{
-                width: '40px',
-                height: '30px',
-                display: 'inline-block',
-                backgroundImage: `url(${process.env.PUBLIC_URL + '/images/icons/pokemonicons-sheet.png'})`,
-                backgroundPosition: `${left}px ${top}px`,
-                backgroundRepeat: 'no-repeat',
-              }}              
-            />
-          )
-        })}</div>
+        <div>{false && 
+          move.pokemon.map(pokemon => {
+            // Ignore duplicate Pokemon
+            if(seenPokemon.hasOwnProperty(pokemon.name)) return;
+            // Add Pokemon to list of seen Pokemon
+            else seenPokemon[pokemon.name] = true;
+            
+            const {left, top} = getPokemonIcon(pokemon);
+            
+            return (
+              <div
+                title={`Icon for ${pokemon.formattedName}`}
+                key={'move_' + move.id + '_' + pokemon.name + '_icon'}
+                style={{
+                  width: '40px',
+                  height: '30px',
+                  display: 'inline-block',
+                  backgroundImage: `url(${process.env.PUBLIC_URL + '/images/icons/pokemonicons-sheet.png'})`,
+                  backgroundPosition: `${left}px ${top}px`,
+                  backgroundRepeat: 'no-repeat',
+                }}              
+              />
+            )
+          })}
+        </div>
       </div>
       <Outlet />
     </div>

@@ -15,7 +15,9 @@ const GenSwitcher = () => {
       type="range"
       min="1"
       max={NUMBER_OF_GENS}
+      value={genContext.gen}
       onChange={(e) => {
+        e.preventDefault();
         genContext.setGen(stringToGenNumber(e.target.value));
       }}
 

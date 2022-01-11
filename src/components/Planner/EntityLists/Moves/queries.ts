@@ -5,11 +5,16 @@ import {
 export const MOVE_SEARCH_QUERY = gql`
   query MoveSearchQuery(
     $gen: Int!
-    $startsWith: String!
+    $startsWith: String
   ) {
     moves(
       generation: $gen
-      filter: {startsWith: $startsWith}
+      filter: {
+        startsWith: $startsWith
+      }
+      pagination: {
+        limit: 5
+      }
     ) {
       id
       name
@@ -25,6 +30,8 @@ export const MOVE_SEARCH_QUERY = gql`
       introduced {
         edges {
           node {
+            id
+            id
             number
           }
         }
@@ -33,6 +40,8 @@ export const MOVE_SEARCH_QUERY = gql`
       type {
         edges {
           node {
+            id
+            id
             name
           }
         }
@@ -41,12 +50,15 @@ export const MOVE_SEARCH_QUERY = gql`
       pokemon {
         edges {
           node {
+            id
+            id
             name
             formattedName
             speciesName
             introduced {
               edges {
                 node {
+                  id
                   number
                 }
               }
@@ -74,6 +86,7 @@ export const MOVE_PAGE_QUERY = gql`
         count
         edges {
           node {
+            id
             name
           }
         }
@@ -83,6 +96,7 @@ export const MOVE_PAGE_QUERY = gql`
         count
         edges {
           node {
+            id
             name
           }
           turns
@@ -92,6 +106,7 @@ export const MOVE_PAGE_QUERY = gql`
         count
         edges {
           node {
+            id
             text
           }
           versionGroupCode
@@ -101,6 +116,7 @@ export const MOVE_PAGE_QUERY = gql`
         count
         edges {
           node {
+            id
             name
           }
         }
@@ -109,6 +125,7 @@ export const MOVE_PAGE_QUERY = gql`
         count
         edges {
           node {
+            id
             name
           }
         }
@@ -117,6 +134,7 @@ export const MOVE_PAGE_QUERY = gql`
         count
         edges {
           node {
+            id
             name
           }
         }
@@ -125,6 +143,7 @@ export const MOVE_PAGE_QUERY = gql`
       generation {
         edges {
           node {
+            id
             number
           }
         }
@@ -133,6 +152,7 @@ export const MOVE_PAGE_QUERY = gql`
         count
         edges {
           node {
+            id
             name
           }
         }
@@ -141,6 +161,7 @@ export const MOVE_PAGE_QUERY = gql`
         count
         edges {
           node {
+            id
             name
           }
         }
@@ -149,6 +170,7 @@ export const MOVE_PAGE_QUERY = gql`
         count
         edges {
           node {
+            id
             name
           }
         }
@@ -156,6 +178,7 @@ export const MOVE_PAGE_QUERY = gql`
       introduced {
         edges {
           node {
+            id
             number
           }
         }
@@ -164,6 +187,7 @@ export const MOVE_PAGE_QUERY = gql`
         count
         edges {
           node {
+            id
             name
           }
         }
@@ -173,6 +197,7 @@ export const MOVE_PAGE_QUERY = gql`
         count
         edges {
           node {
+            id
             name
           }
         }
@@ -184,6 +209,7 @@ export const MOVE_PAGE_QUERY = gql`
         count
         edges {
           node {
+            id
             name
           }
         }
@@ -192,6 +218,7 @@ export const MOVE_PAGE_QUERY = gql`
         count
         edges {
           node {
+            id
             name
           }
         }
@@ -200,6 +227,7 @@ export const MOVE_PAGE_QUERY = gql`
         count
         edges {
           node {
+            id
             name
           }
         }
@@ -208,6 +236,7 @@ export const MOVE_PAGE_QUERY = gql`
         count
         edges {
           node {
+            id
             name
           }
         }
@@ -216,6 +245,7 @@ export const MOVE_PAGE_QUERY = gql`
         count
         edges {
           node {
+            id
             name
           }
         }
@@ -224,6 +254,7 @@ export const MOVE_PAGE_QUERY = gql`
         count
         edges {
           node {
+            id
             name
           }
         }
@@ -233,6 +264,7 @@ export const MOVE_PAGE_QUERY = gql`
         count
         edges {
           node {
+            id
             name
           }
         }
@@ -241,6 +273,7 @@ export const MOVE_PAGE_QUERY = gql`
         count
         edges {
           node {
+            id
             name
           }
         }
