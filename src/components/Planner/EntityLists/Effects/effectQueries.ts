@@ -6,6 +6,7 @@ export const EFFECT_SEARCH_QUERY = gql`
   query EffectSearchQuery(
     $gen: Int!
     $startsWith: String
+    $limit: Int = 100
   ) {
     effects(
       generation: $gen
@@ -13,7 +14,7 @@ export const EFFECT_SEARCH_QUERY = gql`
         startsWith: $startsWith
       }
       pagination: {
-        limit: 5
+        limit: $limit
       }
     ) {
       id
@@ -61,6 +62,41 @@ export const EFFECT_PAGE_QUERY = gql`
       id
       name
       formattedName
+      
+      ## abilities
+      abilities {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+      }
+
+      ## field states
+      fieldStates {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+      }
+
+      ## items
+      items {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+      }
+
+      ## moves
       moves {
         edges {
           node {
@@ -70,6 +106,7 @@ export const EFFECT_PAGE_QUERY = gql`
           }
         }
       }
+
     }
   }
 `;

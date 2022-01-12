@@ -1,5 +1,6 @@
 data:
   only shellder learns clamp in gen 8; what about cloyster? also occurs with acid--vileplume learns in certain gens but not in others
   some pokemon icons dont render; go to poke-data and compute pkmn/img name
+  descriptions for abilities
 
 add timer to gen switcher to reduce chance of abusing images

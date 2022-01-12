@@ -1,14 +1,10 @@
 import {
-  useCallback,
   useContext,
-  useEffect,
-  useRef,
 } from 'react';
 
 import {
-  URLSearchParamsInit,
+  Link,
   useParams,
-  useSearchParams,
 } from 'react-router-dom';
 
 import {
@@ -71,12 +67,17 @@ const MovePage = () => {
       })}
 
       {/* Effects */}
+      {result.effects.edges && result.effects.edges.length > 0 
+        && (<h2>Effects</h2>)}
       {result.effects.edges.length > 0
         && result.effects.edges.map((edge: any) => {
           return (
-            <div key={'effect_' + edge.node.id}>
+            <Link 
+              to={`../effects/${edge.node.name}`}
+              key={'effect_' + edge.node.id}
+            >
               {edge.node.name}
-            </div>
+            </Link>
           )
         })
       }
