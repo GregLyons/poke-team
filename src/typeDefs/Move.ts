@@ -1,85 +1,66 @@
-import { DocumentNode } from 'graphql';
-import { GenerationNum, IntroductionEdge } from './Generation.js';
-import { TypeName } from './Type.js';
+import {
+  DocumentNode,
+} from 'graphql';
+import {
+  TypeName,
+  TypeNameEdge,
+  typeNameEdgeToTypeName,
+} from './Type';
+import {
+  PokemonIconDatum,
+  PokemonIconEdge,
+  pokemonIconEdgeToPokemonIconDatum
+} from './Pokemon';
 
-type TypeEdge = { node: { name: TypeName }}
-type PokemonEdge = { node: { 
-  name: string 
-  formattedName: string
-  speciesName: string
-
-  introduced: {
-    edges: IntroductionEdge[]
-  }
-}}
-
-// Move search results
+// Move search result
 // #region
 
-export interface MoveSearchResult extends DocumentNode {
+export interface MoveSearchQueryResult {
   id: string
   name: string
   formattedName: string
 
   type: {
-    edges: TypeEdge[]
+    edges: TypeNameEdge[]
   }
 
   pokemon: {
-    edges: PokemonEdge[]
+    edges: PokemonIconEdge[]
   }
 }
 
-export class MoveInSearch {
+export class MoveSearchResult {
   public id: string
   public name: string
   public formattedName: string
 
   public type: TypeName
 
-  public pokemon: {
-    name: string
-    formattedName: string
-    speciesName: string
-
-    introduced: GenerationNum
-  }[]
+  public pokemonIconData: PokemonIconDatum[]
 
   constructor(
-    gqlMove: MoveSearchResult
+    gqlMove: MoveSearchQueryResult
   ) {
     this.id = gqlMove.id;
 
     this.name = gqlMove.name;
     this.formattedName = gqlMove.formattedName;
-    this.type = gqlMove.type.edges[0].node.name
+    this.type = gqlMove.type.edges.map(typeNameEdgeToTypeName)[0]
 
-    this.pokemon = gqlMove.pokemon.edges.map(edge => {
-      return {
-        name: edge.node.name,
-        formattedName: edge.node.formattedName,
-        speciesName: edge.node.speciesName,
-
-        introduced: edge.node.introduced.edges[0].node.number
-      };
-    });
+    this.pokemonIconData = gqlMove.pokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
   }
 }
 
 // #endregion
 
-// Move pages
+// Move page
 // #region
 
-export interface MovePageResult {
+export interface MovePageQueryResult {
   id: string
 
   name: string
   formattedName: string
-
-  introduced: {
-    edges: IntroductionEdge[]
-  }
 
   accuracy: number
   category: string
@@ -90,21 +71,19 @@ export interface MovePageResult {
   target: string
 
   type: {
-    edges: TypeEdge[]
+    edges: TypeNameEdge[]
   }
 
   pokemon: {
-    edges: PokemonEdge[]
+    edges: PokemonIconEdge[]
   }
 }
 
-export class MoveOnPage {
+export class MovePageResult {
   public id: string
 
   public name: string
   public formattedName: string
-
-  public introduced: GenerationNum
 
   public accuracy: number
   public category: string
@@ -116,16 +95,10 @@ export class MoveOnPage {
 
   public type: TypeName
 
-  public pokemon: {
-    name: string
-    formattedName: string
-    speciesName: string
-
-    introduced: GenerationNum
-  }[]
+  public pokemonIconData: PokemonIconDatum[]
 
   constructor(
-    gqlMove: MovePageResult
+    gqlMove: MovePageQueryResult
   ) {
     this.id = gqlMove.id;
 
@@ -140,19 +113,10 @@ export class MoveOnPage {
     this.priority = gqlMove.priority;
     this.target = gqlMove.target;
 
-    this.introduced = gqlMove.introduced.edges[0].node.number;
+    
+    this.type = gqlMove.type.edges.map(typeNameEdgeToTypeName)[0]
 
-    this.type = gqlMove.type.edges.map(edge => edge.node.name)[0];
-
-    this.pokemon = gqlMove.pokemon.edges.map(edge => {
-      return {
-        name: edge.node.name,
-        formattedName: edge.node.formattedName,
-        speciesName: edge.node.speciesName,
-
-        introduced: edge.node.introduced.edges[0].node.number
-      };
-    });
+    this.pokemonIconData = gqlMove.pokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
   }
 }
 

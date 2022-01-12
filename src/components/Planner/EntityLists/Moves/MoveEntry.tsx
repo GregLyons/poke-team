@@ -5,17 +5,15 @@ import {
 } from 'react-router-dom';
 import { GenContext } from '../../../../contexts';
 
-import { MoveOnPage, MoveInSearch } from '../../../../typeDefs/Move';
+import { MovePageResult, MoveSearchResult } from '../../../../typeDefs/Move';
 import { Pokemon } from '../../../../typeDefs/Pokemon';
 import { getPokemonIcon } from '../../../../utils/sprites'
 
 type MoveEntryProps = {
-  addToTeam: (pokemon: Pokemon) => void
-  move: MoveInSearch
+  move: MoveSearchResult
 }
 
 const MoveEntry = ({
-  addToTeam,
   move,
 }: MoveEntryProps) => {
   // Since Pokemon can learn Moves in multiple ways, we need to worry about duplicates. The keys of this object are Pokemon names, and the value is always 'true'; we only care about the keys.
@@ -45,7 +43,7 @@ const MoveEntry = ({
 
       {/* Pokemon icons */}
       <div className="planner__move-pokemon">
-        <div>{false && 
+        {/* <div>{false && 
           move.pokemon.map(pokemon => {
             // Ignore duplicate Pokemon
             if(seenPokemon.hasOwnProperty(pokemon.name)) return;
@@ -69,7 +67,7 @@ const MoveEntry = ({
               />
             )
           })}
-        </div>
+        </div> */}
       </div>
       <Outlet />
     </div>

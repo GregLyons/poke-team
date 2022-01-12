@@ -1,4 +1,18 @@
-// A string that is also a valid elemental type name
+import {
+  Edge,
+} from "./helpers";
+
+// Type names
+// #region
+
 export type TypeName = 'normal' | 'fighting' | 'flying' | 'poison' | 'ground' | 'rock' | 'bug' | 'ghost' | 'steel' | 'fire' | 'water' | 'grass' | 'electric' | 'psychic' | 'ice' | 'dragon' | 'dark' | 'fairy' | '???';
 
-export type TypeEdge = { node: { name: TypeName }};
+export interface TypeNameEdge extends Edge {
+  node: { 
+    name: TypeName
+  }
+};
+
+export const typeNameEdgeToTypeName: (edge: TypeNameEdge) => TypeName = edge => edge.node.name;
+
+// #endregion

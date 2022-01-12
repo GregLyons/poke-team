@@ -1,6 +1,9 @@
 import {
   NUMBER_OF_GENS,
 } from '../utils/constants';
+import {
+  Edge
+} from './helpers';
 
 export type GenerationNum = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
@@ -14,4 +17,8 @@ export const stringToGenNumber = (value: string | null): GenerationNum => {
   }
 }
 
-export type IntroductionEdge = { node: { number: GenerationNum }};
+export interface IntroductionEdge extends Edge {
+  node: {
+    number: GenerationNum
+  }
+};

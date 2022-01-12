@@ -34,7 +34,7 @@ import PlannerHome from './components/Planner/EntityLists/PlannerHome';
 
 import EffectSearch from './components/Planner/EntityLists/Effects/EffectSearch';
 import EffectPage from './components/Planner/EntityLists/Effects/EffectPage';
-import MoveSearch from './components/Planner/EntityLists/Moves/MoveSearch';
+import MoveMainSearch from './components/Planner/EntityLists/Moves/MoveSearchMain';
 import MovePage from './components/Planner/EntityLists/Moves/MovePage';
 
 // #endregion

@@ -1,10 +1,26 @@
 import {
   gql,
 } from '@apollo/client';
+import { GenerationNum } from '../../../../typeDefs/Generation';
+import { MoveSearchQueryResult } from '../../../../typeDefs/Move';
+
+// Main search query 
+// #region
+
+export interface MoveSearchQuery {
+  moves: MoveSearchQueryResult[]
+}
+
+export interface MoveSearchQueryVars {
+  gen: GenerationNum
+  limit: number
+  startsWith: string
+}
 
 export const MOVE_SEARCH_QUERY = gql`
   query MoveSearchQuery(
     $gen: Int!
+    $limit: Int!
     $startsWith: String
   ) {
     moves(
@@ -13,7 +29,7 @@ export const MOVE_SEARCH_QUERY = gql`
         startsWith: $startsWith
       }
       pagination: {
-        limit: 5
+        limit: $limit
       }
     ) {
       id
@@ -69,6 +85,8 @@ export const MOVE_SEARCH_QUERY = gql`
     }
   }
 `;
+
+// #endregion
 
 export const MOVE_PAGE_QUERY = gql`
   query MovePageQuery(

@@ -19,7 +19,7 @@ import {
 
 import { GenContext } from '../../../../contexts';
 import EntityAccordion from '../EntityAccordion';
-import MoveSearch, { MoveSearchPage } from '../Moves/MoveSearch';
+import MoveMainSearch from '../Moves/MoveSearchMain';
 
 const EffectPage = () => {
   const params = useParams();
@@ -28,17 +28,17 @@ const EffectPage = () => {
   
   const effectName = params.effectId;
 
-  const accordionData = useMemo(() => [
-    {
-      title: 'moves',
-      content: <MoveSearchPage 
-        entityName={effectName || ''}  
-        query={EFFECT_MOVES_QUERY} 
-        queryName='effectByName'
-        searchKeyName='moves'
-      />,
-    },
-  ], [effectName]);
+  // const accordionData = useMemo(() => [
+  //   {
+  //     title: 'moves',
+  //     content: <MoveSearchPage 
+  //       entityName={effectName || ''}  
+  //       query={EFFECT_MOVES_QUERY} 
+  //       queryName='effectByName'
+  //       searchKeyName='moves'
+  //     />,
+  //   },
+  // ], [effectName]);
 
   const { loading, error, data } = useQuery(
     EFFECT_PAGE_QUERY,
@@ -77,9 +77,9 @@ const EffectPage = () => {
       <h1>{result.formattedName}</h1>
 
       
-      <EntityAccordion
+      {/* <EntityAccordion
         accordionData={accordionData}
-      />
+      /> */}
 
       {/* Descriptions */}      
       {/* <h2>Descriptions</h2>

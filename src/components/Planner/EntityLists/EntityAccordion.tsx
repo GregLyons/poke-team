@@ -10,7 +10,7 @@ type SpecificEntitySearchProps = {
 type EntityAccordionProps = {
   accordionData: {
     title: string
-    content: JSX.Element
+    content: ({ query }: SpecificEntitySearchProps) => JSX.Element
   }[]
 }
 
@@ -34,7 +34,7 @@ const EntityAccordion = ({
 
 type EntityAccordionItemProps = {
   title: string
-  content: JSX.Element
+  content: ({ query }: SpecificEntitySearchProps) => JSX.Element
 }
 
 const EntityAccordionItem = ({

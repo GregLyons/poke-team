@@ -38,7 +38,7 @@ import {
 // #region
 
 import EffectEntry from './EffectEntry';
-import EntitySearchWithSearchParams from '../EntitySearch';
+import EntitySearchMain from '../EntitySearchMain';
 import { DocumentNode } from 'graphql';
 
 // #endregion
@@ -54,7 +54,7 @@ const EffectSearch = ({
   
   return (
     <>   
-      <EntitySearchWithSearchParams 
+      {/* <EntitySearchMain 
         query={EFFECT_SEARCH_QUERY}
         keyName={'effects'}
         listRender={(effect: EffectGQLResult) => (
@@ -66,7 +66,7 @@ const EffectSearch = ({
             />
           </>
           )}
-      />
+      /> */}
       <Outlet />
     </>
   );
