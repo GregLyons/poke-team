@@ -28,8 +28,8 @@ import {
 // #region
 
 import {
-  Move,
-  MoveGQLResult,
+  MoveInSearch,
+  MoveSearchResult,
 } from '../../../../typeDefs/Move';
 
 // #endregion
@@ -38,29 +38,79 @@ import {
 // #region
 
 import MoveEntry from './MoveEntry';
-import EntitySearch from '../../../EntitySearch';
+import EntitySearchWithSearchParams, { EntitySearchOnEntityPage } from '../EntitySearch';
+import { DocumentNode } from 'graphql';
+import { StringLiteralLike } from 'typescript';
 
 // #endregion
 
+type MoveSearchProps = {
+  entityName?: string
+  isMainSearchPage: boolean
+  keyName?: string
+  query: DocumentNode
+}
 
-
-const MoveSearch = () => {
+const MoveSearch = ({
+  entityName,
+  isMainSearchPage,
+  keyName,
+  query,
+}: MoveSearchProps) => {
   const { addToTeam } = useContext(TeamContext);
-  
   return (
-    <>   
-      <EntitySearch 
-        query={MOVE_SEARCH_QUERY}
-        keyName={'moves'}
-        listRender={(move: MoveGQLResult) => (
+    <>  
+      {isMainSearchPage
+        ? <EntitySearchWithSearchParams 
+            query={query}
+            keyName={'moves'}
+            listRender={(move: MoveSearchResult) => (
+              <>
+                <MoveEntry 
+                  key={'moveEntry_' + move.id} 
+                  addToTeam={addToTeam}
+                  move={new MoveInSearch(move)} 
+                />
+              </>
+            )}
+          />
+        : ''
+      }
+      <Outlet />
+    </>
+  );
+};
+
+type MoveSearchPageProps = {
+  entityName: string
+  query: DocumentNode
+  queryName: string
+  searchKeyName: string
+}
+
+export const MoveSearchPage = ({
+  entityName,
+  queryName,
+  query,
+  searchKeyName,
+}: MoveSearchPageProps) => {
+  const { addToTeam } = useContext(TeamContext);
+  return (
+    <>
+      <EntitySearchOnEntityPage 
+        pageEntityName={entityName}
+        query={query}
+        queryName={queryName}
+        searchKeyName={searchKeyName}
+        listRender={(move: MoveSearchResult) => (
           <>
             <MoveEntry 
               key={'moveEntry_' + move.id} 
               addToTeam={addToTeam}
-              move={new Move(move)} 
+              move={new MoveInSearch(move)} 
             />
           </>
-          )}
+        )}
       />
       <Outlet />
     </>

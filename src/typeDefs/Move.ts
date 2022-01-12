@@ -1,3 +1,4 @@
+import { DocumentNode } from 'graphql';
 import { GenerationNum, IntroductionEdge } from './Generation.js';
 import { TypeName } from './Type.js';
 
@@ -12,7 +13,65 @@ type PokemonEdge = { node: {
   }
 }}
 
-export interface MoveGQLResult {
+// Move search results
+// #region
+
+export interface MoveSearchResult extends DocumentNode {
+  id: string
+  name: string
+  formattedName: string
+
+  type: {
+    edges: TypeEdge[]
+  }
+
+  pokemon: {
+    edges: PokemonEdge[]
+  }
+}
+
+export class MoveInSearch {
+  public id: string
+  public name: string
+  public formattedName: string
+
+  public type: TypeName
+
+  public pokemon: {
+    name: string
+    formattedName: string
+    speciesName: string
+
+    introduced: GenerationNum
+  }[]
+
+  constructor(
+    gqlMove: MoveSearchResult
+  ) {
+    this.id = gqlMove.id;
+
+    this.name = gqlMove.name;
+    this.formattedName = gqlMove.formattedName;
+    this.type = gqlMove.type.edges[0].node.name
+
+    this.pokemon = gqlMove.pokemon.edges.map(edge => {
+      return {
+        name: edge.node.name,
+        formattedName: edge.node.formattedName,
+        speciesName: edge.node.speciesName,
+
+        introduced: edge.node.introduced.edges[0].node.number
+      };
+    });
+  }
+}
+
+// #endregion
+
+// Move pages
+// #region
+
+export interface MovePageResult {
   id: string
 
   name: string
@@ -39,9 +98,7 @@ export interface MoveGQLResult {
   }
 }
 
-
-// 
-export class Move {
+export class MoveOnPage {
   public id: string
 
   public name: string
@@ -68,7 +125,7 @@ export class Move {
   }[]
 
   constructor(
-    gqlMove: MoveGQLResult
+    gqlMove: MovePageResult
   ) {
     this.id = gqlMove.id;
 
@@ -99,3 +156,4 @@ export class Move {
   }
 }
 
+// #endregion

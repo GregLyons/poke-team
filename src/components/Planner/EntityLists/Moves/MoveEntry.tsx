@@ -5,13 +5,13 @@ import {
 } from 'react-router-dom';
 import { GenContext } from '../../../../contexts';
 
-import { Move } from '../../../../typeDefs/Move';
+import { MoveOnPage, MoveInSearch } from '../../../../typeDefs/Move';
 import { Pokemon } from '../../../../typeDefs/Pokemon';
 import { getPokemonIcon } from '../../../../utils/sprites'
 
 type MoveEntryProps = {
   addToTeam: (pokemon: Pokemon) => void
-  move: Move
+  move: MoveInSearch
 }
 
 const MoveEntry = ({
@@ -32,7 +32,7 @@ const MoveEntry = ({
       </Link>
 
       {/* Move data */}
-      <div className="planner__move-data">
+      {/* <div className="planner__move-data">
         <div>Accuracy: {move.accuracy}</div>
         <div>Category: {move.category}</div>
         <div>{move.contact ? 'Contact' : 'Non-contact'}</div>
@@ -41,7 +41,7 @@ const MoveEntry = ({
         <div>Priority: {move.priority}</div>
         <div>Target: {move.target}</div>
         <div>Type: {move.type}</div>
-      </div>
+      </div> */}
 
       {/* Pokemon icons */}
       <div className="planner__move-pokemon">

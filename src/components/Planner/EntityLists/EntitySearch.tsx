@@ -14,7 +14,7 @@ import {
 
 import {
   GenContext,
-} from '../contexts';
+} from '../../../contexts';
 
 // #endregion
 
@@ -23,7 +23,7 @@ import {
 
 import { DocumentNode } from 'graphql';
 import {
-  useLazyQuery,
+  useLazyQuery, useQuery,
 } from '@apollo/client';
 
 // #endregion
@@ -33,18 +33,19 @@ import {
 
 import {
   EffectGQLResult,
-} from '../typeDefs/Effect';
+} from '../../../typeDefs/Effect';
 import {
   PokemonGQLResult,
-} from '../typeDefs/Pokemon';
+} from '../../../typeDefs/Pokemon';
 import {
-  MoveGQLResult,
-} from '../typeDefs/Move';
+  MovePageResult, MoveSearchResult,
+} from '../../../typeDefs/Move';
+import { Edge } from '../../../typeDefs/helpers';
 
 // #endregion
 
 type EffectListRender = (effect: EffectGQLResult) => JSX.Element
-type MoveListRender = (move: MoveGQLResult) => JSX.Element
+type MoveListRender = (move: MoveSearchResult) => JSX.Element
 type PokemonListRender = (pokemon: PokemonGQLResult) => JSX.Element
 
 type ListRender = EffectListRender | MoveListRender | PokemonListRender;
@@ -55,7 +56,7 @@ type EntitySearchProps = {
   listRender: ListRender,
 }
 
-const EntitySearch = ({
+const EntitySearchWithSearchParams = ({
   query,
   keyName,
   listRender,
@@ -175,4 +176,69 @@ const EntitySearch = ({
   );
 };
 
-export default EntitySearch;
+interface EntitySearchOnEntityPageProps {
+  listRender: ListRender,
+  pageEntityName: string
+  query: DocumentNode,
+  queryName: string
+  searchKeyName: string
+}
+
+export const EntitySearchOnEntityPage = ({
+  listRender,
+  pageEntityName,
+  query,
+  queryName,
+  searchKeyName,
+}: EntitySearchOnEntityPageProps) => {
+
+  // Hooks
+  const { gen, setGen } = useContext(GenContext);
+
+  // searchBox.ready = false means that we have just navigated to the page. If the URL contains search parameters, then a search will execute based on the searchParams.
+  // searchBox.ready = true means that we have modified the search box on the page. The next search will take place based on the search box, rather than the searchParams.
+  const [searchBox, setSearchBox] = useState('')
+  const { data, loading, error } = useQuery(
+    query,
+    {
+      variables: {
+        gen: gen,
+        name: pageEntityName,
+        startsWith: searchBox,
+      }
+    }
+  );
+
+  if (error) { return (<div>{error.message}</div>)}
+  if (data) {
+    console.log(data);
+  }
+
+  return (
+    <>
+      <div>
+        Search
+        <form>
+          <input
+            type="text"
+            value={searchBox}
+            onChange={(e) => {
+              setSearchBox(e.target.value);
+            }}
+          />
+        </form>
+      </div>
+      <div className="planner__table planner__table--move">
+        {loading 
+          ? (<div>Loading...</div>)
+          : data && data[queryName][0][searchKeyName].edges &&
+            data[queryName][0][searchKeyName].edges.map((edge: any) => {
+              return listRender(edge.node);
+            })
+        }
+      </div>
+    </>
+  );
+};
+
+export default EntitySearchWithSearchParams;

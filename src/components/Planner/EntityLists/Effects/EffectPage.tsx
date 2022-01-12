@@ -1,5 +1,6 @@
 import {
   useContext,
+  useMemo,
 } from 'react';
 
 import {
@@ -11,9 +12,14 @@ import {
   useQuery
 } from '@apollo/client';
 
-import { EFFECT_PAGE_QUERY } from './effectQueries';
+import {
+  EFFECT_PAGE_QUERY,
+  EFFECT_MOVES_QUERY,
+} from './effectQueries';
 
 import { GenContext } from '../../../../contexts';
+import EntityAccordion from '../EntityAccordion';
+import MoveSearch, { MoveSearchPage } from '../Moves/MoveSearch';
 
 const EffectPage = () => {
   const params = useParams();
@@ -21,6 +27,18 @@ const EffectPage = () => {
   const { gen, setGen } = useContext(GenContext);
   
   const effectName = params.effectId;
+
+  const accordionData = useMemo(() => [
+    {
+      title: 'moves',
+      content: <MoveSearchPage 
+        entityName={effectName || ''}  
+        query={EFFECT_MOVES_QUERY} 
+        queryName='effectByName'
+        searchKeyName='moves'
+      />,
+    },
+  ], [effectName]);
 
   const { loading, error, data } = useQuery(
     EFFECT_PAGE_QUERY,
@@ -51,9 +69,17 @@ const EffectPage = () => {
   
   const result = data.effectByName[0];
 
+  
+
   return (
     <div>
+
       <h1>{result.formattedName}</h1>
+
+      
+      <EntityAccordion
+        accordionData={accordionData}
+      />
 
       {/* Descriptions */}      
       {/* <h2>Descriptions</h2>
@@ -67,9 +93,8 @@ const EffectPage = () => {
       })} */}
 
       {/* Abilities */}
-      {result.abilities.edges && result.abilities.edges.length > 0 
-        && (<h2>Abilities</h2>)}
-      {result.abilities.edges && result.abilities.edges.length > 0
+      {result.abilities.count > 0 && (<h2>Abilities</h2>)}
+      {/* {result.abilities.edges && result.abilities.edges.length > 0
         && result.abilities.edges.map((ability: any) => {
           return (
             <div key={'abilities_' + ability.node.id}>
@@ -77,12 +102,12 @@ const EffectPage = () => {
             </div>
           )
         })
-      }
+      } */}
 
       {/* Field States */}
-      {result.fieldStates.edges && result.fieldStates.edges.length > 0 
+      {result.fieldStates.count > 0 
         && (<h2>Field States</h2>)}
-      {result.fieldStates.edges && result.fieldStates.edges.length > 0
+      {/* {result.fieldStates.edges && result.fieldStates.edges.length > 0
         && result.fieldStates.edges.map((fieldState: any) => {
           return (
             <div key={'fieldState_' + fieldState.node.id}>
@@ -90,12 +115,12 @@ const EffectPage = () => {
             </div>
           )
         })
-      }
+      } */}
 
       {/* Items */}
-      {result.items.edges && result.items.edges.length > 0 
+      {result.items.count > 0
         && (<h2>Items</h2>)}
-      {result.items.edges && result.items.edges.length > 0
+      {/* {result.items.edges && result.items.edges.length > 0
         && result.items.edges.map((items: any) => {
           return (
             <div key={'items_' + items.node.id}>
@@ -103,10 +128,10 @@ const EffectPage = () => {
             </div>
           )
         })
-      }
+      } */}
 
       {/* Moves */}
-      {result.moves.edges && result.moves.edges.length > 0 
+      {/* {result.moves.count > 0 
         && (<h2>Moves</h2>)}
       {result.moves.edges && result.moves.edges.length > 0
         && result.moves.edges.map((edge: any) => {
@@ -119,7 +144,7 @@ const EffectPage = () => {
             </Link>
           )
         })
-      }
+      } */}
     </div>
   );
 }

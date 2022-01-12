@@ -4,3 +4,5 @@ data:
   descriptions for abilities
 
 add timer to gen switcher to reduce chance of abusing images
+
+add id field to connections for apollo caching

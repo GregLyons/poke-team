@@ -54,6 +54,8 @@ import {
   createHttpLink,
   InMemoryCache,
 } from '@apollo/client';
+import MoveMainPage from './components/Planner/EntityLists/Moves/MoveMainPage';
+import EffectMainPage from './components/Planner/EntityLists/Effects/EffectMainPage';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:4000',
@@ -97,7 +99,7 @@ ReactDOM.render(
           />
           <Route 
             path='moves' 
-            element={<MoveSearch />} 
+            element={<MoveMainPage />} 
           >
           </Route>
           <Route path="moves/:moveId" element={<MovePage />} />
@@ -105,7 +107,7 @@ ReactDOM.render(
           {/* */}
           <Route 
             path='effects' 
-            element={<EffectSearch />}
+            element={<EffectMainPage />}
           />
           <Route path="effects/:effectId" element={<EffectPage />} />
 

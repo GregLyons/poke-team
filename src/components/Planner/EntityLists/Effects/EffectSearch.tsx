@@ -38,18 +38,23 @@ import {
 // #region
 
 import EffectEntry from './EffectEntry';
-import EntitySearch from '../../../EntitySearch';
+import EntitySearchWithSearchParams from '../EntitySearch';
+import { DocumentNode } from 'graphql';
 
 // #endregion
 
+type EffectSearchProps = {
+  query: DocumentNode
+}
 
-
-const MoveSearch = () => {
+const EffectSearch = ({
+  query,
+}: EffectSearchProps) => {
   const { addToTeam } = useContext(TeamContext);
   
   return (
     <>   
-      <EntitySearch 
+      <EntitySearchWithSearchParams 
         query={EFFECT_SEARCH_QUERY}
         keyName={'effects'}
         listRender={(effect: EffectGQLResult) => (
@@ -67,4 +72,4 @@ const MoveSearch = () => {
   );
 };
 
-export default MoveSearch;
+export default EffectSearch;
