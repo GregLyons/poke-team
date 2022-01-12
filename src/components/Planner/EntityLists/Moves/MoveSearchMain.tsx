@@ -1,5 +1,5 @@
 import {
-  useContext,
+  useContext, useState,
 } from 'react';
 
 import {
@@ -9,11 +9,13 @@ import {
 import { DocumentNode } from 'graphql';
 
 import {
+  GenContext,
   TeamContext,
 } from '../../../../contexts';
 
 import {
   MoveSearchQuery,
+  MoveSearchQueryVars,
   MOVE_SEARCH_QUERY,
 } from './moveQueries';
 
@@ -26,7 +28,7 @@ import MoveEntry from './MoveEntry';
 import EntitySearchMain from '../EntitySearchMain';
 import MoveSearchMainControls from './MoveSearchMainControls';
 
-const listRender: (data: MoveSearchQuery) => JSX.Element = (data) => {
+const listRender = (data: MoveSearchQuery) => {
   return (
     <>
       {data.moves.map((move: MoveSearchQueryResult) => (
@@ -40,15 +42,32 @@ const listRender: (data: MoveSearchQuery) => JSX.Element = (data) => {
     </>
   );
 }
-
 const MoveSearchMain = () => {
-  
+  const { gen } = useContext(GenContext);
+  const [queryVars, setQueryVars] = useState({
+    gen: gen,
+    startsWith: '',
+    limit: 5,
+  })
+
+  const handleSubmit: (newQueryVars: any) => void = (newQueryVars) => {
+    setQueryVars({
+      ...queryVars,
+      gen: gen,
+      ...newQueryVars,
+    });
+  }
+
+  const sampleQuery: MoveSearchQuery = { moves: [] };
   return (
     <>  
+      <div></div>
       <EntitySearchMain 
-        controls={MoveSearchMainControls()}
-        query={MOVE_SEARCH_QUERY}
+        handleSubmit={handleSubmit}
         listRender={listRender}
+        query={MOVE_SEARCH_QUERY}
+        queryVars={queryVars}
+        sampleQuery={sampleQuery}
       />
       <Outlet />
     </>
