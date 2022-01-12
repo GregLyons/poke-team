@@ -19,8 +19,8 @@ import {
 // #region
 
 import {
-  MOVE_SEARCH_QUERY,
-} from './moveQueries';
+  EFFECT_SEARCH_QUERY,
+} from './effectQueries';
 
 // #endregion
 
@@ -28,16 +28,16 @@ import {
 // #region
 
 import {
-  Move,
-  MoveGQLResult,
-} from '../../../../typeDefs/Move';
+  Effect,
+  EffectGQLResult,
+} from '../../../../typeDefs/Effect';
 
 // #endregion
 
 // Components
 // #region
 
-import MoveEntry from './MoveEntry';
+import EffectEntry from './EffectEntry';
 import EntitySearch from '../../../EntitySearch';
 
 // #endregion
@@ -50,14 +50,14 @@ const MoveSearch = () => {
   return (
     <>   
       <EntitySearch 
-        query={MOVE_SEARCH_QUERY}
-        keyName={'moves'}
-        listRender={(move: MoveGQLResult) => (
+        query={EFFECT_SEARCH_QUERY}
+        keyName={'effects'}
+        listRender={(effect: EffectGQLResult) => (
           <>
-            <MoveEntry 
-              key={'moveEntry_' + move.id} 
+            <EffectEntry 
+              key={'effectEntry_' + effect.id} 
               addToTeam={addToTeam}
-              move={new Move(move)} 
+              effect={new Effect(effect)} 
             />
           </>
           )}

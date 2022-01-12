@@ -1,37 +1,32 @@
 import {
-  useCallback,
   useContext,
-  useEffect,
-  useRef,
 } from 'react';
 
 import {
-  URLSearchParamsInit,
   useParams,
-  useSearchParams,
 } from 'react-router-dom';
 
 import {
   useQuery
 } from '@apollo/client';
 
-import { MOVE_PAGE_QUERY } from './moveQueries';
+import { EFFECT_PAGE_QUERY } from './effectQueries';
 
 import { GenContext } from '../../../../contexts';
 
-const MovePage = () => {
+const EffectPage = () => {
   const params = useParams();
 
   const { gen, setGen } = useContext(GenContext);
   
-  const moveName = params.moveId;
+  const effectName = params.effectId;
 
   const { loading, error, data } = useQuery(
-    MOVE_PAGE_QUERY,
+    EFFECT_PAGE_QUERY,
     {
       variables: {
         gen: gen,
-        name: moveName,
+        name: effectName,
       }
     }
   );
@@ -47,20 +42,20 @@ const MovePage = () => {
     </div>
   ); 
   // Happens when gen counter is brought below when the move was introduced.
-  if (data.moveByName.length === 0) return (
+  if (data.effectByName.length === 0) return (
     <div>
-      This move doesn't exist in Generation {gen}.
+      This effect doesn't exist in Generation {gen}.
     </div>
   )
   
-  const result = data.moveByName[0];
+  const result = data.effectByName[0];
 
   return (
     <div>
       <h1>{result.formattedName}</h1>
 
       {/* Descriptions */}      
-      <h2>Descriptions</h2>
+      {/* <h2>Descriptions</h2>
 
       {result.descriptions.edges.map((edge: any) => {
         return (
@@ -68,14 +63,14 @@ const MovePage = () => {
             {edge.versionGroupCode}: {edge.node.text}
           </div>
         );
-      })}
+      })} */}
 
-      {/* Effects */}
-      {result.effects.edges.length > 0
-        && result.effects.edges.map((edge: any) => {
+      {/* Moves */}
+      {result.moves.edges && result.moves.edges.length > 0
+        && result.moves.edges.map((move: any) => {
           return (
-            <div key={'effect_' + edge.node.id}>
-              {edge.node.name}
+            <div key={'move_' + move.node.id}>
+              {move.node.name}
             </div>
           )
         })
@@ -84,4 +79,4 @@ const MovePage = () => {
   );
 }
 
-export default MovePage;
+export default EffectPage;

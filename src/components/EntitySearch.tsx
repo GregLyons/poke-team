@@ -14,7 +14,6 @@ import {
 
 import {
   GenContext,
-  TeamContext,
 } from '../contexts';
 
 // #endregion
@@ -33,27 +32,22 @@ import {
 // #region
 
 import {
-  Pokemon,
+  EffectGQLResult,
+} from '../typeDefs/Effect';
+import {
   PokemonGQLResult,
 } from '../typeDefs/Pokemon';
 import {
-  Move,
   MoveGQLResult,
 } from '../typeDefs/Move';
 
 // #endregion
 
-// Components
-// #region
-
-import { stringToGenNumber } from '../typeDefs/Generation';
-
-// #endregion
-
+type EffectListRender = (effect: EffectGQLResult) => JSX.Element
 type MoveListRender = (move: MoveGQLResult) => JSX.Element
 type PokemonListRender = (pokemon: PokemonGQLResult) => JSX.Element
 
-type ListRender = MoveListRender | PokemonListRender;
+type ListRender = EffectListRender | MoveListRender | PokemonListRender;
 
 type EntitySearchProps = {
   query: DocumentNode,

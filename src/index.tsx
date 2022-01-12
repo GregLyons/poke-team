@@ -32,6 +32,8 @@ import Builder from './components/Builder/Builder';
 import Planner from './components/Planner/Planner';
 import PlannerHome from './components/Planner/EntityLists/PlannerHome';
 
+import EffectSearch from './components/Planner/EntityLists/Effects/EffectSearch';
+import EffectPage from './components/Planner/EntityLists/Effects/EffectPage';
 import MoveSearch from './components/Planner/EntityLists/Moves/MoveSearch';
 import MovePage from './components/Planner/EntityLists/Moves/MovePage';
 
@@ -103,8 +105,10 @@ ReactDOM.render(
           {/* */}
           <Route 
             path='effects' 
-            element={<PlannerHome />}
+            element={<EffectSearch />}
           />
+          <Route path="effects/:effectId" element={<EffectPage />} />
+
           <Route 
             path='field-states' 
             element={<PlannerHome />}

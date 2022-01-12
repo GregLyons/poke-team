@@ -20,16 +20,12 @@ const MoveEntry = ({
 }: MoveEntryProps) => {
   // Since Pokemon can learn Moves in multiple ways, we need to worry about duplicates. The keys of this object are Pokemon names, and the value is always 'true'; we only care about the keys.
   let seenPokemon: {[k: string]: boolean} = {};
-  const { gen } = useContext(GenContext);
-
-  const location = useLocation();
-  const genSearchString = location.search.split('&').filter(param => param.includes('gen='))[0];
 
   return (
     <div className="planner__table-row">
       {/* Move name */}
       <Link 
-        to={`${move.name + genSearchString}`}
+        to={`${move.name}`}
         className="planner__move-name"
       >
         {move.formattedName}
