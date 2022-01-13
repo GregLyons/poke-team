@@ -88,6 +88,43 @@ export const MOVE_SEARCH_QUERY = gql`
 
 // #endregion
 
+// MovePage fragments
+// #region
+
+// TODO: More status-cause data
+export const MOVE_PAGE_CAUSES_STATUS = gql`
+fragment CausesStatus on Move {
+  causesStatus {
+    edges {
+      node {
+        id
+        name
+        formattedName
+      }
+      chance
+    }
+  }
+}
+`;
+
+export const MOVE_PAGE_CREATES_FIELD_STATE = gql`
+fragment CreatesFieldState on Move {
+  createsFieldState {
+    edges {
+      node {
+        id
+        name
+        formattedName
+      }
+      turns
+    }
+  }
+}
+`;
+
+
+// #endregion
+
 // MovePage query 
 // #region
 
@@ -110,209 +147,35 @@ export const MOVE_PAGE_QUERY = gql`
       name: $name
     ) {
       id
-      accuracy
-      category
-      causesStatus {
-        count
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-      contact
-      createsFieldState {
-        count
-        edges {
-          node {
-            id
-            name
-          }
-          turns
-        }
-      }
-      descriptions {
-        count
-        edges {
-          node {
-            id
-            text
-          }
-          versionGroupCode
-        }
-      }
-      effects {
-        count
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-      enablesMove {
-        count
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-      enhancedByFieldState {
-        count
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
       formattedName
-      generation {
-        edges {
-          node {
-            id
-            number
-          }
-        }
-      }
-      hinderedByFieldState {
-        count
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-      interactedWithByMove {
-        count
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-      interactsWithMove {
-        count
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-      introduced {
-        edges {
-          node {
-            id
-            number
-          }
-        }
-      }
-      modifiesStat {
-        count
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-      name
-      pokemon {
-        count
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-      power
-      pp
-      priority
-      removesFieldState {
-        count
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-      requiresItem {
-        count
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-      requiresMove {
-        count
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-      requiresPokemon {
-        count
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-      requiresType {
-        count
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-      resistsStatus {
-        count
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-      target
-      type {
-        count
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
-      usageMethod {
-        count
-        edges {
-          node {
-            id
-            name
-          }
-        }
-      }
     }
   }
 `;
 
-// #endregion
+export const MOVE_PAGE_EFFECTS_FRAGMENT = gql`
+fragment Effects on Move {
+  effects {
+    edges {
+      node {
+        id
+        name
+        formattedName
+      }
+    }
+  }
+}
+`;
 
-// Move connection queries
+export const MOVE_PAGE_EFFECTS_QUERY = gql`
+  ${MOVE_PAGE_EFFECTS_FRAGMENT}
+  query MovePageEffects($gen: Int! $name: String!) {
+    moveByName(generation: $gen, name: $name) {
+      id
+      ...Effects
+    }
+  }
+`;
+
+
+// #endregion
 
