@@ -30,7 +30,7 @@ import {
 import {
   Effect,
   EffectGQLResult,
-} from '../../../../typeDefs/Effect';
+} from '../../../../types-queries/Effect';
 
 // #endregion
 

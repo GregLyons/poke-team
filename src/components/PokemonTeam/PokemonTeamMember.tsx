@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { GenContext } from '../../contexts';
-import { Pokemon } from '../../typeDefs/Pokemon';
+import { Pokemon } from '../../types-queries/Pokemon';
 import { getPokemonSprite } from '../../utils/sprites';
 
 type TeamMember = {

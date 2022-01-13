@@ -5,8 +5,8 @@ import {
 } from 'react-router-dom';
 import { GenContext } from '../../../../contexts';
 
-import { MovePageResult, MoveSearchResult } from '../../../../typeDefs/Move';
-import { Pokemon } from '../../../../typeDefs/Pokemon';
+import { MovePageResult, MoveSearchResult } from '../../../../types-queries/Move';
+import { Pokemon } from '../../../../types-queries/Pokemon';
 import { getPokemonIcon } from '../../../../utils/sprites'
 
 type MoveEntryProps = {

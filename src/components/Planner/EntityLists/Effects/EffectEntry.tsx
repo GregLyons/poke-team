@@ -2,8 +2,8 @@ import {
   Link, Outlet,
 } from 'react-router-dom';
 
-import { Effect } from '../../../../typeDefs/Effect';
-import { Pokemon } from '../../../../typeDefs/Pokemon';
+import { Effect } from '../../../../types-queries/Effect';
+import { Pokemon } from '../../../../types-queries/Pokemon';
 
 type EffectEntryProps = {
   addToTeam: (pokemon: Pokemon) => void

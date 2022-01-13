@@ -10,7 +10,7 @@ import GenSlider from './GenSlider';
 import Team from './PokemonTeam/PokemonTeam';
 import { useContext } from 'react';
 import { GenContext } from '../contexts';
-import { stringToGenNumber } from '../typeDefs/Generation';
+import { stringToGenNumber } from '../types-queries/Generation';
 
 function App() {
   const { gen, setGen } = useContext(GenContext);

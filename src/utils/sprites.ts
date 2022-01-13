@@ -1,6 +1,6 @@
 import { Sprites, Icons } from '@pkmn/img';
-import { GenerationNum } from '../typeDefs/Generation.js';
-import { Pokemon } from '../typeDefs/Pokemon.js';
+import { GenerationNum } from '../types-queries/Generation.js';
+import { Pokemon } from '../types-queries/Pokemon.js';
 
 // Get Pokemon sprites
 //#region 

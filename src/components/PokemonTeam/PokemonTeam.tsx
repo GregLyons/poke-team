@@ -2,7 +2,7 @@ import {
   useContext,
 } from 'react';
 
-import { Pokemon } from '../../typeDefs/Pokemon';
+import { Pokemon } from '../../types-queries/Pokemon';
 import TeamMember from './PokemonTeamMember';
 
 import { TeamContext } from '../../contexts';

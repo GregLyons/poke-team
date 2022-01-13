@@ -18,8 +18,8 @@ import {
 
 import {
   MoveSearchResult,
-  MoveSearchQueryResult,
-} from '../../../../typeDefs/Move';
+  MoveSearchResult,
+} from '../../../../types-queries/Move';
 
 import MoveEntry from './MoveEntry';
 import EntitySearchMain from '../EntitySearchMain';
@@ -27,7 +27,7 @@ import EntitySearchMain from '../EntitySearchMain';
 const listRender = (data: MoveSearchQuery) => {
   return (
     <>
-      {data.moves.map((move: MoveSearchQueryResult) => (
+      {data.moves.map((move: MoveSearchResult) => (
           <>
             <MoveEntry 
               key={'moveEntry_' + move.id}

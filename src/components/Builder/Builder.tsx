@@ -3,7 +3,7 @@ import {
 } from 'react';
 
 import { TeamContext } from '../../contexts';
-import { Pokemon } from '../../typeDefs/Pokemon';
+import { Pokemon } from '../../types-queries/Pokemon';
 
 import PokemonSearch from './PokemonSearch';
 

@@ -9,7 +9,7 @@ import { NUMBER_OF_GENS } from "../utils/constants";
 import {
   GenerationNum,
   stringToGenNumber,
-} from "../typeDefs/Generation";
+} from "../types-queries/Generation";
 
 type GenSliderProps = {
   value: GenerationNum,

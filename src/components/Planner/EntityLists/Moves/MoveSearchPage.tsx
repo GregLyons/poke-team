@@ -6,22 +6,22 @@ import EntitySearchPage from "../EntitySearchPage";
 import MoveEntry from "./MoveEntry";
 import { DocumentNode } from 'graphql';
 import {
-  MoveSearchQueryResult,
+  MoveSearchResult,
   MoveSearchResult,
   MovePageResult,
-} from "../../../../typeDefs/Move";
+} from "../../../../types-queries/Move";
 import {
   MoveSearchQueryVars,
 } from "./moveQueries";
 
 const listRender = (data: {
   edges: {
-    node: MoveSearchQueryResult
+    node: MoveSearchResult
   }[]
 }) => {
   return (
     <>
-      {data.edges.map((edge: { node: MoveSearchQueryResult }) => {
+      {data.edges.map((edge: { node: MoveSearchResult }) => {
         const move = edge.node;
         return (
           <>

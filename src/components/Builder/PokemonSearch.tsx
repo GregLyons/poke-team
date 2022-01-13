@@ -12,7 +12,7 @@ import {
 import {
   Pokemon,
   PokemonGQLResult,
-} from '../../typeDefs/Pokemon';
+} from '../../types-queries/Pokemon';
 
 import { GenContext } from '../../contexts';
 

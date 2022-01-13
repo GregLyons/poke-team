@@ -23,7 +23,7 @@ import {
 
 import { GenContext } from '../../../../contexts';
 import EntitySearchPage from '../EntitySearchPage';
-import { EffectGQLResult } from '../../../../typeDefs/Effect';
+import { EffectGQLResult } from '../../../../types-queries/Effect';
 
 function changeHandler<QueryVars>(setQueryVars: React.Dispatch<React.SetStateAction<QueryVars>>): (x: QueryVars) => void {
   return setQueryVars;

@@ -1,90 +1,13 @@
 import {
   gql,
 } from '@apollo/client';
-import { GenerationNum } from '../../../../typeDefs/Generation';
-import { MovePageResult, MoveSearchQueryResult } from '../../../../typeDefs/Move';
+import { GenerationNum } from '../../../../types-queries/Generation';
+import { MovePageResult, MoveSearchResult } from '../../../../types-queries/Move';
 
 // Main search query 
 // #region
 
-export interface MoveSearchQuery {
-  moves: MoveSearchQueryResult[]
-}
 
-export interface MoveSearchQueryVars {
-  gen: GenerationNum
-  limit: number
-  startsWith: string
-}
-
-export const MOVE_SEARCH_QUERY = gql`
-  query MoveSearchQuery(
-    $gen: Int!
-    $limit: Int!
-    $startsWith: String
-  ) {
-    moves(
-      generation: $gen
-      filter: {
-        startsWith: $startsWith
-      }
-      pagination: {
-        limit: $limit
-      }
-    ) {
-      id
-      name
-      formattedName
-      accuracy
-      category
-      contact
-      power
-      pp
-      priority
-      target
-
-      introduced {
-        edges {
-          node {
-            id
-            id
-            number
-          }
-        }
-      }
-
-      type {
-        edges {
-          node {
-            id
-            id
-            name
-          }
-        }
-      }
-
-      pokemon {
-        edges {
-          node {
-            id
-            id
-            name
-            formattedName
-            speciesName
-            introduced {
-              edges {
-                node {
-                  id
-                  number
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
 
 // #endregion
 

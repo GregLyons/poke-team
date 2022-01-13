@@ -5,8 +5,8 @@ import {
 } from "react";
 
 import { NUMBER_OF_GENS } from "./utils/constants";
-import { Pokemon } from "./typeDefs/Pokemon";
-import { GenerationNum } from "./typeDefs/Generation";
+import { Pokemon } from "./types-queries/Pokemon";
+import { GenerationNum } from "./types-queries/Generation";
 
 // Team context
 // #region

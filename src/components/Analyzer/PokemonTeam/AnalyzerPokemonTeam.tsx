@@ -1,4 +1,4 @@
-import { Pokemon } from '../../../typeDefs/Pokemon';
+import { Pokemon } from '../../../types-queries/Pokemon';
 import AnalyzerPokemonTeamMember from './AnalyzerPokemonTeamMember';
 
 type AnalyzerPokemonTeamProps = {
