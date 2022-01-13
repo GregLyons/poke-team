@@ -31,13 +31,23 @@ import {
   EffectMoveEdge,
 } from '../../../../types-queries/Effect';
 
+import {
+  INTRODUCTION_QUERY,
+  
+  IntroductionQuery,
+  IntroductionQueryVars,
+} from '../../../../types-queries/helpers';
+import {
+  NUMBER_OF_GENS,
+} from '../../../../utils/constants';
+
 const listRenderEffectMove = (data: EffectMoveQuery) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
   return (
     <>
       {data.effectByName[0].moves.edges.map((moveEdge: EffectMoveEdge) => (
         <>
-        <Link to={`../effects/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
+        <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
       </>
       ))}
     </>
@@ -55,7 +65,7 @@ const EffectPage = () => {
     gen: gen,
     name: effectName,
     startsWith: '',
-  })
+  });
 
   const { loading, error, data } = useQuery<EffectPageQuery, EffectPageQueryVars>(
     EFFECT_PAGE_QUERY,
@@ -66,6 +76,51 @@ const EffectPage = () => {
       }
     }
   );
+
+  // Before actually getting the effect data, we need to check that it's present in the given generation
+  // #region
+
+  const { loading: loading_introduced, error: error_introduced, data: data_introduced } = useQuery<IntroductionQuery, IntroductionQueryVars>(
+    INTRODUCTION_QUERY('effectByName'),
+    {
+      variables: {
+        gen: NUMBER_OF_GENS,
+        name: effectName,
+      }
+    }
+  );
+
+  if (!data_introduced || !data_introduced.effectByName || (data_introduced.effectByName.length === 0)) return (
+    <div>
+      Data not found for '{effectName}'.
+    </div>
+  );
+  if (!data_introduced.effectByName) return (
+    <div>
+      'effectByName' is not a valid query for '{effectName}'.
+    </div>
+  )
+  if (loading_introduced) return (
+    <div>
+      Loading...
+    </div>
+  );
+  if (error_introduced) return (
+    <div>
+      Error for introduction query! {error_introduced.message}
+    </div>
+  ); 
+  const introductionResult = data_introduced.effectByName[0];
+  if (introductionResult.introduced.edges[0].node.number > gen) return (
+    <div>
+      {effectName} doesn't exist in Generation {gen}.
+    </div>
+  )
+
+  // #endregion
+  
+  // Now that we know the effect exists in this gen, we check the actual data
+  // # region
 
   if (!data || !data.effectByName) return (
     <div>
@@ -87,15 +142,11 @@ const EffectPage = () => {
       Error! {error.message}
     </div>
   ); 
+  
+  // #endregion
 
   const effectResult = data.effectByName[0];
 
-  // Happens when gen counter is brought below when the move was introduced.
-  if (effectResult.introduced.edges[0].node.number > gen) return (
-    <div>
-      {effectResult.formattedName} doesn't exist in Generation {gen}.
-    </div>
-  )
 
   return (
     <>

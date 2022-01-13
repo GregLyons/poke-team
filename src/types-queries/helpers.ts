@@ -1,3 +1,4 @@
+import { gql } from "@apollo/client";
 import { DocumentNode } from "graphql";
 import { GenerationNum, IntroductionEdge } from "./Generation";
 import {
@@ -121,5 +122,37 @@ export abstract class EntityConnectionOnPage {
     this.formattedName = formattedName;
   }
 }
+
+// #endregion
+
+// #region
+
+export type IntroductionQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    introduced: {
+      edges: IntroductionEdge[]
+    }
+  }[]
+}
+
+export interface IntroductionQueryVars {
+  gen: number
+  name: string
+}
+
+export const INTRODUCTION_QUERY = (queryName: EntityPageQueryName) => gql`
+  query ${queryName + 'Introduced'}($gen: Int! $name: String!) {
+    ${queryName}(generation: $gen, name: $name) {
+      id
+      introduced {
+        edges {
+          node {
+            number
+          }
+        }
+      }
+    }
+  }
+`;
 
 // #endregion

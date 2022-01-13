@@ -122,14 +122,8 @@ export interface EffectPageQueryVars extends EntityPageVars {
 }
 
 export const EFFECT_PAGE_QUERY = gql`
-  query EffectPageQuery(
-    $gen: Int!
-    $name: String!
-  ) {
-    effectByName(
-      generation: $gen,
-      name: $name
-    ) {
+  query EffectPageQuery($gen: Int! $name: String!) {
+    effectByName(generation: $gen, name: $name) {
       id
       name
       formattedName
