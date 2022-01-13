@@ -1,10 +1,10 @@
 import {
   useContext,
-  useMemo,
 } from 'react';
 
 import {
   Link,
+  Outlet,
   useParams,
 } from 'react-router-dom';
 
@@ -13,34 +13,51 @@ import {
 } from '@apollo/client';
 
 import {
-  EFFECT_PAGE_QUERY,
-  EFFECT_MOVES_QUERY,
-} from './effectQueries';
+  GenContext,
+} from '../../../../contexts';
 
-import { GenContext } from '../../../../contexts';
-import EntityAccordion from '../EntityAccordion';
-import MoveMainSearch from '../Moves/MoveSearchMain';
+import EntityConnectionSearch, { useEntityConnectionChangeHandler, } from '../EntityConnectionSearch';
+
+import {
+  EFFECT_PAGE_QUERY,
+  EFFECT_MOVE_QUERY,
+
+  EffectPageResult,
+  EffectPageQuery,
+  EffectPageQueryVars,
+  EffectMoveQuery,
+  EffectMoveQueryVars,
+  EffectMoveResult,
+  EffectMoveEdge,
+} from '../../../../types-queries/Effect';
+
+const listRenderEffectMove = (data: EffectMoveQuery) => {
+  if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
+  return (
+    <>
+      {data.effectByName[0].moves.edges.map((moveEdge: EffectMoveEdge) => (
+        <>
+        <Link to={`../effects/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
+      </>
+      ))}
+    </>
+  )
+}
 
 const EffectPage = () => {
   const params = useParams();
 
-  const { gen, setGen } = useContext(GenContext);
+  const { gen } = useContext(GenContext);
   
-  const effectName = params.effectId;
+  const effectName = params.effectId || '';
 
-  // const accordionData = useMemo(() => [
-  //   {
-  //     title: 'moves',
-  //     content: <MoveSearchPage 
-  //       entityName={effectName || ''}  
-  //       query={EFFECT_MOVES_QUERY} 
-  //       queryName='effectByName'
-  //       searchKeyName='moves'
-  //     />,
-  //   },
-  // ], [effectName]);
+  const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<EffectMoveQueryVars>({
+    gen: gen,
+    name: effectName,
+    startsWith: '',
+  })
 
-  const { loading, error, data } = useQuery(
+  const { loading, error, data } = useQuery<EffectPageQuery, EffectPageQueryVars>(
     EFFECT_PAGE_QUERY,
     {
       variables: {
@@ -50,6 +67,16 @@ const EffectPage = () => {
     }
   );
 
+  if (!data || !data.effectByName) return (
+    <div>
+      Data not found for '{effectName}'.
+    </div>
+  );
+  if (!data.effectByName) return (
+    <div>
+      'effectByName' is not a valid query for '{effectName}'.
+    </div>
+  )
   if (loading) return (
     <div>
       Loading...
@@ -60,22 +87,28 @@ const EffectPage = () => {
       Error! {error.message}
     </div>
   ); 
+
+  const effectResult = data.effectByName[0];
+
   // Happens when gen counter is brought below when the move was introduced.
-  if (data.effectByName.length === 0) return (
+  if (effectResult.introduced.edges[0].node.number > gen) return (
     <div>
-      This effect doesn't exist in Generation {gen}.
+      {effectResult.formattedName} doesn't exist in Generation {gen}.
     </div>
   )
-  
-  const result = data.effectByName[0];
-
-  
 
   return (
-    <div>
+    <>
+      <h1>{effectResult.formattedName}</h1>
 
-      <h1>{result.formattedName}</h1>
-
+      <h2>Moves</h2>
+      <EntityConnectionSearch
+        handleChange={handleChangeMove}
+        listRender={listRenderEffectMove}
+        query={EFFECT_MOVE_QUERY}
+        queryVars={moveQueryVars}
+      />
+      <Outlet />
       
       {/* <EntityAccordion
         accordionData={accordionData}
@@ -93,7 +126,7 @@ const EffectPage = () => {
       })} */}
 
       {/* Abilities */}
-      {result.abilities.count > 0 && (<h2>Abilities</h2>)}
+      {/* {result.abilities.count > 0 && (<h2>Abilities</h2>)} */}
       {/* {result.abilities.edges && result.abilities.edges.length > 0
         && result.abilities.edges.map((ability: any) => {
           return (
@@ -105,8 +138,8 @@ const EffectPage = () => {
       } */}
 
       {/* Field States */}
-      {result.fieldStates.count > 0 
-        && (<h2>Field States</h2>)}
+      {/* {result.fieldStates.count > 0 
+        && (<h2>Field States</h2>)} */}
       {/* {result.fieldStates.edges && result.fieldStates.edges.length > 0
         && result.fieldStates.edges.map((fieldState: any) => {
           return (
@@ -118,8 +151,8 @@ const EffectPage = () => {
       } */}
 
       {/* Items */}
-      {result.items.count > 0
-        && (<h2>Items</h2>)}
+      {/* {result.items.count > 0
+        && (<h2>Items</h2>)} */}
       {/* {result.items.edges && result.items.edges.length > 0
         && result.items.edges.map((items: any) => {
           return (
@@ -145,7 +178,7 @@ const EffectPage = () => {
           )
         })
       } */}
-    </div>
+    </>
   );
 }
 

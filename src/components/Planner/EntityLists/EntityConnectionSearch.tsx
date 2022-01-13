@@ -7,29 +7,49 @@ import {
 } from "@apollo/client";
 import {
   useContext,
+  useEffect,
   useState,
 } from "react";
 import {
   GenContext,
 } from "../../../contexts";
 
+// #region
 
-interface EntitySearchPageProps<SearchQuery, SearchQueryVars> {
+export function entityConnectionChangeHandler<QueryVars>(setQueryVars: React.Dispatch<React.SetStateAction<QueryVars>>): (x: QueryVars) => void {
+  return setQueryVars;
+}
+
+export function useEntityConnectionChangeHandler<QueryVars>(defaultQueryVars: QueryVars): [QueryVars, (newQueryVars: QueryVars) => void] {
+  const [queryVars, setQueryVars] = useState<QueryVars>(defaultQueryVars);
+  
+  return [queryVars, entityConnectionChangeHandler<QueryVars>(setQueryVars)];
+}
+
+// #endregion
+
+interface EntityConnectionSearchProps<SearchQuery, SearchQueryVars> {
   handleChange: (newQueryVars: SearchQueryVars) => void,
   listRender: (data: SearchQuery) => JSX.Element,
   query: DocumentNode,
   queryVars: SearchQueryVars,
 }
 
-function EntitySearchPage<SearchQuery, SearchQueryVars>({
+function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
   handleChange,
   listRender,
   query,
   queryVars,
-}: EntitySearchPageProps<SearchQuery, SearchQueryVars>): JSX.Element {
+}: EntityConnectionSearchProps<SearchQuery, SearchQueryVars>): JSX.Element {
 
-  // Hooks
-  const { gen, setGen } = useContext(GenContext);
+  const { gen } = useContext(GenContext);
+
+  useEffect(() => {
+    handleChange({
+      ...queryVars,
+      gen: gen,
+    })
+  }, [gen])
 
   // searchBox.ready = false means that we have just navigated to the page. If the URL contains search parameters, then a search will execute based on the searchParams.
   // searchBox.ready = true means that we have modified the search box on the page. The next search will take place based on the search box, rather than the searchParams.
@@ -43,20 +63,20 @@ function EntitySearchPage<SearchQuery, SearchQueryVars>({
     }
   );
 
+  // Change queryVars when searchBox is updated.
+  useEffect(() => {
+    handleChange({
+      ...queryVars,
+      startsWith: searchBox,
+    });
+  }, [searchBox]);
+
   if (error) { return (<div>{error.message}</div>)}
-  if (data) {
-    console.log(data);
-  }
 
   return (
     <>
       <div>
-        <form onChange={(e) => {
-          handleChange({
-            ...queryVars,
-            startsWith: searchBox,
-          })
-        }}>
+        <form>
           <input
             type="text"
             value={searchBox}
@@ -74,4 +94,4 @@ function EntitySearchPage<SearchQuery, SearchQueryVars>({
   );
 };
 
-export default EntitySearchPage;
+export default EntityConnectionSearch;

@@ -32,7 +32,7 @@ import Builder from './components/Builder/Builder';
 import Planner from './components/Planner/Planner';
 import PlannerHome from './components/Planner/EntityLists/PlannerHome';
 
-import EffectSearch from './components/Planner/EntityLists/Effects/EffectSearch';
+import EffectSearch from './components/Planner/EntityLists/Effects/EffectSearchMain';
 import EffectPage from './components/Planner/EntityLists/Effects/EffectPage';
 import MoveMainSearch from './components/Planner/EntityLists/Moves/MoveSearchMain';
 import MovePage from './components/Planner/EntityLists/Moves/MovePage';

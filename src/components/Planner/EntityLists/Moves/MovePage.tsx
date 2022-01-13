@@ -1,5 +1,5 @@
 import {
-  useContext, useMemo, useState,
+  useContext,
 } from 'react';
 
 import {
@@ -9,35 +9,39 @@ import {
 } from 'react-router-dom';
 
 import {
-  useQuery
+  useQuery,
 } from '@apollo/client';
 
 import {
+  GenContext,
+} from '../../../../contexts';
+
+import EntityConnectionSearch, { useEntityConnectionChangeHandler, } from '../EntityConnectionSearch';
+
+import {
   MOVE_PAGE_QUERY,
+  MOVE_EFFECT_QUERY,
+
+  MovePageResult,
   MovePageQuery,
   MovePageQueryVars,
-  MOVE_PAGE_EFFECTS_QUERY,
-  MovePageEffectQueryVars,
-  MovePageEffectQuery,
-} from './moveQueries';
+  MoveEffectQuery,
+  MoveEffectQueryVars,
+  MoveEffectResult,
+  MoveEffectEdge,
+} from '../../../../types-queries/Move';
 
-import { GenContext } from '../../../../contexts';
-import EntitySearchPage from '../EntitySearchPage';
-import { EffectGQLResult } from '../../../../types-queries/Effect';
+const listRenderMoveEffect = (data: MoveEffectQuery) => {
+  if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
-function changeHandler<QueryVars>(setQueryVars: React.Dispatch<React.SetStateAction<QueryVars>>): (x: QueryVars) => void {
-  return setQueryVars;
-}
-
-function useChangeHandler<QueryVars>(defaultQueryVars: QueryVars): [QueryVars, (newQueryVars: QueryVars) => void] {
-  const [queryVars, setQueryVars] = useState<QueryVars>(defaultQueryVars);
-  
-  return [queryVars, changeHandler<QueryVars>(setQueryVars)];
-}
-
-const listRender = (data: MovePageEffectQuery) => {
   return (
-    {data.effects.edges.map()}
+    <>
+      {data.moveByName[0].effects.edges.map((effectEdge: MoveEffectEdge) => (
+        <>
+          <Link to={`../effects/${effectEdge.node.name}`}>{effectEdge.node.formattedName}</Link>
+        </>
+      ))}
+    </>
   )
 }
 
@@ -48,13 +52,13 @@ const MovePage = () => {
   
   const moveName = params.moveId || '';
 
-  const [effectQueryVars, handleChangeEffect] = useChangeHandler<MovePageEffectQueryVars>({
+  const [effectQueryVars, handleChangeEffect] = useEntityConnectionChangeHandler<MoveEffectQueryVars>({
     gen: gen,
     name: moveName,
-    limit: 5,
+    startsWith: '',
   });
 
-  const { loading, error, data } = useQuery(
+  const { loading, error, data } = useQuery<MovePageQuery, MovePageQueryVars>(
     MOVE_PAGE_QUERY,
     {
       variables: {
@@ -63,7 +67,17 @@ const MovePage = () => {
       }
     }
   );
-
+  
+  if (!data || !data.moveByName) return (
+    <div>
+      Data not found for '{moveName}'.
+    </div>
+  );
+  if (!data.moveByName) return (
+    <div>
+      'moveByName' is not a valid query for '{moveName}'.
+    </div>
+  )
   if (loading) return (
     <div>
       Loading...
@@ -74,20 +88,25 @@ const MovePage = () => {
       Error! {error.message}
     </div>
   ); 
+
+  const moveResult = data.moveByName[0];
+
   // Happens when gen counter is brought below when the move was introduced.
-  if (data.moveByName.length === 0) return (
+  if (moveResult.introduced.edges[0].node.number > gen) return (
     <div>
-      This move doesn't exist in Generation {gen}.
+      {moveResult.formattedName} doesn't exist in Generation {gen}.
     </div>
   )
-  
-  const result = data.moveByName[0];
+
   return (
     <>
-      <EntitySearchPage
+      <h1>{moveResult.formattedName}</h1>
+
+      <h2>Effects</h2>
+      <EntityConnectionSearch
         handleChange={handleChangeEffect}
-        listRender={effectListRender}
-        query={MOVE_PAGE_EFFECTS_QUERY}
+        listRender={listRenderMoveEffect}
+        query={MOVE_EFFECT_QUERY}
         queryVars={effectQueryVars}
       />
       <Outlet />

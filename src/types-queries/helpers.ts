@@ -13,6 +13,8 @@ export type Edge = { node: any }
 // Entity in search
 // #region
 
+export type EntitySearchQueryName = 'abilities' | 'effects' | 'fieldStates' | 'items' | 'moves' | 'pokemon' | 'stats' | 'statuses' | 'types' | 'usageMethods';
+
 export interface EntitySearchResult {
   id: string
   name: string
@@ -43,6 +45,8 @@ export abstract class EntityInSearch {
 
 // Entity page
 // #region
+
+export type EntityPageQueryName = 'abilityByName' | 'effectByName' | 'fieldStateByName' | 'itemByName' | 'moveByName' | 'pokemonByName' | 'statByName' | 'statusByName' | 'typeByName' | 'usageMethodByName'
 
 export interface EntityPageResult {
   id: string
@@ -101,6 +105,7 @@ export interface EntityConnectionEdge {
 export interface EntityConnectionVars {
   gen: GenerationNum
   name: string
+  startsWith: string
 }
 
 export abstract class EntityConnectionOnPage {

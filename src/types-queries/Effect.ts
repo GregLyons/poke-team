@@ -2,20 +2,21 @@ import {
   gql,
 } from '@apollo/client';
 import {
+  EntitySearchQueryName,
+  EntitySearchResult,
+  EntitySearchVars,
   EntityInSearch,
-
-  EntityConnectionEdge,
-  EntityConnectionVars,
-  EntityConnectionOnPage,
   
+  EntityPageQueryName,
   EntityOnPage,
   EntityPageResult,
   EntityPageVars,
-
-  EntitySearchResult,
-  EntitySearchVars,
   CountField,
+  
   EntityConnectionQuery,
+  EntityConnectionEdge,
+  EntityConnectionVars,
+  EntityConnectionOnPage,
 } from './helpers';
 import {
   GenerationNum,
@@ -35,8 +36,8 @@ import {
 // Effect in main search
 // #region
 
-export interface EffectSearchQuery {
-  effects: EffectSearchResult
+export type EffectSearchQuery = {
+  [searchQueryName in EntitySearchQueryName]: EffectSearchResult[]
 }
 
 export interface EffectSearchResult extends EntitySearchResult {
@@ -85,7 +86,7 @@ export const EFFECT_SEARCH_QUERY = gql`
   }
 `;
 
-export class Effect extends EntityInSearch {
+export class EffectInSearch extends EntityInSearch {
   constructor(gqlEffect: EffectSearchResult) {
     super(gqlEffect);
   }
@@ -96,8 +97,8 @@ export class Effect extends EntityInSearch {
 // Effect page
 // #region
 
-export interface EffectPageQuery {
-  effects: EffectPageResult[]
+export type EffectPageQuery = {
+  [pageQueryName in EntityPageQueryName]?: EffectPageResult[]
 }
 
 export interface EffectPageResult extends EntityPageResult {
@@ -132,6 +133,14 @@ export const EFFECT_PAGE_QUERY = gql`
       id
       name
       formattedName
+
+      introduced {
+        edges {
+          node {
+            number
+          }
+        }
+      }
       
       abilities {
         count
@@ -174,11 +183,13 @@ export class EffectOnPage extends EntityOnPage {
 // Effect connections
 // #region
 
-export interface EffectMoveQueryResult extends EntityConnectionQuery {
-  id: string
-  moves: {
-    edges: EffectMoveEdge[]
-  }
+export type EffectMoveQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    moves: {
+      edges: EffectMoveEdge[]
+    }
+  }[]
 }
 
 export interface EffectMoveEdge extends EntityConnectionEdge {
@@ -203,7 +214,7 @@ export interface EffectMoveQueryVars extends EntityConnectionVars {
   startsWith: string
 }
 
-export const EFFECT_MOVES_QUERY = gql`
+export const EFFECT_MOVE_QUERY = gql`
   query EffectMovesQuery(
     $gen: Int!
     $name: String!

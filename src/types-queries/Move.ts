@@ -2,20 +2,21 @@ import {
   gql,
 } from '@apollo/client';
 import {
+  EntitySearchQueryName,
+  EntitySearchResult,
+  EntitySearchVars,
   EntityInSearch,
-
+  
+  EntityPageQueryName,
+  EntityOnPage,
+  EntityPageResult,
+  EntityPageVars,
+  CountField,
+  
+  EntityConnectionQuery,
   EntityConnectionEdge,
   EntityConnectionVars,
   EntityConnectionOnPage,
-  
-  EntityOnPage,
-  EntityPageResult,
-  CountField,
-  EntityPageVars,
-
-  EntitySearchResult,
-  EntitySearchVars,
-  EntityConnectionQuery,
 } from './helpers';
 import {
   TypeName,
@@ -38,8 +39,8 @@ import {
 // Move in main search
 // #region
 
-export interface MoveSearchQuery {
-  moves: MoveSearchResult[]
+export type MoveSearchQuery = {
+  [searchQueryName in EntitySearchQueryName]?: MoveSearchResult[]
 }
 
 export interface MoveSearchResult extends EntitySearchResult {
@@ -157,8 +158,8 @@ export class MoveInSearch extends EntityInSearch {
 // Move page
 // #region
 
-export interface MovePageQuery {
-  moves: MovePageResult[]
+export type MovePageQuery = {
+  [pageQueryName in EntityPageQueryName]?: MovePageResult[]
 }
 
 export interface MovePageResult extends EntityPageResult {
@@ -377,11 +378,13 @@ export class MoveOnPage extends EntityOnPage {
 // Move connections 
 // #region
 
-export interface MoveEffectQuery extends EntityConnectionQuery {
-  id: string
-  effects: {
-    edges: MoveEffectEdge[]
-  }
+export type MoveEffectQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    effects: {
+      edges: MoveEffectEdge[]
+    }
+  }[]
 }
 
 export interface MoveEffectEdge extends EntityConnectionEdge {
@@ -395,10 +398,11 @@ export interface MoveEffectEdge extends EntityConnectionEdge {
 export interface MoveEffectQueryVars extends EntityConnectionVars {
   gen: GenerationNum
   name: string
+  startsWith: string
 }
 
 export const MOVE_EFFECT_QUERY = gql`
-  query MoveEffectQuery($gen: Int! $name: String! $startsWith: string) {
+  query MoveEffectQuery($gen: Int! $name: String! $startsWith: String) {
     moveByName(generation: $gen, name: $name) {
       id
       effects(filter: { startsWith: $startsWith }) {

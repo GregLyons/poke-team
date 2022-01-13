@@ -2,20 +2,21 @@ import {
   gql,
 } from '@apollo/client';
 import {
+  EntitySearchQueryName,
+  EntitySearchResult,
+  EntitySearchVars,
   EntityInSearch,
-
+  
+  EntityPageQueryName,
+  EntityOnPage,
+  EntityPageResult,
+  EntityPageVars,
+  CountField,
+  
+  EntityConnectionQuery,
   EntityConnectionEdge,
   EntityConnectionVars,
   EntityConnectionOnPage,
-  
-  EntityOnPage,
-  EntityPageResult,
-  CountField,
-  EntityPageVars,
-
-  EntitySearchResult,
-  EntitySearchVars,
-  EntityConnectionQuery,
 } from './helpers';
 import {
   PokemonIconDatum,
@@ -33,9 +34,10 @@ import {
 // Ability in main search
 // #region
 
-export interface AbilitySearchQuery {
-  abilities: AbilitySearchResult[]
+export type AbilitySearchQuery = {
+  [searchQueryName in EntitySearchQueryName]?: AbilitySearchResult[]
 }
+
 
 export interface AbilitySearchResult extends EntitySearchResult {
   id: string
@@ -101,9 +103,10 @@ export class AbilityInSearch extends EntityInSearch {
 // Ability page
 // #region
 
-export interface AbilityPageQuery {
-  abilities: AbilityPageResult[]
+export type AbilityPageQuery = {
+  [pageQueryName in EntityPageQueryName]?: AbilityPageResult[]
 }
+
 
 export interface AbilityPageResult extends EntityPageResult {
   id: string
@@ -263,11 +266,13 @@ export class AbilityOnPage extends EntityOnPage {
 // Ability connections 
 // #region
 
-export interface AbilityEffectQuery extends EntityConnectionQuery {
-  id: string
-  effects: {
-    edges: AbilityEffectEdge[]
-  }
+export type AbilityEffectQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    effects: {
+      edges: AbilityEffectEdge[]
+    }
+  }[]
 }
 
 export interface AbilityEffectEdge extends EntityConnectionEdge {
@@ -284,7 +289,7 @@ export interface AbilityEffectQueryVars extends EntityConnectionVars {
 }
 
 export const ABILITY_EFFECT_QUERY = gql`
-  query AbilityEffectQuery($gen: Int! $name: String! $startsWith: string) {
+  query AbilityEffectQuery($gen: Int! $name: String! $startsWith: String) {
     abilityByName(generation: $gen, name: $name) {
       id
       effects(filter: { startsWith: $startsWith }) {

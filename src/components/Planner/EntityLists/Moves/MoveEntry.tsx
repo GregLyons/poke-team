@@ -1,16 +1,14 @@
-import { useContext } from 'react';
-
 import {
-  Link, Outlet, useLocation,
+  Link,
+  Outlet,
 } from 'react-router-dom';
-import { GenContext } from '../../../../contexts';
-
-import { MovePageResult, MoveSearchResult } from '../../../../types-queries/Move';
-import { Pokemon } from '../../../../types-queries/Pokemon';
-import { getPokemonIcon } from '../../../../utils/sprites'
+import { 
+  MoveInSearch,
+} from '../../../../types-queries/Move';
+import { getPokemonIcon } from '../../../../utils/sprites';
 
 type MoveEntryProps = {
-  move: MoveSearchResult
+  move: MoveInSearch
 }
 
 const MoveEntry = ({
@@ -30,7 +28,7 @@ const MoveEntry = ({
       </Link>
 
       {/* Move data */}
-      {/* <div className="planner__move-data">
+      <div className="planner__move-data">
         <div>Accuracy: {move.accuracy}</div>
         <div>Category: {move.category}</div>
         <div>{move.contact ? 'Contact' : 'Non-contact'}</div>
@@ -39,23 +37,23 @@ const MoveEntry = ({
         <div>Priority: {move.priority}</div>
         <div>Target: {move.target}</div>
         <div>Type: {move.type}</div>
-      </div> */}
+      </div>
 
       {/* Pokemon icons */}
       <div className="planner__move-pokemon">
-        {/* <div>{false && 
-          move.pokemon.map(pokemon => {
+        <div>{false && 
+          move.pokemonIconData.map(pokemonIconDatum => {
             // Ignore duplicate Pokemon
-            if(seenPokemon.hasOwnProperty(pokemon.name)) return;
+            if(seenPokemon.hasOwnProperty(pokemonIconDatum.name)) return;
             // Add Pokemon to list of seen Pokemon
-            else seenPokemon[pokemon.name] = true;
+            else seenPokemon[pokemonIconDatum.name] = true;
             
-            const {left, top} = getPokemonIcon(pokemon);
+            const {left, top} = getPokemonIcon(pokemonIconDatum);
             
             return (
               <div
-                title={`Icon for ${pokemon.formattedName}`}
-                key={'moveEntry_' + move.id + '_' + pokemon.name + '_icon'}
+                title={`Icon for ${pokemonIconDatum.formattedName}`}
+                key={'moveEntry_' + move.id + '_' + pokemonIconDatum.name + '_icon'}
                 style={{
                   width: '40px',
                   height: '30px',
@@ -67,7 +65,7 @@ const MoveEntry = ({
               />
             )
           })}
-        </div> */}
+        </div>
       </div>
       <Outlet />
     </div>

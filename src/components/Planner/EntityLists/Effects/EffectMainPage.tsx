@@ -1,11 +1,8 @@
-import EffectSearch from "./EffectSearch"
-import { EFFECT_SEARCH_QUERY } from "./effectQueries"
+import EffectSearch from "./EffectSearchMain"
 
 const EffectMainPage = () => {
   return (
-    <EffectSearch
-      query={EFFECT_SEARCH_QUERY}
-    />
+    <EffectSearch />
   )
 }
 

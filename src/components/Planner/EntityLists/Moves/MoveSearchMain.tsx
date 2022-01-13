@@ -12,26 +12,26 @@ import {
 
 import {
   MoveSearchQuery,
-  MoveSearchQueryVars,
-  MOVE_SEARCH_QUERY,
-} from './moveQueries';
+  MoveSearchResult,
+  MoveSearchVars,
+  MoveInSearch,
 
-import {
-  MoveSearchResult,
-  MoveSearchResult,
+  MOVE_SEARCH_QUERY,
 } from '../../../../types-queries/Move';
 
 import MoveEntry from './MoveEntry';
 import EntitySearchMain from '../EntitySearchMain';
 
 const listRender = (data: MoveSearchQuery) => {
+  if (!data || !data.moves) return (<div>Data not found for the query 'moves'.</div>);
+  
   return (
     <>
       {data.moves.map((move: MoveSearchResult) => (
           <>
             <MoveEntry 
               key={'moveEntry_' + move.id}
-              move={new MoveSearchResult(move)} 
+              move={new MoveInSearch(move)} 
             />
           </>
         ))}
@@ -41,13 +41,13 @@ const listRender = (data: MoveSearchQuery) => {
 const MoveSearchMain = () => {
   const { gen } = useContext(GenContext);
 
-  const [queryVars, setQueryVars] = useState<MoveSearchQueryVars>({
+  const [queryVars, setQueryVars] = useState<MoveSearchVars>({
     gen: gen,
     startsWith: '',
     limit: 5,
   })
 
-  const handleSubmit: (newQueryVars: MoveSearchQueryVars) => void = (newQueryVars) => {
+  const handleSubmit: (newQueryVars: MoveSearchVars) => void = (newQueryVars) => {
     setQueryVars({
       ...newQueryVars,
     });

@@ -1,13 +1,15 @@
 import {
-  Link, Outlet,
+  Link,
+  Outlet,
 } from 'react-router-dom';
 
-import { Effect } from '../../../../types-queries/Effect';
+import {
+  EffectInSearch,
+} from '../../../../types-queries/Effect';
 import { Pokemon } from '../../../../types-queries/Pokemon';
 
 type EffectEntryProps = {
-  addToTeam: (pokemon: Pokemon) => void
-  effect: Effect
+  effect: EffectInSearch
 }
 
 const EffectEntry = ({
@@ -24,17 +26,6 @@ const EffectEntry = ({
       >
         {effect.formattedName}
       </Link>
-
-      {/* Moves with this effect */}
-      <div className="planner__effect-move">
-        <div>{false && 
-          effect.moves.map(move => {
-            return (
-              <div>{move.name}</div>
-            )
-          })}
-        </div>
-      </div>
       <Outlet />
     </div>
   );
