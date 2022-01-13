@@ -1,4 +1,7 @@
 import {
+  gql,
+} from '@apollo/client';
+import {
   EntityInSearch,
 
   EntityConnectionEdge,
@@ -28,9 +31,6 @@ import {
   GenerationNum,
   IntroductionEdge,
 } from './Generation';
-import {
-  gql,
-} from '@apollo/client';
 import {
   DescriptionEdge,
 } from './Description';
@@ -120,11 +120,7 @@ export const MOVE_SEARCH_QUERY = gql`
   }
 `;
 
-export class MoveInSearch implements EntityInSearch {
-  public id: string
-  public name: string
-  public formattedName: string
-
+export class MoveInSearch extends EntityInSearch {
   public accuracy: number
   public category: string
   public contact: boolean
@@ -138,12 +134,9 @@ export class MoveInSearch implements EntityInSearch {
   public pokemonIconData: PokemonIconDatum[]
 
   constructor(gqlMove: MoveSearchResult) {
+    super(gqlMove);
 
-    const { id, name, formattedName, accuracy, category, contact, power, pp, priority, target, } = gqlMove;
-
-    this.id = id;
-    this.name = name;
-    this.formattedName = formattedName;
+    const { accuracy, category, contact, power, pp, priority, target, } = gqlMove;
 
     this.accuracy = accuracy;
     this.category = category;
@@ -315,11 +308,7 @@ export const MOVE_PAGE_QUERY = gql`
   }
 `;
 
-export class MoveOnPage implements EntityOnPage {
-  public id: string
-  public name: string
-  public formattedName: string
-
+export class MoveOnPage extends EntityOnPage {
   public accuracy: number
   public category: string
   public contact: boolean
@@ -349,11 +338,9 @@ export class MoveOnPage implements EntityOnPage {
 
   constructor(gqlMove: MovePageResult) {
     // Data for MovePage
-    const { id, name, formattedName, accuracy, category, contact, power, pp, priority, target } = gqlMove;
+    super(gqlMove);
 
-    this.id = id;
-    this.name = name;
-    this.formattedName = formattedName;
+    const { accuracy, category, contact, power, pp, priority, target } = gqlMove;
 
     this.accuracy = accuracy;
     this.category = category;
@@ -427,15 +414,9 @@ export const MOVE_EFFECT_QUERY = gql`
   }
 `;
 
-export class MoveEffectResult implements EntityConnectionOnPage {
-  public id: string
-  public name: string
-  public formattedName: string
-
+export class MoveEffectResult extends EntityConnectionOnPage {
   constructor(gqlMoveEffect: MoveEffectEdge) {
-    this.id = gqlMoveEffect.node.id;
-    this.name = gqlMoveEffect.node.name;
-    this.formattedName = gqlMoveEffect.node.formattedName;
+    super(gqlMoveEffect)
   }
 }
 

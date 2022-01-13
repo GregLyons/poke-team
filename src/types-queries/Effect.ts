@@ -1,4 +1,7 @@
 import {
+  gql,
+} from '@apollo/client';
+import {
   EntityInSearch,
 
   EntityConnectionEdge,
@@ -15,14 +18,19 @@ import {
   EntityConnectionQuery,
 } from './helpers';
 import {
-  gql,
-} from '@apollo/client';
-import {
   GenerationNum,
   IntroductionEdge,
 } from './Generation.js';
-import { TypeName, TypeNameEdge, typeNameEdgeToTypeName } from './Type';
-import { PokemonIconDatum, PokemonIconEdge, pokemonIconEdgeToPokemonIconDatum } from './Pokemon';
+import {
+  TypeName,
+  TypeNameEdge,
+  typeNameEdgeToTypeName,
+} from './Type';
+import {
+  PokemonIconDatum,
+  PokemonIconEdge,
+  pokemonIconEdgeToPokemonIconDatum,
+} from './Pokemon';
 
 // Effect in main search
 // #region
@@ -77,17 +85,9 @@ export const EFFECT_SEARCH_QUERY = gql`
   }
 `;
 
-export class Effect implements EntityInSearch {
-  public id: string
-  public name: string
-  public formattedName: string
-
-  constructor(
-    gqlEffect: EffectSearchResult
-  ) {
-    this.id = gqlEffect.id;
-    this.name = gqlEffect.name;
-    this.formattedName = gqlEffect.formattedName;
+export class Effect extends EntityInSearch {
+  constructor(gqlEffect: EffectSearchResult) {
+    super(gqlEffect);
   }
 }
 
@@ -153,22 +153,14 @@ export const EFFECT_PAGE_QUERY = gql`
   }
 `;
 
-export class EffectOnPage implements EntityOnPage {
-  public id: string
-  public name: string
-  public formattedName: string
-
+export class EffectOnPage extends EntityOnPage {
   public abilityCount: number
   public fieldStateCount: number
   public itemCount: number
   public moveCount: number
 
   constructor(gqlEffect: EffectPageResult) {
-    const { id, name, formattedName } = gqlEffect;
-
-    this.id = id;
-    this.name = name;
-    this.formattedName = formattedName;
+    super(gqlEffect);
 
     this.abilityCount = gqlEffect.abilities.count
     this.fieldStateCount = gqlEffect.items.count
@@ -263,21 +255,13 @@ export const EFFECT_MOVES_QUERY = gql`
   }
 `;
 
-export class EffectMoveResult implements EntityConnectionOnPage {
-  public id: string
-  public name: string
-  public formattedName: string
-
+export class EffectMoveResult extends EntityConnectionOnPage {
   public type: TypeName
 
   public pokemonIconData: PokemonIconDatum[]
 
   constructor(gqlEffectMove: EffectMoveEdge) {
-    const { id, name, formattedName, } = gqlEffectMove.node;
-
-    this.id = id;
-    this.name = name;
-    this.formattedName = formattedName;
+    super(gqlEffectMove);
 
     this.type = gqlEffectMove.node.type.edges.map(typeNameEdgeToTypeName)[0]
 

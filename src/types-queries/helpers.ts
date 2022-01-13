@@ -25,10 +25,18 @@ export interface EntitySearchVars {
   startsWith: string
 }
 
-export interface EntityInSearch {
+export abstract class EntityInSearch {
   id: string
   name: string
   formattedName: string
+
+  constructor(gqlEntity: EntitySearchResult) {
+    const { id, name, formattedName } = gqlEntity;
+
+    this.id = id;
+    this.name = name;
+    this.formattedName = formattedName;
+  }
 }
 
 // #endregion
@@ -55,10 +63,22 @@ export interface EntityPageVars {
   name: string
 }
 
-export interface EntityOnPage {
-  id: string
-  name: string
-  formattedName: string
+export abstract class EntityOnPage {
+  public id: string
+  public name: string
+  public formattedName: string
+
+  public introduced: GenerationNum
+
+  constructor(gqlEntity: EntityPageResult) {
+    const { id, name, formattedName } = gqlEntity;
+
+    this.id = id;
+    this.name = name;
+    this.formattedName = formattedName;
+
+    this.introduced = gqlEntity.introduced.edges[0].node.number;
+  }
 }
 
 // #endregion
@@ -83,10 +103,18 @@ export interface EntityConnectionVars {
   name: string
 }
 
-export interface EntityConnectionOnPage {
-  id: string
-  name: string
-  formattedName: string
+export abstract class EntityConnectionOnPage {
+  public id: string
+  public name: string
+  public formattedName: string
+
+  constructor(gqlEdge: EntityConnectionEdge) {
+    const { id, name, formattedName } = gqlEdge.node;
+
+    this.id = id;
+    this.name = name;
+    this.formattedName = formattedName;
+  }
 }
 
 // #endregion
