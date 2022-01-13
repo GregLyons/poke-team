@@ -135,6 +135,7 @@ export interface MovePageQuery {
 export interface MovePageQueryVars {
   gen: GenerationNum
   limit: number
+  name: string
 }
 
 export const MOVE_PAGE_QUERY = gql`
@@ -151,6 +152,28 @@ export const MOVE_PAGE_QUERY = gql`
     }
   }
 `;
+
+// MoveEffect
+
+export type MovePageEffectResult = {
+  edges: {
+    node: {
+      id: string
+      name: string
+      formattedName: string
+    }[]
+  }
+};
+
+export interface MovePageEffectQuery {
+  effects: MovePageEffectResult[]
+}
+
+export interface MovePageEffectQueryVars {
+  gen: GenerationNum
+  limit: number
+  name: string
+}
 
 export const MOVE_PAGE_EFFECTS_FRAGMENT = gql`
 fragment Effects on Move {
