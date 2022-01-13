@@ -6,18 +6,24 @@ import {
   useLazyQuery,
 } from '@apollo/client';
 
+import { 
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import {
-  GenerationNum,
-} from '../../../typeDefs/Generation';
-import { useContext, useEffect, useRef, useState } from 'react';
-import { GenContext } from '../../../contexts';
-import { useSearchParams } from 'react-router-dom';
+  GenContext,
+} from '../../../contexts';
+import {
+  useSearchParams,
+} from 'react-router-dom';
 
 interface EntitySearchMainProps<SearchQuery, SearchQueryVars> {
-  listRender: (data: SearchQuery) => JSX.Element,
+  handleSubmit: (newQueryVars: SearchQueryVars) => void,
   query: DocumentNode,
   queryVars: SearchQueryVars,
-  sampleQuery: SearchQuery,
+  listRender: (data: SearchQuery) => JSX.Element,
 }
 
 function EntitySearchMain<SearchQuery, SearchQueryVars>({
@@ -25,17 +31,10 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
   listRender,
   query,
   queryVars,
-  sampleQuery,
-}: {
-  handleSubmit: any,
-  query: DocumentNode,
-  queryVars: SearchQueryVars,
-  listRender: (data: SearchQuery) => JSX.Element,
-  sampleQuery: SearchQuery,
-}): JSX.Element {
+}: EntitySearchMainProps<SearchQuery, SearchQueryVars>): JSX.Element {
   const [executeSearch, { data, loading, error }] = useLazyQuery<SearchQuery, SearchQueryVars>(query);
 
-  const { gen, setGen } = useContext(GenContext);
+  const { gen } = useContext(GenContext);
   const [searchParams, setSearchParams] = useSearchParams();
 
   // searchBox.ready = false means that we have just navigated to the page. If the URL contains search parameters, then a search will execute based on the searchParams.
@@ -49,7 +48,6 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
   const searched = useRef(false);
   useEffect(() => {
     // If we haven't started a search yet, return to avoid doing it automatically
-    console.log(gen);
     if (!searched.current) return;
 
     // If search button is present, execute search
@@ -92,12 +90,16 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
           });
 
           handleSubmit({
+            ...queryVars,
             startsWith: searchBox.value,
+            gen: gen,
           });
         } 
         else {
           handleSubmit({
+            ...queryVars,
             startsWith: searchParams.get('startsWith') || '',
+            gen: gen,
           });
         }
       }}>
@@ -119,7 +121,10 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
           OK
         </button>
       </form>
-      {data && listRender(data)}
+      {loading 
+        ? <div>Loading...</div>
+        : data && listRender(data)
+      }
     </>
   );
 };

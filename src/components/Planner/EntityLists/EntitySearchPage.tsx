@@ -14,21 +14,19 @@ import {
 } from "../../../contexts";
 
 
-interface EntitySearchPageProps {
-  listRender: any,
-  pageEntityName: string
+interface EntitySearchPageProps<SearchQuery, SearchQueryVars> {
+  handleChange: (newQueryVars: SearchQueryVars) => void,
+  listRender: (data: SearchQuery) => JSX.Element,
   query: DocumentNode,
-  queryName: string
-  searchKeyName: string
+  queryVars: SearchQueryVars,
 }
 
-export const EntitySearchPage = ({
+function EntitySearchPage<SearchQuery, SearchQueryVars>({
+  handleChange,
   listRender,
-  pageEntityName,
   query,
-  queryName,
-  searchKeyName,
-}: EntitySearchPageProps) => {
+  queryVars,
+}: EntitySearchPageProps<SearchQuery, SearchQueryVars>): JSX.Element {
 
   // Hooks
   const { gen, setGen } = useContext(GenContext);
@@ -36,13 +34,11 @@ export const EntitySearchPage = ({
   // searchBox.ready = false means that we have just navigated to the page. If the URL contains search parameters, then a search will execute based on the searchParams.
   // searchBox.ready = true means that we have modified the search box on the page. The next search will take place based on the search box, rather than the searchParams.
   const [searchBox, setSearchBox] = useState('')
-  const { data, loading, error } = useQuery(
+  const { data, loading, error } = useQuery<SearchQuery, SearchQueryVars>(
     query,
     {
       variables: {
-        gen: gen,
-        name: pageEntityName,
-        startsWith: searchBox,
+        ...queryVars,
       }
     }
   );
@@ -55,8 +51,12 @@ export const EntitySearchPage = ({
   return (
     <>
       <div>
-        Search
-        <form>
+        <form onChange={(e) => {
+          handleChange({
+            ...queryVars,
+            startsWith: searchBox,
+          })
+        }}>
           <input
             type="text"
             value={searchBox}
@@ -66,15 +66,10 @@ export const EntitySearchPage = ({
           />
         </form>
       </div>
-      <div className="planner__table planner__table--move">
-        {loading 
-          ? (<div>Loading...</div>)
-          : data && data[queryName][0][searchKeyName].edges &&
-            data[queryName][0][searchKeyName].edges.map((edge: any) => {
-              return listRender(edge.node);
-            })
-        }
-      </div>
+      {loading 
+        ? <div>Loading...</div>
+        : data && listRender(data)
+      }
     </>
   );
 };

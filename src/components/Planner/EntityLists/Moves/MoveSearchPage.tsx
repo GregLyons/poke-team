@@ -1,12 +1,40 @@
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { TeamContext } from "../../../../contexts";
+import { GenContext, TeamContext } from "../../../../contexts";
 import EntitySearchPage from "../EntitySearchPage";
 import MoveEntry from "./MoveEntry";
 import { DocumentNode } from 'graphql';
-import { MovePageQueryResult, MovePageResult } from "../../../../typeDefs/Move";
+import {
+  MoveSearchQueryResult,
+  MoveSearchResult,
+  MovePageResult,
+} from "../../../../typeDefs/Move";
+import {
+  MoveSearchQueryVars,
+} from "./moveQueries";
 
+const listRender = (data: {
+  edges: {
+    node: MoveSearchQueryResult
+  }[]
+}) => {
+  return (
+    <>
+      {data.edges.map((edge: { node: MoveSearchQueryResult }) => {
+        const move = edge.node;
+        return (
+          <>
+            <MoveEntry 
+              key={'moveEntry_' + move.id}
+              move={new MoveSearchResult(move)} 
+            />
+          </>
+        );
+      })}
+    </>
+  )
+};
 
 type MoveSearchPageProps = {
   entityName: string
@@ -17,27 +45,30 @@ type MoveSearchPageProps = {
 
 const MoveSearchPage = ({
   entityName,
-  queryName,
   query,
   searchKeyName,
 }: MoveSearchPageProps) => {
-  const { addToTeam } = useContext(TeamContext);
+  const { gen } = useContext(GenContext);
+
+  const [queryVars, setQueryVars] = useState<MoveSearchQueryVars>({
+    gen: gen,
+    startsWith: '',
+    limit: 5,
+  });
+
+  const handleChange: (newQueryVars: MoveSearchQueryVars) => void = (newQueryVars) => {
+    setQueryVars({
+      ...newQueryVars,
+    });
+  };
   
   return (
     <>
       <EntitySearchPage
-        pageEntityName={entityName}
+        handleChange={handleChange}
+        listRender={listRender}
         query={query}
-        queryName={queryName}
-        searchKeyName={searchKeyName}
-        listRender={(move: MovePageQueryResult) => (
-          <>
-            <MoveEntry 
-              key={'moveEntry_' + move.id}
-              move={new MovePageResult(move)} 
-            />
-          </>
-        )}
+        queryVars={queryVars}
       />
       <Outlet />
     </>

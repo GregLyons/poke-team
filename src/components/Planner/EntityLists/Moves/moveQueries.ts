@@ -2,7 +2,7 @@ import {
   gql,
 } from '@apollo/client';
 import { GenerationNum } from '../../../../typeDefs/Generation';
-import { MoveSearchQueryResult } from '../../../../typeDefs/Move';
+import { MovePageResult, MoveSearchQueryResult } from '../../../../typeDefs/Move';
 
 // Main search query 
 // #region
@@ -87,6 +87,18 @@ export const MOVE_SEARCH_QUERY = gql`
 `;
 
 // #endregion
+
+// MovePage query 
+// #region
+
+export interface MovePageQuery {
+  moves: MovePageResult[]
+}
+
+export interface MovePageQueryVars {
+  gen: GenerationNum
+  limit: number
+}
 
 export const MOVE_PAGE_QUERY = gql`
   query MovePageQuery(
@@ -299,3 +311,8 @@ export const MOVE_PAGE_QUERY = gql`
     }
   }
 `;
+
+// #endregion
+
+// Move connection queries
+

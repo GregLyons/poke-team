@@ -21,7 +21,7 @@ const EntityAccordion = ({
   return (
     <div className="accordion">
       {accordionData.map(({title, content}, idx) => (
-        // Order of accordion of the accordion items will not change, so this is ok
+        // Order of accordion of the accordion items will not change, so index as key is ok
         <EntityAccordionItem
           key={idx}
           title={title}

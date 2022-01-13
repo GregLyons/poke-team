@@ -6,11 +6,8 @@ import {
   Outlet,
 } from 'react-router-dom';
 
-import { DocumentNode } from 'graphql';
-
 import {
   GenContext,
-  TeamContext,
 } from '../../../../contexts';
 
 import {
@@ -26,7 +23,6 @@ import {
 
 import MoveEntry from './MoveEntry';
 import EntitySearchMain from '../EntitySearchMain';
-import MoveSearchMainControls from './MoveSearchMainControls';
 
 const listRender = (data: MoveSearchQuery) => {
   return (
@@ -44,30 +40,26 @@ const listRender = (data: MoveSearchQuery) => {
 }
 const MoveSearchMain = () => {
   const { gen } = useContext(GenContext);
-  const [queryVars, setQueryVars] = useState({
+
+  const [queryVars, setQueryVars] = useState<MoveSearchQueryVars>({
     gen: gen,
     startsWith: '',
     limit: 5,
   })
 
-  const handleSubmit: (newQueryVars: any) => void = (newQueryVars) => {
+  const handleSubmit: (newQueryVars: MoveSearchQueryVars) => void = (newQueryVars) => {
     setQueryVars({
-      ...queryVars,
-      gen: gen,
       ...newQueryVars,
     });
   }
 
-  const sampleQuery: MoveSearchQuery = { moves: [] };
   return (
-    <>  
-      <div></div>
+    <>
       <EntitySearchMain 
         handleSubmit={handleSubmit}
         listRender={listRender}
         query={MOVE_SEARCH_QUERY}
         queryVars={queryVars}
-        sampleQuery={sampleQuery}
       />
       <Outlet />
     </>
