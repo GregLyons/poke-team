@@ -1,36 +1,25 @@
-
+import {
+  useEffect,
+  useState,
+} from "react";
 import {
   DocumentNode,
 } from 'graphql';
 import {
   useQuery,
 } from "@apollo/client";
-import {
-  useEffect,
-  useState,
-} from "react";
+
 import {
   GenerationNum,
 } from '../../../types-queries/Generation';
 import {
+  ListRenderArgs,
+} from './entityListRender';
+
+import {
   CartAction,
   TeamAction,
 } from '../../App';
-import { ListRenderArgs } from './entityListRender';
-
-// #region
-
-export function entityConnectionChangeHandler<QueryVars>(setQueryVars: React.Dispatch<React.SetStateAction<QueryVars>>): (x: QueryVars) => void {
-  return setQueryVars;
-}
-
-export function useEntityConnectionChangeHandler<QueryVars>(defaultQueryVars: QueryVars): [QueryVars, (newQueryVars: QueryVars) => void] {
-  const [queryVars, setQueryVars] = useState<QueryVars>(defaultQueryVars);
-  
-  return [queryVars, entityConnectionChangeHandler<QueryVars>(setQueryVars)];
-}
-
-// #endregion
 
 interface EntityConnectionSearchProps<SearchQuery, SearchQueryVars> {
   dispatchCart?: React.Dispatch<CartAction>

@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
-
+import {
+  Link,
+} from "react-router-dom";
 import './Planner.css';
 
 const PlannerNavBar = () => {

@@ -1,11 +1,11 @@
 import ReactDOM from 'react-dom';
-import './styles/index.css';
-import App from './components/App';
-import reportWebVitals from './reportWebVitals';
-
 import {
   BrowserRouter,
 } from 'react-router-dom';
+import './styles/index.css';
+import reportWebVitals from './reportWebVitals';
+
+import App from './components/App';
 
 // Set up ApolloClient
 //#region

@@ -1,16 +1,17 @@
 import {
   Pokemon,
 } from '../../types-queries/Pokemon';
-import TeamMember from './PokemonTeamMember';
-
 import {
   GenerationNum,
 } from '../../types-queries/Generation';
+
 import {
   CartAction,
   Team,
   TeamAction,
 } from '../App';
+
+import TeamMember from './PokemonTeamMember';
 
 type TeamDisplayProps = {
   dispatchCart: React.Dispatch<CartAction>

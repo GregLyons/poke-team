@@ -1,11 +1,13 @@
 import {
   useState,
 } from 'react';
-
 import {
   Outlet,
 } from 'react-router-dom';
 
+import {
+  ListRenderArgs, 
+} from '../entityListRender';
 import {
   EffectSearchQuery,
   EffectSearchResult,
@@ -14,19 +16,17 @@ import {
 
   EFFECT_SEARCH_QUERY,
 } from '../../../../types-queries/Effect';
-
-import EffectEntry from './EffectEntry';
-import EntitySearchMain from '../EntitySearchMain';
-import {
-  ListRenderArgs, 
-} from '../entityListRender';
 import {
   GenerationNum,
 } from '../../../../types-queries/Generation';
+
 import { 
   CartAction,
   TeamAction,
 } from "../../../App";
+
+import EffectEntry from './EffectEntry';
+import EntitySearchMain from '../EntitySearchMain';
 
 const listRender = ({ data, }: ListRenderArgs<EffectSearchQuery>) => {
   if (!data || !data.effects) return (<div>Data not found for the query 'effects'.</div>);

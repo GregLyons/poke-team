@@ -1,7 +1,9 @@
-import { DocumentNode } from 'graphql';
 import {
   useState,
 } from 'react';
+import {
+  DocumentNode,
+} from 'graphql';
 
 type SpecificEntitySearchProps = {
   query: DocumentNode,

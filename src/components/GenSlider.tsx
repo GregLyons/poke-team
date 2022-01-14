@@ -1,5 +1,6 @@
-import { NUMBER_OF_GENS } from "../utils/constants";
-
+import {
+  NUMBER_OF_GENS,
+} from "../utils/constants";
 import {
   GenerationNum,
 } from "../types-queries/Generation";

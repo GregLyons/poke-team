@@ -1,26 +1,25 @@
 import {
-  DocumentNode,
-} from 'graphql';
-
-import {
-  useLazyQuery,
-} from '@apollo/client';
-
-import {
   useEffect,
   useRef,
   useState,
 } from 'react';
-
 import {
   useSearchParams,
 } from 'react-router-dom';
+import {
+  DocumentNode,
+} from 'graphql';
+import {
+  useLazyQuery,
+} from '@apollo/client';
+
 import {
   GenerationNum,
 } from '../../../types-queries/Generation';
 import {
   ListRenderArgs,
 } from './entityListRender';
+
 import {
   CartAction,
   TeamAction,

@@ -1,23 +1,20 @@
 import {
   useEffect,
 } from 'react';
-
 import {
   Link,
   Outlet,
   useParams,
 } from 'react-router-dom';
-
 import {
   useLazyQuery,
 } from '@apollo/client';
 
-import EntityConnectionSearch, { useEntityConnectionChangeHandler, } from '../EntityConnectionSearch';
 
 import {
   MOVE_PAGE_QUERY,
   MOVE_EFFECT_QUERY,
-
+  
   MovePageQuery,
   MovePageQueryVars,
   MoveEffectQuery,
@@ -34,11 +31,17 @@ import {
   NUMBER_OF_GENS,
 } from '../../../../utils/constants';
 import { GenerationNum } from '../../../../types-queries/Generation';
+import {
+  ListRenderArgs,
+  useEntityConnectionChangeHandler,
+} from '../entityListRender';
+
 import { 
   CartAction,
   TeamAction,
 } from "../../../App";
-import { ListRenderArgs } from '../entityListRender';
+
+import EntityConnectionSearch from '../EntityConnectionSearch';
 
 const listRenderMoveEffect = ({ data, }: ListRenderArgs<MoveEffectQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);

@@ -1,4 +1,8 @@
 import {
+  useState,
+} from "react";
+
+import {
   CartAction,
   TeamAction,
 } from "../../App";
@@ -21,4 +25,14 @@ export class MissingDispatchError extends Error {
 
     this.name='MissingDispatchError';
   }
+}
+
+export function entityConnectionChangeHandler<QueryVars>(setQueryVars: React.Dispatch<React.SetStateAction<QueryVars>>): (x: QueryVars) => void {
+  return setQueryVars;
+}
+
+export function useEntityConnectionChangeHandler<QueryVars>(defaultQueryVars: QueryVars): [QueryVars, (newQueryVars: QueryVars) => void] {
+  const [queryVars, setQueryVars] = useState<QueryVars>(defaultQueryVars);
+  
+  return [queryVars, entityConnectionChangeHandler<QueryVars>(setQueryVars)];
 }

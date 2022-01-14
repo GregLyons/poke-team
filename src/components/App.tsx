@@ -1,34 +1,38 @@
 import {
-  Route,
-  Routes,
-} from 'react-router-dom';
-
-import NavBar from './NavBar/NavBar';
-import './../styles/App.css';
-import GenSlider from './GenSlider';
-import {
   useReducer,
   useState,
 } from 'react';
 import {
+  Route,
+  Routes,
+} from 'react-router-dom';
+import './../styles/App.css';
+
+import {
   stringToGenNumber,
   GenerationNum,
 } from '../types-queries/Generation';
-import Analyzer from './Analyzer/Analyzer';
-import Planner from './Planner/Planner';
-import Builder from './Builder/Builder';
-import PlannerHome from './Planner/EntityLists/PlannerHome';
-import MoveMainPage from './Planner/EntityLists/Moves/MoveMainPage';
-import EffectMainPage from './Planner/EntityLists/Effects/EffectMainPage';
-import MovePage from './Planner/EntityLists/Moves/MovePage';
-import EffectPage from './Planner/EntityLists/Effects/EffectPage';
-import {
-  NUMBER_OF_GENS,
-} from '../utils/constants';
 import {
   Pokemon,
 } from '../types-queries/Pokemon';
+import {
+  NUMBER_OF_GENS,
+} from '../utils/constants';
+
+import NavBar from './NavBar/NavBar';
+import GenSlider from './GenSlider';
 import TeamDisplay from './PokemonTeam/TeamDisplay';
+
+import Analyzer from './Analyzer/Analyzer';
+import Builder from './Builder/Builder';
+import Planner from './Planner/Planner';
+import PlannerHome from './Planner/EntityLists/PlannerHome';
+
+import EffectMainPage from './Planner/EntityLists/Effects/EffectMainPage';
+import EffectPage from './Planner/EntityLists/Effects/EffectPage';
+import MoveMainPage from './Planner/EntityLists/Moves/MoveMainPage';
+import MovePage from './Planner/EntityLists/Moves/MovePage';
+
 
 export type Team = Pokemon[];
 export type TeamAction = 

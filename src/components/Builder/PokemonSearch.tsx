@@ -2,7 +2,6 @@ import {
   useEffect,
   useState,
 } from 'react';
-
 import {
   useLazyQuery,
   gql,
@@ -15,6 +14,7 @@ import {
 import {
   GenerationNum,
 } from '../../types-queries/Generation';
+
 import { CartAction, TeamAction } from '../App';
 
 const POKEMON_SEARCH_QUERY = gql`

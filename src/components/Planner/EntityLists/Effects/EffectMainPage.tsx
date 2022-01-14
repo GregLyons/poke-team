@@ -1,10 +1,12 @@
 import {
   GenerationNum,
 } from "../../../../types-queries/Generation";
+
 import { 
   CartAction,
   TeamAction,
 } from "../../../App";
+
 import EffectSearch from "./EffectSearchMain"
 
 type EffectMainPageProps = {

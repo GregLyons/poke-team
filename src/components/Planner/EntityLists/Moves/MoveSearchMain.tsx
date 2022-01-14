@@ -1,7 +1,6 @@
 import {
   useState,
 } from 'react';
-
 import {
   Outlet,
 } from 'react-router-dom';
@@ -14,19 +13,20 @@ import {
 
   MOVE_SEARCH_QUERY,
 } from '../../../../types-queries/Move';
-
-import MoveEntry from './MoveEntry';
-import EntitySearchMain from '../EntitySearchMain';
 import {
   GenerationNum,
 } from '../../../../types-queries/Generation';
+import {
+  ListRenderArgs, MissingDispatchError,
+} from '../entityListRender';
+
 import { 
   CartAction,
   TeamAction,
 } from "../../../App";
-import {
-  ListRenderArgs, MissingDispatchError,
-} from '../entityListRender';
+
+import EntitySearchMain from '../EntitySearchMain';
+import MoveEntry from './MoveEntry';
 
 const listRender = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<MoveSearchQuery>) => {
   if (!data || !data.moves) return (<div>Data not found for the query 'moves'.</div>);

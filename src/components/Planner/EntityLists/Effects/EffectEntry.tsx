@@ -6,10 +6,6 @@ import {
 import {
   EffectInSearch,
 } from '../../../../types-queries/Effect';
-import { 
-  CartAction,
-  TeamAction,
-} from "../../../App";
 
 type EffectEntryProps = {
   effect: EffectInSearch

@@ -1,8 +1,16 @@
-import { useContext } from 'react';
-import { GenerationNum } from '../../types-queries/Generation';
-import { Pokemon } from '../../types-queries/Pokemon';
-import { getPokemonSprite } from '../../utils/sprites';
-import { TeamAction } from '../App';
+import {
+  GenerationNum,
+} from '../../types-queries/Generation';
+import {
+  Pokemon,
+} from '../../types-queries/Pokemon';
+import {
+  getPokemonSprite,
+} from '../../utils/sprites';
+
+import {
+  TeamAction,
+} from '../App';
 
 // Converts keys from BaseStat object to formatted names.
 // const baseStatMap_fullName = new Map([

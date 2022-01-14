@@ -1,34 +1,29 @@
 import {
   useEffect,
 } from 'react';
-
 import {
   Link,
   Outlet,
   useParams,
 } from 'react-router-dom';
-
 import {
   useLazyQuery,
 } from '@apollo/client';
 
-import EntityConnectionSearch, { useEntityConnectionChangeHandler, } from '../EntityConnectionSearch';
-
 import {
   ListRenderArgs,
+  useEntityConnectionChangeHandler,
 } from '../entityListRender';
-
 import {
   EFFECT_PAGE_QUERY,
   EFFECT_MOVE_QUERY,
-
+  
   EffectPageQuery,
   EffectPageQueryVars,
   EffectMoveQuery,
   EffectMoveQueryVars,
   EffectMoveEdge,
 } from '../../../../types-queries/Effect';
-
 import {
   INTRODUCTION_QUERY,
   
@@ -41,15 +36,18 @@ import {
 import {
   GenerationNum,
 } from '../../../../types-queries/Generation';
+
 import { 
   CartAction,
   TeamAction,
 } from "../../../App";
 
+import EntityConnectionSearch from '../EntityConnectionSearch';
+
 const listRenderEffectMove = ({ data, }: ListRenderArgs<EffectMoveQuery>) => {
-if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
-return (
-  <>
+  if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
+  return (
+    <>
     {data.effectByName[0].moves.edges.map((moveEdge: EffectMoveEdge) => (
       <div>
         <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
