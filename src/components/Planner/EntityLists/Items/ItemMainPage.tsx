@@ -5,21 +5,21 @@ import {
   TeamAction,
 } from "../../../App";
 
-import MoveSearch from "./MoveSearch";
+import ItemSearch from "./ItemSearch";
 
-type MoveMainProps = {
+type ItemMainProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
 }
 
-const MoveMainPage = ({ 
+const ItemMainPage = ({ 
   dispatchCart,
   dispatchTeam,
   gen,
-}: MoveMainProps) => {
+}: ItemMainProps) => {
   return (
-    <MoveSearch 
+    <ItemSearch 
       dispatchCart={dispatchCart}
       dispatchTeam={dispatchTeam}
       gen={gen}
@@ -27,4 +27,4 @@ const MoveMainPage = ({
   )
 }
 
-export default MoveMainPage;
+export default ItemMainPage;

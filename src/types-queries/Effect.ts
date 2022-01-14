@@ -185,6 +185,157 @@ export class EffectOnPage extends EntityOnPage {
 // Effect connections
 // #region
 
+// EffectAbility
+// #region
+
+export type EffectAbilityQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    abilities: {
+      edges: EffectAbilityEdge[]
+    }
+  }[]
+}
+
+export interface EffectAbilityEdge extends EntityConnectionEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+
+    type: {
+      edges: TypeNameEdge[]
+    }
+
+    pokemon: {
+      edges: PokemonIconEdge[]
+    }
+  }
+}
+
+export interface EffectAbilityQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+  startsWith: string
+}
+
+export const EFFECT_ABILITY_QUERY = gql`
+  query EffectAbilitiesQuery(
+    $gen: Int!
+    $name: String!
+    $startsWith: String!
+  ) {
+    effectByName(
+      generation: $gen,
+      name: $name
+    ) {
+      id 
+      abilities(filter: { startsWith: $startsWith }) {
+        edges {
+          node {
+            id
+            name
+            formattedName
+
+            pokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export class EffectAbilityResult extends EntityConnectionOnPage {
+  constructor(gqlEffectAbility: EffectAbilityEdge) {
+    super(gqlEffectAbility);
+  }
+}
+
+// #endregion
+// EffectItem
+// #region
+
+export type EffectItemQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    items: {
+      edges: EffectItemEdge[]
+    }
+  }[]
+}
+
+export interface EffectItemEdge extends EntityConnectionEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+
+    type: {
+      edges: TypeNameEdge[]
+    }
+
+    pokemon: {
+      edges: PokemonIconEdge[]
+    }
+  }
+}
+
+export interface EffectItemQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+  startsWith: string
+}
+
+export const EFFECT_ITEM_QUERY = gql`
+  query EffectItemsQuery(
+    $gen: Int!
+    $name: String!
+    $startsWith: String!
+  ) {
+    effectByName(
+      generation: $gen,
+      name: $name
+    ) {
+      id 
+      items(filter: { startsWith: $startsWith }) {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+      }
+    }
+  }
+`;
+
+export class EffectItemResult extends EntityConnectionOnPage {
+  constructor(gqlEffectItem: EffectItemEdge) {
+    super(gqlEffectItem);
+  }
+}
+
+// #endregion
+// EffectMove
+// #region
+
 export type EffectMoveQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
@@ -281,5 +432,7 @@ export class EffectMoveResult extends EntityConnectionOnPage {
     this.pokemonIconData = gqlEffectMove.node.pokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
   }
 }
+
+// #endregion
 
 // #endregion

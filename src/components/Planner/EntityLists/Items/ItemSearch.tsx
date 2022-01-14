@@ -6,13 +6,13 @@ import {
 } from 'react-router-dom';
 
 import {
-  MoveSearchQuery,
-  MoveSearchResult,
-  MoveSearchVars,
-  MoveInSearch,
+  ItemSearchQuery,
+  ItemSearchResult,
+  ItemSearchVars,
+  ItemInSearch,
 
-  MOVE_SEARCH_QUERY,
-} from '../../../../types-queries/Move';
+  ITEM_SEARCH_QUERY,
+} from '../../../../types-queries/Item';
 import {
   GenerationNum,
 } from '../../../../types-queries/Generation';
@@ -26,21 +26,21 @@ import {
 } from "../../../App";
 
 import EntitySearchMain from '../EntitySearchMain';
-import MoveEntry from './MoveEntry';
+import ItemEntry from './ItemEntry';
 
-const listRender = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<MoveSearchQuery>) => {
-  if (!data || !data.moves) return (<div>Data not found for the query 'moves'.</div>);
+const listRender = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<ItemSearchQuery>) => {
+  if (!data || !data.items) return (<div>Data not found for the query 'items'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.')
   
   return (
     <>
-      {data.moves.map((move: MoveSearchResult) => (
+      {data.items.map((item: ItemSearchResult) => (
           <>
-            <MoveEntry 
+            <ItemEntry 
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
-              key={'moveEntry_' + move.id}
-              move={new MoveInSearch(move)} 
+              key={'itemEntry_' + item.id}
+              item={new ItemInSearch(item)} 
             />
           </>
         ))}
@@ -48,24 +48,24 @@ const listRender = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<MoveSe
   );
 }
 
-type MoveSearchMainProps = {
+type ItemSearchProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
 }
 
-const MoveSearchMain = ({
+const ItemSearch = ({
   dispatchCart,
   dispatchTeam,
   gen,
-}: MoveSearchMainProps) => {
-  const [queryVars, setQueryVars] = useState<MoveSearchVars>({
+}: ItemSearchProps) => {
+  const [queryVars, setQueryVars] = useState<ItemSearchVars>({
     gen: gen,
     startsWith: '',
     limit: 5,
   })
 
-  const handleSubmit: (newQueryVars: MoveSearchVars) => void = (newQueryVars) => {
+  const handleSubmit: (newQueryVars: ItemSearchVars) => void = (newQueryVars) => {
     setQueryVars({
       ...newQueryVars,
     });
@@ -79,7 +79,7 @@ const MoveSearchMain = ({
         gen={gen}
         handleSubmit={handleSubmit}
         listRender={listRender}
-        query={MOVE_SEARCH_QUERY}
+        query={ITEM_SEARCH_QUERY}
         queryVars={queryVars}
       />
       <Outlet />
@@ -87,4 +87,4 @@ const MoveSearchMain = ({
   );
 };
 
-export default MoveSearchMain;
+export default ItemSearch;

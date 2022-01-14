@@ -51,7 +51,7 @@ type EffectSearchMainProps = {
   gen: GenerationNum
 }
 
-const EffectSearchMain = ({
+const EffectSearch = ({
   dispatchCart,
   dispatchTeam,
   gen,
@@ -83,4 +83,4 @@ const EffectSearchMain = ({
   );
 };
 
-export default EffectSearchMain;
+export default EffectSearch;

@@ -28,8 +28,12 @@ import Builder from './Builder/Builder';
 import Planner from './Planner/Planner';
 import PlannerHome from './Planner/EntityLists/PlannerHome';
 
+import AbilityMainPage from './Planner/EntityLists/Abilities/AbilityMainPage';
+import AbilityPage from './Planner/EntityLists/Abilities/AbilityPage';
 import EffectMainPage from './Planner/EntityLists/Effects/EffectMainPage';
 import EffectPage from './Planner/EntityLists/Effects/EffectPage';
+import ItemMainPage from './Planner/EntityLists/Items/ItemMainPage';
+import ItemPage from './Planner/EntityLists/Items/ItemPage';
 import MoveMainPage from './Planner/EntityLists/Moves/MoveMainPage';
 import MovePage from './Planner/EntityLists/Moves/MovePage';
 
@@ -129,20 +133,32 @@ function App() {
           {/* */}
           <Route 
             path='abilities' 
-            element={<PlannerHome
+            element={<AbilityMainPage
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               gen={gen}
             />}
           />
+          <Route path="abilities/:abilityId" element={<AbilityPage 
+            dispatchCart={dispatchCart}
+            dispatchTeam={dispatchTeam}
+            gen={gen}
+          />} />
+
           <Route 
             path='items' 
-            element={<PlannerHome
+            element={<ItemMainPage
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               gen={gen}
             />}
           />
+          <Route path="items/:itemId" element={<ItemPage 
+            dispatchCart={dispatchCart}
+            dispatchTeam={dispatchTeam}
+            gen={gen}
+          />} />
+
           <Route 
             path='moves' 
             element={<MoveMainPage

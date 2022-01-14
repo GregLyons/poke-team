@@ -7,7 +7,7 @@ import {
   TeamAction,
 } from "../../../App";
 
-import EffectSearch from "./EffectSearchMain"
+import EffectSearch from "./EffectSearch"
 
 type EffectMainPageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -21,7 +21,7 @@ const EffectMainPage = ({
   gen,
 }: EffectMainPageProps) => {
   return (
-    <EffectSearch 
+    <EffectSearch
       dispatchCart={dispatchCart}
       dispatchTeam={dispatchTeam}
       gen={gen}

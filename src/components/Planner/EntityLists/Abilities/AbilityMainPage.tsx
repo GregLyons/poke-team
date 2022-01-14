@@ -1,25 +1,27 @@
-import { GenerationNum } from "../../../../types-queries/Generation";
+import {
+  GenerationNum,
+} from "../../../../types-queries/Generation";
 
 import { 
   CartAction,
   TeamAction,
 } from "../../../App";
 
-import MoveSearch from "./MoveSearch";
+import AbilitySearch from "./AbilitySearch";
 
-type MoveMainProps = {
+type AbilityMainPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
 }
 
-const MoveMainPage = ({ 
+const AbilityMainPage = ({ 
   dispatchCart,
   dispatchTeam,
   gen,
-}: MoveMainProps) => {
+}: AbilityMainPageProps) => {
   return (
-    <MoveSearch 
+    <AbilitySearch
       dispatchCart={dispatchCart}
       dispatchTeam={dispatchTeam}
       gen={gen}
@@ -27,4 +29,4 @@ const MoveMainPage = ({
   )
 }
 
-export default MoveMainPage;
+export default AbilityMainPage;

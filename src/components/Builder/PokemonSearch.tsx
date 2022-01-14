@@ -15,7 +15,10 @@ import {
   GenerationNum,
 } from '../../types-queries/Generation';
 
-import { CartAction, TeamAction } from '../App';
+import {
+  CartAction,
+  TeamAction,
+} from '../App';
 
 const POKEMON_SEARCH_QUERY = gql`
   query PokemonSearchQuery(

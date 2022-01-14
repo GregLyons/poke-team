@@ -16,10 +16,20 @@ import {
 } from '../entityListRender';
 import {
   EFFECT_PAGE_QUERY,
-  EFFECT_MOVE_QUERY,
-  
   EffectPageQuery,
   EffectPageQueryVars,
+
+  EFFECT_ABILITY_QUERY,
+  EffectAbilityQuery,
+  EffectAbilityQueryVars,
+  EffectAbilityEdge,
+
+  EFFECT_ITEM_QUERY,
+  EffectItemQuery,
+  EffectItemQueryVars,
+  EffectItemEdge,
+
+  EFFECT_MOVE_QUERY,
   EffectMoveQuery,
   EffectMoveQueryVars,
   EffectMoveEdge,
@@ -44,17 +54,43 @@ import {
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
 
+const listRenderEffectAbility = ({ data, }: ListRenderArgs<EffectAbilityQuery>) => {
+  if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
+  return (
+    <>
+      {data.effectByName[0].abilities.edges.map((abilityEdge: EffectAbilityEdge) => (
+        <div>
+          <Link to={`../abilities/${abilityEdge.node.name}`}>{abilityEdge.node.formattedName}</Link>
+        </div>
+      ))}
+    </>
+  );
+}
+
+const listRenderEffectItem = ({ data, }: ListRenderArgs<EffectItemQuery>) => {
+  if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
+  return (
+    <>
+      {data.effectByName[0].items.edges.map((itemEdge: EffectItemEdge) => (
+        <div>
+          <Link to={`../items/${itemEdge.node.name}`}>{itemEdge.node.formattedName}</Link>
+        </div>
+      ))}
+    </>
+  );
+}
+
 const listRenderEffectMove = ({ data, }: ListRenderArgs<EffectMoveQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
   return (
     <>
-    {data.effectByName[0].moves.edges.map((moveEdge: EffectMoveEdge) => (
-      <div>
-        <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
-      </div>
-    ))}
-  </>
-)
+      {data.effectByName[0].moves.edges.map((moveEdge: EffectMoveEdge) => (
+        <div>
+          <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
+        </div>
+      ))}
+    </>
+  );
 }
 
 type EffectPageProps = {
@@ -72,11 +108,27 @@ const EffectPage = ({
   
   const effectName = params.effectId || '';
 
+  // Connection queries
+  // #region 
+  const [abilityQueryVars, handleChangeAbility] = useEntityConnectionChangeHandler<EffectAbilityQueryVars>({
+    gen: gen,
+    name: effectName,
+    startsWith: '',
+  });
+
+  const [itemQueryVars, handleChangeItem] = useEntityConnectionChangeHandler<EffectItemQueryVars>({
+    gen: gen,
+    name: effectName,
+    startsWith: '',
+  });
+
   const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<EffectMoveQueryVars>({
     gen: gen,
     name: effectName,
     startsWith: '',
   });
+
+  // #endregion
 
   const [executeSearch, { loading, error, data }] = useLazyQuery<EffectPageQuery, EffectPageQueryVars>(
   EFFECT_PAGE_QUERY);
@@ -191,6 +243,28 @@ const EffectPage = ({
   return (
     <>
       <h1>{effectResult.formattedName}</h1>
+
+      <h2>Abilities</h2>
+      <EntityConnectionSearch
+        dispatchCart={dispatchCart}
+        dispatchTeam={dispatchTeam}
+        gen={gen}
+        handleChange={handleChangeAbility}
+        listRender={listRenderEffectAbility}
+        query={EFFECT_ABILITY_QUERY}
+        queryVars={abilityQueryVars}
+      />
+
+      <h2>Items</h2>
+      <EntityConnectionSearch
+        dispatchCart={dispatchCart}
+        dispatchTeam={dispatchTeam}
+        gen={gen}
+        handleChange={handleChangeItem}
+        listRender={listRenderEffectItem}
+        query={EFFECT_ITEM_QUERY}
+        queryVars={itemQueryVars}
+      />
 
       <h2>Moves</h2>
       <EntityConnectionSearch

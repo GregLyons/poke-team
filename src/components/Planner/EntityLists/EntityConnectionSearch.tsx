@@ -14,7 +14,7 @@ import {
 } from '../../../types-queries/Generation';
 import {
   ListRenderArgs,
-} from './entityListRender';
+} from "./entityListRender";
 
 import {
   CartAction,

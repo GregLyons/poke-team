@@ -2,10 +2,14 @@ import {
   Link,
   Outlet,
 } from 'react-router-dom';
+
+import {
+  getPokemonIcon,
+} from '../../../../utils/sprites';
 import { 
   MoveInSearch,
 } from '../../../../types-queries/Move';
-import { getPokemonIcon } from '../../../../utils/sprites';
+
 import { 
   CartAction,
   TeamAction,
