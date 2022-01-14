@@ -6,12 +6,20 @@ import {
   MoveInSearch,
 } from '../../../../types-queries/Move';
 import { getPokemonIcon } from '../../../../utils/sprites';
+import { 
+  CartAction,
+  TeamAction,
+} from "../../../App";
 
 type MoveEntryProps = {
+  dispatchCart: React.Dispatch<CartAction>
+  dispatchTeam: React.Dispatch<TeamAction>
   move: MoveInSearch
 }
 
 const MoveEntry = ({
+  dispatchCart,
+  dispatchTeam,
   move,
 }: MoveEntryProps) => {
   // Since Pokemon can learn Moves in multiple ways, we need to worry about duplicates. The keys of this object are Pokemon names, and the value is always 'true'; we only care about the keys.

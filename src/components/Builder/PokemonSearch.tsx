@@ -1,5 +1,4 @@
 import {
-  useContext,
   useEffect,
   useState,
 } from 'react';
@@ -13,7 +12,10 @@ import {
   Pokemon,
   PokemonGQLResult,
 } from '../../types-queries/Pokemon';
-import { GenerationNum } from '../../types-queries/Generation';
+import {
+  GenerationNum,
+} from '../../types-queries/Generation';
+import { CartAction, TeamAction } from '../App';
 
 const POKEMON_SEARCH_QUERY = gql`
   query PokemonSearchQuery(
@@ -59,11 +61,16 @@ const POKEMON_SEARCH_QUERY = gql`
 `;
 
 type PokemonSearchProps = {
-  addToTeam: (pokemon: Pokemon) => void
+  dispatchCart: React.Dispatch<CartAction>
+  dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
 }
 
-const PokemonSearch = ({ addToTeam, gen }: PokemonSearchProps) => {
+const PokemonSearch = ({
+  dispatchCart,
+  dispatchTeam,
+  gen,
+}: PokemonSearchProps) => {
   const [searchFilter, setSearchFilter] = useState({});
   const [executedSearch, setExecutedSearch] = useState<boolean>(false);
 
@@ -114,7 +121,7 @@ const PokemonSearch = ({ addToTeam, gen }: PokemonSearchProps) => {
               key={pokemon.id}
               onClick={(e) => {
                 e.preventDefault();
-                addToTeam(new Pokemon(pokemon));
+                dispatchTeam({ type: 'add', payload: new Pokemon(pokemon)});
               }}
             >
               {pokemon.name}

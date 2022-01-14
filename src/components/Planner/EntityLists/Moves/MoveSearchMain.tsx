@@ -1,5 +1,5 @@
 import {
-  useContext, useState,
+  useState,
 } from 'react';
 
 import {
@@ -17,16 +17,28 @@ import {
 
 import MoveEntry from './MoveEntry';
 import EntitySearchMain from '../EntitySearchMain';
-import { GenerationNum } from '../../../../types-queries/Generation';
+import {
+  GenerationNum,
+} from '../../../../types-queries/Generation';
+import { 
+  CartAction,
+  TeamAction,
+} from "../../../App";
+import {
+  ListRenderArgs, MissingDispatchError,
+} from '../entityListRender';
 
-const listRender = (data: MoveSearchQuery) => {
+const listRender = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<MoveSearchQuery>) => {
   if (!data || !data.moves) return (<div>Data not found for the query 'moves'.</div>);
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.')
   
   return (
     <>
       {data.moves.map((move: MoveSearchResult) => (
           <>
             <MoveEntry 
+              dispatchCart={dispatchCart}
+              dispatchTeam={dispatchTeam}
               key={'moveEntry_' + move.id}
               move={new MoveInSearch(move)} 
             />
@@ -37,10 +49,16 @@ const listRender = (data: MoveSearchQuery) => {
 }
 
 type MoveSearchMainProps = {
+  dispatchCart: React.Dispatch<CartAction>
+  dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
 }
 
-const MoveSearchMain = ({ gen }: MoveSearchMainProps) => {
+const MoveSearchMain = ({
+  dispatchCart,
+  dispatchTeam,
+  gen,
+}: MoveSearchMainProps) => {
   const [queryVars, setQueryVars] = useState<MoveSearchVars>({
     gen: gen,
     startsWith: '',
@@ -56,6 +74,8 @@ const MoveSearchMain = ({ gen }: MoveSearchMainProps) => {
   return (
     <>
       <EntitySearchMain 
+        dispatchCart={dispatchCart}
+        dispatchTeam={dispatchTeam}
         gen={gen}
         handleSubmit={handleSubmit}
         listRender={listRender}

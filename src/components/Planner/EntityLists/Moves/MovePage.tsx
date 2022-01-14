@@ -1,5 +1,4 @@
 import {
-  useContext,
   useEffect,
 } from 'react';
 
@@ -35,8 +34,13 @@ import {
   NUMBER_OF_GENS,
 } from '../../../../utils/constants';
 import { GenerationNum } from '../../../../types-queries/Generation';
+import { 
+  CartAction,
+  TeamAction,
+} from "../../../App";
+import { ListRenderArgs } from '../entityListRender';
 
-const listRenderMoveEffect = (data: MoveEffectQuery) => {
+const listRenderMoveEffect = ({ data, }: ListRenderArgs<MoveEffectQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
   return (
@@ -51,10 +55,16 @@ const listRenderMoveEffect = (data: MoveEffectQuery) => {
 }
 
 type MovePageProps = {
+  dispatchCart: React.Dispatch<CartAction>
+  dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
 }
 
-const MovePage = ({ gen }: MovePageProps) => {
+const MovePage = ({ 
+  dispatchCart,
+  dispatchTeam,
+  gen,
+}: MovePageProps) => {
   const params = useParams();
   
   const moveName = params.moveId || '';

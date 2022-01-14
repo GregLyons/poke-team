@@ -1,5 +1,5 @@
 import {
-  useContext, useState,
+  useState,
 } from 'react';
 
 import {
@@ -17,16 +17,25 @@ import {
 
 import EffectEntry from './EffectEntry';
 import EntitySearchMain from '../EntitySearchMain';
-import { GenerationNum } from '../../../../types-queries/Generation';
+import {
+  ListRenderArgs, 
+} from '../entityListRender';
+import {
+  GenerationNum,
+} from '../../../../types-queries/Generation';
+import { 
+  CartAction,
+  TeamAction,
+} from "../../../App";
 
-const listRender = (data: EffectSearchQuery) => {
+const listRender = ({ data, }: ListRenderArgs<EffectSearchQuery>) => {
   if (!data || !data.effects) return (<div>Data not found for the query 'effects'.</div>);
   
   return (
     <>
       {data.effects.map((effect: EffectSearchResult) => (
           <>
-            <EffectEntry 
+            <EffectEntry
               key={'moveEntry_' + effect.id}
               effect={new EffectInSearch(effect)} 
             />
@@ -37,10 +46,16 @@ const listRender = (data: EffectSearchQuery) => {
 }
 
 type EffectSearchMainProps = {
+  dispatchCart: React.Dispatch<CartAction>
+  dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
 }
 
-const EffectSearchMain = ({ gen }: EffectSearchMainProps) => {
+const EffectSearchMain = ({
+  dispatchCart,
+  dispatchTeam,
+  gen,
+}: EffectSearchMainProps) => {
 
   const [queryVars, setQueryVars] = useState<EffectSearchVars>({
     gen: gen,
@@ -56,7 +71,7 @@ const EffectSearchMain = ({ gen }: EffectSearchMainProps) => {
 
   return (
     <>
-      <EntitySearchMain 
+      <EntitySearchMain
         gen={gen}
         handleSubmit={handleSubmit}
         listRender={listRender}

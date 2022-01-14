@@ -6,11 +6,17 @@ import {
   useQuery,
 } from "@apollo/client";
 import {
-  useContext,
   useEffect,
   useState,
 } from "react";
-import { GenerationNum } from '../../../types-queries/Generation';
+import {
+  GenerationNum,
+} from '../../../types-queries/Generation';
+import {
+  CartAction,
+  TeamAction,
+} from '../../App';
+import { ListRenderArgs } from './entityListRender';
 
 // #region
 
@@ -27,14 +33,18 @@ export function useEntityConnectionChangeHandler<QueryVars>(defaultQueryVars: Qu
 // #endregion
 
 interface EntityConnectionSearchProps<SearchQuery, SearchQueryVars> {
+  dispatchCart?: React.Dispatch<CartAction>
+  dispatchTeam?: React.Dispatch<TeamAction>
   gen: GenerationNum
   handleChange: (newQueryVars: SearchQueryVars) => void,
-  listRender: (data: SearchQuery) => JSX.Element,
+  listRender: ({ data, dispatchCart, dispatchTeam }: ListRenderArgs<SearchQuery>) => JSX.Element,
   query: DocumentNode,
   queryVars: SearchQueryVars,
 }
 
 function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
+  dispatchCart,
+  dispatchTeam,
   gen,
   handleChange,
   listRender,
@@ -85,7 +95,7 @@ function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
       </div>
       {loading 
         ? <div>Loading...</div>
-        : data && listRender(data)
+        : data && listRender({ data, dispatchCart, dispatchTeam })
       }
     </>
   );

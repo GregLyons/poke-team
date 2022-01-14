@@ -6,13 +6,17 @@ import {
 import {
   EffectInSearch,
 } from '../../../../types-queries/Effect';
+import { 
+  CartAction,
+  TeamAction,
+} from "../../../App";
 
 type EffectEntryProps = {
   effect: EffectInSearch
 }
 
 const EffectEntry = ({
-  effect
+  effect,
 }: EffectEntryProps) => {
   // Since Pokemon can learn Moves in multiple ways, we need to worry about duplicates. The keys of this object are Pokemon names, and the value is always 'true'; we only care about the keys.
 

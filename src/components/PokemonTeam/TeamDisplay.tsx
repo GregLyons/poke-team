@@ -1,20 +1,30 @@
 import {
-  useContext,
-} from 'react';
-
-import { Pokemon } from '../../types-queries/Pokemon';
+  Pokemon,
+} from '../../types-queries/Pokemon';
 import TeamMember from './PokemonTeamMember';
 
-import { TeamContext } from '../../contexts';
-import { GenerationNum } from '../../types-queries/Generation';
+import {
+  GenerationNum,
+} from '../../types-queries/Generation';
+import {
+  CartAction,
+  Team,
+  TeamAction,
+} from '../App';
 
-type TeamProps = {
+type TeamDisplayProps = {
+  dispatchCart: React.Dispatch<CartAction>
+  dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
+  team: Team
 }
 
-const Team = ({ gen }: TeamProps) => {
-  const { team, removeFromTeam } = useContext(TeamContext);
-
+const TeamDisplay = ({
+  dispatchCart,
+  dispatchTeam,
+  gen,
+  team,
+}: TeamDisplayProps) => {
   return (
     <div className="pokemon-team">
       {[
@@ -24,7 +34,7 @@ const Team = ({ gen }: TeamProps) => {
           gen={gen}
           pokemon={pokemon}
           idx={idx}
-          removeFromTeam={removeFromTeam}
+          dispatchTeam={dispatchTeam}
         />
         )),
         // Placeholder for missing team members
@@ -42,4 +52,4 @@ const Team = ({ gen }: TeamProps) => {
   );
 };
 
-export default Team;
+export default TeamDisplay;

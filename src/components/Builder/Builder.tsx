@@ -1,23 +1,30 @@
 import {
-  useContext,
-} from 'react';
-
-import { TeamContext } from '../../contexts';
-import { GenerationNum } from '../../types-queries/Generation';
+  GenerationNum,
+} from '../../types-queries/Generation';
+import {
+  CartAction,
+  TeamAction,
+} from '../App';
 
 import PokemonSearch from './PokemonSearch';
 
 type BuilderProps = {
+  dispatchCart: React.Dispatch<CartAction>
+  dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
 }
 
-const Builder = ({ gen }: BuilderProps) => {
-  const { addToTeam } = useContext(TeamContext);
+const Builder = ({
+  dispatchCart,
+  dispatchTeam,
+  gen,
+}: BuilderProps) => {
 
   return (
     <div className="builder-wrapper">
       <PokemonSearch 
-        addToTeam={addToTeam}
+        dispatchCart={dispatchCart}
+        dispatchTeam={dispatchTeam}
         gen={gen}
       />
     </div>

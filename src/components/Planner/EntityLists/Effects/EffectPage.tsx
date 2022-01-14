@@ -1,5 +1,5 @@
 import {
-  useContext, useEffect,
+  useEffect,
 } from 'react';
 
 import {
@@ -13,6 +13,10 @@ import {
 } from '@apollo/client';
 
 import EntityConnectionSearch, { useEntityConnectionChangeHandler, } from '../EntityConnectionSearch';
+
+import {
+  ListRenderArgs,
+} from '../entityListRender';
 
 import {
   EFFECT_PAGE_QUERY,
@@ -34,26 +38,38 @@ import {
 import {
   NUMBER_OF_GENS,
 } from '../../../../utils/constants';
-import { GenerationNum } from '../../../../types-queries/Generation';
+import {
+  GenerationNum,
+} from '../../../../types-queries/Generation';
+import { 
+  CartAction,
+  TeamAction,
+} from "../../../App";
 
-const listRenderEffectMove = (data: EffectMoveQuery) => {
-  if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
-  return (
-    <>
-      {data.effectByName[0].moves.edges.map((moveEdge: EffectMoveEdge) => (
-        <div>
-          <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
-        </div>
-      ))}
-    </>
-  )
+const listRenderEffectMove = ({ data, }: ListRenderArgs<EffectMoveQuery>) => {
+if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
+return (
+  <>
+    {data.effectByName[0].moves.edges.map((moveEdge: EffectMoveEdge) => (
+      <div>
+        <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
+      </div>
+    ))}
+  </>
+)
 }
 
 type EffectPageProps = {
+  dispatchCart: React.Dispatch<CartAction>
+  dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
 }
 
-const EffectPage = ({ gen }: EffectPageProps) => {
+const EffectPage = ({
+  dispatchCart,
+  dispatchTeam,
+  gen,
+}: EffectPageProps) => {
   const params = useParams();
   
   const effectName = params.effectId || '';
@@ -67,7 +83,6 @@ const EffectPage = ({ gen }: EffectPageProps) => {
   const [executeSearch, { loading, error, data }] = useLazyQuery<EffectPageQuery, EffectPageQueryVars>(
   EFFECT_PAGE_QUERY);
   useEffect(() => {
-    console.log('queried');
     executeSearch({
       variables: {
         gen: gen,
@@ -181,6 +196,8 @@ const EffectPage = ({ gen }: EffectPageProps) => {
 
       <h2>Moves</h2>
       <EntityConnectionSearch
+        dispatchCart={dispatchCart}
+        dispatchTeam={dispatchTeam}
         gen={gen}
         handleChange={handleChangeMove}
         listRender={listRenderEffectMove}

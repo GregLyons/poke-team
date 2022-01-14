@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { GenerationNum } from '../../types-queries/Generation';
 import { Pokemon } from '../../types-queries/Pokemon';
 import { getPokemonSprite } from '../../utils/sprites';
+import { TeamAction } from '../App';
 
 // Converts keys from BaseStat object to formatted names.
 // const baseStatMap_fullName = new Map([
@@ -24,15 +25,18 @@ const baseStatMap_abbr = new Map([
 ]);
 
 type TeamMemberProps = {
+  dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
-  pokemon: Pokemon
   idx: number
-  removeFromTeam: (idx: number) => void
+  pokemon: Pokemon
 }
 
-const TeamMember = (
-  { gen, pokemon, idx, removeFromTeam,}: TeamMemberProps
-) => {
+const TeamMember = ({
+  dispatchTeam,
+  gen,
+  idx,
+  pokemon,
+}: TeamMemberProps) => {
   const {url, w: width, h: height, pixelated} = getPokemonSprite(pokemon, gen);
 
   return (
@@ -58,7 +62,7 @@ const TeamMember = (
       {/* Remove button */}
       <button
         className="pokemon-team__remove-btn"
-        onClick={() => removeFromTeam(idx)}
+        onClick={() => dispatchTeam({ type: 'remove', payload: idx })}
       >
         Remove
       </button>

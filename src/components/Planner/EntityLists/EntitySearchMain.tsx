@@ -6,8 +6,7 @@ import {
   useLazyQuery,
 } from '@apollo/client';
 
-import { 
-  useContext,
+import {
   useEffect,
   useRef,
   useState,
@@ -16,17 +15,30 @@ import {
 import {
   useSearchParams,
 } from 'react-router-dom';
-import { GenerationNum } from '../../../types-queries/Generation';
+import {
+  GenerationNum,
+} from '../../../types-queries/Generation';
+import {
+  ListRenderArgs,
+} from './entityListRender';
+import {
+  CartAction,
+  TeamAction,
+} from '../../App';
 
 interface EntitySearchMainProps<SearchQuery, SearchQueryVars> {
+  dispatchCart?: React.Dispatch<CartAction>
+  dispatchTeam?: React.Dispatch<TeamAction>
   gen: GenerationNum
   handleSubmit: (newQueryVars: SearchQueryVars) => void,
   query: DocumentNode,
   queryVars: SearchQueryVars,
-  listRender: (data: SearchQuery) => JSX.Element,
+  listRender: ({ data, dispatchCart, dispatchTeam }: ListRenderArgs<SearchQuery>) => JSX.Element,
 }
 
 function EntitySearchMain<SearchQuery, SearchQueryVars>({
+  dispatchCart,
+  dispatchTeam,
   gen,
   handleSubmit,
   listRender,
@@ -123,7 +135,7 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
       </form>
       {loading 
         ? <div>Loading...</div>
-        : data && listRender(data)
+        : data && listRender({ data, dispatchCart, dispatchTeam })
       }
     </>
   );
