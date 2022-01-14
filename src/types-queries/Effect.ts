@@ -13,10 +13,17 @@ import {
   EntityPageVars,
   CountField,
   
-  EntityConnectionQuery,
   EntityConnectionEdge,
   EntityConnectionVars,
   EntityConnectionOnPage,
+
+  TypeNameEdge,
+  AbilityIconEdge,
+  MoveIconEdge,
+
+  PokemonIconEdge,
+  PokemonIconDatum,
+  pokemonIconEdgeToPokemonIconDatum,
 } from './helpers';
 import {
   GenerationNum,
@@ -24,14 +31,8 @@ import {
 } from './Generation.js';
 import {
   TypeName,
-  TypeNameEdge,
   typeNameEdgeToTypeName,
 } from './Type';
-import {
-  PokemonIconDatum,
-  PokemonIconEdge,
-  pokemonIconEdgeToPokemonIconDatum,
-} from './Pokemon';
 
 // Effect in main search
 // #region
@@ -197,7 +198,7 @@ export type EffectAbilityQuery = {
   }[]
 }
 
-export interface EffectAbilityEdge extends EntityConnectionEdge {
+export interface EffectAbilityEdge extends AbilityIconEdge {
   node: {
     id: string
     name: string
@@ -262,12 +263,17 @@ export const EFFECT_ABILITY_QUERY = gql`
 `;
 
 export class EffectAbilityResult extends EntityConnectionOnPage {
+  public pokemonIconData: PokemonIconDatum[]
+
   constructor(gqlEffectAbility: EffectAbilityEdge) {
     super(gqlEffectAbility);
+
+    this.pokemonIconData = gqlEffectAbility.node.pokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
   }
 }
 
 // #endregion
+
 // EffectItem
 // #region
 
@@ -285,14 +291,6 @@ export interface EffectItemEdge extends EntityConnectionEdge {
     id: string
     name: string
     formattedName: string
-
-    type: {
-      edges: TypeNameEdge[]
-    }
-
-    pokemon: {
-      edges: PokemonIconEdge[]
-    }
   }
 }
 
@@ -333,6 +331,7 @@ export class EffectItemResult extends EntityConnectionOnPage {
 }
 
 // #endregion
+
 // EffectMove
 // #region
 
@@ -345,7 +344,7 @@ export type EffectMoveQuery = {
   }[]
 }
 
-export interface EffectMoveEdge extends EntityConnectionEdge {
+export interface EffectMoveEdge extends MoveIconEdge {
   node: {
     id: string
     name: string

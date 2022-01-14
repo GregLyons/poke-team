@@ -13,7 +13,7 @@ import {
 import {
   ListRenderArgs,
   useEntityConnectionChangeHandler,
-} from '../entityListRender';
+} from '../helpers';
 import {
   EFFECT_PAGE_QUERY,
   EffectPageQuery,

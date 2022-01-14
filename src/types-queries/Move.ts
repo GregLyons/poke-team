@@ -13,21 +13,20 @@ import {
   EntityPageVars,
   CountField,
   
-  EntityConnectionQuery,
   EntityConnectionEdge,
   EntityConnectionVars,
   EntityConnectionOnPage,
+
+  TypeNameEdge,
+  PokemonIconEdge,
+  PokemonIconDatum,
+  pokemonIconEdgeToPokemonIconDatum,
+  NameEdge,
 } from './helpers';
 import {
   TypeName,
-  TypeNameEdge,
   typeNameEdgeToTypeName,
 } from './Type';
-import {
-  PokemonIconDatum,
-  PokemonIconEdge,
-  pokemonIconEdgeToPokemonIconDatum,
-} from './Pokemon';
 import {
   GenerationNum,
   IntroductionEdge,
@@ -378,6 +377,9 @@ export class MoveOnPage extends EntityOnPage {
 // Move connections 
 // #region
 
+// MoveEffect
+// #region
+
 export type MoveEffectQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
@@ -423,5 +425,98 @@ export class MoveEffectResult extends EntityConnectionOnPage {
     super(gqlMoveEffect)
   }
 }
+
+// #endregion
+
+// MoveFieldState
+// #region
+
+export type MoveFieldStateQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    createsFieldState: {
+      edges: MoveFieldStateEdge[]
+    }
+    enhancedByFieldState: {
+      edges: MoveFieldStateEdge[]
+    }
+    hinderedByFieldState: {
+      edges: MoveFieldStateEdge[]
+    }
+    removesFieldState: {
+      edges: MoveFieldStateEdge[]
+    }
+  }[]
+}
+
+export interface MoveFieldStateEdge extends EntityConnectionEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+  }
+  turns?: number
+}
+
+export interface MoveFieldStateQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+}
+
+export const MOVE_FIELDSTATE_QUERY = gql`
+  query MoveEffectQuery($gen: Int! $name: String!) {
+    moveByName(generation: $gen, name: $name) {
+      id
+      createsFieldState {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+        turns
+      }
+      enhancedByFieldState {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+      }
+      hinderedByFieldState {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+      }
+      removesFieldState {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+      }
+    }
+  }
+`;
+
+export class MoveFieldStateResult extends EntityConnectionOnPage {
+  public turns?: number
+
+  constructor(gqlMoveFieldState: MoveFieldStateEdge) {
+    super(gqlMoveFieldState)
+    if (gqlMoveFieldState.turns) this.turns = gqlMoveFieldState.turns;
+  }
+}
+
+// #endregion
 
 // #endregion

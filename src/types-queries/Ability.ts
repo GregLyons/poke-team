@@ -13,16 +13,14 @@ import {
   EntityPageVars,
   CountField,
   
-  EntityConnectionQuery,
   EntityConnectionEdge,
   EntityConnectionVars,
   EntityConnectionOnPage,
-} from './helpers';
-import {
+
   PokemonIconDatum,
   PokemonIconEdge,
   pokemonIconEdgeToPokemonIconDatum,
-} from './Pokemon';
+} from './helpers';
 import {
   GenerationNum,
   IntroductionEdge,
@@ -121,21 +119,21 @@ export interface AbilityPageResult extends EntityPageResult {
     edges: DescriptionEdge[]
   }
 
-  activatedByFieldStateCount: CountField
-  boostsTypeCount: CountField
-  boostsUsageMethodCount: CountField
-  causesStatusCount: CountField
-  createsFieldStateCount: CountField
-  effectsCount: CountField
-  ignoresFieldStateCount: CountField
-  modifiesStatCount: CountField
-  pokemonCount: CountField
-  preventsFieldStateCount: CountField
-  removesFieldStateCount: CountField
-  resistsStatusCount: CountField
-  resistsTypeCount: CountField
-  resistsUsageMethodCount: CountField
-  suppressesFieldStateCount: CountField
+  activatedByFieldState: CountField
+  boostsType: CountField
+  boostsUsageMethod: CountField
+  causesStatus: CountField
+  createsFieldState: CountField
+  effects: CountField
+  ignoresFieldState: CountField
+  modifiesStat: CountField
+  pokemon: CountField
+  preventsFieldState: CountField
+  removesFieldState: CountField
+  resistsStatus: CountField
+  resistsType: CountField
+  resistsUsageMethod: CountField
+  suppressesFieldState: CountField
 }
 
 export interface AbilityPageQueryVars extends EntityPageVars {
@@ -243,27 +241,30 @@ export class AbilityOnPage extends EntityOnPage {
     super(gqlAbility);
 
     // Counts for displaying accordions
-    this.activatedByFieldStateCount = gqlAbility.activatedByFieldStateCount.count
-    this.boostsTypeCount = gqlAbility.boostsTypeCount.count
-    this.boostsUsageMethodCount = gqlAbility.boostsUsageMethodCount.count
-    this.causesStatusCount = gqlAbility.causesStatusCount.count
-    this.createsFieldStateCount = gqlAbility.createsFieldStateCount.count
-    this.effectsCount = gqlAbility.effectsCount.count
-    this.ignoresFieldStateCount = gqlAbility.ignoresFieldStateCount.count
-    this.modifiesStatCount = gqlAbility.modifiesStatCount.count
-    this.pokemonCount = gqlAbility.pokemonCount.count
-    this.preventsFieldStateCount = gqlAbility.preventsFieldStateCount.count
-    this.removesFieldStateCount = gqlAbility.removesFieldStateCount.count
-    this.resistsStatusCount = gqlAbility.resistsStatusCount.count
-    this.resistsTypeCount = gqlAbility.resistsTypeCount.count
-    this.resistsUsageMethodCount = gqlAbility.resistsUsageMethodCount.count
-    this.suppressesFieldStateCount = gqlAbility.suppressesFieldStateCount.count
+    this.activatedByFieldStateCount = gqlAbility.activatedByFieldState.count
+    this.boostsTypeCount = gqlAbility.boostsType.count
+    this.boostsUsageMethodCount = gqlAbility.boostsUsageMethod.count
+    this.causesStatusCount = gqlAbility.causesStatus.count
+    this.createsFieldStateCount = gqlAbility.createsFieldState.count
+    this.effectsCount = gqlAbility.effects.count
+    this.ignoresFieldStateCount = gqlAbility.ignoresFieldState.count
+    this.modifiesStatCount = gqlAbility.modifiesStat.count
+    this.pokemonCount = gqlAbility.pokemon.count
+    this.preventsFieldStateCount = gqlAbility.preventsFieldState.count
+    this.removesFieldStateCount = gqlAbility.removesFieldState.count
+    this.resistsStatusCount = gqlAbility.resistsStatus.count
+    this.resistsTypeCount = gqlAbility.resistsType.count
+    this.resistsUsageMethodCount = gqlAbility.resistsUsageMethod.count
+    this.suppressesFieldStateCount = gqlAbility.suppressesFieldState.count
   }
 }
 
 // #endregion
 
 // Ability connections 
+// #region
+
+// AbilityEffect
 // #region
 
 export type AbilityEffectQuery = {
@@ -310,5 +311,123 @@ export class AbilityEffectResult extends EntityConnectionOnPage {
     super(gqlAbilityEffect)
   }
 }
+
+// #endregion
+
+// AbilityFieldState
+// #region
+
+export type AbilityFieldStateQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    activatedByFieldState: {
+      edges: AbilityFieldStateEdge[]
+    }
+    createsFieldState: {
+      edges: AbilityFieldStateEdge[]
+    }
+    ignoresFieldState: {
+      edges: AbilityFieldStateEdge[]
+    }
+    preventsFieldState: {
+      edges: AbilityFieldStateEdge[]
+    }
+    removesFieldState: {
+      edges: AbilityFieldStateEdge[]
+    }
+    suppressesFieldState: {
+      edges: AbilityFieldStateEdge[]
+    }
+  }[]
+}
+
+export interface AbilityFieldStateEdge extends EntityConnectionEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+  }
+  turns?: number
+}
+
+export interface AbilityFieldStateQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+}
+
+export const MOVE_FIELDSTATE_QUERY = gql`
+  query AbilityEffectQuery($gen: Int! $name: String!) {
+    abilityByName(generation: $gen, name: $name) {
+      id
+      activatedByFieldState {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+      }
+      createsFieldState {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+        turns
+      }
+      ignoresFieldState {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+      }
+      preventsFieldState {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+      }
+      removesFieldState {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+      }
+      suppressesFieldState {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+      }
+    }
+  }
+`;
+
+export class AbilityFieldStateResult extends EntityConnectionOnPage {
+  public turns?: number
+
+  constructor(gqlAbilityFieldState: AbilityFieldStateEdge) {
+    super(gqlAbilityFieldState)
+    if (gqlAbilityFieldState.turns) this.turns = gqlAbilityFieldState.turns;
+  }
+}
+
+// #endregion
+
 
 // #endregion

@@ -7,7 +7,7 @@ import {
 
 import {
   ListRenderArgs, 
-} from '../entityListRender';
+} from '../helpers';
 import {
   AbilitySearchQuery,
   AbilitySearchResult,

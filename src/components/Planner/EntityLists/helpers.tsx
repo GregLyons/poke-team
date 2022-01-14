@@ -7,6 +7,9 @@ import {
   TeamAction,
 } from "../../App";
 
+// Rendering lists
+// #region
+
 export type ListRenderArgs<SearchQuery> = {
   data: SearchQuery
   dispatchCart?: React.Dispatch<CartAction>
@@ -36,3 +39,5 @@ export function useEntityConnectionChangeHandler<QueryVars>(defaultQueryVars: Qu
   
   return [queryVars, entityConnectionChangeHandler<QueryVars>(setQueryVars)];
 }
+
+// #endregion

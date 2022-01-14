@@ -18,7 +18,7 @@ import {
 } from '../../../../types-queries/Generation';
 import {
   ListRenderArgs, MissingDispatchError,
-} from '../entityListRender';
+} from '../helpers';
 
 import { 
   CartAction,

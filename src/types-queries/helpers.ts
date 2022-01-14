@@ -1,15 +1,13 @@
-import { gql } from "@apollo/client";
-import { DocumentNode } from "graphql";
-import { GenerationNum, IntroductionEdge } from "./Generation";
 import {
-  PokemonIconDatum,
-  PokemonIconEdge,
-} from "./Pokemon";
-import { TypeName } from "./Type";
-
-export type TypeEdge = { node: { name: TypeName }};
-
-export type Edge = { node: any }
+  gql,
+} from "@apollo/client";
+import {
+  GenerationNum,
+  IntroductionEdge
+} from "./Generation";
+import { 
+  TypeName,
+} from "./Type";
 
 // Entity in search
 // #region
@@ -91,11 +89,7 @@ export abstract class EntityOnPage {
 // Entity connections
 // #region
 
-export interface EntityConnectionQuery {
-  id: string
-}
-
-export interface EntityConnectionEdge {
+export interface EntityConnectionEdge extends NameEdge {
   node: {
     id: string
     name: string
@@ -154,5 +148,118 @@ export const INTRODUCTION_QUERY = (queryName: EntityPageQueryName) => gql`
     }
   }
 `;
+
+// #endregion
+
+// Edge types
+// #region
+
+export type Edge = { node: any }
+
+export interface NameEdge extends Edge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+  }
+}
+
+export interface TypeNameEdge extends NameEdge {
+  node: { 
+    id: string
+    name: TypeName
+    formattedName: string
+  }
+};
+
+export interface AbilityIconEdge extends NameEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+
+    pokemon: {
+      edges: PokemonIconEdge[]
+    }
+  }
+}
+
+export interface MoveIconEdge extends NameEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+
+    type: {
+      edges: TypeNameEdge[]
+    }
+
+    pokemon: {
+      edges: PokemonIconEdge[]
+    }
+  }
+}
+
+
+
+// Icons
+// #region 
+
+export interface ItemIconEdge extends NameEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+
+    introduced: {
+      edges: IntroductionEdge[]
+    }
+  }
+}
+
+export type ItemIconDatum = {
+  name: string
+  formattedName: string
+  introduced: GenerationNum
+}
+
+export const itemIconEdgeToItemIconDatum: (edge: ItemIconEdge) => ItemIconDatum = (edge) => {
+  return {
+    name: edge.node.name,
+    formattedName: edge.node.formattedName,
+    introduced: edge.node.introduced.edges[0].node.number,
+  };
+}
+
+export interface PokemonIconEdge extends NameEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+    speciesName: string
+
+    introduced: {
+      edges: IntroductionEdge[]
+    }
+  }
+}
+
+export type PokemonIconDatum = {
+  name: string
+  formattedName: string
+  speciesName: string
+  introduced: GenerationNum
+}
+
+export const pokemonIconEdgeToPokemonIconDatum: (edge: PokemonIconEdge) => PokemonIconDatum = (edge) => {
+  return {
+    name: edge.node.name,
+    formattedName: edge.node.formattedName,
+    speciesName: edge.node.speciesName,
+    introduced: edge.node.introduced.edges[0].node.number,
+  };
+}
+
+// #endregion
 
 // #endregion

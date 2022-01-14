@@ -34,7 +34,7 @@ import { GenerationNum } from '../../../../types-queries/Generation';
 import {
   ListRenderArgs,
   useEntityConnectionChangeHandler,
-} from '../entityListRender';
+} from '../helpers';
 
 import { 
   CartAction,

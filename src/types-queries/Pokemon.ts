@@ -3,45 +3,13 @@ import {
   IntroductionEdge
 } from './Generation.js';
 import {
-  TypeNameEdge,
   TypeName,
 } from './Type.js';
 import {
-  Edge,
+  PokemonIconEdge,
+  TypeNameEdge,
 } from './helpers.js';
 
-// Pokemon icons
-// #region 
-
-export type PokemonIconDatum = {
-  name: string
-  formattedName: string
-  speciesName: string
-  introduced: GenerationNum
-}
-
-export interface PokemonIconEdge extends Edge {
-  node: {
-    name: string
-    formattedName: string
-    speciesName: string
-
-    introduced: {
-      edges: IntroductionEdge[]
-    }
-  }
-}
-
-export const pokemonIconEdgeToPokemonIconDatum: (edge: PokemonIconEdge) => PokemonIconDatum = (edge) => {
-  return {
-    name: edge.node.name,
-    formattedName: edge.node.formattedName,
-    speciesName: edge.node.speciesName,
-    introduced: edge.node.introduced.edges[0].node.number,
-  };
-}
-
-// #endregion
 
 // An object containing the base stats for the Pokemon
 type BaseStats = {

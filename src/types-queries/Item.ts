@@ -12,22 +12,11 @@ import {
   EntityPageResult,
   EntityPageVars,
   CountField,
-  
-  EntityConnectionQuery,
+
   EntityConnectionEdge,
   EntityConnectionVars,
   EntityConnectionOnPage,
 } from './helpers';
-import {
-  TypeName,
-  TypeNameEdge,
-  typeNameEdgeToTypeName,
-} from './Type';
-import {
-  PokemonIconDatum,
-  PokemonIconEdge,
-  pokemonIconEdgeToPokemonIconDatum,
-} from './Pokemon';
 import {
   GenerationNum,
   IntroductionEdge,
@@ -98,20 +87,20 @@ export interface ItemPageResult extends EntityPageResult {
     edges: DescriptionEdge[]
   }
 
-  activatedByFieldStateCount: CountField
-  boostsTypeCount: CountField
-  boostsUsageMethodCount: CountField
-  causesStatusCount: CountField
-  effectsCount: CountField
-  enablesMoveCount: CountField
-  enablesPokemonCount: CountField
-  extendsFieldStateCount: CountField
-  modifiesStatCount: CountField
-  requiresPokemonCount: CountField
-  resistsFieldStateCount: CountField
-  resistsStatusCount: CountField
-  resistsTypeCount: CountField
-  resistsUsageMethodCount: CountField
+  activatedByFieldState: CountField
+  boostsType: CountField
+  boostsUsageMethod: CountField
+  causesStatus: CountField
+  effects: CountField
+  enablesMove: CountField
+  enablesPokemon: CountField
+  extendsFieldState: CountField
+  modifiesStat: CountField
+  requiresPokemon: CountField
+  resistsFieldState: CountField
+  resistsStatus: CountField
+  resistsType: CountField
+  resistsUsageMethod: CountField
 }
 
 export interface ItemPageQueryVars extends EntityPageVars {
@@ -133,14 +122,6 @@ export const ITEM_PAGE_QUERY = gql`
       name
       formattedName
 
-      accuracy
-      category
-      contact
-      power
-      pp
-      priority
-      target
-
       introduced {
         edges {
           node {
@@ -155,14 +136,6 @@ export const ITEM_PAGE_QUERY = gql`
             text
           }
           versionGroupCode
-        }
-      }
-
-      type {
-        edges {
-          node {
-            name
-          }
         }
       }
 
@@ -232,26 +205,29 @@ export class ItemOnPage extends EntityOnPage {
     // Data for ItemPage
     super(gqlItem);
     
-    this.activatedByFieldStateCount = gqlItem.activatedByFieldStateCount.count
-    this.boostsTypeCount = gqlItem.boostsTypeCount.count
-    this.boostsUsageMethodCount = gqlItem.boostsUsageMethodCount.count
-    this.causesStatusCount = gqlItem.causesStatusCount.count
-    this.effectsCount = gqlItem.effectsCount.count
-    this.enablesMoveCount = gqlItem.enablesMoveCount.count
-    this.enablesPokemonCount = gqlItem.enablesPokemonCount.count
-    this.extendsFieldStateCount = gqlItem.extendsFieldStateCount.count
-    this.modifiesStatCount = gqlItem.modifiesStatCount.count
-    this.requiresPokemonCount = gqlItem.requiresPokemonCount.count
-    this.resistsFieldStateCount = gqlItem.resistsFieldStateCount.count
-    this.resistsStatusCount = gqlItem.resistsStatusCount.count
-    this.resistsTypeCount = gqlItem.resistsTypeCount.count
-    this.resistsUsageMethodCount = gqlItem.resistsUsageMethodCount.count
+    this.activatedByFieldStateCount = gqlItem.activatedByFieldState.count
+    this.boostsTypeCount = gqlItem.boostsType.count
+    this.boostsUsageMethodCount = gqlItem.boostsUsageMethod.count
+    this.causesStatusCount = gqlItem.causesStatus.count
+    this.effectsCount = gqlItem.effects.count
+    this.enablesMoveCount = gqlItem.enablesMove.count
+    this.enablesPokemonCount = gqlItem.enablesPokemon.count
+    this.extendsFieldStateCount = gqlItem.extendsFieldState.count
+    this.modifiesStatCount = gqlItem.modifiesStat.count
+    this.requiresPokemonCount = gqlItem.requiresPokemon.count
+    this.resistsFieldStateCount = gqlItem.resistsFieldState.count
+    this.resistsStatusCount = gqlItem.resistsStatus.count
+    this.resistsTypeCount = gqlItem.resistsType.count
+    this.resistsUsageMethodCount = gqlItem.resistsUsageMethod.count
   }
 }
 
 // #endregion
 
 // Item connections 
+// #region
+
+// ItemEffect
 // #region
 
 export type ItemEffectQuery = {
@@ -299,5 +275,99 @@ export class ItemEffectResult extends EntityConnectionOnPage {
     super(gqlItemEffect)
   }
 }
+
+// #endregion
+
+// ItemFieldState
+// #region
+
+export type ItemFieldStateQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    activatedByFieldState: {
+      edges: ItemFieldStateEdge[]
+    }
+    extendsFieldState: {
+      edges: ItemFieldStateEdge[]
+    }
+    ignoresFieldState: {
+      edges: ItemFieldStateEdge[]
+    }
+    removesFieldState: {
+      edges: ItemFieldStateEdge[]
+    }
+  }[]
+}
+
+export interface ItemFieldStateEdge extends EntityConnectionEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+  }
+  turns?: number
+}
+
+export interface ItemFieldStateQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+}
+
+export const ITEM_FIELDSTATE_QUERY = gql`
+  query ItemEffectQuery($gen: Int! $name: String!) {
+    moveByName(generation: $gen, name: $name) {
+      id
+      activatedByFieldState {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+      }
+      extendsByFieldState {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+          turns
+        }
+      }
+      ignoresByFieldState {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+      }
+      removesFieldState {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+      }
+    }
+  }
+`;
+
+export class ItemFieldStateResult extends EntityConnectionOnPage {
+  public turns?: number
+
+  constructor(gqlItemFieldState: ItemFieldStateEdge) {
+    super(gqlItemFieldState)
+
+    if (gqlItemFieldState.turns) this.turns = gqlItemFieldState.turns;
+  }
+}
+
+// #endregion
 
 // #endregion
