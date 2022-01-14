@@ -231,50 +231,60 @@ export const FIELDSTATE_PAGE_QUERY = gql`
 `;
 
 export class FieldStateOnPage extends EntityOnPage {
-  public activatesAbility: number
-  public activatesItem: number
-  public boostsType: number
-  public causesStatus: number
-  public createdByAbility: number
-  public createdByMove: number
-  public effects: number
-  public enhancesMove: number
-  public extendedByItem: number
-  public hindersMove: number
-  public ignoredByAbility: number
-  public ignoredByItem: number
-  public modifiesStat: number
-  public preventedByAbility: number
-  public removedByAbility: number
-  public removedByMove: number
-  public resistedByItem: number
-  public resistsStatus: number
-  public suppressedByAbility: number
-  public weatherBall: number
+  public activatesAbilityCount: number
+  public activatesItemCount: number
+  public boostsTypeCount: number
+  public causesStatusCount: number
+  public createdByAbilityCount: number
+  public createdByMoveCount: number
+  public effectCount: number
+  public enhancesMoveCount: number
+  public extendedByItemCount: number
+  public hindersMoveCount: number
+  public ignoredByAbilityCount: number
+  public ignoredByItemCount: number
+  public modifiesStatCount: number
+  public preventedByAbilityCount: number
+  public removedByAbilityCount: number
+  public removedByMoveCount: number
+  public resistedByItemCount: number
+  public resistsStatusCount: number
+  public suppressedByAbilityCount: number
+  public weatherBallCount: number
+
+  public abilityCount: number
+  public itemCount: number
+  public moveCount: number
 
   constructor(gqlFieldState: FieldStatePageResult) {
     super(gqlFieldState);
 
-    this.activatesAbility = gqlFieldState.activatesAbility.count
-    this.activatesItem = gqlFieldState.activatesItem.count
-    this.boostsType = gqlFieldState.boostsType.count
-    this.causesStatus = gqlFieldState.causesStatus.count
-    this.createdByAbility = gqlFieldState.createdByAbility.count
-    this.createdByMove = gqlFieldState.createdByMove.count
-    this.effects = gqlFieldState.effects.count
-    this.enhancesMove = gqlFieldState.enhancesMove.count
-    this.extendedByItem = gqlFieldState.extendedByItem.count
-    this.hindersMove = gqlFieldState.hindersMove.count
-    this.ignoredByAbility = gqlFieldState.ignoredByAbility.count
-    this.ignoredByItem = gqlFieldState.ignoredByItem.count
-    this.modifiesStat = gqlFieldState.modifiesStat.count
-    this.preventedByAbility = gqlFieldState.preventedByAbility.count
-    this.removedByAbility = gqlFieldState.removedByAbility.count
-    this.removedByMove = gqlFieldState.removedByMove.count
-    this.resistedByItem = gqlFieldState.resistedByItem.count
-    this.resistsStatus = gqlFieldState.resistsStatus.count
-    this.suppressedByAbility = gqlFieldState.suppressedByAbility.count
-    this.weatherBall = gqlFieldState.weatherBall.count
+    this.activatesAbilityCount = gqlFieldState.activatesAbility.count
+    this.activatesItemCount = gqlFieldState.activatesItem.count
+    this.boostsTypeCount = gqlFieldState.boostsType.count
+    this.causesStatusCount = gqlFieldState.causesStatus.count
+    this.createdByAbilityCount = gqlFieldState.createdByAbility.count
+    this.createdByMoveCount = gqlFieldState.createdByMove.count
+    this.effectCount = gqlFieldState.effects.count
+    this.enhancesMoveCount = gqlFieldState.enhancesMove.count
+    this.extendedByItemCount = gqlFieldState.extendedByItem.count
+    this.hindersMoveCount = gqlFieldState.hindersMove.count
+    this.ignoredByAbilityCount = gqlFieldState.ignoredByAbility.count
+    this.ignoredByItemCount = gqlFieldState.ignoredByItem.count
+    this.modifiesStatCount = gqlFieldState.modifiesStat.count
+    this.preventedByAbilityCount = gqlFieldState.preventedByAbility.count
+    this.removedByAbilityCount = gqlFieldState.removedByAbility.count
+    this.removedByMoveCount = gqlFieldState.removedByMove.count
+    this.resistedByItemCount = gqlFieldState.resistedByItem.count
+    this.resistsStatusCount = gqlFieldState.resistsStatus.count
+    this.suppressedByAbilityCount = gqlFieldState.suppressedByAbility.count
+    this.weatherBallCount = gqlFieldState.weatherBall.count
+
+    this.abilityCount = this.activatesAbilityCount + this.createdByAbilityCount + this.ignoredByAbilityCount + this.preventedByAbilityCount + this.removedByAbilityCount + this.suppressedByAbilityCount;
+
+    this.itemCount = this.activatesItemCount + this.extendedByItemCount + this.ignoredByItemCount + this.resistedByItemCount;
+
+    this.moveCount = this.createdByMoveCount + this.enhancesMoveCount + this.hindersMoveCount + this.removedByMoveCount;
   }
 }
 
@@ -508,6 +518,56 @@ export class FieldStateAbilityResult extends EntityConnectionOnPage {
 
     this.pokemonIconData = gqlFieldStateAbility.node.pokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
     if (gqlFieldStateAbility.turns) this.turns = gqlFieldStateAbility.turns;
+  }
+}
+
+// #endregion
+
+// FieldStateEffect
+// #region
+
+export type FieldStateEffectQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    effects: {
+      edges: FieldStateEffectEdge[]
+    }
+  }[]
+}
+
+export interface FieldStateEffectEdge extends EntityConnectionEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+  }
+}
+
+export interface FieldStateEffectQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+}
+
+export const FIELDSTATE_EFFECT_QUERY = gql`
+  query FieldStateEffectQuery($gen: Int! $name: String! $startsWith: String) {
+    fieldStateByName(generation: $gen, name: $name) {
+      id
+      effects(filter: { startsWith: $startsWith }) {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+      }
+    }
+  }
+`;
+
+export class FieldStateEffectResult extends EntityConnectionOnPage {
+  constructor(gqlFieldStateEffect: FieldStateEffectEdge) {
+    super(gqlFieldStateEffect)
   }
 }
 

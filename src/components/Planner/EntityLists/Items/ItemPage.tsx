@@ -26,6 +26,7 @@ import {
   ItemFieldStateQuery,
   ItemFieldStateQueryVars,
   ITEM_FIELDSTATE_QUERY,
+  ItemOnPage,
 } from '../../../../types-queries/Item';
 import {
   INTRODUCTION_QUERY,
@@ -224,29 +225,33 @@ const ItemPage = ({
   
   // #endregion
 
-  const itemResult = data.itemByName[0];
+  const itemResult = new ItemOnPage(data.itemByName[0]);
   
   return (
     <>
       <h1>{itemResult.formattedName}</h1>
 
-      <h2>Effects</h2>
-      <EntityConnectionSearch
-        gen={gen}
-        handleChange={handleChangeEffect}
-        listRender={listRenderItemEffect}
-        query={ITEM_EFFECT_QUERY}
-        queryVars={effectQueryVars}
-      />
-
-      <h2>FieldStates</h2>
-      <EntityConnectionSearch
-        gen={gen}
-        handleChange={handleChangeFieldState}
-        listRender={listRenderItemFieldState}
-        query={ITEM_FIELDSTATE_QUERY}
-        queryVars={fieldStateQueryVars}
-      />
+      {itemResult.effectCount > 0 && <>
+        <h2>Effects</h2>
+        <EntityConnectionSearch
+          gen={gen}
+          handleChange={handleChangeEffect}
+          listRender={listRenderItemEffect}
+          query={ITEM_EFFECT_QUERY}
+          queryVars={effectQueryVars}
+        />
+      </>}
+      
+      {itemResult.fieldStateCount > 0 && <>
+        <h2>FieldStates</h2>
+        <EntityConnectionSearch
+          gen={gen}
+          handleChange={handleChangeFieldState}
+          listRender={listRenderItemFieldState}
+          query={ITEM_FIELDSTATE_QUERY}
+          queryVars={fieldStateQueryVars}
+        />
+      </>}
       <Outlet />
     </>
   );

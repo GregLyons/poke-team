@@ -187,6 +187,9 @@ export const ABILITY_PAGE_QUERY = gql`
       createsFieldState {
         count
       }
+      effects {
+        count
+      }
       ignoresFieldState {
         count
       }
@@ -219,13 +222,12 @@ export const ABILITY_PAGE_QUERY = gql`
 `;
 
 export class AbilityOnPage extends EntityOnPage {
-
   public activatedByFieldStateCount: number
   public boostsTypeCount: number
   public boostsUsageMethodCount: number
   public causesStatusCount: number
   public createsFieldStateCount: number
-  public effectsCount: number
+  public effectCount: number
   public ignoresFieldStateCount: number
   public modifiesStatCount: number
   public pokemonCount: number
@@ -235,6 +237,8 @@ export class AbilityOnPage extends EntityOnPage {
   public resistsTypeCount: number
   public resistsUsageMethodCount: number
   public suppressesFieldStateCount: number
+
+  public fieldStateCount: number
 
   constructor(gqlAbility: AbilityPageResult) {
     // Data for AbilityPage
@@ -246,7 +250,7 @@ export class AbilityOnPage extends EntityOnPage {
     this.boostsUsageMethodCount = gqlAbility.boostsUsageMethod.count
     this.causesStatusCount = gqlAbility.causesStatus.count
     this.createsFieldStateCount = gqlAbility.createsFieldState.count
-    this.effectsCount = gqlAbility.effects.count
+    this.effectCount = gqlAbility.effects.count
     this.ignoresFieldStateCount = gqlAbility.ignoresFieldState.count
     this.modifiesStatCount = gqlAbility.modifiesStat.count
     this.pokemonCount = gqlAbility.pokemon.count
@@ -256,6 +260,8 @@ export class AbilityOnPage extends EntityOnPage {
     this.resistsTypeCount = gqlAbility.resistsType.count
     this.resistsUsageMethodCount = gqlAbility.resistsUsageMethod.count
     this.suppressesFieldStateCount = gqlAbility.suppressesFieldState.count
+
+    this.fieldStateCount = this.activatedByFieldStateCount + this.createsFieldStateCount + this.ignoresFieldStateCount + this.preventsFieldStateCount + this.removesFieldStateCount + this.suppressesFieldStateCount;
   }
 }
 

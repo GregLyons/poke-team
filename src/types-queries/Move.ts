@@ -321,7 +321,7 @@ export class MoveOnPage extends EntityOnPage {
 
   public causesStatusCount: number
   public createsFieldStateCount: number
-  public effectsCount: number
+  public effectCount: number
   public enablesMoveCount: number
   public enhancedByFieldStateCount: number
   public hinderedByFieldStateCount: number
@@ -335,6 +335,8 @@ export class MoveOnPage extends EntityOnPage {
   public requiresPokemonCount: number
   public requiresTypeCount: number
   public usageMethodCount: number
+
+  public fieldStateCount: number
 
   constructor(gqlMove: MovePageResult) {
     // Data for MovePage
@@ -355,7 +357,7 @@ export class MoveOnPage extends EntityOnPage {
     // Counts for displaying accordions
     this.causesStatusCount = gqlMove.causesStatus.count
     this.createsFieldStateCount = gqlMove.createsFieldState.count
-    this.effectsCount = gqlMove.effects.count
+    this.effectCount = gqlMove.effects.count
     this.enablesMoveCount = gqlMove.enablesMove.count
     this.enhancedByFieldStateCount = gqlMove.enhancedByFieldState.count
     this.hinderedByFieldStateCount = gqlMove.hinderedByFieldState.count
@@ -369,6 +371,8 @@ export class MoveOnPage extends EntityOnPage {
     this.requiresPokemonCount = gqlMove.requiresPokemon.count
     this.requiresTypeCount = gqlMove.requiresType.count
     this.usageMethodCount = gqlMove.usageMethod.count
+
+    this.fieldStateCount = this.createsFieldStateCount + this.enhancedByFieldStateCount + this.hinderedByFieldStateCount + this.removesFieldStateCount;
   }
 }
 

@@ -26,6 +26,7 @@ import {
   MoveFieldStateQuery,
   MoveFieldStateQueryVars,
   MOVE_FIELDSTATE_QUERY,
+  MoveOnPage,
 } from '../../../../types-queries/Move';
 import {
   INTRODUCTION_QUERY,
@@ -224,29 +225,33 @@ const MovePage = ({
   
   // #endregion
 
-  const moveResult = data.moveByName[0];
+  const moveResult = new MoveOnPage(data.moveByName[0]);
   
   return (
     <>
       <h1>{moveResult.formattedName}</h1>
 
-      <h2>Effects</h2>
-      <EntityConnectionSearch
-        gen={gen}
-        handleChange={handleChangeEffect}
-        listRender={listRenderMoveEffect}
-        query={MOVE_EFFECT_QUERY}
-        queryVars={effectQueryVars}
-      />
-
-      <h2>FieldStates</h2>
-      <EntityConnectionSearch
-        gen={gen}
-        handleChange={handleChangeFieldState}
-        listRender={listRenderMoveFieldState}
-        query={MOVE_FIELDSTATE_QUERY}
-        queryVars={fieldStateQueryVars}
-      />
+      {moveResult.effectCount > 0 && <>
+        <h2>Effects</h2>
+        <EntityConnectionSearch
+          gen={gen}
+          handleChange={handleChangeEffect}
+          listRender={listRenderMoveEffect}
+          query={MOVE_EFFECT_QUERY}
+          queryVars={effectQueryVars}
+        />
+      </>}
+      
+      {moveResult.fieldStateCount > 0 && <>
+        <h2>FieldStates</h2>
+        <EntityConnectionSearch
+          gen={gen}
+          handleChange={handleChangeFieldState}
+          listRender={listRenderMoveFieldState}
+          query={MOVE_FIELDSTATE_QUERY}
+          queryVars={fieldStateQueryVars}
+        />
+      </>}
       <Outlet />
     </>
   );

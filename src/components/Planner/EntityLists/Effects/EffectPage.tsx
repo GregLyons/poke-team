@@ -33,6 +33,11 @@ import {
   EffectMoveQuery,
   EffectMoveQueryVars,
   EffectMoveEdge,
+  EffectOnPage,
+  EffectFieldStateQuery,
+  EffectFieldStateEdge,
+  EFFECT_FIELDSTATE_QUERY,
+  EffectFieldStateQueryVars,
 } from '../../../../types-queries/Effect';
 import {
   INTRODUCTION_QUERY,
@@ -61,6 +66,19 @@ const listRenderEffectAbility = ({ data, }: ListRenderArgs<EffectAbilityQuery>) 
       {data.effectByName[0].abilities.edges.map((abilityEdge: EffectAbilityEdge) => (
         <div>
           <Link to={`../abilities/${abilityEdge.node.name}`}>{abilityEdge.node.formattedName}</Link>
+        </div>
+      ))}
+    </>
+  );
+}
+
+const listRenderEffectFieldState = ({ data, }: ListRenderArgs<EffectFieldStateQuery>) => {
+  if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
+  return (
+    <>
+      {data.effectByName[0].fieldStates.edges.map((FieldStateEdge: EffectFieldStateEdge) => (
+        <div>
+          <Link to={`../fieldStates/${FieldStateEdge.node.name}`}>{FieldStateEdge.node.formattedName}</Link>
         </div>
       ))}
     </>
@@ -112,6 +130,12 @@ const EffectPage = ({
   // #region 
   
   const [abilityQueryVars, handleChangeAbility] = useEntityConnectionChangeHandler<EffectAbilityQueryVars>({
+    gen: gen,
+    name: effectName,
+    startsWith: '',
+  });
+
+  const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<EffectFieldStateQueryVars>({
     gen: gen,
     name: effectName,
     startsWith: '',
@@ -239,44 +263,63 @@ const EffectPage = ({
   
   // #endregion
 
-  const effectResult = data.effectByName[0];
+  const effectResult = new EffectOnPage(data.effectByName[0]);
 
   return (
     <>
       <h1>{effectResult.formattedName}</h1>
 
-      <h2>Abilities</h2>
-      <EntityConnectionSearch
-        dispatchCart={dispatchCart}
-        dispatchTeam={dispatchTeam}
-        gen={gen}
-        handleChange={handleChangeAbility}
-        listRender={listRenderEffectAbility}
-        query={EFFECT_ABILITY_QUERY}
-        queryVars={abilityQueryVars}
-      />
+      {effectResult.abilityCount > 0 && <>
+        <h2>Abilities</h2>
+        <EntityConnectionSearch
+          dispatchCart={dispatchCart}
+          dispatchTeam={dispatchTeam}
+          gen={gen}
+          handleChange={handleChangeAbility}
+          listRender={listRenderEffectAbility}
+          query={EFFECT_ABILITY_QUERY}
+          queryVars={abilityQueryVars}
+        />
+      </>}
 
-      <h2>Items</h2>
-      <EntityConnectionSearch
-        dispatchCart={dispatchCart}
-        dispatchTeam={dispatchTeam}
-        gen={gen}
-        handleChange={handleChangeItem}
-        listRender={listRenderEffectItem}
-        query={EFFECT_ITEM_QUERY}
-        queryVars={itemQueryVars}
-      />
-
-      <h2>Moves</h2>
-      <EntityConnectionSearch
-        dispatchCart={dispatchCart}
-        dispatchTeam={dispatchTeam}
-        gen={gen}
-        handleChange={handleChangeMove}
-        listRender={listRenderEffectMove}
-        query={EFFECT_MOVE_QUERY}
-        queryVars={moveQueryVars}
-      />
+      {effectResult.fieldStateCount > 0 && <>
+        <h2>Abilities</h2>
+        <EntityConnectionSearch
+          dispatchCart={dispatchCart}
+          dispatchTeam={dispatchTeam}
+          gen={gen}
+          handleChange={handleChangeFieldState}
+          listRender={listRenderEffectFieldState}
+          query={EFFECT_FIELDSTATE_QUERY}
+          queryVars={fieldStateQueryVars}
+        />
+      </>}
+      
+      {effectResult.itemCount > 0 && <>
+        <h2>Items</h2>
+        <EntityConnectionSearch
+          dispatchCart={dispatchCart}
+          dispatchTeam={dispatchTeam}
+          gen={gen}
+          handleChange={handleChangeItem}
+          listRender={listRenderEffectItem}
+          query={EFFECT_ITEM_QUERY}
+          queryVars={itemQueryVars}
+        />
+      </>}
+      
+      {effectResult.moveCount > 0 && <>
+        <h2>Moves</h2>
+        <EntityConnectionSearch
+          dispatchCart={dispatchCart}
+          dispatchTeam={dispatchTeam}
+          gen={gen}
+          handleChange={handleChangeMove}
+          listRender={listRenderEffectMove}
+          query={EFFECT_MOVE_QUERY}
+          queryVars={moveQueryVars}
+        />
+      </>}
       <Outlet />
       
       {/* <EntityAccordion

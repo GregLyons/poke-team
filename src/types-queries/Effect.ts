@@ -24,6 +24,7 @@ import {
   PokemonIconEdge,
   PokemonIconDatum,
   pokemonIconEdgeToPokemonIconDatum,
+  NameEdge,
 } from './helpers';
 import {
   GenerationNum,
@@ -226,10 +227,7 @@ export const EFFECT_ABILITY_QUERY = gql`
     $name: String!
     $startsWith: String!
   ) {
-    effectByName(
-      generation: $gen,
-      name: $name
-    ) {
+    effectByName(generation: $gen, name: $name) {
       id 
       abilities(filter: { startsWith: $startsWith }) {
         edges {
@@ -274,6 +272,61 @@ export class EffectAbilityResult extends EntityConnectionOnPage {
 
 // #endregion
 
+// EffectFieldState
+// #region
+
+export type EffectFieldStateQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    fieldStates: {
+      edges: EffectFieldStateEdge[]
+    }
+  }[]
+}
+
+export interface EffectFieldStateEdge extends NameEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+  }
+}
+
+export interface EffectFieldStateQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+  startsWith: string
+}
+
+export const EFFECT_FIELDSTATE_QUERY = gql`
+  query EffectFieldStatesQuery(
+    $gen: Int!
+    $name: String!
+    $startsWith: String!
+  ) {
+    effectByName(generation: $gen, name: $name) {
+      id 
+      fieldStates(filter: { startsWith: $startsWith }) {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+      }
+    }
+  }
+`;
+
+export class EffectFieldStateResult extends EntityConnectionOnPage {
+  constructor(gqlEffectFieldState: EffectFieldStateEdge) {
+    super(gqlEffectFieldState);
+  }
+}
+
+// #endregion
+
 // EffectItem
 // #region
 
@@ -306,10 +359,7 @@ export const EFFECT_ITEM_QUERY = gql`
     $name: String!
     $startsWith: String!
   ) {
-    effectByName(
-      generation: $gen,
-      name: $name
-    ) {
+    effectByName(generation: $gen, name: $name) {
       id 
       items(filter: { startsWith: $startsWith }) {
         edges {
@@ -372,10 +422,7 @@ export const EFFECT_MOVE_QUERY = gql`
     $name: String!
     $startsWith: String!
   ) {
-    effectByName(
-      generation: $gen,
-      name: $name
-    ) {
+    effectByName(generation: $gen, name: $name) {
       id 
       moves(filter: { startsWith: $startsWith }) {
         edges {

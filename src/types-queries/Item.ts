@@ -95,6 +95,7 @@ export interface ItemPageResult extends EntityPageResult {
   enablesMove: CountField
   enablesPokemon: CountField
   extendsFieldState: CountField
+  ignoresFieldState: CountField
   modifiesStat: CountField
   requiresPokemon: CountField
   resistsFieldState: CountField
@@ -163,6 +164,9 @@ export const ITEM_PAGE_QUERY = gql`
       extendsFieldState {
         count
       }
+      ignoresFieldState {
+        count
+      }
       modifiesStat {
         count
       }
@@ -190,16 +194,19 @@ export class ItemOnPage extends EntityOnPage {
   public boostsTypeCount: number
   public boostsUsageMethodCount: number
   public causesStatusCount: number
-  public effectsCount: number
+  public effectCount: number
   public enablesMoveCount: number
   public enablesPokemonCount: number
   public extendsFieldStateCount: number
+  public ignoresFieldStateCount: number
   public modifiesStatCount: number
   public requiresPokemonCount: number
   public resistsFieldStateCount: number
   public resistsStatusCount: number
   public resistsTypeCount: number
   public resistsUsageMethodCount: number
+
+  public fieldStateCount: number
 
   constructor(gqlItem: ItemPageResult) {
     // Data for ItemPage
@@ -209,16 +216,19 @@ export class ItemOnPage extends EntityOnPage {
     this.boostsTypeCount = gqlItem.boostsType.count
     this.boostsUsageMethodCount = gqlItem.boostsUsageMethod.count
     this.causesStatusCount = gqlItem.causesStatus.count
-    this.effectsCount = gqlItem.effects.count
+    this.effectCount = gqlItem.effects.count
     this.enablesMoveCount = gqlItem.enablesMove.count
     this.enablesPokemonCount = gqlItem.enablesPokemon.count
     this.extendsFieldStateCount = gqlItem.extendsFieldState.count
+    this.ignoresFieldStateCount = gqlItem.ignoresFieldState.count
     this.modifiesStatCount = gqlItem.modifiesStat.count
     this.requiresPokemonCount = gqlItem.requiresPokemon.count
     this.resistsFieldStateCount = gqlItem.resistsFieldState.count
     this.resistsStatusCount = gqlItem.resistsStatus.count
     this.resistsTypeCount = gqlItem.resistsType.count
     this.resistsUsageMethodCount = gqlItem.resistsUsageMethod.count
+
+    this.fieldStateCount = this.activatedByFieldStateCount + this.extendsFieldStateCount + this.ignoresFieldStateCount + this.resistsFieldStateCount;
   }
 }
 
