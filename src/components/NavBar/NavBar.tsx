@@ -9,6 +9,9 @@ const NavBar = () => {
   return (
     <nav className="nav-bar">
       <li className="nav-item">
+        <Link to="/">Home</Link>
+      </li>
+      <li className="nav-item">
         <Link to="/planner">Planner</Link>
       </li>
       <li className="nav-item">
