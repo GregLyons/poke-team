@@ -1,6 +1,6 @@
 import {
   GenerationNum,
-  IntroductionEdge
+  IntroductionEdge,
 } from './Generation.js';
 import {
   TypeName,

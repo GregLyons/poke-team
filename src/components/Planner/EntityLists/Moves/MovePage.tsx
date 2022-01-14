@@ -42,6 +42,10 @@ import {
   ListRenderArgs,
   useEntityConnectionChangeHandler,
 } from '../helpers';
+import {
+  listRenderMoveEffect,
+  listRenderMoveFieldState,
+} from './MoveConnections';
 
 import { 
   CartAction,
@@ -50,39 +54,6 @@ import {
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
 import EntityAccordion from '../EntityAccordion';
-
-const listRenderMoveEffect = ({ data, }: ListRenderArgs<MoveEffectQuery>) => {
-  if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
-
-  return (
-    <>
-      {data.moveByName[0].effects.edges.map((effectEdge: MoveEffectEdge) => (
-        <div>
-          <Link to={`../effects/${effectEdge.node.name}`}>{effectEdge.node.formattedName}</Link>
-        </div>
-      ))}
-    </>
-  )
-}
-
-const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStateQuery>) => {
-  if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
-
-  const fieldStateEdges = data.moveByName[0].createsFieldState.edges
-    .concat(data.moveByName[0].enhancedByFieldState.edges)
-    .concat(data.moveByName[0].hinderedByFieldState.edges)
-    .concat(data.moveByName[0].removesFieldState.edges);
-
-  return (
-    <>
-      {fieldStateEdges.map((fieldStateEdge: MoveFieldStateEdge) => (
-        <div>
-          <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
-        </div>
-      ))}
-    </>
-  )
-}
 
 type MovePageProps = {
   dispatchCart: React.Dispatch<CartAction>

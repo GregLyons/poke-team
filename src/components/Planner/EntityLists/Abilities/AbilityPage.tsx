@@ -42,6 +42,10 @@ import {
   ListRenderArgs,
   useEntityConnectionChangeHandler,
 } from '../helpers';
+import {
+  listRenderAbilityEffect,
+  listRenderAbilityFieldState,
+} from './AbilityConnections';
 
 import { 
   CartAction,
@@ -50,41 +54,6 @@ import {
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
 import EntityAccordion from '../EntityAccordion';
-
-const listRenderAbilityEffect = ({ data, }: ListRenderArgs<AbilityEffectQuery>) => {
-  if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
-
-  return (
-    <>
-      {data.abilityByName[0].effects.edges.map((effectEdge: AbilityEffectEdge) => (
-        <div>
-          <Link to={`../effects/${effectEdge.node.name}`}>{effectEdge.node.formattedName}</Link>
-        </div>
-      ))}
-    </>
-  )
-}
-
-const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFieldStateQuery>) => {
-  if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
-
-  const fieldStateEdges = data.abilityByName[0].activatedByFieldState.edges
-    .concat(data.abilityByName[0].createsFieldState.edges)
-    .concat(data.abilityByName[0].ignoresFieldState.edges)
-    .concat(data.abilityByName[0].preventsFieldState.edges)
-    .concat(data.abilityByName[0].removesFieldState.edges)
-    .concat(data.abilityByName[0].suppressesFieldState.edges);
-
-  return (
-    <>
-      {fieldStateEdges.map((fieldStateEdge: AbilityFieldStateEdge) => (
-        <div>
-          <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
-        </div>
-      ))}
-    </>
-  )
-}
 
 type AbilityPageProps = {
   dispatchCart: React.Dispatch<CartAction>

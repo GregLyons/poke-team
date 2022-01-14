@@ -10,7 +10,6 @@ import {
   useLazyQuery,
 } from '@apollo/client';
 
-
 import {
   ITEM_PAGE_QUERY,
   ITEM_EFFECT_QUERY,
@@ -42,6 +41,10 @@ import {
   ListRenderArgs,
   useEntityConnectionChangeHandler,
 } from '../helpers';
+import {
+  listRenderItemEffect,
+  listRenderItemFieldState,
+} from './ItemConnections';
 
 import { 
   CartAction,
@@ -50,40 +53,6 @@ import {
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
 import EntityAccordion from '../EntityAccordion';
-
-const listRenderItemEffect = ({ data, }: ListRenderArgs<ItemEffectQuery>) => {
-  if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
-
-  return (
-    <>
-      {data.itemByName[0].effects.edges.map((effectEdge: ItemEffectEdge) => (
-        <div>
-          <Link to={`../effects/${effectEdge.node.name}`}>{effectEdge.node.formattedName}</Link>
-        </div>
-      ))}
-    </>
-  )
-}
-
-const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStateQuery>) => {
-  if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
-
-  const fieldStateEdges = data.itemByName[0].activatedByFieldState.edges
-    .concat(data.itemByName[0].extendsFieldState.edges)
-    .concat(data.itemByName[0].ignoresFieldState.edges)
-    .concat(data.itemByName[0].resistsFieldState.edges)
-
-  return (
-    <>
-      {fieldStateEdges.map((fieldStateEdge: ItemFieldStateEdge) => (
-        <div>
-          <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
-        </div>
-      ))}
-    </>
-  )
-}
-
 type ItemPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>

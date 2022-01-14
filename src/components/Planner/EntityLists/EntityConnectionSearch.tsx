@@ -47,9 +47,6 @@ function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
     })
   }, [gen])
 
-  // searchBox.ready = false means that we have just navigated to the page. If the URL contains search parameters, then a search will execute based on the searchParams.
-  // searchBox.ready = true means that we have modified the search box on the page. The next search will take place based on the search box, rather than the searchParams.
-  const [searchBox, setSearchBox] = useState('')
   const { data, loading, error } = useQuery<SearchQuery, SearchQueryVars>(
     query,
     {
@@ -59,29 +56,10 @@ function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
     }
   );
 
-  // Change queryVars when searchBox is updated.
-  useEffect(() => {
-    handleChange({
-      ...queryVars,
-      startsWith: searchBox,
-    });
-  }, [searchBox]);
-
   if (error) { return (<div>{error.message}</div>)}
 
   return (
     <>
-      <div>
-        <form>
-          <input
-            type="text"
-            value={searchBox}
-            onChange={(e) => {
-              setSearchBox(e.target.value);
-            }}
-          />
-        </form>
-      </div>
       {loading 
         ? <div>Loading...</div>
         : data && listRender({ data, dispatchCart, dispatchTeam })

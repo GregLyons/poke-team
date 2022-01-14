@@ -2,7 +2,6 @@ import {
   useEffect,
 } from 'react';
 import {
-  Link,
   Outlet,
   useParams,
 } from 'react-router-dom';
@@ -59,79 +58,12 @@ import {
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
 import EntityAccordion from '../EntityAccordion';
-
-const listRenderFieldStateAbility = ({ data, }: ListRenderArgs<FieldStateAbilityQuery>) => {
-  if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
-
-  const abilityEdges = data.fieldStateByName[0].activatesAbility.edges
-    .concat(data.fieldStateByName[0].createdByAbility.edges)
-    .concat(data.fieldStateByName[0].ignoredByAbility.edges)
-    .concat(data.fieldStateByName[0].preventedByAbility.edges)
-    .concat(data.fieldStateByName[0].removedByAbility.edges)
-    .concat(data.fieldStateByName[0].suppressedByAbility.edges);
-
-  return (
-    <>
-      {abilityEdges.map((abilityEdge: FieldStateAbilityEdge) => (
-        <div>
-          <Link to={`../abilities/${abilityEdge.node.name}`}>{abilityEdge.node.formattedName}</Link>
-        </div>
-      ))}
-    </>
-  );
-}
-
-const listRenderFieldStateEffect = ({ data, }: ListRenderArgs<FieldStateEffectQuery>) => {
-  if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
-
-  return (
-    <>
-      {data.fieldStateByName[0].effects.edges.map((effectEdge: FieldStateEffectEdge) => (
-        <div>
-          <Link to={`../effects/${effectEdge.node.name}`}>{effectEdge.node.formattedName}</Link>
-        </div>
-      ))}
-    </>
-  )
-}
-
-const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateItemQuery>) => {
-  if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
-
-  const itemEdges = data.fieldStateByName[0].activatesItem.edges
-    .concat(data.fieldStateByName[0].extendedByItem.edges)
-    .concat(data.fieldStateByName[0].ignoredByItem.edges)
-    .concat(data.fieldStateByName[0].resistedByItem.edges);
-
-  return (
-    <>
-      {itemEdges.map((itemEdge: FieldStateItemEdge) => (
-        <div>
-          <Link to={`../items/${itemEdge.node.name}`}>{itemEdge.node.formattedName}</Link>
-        </div>
-      ))}
-    </>
-  );
-}
-
-const listRenderFieldStateMove = ({ data, }: ListRenderArgs<FieldStateMoveQuery>) => {
-  if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
-
-  const moveEdges = data.fieldStateByName[0].createdByMove.edges
-    .concat(data.fieldStateByName[0].enhancesMove.edges)
-    .concat(data.fieldStateByName[0].hindersMove.edges)
-    .concat(data.fieldStateByName[0].removedByMove.edges);
-
-  return (
-    <>
-      {moveEdges.map((moveEdge: FieldStateMoveEdge) => (
-        <div>
-          <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
-        </div>
-      ))}
-    </>
-  );
-}
+import {
+  listRenderFieldStateAbility,
+  listRenderFieldStateEffect,
+  listRenderFieldStateItem,
+  listRenderFieldStateMove
+} from './FieldStateConnections';
 
 type FieldStatePageProps = {
   dispatchCart: React.Dispatch<CartAction>

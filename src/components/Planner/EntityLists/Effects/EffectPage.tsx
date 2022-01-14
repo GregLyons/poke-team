@@ -59,58 +59,7 @@ import {
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
 import EntityAccordion from '../EntityAccordion';
-
-const listRenderEffectAbility = ({ data, }: ListRenderArgs<EffectAbilityQuery>) => {
-  if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
-  return (
-    <>
-      {data.effectByName[0].abilities.edges.map((abilityEdge: EffectAbilityEdge) => (
-        <div>
-          <Link to={`../abilities/${abilityEdge.node.name}`}>{abilityEdge.node.formattedName}</Link>
-        </div>
-      ))}
-    </>
-  );
-}
-
-const listRenderEffectFieldState = ({ data, }: ListRenderArgs<EffectFieldStateQuery>) => {
-  if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
-  return (
-    <>
-      {data.effectByName[0].fieldStates.edges.map((FieldStateEdge: EffectFieldStateEdge) => (
-        <div>
-          <Link to={`../fieldStates/${FieldStateEdge.node.name}`}>{FieldStateEdge.node.formattedName}</Link>
-        </div>
-      ))}
-    </>
-  );
-}
-
-const listRenderEffectItem = ({ data, }: ListRenderArgs<EffectItemQuery>) => {
-  if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
-  return (
-    <>
-      {data.effectByName[0].items.edges.map((itemEdge: EffectItemEdge) => (
-        <div>
-          <Link to={`../items/${itemEdge.node.name}`}>{itemEdge.node.formattedName}</Link>
-        </div>
-      ))}
-    </>
-  );
-}
-
-const listRenderEffectMove = ({ data, }: ListRenderArgs<EffectMoveQuery>) => {
-  if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
-  return (
-    <>
-      {data.effectByName[0].moves.edges.map((moveEdge: EffectMoveEdge) => (
-        <div>
-          <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
-        </div>
-      ))}
-    </>
-  );
-}
+import { listRenderEffectAbility, listRenderEffectFieldState, listRenderEffectItem, listRenderEffectMove } from './EffectConnections';
 
 type EffectPageProps = {
   dispatchCart: React.Dispatch<CartAction>
