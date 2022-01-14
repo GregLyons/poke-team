@@ -1,5 +1,5 @@
 import {
-  useContext,
+  useContext, useEffect,
 } from 'react';
 
 import {
@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 
 import {
+  useLazyQuery,
   useQuery
 } from '@apollo/client';
 
@@ -46,9 +47,9 @@ const listRenderEffectMove = (data: EffectMoveQuery) => {
   return (
     <>
       {data.effectByName[0].moves.edges.map((moveEdge: EffectMoveEdge) => (
-        <>
-        <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
-      </>
+        <div>
+          <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
+        </div>
       ))}
     </>
   )
@@ -67,86 +68,116 @@ const EffectPage = () => {
     startsWith: '',
   });
 
-  const { loading, error, data } = useQuery<EffectPageQuery, EffectPageQueryVars>(
-    EFFECT_PAGE_QUERY,
-    {
+  const [executeSearch, { loading, error, data }] = useLazyQuery<EffectPageQuery, EffectPageQueryVars>(
+  EFFECT_PAGE_QUERY);
+  useEffect(() => {
+    console.log('queried');
+    executeSearch({
       variables: {
         gen: gen,
         name: effectName,
       }
-    }
-  );
-
-  // Before actually getting the effect data, we need to check that it's present in the given generation
+    })
+  }, [gen, effectName, executeSearch]);
+      
+  // Before actually getting the move data, we need to check that it's present in the given generation
   // #region
+  
+  const [executeDebutSearch, { loading: loading_introduced, error: error_introduced, data: data_introduced }] = useLazyQuery<IntroductionQuery, IntroductionQueryVars>(INTRODUCTION_QUERY('effectByName'));
 
-  const { loading: loading_introduced, error: error_introduced, data: data_introduced } = useQuery<IntroductionQuery, IntroductionQueryVars>(
-    INTRODUCTION_QUERY('effectByName'),
-    {
+  useEffect(() => {
+    console.log('intro queried');
+    executeDebutSearch({
       variables: {
         gen: NUMBER_OF_GENS,
         name: effectName,
       }
-    }
-  );
+    });
+  }, [])
 
-  if (!data_introduced || !data_introduced.effectByName || (data_introduced.effectByName.length === 0)) return (
+  if (loading_introduced) {
+    console.log('loading debut');
+    return (
+      <div>
+        Loading...
+      </div>
+    );
+  }
+
+  if (error_introduced) {
+    console.log('error debut');
+    return (
+      <div>
+        Error for introduction query! {error_introduced.message}
+      </div>
+    );
+  } 
+
+  if (!data_introduced || !data_introduced.effectByName || (data_introduced.effectByName.length === 0)) {
+    console.log('debut data not found');
+    return (
     <div>
       Data not found for '{effectName}'.
     </div>
-  );
-  if (!data_introduced.effectByName) return (
-    <div>
-      'effectByName' is not a valid query for '{effectName}'.
-    </div>
-  )
-  if (loading_introduced) return (
-    <div>
-      Loading...
-    </div>
-  );
-  if (error_introduced) return (
-    <div>
-      Error for introduction query! {error_introduced.message}
-    </div>
-  ); 
-  const introductionResult = data_introduced.effectByName[0];
-  if (introductionResult.introduced.edges[0].node.number > gen) return (
+    );
+  }
+
+  const debutGen = data_introduced.effectByName[0].introduced.edges[0].node.number;
+
+  if (debutGen > gen) return (
     <div>
       {effectName} doesn't exist in Generation {gen}.
     </div>
-  )
+  );
 
   // #endregion
   
   // Now that we know the effect exists in this gen, we check the actual data
   // # region
 
-  if (!data || !data.effectByName) return (
-    <div>
-      Data not found for '{effectName}'.
-    </div>
-  );
-  if (!data.effectByName) return (
-    <div>
-      'effectByName' is not a valid query for '{effectName}'.
-    </div>
-  )
-  if (loading) return (
-    <div>
-      Loading...
-    </div>
-  );
-  if (error) return (
-    <div>
-      Error! {error.message}
-    </div>
-  ); 
+  if (loading) {
+    console.log('loading');
+    return (
+      <div>
+        Loading...
+      </div>
+    );
+  }
+  else if (error) {
+    console.log('error');
+    return (
+      <div>
+        Error! {error.message}
+      </div>
+    )
+  }
+  else if (!data) {
+    console.log('data not found');
+    return (
+      <div>
+        Data not found for '{effectName}'.
+      </div>
+    );
+  }
+  else if (!data.effectByName) {
+    console.log('invalid query');
+    return (
+      <div>
+        'effectByName' is not a valid query for '{effectName}'.
+      </div>
+    );
+  }
+  else if (data.effectByName.length === 0) {
+    return (
+      <div>
+        Loading...
+      </div>
+    );
+  }
   
   // #endregion
 
   const effectResult = data.effectByName[0];
-
 
   return (
     <>

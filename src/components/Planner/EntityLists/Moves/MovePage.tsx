@@ -1,5 +1,5 @@
 import {
-  useContext, useRef,
+  useContext, useEffect, useRef,
 } from 'react';
 
 import {
@@ -36,6 +36,7 @@ import {
   
   IntroductionQuery,
   IntroductionQueryVars,
+  EntityPageQueryName,
 } from '../../../../types-queries/helpers';
 import {
   NUMBER_OF_GENS,
@@ -47,9 +48,9 @@ const listRenderMoveEffect = (data: MoveEffectQuery) => {
   return (
     <>
       {data.moveByName[0].effects.edges.map((effectEdge: MoveEffectEdge) => (
-        <>
+        <div>
           <Link to={`../effects/${effectEdge.node.name}`}>{effectEdge.node.formattedName}</Link>
-        </>
+        </div>
       ))}
     </>
   )
@@ -68,62 +69,64 @@ const MovePage = () => {
     startsWith: '',
   });
   
-  const { loading, error, data } = useQuery<MovePageQuery, MovePageQueryVars>(
-  MOVE_PAGE_QUERY,
-  {
-    variables: {
-      gen: gen,
-      name: moveName,
-    }
-  }
-  );
-    
-  // Before actually getting the move data, we need to check that it's present in the given generation
-  // #region
-  
-  const debutGen = useRef<number>(0);
-  
-  const [executeSearch, { loading: loading_introduced, error: error_introduced, data: data_introduced }] = useLazyQuery<IntroductionQuery, IntroductionQueryVars>(INTRODUCTION_QUERY('moveByName'));
+  const [executeSearch, { loading, error, data }] = useLazyQuery<MovePageQuery, MovePageQueryVars>(
+  MOVE_PAGE_QUERY);
 
-  console.log('yo');
-  if (debutGen.current === 0) {
+  useEffect(() => {
+    console.log('queried');
     executeSearch({
       variables: {
         gen: gen,
         name: moveName,
       }
-    });
+    })
+  }, [gen, moveName, executeSearch]);
+    
+  // Before actually getting the move data, we need to check that it's present in the given generation
+  // #region
+  
+  const [executeDebutSearch, { loading: loading_introduced, error: error_introduced, data: data_introduced }] = useLazyQuery<IntroductionQuery, IntroductionQueryVars>(INTRODUCTION_QUERY('moveByName'));
 
-    // 
-    debutGen.current = Number.MAX_SAFE_INTEGER;
+  useEffect(() => {
+    console.log('intro queried');
+    executeDebutSearch({
+      variables: {
+        gen: NUMBER_OF_GENS,
+        name: moveName,
+      }
+    });
+  }, [])
+
+  if (loading_introduced) {
+    console.log('loading debut');
+    return (
+      <div>
+        Loading...
+      </div>
+    );
   }
-  console.log('rendering');
-  if (!data_introduced || !data_introduced.moveByName || (data_introduced.moveByName.length === 0)) return (
+
+  if (error_introduced) {
+    console.log('error debut');
+    return (
+      <div>
+        Error for introduction query! {error_introduced.message}
+      </div>
+    );
+  } 
+
+  if (!data_introduced || !data_introduced.moveByName || (data_introduced.moveByName.length === 0)) {
+    console.log('debut data not found');
+    return (
     <div>
       Data not found for '{moveName}'.
     </div>
-  );
-  if (!data_introduced.moveByName) return (
-    <div>
-      'moveByName' is not a valid query for '{moveName}'.
-    </div>
-  )
-  
-  if (loading_introduced) return (
-    <div>
-      Loading...
-    </div>
-  );
-  
-  if (error_introduced) return (
-    <div>
-      Error for introduction query! {error_introduced.message}
-    </div>
-  ); 
-  const introductionResult = data_introduced.moveByName[0];
-  debutGen.current = introductionResult.introduced.edges[0].node.number
+    );
+  }
 
-  if (debutGen.current > gen) return (
+  const debutGen = data_introduced.moveByName[0].introduced.edges[0].node.number;
+
+  if (debutGen > gen) return (
     <div>
       {moveName} doesn't exist in Generation {gen}.
     </div>
@@ -133,27 +136,46 @@ const MovePage = () => {
   
   // Now that we know the move exists in this gen, we check the actual data
   // # region
-  
-  if (!data || !data.moveByName || data.moveByName.length === 0) return (
-    <div>
-      Data not found for '{moveName}'.
-    </div>
-  );
-  if (!data.moveByName) return (
-    <div>
-      'moveByName' is not a valid query for '{moveName}'.
-    </div>
-  )
-  if (loading) return (
-    <div>
-      Loading...
-    </div>
-  );
-  if (error) return (
-    <div>
-      Error! {error.message}
-    </div>
-  ); 
+
+  if (loading) {
+    console.log('loading');
+    return (
+      <div>
+        Loading...
+      </div>
+    );
+  }
+  else if (error) {
+    console.log('error');
+    return (
+      <div>
+        Error! {error.message}
+      </div>
+    )
+  }
+  if (!data) {
+    console.log('data not found');
+    return (
+      <div>
+        Data not found for '{moveName}'.
+      </div>
+    );
+  }
+  else if (!data.moveByName) {
+    console.log('invalid query');
+    return (
+      <div>
+        'moveByName' is not a valid query for '{moveName}'.
+      </div>
+    );
+  }
+  else if (data.moveByName.length === 0) {
+    return (
+      <div>
+        Loading...
+      </div>
+    );
+  }
   
   // #endregion
 

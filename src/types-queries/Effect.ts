@@ -101,6 +101,14 @@ export type EffectPageQuery = {
   [pageQueryName in EntityPageQueryName]?: EffectPageResult[]
 }
 
+export type IntroductionQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    introduced: {
+      edges: IntroductionEdge[]
+    }
+  }[]
+}
+
 export interface EffectPageResult extends EntityPageResult {
   id: string
   name: string
