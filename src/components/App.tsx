@@ -36,6 +36,8 @@ import ItemMainPage from './Planner/EntityLists/Items/ItemMainPage';
 import ItemPage from './Planner/EntityLists/Items/ItemPage';
 import MoveMainPage from './Planner/EntityLists/Moves/MoveMainPage';
 import MovePage from './Planner/EntityLists/Moves/MovePage';
+import FieldStatePage from './Planner/EntityLists/FieldStates/FieldStatePage';
+import FieldStateMainPage from './Planner/EntityLists/FieldStates/FieldStateMainPage';
 
 
 export type Team = Pokemon[];
@@ -190,13 +192,19 @@ function App() {
           />} />
 
           <Route 
-            path='field-states' 
-            element={<PlannerHome
+            path='fieldStates' 
+            element={<FieldStateMainPage
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               gen={gen}
             />}
           />
+          <Route path="fieldStates/:fieldStateId" element={<FieldStatePage
+            dispatchCart={dispatchCart}
+            dispatchTeam={dispatchTeam}
+            gen={gen}
+          />} />
+
           <Route 
             path='stats' 
             element={<PlannerHome

@@ -17,9 +17,15 @@ import {
   
   MovePageQuery,
   MovePageQueryVars,
+
+  MoveEffectEdge,
   MoveEffectQuery,
   MoveEffectQueryVars,
-  MoveEffectEdge,
+
+  MoveFieldStateEdge,
+  MoveFieldStateQuery,
+  MoveFieldStateQueryVars,
+  MOVE_FIELDSTATE_QUERY,
 } from '../../../../types-queries/Move';
 import {
   INTRODUCTION_QUERY,
@@ -57,6 +63,25 @@ const listRenderMoveEffect = ({ data, }: ListRenderArgs<MoveEffectQuery>) => {
   )
 }
 
+const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStateQuery>) => {
+  if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
+
+  const fieldStateEdges = data.moveByName[0].createsFieldState.edges
+    .concat(data.moveByName[0].enhancedByFieldState.edges)
+    .concat(data.moveByName[0].hinderedByFieldState.edges)
+    .concat(data.moveByName[0].removesFieldState.edges);
+
+  return (
+    <>
+      {fieldStateEdges.map((fieldStateEdge: MoveFieldStateEdge) => (
+        <div>
+          <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
+        </div>
+      ))}
+    </>
+  )
+}
+
 type MovePageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
@@ -71,12 +96,23 @@ const MovePage = ({
   const params = useParams();
   
   const moveName = params.moveId || '';
+
+  // Connections
+  // #region
   
   const [effectQueryVars, handleChangeEffect] = useEntityConnectionChangeHandler<MoveEffectQueryVars>({
     gen: gen,
     name: moveName,
     startsWith: '',
   });
+
+  const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<MoveFieldStateQueryVars>({
+    gen: gen,
+    name: moveName,
+    startsWith: '',
+  });
+
+  // #endregion
   
   const [executeSearch, { loading, error, data }] = useLazyQuery<MovePageQuery, MovePageQueryVars>(
   MOVE_PAGE_QUERY);
@@ -201,6 +237,15 @@ const MovePage = ({
         listRender={listRenderMoveEffect}
         query={MOVE_EFFECT_QUERY}
         queryVars={effectQueryVars}
+      />
+
+      <h2>FieldStates</h2>
+      <EntityConnectionSearch
+        gen={gen}
+        handleChange={handleChangeFieldState}
+        listRender={listRenderMoveFieldState}
+        query={MOVE_FIELDSTATE_QUERY}
+        queryVars={fieldStateQueryVars}
       />
       <Outlet />
     </>

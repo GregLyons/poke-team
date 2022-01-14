@@ -355,7 +355,7 @@ export interface AbilityFieldStateQueryVars extends EntityConnectionVars {
   name: string
 }
 
-export const MOVE_FIELDSTATE_QUERY = gql`
+export const ABILITY_FIELDSTATE_QUERY = gql`
   query AbilityEffectQuery($gen: Int! $name: String!) {
     abilityByName(generation: $gen, name: $name) {
       id
@@ -375,8 +375,8 @@ export const MOVE_FIELDSTATE_QUERY = gql`
             name
             formattedName
           }
+          turns
         }
-        turns
       }
       ignoresFieldState {
         edges {

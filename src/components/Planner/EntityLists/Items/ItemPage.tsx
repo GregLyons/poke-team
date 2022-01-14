@@ -17,9 +17,15 @@ import {
   
   ItemPageQuery,
   ItemPageQueryVars,
+
+  ItemEffectEdge,
   ItemEffectQuery,
   ItemEffectQueryVars,
-  ItemEffectEdge,
+
+  ItemFieldStateEdge,
+  ItemFieldStateQuery,
+  ItemFieldStateQueryVars,
+  ITEM_FIELDSTATE_QUERY,
 } from '../../../../types-queries/Item';
 import {
   INTRODUCTION_QUERY,
@@ -57,6 +63,25 @@ const listRenderItemEffect = ({ data, }: ListRenderArgs<ItemEffectQuery>) => {
   )
 }
 
+const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStateQuery>) => {
+  if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
+
+  const fieldStateEdges = data.itemByName[0].activatedByFieldState.edges
+    .concat(data.itemByName[0].extendsFieldState.edges)
+    .concat(data.itemByName[0].ignoresFieldState.edges)
+    .concat(data.itemByName[0].resistsFieldState.edges)
+
+  return (
+    <>
+      {fieldStateEdges.map((fieldStateEdge: ItemFieldStateEdge) => (
+        <div>
+          <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
+        </div>
+      ))}
+    </>
+  )
+}
+
 type ItemPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
@@ -72,11 +97,22 @@ const ItemPage = ({
   
   const itemName = params.itemId || '';
   
+  // Connections
+  // #region
+
   const [effectQueryVars, handleChangeEffect] = useEntityConnectionChangeHandler<ItemEffectQueryVars>({
     gen: gen,
     name: itemName,
     startsWith: '',
   });
+
+  const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<ItemFieldStateQueryVars>({
+    gen: gen,
+    name: itemName,
+    startsWith: '',
+  });
+
+  // #endregion
   
   const [executeSearch, { loading, error, data }] = useLazyQuery<ItemPageQuery, ItemPageQueryVars>(
   ITEM_PAGE_QUERY);
@@ -201,6 +237,15 @@ const ItemPage = ({
         listRender={listRenderItemEffect}
         query={ITEM_EFFECT_QUERY}
         queryVars={effectQueryVars}
+      />
+
+      <h2>FieldStates</h2>
+      <EntityConnectionSearch
+        gen={gen}
+        handleChange={handleChangeFieldState}
+        listRender={listRenderItemFieldState}
+        query={ITEM_FIELDSTATE_QUERY}
+        queryVars={fieldStateQueryVars}
       />
       <Outlet />
     </>

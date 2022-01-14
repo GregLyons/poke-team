@@ -17,9 +17,15 @@ import {
   
   AbilityPageQuery,
   AbilityPageQueryVars,
+
+  AbilityEffectEdge,
   AbilityEffectQuery,
   AbilityEffectQueryVars,
-  AbilityEffectEdge,
+
+  AbilityFieldStateEdge,
+  AbilityFieldStateQuery,
+  AbilityFieldStateQueryVars,
+  ABILITY_FIELDSTATE_QUERY,
 } from '../../../../types-queries/Ability';
 import {
   INTRODUCTION_QUERY,
@@ -57,6 +63,27 @@ const listRenderAbilityEffect = ({ data, }: ListRenderArgs<AbilityEffectQuery>) 
   )
 }
 
+const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFieldStateQuery>) => {
+  if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
+
+  const fieldStateEdges = data.abilityByName[0].activatedByFieldState.edges
+    .concat(data.abilityByName[0].createsFieldState.edges)
+    .concat(data.abilityByName[0].ignoresFieldState.edges)
+    .concat(data.abilityByName[0].preventsFieldState.edges)
+    .concat(data.abilityByName[0].removesFieldState.edges)
+    .concat(data.abilityByName[0].suppressesFieldState.edges);
+
+  return (
+    <>
+      {fieldStateEdges.map((fieldStateEdge: AbilityFieldStateEdge) => (
+        <div>
+          <Link to={`../fieldState/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
+        </div>
+      ))}
+    </>
+  )
+}
+
 type AbilityPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
@@ -72,11 +99,22 @@ const AbilityPage = ({
   
   const abilityName = params.abilityId || '';
   
+  // Connections
+  // #region
+
   const [effectQueryVars, handleChangeEffect] = useEntityConnectionChangeHandler<AbilityEffectQueryVars>({
     gen: gen,
     name: abilityName,
     startsWith: '',
   });
+
+  const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<AbilityFieldStateQueryVars>({
+    gen: gen,
+    name: abilityName,
+    startsWith: '',
+  });
+
+  // #endregion
   
   const [executeSearch, { loading, error, data }] = useLazyQuery<AbilityPageQuery, AbilityPageQueryVars>(
   ABILITY_PAGE_QUERY);
@@ -201,6 +239,15 @@ const AbilityPage = ({
         listRender={listRenderAbilityEffect}
         query={ABILITY_EFFECT_QUERY}
         queryVars={effectQueryVars}
+      />
+
+      <h2>FieldStates</h2>
+      <EntityConnectionSearch
+        gen={gen}
+        handleChange={handleChangeFieldState}
+        listRender={listRenderAbilityFieldState}
+        query={ABILITY_FIELDSTATE_QUERY}
+        queryVars={fieldStateQueryVars}
       />
       <Outlet />
     </>

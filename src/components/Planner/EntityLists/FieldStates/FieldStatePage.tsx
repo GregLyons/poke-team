@@ -15,25 +15,25 @@ import {
   useEntityConnectionChangeHandler,
 } from '../helpers';
 import {
-  EFFECT_PAGE_QUERY,
-  EffectPageQuery,
-  EffectPageQueryVars,
+  FIELDSTATE_PAGE_QUERY,
+  FieldStatePageQuery,
+  FieldStatePageQueryVars,
 
-  EFFECT_ABILITY_QUERY,
-  EffectAbilityQuery,
-  EffectAbilityQueryVars,
-  EffectAbilityEdge,
+  FIELDSTATE_ABILITY_QUERY,
+  FieldStateAbilityQuery,
+  FieldStateAbilityQueryVars,
+  FieldStateAbilityEdge,
 
-  EFFECT_ITEM_QUERY,
-  EffectItemQuery,
-  EffectItemQueryVars,
-  EffectItemEdge,
+  FIELDSTATE_ITEM_QUERY,
+  FieldStateItemQuery,
+  FieldStateItemQueryVars,
+  FieldStateItemEdge,
 
-  EFFECT_MOVE_QUERY,
-  EffectMoveQuery,
-  EffectMoveQueryVars,
-  EffectMoveEdge,
-} from '../../../../types-queries/Effect';
+  FIELDSTATE_MOVE_QUERY,
+  FieldStateMoveQuery,
+  FieldStateMoveQueryVars,
+  FieldStateMoveEdge,
+} from '../../../../types-queries/FieldState';
 import {
   INTRODUCTION_QUERY,
   
@@ -54,11 +54,19 @@ import {
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
 
-const listRenderEffectAbility = ({ data, }: ListRenderArgs<EffectAbilityQuery>) => {
-  if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
+const listRenderFieldStateAbility = ({ data, }: ListRenderArgs<FieldStateAbilityQuery>) => {
+  if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
+
+  const abilityEdges = data.fieldStateByName[0].activatesAbility.edges
+    .concat(data.fieldStateByName[0].createdByAbility.edges)
+    .concat(data.fieldStateByName[0].ignoredByAbility.edges)
+    .concat(data.fieldStateByName[0].preventedByAbility.edges)
+    .concat(data.fieldStateByName[0].removedByAbility.edges)
+    .concat(data.fieldStateByName[0].suppressedByAbility.edges);
+
   return (
     <>
-      {data.effectByName[0].abilities.edges.map((abilityEdge: EffectAbilityEdge) => (
+      {abilityEdges.map((abilityEdge: FieldStateAbilityEdge) => (
         <div>
           <Link to={`../abilities/${abilityEdge.node.name}`}>{abilityEdge.node.formattedName}</Link>
         </div>
@@ -67,11 +75,17 @@ const listRenderEffectAbility = ({ data, }: ListRenderArgs<EffectAbilityQuery>) 
   );
 }
 
-const listRenderEffectItem = ({ data, }: ListRenderArgs<EffectItemQuery>) => {
-  if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
+const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateItemQuery>) => {
+  if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
+
+  const itemEdges = data.fieldStateByName[0].activatesItem.edges
+    .concat(data.fieldStateByName[0].extendedByItem.edges)
+    .concat(data.fieldStateByName[0].ignoredByItem.edges)
+    .concat(data.fieldStateByName[0].resistedByItem.edges);
+
   return (
     <>
-      {data.effectByName[0].items.edges.map((itemEdge: EffectItemEdge) => (
+      {itemEdges.map((itemEdge: FieldStateItemEdge) => (
         <div>
           <Link to={`../items/${itemEdge.node.name}`}>{itemEdge.node.formattedName}</Link>
         </div>
@@ -80,11 +94,17 @@ const listRenderEffectItem = ({ data, }: ListRenderArgs<EffectItemQuery>) => {
   );
 }
 
-const listRenderEffectMove = ({ data, }: ListRenderArgs<EffectMoveQuery>) => {
-  if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
+const listRenderFieldStateMove = ({ data, }: ListRenderArgs<FieldStateMoveQuery>) => {
+  if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
+
+  const moveEdges = data.fieldStateByName[0].createdByMove.edges
+    .concat(data.fieldStateByName[0].enhancesMove.edges)
+    .concat(data.fieldStateByName[0].hindersMove.edges)
+    .concat(data.fieldStateByName[0].removedByMove.edges);
+
   return (
     <>
-      {data.effectByName[0].moves.edges.map((moveEdge: EffectMoveEdge) => (
+      {moveEdges.map((moveEdge: FieldStateMoveEdge) => (
         <div>
           <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
         </div>
@@ -93,66 +113,66 @@ const listRenderEffectMove = ({ data, }: ListRenderArgs<EffectMoveQuery>) => {
   );
 }
 
-type EffectPageProps = {
+type FieldStatePageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
 }
 
-const EffectPage = ({
+const FieldStatePage = ({
   dispatchCart,
   dispatchTeam,
   gen,
-}: EffectPageProps) => {
+}: FieldStatePageProps) => {
   const params = useParams();
   
-  const effectName = params.effectId || '';
+  const fieldStateName = params.fieldStateId || '';
 
   // Connection queries
   // #region 
   
-  const [abilityQueryVars, handleChangeAbility] = useEntityConnectionChangeHandler<EffectAbilityQueryVars>({
+  const [abilityQueryVars, handleChangeAbility] = useEntityConnectionChangeHandler<FieldStateAbilityQueryVars>({
     gen: gen,
-    name: effectName,
+    name: fieldStateName,
     startsWith: '',
   });
 
-  const [itemQueryVars, handleChangeItem] = useEntityConnectionChangeHandler<EffectItemQueryVars>({
+  const [itemQueryVars, handleChangeItem] = useEntityConnectionChangeHandler<FieldStateItemQueryVars>({
     gen: gen,
-    name: effectName,
+    name: fieldStateName,
     startsWith: '',
   });
 
-  const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<EffectMoveQueryVars>({
+  const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<FieldStateMoveQueryVars>({
     gen: gen,
-    name: effectName,
+    name: fieldStateName,
     startsWith: '',
   });
 
   // #endregion
 
-  const [executeSearch, { loading, error, data }] = useLazyQuery<EffectPageQuery, EffectPageQueryVars>(
-  EFFECT_PAGE_QUERY);
+  const [executeSearch, { loading, error, data }] = useLazyQuery<FieldStatePageQuery, FieldStatePageQueryVars>(
+  FIELDSTATE_PAGE_QUERY);
   useEffect(() => {
     executeSearch({
       variables: {
         gen: gen,
-        name: effectName,
+        name: fieldStateName,
       }
     })
-  }, [gen, effectName, executeSearch]);
+  }, [gen, fieldStateName, executeSearch]);
       
   // Before actually getting the move data, we need to check that it's present in the given generation
   // #region
   
-  const [executeDebutSearch, { loading: loading_introduced, error: error_introduced, data: data_introduced }] = useLazyQuery<IntroductionQuery, IntroductionQueryVars>(INTRODUCTION_QUERY('effectByName'));
+  const [executeDebutSearch, { loading: loading_introduced, error: error_introduced, data: data_introduced }] = useLazyQuery<IntroductionQuery, IntroductionQueryVars>(INTRODUCTION_QUERY('fieldStateByName'));
 
   useEffect(() => {
     console.log('intro queried');
     executeDebutSearch({
       variables: {
         gen: NUMBER_OF_GENS,
-        name: effectName,
+        name: fieldStateName,
       }
     });
   }, [])
@@ -175,26 +195,26 @@ const EffectPage = ({
     );
   } 
 
-  if (!data_introduced || !data_introduced.effectByName || (data_introduced.effectByName.length === 0)) {
+  if (!data_introduced || !data_introduced.fieldStateByName || (data_introduced.fieldStateByName.length === 0)) {
     console.log('debut data not found');
     return (
     <div>
-      Data not found for '{effectName}'.
+      Data not found for '{fieldStateName}'.
     </div>
     );
   }
 
-  const debutGen = data_introduced.effectByName[0].introduced.edges[0].node.number;
+  const debutGen = data_introduced.fieldStateByName[0].introduced.edges[0].node.number;
 
   if (debutGen > gen) return (
     <div>
-      {effectName} doesn't exist in Generation {gen}.
+      {fieldStateName} doesn't exist in Generation {gen}.
     </div>
   );
 
   // #endregion
   
-  // Now that we know the effect exists in this gen, we check the actual data
+  // Now that we know the fieldState exists in this gen, we check the actual data
   // # region
 
   if (loading) {
@@ -207,6 +227,7 @@ const EffectPage = ({
   }
   else if (error) {
     console.log('error');
+    console.log()
     return (
       <div>
         Error! {error.message}
@@ -217,19 +238,19 @@ const EffectPage = ({
     console.log('data not found');
     return (
       <div>
-        Data not found for '{effectName}'.
+        Data not found for '{fieldStateName}'.
       </div>
     );
   }
-  else if (!data.effectByName) {
+  else if (!data.fieldStateByName) {
     console.log('invalid query');
     return (
       <div>
-        'effectByName' is not a valid query for '{effectName}'.
+        'fieldStateByName' is not a valid query for '{fieldStateName}'.
       </div>
     );
   }
-  else if (data.effectByName.length === 0) {
+  else if (data.fieldStateByName.length === 0) {
     return (
       <div>
         Loading...
@@ -239,11 +260,11 @@ const EffectPage = ({
   
   // #endregion
 
-  const effectResult = data.effectByName[0];
+  const fieldStateResult = data.fieldStateByName[0];
 
   return (
     <>
-      <h1>{effectResult.formattedName}</h1>
+      <h1>{fieldStateResult.formattedName}</h1>
 
       <h2>Abilities</h2>
       <EntityConnectionSearch
@@ -251,8 +272,8 @@ const EffectPage = ({
         dispatchTeam={dispatchTeam}
         gen={gen}
         handleChange={handleChangeAbility}
-        listRender={listRenderEffectAbility}
-        query={EFFECT_ABILITY_QUERY}
+        listRender={listRenderFieldStateAbility}
+        query={FIELDSTATE_ABILITY_QUERY}
         queryVars={abilityQueryVars}
       />
 
@@ -262,8 +283,8 @@ const EffectPage = ({
         dispatchTeam={dispatchTeam}
         gen={gen}
         handleChange={handleChangeItem}
-        listRender={listRenderEffectItem}
-        query={EFFECT_ITEM_QUERY}
+        listRender={listRenderFieldStateItem}
+        query={FIELDSTATE_ITEM_QUERY}
         queryVars={itemQueryVars}
       />
 
@@ -273,8 +294,8 @@ const EffectPage = ({
         dispatchTeam={dispatchTeam}
         gen={gen}
         handleChange={handleChangeMove}
-        listRender={listRenderEffectMove}
-        query={EFFECT_MOVE_QUERY}
+        listRender={listRenderFieldStateMove}
+        query={FIELDSTATE_MOVE_QUERY}
         queryVars={moveQueryVars}
       />
       <Outlet />
@@ -351,4 +372,4 @@ const EffectPage = ({
   );
 }
 
-export default EffectPage;
+export default FieldStatePage;

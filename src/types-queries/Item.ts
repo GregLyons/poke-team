@@ -293,7 +293,7 @@ export type ItemFieldStateQuery = {
     ignoresFieldState: {
       edges: ItemFieldStateEdge[]
     }
-    removesFieldState: {
+    resistsFieldState: {
       edges: ItemFieldStateEdge[]
     }
   }[]
@@ -315,7 +315,7 @@ export interface ItemFieldStateQueryVars extends EntityConnectionVars {
 
 export const ITEM_FIELDSTATE_QUERY = gql`
   query ItemEffectQuery($gen: Int! $name: String!) {
-    moveByName(generation: $gen, name: $name) {
+    itemByName(generation: $gen, name: $name) {
       id
       activatedByFieldState {
         edges {
@@ -326,7 +326,7 @@ export const ITEM_FIELDSTATE_QUERY = gql`
           }
         }
       }
-      extendsByFieldState {
+      extendsFieldState {
         edges {
           node {
             id
@@ -336,7 +336,7 @@ export const ITEM_FIELDSTATE_QUERY = gql`
           turns
         }
       }
-      ignoresByFieldState {
+      ignoresFieldState {
         edges {
           node {
             id
@@ -345,7 +345,7 @@ export const ITEM_FIELDSTATE_QUERY = gql`
           }
         }
       }
-      removesFieldState {
+      resistsFieldState {
         edges {
           node {
             id

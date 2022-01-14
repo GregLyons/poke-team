@@ -474,8 +474,8 @@ export const MOVE_FIELDSTATE_QUERY = gql`
             name
             formattedName
           }
+          turns
         }
-        turns
       }
       enhancedByFieldState {
         edges {

@@ -33,10 +33,6 @@ import {
   GenerationNum,
   IntroductionEdge,
 } from './Generation.js';
-import {
-  TypeName,
-  typeNameEdgeToTypeName,
-} from './Type';
 
 // FieldState in main search
 // #region
@@ -65,7 +61,7 @@ export interface FieldStateSearchVars extends EntitySearchVars {
 
 export const FIELDSTATE_SEARCH_QUERY = gql`
   query FieldStateSearchQuery($gen: Int! $limit: Int! $startsWith: String) {
-    fieldstates(
+    fieldStates(
       generation: $gen
       filter: { startsWith: $startsWith }
       pagination: { limit: $limit }
@@ -157,7 +153,7 @@ export interface FieldStatePageQueryVars extends EntityPageVars {
 
 export const FIELDSTATE_PAGE_QUERY = gql`
   query FieldStatePageQuery($gen: Int! $name: String!) {
-    fieldstateByName(generation: $gen, name: $name) {
+    fieldStateByName(generation: $gen, name: $name) {
       id
       name
       formattedName
@@ -334,7 +330,7 @@ export interface FieldStateAbilityQueryVars extends EntityConnectionVars {
 
 export const FIELDSTATE_ABILITY_QUERY = gql`
   query FieldStateAbilitiesQuery($gen: Int!$name: String!) {
-    fieldstateByName(generation: $gen, name: $name) {
+    fieldStateByName(generation: $gen, name: $name) {
       id 
       activatesAbility {
         edges {
@@ -551,7 +547,7 @@ export interface FieldStateItemEdge extends ItemIconEdge {
   turns?: number
 }
 
-export interface FieldStateAbilityQueryVars extends EntityConnectionVars {
+export interface FieldStateItemQueryVars extends EntityConnectionVars {
   gen: GenerationNum
   name: string
 }
@@ -656,10 +652,10 @@ export type FieldStateMoveQuery = {
     createdByMove: {
       edges: MoveIconEdge[]
     }
-    enhancesByMove: {
+    enhancesMove: {
       edges: MoveIconEdge[]
     }
-    hindersByMove: {
+    hindersMove: {
       edges: MoveIconEdge[]
     }
     removedByMove: {
@@ -685,14 +681,14 @@ export interface FieldStateMoveEdge extends MoveIconEdge {
   turns?: number
 }
 
-export interface FieldStateAbilityQueryVars extends EntityConnectionVars {
+export interface FieldStateMoveQueryVars extends EntityConnectionVars {
   gen: GenerationNum
   name: string
 }
 
 export const FIELDSTATE_MOVE_QUERY = gql`
-  query FieldStateAbilitiesQuery($gen: Int!$name: String!) {
-    fieldstateByName(generation: $gen, name: $name) {
+  query FieldStateAbilitiesQuery($gen: Int! $name: String!) {
+    fieldStateByName(generation: $gen, name: $name) {
       id 
       createdByMove {
         edges {
@@ -729,8 +725,8 @@ export const FIELDSTATE_MOVE_QUERY = gql`
               }
             }
           }
+          turns
         }
-        turns
       }
       enhancesMove {
         edges {

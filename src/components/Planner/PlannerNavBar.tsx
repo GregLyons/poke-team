@@ -25,7 +25,7 @@ const PlannerNavBar = () => {
           <Link to="effects">Effects</Link>
         </li>
         <li className="planner-nav-bar__secondary-item">
-          <Link to="field-states">Field states</Link>
+          <Link to="fieldStates">Field states</Link>
         </li>
         <li className="planner-nav-bar__secondary-item">
           <Link to="stats">Stats</Link>
