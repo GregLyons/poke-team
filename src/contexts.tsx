@@ -102,49 +102,16 @@ export const CartProvider: FC = ({ children }) => {
 // #endregion
 
 
-// Gen context
-// #region
-
-interface GenContextInterface {
-  gen: GenerationNum,
-  setGen: (newGen: GenerationNum) => void,
-}
-
-export const GenContext = createContext<GenContextInterface>({
-  gen: NUMBER_OF_GENS,
-  setGen: (GenerationNum) => { return; },
-});
-
-export const GenProvider: FC = ({ children }) => {
-  const [gen, setTheGen] = useState<GenerationNum>(NUMBER_OF_GENS);
-
-  const setGen = (gen: GenerationNum) => {
-    setTheGen(gen);
-  };
-
-  return (
-    <GenContext.Provider
-      value={{
-        gen,
-        setGen,
-      }}
-    >
-      {children}
-    </GenContext.Provider>
-  );
-};
 
 // #endregion
 
 // Component composing all the providers
 export const ContextProvider: FC = ({ children }) => {
   return (
-    <GenProvider>
       <TeamProvider>
         <CartProvider>
           {children}
         </CartProvider>
       </TeamProvider>
-    </GenProvider>
   )
 }

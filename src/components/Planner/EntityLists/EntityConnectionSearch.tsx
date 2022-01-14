@@ -10,9 +10,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import {
-  GenContext,
-} from "../../../contexts";
+import { GenerationNum } from '../../../types-queries/Generation';
 
 // #region
 
@@ -29,6 +27,7 @@ export function useEntityConnectionChangeHandler<QueryVars>(defaultQueryVars: Qu
 // #endregion
 
 interface EntityConnectionSearchProps<SearchQuery, SearchQueryVars> {
+  gen: GenerationNum
   handleChange: (newQueryVars: SearchQueryVars) => void,
   listRender: (data: SearchQuery) => JSX.Element,
   query: DocumentNode,
@@ -36,14 +35,12 @@ interface EntityConnectionSearchProps<SearchQuery, SearchQueryVars> {
 }
 
 function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
+  gen,
   handleChange,
   listRender,
   query,
   queryVars,
 }: EntityConnectionSearchProps<SearchQuery, SearchQueryVars>): JSX.Element {
-
-  const { gen } = useContext(GenContext);
-
   useEffect(() => {
     handleChange({
       ...queryVars,

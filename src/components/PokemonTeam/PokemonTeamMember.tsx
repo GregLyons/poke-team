@@ -1,13 +1,7 @@
 import { useContext } from 'react';
-import { GenContext } from '../../contexts';
+import { GenerationNum } from '../../types-queries/Generation';
 import { Pokemon } from '../../types-queries/Pokemon';
 import { getPokemonSprite } from '../../utils/sprites';
-
-type TeamMember = {
-  pokemon: Pokemon
-  idx: number
-  removeFromTeam: (idx: number) => void
-}
 
 // Converts keys from BaseStat object to formatted names.
 // const baseStatMap_fullName = new Map([
@@ -29,10 +23,16 @@ const baseStatMap_abbr = new Map([
   ['speed', 'Spe'],
 ]);
 
+type TeamMemberProps = {
+  gen: GenerationNum
+  pokemon: Pokemon
+  idx: number
+  removeFromTeam: (idx: number) => void
+}
+
 const TeamMember = (
-  {pokemon, idx, removeFromTeam}: TeamMember
+  { gen, pokemon, idx, removeFromTeam,}: TeamMemberProps
 ) => {
-  const { gen } = useContext(GenContext);
   const {url, w: width, h: height, pixelated} = getPokemonSprite(pokemon, gen);
 
   return (

@@ -12,14 +12,14 @@ import {
   useRef,
   useState,
 } from 'react';
-import {
-  GenContext,
-} from '../../../contexts';
+
 import {
   useSearchParams,
 } from 'react-router-dom';
+import { GenerationNum } from '../../../types-queries/Generation';
 
 interface EntitySearchMainProps<SearchQuery, SearchQueryVars> {
+  gen: GenerationNum
   handleSubmit: (newQueryVars: SearchQueryVars) => void,
   query: DocumentNode,
   queryVars: SearchQueryVars,
@@ -27,6 +27,7 @@ interface EntitySearchMainProps<SearchQuery, SearchQueryVars> {
 }
 
 function EntitySearchMain<SearchQuery, SearchQueryVars>({
+  gen,
   handleSubmit,
   listRender,
   query,
@@ -34,7 +35,6 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
 }: EntitySearchMainProps<SearchQuery, SearchQueryVars>): JSX.Element {
   const [executeSearch, { data, loading, error }] = useLazyQuery<SearchQuery, SearchQueryVars>(query);
 
-  const { gen } = useContext(GenContext);
   const [searchParams, setSearchParams] = useSearchParams();
 
   // searchBox.ready = false means that we have just navigated to the page. If the URL contains search parameters, then a search will execute based on the searchParams.

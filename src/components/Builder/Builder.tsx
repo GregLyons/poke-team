@@ -3,18 +3,22 @@ import {
 } from 'react';
 
 import { TeamContext } from '../../contexts';
-import { Pokemon } from '../../types-queries/Pokemon';
+import { GenerationNum } from '../../types-queries/Generation';
 
 import PokemonSearch from './PokemonSearch';
 
+type BuilderProps = {
+  gen: GenerationNum
+}
 
-const Builder = () => {
+const Builder = ({ gen }: BuilderProps) => {
   const { addToTeam } = useContext(TeamContext);
 
   return (
     <div className="builder-wrapper">
       <PokemonSearch 
         addToTeam={addToTeam}
+        gen={gen}
       />
     </div>
   );

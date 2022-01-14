@@ -6,7 +6,6 @@ import {
 import {
   EffectInSearch,
 } from '../../../../types-queries/Effect';
-import { Pokemon } from '../../../../types-queries/Pokemon';
 
 type EffectEntryProps = {
   effect: EffectInSearch

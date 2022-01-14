@@ -7,10 +7,6 @@ import {
 } from 'react-router-dom';
 
 import {
-  GenContext,
-} from '../../../../contexts';
-
-import {
   EffectSearchQuery,
   EffectSearchResult,
   EffectSearchVars,
@@ -21,6 +17,7 @@ import {
 
 import EffectEntry from './EffectEntry';
 import EntitySearchMain from '../EntitySearchMain';
+import { GenerationNum } from '../../../../types-queries/Generation';
 
 const listRender = (data: EffectSearchQuery) => {
   if (!data || !data.effects) return (<div>Data not found for the query 'effects'.</div>);
@@ -38,8 +35,12 @@ const listRender = (data: EffectSearchQuery) => {
     </>
   );
 }
-const EffectSearchMain = () => {
-  const { gen } = useContext(GenContext);
+
+type EffectSearchMainProps = {
+  gen: GenerationNum
+}
+
+const EffectSearchMain = ({ gen }: EffectSearchMainProps) => {
 
   const [queryVars, setQueryVars] = useState<EffectSearchVars>({
     gen: gen,
@@ -56,6 +57,7 @@ const EffectSearchMain = () => {
   return (
     <>
       <EntitySearchMain 
+        gen={gen}
         handleSubmit={handleSubmit}
         listRender={listRender}
         query={EFFECT_SEARCH_QUERY}

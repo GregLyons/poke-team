@@ -7,10 +7,6 @@ import {
 } from 'react-router-dom';
 
 import {
-  GenContext,
-} from '../../../../contexts';
-
-import {
   MoveSearchQuery,
   MoveSearchResult,
   MoveSearchVars,
@@ -21,6 +17,7 @@ import {
 
 import MoveEntry from './MoveEntry';
 import EntitySearchMain from '../EntitySearchMain';
+import { GenerationNum } from '../../../../types-queries/Generation';
 
 const listRender = (data: MoveSearchQuery) => {
   if (!data || !data.moves) return (<div>Data not found for the query 'moves'.</div>);
@@ -38,9 +35,12 @@ const listRender = (data: MoveSearchQuery) => {
     </>
   );
 }
-const MoveSearchMain = () => {
-  const { gen } = useContext(GenContext);
 
+type MoveSearchMainProps = {
+  gen: GenerationNum
+}
+
+const MoveSearchMain = ({ gen }: MoveSearchMainProps) => {
   const [queryVars, setQueryVars] = useState<MoveSearchVars>({
     gen: gen,
     startsWith: '',
@@ -56,6 +56,7 @@ const MoveSearchMain = () => {
   return (
     <>
       <EntitySearchMain 
+        gen={gen}
         handleSubmit={handleSubmit}
         listRender={listRender}
         query={MOVE_SEARCH_QUERY}

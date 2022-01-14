@@ -13,8 +13,7 @@ import {
   Pokemon,
   PokemonGQLResult,
 } from '../../types-queries/Pokemon';
-
-import { GenContext } from '../../contexts';
+import { GenerationNum } from '../../types-queries/Generation';
 
 const POKEMON_SEARCH_QUERY = gql`
   query PokemonSearchQuery(
@@ -61,17 +60,16 @@ const POKEMON_SEARCH_QUERY = gql`
 
 type PokemonSearchProps = {
   addToTeam: (pokemon: Pokemon) => void
+  gen: GenerationNum
 }
 
-const PokemonSearch = (props: PokemonSearchProps) => {
+const PokemonSearch = ({ addToTeam, gen }: PokemonSearchProps) => {
   const [searchFilter, setSearchFilter] = useState({});
   const [executedSearch, setExecutedSearch] = useState<boolean>(false);
 
   const [executeSearch, { data }] = useLazyQuery(
     POKEMON_SEARCH_QUERY
   );
-
-  const { gen } = useContext(GenContext);
 
   useEffect(() => {
     console.log(searchFilter);
@@ -116,7 +114,7 @@ const PokemonSearch = (props: PokemonSearchProps) => {
               key={pokemon.id}
               onClick={(e) => {
                 e.preventDefault();
-                props.addToTeam(new Pokemon(pokemon));
+                addToTeam(new Pokemon(pokemon));
               }}
             >
               {pokemon.name}

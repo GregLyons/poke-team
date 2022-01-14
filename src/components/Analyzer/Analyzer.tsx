@@ -1,5 +1,10 @@
+import { GenerationNum } from "../../types-queries/Generation";
 
-const Analyzer = () => {
+type AnalyzerProps = {
+  gen: GenerationNum
+}
+
+const Analyzer = ({ gen }: AnalyzerProps) => {
   return (
     <div>I'm the analyzer</div>
   );

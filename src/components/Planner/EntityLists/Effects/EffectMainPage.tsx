@@ -1,8 +1,15 @@
+import { GenerationNum } from "../../../../types-queries/Generation";
 import EffectSearch from "./EffectSearchMain"
 
-const EffectMainPage = () => {
+type EffectMainPageProps = {
+  gen: GenerationNum
+}
+
+const EffectMainPage = ({ gen }: EffectMainPageProps) => {
   return (
-    <EffectSearch />
+    <EffectSearch 
+      gen={gen}
+    />
   )
 }
 

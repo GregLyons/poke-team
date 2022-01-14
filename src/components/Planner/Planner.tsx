@@ -5,8 +5,13 @@ import {
 import PlannerNavBar from './PlannerNavBar';
 
 import './Planner.css';
+import { GenerationNum } from "../../types-queries/Generation";
 
-const Planner = () => {
+type PlannerProps = {
+  gen: GenerationNum
+}
+
+const Planner = ({ gen }: PlannerProps) => {
   return (
     <div className="planner-container">
       <PlannerNavBar />

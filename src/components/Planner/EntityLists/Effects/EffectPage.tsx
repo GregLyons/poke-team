@@ -10,12 +10,7 @@ import {
 
 import {
   useLazyQuery,
-  useQuery
 } from '@apollo/client';
-
-import {
-  GenContext,
-} from '../../../../contexts';
 
 import EntityConnectionSearch, { useEntityConnectionChangeHandler, } from '../EntityConnectionSearch';
 
@@ -23,12 +18,10 @@ import {
   EFFECT_PAGE_QUERY,
   EFFECT_MOVE_QUERY,
 
-  EffectPageResult,
   EffectPageQuery,
   EffectPageQueryVars,
   EffectMoveQuery,
   EffectMoveQueryVars,
-  EffectMoveResult,
   EffectMoveEdge,
 } from '../../../../types-queries/Effect';
 
@@ -41,6 +34,7 @@ import {
 import {
   NUMBER_OF_GENS,
 } from '../../../../utils/constants';
+import { GenerationNum } from '../../../../types-queries/Generation';
 
 const listRenderEffectMove = (data: EffectMoveQuery) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
@@ -55,10 +49,12 @@ const listRenderEffectMove = (data: EffectMoveQuery) => {
   )
 }
 
-const EffectPage = () => {
-  const params = useParams();
+type EffectPageProps = {
+  gen: GenerationNum
+}
 
-  const { gen } = useContext(GenContext);
+const EffectPage = ({ gen }: EffectPageProps) => {
+  const params = useParams();
   
   const effectName = params.effectId || '';
 
@@ -185,6 +181,7 @@ const EffectPage = () => {
 
       <h2>Moves</h2>
       <EntityConnectionSearch
+        gen={gen}
         handleChange={handleChangeMove}
         listRender={listRenderEffectMove}
         query={EFFECT_MOVE_QUERY}

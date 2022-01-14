@@ -6,8 +6,13 @@ import { Pokemon } from '../../types-queries/Pokemon';
 import TeamMember from './PokemonTeamMember';
 
 import { TeamContext } from '../../contexts';
+import { GenerationNum } from '../../types-queries/Generation';
 
-const Team = () => {
+type TeamProps = {
+  gen: GenerationNum
+}
+
+const Team = ({ gen }: TeamProps) => {
   const { team, removeFromTeam } = useContext(TeamContext);
 
   return (
@@ -16,6 +21,7 @@ const Team = () => {
         // Actual members of the team
         ...team.map((pokemon: Pokemon, idx: number) => (
         <TeamMember
+          gen={gen}
           pokemon={pokemon}
           idx={idx}
           removeFromTeam={removeFromTeam}

@@ -1,8 +1,15 @@
+import { GenerationNum } from "../../../../types-queries/Generation";
 import MoveSearchMain from "./MoveSearchMain";
 
-const MoveMainPage = () => {
+type MoveMainProps = {
+  gen: GenerationNum
+}
+
+const MoveMainPage = ({ gen }: MoveMainProps) => {
   return (
-    <MoveSearchMain />
+    <MoveSearchMain 
+      gen={gen}
+    />
   )
 }
 
