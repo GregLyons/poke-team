@@ -49,6 +49,7 @@ import {
 } from "../../../App";
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
+import EntityAccordion from '../EntityAccordion';
 
 const listRenderItemEffect = ({ data, }: ListRenderArgs<ItemEffectQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
@@ -231,27 +232,34 @@ const ItemPage = ({
     <>
       <h1>{itemResult.formattedName}</h1>
 
-      {itemResult.effectCount > 0 && <>
-        <h2>Effects</h2>
-        <EntityConnectionSearch
-          gen={gen}
-          handleChange={handleChangeEffect}
-          listRender={listRenderItemEffect}
-          query={ITEM_EFFECT_QUERY}
-          queryVars={effectQueryVars}
-        />
-      </>}
-      
-      {itemResult.fieldStateCount > 0 && <>
-        <h2>FieldStates</h2>
-        <EntityConnectionSearch
-          gen={gen}
-          handleChange={handleChangeFieldState}
-          listRender={listRenderItemFieldState}
-          query={ITEM_FIELDSTATE_QUERY}
-          queryVars={fieldStateQueryVars}
-        />
-      </>}
+      <EntityAccordion 
+        accordionData={[
+          {
+            title: `Effects of ${itemResult.formattedName}`,
+            content: itemResult.effectCount > 0 && <>
+              <EntityConnectionSearch
+                gen={gen}
+                handleChange={handleChangeEffect}
+                listRender={listRenderItemEffect}
+                query={ITEM_EFFECT_QUERY}
+                queryVars={effectQueryVars}
+              />
+            </>,
+          },
+          {
+            title: `Field state interactions with ${itemResult.formattedName}`,
+            content: itemResult.fieldStateCount > 0 && <>
+              <EntityConnectionSearch
+                gen={gen}
+                handleChange={handleChangeFieldState}
+                listRender={listRenderItemFieldState}
+                query={ITEM_FIELDSTATE_QUERY}
+                queryVars={fieldStateQueryVars}
+              />
+            </>,
+          },
+        ]}
+      />
       <Outlet />
     </>
   );

@@ -49,6 +49,7 @@ import {
 } from "../../../App";
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
+import EntityAccordion from '../EntityAccordion';
 
 const listRenderMoveEffect = ({ data, }: ListRenderArgs<MoveEffectQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
@@ -231,27 +232,37 @@ const MovePage = ({
     <>
       <h1>{moveResult.formattedName}</h1>
 
-      {moveResult.effectCount > 0 && <>
-        <h2>Effects</h2>
-        <EntityConnectionSearch
-          gen={gen}
-          handleChange={handleChangeEffect}
-          listRender={listRenderMoveEffect}
-          query={MOVE_EFFECT_QUERY}
-          queryVars={effectQueryVars}
-        />
-      </>}
+      <EntityAccordion
+        accordionData={[
+          {
+            title: `Effects of ${moveResult.formattedName}`,
+            content: moveResult.effectCount > 0 && <>
+              <EntityConnectionSearch
+                gen={gen}
+                handleChange={handleChangeEffect}
+                listRender={listRenderMoveEffect}
+                query={MOVE_EFFECT_QUERY}
+                queryVars={effectQueryVars}
+              />
+            </>,
+          },
+          {
+            title: `Field state interactions with ${moveResult.formattedName}`,
+            content: moveResult.fieldStateCount > 0 && <>
+              <EntityConnectionSearch
+                gen={gen}
+                handleChange={handleChangeFieldState}
+                listRender={listRenderMoveFieldState}
+                query={MOVE_FIELDSTATE_QUERY}
+                queryVars={fieldStateQueryVars}
+              />
+            </>,
+          },
+        ]}
+      />
       
-      {moveResult.fieldStateCount > 0 && <>
-        <h2>FieldStates</h2>
-        <EntityConnectionSearch
-          gen={gen}
-          handleChange={handleChangeFieldState}
-          listRender={listRenderMoveFieldState}
-          query={MOVE_FIELDSTATE_QUERY}
-          queryVars={fieldStateQueryVars}
-        />
-      </>}
+      
+      
       <Outlet />
     </>
   );

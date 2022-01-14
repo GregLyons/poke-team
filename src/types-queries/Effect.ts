@@ -176,9 +176,9 @@ export class EffectOnPage extends EntityOnPage {
     super(gqlEffect);
 
     this.abilityCount = gqlEffect.abilities.count
-    this.fieldStateCount = gqlEffect.items.count
-    this.itemCount = gqlEffect.moves.count
-    this.moveCount = gqlEffect.fieldStates.count
+    this.fieldStateCount = gqlEffect.fieldStates.count
+    this.itemCount = gqlEffect.items.count
+    this.moveCount = gqlEffect.moves.count
   }
 }
 

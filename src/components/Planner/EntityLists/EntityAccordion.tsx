@@ -1,18 +1,11 @@
 import {
   useState,
 } from 'react';
-import {
-  DocumentNode,
-} from 'graphql';
-
-type SpecificEntitySearchProps = {
-  query: DocumentNode,
-}
 
 type EntityAccordionProps = {
   accordionData: {
     title: string
-    content: ({ query }: SpecificEntitySearchProps) => JSX.Element
+    content: false | JSX.Element
   }[]
 }
 
@@ -24,7 +17,7 @@ const EntityAccordion = ({
     <div className="accordion">
       {accordionData.map(({title, content}, idx) => (
         // Order of accordion of the accordion items will not change, so index as key is ok
-        <EntityAccordionItem
+        content && <EntityAccordionItem
           key={idx}
           title={title}
           content={content}
@@ -36,7 +29,7 @@ const EntityAccordion = ({
 
 type EntityAccordionItemProps = {
   title: string
-  content: ({ query }: SpecificEntitySearchProps) => JSX.Element
+  content: JSX.Element
 }
 
 const EntityAccordionItem = ({
@@ -50,9 +43,7 @@ const EntityAccordionItem = ({
         className="accordion-title"
         onClick={() => setIsActive(!isActive)}
       >
-        <div>
-          {title}
-        </div>
+        <h2>{title}</h2>
         <div>
           {isActive ? '-' : '+'}
         </div>

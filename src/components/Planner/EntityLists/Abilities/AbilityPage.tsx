@@ -49,6 +49,7 @@ import {
 } from "../../../App";
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
+import EntityAccordion from '../EntityAccordion';
 
 const listRenderAbilityEffect = ({ data, }: ListRenderArgs<AbilityEffectQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
@@ -232,27 +233,37 @@ const AbilityPage = ({
     <>
       <h1>{abilityResult.formattedName}</h1>
 
-      {abilityResult.effectCount > 0 && <>
-        <h2>Effects</h2>
-        <EntityConnectionSearch
-          gen={gen}
-          handleChange={handleChangeEffect}
-          listRender={listRenderAbilityEffect}
-          query={ABILITY_EFFECT_QUERY}
-          queryVars={effectQueryVars}
-        />
-      </>}
+      <EntityAccordion 
+        accordionData={[
+          {
+            title: `Effects of ${abilityResult.formattedName}`,
+            content: abilityResult.effectCount > 0 && <>
+              <EntityConnectionSearch
+                gen={gen}
+                handleChange={handleChangeEffect}
+                listRender={listRenderAbilityEffect}
+                query={ABILITY_EFFECT_QUERY}
+                queryVars={effectQueryVars}
+              />
+            </>,
+          },
+          {
+            title: `Field state interactions with ${abilityResult.formattedName}`,
+            content: abilityResult.fieldStateCount > 0 && <>
+              <EntityConnectionSearch
+                gen={gen}
+                handleChange={handleChangeFieldState}
+                listRender={listRenderAbilityFieldState}
+                query={ABILITY_FIELDSTATE_QUERY}
+                queryVars={fieldStateQueryVars}
+              />
+            </>,
+          },
+        ]} 
+      />
       
-      {abilityResult.fieldStateCount > 0 && <>
-        <h2>FieldStates</h2>
-        <EntityConnectionSearch
-          gen={gen}
-          handleChange={handleChangeFieldState}
-          listRender={listRenderAbilityFieldState}
-          query={ABILITY_FIELDSTATE_QUERY}
-          queryVars={fieldStateQueryVars}
-        />
-      </>}
+      
+      
       <Outlet />
     </>
   );

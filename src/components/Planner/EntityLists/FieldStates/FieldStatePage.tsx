@@ -58,6 +58,7 @@ import {
 } from "../../../App";
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
+import EntityAccordion from '../EntityAccordion';
 
 const listRenderFieldStateAbility = ({ data, }: ListRenderArgs<FieldStateAbilityQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
@@ -291,62 +292,68 @@ const FieldStatePage = ({
     <>
       <h1>{fieldStateResult.formattedName}</h1>
 
-      {fieldStateResult.abilityCount > 0 && <>
-        <h2>Abilities</h2>
-        <EntityConnectionSearch
-          dispatchCart={dispatchCart}
-          dispatchTeam={dispatchTeam}
-          gen={gen}
-          handleChange={handleChangeAbility}
-          listRender={listRenderFieldStateAbility}
-          query={FIELDSTATE_ABILITY_QUERY}
-          queryVars={abilityQueryVars}
-        />
-      </>}
-      
-      {fieldStateResult.effectCount > 0 && <>
-        <h2>Items</h2>
-        <EntityConnectionSearch
-          dispatchCart={dispatchCart}
-          dispatchTeam={dispatchTeam}
-          gen={gen}
-          handleChange={handleChangeEffect}
-          listRender={listRenderFieldStateEffect}
-          query={FIELDSTATE_EFFECT_QUERY}
-          queryVars={itemQueryVars}
-        />
-      </>}
-
-      {fieldStateResult.itemCount > 0 && <>
-        <h2>Items</h2>
-        <EntityConnectionSearch
-          dispatchCart={dispatchCart}
-          dispatchTeam={dispatchTeam}
-          gen={gen}
-          handleChange={handleChangeItem}
-          listRender={listRenderFieldStateItem}
-          query={FIELDSTATE_ITEM_QUERY}
-          queryVars={itemQueryVars}
-        />
-      </>}
-      
-      {fieldStateResult.moveCount > 0 && <>
-        <h2>Moves</h2>
-        <EntityConnectionSearch
-          dispatchCart={dispatchCart}
-          dispatchTeam={dispatchTeam}
-          gen={gen}
-          handleChange={handleChangeMove}
-          listRender={listRenderFieldStateMove}
-          query={FIELDSTATE_MOVE_QUERY}
-          queryVars={moveQueryVars}
-        />
-      </>}
+      <EntityAccordion 
+        accordionData={[
+          {
+            title: `Ability interactions with ${fieldStateResult.formattedName}`,
+            content: fieldStateResult.abilityCount > 0 && <>
+              <EntityConnectionSearch
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
+                gen={gen}
+                handleChange={handleChangeAbility}
+                listRender={listRenderFieldStateAbility}
+                query={FIELDSTATE_ABILITY_QUERY}
+                queryVars={abilityQueryVars}
+              />
+            </>,
+          },
+          {
+            title: `Effects of ${fieldStateResult.formattedName}`,
+            content: fieldStateResult.effectCount > 0 && <>
+              <EntityConnectionSearch
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
+                gen={gen}
+                handleChange={handleChangeEffect}
+                listRender={listRenderFieldStateEffect}
+                query={FIELDSTATE_EFFECT_QUERY}
+                queryVars={itemQueryVars}
+              />
+            </>,
+          },
+          {
+            title: `Item interactions with ${fieldStateResult.formattedName}`,
+            content: fieldStateResult.itemCount > 0 && <>
+              <EntityConnectionSearch
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
+                gen={gen}
+                handleChange={handleChangeItem}
+                listRender={listRenderFieldStateItem}
+                query={FIELDSTATE_ITEM_QUERY}
+                queryVars={itemQueryVars}
+              />
+            </>,
+          },
+          {
+            title: `Move interactions with ${fieldStateResult.formattedName}`,
+            content: fieldStateResult.moveCount > 0 && <>
+              <EntityConnectionSearch
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
+                gen={gen}
+                handleChange={handleChangeMove}
+                listRender={listRenderFieldStateMove}
+                query={FIELDSTATE_MOVE_QUERY}
+                queryVars={moveQueryVars}
+              />
+            </>,
+          },
+        ]}
+      />
       <Outlet />
-      
-      {/* <EntityAccordion
-        accordionData={accordionData}
-      /> */}
+    
 
       {/* Descriptions */}      
       {/* <h2>Descriptions</h2>
@@ -359,59 +366,6 @@ const FieldStatePage = ({
         );
       })} */}
 
-      {/* Abilities */}
-      {/* {result.abilities.count > 0 && (<h2>Abilities</h2>)} */}
-      {/* {result.abilities.edges && result.abilities.edges.length > 0
-        && result.abilities.edges.map((ability: any) => {
-          return (
-            <div key={'abilities_' + ability.node.id}>
-              {ability.node.name}
-            </div>
-          )
-        })
-      } */}
-
-      {/* Field States */}
-      {/* {result.fieldStates.count > 0 
-        && (<h2>Field States</h2>)} */}
-      {/* {result.fieldStates.edges && result.fieldStates.edges.length > 0
-        && result.fieldStates.edges.map((fieldState: any) => {
-          return (
-            <div key={'fieldState_' + fieldState.node.id}>
-              {fieldState.node.name}
-            </div>
-          )
-        })
-      } */}
-
-      {/* Items */}
-      {/* {result.items.count > 0
-        && (<h2>Items</h2>)} */}
-      {/* {result.items.edges && result.items.edges.length > 0
-        && result.items.edges.map((items: any) => {
-          return (
-            <div key={'items_' + items.node.id}>
-              {items.node.name}
-            </div>
-          )
-        })
-      } */}
-
-      {/* Moves */}
-      {/* {result.moves.count > 0 
-        && (<h2>Moves</h2>)}
-      {result.moves.edges && result.moves.edges.length > 0
-        && result.moves.edges.map((edge: any) => {
-          return (
-            <Link
-              to={`../moves/${edge.node.name}`}
-              key={'move_' + edge.node.id}
-            >
-              {edge.node.name}
-            </Link>
-          )
-        })
-      } */}
     </>
   );
 }
