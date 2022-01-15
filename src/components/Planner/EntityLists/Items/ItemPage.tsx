@@ -2,7 +2,6 @@ import {
   useEffect,
 } from 'react';
 import {
-  Link,
   Outlet,
   useParams,
 } from 'react-router-dom';
@@ -12,20 +11,15 @@ import {
 
 import {
   ITEM_PAGE_QUERY,
-  ITEM_EFFECT_QUERY,
-  
   ItemPageQuery,
   ItemPageQueryVars,
-
-  ItemEffectEdge,
-  ItemEffectQuery,
+  ItemOnPage,
+  
+  ITEM_EFFECT_QUERY,
   ItemEffectQueryVars,
 
-  ItemFieldStateEdge,
-  ItemFieldStateQuery,
-  ItemFieldStateQueryVars,
   ITEM_FIELDSTATE_QUERY,
-  ItemOnPage,
+  ItemFieldStateQueryVars,
 } from '../../../../types-queries/Item';
 import {
   INTRODUCTION_QUERY,
@@ -36,9 +30,10 @@ import {
 import {
   NUMBER_OF_GENS,
 } from '../../../../utils/constants';
-import { GenerationNum } from '../../../../types-queries/Generation';
 import {
-  ListRenderArgs,
+  GenerationNum,
+} from '../../../../types-queries/Generation';
+import {
   useEntityConnectionChangeHandler,
 } from '../helpers';
 import {

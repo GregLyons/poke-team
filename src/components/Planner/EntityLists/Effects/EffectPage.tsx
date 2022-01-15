@@ -2,7 +2,6 @@ import {
   useEffect,
 } from 'react';
 import {
-  Link,
   Outlet,
   useParams,
 } from 'react-router-dom';
@@ -11,33 +10,25 @@ import {
 } from '@apollo/client';
 
 import {
-  ListRenderArgs,
   useEntityConnectionChangeHandler,
 } from '../helpers';
 import {
   EFFECT_PAGE_QUERY,
   EffectPageQuery,
   EffectPageQueryVars,
+  EffectOnPage,
 
   EFFECT_ABILITY_QUERY,
-  EffectAbilityQuery,
   EffectAbilityQueryVars,
-  EffectAbilityEdge,
 
-  EFFECT_ITEM_QUERY,
-  EffectItemQuery,
-  EffectItemQueryVars,
-  EffectItemEdge,
-
-  EFFECT_MOVE_QUERY,
-  EffectMoveQuery,
-  EffectMoveQueryVars,
-  EffectMoveEdge,
-  EffectOnPage,
-  EffectFieldStateQuery,
-  EffectFieldStateEdge,
   EFFECT_FIELDSTATE_QUERY,
   EffectFieldStateQueryVars,
+
+  EFFECT_ITEM_QUERY,
+  EffectItemQueryVars,
+
+  EFFECT_MOVE_QUERY,
+  EffectMoveQueryVars,
 } from '../../../../types-queries/Effect';
 import {
   INTRODUCTION_QUERY,

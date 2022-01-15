@@ -10,33 +10,25 @@ import {
 } from '@apollo/client';
 
 import {
-  ListRenderArgs,
   useEntityConnectionChangeHandler,
 } from '../helpers';
 import {
   FIELDSTATE_PAGE_QUERY,
   FieldStatePageQuery,
   FieldStatePageQueryVars,
+  FieldStateOnPage,
 
   FIELDSTATE_ABILITY_QUERY,
-  FieldStateAbilityQuery,
   FieldStateAbilityQueryVars,
-  FieldStateAbilityEdge,
+
+  FIELDSTATE_EFFECT_QUERY,
+  FieldStateEffectQueryVars,
 
   FIELDSTATE_ITEM_QUERY,
-  FieldStateItemQuery,
   FieldStateItemQueryVars,
-  FieldStateItemEdge,
 
   FIELDSTATE_MOVE_QUERY,
-  FieldStateMoveQuery,
   FieldStateMoveQueryVars,
-  FieldStateMoveEdge,
-  FieldStateOnPage,
-  FieldStateEffectQuery,
-  FieldStateEffectEdge,
-  FieldStateEffectQueryVars,
-  FIELDSTATE_EFFECT_QUERY,
 } from '../../../../types-queries/FieldState';
 import {
   INTRODUCTION_QUERY,
@@ -250,7 +242,7 @@ const FieldStatePage = ({
                 handleChange={handleChangeEffect}
                 listRender={listRenderFieldStateEffect}
                 query={FIELDSTATE_EFFECT_QUERY}
-                queryVars={itemQueryVars}
+                queryVars={effectQueryVars}
               />
             </>,
           },

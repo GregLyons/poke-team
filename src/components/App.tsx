@@ -53,7 +53,7 @@ function teamReducer(state: Team, action: TeamAction) {
         action.payload,
       ];
     case 'remove':
-      return state.filter((d, i) => i != action.payload);
+      return state.filter((d, i) => i !== action.payload);
     default:
       throw new Error();
   }

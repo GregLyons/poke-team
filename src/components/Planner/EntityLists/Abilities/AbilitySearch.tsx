@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 
 import {
-  ListRenderArgs, 
+  ListRenderArgs, MissingDispatchError, 
 } from '../helpers';
 import {
   AbilitySearchQuery,
@@ -28,15 +28,18 @@ import {
 import AbilityEntry from './AbilityEntry';
 import EntitySearchMain from '../EntitySearchMain';
 
-const listRender = ({ data, }: ListRenderArgs<AbilitySearchQuery>) => {
+const listRender = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<AbilitySearchQuery>) => {
   if (!data || !data.abilities) return (<div>Data not found for the query 'abilities'.</div>);
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.')
   
   return (
     <>
       {data.abilities.map((ability: AbilitySearchResult) => (
           <>
             <AbilityEntry
-              key={'moveEntry_' + ability.id}
+              dispatchCart={dispatchCart}
+              dispatchTeam={dispatchTeam}
+              key={'abilityEntry_' + ability.id}
               ability={new AbilityInSearch(ability)} 
             />
           </>
@@ -61,7 +64,7 @@ const AbilitySearch = ({
     gen: gen,
     startsWith: '',
     limit: 5,
-  })
+  });
 
   const handleSubmit: (newQueryVars: AbilitySearchVars) => void = (newQueryVars) => {
     setQueryVars({
@@ -72,6 +75,8 @@ const AbilitySearch = ({
   return (
     <>
       <EntitySearchMain
+        dispatchCart={dispatchCart}
+        dispatchTeam={dispatchTeam}
         gen={gen}
         handleSubmit={handleSubmit}
         listRender={listRender}

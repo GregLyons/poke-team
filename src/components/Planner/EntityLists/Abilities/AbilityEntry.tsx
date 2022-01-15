@@ -4,19 +4,26 @@ import {
 } from 'react-router-dom';
 
 import {
-  getPokemonIcon,
-} from '../../../../utils/sprites';
-
-import {
   AbilityInSearch,
 } from '../../../../types-queries/Ability';
 
+import { 
+  CartAction,
+  TeamAction,
+} from "../../../App";
+
+import PokemonIcon from '../../../PokemonIcon';
+
 type AbilityEntryProps = {
   ability: AbilityInSearch
+  dispatchCart: React.Dispatch<CartAction>
+  dispatchTeam: React.Dispatch<TeamAction>
 }
 
 const AbilityEntry = ({
   ability,
+  dispatchCart,
+  dispatchTeam,
 }: AbilityEntryProps) => {
   return (
     <div className="planner__table-row">
@@ -30,24 +37,16 @@ const AbilityEntry = ({
 
       {/* Pokemon icons */}
       <div className="planner__ability-pokemon">
-        <div>{false && 
-          ability.pokemonIconData.map(pokemonIconDatum => {
-            const {left, top} = getPokemonIcon(pokemonIconDatum);
-            
+        <div>
+          {ability.pokemonIconData.map(pokemonIconDatum => {
             return (
-              <div
-                title={`Icon for ${pokemonIconDatum.formattedName}`}
-                key={'moveEntry_' + ability.id + '_' + pokemonIconDatum.name + '_icon'}
-                style={{
-                  width: '40px',
-                  height: '30px',
-                  display: 'inline-block',
-                  backgroundImage: `url(${process.env.PUBLIC_URL + '/images/icons/pokemonicons-sheet.png'})`,
-                  backgroundPosition: `${left}px ${top}px`,
-                  backgroundRepeat: 'no-repeat',
-                }}              
+              <PokemonIcon
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
+                key={'abilityEntry_' + ability.id + '_' + pokemonIconDatum.name + '_icon'}
+                pokemonIconDatum={pokemonIconDatum} 
               />
-            )
+            );
           })}
         </div>
       </div>

@@ -91,7 +91,7 @@ const PokemonSearch = ({
         }
       })
     } 
-  }, [gen]);
+  }, [gen, executeSearch, executedSearch, searchFilter]);
 
   return (
     <>

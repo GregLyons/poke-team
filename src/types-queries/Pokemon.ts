@@ -6,7 +6,6 @@ import {
   TypeName,
 } from './Type.js';
 import {
-  PokemonIconEdge,
   TypeNameEdge,
 } from './helpers.js';
 

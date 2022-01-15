@@ -21,7 +21,6 @@ import {
   PokemonIconEdge,
   PokemonIconDatum,
   pokemonIconEdgeToPokemonIconDatum,
-  NameEdge,
 } from './helpers';
 import {
   TypeName,

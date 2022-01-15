@@ -2,7 +2,6 @@ import {
   useEffect,
 } from 'react';
 import {
-  Link,
   Outlet,
   useParams,
 } from 'react-router-dom';
@@ -13,20 +12,15 @@ import {
 
 import {
   MOVE_PAGE_QUERY,
-  MOVE_EFFECT_QUERY,
-  
   MovePageQuery,
   MovePageQueryVars,
-
-  MoveEffectEdge,
-  MoveEffectQuery,
+  MoveOnPage,
+  
+  MOVE_EFFECT_QUERY,
   MoveEffectQueryVars,
 
-  MoveFieldStateEdge,
-  MoveFieldStateQuery,
-  MoveFieldStateQueryVars,
   MOVE_FIELDSTATE_QUERY,
-  MoveOnPage,
+  MoveFieldStateQueryVars,
 } from '../../../../types-queries/Move';
 import {
   INTRODUCTION_QUERY,
@@ -37,9 +31,10 @@ import {
 import {
   NUMBER_OF_GENS,
 } from '../../../../utils/constants';
-import { GenerationNum } from '../../../../types-queries/Generation';
 import {
-  ListRenderArgs,
+  GenerationNum,
+} from '../../../../types-queries/Generation';
+import {
   useEntityConnectionChangeHandler,
 } from '../helpers';
 import {

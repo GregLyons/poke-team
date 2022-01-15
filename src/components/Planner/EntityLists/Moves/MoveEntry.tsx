@@ -3,9 +3,6 @@ import {
   Outlet,
 } from 'react-router-dom';
 
-import {
-  getPokemonIcon,
-} from '../../../../utils/sprites';
 import { 
   MoveInSearch,
 } from '../../../../types-queries/Move';
@@ -14,6 +11,7 @@ import {
   CartAction,
   TeamAction,
 } from "../../../App";
+import PokemonIcon from '../../../PokemonIcon';
 
 type MoveEntryProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -53,29 +51,21 @@ const MoveEntry = ({
 
       {/* Pokemon icons */}
       <div className="planner__move-pokemon">
-        <div>{false && 
-          move.pokemonIconData.map(pokemonIconDatum => {
+        <div>
+          {move.pokemonIconData.map(pokemonIconDatum => {
             // Ignore duplicate Pokemon
             if(seenPokemon.hasOwnProperty(pokemonIconDatum.name)) return;
             // Add Pokemon to list of seen Pokemon
             else seenPokemon[pokemonIconDatum.name] = true;
             
-            const {left, top} = getPokemonIcon(pokemonIconDatum);
-            
             return (
-              <div
-                title={`Icon for ${pokemonIconDatum.formattedName}`}
+              <PokemonIcon
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
                 key={'moveEntry_' + move.id + '_' + pokemonIconDatum.name + '_icon'}
-                style={{
-                  width: '40px',
-                  height: '30px',
-                  display: 'inline-block',
-                  backgroundImage: `url(${process.env.PUBLIC_URL + '/images/icons/pokemonicons-sheet.png'})`,
-                  backgroundPosition: `${left}px ${top}px`,
-                  backgroundRepeat: 'no-repeat',
-                }}              
+                pokemonIconDatum={pokemonIconDatum} 
               />
-            )
+            );
           })}
         </div>
       </div>

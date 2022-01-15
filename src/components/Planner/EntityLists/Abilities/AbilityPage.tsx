@@ -2,7 +2,6 @@ import {
   useEffect,
 } from 'react';
 import {
-  Link,
   Outlet,
   useParams,
 } from 'react-router-dom';
@@ -10,23 +9,17 @@ import {
   useLazyQuery,
 } from '@apollo/client';
 
-
 import {
   ABILITY_PAGE_QUERY,
-  ABILITY_EFFECT_QUERY,
-  
   AbilityPageQuery,
   AbilityPageQueryVars,
-
-  AbilityEffectEdge,
-  AbilityEffectQuery,
+  AbilityOnPage,
+  
+  ABILITY_EFFECT_QUERY,
   AbilityEffectQueryVars,
 
-  AbilityFieldStateEdge,
-  AbilityFieldStateQuery,
-  AbilityFieldStateQueryVars,
   ABILITY_FIELDSTATE_QUERY,
-  AbilityOnPage,
+  AbilityFieldStateQueryVars,
 } from '../../../../types-queries/Ability';
 import {
   INTRODUCTION_QUERY,
@@ -39,7 +32,6 @@ import {
 } from '../../../../utils/constants';
 import { GenerationNum } from '../../../../types-queries/Generation';
 import {
-  ListRenderArgs,
   useEntityConnectionChangeHandler,
 } from '../helpers';
 import {
