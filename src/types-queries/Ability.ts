@@ -69,8 +69,8 @@ export const ABILITY_SEARCH_QUERY = gql`
       name
       formattedName
 
-      descriptions(pagination: {limit: 1}) {
-        edges {
+      descriptions {
+        edges(pagination: {limit: 1}) {
           node {
             text
           }

@@ -18,6 +18,8 @@ import {
   MainToAuxConnectionOnPage,
   DescriptionEdge,
   VersionDependentDescription,
+  VersionDependentDescriptionEdgeWithCode,
+  VersionDependentDescriptionEdge,
 } from './helpers';
 import {
   GenerationNum,
@@ -40,7 +42,7 @@ export interface ItemSearchResult extends MainEntitySearchResult {
   formattedName: string
 
   descriptions: {
-    edges: DescriptionsEdge[]
+    edges: VersionDependentDescriptionEdge[]
   }
 }
 
@@ -61,8 +63,8 @@ export const ITEM_SEARCH_QUERY = gql`
       name
       formattedName
 
-      descriptions(pagination: {limit: 1}) {
-        edges {
+      descriptions {
+        edges(pagination: {limit: 1}) {
           node {
             text
           }
@@ -73,12 +75,8 @@ export const ITEM_SEARCH_QUERY = gql`
 `;
 
 export class ItemInSearch extends MainEntityInSearch {
-  public description: string
-
   constructor(gqlItem: ItemSearchResult) {
     super(gqlItem);
-
-    this.description = gqlItem.descriptions.edges[0].node.text;
   }
 }
 

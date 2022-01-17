@@ -149,6 +149,7 @@ const EffectPage = ({
     );
   }
 
+  console.log(data_introduced.effectByName[0])
   const debutGen = data_introduced.effectByName[0].introduced.edges[0].node.number;
 
   if (debutGen > gen) return (

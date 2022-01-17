@@ -260,8 +260,8 @@ export const EFFECT_ABILITY_QUERY = gql`
             name
             formattedName
 
-            descriptions(pagination: {limit: 1}) {
-              edges {
+            descriptions {
+              edges(pagination: {limit: 1}) {
                 node {
                   text
                 }
@@ -407,8 +407,8 @@ export const EFFECT_ITEM_QUERY = gql`
             name
             formattedName
 
-            descriptions(pagination: {limit: 1}) {
-              edges {
+            descriptions {
+              edges(pagination: {limit: 1}) {
                 node {
                   text
                 }

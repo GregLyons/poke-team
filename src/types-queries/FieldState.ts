@@ -310,22 +310,22 @@ export type FieldStateAbilityQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
     activatesAbility: {
-      edges: AbilityIconEdge[]
+      edges: FieldStateAbilityEdge[]
     }
     createdByAbility: {
-      edges: AbilityIconEdge[]
+      edges: FieldStateAbilityEdge[]
     }
     ignoredByAbility: {
-      edges: AbilityIconEdge[]
+      edges: FieldStateAbilityEdge[]
     }
     preventedByAbility: {
-      edges: AbilityIconEdge[]
+      edges: FieldStateAbilityEdge[]
     }
     removedByAbility: {
-      edges: AbilityIconEdge[]
+      edges: FieldStateAbilityEdge[]
     }
     suppressedByAbility: {
-      edges: AbilityIconEdge[]
+      edges: FieldStateAbilityEdge[]
     }
   }[]
 }
@@ -390,8 +390,8 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             name
             formattedName
 
-            descriptions(pagination: {limit: 1}) {
-              edges {
+            descriptions {
+              edges(pagination: {limit: 1}) {
                 node {
                   text
                 }
@@ -426,8 +426,8 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             name
             formattedName
 
-            descriptions(pagination: {limit: 1}) {
-              edges {
+            descriptions {
+              edges(pagination: {limit: 1}) {
                 node {
                   text
                 }
@@ -461,8 +461,8 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             name
             formattedName
 
-            descriptions(pagination: {limit: 1}) {
-              edges {
+            descriptions {
+              edges(pagination: {limit: 1}) {
                 node {
                   text
                 }
@@ -496,8 +496,8 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             name
             formattedName
 
-            descriptions(pagination: {limit: 1}) {
-              edges {
+            descriptions {
+              edges(pagination: {limit: 1}) {
                 node {
                   text
                 }
@@ -531,8 +531,8 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             name
             formattedName
 
-            descriptions(pagination: {limit: 1}) {
-              edges {
+            descriptions {
+              edges(pagination: {limit: 1}) {
                 node {
                   text
                 }
@@ -638,16 +638,16 @@ export type FieldStateItemQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
     activatesItem: {
-      edges: ItemIconEdge[]
+      edges: FieldStateItemEdge[]
     }
     extendedByItem: {
-      edges: ItemIconEdge[]
+      edges: FieldStateItemEdge[]
     }
     ignoredByItem: {
-      edges: ItemIconEdge[]
+      edges: FieldStateItemEdge[]
     }
     resistedByItem: {
-      edges: ItemIconEdge[]
+      edges: FieldStateItemEdge[]
     }
   }[]
 }
@@ -684,8 +684,8 @@ export const FIELDSTATE_ITEM_QUERY = gql`
             id
             name
             formattedName
-            descriptions(pagination: {limit: 1}) {
-              edges {
+            descriptions {
+              edges(pagination: {limit: 1}) {
                 node {
                   text
                 }
@@ -708,8 +708,8 @@ export const FIELDSTATE_ITEM_QUERY = gql`
             id
             name
             formattedName
-            descriptions(pagination: {limit: 1}) {
-              edges {
+            descriptions {
+              edges(pagination: {limit: 1}) {
                 node {
                   text
                 }
@@ -733,8 +733,8 @@ export const FIELDSTATE_ITEM_QUERY = gql`
             id
             name
             formattedName
-            descriptions(pagination: {limit: 1}) {
-              edges {
+            descriptions {
+              edges(pagination: {limit: 1}) {
                 node {
                   text
                 }
@@ -757,8 +757,8 @@ export const FIELDSTATE_ITEM_QUERY = gql`
             id
             name
             formattedName
-            descriptions(pagination: {limit: 1}) {
-              edges {
+            descriptions {
+              edges(pagination: {limit: 1}) {
                 node {
                   text
                 }
@@ -800,16 +800,16 @@ export type FieldStateMoveQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
     createdByMove: {
-      edges: MoveIconEdge[]
+      edges: FieldStateMoveEdge[]
     }
     enhancesMove: {
-      edges: MoveIconEdge[]
+      edges: FieldStateMoveEdge[]
     }
     hindersMove: {
-      edges: MoveIconEdge[]
+      edges: FieldStateMoveEdge[]
     }
     removedByMove: {
-      edges: MoveIconEdge[]
+      edges: FieldStateMoveEdge[]
     }
   }[]
 }
@@ -850,8 +850,8 @@ export const FIELDSTATE_MOVE_QUERY = gql`
             id
             name
             formattedName
-            descriptions(pagination: {limit: 1}) {
-              edges {
+            descriptions {
+              edges(pagination: {limit: 1}) {
                 node {
                   text
                 }
@@ -895,8 +895,8 @@ export const FIELDSTATE_MOVE_QUERY = gql`
             id
             name
             formattedName
-            descriptions(pagination: {limit: 1}) {
-              edges {
+            descriptions {
+              edges(pagination: {limit: 1}) {
                 node {
                   text
                 }
@@ -939,8 +939,8 @@ export const FIELDSTATE_MOVE_QUERY = gql`
             id
             name
             formattedName
-            descriptions(pagination: {limit: 1}) {
-              edges {
+            descriptions {
+              edges(pagination: {limit: 1}) {
                 node {
                   text
                 }
@@ -983,8 +983,8 @@ export const FIELDSTATE_MOVE_QUERY = gql`
             id
             name
             formattedName
-            descriptions(pagination: {limit: 1}) {
-              edges {
+            descriptions {
+              edges(pagination: {limit: 1}) {
                 node {
                   text
                 }
