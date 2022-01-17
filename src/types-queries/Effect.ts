@@ -274,6 +274,7 @@ export const EFFECT_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  pokemonShowdownID
 
                   introduced {
                     edges {
@@ -506,6 +507,7 @@ export const EFFECT_MOVE_QUERY = gql`
                   id
                   name
                   formattedName
+                  pokemonShowdownID
 
                   introduced {
                     edges {

@@ -34,6 +34,7 @@ const POKEMON_SEARCH_QUERY = gql`
       name
       formattedName
       speciesName
+      pokemonShowdownID
 
       introduced {
         edges {

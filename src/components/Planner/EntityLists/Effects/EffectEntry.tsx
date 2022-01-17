@@ -25,6 +25,9 @@ const EffectEntry = ({
       >
         {effect.formattedName}
       </Link>
+      <div>
+        {effect.description}
+      </div>
       <Outlet />
     </div>
   );

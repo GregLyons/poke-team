@@ -28,11 +28,11 @@ const MoveEntry = ({
   let seenPokemon: {[k: string]: boolean} = {};
 
   return (
-    <div className="planner__table-row">
+    <div className="planner__table-row planner__table-row--move">
       {/* Move name */}
       <Link 
         to={`${move.name}`}
-        className="planner__move-name"
+        className="planner__name"
       >
         {move.formattedName}
       </Link>
@@ -49,8 +49,12 @@ const MoveEntry = ({
         <div>Type: {move.type}</div>
       </div>
 
+      <div>
+        {move.description}
+      </div>
+
       {/* Pokemon icons */}
-      <div className="planner__move-pokemon">
+      <div className="planner__pokemon-icon">
         <div>
           {move.pokemonIconData.map(pokemonIconDatum => {
             // Ignore duplicate Pokemon

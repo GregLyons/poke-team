@@ -25,6 +25,9 @@ const FieldStateEntry = ({
       >
         {fieldState.formattedName}
       </Link>
+      <div>
+        {fieldState.description}
+      </div>
       <Outlet />
     </div>
   );

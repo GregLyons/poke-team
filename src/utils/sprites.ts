@@ -1,5 +1,6 @@
 import { Sprites, Icons } from '@pkmn/img';
 import { GenerationNum } from '../types-queries/Generation.js';
+import { PokemonIconDatum } from '../types-queries/helpers.js';
 import { Pokemon } from '../types-queries/Pokemon.js';
 
 // Get Pokemon sprites
@@ -28,15 +29,8 @@ export const getPokemonSprite = (pokemon: Pokemon | PokemonNameData, gen: Genera
   }
 }
 
-export const getPokemonIcon = (pokemon: Pokemon | PokemonNameData, gen: GenerationNum = 8) => {
-  let {url} = Icons.getPokemon(pokemon.name.replace('_', ''));
-
-  // If the pokemon.name is incompatible, use the speciesName instead.
-  if (url.includes('0.png')) {
-    return Icons.getPokemon(pokemon.speciesName.replace('_', ''));
-  } else {
-    return Icons.getPokemon(pokemon.name.replace('_', ''));
-  }
+export const getPokemonIcon = (pokemon: PokemonIconDatum) => {
+  return Icons.getPokemon(pokemon.psID);
 }
 
 //#endregion

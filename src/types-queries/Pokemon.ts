@@ -27,6 +27,8 @@ export interface PokemonGQLResult {
   formattedName: string
   speciesName: string
 
+  pokemonShowdownID: string
+
   introduced: {
     edges: IntroductionEdge[]
   }
@@ -45,6 +47,8 @@ export class Pokemon {
   public name: string
   public formattedName: string
   public speciesName: string
+  
+  public psID: string
 
   public introduced: GenerationNum
 
@@ -61,6 +65,8 @@ export class Pokemon {
     this.name = gqlPokemon.name;
     this.formattedName = gqlPokemon.formattedName;
     this.speciesName = gqlPokemon.speciesName;
+
+    this.psID = gqlPokemon.pokemonShowdownID;
 
     const {hp, attack, defense, specialAttack, specialDefense, speed} = gqlPokemon.baseStats;
     this.baseStats = {hp, attack, defense, specialAttack, specialDefense, speed};

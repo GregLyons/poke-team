@@ -78,6 +78,8 @@ export const FIELDSTATE_SEARCH_QUERY = gql`
       name
       formattedName
 
+      description
+
       class
       damagePercent
       grounded
@@ -369,6 +371,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  pokemonShowdownID
 
                   introduced {
                     edges {
@@ -850,6 +853,7 @@ export const FIELDSTATE_MOVE_QUERY = gql`
             id
             name
             formattedName
+            pokemonShowdownID
             descriptions {
               edges(pagination: {limit: 1}) {
                 node {

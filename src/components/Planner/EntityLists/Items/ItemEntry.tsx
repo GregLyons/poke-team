@@ -33,6 +33,9 @@ const ItemEntry = ({
       >
         {item.formattedName}
       </Link>
+      <div>
+        {item.description}
+      </div>
       <Outlet />
     </div>
   );
