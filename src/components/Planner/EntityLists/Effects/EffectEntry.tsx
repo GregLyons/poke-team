@@ -17,15 +17,15 @@ const EffectEntry = ({
   // Since Pokemon can learn Moves in multiple ways, we need to worry about duplicates. The keys of this object are Pokemon names, and the value is always 'true'; we only care about the keys.
 
   return (
-    <div className="planner__table-row">
+    <div className="planner__main-search-table-row">
       {/* Effect name */}
       <Link 
         to={`${effect.name}`}
-        className="planner__table-name"
+        className="planner__main-search-row-name"
       >
         {effect.formattedName}
       </Link>
-      <div className="planner__table-description">
+      <div className="planner__main-search-row-description">
         {effect.description}
       </div>
       <Outlet />

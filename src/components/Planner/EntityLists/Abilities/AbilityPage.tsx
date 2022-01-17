@@ -45,7 +45,8 @@ import {
 } from "../../../App";
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
-import EntityAccordion from '../EntityAccordion';
+import EntityConnectionAccordion from '../EntityConnectionAccordion';
+import MainEntityDescriptionTable from '../MainEntityDescriptionTable';
 
 type AbilityPageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -192,9 +193,13 @@ const AbilityPage = ({
   
   return (
     <>
-      <h1>{abilityResult.formattedName}</h1>
+      <h1 className="planner__page-header">{abilityResult.formattedName}</h1>
 
-      <EntityAccordion 
+      <MainEntityDescriptionTable
+        descriptions={abilityResult.descriptions}
+      />
+
+      <EntityConnectionAccordion 
         accordionData={[
           {
             title: `Effects of ${abilityResult.formattedName}`,

@@ -40,10 +40,10 @@
 
 /* #endregion */
 
-/* planner__move-table */
+/* Main search table */
 /* #region */
 
-.planner__table {
+.planner__main-search-table {
   display: flex;
   flex-direction: column;
 
@@ -53,14 +53,14 @@
   gap: 2rem;
 }
 
-.planner__table--move {
+.planner__main-search-table--move {
   display: grid;
 }
 
-/* planner__table-row */
+/* Main search rows */
 /* #region */ 
 
-.planner__table-row {
+.planner__main-search-table-row {
   border: 1px solid black;
   display: grid;
   grid-template-rows: 1fr;
@@ -71,26 +71,31 @@
   width: 100%;
 }
 
-.planner__table-row:nth-child(even) {
+.planner__main-search-table-row > * {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.planner__main-search-table-row:nth-child(even) {
   background-color: lightgray;
 }
 
-.planner__table-row-name {
+.planner__main-search-row-name {
   border: 1px solid black;
   grid-column: 1 / 2;
 }
 
-.planner__table-description {
+.planner__main-search-row-description {
   border: 1px solid black;
   grid-column: 2 / 3;
 }
 
-.planner__table-data {
+.planner__main-search-row-data {
   border: 1px solid black;
   grid-column: 3 / 4;
 }
 
-.planner__table-icons {
+.planner__main-search-row-icons {
   border: 1px solid black;
   grid-column: 4 / 5;
 }
@@ -99,10 +104,88 @@
 
 /* #endregion */
 
-/* */
+/* Entity pages */
 /* #region */
 
+.planner__page-header {
+  border: 1px solid black;
+}
 
+/* Descriptions */
+/* #region */
+
+.planner__page-descriptions-table {
+  border: 1px solid black;
+}
+
+.planner__page-descriptions-table:nth-child(even) {
+  background-color: lightgray;
+}
+
+.planner__page-description--main-entity {
+  border: 1px solid black;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 3fr;
+
+  width: 33.3%;
+}
+
+.planner__page-description-code {
+  border: 1px solid black;
+  
+  grid-column: 1 / 2;
+}
+
+.planner__page-description-text {
+  border: 1px solid black;
+
+  grid-column: 2 / 3;
+}
+
+/* #endregion */
+
+/* Connection accordions */
+/* #region */
+
+.planner__accordion {
+  border: 1px solid black;
+}
+
+.planner__accordion-item {
+  border: 1px solid black;
+}
+
+.planner__accordion-title {
+  border: 1px solid black;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: pointer;
+  background-color: #21aeca;
+}
+
+.planner__accordion-title:hover {
+  background-color: #3ab4cc;
+}
+
+.planner__accordion-content {
+  border: 1px solid black;
+
+  padding: 1rem;
+  background-color: #39b9d2;
+}
+
+.planner__accordion-content--positive {
+  border: 1px solid blue;
+}
+
+.planner__accordion-content--negative {
+  border: 1px solid red;
+}
+
+/* #endregion */
 
 /* #endregion */
 

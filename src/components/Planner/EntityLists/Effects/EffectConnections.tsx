@@ -24,7 +24,7 @@ export const listRenderEffectAbility = ({ data, }: ListRenderArgs<EffectAbilityQ
   return (
     <>
       {data.effectByName[0].abilities.edges.map((abilityEdge: EffectAbilityEdge) => (
-        <div>
+        <div className="planner__accordion-entry">
           <Link to={`../abilities/${abilityEdge.node.name}`}>{abilityEdge.node.formattedName}</Link>
         </div>
       ))}
@@ -37,7 +37,7 @@ export const listRenderEffectFieldState = ({ data, }: ListRenderArgs<EffectField
   return (
     <>
       {data.effectByName[0].fieldStates.edges.map((FieldStateEdge: EffectFieldStateEdge) => (
-        <div>
+        <div className="planner__accordion-entry">
           <Link to={`../fieldStates/${FieldStateEdge.node.name}`}>{FieldStateEdge.node.formattedName}</Link>
         </div>
       ))}
@@ -50,7 +50,7 @@ export const listRenderEffectItem = ({ data, }: ListRenderArgs<EffectItemQuery>)
   return (
     <>
       {data.effectByName[0].items.edges.map((itemEdge: EffectItemEdge) => (
-        <div>
+        <div className="planner__accordion-entry">
           <Link to={`../items/${itemEdge.node.name}`}>{itemEdge.node.formattedName}</Link>
         </div>
       ))}
@@ -63,7 +63,7 @@ export const listRenderEffectMove = ({ data, }: ListRenderArgs<EffectMoveQuery>)
   return (
     <>
       {data.effectByName[0].moves.edges.map((moveEdge: EffectMoveEdge) => (
-        <div>
+        <div className="planner__accordion-entry">
           <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
         </div>
       ))}

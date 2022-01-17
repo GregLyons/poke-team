@@ -48,7 +48,8 @@ import {
 } from "../../../App";
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
-import EntityAccordion from '../EntityAccordion';
+import EntityConnectionAccordion from '../EntityConnectionAccordion';
+import MainEntityDescriptionTable from '../MainEntityDescriptionTable';
 
 type MovePageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -196,9 +197,13 @@ const MovePage = ({
   
   return (
     <>
-      <h1>{moveResult.formattedName}</h1>
+      <h1 className="planner__page-header">{moveResult.formattedName}</h1>
 
-      <EntityAccordion
+      <MainEntityDescriptionTable
+        descriptions={moveResult.descriptions}
+      />
+
+      <EntityConnectionAccordion
         accordionData={[
           {
             title: `Effects of ${moveResult.formattedName}`,

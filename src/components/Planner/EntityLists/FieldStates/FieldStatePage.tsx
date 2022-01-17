@@ -49,13 +49,14 @@ import {
 } from "../../../App";
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
-import EntityAccordion from '../EntityAccordion';
+import EntityConnectionAccordion from '../EntityConnectionAccordion';
 import {
   listRenderFieldStateAbility,
   listRenderFieldStateEffect,
   listRenderFieldStateItem,
   listRenderFieldStateMove
 } from './FieldStateConnections';
+import AuxEntityDescription from '../AuxEntityDescription';
 
 type FieldStatePageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -214,9 +215,13 @@ const FieldStatePage = ({
 
   return (
     <>
-      <h1>{fieldStateResult.formattedName}</h1>
+      <h1 className="planner__page-header">{fieldStateResult.formattedName}</h1>
 
-      <EntityAccordion 
+      <AuxEntityDescription
+        description={fieldStateResult.description}
+      />
+
+      <EntityConnectionAccordion 
         accordionData={[
           {
             title: `Ability interactions with ${fieldStateResult.formattedName}`,

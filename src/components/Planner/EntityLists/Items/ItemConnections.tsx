@@ -38,41 +38,50 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
   return (
     <>
       {activatedByEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--positive">
         <h3>Activates field state</h3>
         {activatedByEdges.map((fieldStateEdge: ItemFieldStateEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {extendsEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--positive">
         <h3>Extends field state</h3>
+        <p className="planner__accordion-clarification">
+          When the owner of this item creates the field state, the field state will last for a greater number of turns than usual.
+        </p>
         {extendsEdges.map((fieldStateEdge: ItemFieldStateEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {ignoresEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--negative">
         <h3>Ignores field state</h3>
+        <p className="planner__accordion-clarification">
+          Item allows the owner to ignore the effects of the field state.
+        </p>
         {ignoresEdges.map((fieldStateEdge: ItemFieldStateEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {resistsEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--negative">
         <h3>Resists field state</h3>
+        <p className="planner__accordion-clarification">
+          Effects of the field state on the owner of the item are weakened (e.g. less damage).
+        </p>
         {resistsEdges.map((fieldStateEdge: ItemFieldStateEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
     </>
   )
 }

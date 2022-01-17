@@ -40,41 +40,41 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
   return (
     <>
       {createsEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--positive">
         <h3>Creates field state</h3>
         {createsEdges.map((fieldStateEdge: MoveFieldStateEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {enhancedByEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--positive">
         <h3>Enhanced by field state</h3>
         {enhancedByEdges.map((fieldStateEdge: MoveFieldStateEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {hinderedByEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--negative">
         <h3>Hindered by field state</h3>
         {hinderedByEdges.map((fieldStateEdge: MoveFieldStateEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {removesEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--negative">
         <h3>Removes field state</h3>
         {removesEdges.map((fieldStateEdge: MoveFieldStateEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
     </>
   )
 }

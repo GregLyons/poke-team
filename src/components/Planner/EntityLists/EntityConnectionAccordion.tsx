@@ -2,22 +2,22 @@ import {
   useState,
 } from 'react';
 
-type EntityAccordionProps = {
+type EntityConnectionAccordionProps = {
   accordionData: {
     title: string
     content: false | JSX.Element
   }[]
 }
 
-const EntityAccordion = ({
+const EntityConnectionAccordion = ({
   accordionData,
-}: EntityAccordionProps) => {
+}: EntityConnectionAccordionProps) => {
 
   return (
-    <div className="accordion">
+    <div className="planner__accordion">
       {accordionData.map(({title, content}, idx) => (
         // Order of accordion of the accordion items will not change, so index as key is ok
-        content && <EntityAccordionItem
+        content && <EntityConnectionAccordionItem
           key={idx}
           title={title}
           content={content}
@@ -27,20 +27,20 @@ const EntityAccordion = ({
   );
 };
 
-type EntityAccordionItemProps = {
+type EntityConnectionAccordionItemProps = {
   title: string
   content: JSX.Element
 }
 
-const EntityAccordionItem = ({
+const EntityConnectionAccordionItem = ({
   title,
   content,
-}: EntityAccordionItemProps) => {
+}: EntityConnectionAccordionItemProps) => {
   const [isActive, setIsActive] = useState(false);
   return (
-    <div className="accordion-item">
+    <div className="planner__accordion-item">
       <div 
-        className="accordion-title"
+        className="planner__accordion-title"
         onClick={() => setIsActive(!isActive)}
       >
         <h2>{title}</h2>
@@ -48,11 +48,11 @@ const EntityAccordionItem = ({
           {isActive ? '-' : '+'}
         </div>
       </div>
-      {isActive && <div className="accordion-content">
+      {isActive && <div className="planner__accordion-content">
         {content}
       </div>}
     </div>
   )
 }
 
-export default EntityAccordion
+export default EntityConnectionAccordion

@@ -7,4 +7,8 @@ missing/incorrect/additional data:
     sandstorm: says created by hail, not removed by hail
     hail: says creates sandstorm and removes hail
 
+  gravity field state
+
 add timer to gen switcher to reduce chance of abusing images
+
+investigate connection cache data issue

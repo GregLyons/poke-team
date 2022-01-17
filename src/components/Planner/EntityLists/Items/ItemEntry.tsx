@@ -25,15 +25,15 @@ const ItemEntry = ({
 }: ItemEntryProps) => {
 
   return (
-    <div className="planner__table-row">
+    <div className="planner__main-search-table-row">
       {/* Item name */}
       <Link 
         to={`${item.name}`}
-        className="planner__table-name"
+        className="planner__main-search-row-name"
       >
         {item.formattedName}
       </Link>
-      <div className="planner__table-description">
+      <div className="planner__main-search-row-description">
         {item.description}
       </div>
       <Outlet />

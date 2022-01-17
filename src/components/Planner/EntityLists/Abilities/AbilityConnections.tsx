@@ -39,59 +39,71 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
   return (
     <>
       {activatedByEdges.length > 0 && (
-      <>
-        <h3>Activates field state</h3>
+      <div className="planner__accordion-content--positive">
+        <h3>Activated by field state</h3>
         {activatedByEdges.map((fieldStateEdge: AbilityFieldStateEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {createsEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--positive">
         <h3>Creates field state</h3>
         {createsEdges.map((fieldStateEdge: AbilityFieldStateEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {ignoresEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--negative">
         <h3>Ignores field state</h3>
+        <p className="planner__accordion-clarification">
+          Ability allows the owner to ignore the effects of the field state.
+        </p>
         {ignoresEdges.map((fieldStateEdge: AbilityFieldStateEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {preventsEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--negative">
         <h3>Prevents field state</h3>
+        <p className="planner__accordion-clarification">
+          Prevents the field state from being set up while in play, but does not remove field states which are already present.
+        </p>
         {preventsEdges.map((fieldStateEdge: AbilityFieldStateEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {removesEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--negative">
         <h3>Removes field state</h3>
+        <p className="planner__accordion-clarification">
+          Ability removes the field state from the field entirely.
+        </p>
         {removesEdges.map((fieldStateEdge: AbilityFieldStateEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {suppressesEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--negative">
         <h3>Suppresses field state</h3>
+        <p className="planner__accordion-clarification">
+          Ability removes the effects of the field state while in play, but does not remove the field state entirely.
+        </p>
         {suppressesEdges.map((fieldStateEdge: AbilityFieldStateEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
     </>
   )
 }

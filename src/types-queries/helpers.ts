@@ -142,12 +142,22 @@ export abstract class MainEntityOnPage {
     this.id = id;
     this.name = name;
     this.formattedName = formattedName;
-    this.descriptions = descriptions.edges.map(edge => {
-      return {
-        text: edge.node.text,
-        code: edge.versionGroupCode,
-      }
-    })
+
+    // TODO: Bulbapedia doesn't list all items, so there will be missing descriptions
+    if (gqlEntity.descriptions.edges.length > 0) {
+      this.descriptions = gqlEntity.descriptions.edges.map(edge => {
+        return {
+          text: edge.node.text,
+          code: edge.versionGroupCode,
+        }
+      });
+    }
+    else {
+      this.descriptions = [{
+        text: 'Placeholder description.',
+        code: 'Placeholder code.',
+      }];
+    }
 
     this.introduced = gqlEntity.introduced.edges[0].node.number;
   }

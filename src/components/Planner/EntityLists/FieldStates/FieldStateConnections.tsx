@@ -33,59 +33,71 @@ export const listRenderFieldStateAbility = ({ data, }: ListRenderArgs<FieldState
   return (
     <>
       {activatesEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--positive">
         <h3>Activates ability</h3>
         {activatesEdges.map((fieldStateEdge: FieldStateAbilityEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {createdByEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--positive">
         <h3>Created by ability</h3>
         {createdByEdges.map((fieldStateEdge: FieldStateAbilityEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {ignoredByEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--negative">
         <h3>Ignored by ability</h3>
+        <p className="planner__accordion-clarification">
+          Effects of field state ignored by owner of the ability.
+        </p>
         {ignoredByEdges.map((fieldStateEdge: FieldStateAbilityEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {preventedByEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--negative">
         <h3>Prevented by ability</h3>
+        <p className="planner__accordion-clarification">
+          Ability prevents the field state from being set up, but does not remove it if the field state is already present.
+        </p>
         {preventedByEdges.map((fieldStateEdge: FieldStateAbilityEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {removedByEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--negative">
         <h3>Removed by ability</h3>
+        <p className="planner__accordion-clarification">
+          Ability removes the field state entirely.
+        </p>
         {removedByEdges.map((fieldStateEdge: FieldStateAbilityEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {suppressedByEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--negative">
         <h3>Suppressed by ability</h3>
+        <p className="planner__accordion-clarification">
+          Effects are suppressed while the ability is present, but the field state is not removed entirely.
+        </p>
         {suppressedByEdges.map((fieldStateEdge: FieldStateAbilityEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
     </>
   );
 }
@@ -117,41 +129,50 @@ export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateIte
   return (
     <>
       {activatesEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--positive">
         <h3>Activates item</h3>
         {activatesEdges.map((itemEdge: FieldStateItemEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../items/${itemEdge.node.name}`}>{itemEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {extendedByEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--positive">
         <h3>Extended by item</h3>
+        <p className="planner__accordion-clarification">
+          When the owner of the item creates this field state, the field state will last for a greater number of turns than usual.
+        </p>
         {extendedByEdges.map((itemEdge: FieldStateItemEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../items/${itemEdge.node.name}`}>{itemEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {ignoredByEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--negative">
         <h3>Ignored by item</h3>
+        <p className="planner__accordion-clarification">
+          Item allows the owner to ignore the effects of the field state.
+        </p>
         {ignoredByEdges.map((itemEdge: FieldStateItemEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../items/${itemEdge.node.name}`}>{itemEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {resistedByEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--negative">
         <h3>Resisted by item</h3>
+        <p className="planner__accordion-clarification">
+          Effects of the field state on the owner of the item are weakened (e.g. less damage).
+        </p>
         {resistedByEdges.map((itemEdge: FieldStateItemEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../items/${itemEdge.node.name}`}>{itemEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
     </>
   );
 }
@@ -167,41 +188,47 @@ export const listRenderFieldStateMove = ({ data, }: ListRenderArgs<FieldStateMov
   return (
     <>
       {createdByEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--positive">
         <h3>Created by move</h3>
         {createdByEdges.map((moveEdge: FieldStateMoveEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {enhancesEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--positive">
         <h3>Enhances move</h3>
+        <p className="planner__accordion-clarification">
+          Presence of the field state increases the effectiveness of the move in some way.
+        </p>
         {enhancesEdges.map((moveEdge: FieldStateMoveEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {hindersEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--negative">
         <h3>Hinders move</h3>
+        <p className="planner__accordion-clarification">
+          Presence of the field state reduces the effectiveness of the move in some way.
+        </p>
         {hindersEdges.map((moveEdge: FieldStateMoveEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
       {removedByEdges.length > 0 && (
-      <>
+      <div className="planner__accordion-content--negative">
         <h3>Removed by move</h3>
         {removedByEdges.map((moveEdge: FieldStateMoveEdge) => (
-          <div>
+          <div className="planner__accordion-entry">
             <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
           </div>
         ))}
-      </>)}
+      </div>)}
     </>
   );
 }

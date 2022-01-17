@@ -47,7 +47,8 @@ import {
 } from "../../../App";
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
-import EntityAccordion from '../EntityAccordion';
+import EntityConnectionAccordion from '../EntityConnectionAccordion';
+import MainEntityDescriptionTable from '../MainEntityDescriptionTable';
 type ItemPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
@@ -194,9 +195,13 @@ const ItemPage = ({
   
   return (
     <>
-      <h1>{itemResult.formattedName}</h1>
+      <h1 className="planner__page-header">{itemResult.formattedName}</h1>
 
-      <EntityAccordion 
+      <MainEntityDescriptionTable
+        descriptions={itemResult.descriptions}
+      />
+
+      <EntityConnectionAccordion 
         accordionData={[
           {
             title: `Effects of ${itemResult.formattedName}`,

@@ -168,6 +168,7 @@ export const FIELDSTATE_PAGE_QUERY = gql`
       id
       name
       formattedName
+      description
 
       introduced {
         edges {
@@ -853,7 +854,6 @@ export const FIELDSTATE_MOVE_QUERY = gql`
             id
             name
             formattedName
-            pokemonShowdownID
             descriptions {
               edges(pagination: {limit: 1}) {
                 node {
@@ -878,6 +878,7 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   id
                   name
                   formattedName
+                  pokemonShowdownID
 
                   introduced {
                     edges {
