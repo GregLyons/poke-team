@@ -74,25 +74,21 @@ const EffectPage = ({
   const [abilityQueryVars, handleChangeAbility] = useEntityConnectionChangeHandler<EffectAbilityQueryVars>({
     gen: gen,
     name: effectName,
-    startsWith: '',
   });
 
   const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<EffectFieldStateQueryVars>({
     gen: gen,
     name: effectName,
-    startsWith: '',
   });
 
   const [itemQueryVars, handleChangeItem] = useEntityConnectionChangeHandler<EffectItemQueryVars>({
     gen: gen,
     name: effectName,
-    startsWith: '',
   });
 
   const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<EffectMoveQueryVars>({
     gen: gen,
     name: effectName,
-    startsWith: '',
   });
 
   // #endregion

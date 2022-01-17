@@ -32,12 +32,14 @@ import AbilityMainPage from './Planner/EntityLists/Abilities/AbilityMainPage';
 import AbilityPage from './Planner/EntityLists/Abilities/AbilityPage';
 import EffectMainPage from './Planner/EntityLists/Effects/EffectMainPage';
 import EffectPage from './Planner/EntityLists/Effects/EffectPage';
+import FieldStatePage from './Planner/EntityLists/FieldStates/FieldStatePage';
+import FieldStateMainPage from './Planner/EntityLists/FieldStates/FieldStateMainPage';
 import ItemMainPage from './Planner/EntityLists/Items/ItemMainPage';
 import ItemPage from './Planner/EntityLists/Items/ItemPage';
 import MoveMainPage from './Planner/EntityLists/Moves/MoveMainPage';
 import MovePage from './Planner/EntityLists/Moves/MovePage';
-import FieldStatePage from './Planner/EntityLists/FieldStates/FieldStatePage';
-import FieldStateMainPage from './Planner/EntityLists/FieldStates/FieldStateMainPage';
+import StatusMainPage from './Planner/EntityLists/Statuses/StatusMainPage';
+import StatusPage from './Planner/EntityLists/Statuses/StatusPage';
 
 
 export type Team = Pokemon[];
@@ -213,14 +215,21 @@ function App() {
               gen={gen}
             />}
           />
+
           <Route 
             path='statuses' 
-            element={<PlannerHome
+            element={<StatusMainPage
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               gen={gen}
             />}
           />
+          <Route path="statuses/:statusId" element={<StatusPage
+            dispatchCart={dispatchCart}
+            dispatchTeam={dispatchTeam}
+            gen={gen}
+          />} />
+
           <Route 
             path='types' 
             element={<PlannerHome

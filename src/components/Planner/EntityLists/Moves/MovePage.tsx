@@ -21,6 +21,9 @@ import {
 
   MOVE_FIELDSTATE_QUERY,
   MoveFieldStateQueryVars,
+
+  MOVE_STATUS_QUERY,
+  MoveStatusQueryVars,
 } from '../../../../types-queries/Move';
 import {
   INTRODUCTION_QUERY,
@@ -40,6 +43,7 @@ import {
 import {
   listRenderMoveEffect,
   listRenderMoveFieldState,
+  listRenderMoveStatus,
 } from './MoveConnections';
 
 import { 
@@ -72,13 +76,16 @@ const MovePage = ({
   const [effectQueryVars, handleChangeEffect] = useEntityConnectionChangeHandler<MoveEffectQueryVars>({
     gen: gen,
     name: moveName,
-    startsWith: '',
   });
 
   const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<MoveFieldStateQueryVars>({
     gen: gen,
     name: moveName,
-    startsWith: '',
+  });
+
+  const [statusQueryVars, handleChangeStatus] = useEntityConnectionChangeHandler<MoveStatusQueryVars>({
+    gen: gen,
+    name: moveName,
   });
 
   // #endregion
@@ -226,6 +233,18 @@ const MovePage = ({
                 listRender={listRenderMoveFieldState}
                 query={MOVE_FIELDSTATE_QUERY}
                 queryVars={fieldStateQueryVars}
+              />
+            </>,
+          },
+          {
+            title: `Status interactions with ${moveResult.formattedName}`,
+            content: moveResult.statusCount > 0 && <>
+              <EntityConnectionSearch
+                gen={gen}
+                handleChange={handleChangeStatus}
+                listRender={listRenderMoveStatus}
+                query={MOVE_STATUS_QUERY}
+                queryVars={statusQueryVars}
               />
             </>,
           },

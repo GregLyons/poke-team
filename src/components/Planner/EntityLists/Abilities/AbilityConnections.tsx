@@ -7,6 +7,8 @@ import {
   AbilityEffectQuery,
   AbilityFieldStateEdge,
   AbilityFieldStateQuery,
+  AbilityStatusEdge,
+  AbilityStatusQuery,
 } from "../../../../types-queries/Ability";
 import {
   ListRenderArgs,
@@ -106,4 +108,34 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
       </div>)}
     </>
   )
+}
+
+export const listRenderAbilityStatus = ({ data, }: ListRenderArgs<AbilityStatusQuery>) => {
+  if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
+
+  const causesStatusEdges = data.abilityByName[0].causesStatus.edges;
+  const resistsStatusEdges = data.abilityByName[0].resistsStatus.edges;
+
+  return (
+    <>
+      {causesStatusEdges.length > 0 && (
+      <div className="planner__accordion-content--positive">
+        <h3>Causes status</h3>
+        {causesStatusEdges.map((statusEdge: AbilityStatusEdge) => (
+          <div className="planner__accordion-entry">
+            <Link to={`../statuses/${statusEdge.node.name}`}>{statusEdge.node.formattedName}</Link>
+          </div>
+        ))}
+      </div>)}
+      {resistsStatusEdges.length > 0 && (
+      <div className="planner__accordion-content--negative">
+        <h3>Resists status</h3>
+        {resistsStatusEdges.map((statusEdge: AbilityStatusEdge) => (
+          <div className="planner__accordion-entry">
+            <Link to={`../statuses/${statusEdge.node.name}`}>{statusEdge.node.formattedName}</Link>
+          </div>
+        ))}
+      </div>)}
+    </>
+  );
 }

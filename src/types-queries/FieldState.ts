@@ -267,6 +267,7 @@ export class FieldStateOnPage extends AuxEntityOnPage {
   public abilityCount: number
   public itemCount: number
   public moveCount: number
+  public statusCount: number
 
   constructor(gqlFieldState: FieldStatePageResult) {
     super(gqlFieldState);
@@ -298,6 +299,8 @@ export class FieldStateOnPage extends AuxEntityOnPage {
     this.itemCount = this.activatesItemCount + this.extendedByItemCount + this.ignoredByItemCount + this.resistedByItemCount;
 
     this.moveCount = this.createdByMoveCount + this.enhancesMoveCount + this.hindersMoveCount + this.removedByMoveCount;
+
+    this.statusCount = this.causesStatusCount + this.resistsStatusCount;
   }
 }
 
@@ -609,10 +612,10 @@ export interface FieldStateEffectQueryVars extends EntityConnectionVars {
 }
 
 export const FIELDSTATE_EFFECT_QUERY = gql`
-  query FieldStateEffectQuery($gen: Int! $name: String! $startsWith: String) {
+  query FieldStateEffectQuery($gen: Int! $name: String!) {
     fieldStateByName(generation: $gen, name: $name) {
       id
-      effects(filter: { startsWith: $startsWith }) {
+      effects {
         edges {
           node {
             id
@@ -1044,4 +1047,82 @@ export class FieldStateMoveResult extends AuxToMainConnectionOnPage {
 
 // #endregion
 
+// FieldStateStatus
+// #region
+
+export type FieldStateStatusQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    causesStatus: {
+      edges: FieldStateStatusEdge[]
+    }
+    resistsStatus: {
+      edges: FieldStateStatusEdge[]
+    }
+  }[]
+}
+
+export interface FieldStateStatusEdge extends AuxToAuxConnectionEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+
+    description: string
+  }
+  chance?: number
+}
+
+export interface FieldStateStatusQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+}
+
+export const FIELDSTATE_STATUS_QUERY = gql`
+  query FieldStateStatusQuery($gen: Int! $name: String!) {
+    fieldStateByName(generation: $gen, name: $name) {
+      id
+      causesStatus {
+        edges {
+          node {
+            id
+            name
+            formattedName
+
+            description
+          }
+          chance
+        }
+        
+        
+      }
+      resistsStatus {
+        edges {
+          node {
+            id
+            name
+            formattedName
+
+            description
+          }
+        }
+        
+      }
+
+    }
+  }
+`;
+
+export class FieldStateStatusResult extends AuxToAuxConnectionOnPage {
+  public chance?: number
+
+  constructor(gqlFieldStateStatus: FieldStateStatusEdge) {
+    super(gqlFieldStateStatus);
+
+    if (gqlFieldStateStatus.chance) this.chance = gqlFieldStateStatus.chance;
+  }
+}
+
+// #endregion
+ 
 // #endregion

@@ -229,10 +229,6 @@ export interface EffectAbilityEdge extends AbilityIconEdge, AuxToMainConnectionE
       edges: VersionDependentDescriptionEdge[]
     }
 
-    type: {
-      edges: TypeNameEdge[]
-    }
-
     pokemon: {
       edges: PokemonIconEdge[]
     }
@@ -242,7 +238,6 @@ export interface EffectAbilityEdge extends AbilityIconEdge, AuxToMainConnectionE
 export interface EffectAbilityQueryVars extends EntityConnectionVars {
   gen: GenerationNum
   name: string
-  startsWith: string
 }
 
 export const EFFECT_ABILITY_QUERY = gql`
@@ -253,7 +248,7 @@ export const EFFECT_ABILITY_QUERY = gql`
   ) {
     effectByName(generation: $gen, name: $name) {
       id 
-      abilities(filter: { startsWith: $startsWith }) {
+      abilities {
         edges {
           node {
             id
@@ -330,7 +325,6 @@ export interface EffectFieldStateEdge extends AuxToAuxConnectionEdge {
 export interface EffectFieldStateQueryVars extends EntityConnectionVars {
   gen: GenerationNum
   name: string
-  startsWith: string
 }
 
 export const EFFECT_FIELDSTATE_QUERY = gql`
@@ -341,7 +335,7 @@ export const EFFECT_FIELDSTATE_QUERY = gql`
   ) {
     effectByName(generation: $gen, name: $name) {
       id 
-      fieldStates(filter: { startsWith: $startsWith }) {
+      fieldStates {
         edges {
           node {
             id
@@ -390,7 +384,6 @@ export interface EffectItemEdge extends AuxToMainConnectionEdge {
 export interface EffectItemQueryVars extends EntityConnectionVars {
   gen: GenerationNum
   name: string
-  startsWith: string
 }
 
 export const EFFECT_ITEM_QUERY = gql`
@@ -401,7 +394,7 @@ export const EFFECT_ITEM_QUERY = gql`
   ) {
     effectByName(generation: $gen, name: $name) {
       id 
-      items(filter: { startsWith: $startsWith }) {
+      items {
         edges {
           node {
             id
@@ -465,7 +458,6 @@ export interface EffectMoveEdge extends MoveIconEdge, AuxToMainConnectionEdge {
 export interface EffectMoveQueryVars extends EntityConnectionVars {
   gen: GenerationNum
   name: string
-  startsWith: string
 }
 
 export const EFFECT_MOVE_QUERY = gql`
@@ -476,7 +468,7 @@ export const EFFECT_MOVE_QUERY = gql`
   ) {
     effectByName(generation: $gen, name: $name) {
       id 
-      moves(filter: { startsWith: $startsWith }) {
+      moves {
         edges {
           node {
             id
@@ -534,7 +526,7 @@ export class EffectMoveResult extends AuxToMainConnectionOnPage {
   constructor(gqlEffectMove: EffectMoveEdge) {
     super(gqlEffectMove);
 
-    this.type = gqlEffectMove.node.type.edges.map(typeNameEdgeToTypeName)[0]
+    this.type = gqlEffectMove.node.type.edges.map(typeNameEdgeToTypeName)[0];
 
     this.pokemonIconData = gqlEffectMove.node.pokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
   }

@@ -9,6 +9,10 @@ missing/incorrect/additional data:
 
   gravity field state
 
+  add status-cause chance to abilities, items, field states
+
+  synchronize causes status
+
 add timer to gen switcher to reduce chance of abusing images
 
 investigate connection cache data issue

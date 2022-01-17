@@ -36,7 +36,7 @@ const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
       {data.fieldStates.map((fieldState: FieldStateSearchResult) => (
           <>
             <FieldStateEntry
-              key={'moveEntry_' + fieldState.id}
+              key={'fieldStateEntry_' + fieldState.id}
               fieldState={new FieldStateInSearch(fieldState)} 
             />
           </>

@@ -223,6 +223,7 @@ export class ItemOnPage extends MainEntityOnPage {
   public resistsUsageMethodCount: number
 
   public fieldStateCount: number
+  public statusCount: number
 
   constructor(gqlItem: ItemPageResult) {
     // Data for ItemPage
@@ -246,6 +247,8 @@ export class ItemOnPage extends MainEntityOnPage {
     this.resistsUsageMethodCount = gqlItem.resistsUsageMethod.count
 
     this.fieldStateCount = this.activatedByFieldStateCount + this.extendsFieldStateCount + this.ignoresFieldStateCount + this.resistsFieldStateCount;
+
+    this.statusCount = this.causesStatusCount + this.resistsStatusCount;
   }
 }
 
@@ -279,14 +282,13 @@ export interface ItemEffectEdge extends MainToAuxConnectionEdge, DescriptionEdge
 export interface ItemEffectQueryVars extends EntityConnectionVars {
   gen: GenerationNum
   name: string
-  startsWith: string
 }
 
 export const ITEM_EFFECT_QUERY = gql`
-  query ItemEffectQuery($gen: Int! $name: String! $startsWith: String) {
+  query ItemEffectQuery($gen: Int! $name: String!) {
     itemByName(generation: $gen, name: $name) {
       id
-      effects(filter: { startsWith: $startsWith }) {
+      effects {
         edges {
           node {
             id
@@ -402,6 +404,84 @@ export class ItemFieldStateResult extends MainToAuxConnectionOnPage {
     super(gqlItemFieldState);
 
     if (gqlItemFieldState.turns) this.turns = gqlItemFieldState.turns;
+  }
+}
+
+// #endregion
+
+// ItemStatus
+// #region
+
+export type ItemStatusQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    causesStatus: {
+      edges: ItemStatusEdge[]
+    }
+    resistsStatus: {
+      edges: ItemStatusEdge[]
+    }
+  }[]
+}
+
+export interface ItemStatusEdge extends MainToAuxConnectionEdge, DescriptionEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+
+    description: string
+  }
+  chance?: number
+}
+
+export interface ItemStatusQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+}
+
+export const ITEM_STATUS_QUERY = gql`
+  query ItemEffectQuery($gen: Int! $name: String!) {
+    itemByName(generation: $gen, name: $name) {
+      id
+      causesStatus {
+        edges {
+          node {
+            id
+            name
+            formattedName
+
+            description
+          }
+          chance
+        }
+        
+        
+      }
+      resistsStatus {
+        edges {
+          node {
+            id
+            name
+            formattedName
+
+            description
+          }
+        }
+        
+      }
+
+    }
+  }
+`;
+
+export class ItemStatusResult extends MainToAuxConnectionOnPage {
+  public chance?: number
+
+  constructor(gqlItemStatus: ItemStatusEdge) {
+    super(gqlItemStatus);
+
+    if (gqlItemStatus.chance) this.chance = gqlItemStatus.chance;
   }
 }
 

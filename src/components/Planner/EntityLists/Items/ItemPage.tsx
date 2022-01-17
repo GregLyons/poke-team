@@ -20,6 +20,9 @@ import {
 
   ITEM_FIELDSTATE_QUERY,
   ItemFieldStateQueryVars,
+
+  ITEM_STATUS_QUERY,
+  ItemStatusQueryVars,
 } from '../../../../types-queries/Item';
 import {
   INTRODUCTION_QUERY,
@@ -39,6 +42,7 @@ import {
 import {
   listRenderItemEffect,
   listRenderItemFieldState,
+  listRenderItemStatus,
 } from './ItemConnections';
 
 import { 
@@ -70,13 +74,16 @@ const ItemPage = ({
   const [effectQueryVars, handleChangeEffect] = useEntityConnectionChangeHandler<ItemEffectQueryVars>({
     gen: gen,
     name: itemName,
-    startsWith: '',
   });
 
   const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<ItemFieldStateQueryVars>({
     gen: gen,
     name: itemName,
-    startsWith: '',
+  });
+
+  const [statusQueryVars, handleChangeStatus] = useEntityConnectionChangeHandler<ItemStatusQueryVars>({
+    gen: gen,
+    name: itemName,
   });
 
   // #endregion
@@ -224,6 +231,18 @@ const ItemPage = ({
                 listRender={listRenderItemFieldState}
                 query={ITEM_FIELDSTATE_QUERY}
                 queryVars={fieldStateQueryVars}
+              />
+            </>,
+          },
+          {
+            title: `Status interactions with ${itemResult.formattedName}`,
+            content: itemResult.statusCount > 0 && <>
+              <EntityConnectionSearch
+                gen={gen}
+                handleChange={handleChangeStatus}
+                listRender={listRenderItemStatus}
+                query={ITEM_STATUS_QUERY}
+                queryVars={statusQueryVars}
               />
             </>,
           },

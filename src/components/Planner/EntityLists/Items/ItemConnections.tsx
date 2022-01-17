@@ -8,6 +8,8 @@ import {
 
   ItemFieldStateEdge,
   ItemFieldStateQuery,
+  ItemStatusEdge,
+  ItemStatusQuery,
 } from "../../../../types-queries/Item";
 import {
   ListRenderArgs,
@@ -84,4 +86,34 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
       </div>)}
     </>
   )
+}
+
+export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>) => {
+  if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
+
+  const causesStatusEdges = data.itemByName[0].causesStatus.edges;
+  const resistsStatusEdges = data.itemByName[0].resistsStatus.edges;
+
+  return (
+    <>
+      {causesStatusEdges.length > 0 && (
+      <div className="planner__accordion-content--positive">
+        <h3>Causes status</h3>
+        {causesStatusEdges.map((statusEdge: ItemStatusEdge) => (
+          <div className="planner__accordion-entry">
+            <Link to={`../statuses/${statusEdge.node.name}`}>{statusEdge.node.formattedName}</Link>
+          </div>
+        ))}
+      </div>)}
+      {resistsStatusEdges.length > 0 && (
+      <div className="planner__accordion-content--negative">
+        <h3>Resists status</h3>
+        {resistsStatusEdges.map((statusEdge: ItemStatusEdge) => (
+          <div className="planner__accordion-entry">
+            <Link to={`../statuses/${statusEdge.node.name}`}>{statusEdge.node.formattedName}</Link>
+          </div>
+        ))}
+      </div>)}
+    </>
+  );
 }

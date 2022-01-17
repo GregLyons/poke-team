@@ -218,6 +218,7 @@ export interface MovePageResult extends MainEntityPageResult {
   requiresMove: CountField
   requiresPokemon: CountField
   requiresType: CountField
+  resistsStatus: CountField
   usageMethod: CountField
 }
 
@@ -315,6 +316,9 @@ export const MOVE_PAGE_QUERY = gql`
       requiresPokemon {
         count
       }
+      resistsStatus {
+        count
+      }
       requiresType {
         count
       }
@@ -351,9 +355,11 @@ export class MoveOnPage extends MainEntityOnPage {
   public requiresMoveCount: number
   public requiresPokemonCount: number
   public requiresTypeCount: number
+  public resistsStatusCount: number
   public usageMethodCount: number
 
   public fieldStateCount: number
+  public statusCount: number
 
   constructor(gqlMove: MovePageResult) {
     // Data for MovePage
@@ -387,9 +393,12 @@ export class MoveOnPage extends MainEntityOnPage {
     this.requiresMoveCount = gqlMove.requiresMove.count
     this.requiresPokemonCount = gqlMove.requiresPokemon.count
     this.requiresTypeCount = gqlMove.requiresType.count
+    this.resistsStatusCount = gqlMove.resistsStatus.count
     this.usageMethodCount = gqlMove.usageMethod.count
 
     this.fieldStateCount = this.createsFieldStateCount + this.enhancedByFieldStateCount + this.hinderedByFieldStateCount + this.removesFieldStateCount;
+
+    this.statusCount = this.causesStatusCount + this.resistsStatusCount;
   }
 }
 
@@ -423,14 +432,13 @@ export interface MoveEffectEdge extends MainToAuxConnectionEdge, DescriptionEdge
 export interface MoveEffectQueryVars extends EntityConnectionVars {
   gen: GenerationNum
   name: string
-  startsWith: string
 }
 
 export const MOVE_EFFECT_QUERY = gql`
-  query MoveEffectQuery($gen: Int! $name: String! $startsWith: String) {
+  query MoveEffectQuery($gen: Int! $name: String!) {
     moveByName(generation: $gen, name: $name) {
       id
-      effects(filter: { startsWith: $startsWith }) {
+      effects {
         edges {
           node {
             id
@@ -546,6 +554,80 @@ export class MoveFieldStateResult extends MainToAuxConnectionOnPage {
     super(gqlMoveFieldState);
 
     if (gqlMoveFieldState.turns) this.turns = gqlMoveFieldState.turns;
+  }
+}
+
+// #endregion
+
+// MoveStatus
+// #region
+
+export type MoveStatusQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    causesStatus: {
+      edges: MoveStatusEdge[]
+    }
+    resistsStatus: {
+      edges: MoveStatusEdge[]
+    }
+  }[]
+}
+
+export interface MoveStatusEdge extends MainToAuxConnectionEdge, DescriptionEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+
+    description: string
+  }
+  chance?: number
+}
+
+export interface MoveStatusQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+}
+
+export const MOVE_STATUS_QUERY = gql`
+  query MoveStatusQuery($gen: Int! $name: String!) {
+    moveByName(generation: $gen, name: $name) {
+      id
+      causesStatus {
+        edges {
+          node {
+            id
+            name
+            formattedName
+
+            description
+          }
+          chance
+        }
+      }
+      resistsStatus {
+        edges {
+          node {
+            id
+            name
+            formattedName
+
+            description
+          }
+        }
+      }
+    }
+  }
+`;
+
+export class MoveStatusResult extends MainToAuxConnectionOnPage {
+  public chance?: number
+
+  constructor(gqlMoveStatus: MoveStatusEdge) {
+    super(gqlMoveStatus);
+
+    if (gqlMoveStatus.chance) this.chance = gqlMoveStatus.chance;
   }
 }
 

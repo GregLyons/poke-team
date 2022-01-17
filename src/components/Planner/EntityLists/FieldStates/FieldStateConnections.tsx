@@ -13,6 +13,8 @@ import {
 
   FieldStateMoveEdge,
   FieldStateMoveQuery,
+  FieldStateStatusEdge,
+  FieldStateStatusQuery,
 } from "../../../../types-queries/FieldState";
 import {
   ListRenderArgs,
@@ -115,8 +117,6 @@ export const listRenderFieldStateEffect = ({ data, }: ListRenderArgs<FieldStateE
     </>
   )
 }
-
-
 
 export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateItemQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
@@ -226,6 +226,36 @@ export const listRenderFieldStateMove = ({ data, }: ListRenderArgs<FieldStateMov
         {removedByEdges.map((moveEdge: FieldStateMoveEdge) => (
           <div className="planner__accordion-entry">
             <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
+          </div>
+        ))}
+      </div>)}
+    </>
+  );
+}
+
+export const listRenderFieldStateStatus = ({ data, }: ListRenderArgs<FieldStateStatusQuery>) => {
+  if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'itemByName'.</div>);
+
+  const causesStatusEdges = data.fieldStateByName[0].causesStatus.edges;
+  const resistsStatusEdges = data.fieldStateByName[0].resistsStatus.edges;
+
+  return (
+    <>
+      {causesStatusEdges.length > 0 && (
+      <div className="planner__accordion-content--positive">
+        <h3>Causes status</h3>
+        {causesStatusEdges.map((statusEdge: FieldStateStatusEdge) => (
+          <div className="planner__accordion-entry">
+            <Link to={`../statuses/${statusEdge.node.name}`}>{statusEdge.node.formattedName}</Link>
+          </div>
+        ))}
+      </div>)}
+      {resistsStatusEdges.length > 0 && (
+      <div className="planner__accordion-content--negative">
+        <h3>Resists status</h3>
+        {resistsStatusEdges.map((statusEdge: FieldStateStatusEdge) => (
+          <div className="planner__accordion-entry">
+            <Link to={`../statuses/${statusEdge.node.name}`}>{statusEdge.node.formattedName}</Link>
           </div>
         ))}
       </div>)}

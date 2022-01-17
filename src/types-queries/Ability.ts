@@ -253,6 +253,7 @@ export class AbilityOnPage extends MainEntityOnPage {
   public suppressesFieldStateCount: number
 
   public fieldStateCount: number
+  public statusCount: number
 
   constructor(gqlAbility: AbilityPageResult) {
     // Data for AbilityPage
@@ -276,6 +277,8 @@ export class AbilityOnPage extends MainEntityOnPage {
     this.suppressesFieldStateCount = gqlAbility.suppressesFieldState.count
 
     this.fieldStateCount = this.activatedByFieldStateCount + this.createsFieldStateCount + this.ignoresFieldStateCount + this.preventsFieldStateCount + this.removesFieldStateCount + this.suppressesFieldStateCount;
+    
+    this.statusCount = this.causesStatusCount + this.resistsStatusCount;
   }
 }
 
@@ -312,10 +315,10 @@ export interface AbilityEffectQueryVars extends EntityConnectionVars {
 }
 
 export const ABILITY_EFFECT_QUERY = gql`
-  query AbilityEffectQuery($gen: Int! $name: String! $startsWith: String) {
+  query AbilityEffectQuery($gen: Int! $name: String!) {
     abilityByName(generation: $gen, name: $name) {
       id
-      effects(filter: { startsWith: $startsWith }) {
+      effects {
         edges {
           node {
             id
@@ -462,5 +465,82 @@ export class AbilityFieldStateResult extends MainToAuxConnectionOnPage {
 
 // #endregion
 
+// AbilityStatus
+// #region
+
+export type AbilityStatusQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    causesStatus: {
+      edges: AbilityStatusEdge[]
+    }
+    resistsStatus: {
+      edges: AbilityStatusEdge[]
+    }
+  }[]
+}
+
+export interface AbilityStatusEdge extends MainToAuxConnectionEdge, DescriptionEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+
+    description: string
+  }
+  chance?: number
+}
+
+export interface AbilityStatusQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+}
+
+export const ABILITY_STATUS_QUERY = gql`
+  query AbilityEffectQuery($gen: Int! $name: String!) {
+    abilityByName(generation: $gen, name: $name) {
+      id
+      causesStatus {
+        edges {
+          node {
+            id
+            name
+            formattedName
+
+            description
+          }
+          chance
+        }
+        
+        
+      }
+      resistsStatus {
+        edges {
+          node {
+            id
+            name
+            formattedName
+
+            description
+          }
+        }
+        
+      }
+
+    }
+  }
+`;
+
+export class AbilityStatusResult extends MainToAuxConnectionOnPage {
+  public chance?: number
+
+  constructor(gqlAbilityStatus: AbilityStatusEdge) {
+    super(gqlAbilityStatus);
+
+    if (gqlAbilityStatus.chance) this.chance = gqlAbilityStatus.chance;
+  }
+}
+
+// #endregion
 
 // #endregion

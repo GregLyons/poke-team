@@ -29,6 +29,9 @@ import {
 
   FIELDSTATE_MOVE_QUERY,
   FieldStateMoveQueryVars,
+
+  FIELDSTATE_STATUS_QUERY,
+  FieldStateStatusQueryVars,
 } from '../../../../types-queries/FieldState';
 import {
   INTRODUCTION_QUERY,
@@ -54,7 +57,8 @@ import {
   listRenderFieldStateAbility,
   listRenderFieldStateEffect,
   listRenderFieldStateItem,
-  listRenderFieldStateMove
+  listRenderFieldStateMove,
+  listRenderFieldStateStatus
 } from './FieldStateConnections';
 import AuxEntityDescription from '../AuxEntityDescription';
 
@@ -79,25 +83,26 @@ const FieldStatePage = ({
   const [abilityQueryVars, handleChangeAbility] = useEntityConnectionChangeHandler<FieldStateAbilityQueryVars>({
     gen: gen,
     name: fieldStateName,
-    startsWith: '',
   });
 
   const [effectQueryVars, handleChangeEffect] = useEntityConnectionChangeHandler<FieldStateEffectQueryVars>({
     gen: gen,
     name: fieldStateName,
-    startsWith: '',
   });
 
   const [itemQueryVars, handleChangeItem] = useEntityConnectionChangeHandler<FieldStateItemQueryVars>({
     gen: gen,
     name: fieldStateName,
-    startsWith: '',
   });
 
   const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<FieldStateMoveQueryVars>({
     gen: gen,
     name: fieldStateName,
-    startsWith: '',
+  });
+
+  const [statusQueryVars, handleChangeStatus] = useEntityConnectionChangeHandler<FieldStateStatusQueryVars>({
+    gen: gen,
+    name: fieldStateName,
   });
 
   // #endregion
@@ -276,6 +281,21 @@ const FieldStatePage = ({
                 listRender={listRenderFieldStateMove}
                 query={FIELDSTATE_MOVE_QUERY}
                 queryVars={moveQueryVars}
+              />
+            </>,
+          },
+
+          {
+            title: `Status interactions with ${fieldStateResult.formattedName}`,
+            content: fieldStateResult.statusCount > 0 && <>
+              <EntityConnectionSearch
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
+                gen={gen}
+                handleChange={handleChangeStatus}
+                listRender={listRenderFieldStateStatus}
+                query={FIELDSTATE_STATUS_QUERY}
+                queryVars={statusQueryVars}
               />
             </>,
           },

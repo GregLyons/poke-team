@@ -230,7 +230,6 @@ export interface AuxToMainConnectionEdge extends NameEdge {
 export interface EntityConnectionVars {
   gen: GenerationNum
   name: string
-  startsWith: string
 }
 
 export abstract class MainToAuxConnectionOnPage {
