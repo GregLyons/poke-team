@@ -3,19 +3,19 @@ import {
 } from '@apollo/client';
 import {
   EntitySearchQueryName,
-  EntitySearchResult,
+  MainEntitySearchResult,
   EntitySearchVars,
-  EntityInSearch,
+  MainEntityInSearch,
   
   EntityPageQueryName,
-  EntityOnPage,
-  EntityPageResult,
+  MainEntityOnPage,
+  MainEntityPageResult,
   EntityPageVars,
   CountField,
   
-  EntityConnectionEdge,
+  MainToAuxConnectionEdge,
   EntityConnectionVars,
-  EntityConnectionOnPage,
+  MainToAuxConnectionOnPage,
 
   TypeNameEdge,
   AbilityIconEdge,
@@ -25,6 +25,17 @@ import {
   PokemonIconDatum,
   pokemonIconEdgeToPokemonIconDatum,
   NameEdge,
+  VersionDependentDescription,
+  DescriptionEdge,
+  VersionDependentDescriptionEdge,
+  AuxToMainConnectionEdge,
+  AuxEntityInSearch,
+  AuxEntitySearchResult,
+  AuxEntityPageResult,
+  AuxEntityOnPage,
+  AuxToMainConnectionOnPage,
+  AuxToAuxConnectionEdge,
+  AuxToAuxConnectionOnPage,
 } from './helpers';
 import {
   GenerationNum,
@@ -34,6 +45,7 @@ import {
   TypeName,
   typeNameEdgeToTypeName,
 } from './Type';
+import { DescriptionsEdge } from './Description';
 
 // Effect in main search
 // #region
@@ -42,10 +54,11 @@ export type EffectSearchQuery = {
   [searchQueryName in EntitySearchQueryName]: EffectSearchResult[]
 }
 
-export interface EffectSearchResult extends EntitySearchResult {
+export interface EffectSearchResult extends AuxEntitySearchResult {
   id: string
   name: string
   formattedName: string
+  description: string
 
   moves: {
     edges: {
@@ -75,6 +88,8 @@ export const EFFECT_SEARCH_QUERY = gql`
       name
       formattedName
 
+      description
+
       moves {
         edges {
           node {
@@ -88,7 +103,7 @@ export const EFFECT_SEARCH_QUERY = gql`
   }
 `;
 
-export class EffectInSearch extends EntityInSearch {
+export class EffectInSearch extends AuxEntityInSearch {
   constructor(gqlEffect: EffectSearchResult) {
     super(gqlEffect);
   }
@@ -111,10 +126,12 @@ export type IntroductionQuery = {
   }[]
 }
 
-export interface EffectPageResult extends EntityPageResult {
+export interface EffectPageResult extends AuxEntityPageResult {
   id: string
   name: string
   formattedName: string
+
+  description: string
 
   introduced: {
     edges: IntroductionEdge[]
@@ -137,6 +154,8 @@ export const EFFECT_PAGE_QUERY = gql`
       id
       name
       formattedName
+
+      description
 
       introduced {
         edges {
@@ -166,7 +185,7 @@ export const EFFECT_PAGE_QUERY = gql`
   }
 `;
 
-export class EffectOnPage extends EntityOnPage {
+export class EffectOnPage extends AuxEntityOnPage {
   public abilityCount: number
   public fieldStateCount: number
   public itemCount: number
@@ -175,10 +194,11 @@ export class EffectOnPage extends EntityOnPage {
   constructor(gqlEffect: EffectPageResult) {
     super(gqlEffect);
 
-    this.abilityCount = gqlEffect.abilities.count
-    this.fieldStateCount = gqlEffect.fieldStates.count
-    this.itemCount = gqlEffect.items.count
-    this.moveCount = gqlEffect.moves.count
+    // Counts for displaying accordions
+    this.abilityCount = gqlEffect.abilities.count;
+    this.fieldStateCount = gqlEffect.fieldStates.count;
+    this.itemCount = gqlEffect.items.count;
+    this.moveCount = gqlEffect.moves.count;
   }
 }
 
@@ -199,11 +219,15 @@ export type EffectAbilityQuery = {
   }[]
 }
 
-export interface EffectAbilityEdge extends AbilityIconEdge {
+export interface EffectAbilityEdge extends AbilityIconEdge, AuxToMainConnectionEdge {
   node: {
     id: string
     name: string
     formattedName: string
+
+    descriptions: { 
+      edges: VersionDependentDescriptionEdge[]
+    }
 
     type: {
       edges: TypeNameEdge[]
@@ -236,6 +260,14 @@ export const EFFECT_ABILITY_QUERY = gql`
             name
             formattedName
 
+            descriptions(pagination: {limit: 1}) {
+              edges {
+                node {
+                  text
+                }
+              }
+            }
+
             pokemon {
               edges {
                 node {
@@ -260,7 +292,7 @@ export const EFFECT_ABILITY_QUERY = gql`
   }
 `;
 
-export class EffectAbilityResult extends EntityConnectionOnPage {
+export class EffectAbilityResult extends AuxToMainConnectionOnPage {
   public pokemonIconData: PokemonIconDatum[]
 
   constructor(gqlEffectAbility: EffectAbilityEdge) {
@@ -284,11 +316,13 @@ export type EffectFieldStateQuery = {
   }[]
 }
 
-export interface EffectFieldStateEdge extends NameEdge {
+export interface EffectFieldStateEdge extends AuxToAuxConnectionEdge {
   node: {
     id: string
     name: string
     formattedName: string
+
+    description: string
   }
 }
 
@@ -312,6 +346,7 @@ export const EFFECT_FIELDSTATE_QUERY = gql`
             id
             name
             formattedName
+            description
           }
         }
       }
@@ -319,7 +354,7 @@ export const EFFECT_FIELDSTATE_QUERY = gql`
   }
 `;
 
-export class EffectFieldStateResult extends EntityConnectionOnPage {
+export class EffectFieldStateResult extends AuxToAuxConnectionOnPage {
   constructor(gqlEffectFieldState: EffectFieldStateEdge) {
     super(gqlEffectFieldState);
   }
@@ -339,11 +374,15 @@ export type EffectItemQuery = {
   }[]
 }
 
-export interface EffectItemEdge extends EntityConnectionEdge {
+export interface EffectItemEdge extends AuxToMainConnectionEdge {
   node: {
     id: string
     name: string
     formattedName: string
+
+    descriptions: {
+      edges: VersionDependentDescriptionEdge[]
+    }
   }
 }
 
@@ -367,6 +406,14 @@ export const EFFECT_ITEM_QUERY = gql`
             id
             name
             formattedName
+
+            descriptions(pagination: {limit: 1}) {
+              edges {
+                node {
+                  text
+                }
+              }
+            }
           }
         }
       }
@@ -374,7 +421,7 @@ export const EFFECT_ITEM_QUERY = gql`
   }
 `;
 
-export class EffectItemResult extends EntityConnectionOnPage {
+export class EffectItemResult extends AuxToMainConnectionOnPage {
   constructor(gqlEffectItem: EffectItemEdge) {
     super(gqlEffectItem);
   }
@@ -394,11 +441,15 @@ export type EffectMoveQuery = {
   }[]
 }
 
-export interface EffectMoveEdge extends MoveIconEdge {
+export interface EffectMoveEdge extends MoveIconEdge, AuxToMainConnectionEdge {
   node: {
     id: string
     name: string
     formattedName: string
+
+    descriptions: {
+      edges: VersionDependentDescriptionEdge[]
+    }
 
     type: {
       edges: TypeNameEdge[]
@@ -430,6 +481,14 @@ export const EFFECT_MOVE_QUERY = gql`
             id
             name
             formattedName
+
+            descriptions {
+              edges {
+                node {
+                  text
+                }
+              }
+            }
             
             type {
               edges {
@@ -465,7 +524,7 @@ export const EFFECT_MOVE_QUERY = gql`
   }
 `;
 
-export class EffectMoveResult extends EntityConnectionOnPage {
+export class EffectMoveResult extends AuxToMainConnectionOnPage {
   public type: TypeName
 
   public pokemonIconData: PokemonIconDatum[]

@@ -14,10 +14,20 @@ import {
 
 export type EntitySearchQueryName = 'abilities' | 'effects' | 'fieldStates' | 'items' | 'moves' | 'pokemon' | 'stats' | 'statuses' | 'types' | 'usageMethods';
 
-export interface EntitySearchResult {
+export interface MainEntitySearchResult {
   id: string
   name: string
   formattedName: string
+  descriptions: {
+    edges: VersionDependentDescriptionEdge[]
+  }
+}
+
+export interface AuxEntitySearchResult {
+  id: string
+  name: string
+  formattedName: string
+  description: string
 }
 
 export interface EntitySearchVars {
@@ -26,17 +36,35 @@ export interface EntitySearchVars {
   startsWith: string
 }
 
-export abstract class EntityInSearch {
-  id: string
-  name: string
-  formattedName: string
+export abstract class MainEntityInSearch {
+  public id: string
+  public name: string
+  public formattedName: string
+  public description: string
 
-  constructor(gqlEntity: EntitySearchResult) {
+  constructor(gqlEntity: MainEntitySearchResult) {
     const { id, name, formattedName } = gqlEntity;
 
     this.id = id;
     this.name = name;
     this.formattedName = formattedName;
+    this.description = gqlEntity.descriptions.edges[0].node.text;
+  }
+}
+
+export abstract class AuxEntityInSearch {
+  public id: string
+  public name: string
+  public formattedName: string
+  public description: string
+
+  constructor(gqlEntity: AuxEntitySearchResult) {
+    const { id, name, formattedName, description } = gqlEntity;
+
+    this.id = id;
+    this.name = name;
+    this.formattedName = formattedName;
+    this.description = description;
   }
 }
 
@@ -45,13 +73,40 @@ export abstract class EntityInSearch {
 // Entity page
 // #region
 
-export type EntityPageQueryName = 'abilityByName' | 'effectByName' | 'fieldStateByName' | 'itemByName' | 'moveByName' | 'pokemonByName' | 'statByName' | 'statusByName' | 'typeByName' | 'usageMethodByName'
+export type EntityPageQueryName = 'abilityByName' | 'effectByName' | 'fieldStateByName' | 'itemByName' | 'moveByName' | 'pokemonByName' | 'statByName' | 'statusByName' | 'typeByName' | 'usageMethodByName';
 
-export interface EntityPageResult {
+export type VersionDependentDescriptionEdgeWithCode = {
+  node: {
+    text: string
+  }
+  versionGroupCode: string
+}
+
+export type VersionDependentDescription = {
+  code: string,
+  text: string,
+}
+
+export interface MainEntityPageResult {
   id: string
   name: string
   formattedName: string
 
+  descriptions: {
+    edges: VersionDependentDescriptionEdgeWithCode[]
+  }
+
+  introduced: {
+    edges: IntroductionEdge[]
+  }
+}
+
+export interface AuxEntityPageResult {
+  id: string
+  name: string
+  formattedName: string
+  description: string
+  
   introduced: {
     edges: IntroductionEdge[]
   }
@@ -66,34 +121,92 @@ export interface EntityPageVars {
   name: string
 }
 
-export abstract class EntityOnPage {
+export abstract class MainEntityOnPage {
   public id: string
   public name: string
   public formattedName: string
+  public descriptions: VersionDependentDescription[]
 
   public introduced: GenerationNum
 
-  constructor(gqlEntity: EntityPageResult) {
-    const { id, name, formattedName } = gqlEntity;
+  constructor(gqlEntity: MainEntityPageResult) {
+    const { id, name, formattedName, descriptions } = gqlEntity;
 
     this.id = id;
     this.name = name;
     this.formattedName = formattedName;
+    this.descriptions = descriptions.edges.map(edge => {
+      return {
+        text: edge.node.text,
+        code: edge.versionGroupCode,
+      }
+    })
 
     this.introduced = gqlEntity.introduced.edges[0].node.number;
   }
 }
+
+export abstract class AuxEntityOnPage {
+  public id: string
+  public name: string
+  public formattedName: string
+  public description: string
+
+  public introduced: GenerationNum
+
+  constructor(gqlEntity: AuxEntityPageResult) {
+    const { id, name, formattedName, description, } = gqlEntity;
+
+    this.id = id;
+    this.name = name;
+    this.formattedName = formattedName;
+    this.description = description;
+
+    this.introduced = gqlEntity.introduced.edges[0].node.number;
+  }
+}
+
 
 // #endregion
 
 // Entity connections
 // #region
 
-export interface EntityConnectionEdge extends NameEdge {
+export type VersionDependentDescriptionEdge = {
+  node: {
+    text: string
+  }
+}
+
+export interface MainToAuxConnectionEdge extends NameEdge {
   node: {
     id: string
     name: string
     formattedName: string
+
+    description: string
+  }
+}
+
+export interface AuxToAuxConnectionEdge extends NameEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+
+    description: string
+  }
+}
+
+export interface AuxToMainConnectionEdge extends NameEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+
+    descriptions: {
+      edges: VersionDependentDescriptionEdge[]
+    }
   }
 }
 
@@ -103,17 +216,51 @@ export interface EntityConnectionVars {
   startsWith: string
 }
 
-export abstract class EntityConnectionOnPage {
+export abstract class MainToAuxConnectionOnPage {
   public id: string
   public name: string
   public formattedName: string
+  public description: string
 
-  constructor(gqlEdge: EntityConnectionEdge) {
-    const { id, name, formattedName } = gqlEdge.node;
+  constructor(gqlEdge: MainToAuxConnectionEdge) {
+    const { id, name, formattedName, description, } = gqlEdge.node;
 
     this.id = id;
     this.name = name;
     this.formattedName = formattedName;
+    this.description = description;
+  }
+}
+
+export abstract class AuxToAuxConnectionOnPage {
+  public id: string
+  public name: string
+  public formattedName: string
+  public description: string
+
+  constructor(gqlEdge: AuxToAuxConnectionEdge) {
+    const { id, name, formattedName, description, } = gqlEdge.node;
+
+    this.id = id;
+    this.name = name;
+    this.formattedName = formattedName;
+    this.description = description;
+  }
+}
+
+export abstract class AuxToMainConnectionOnPage {
+  public id: string
+  public name: string
+  public formattedName: string
+  public description: string
+
+  constructor(gqlEdge: AuxToMainConnectionEdge) {
+    const { id, name, formattedName, } = gqlEdge.node;
+
+    this.id = id;
+    this.name = name;
+    this.formattedName = formattedName;
+    this.description = gqlEdge.node.descriptions.edges[0].node.text;
   }
 }
 
@@ -161,6 +308,12 @@ export interface NameEdge extends Edge {
     id: string
     name: string
     formattedName: string
+  }
+}
+
+export interface DescriptionEdge extends Edge {
+  node: {
+    description: string
   }
 }
 

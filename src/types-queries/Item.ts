@@ -3,26 +3,28 @@ import {
 } from '@apollo/client';
 import {
   EntitySearchQueryName,
-  EntitySearchResult,
+  MainEntitySearchResult,
   EntitySearchVars,
-  EntityInSearch,
+  MainEntityInSearch,
   
   EntityPageQueryName,
-  EntityOnPage,
-  EntityPageResult,
+  MainEntityOnPage,
+  MainEntityPageResult,
   EntityPageVars,
   CountField,
 
-  EntityConnectionEdge,
+  MainToAuxConnectionEdge,
   EntityConnectionVars,
-  EntityConnectionOnPage,
+  MainToAuxConnectionOnPage,
+  DescriptionEdge,
+  VersionDependentDescription,
 } from './helpers';
 import {
   GenerationNum,
   IntroductionEdge,
 } from './Generation';
 import {
-  DescriptionEdge,
+  DescriptionsEdge,
 } from './Description';
 
 // Item in main search
@@ -32,10 +34,14 @@ export type ItemSearchQuery = {
   [searchQueryName in EntitySearchQueryName]?: ItemSearchResult[]
 }
 
-export interface ItemSearchResult extends EntitySearchResult {
+export interface ItemSearchResult extends MainEntitySearchResult {
   id: string
   name: string
   formattedName: string
+
+  descriptions: {
+    edges: DescriptionsEdge[]
+  }
 }
 
 export interface ItemSearchVars extends EntitySearchVars {
@@ -54,13 +60,25 @@ export const ITEM_SEARCH_QUERY = gql`
       id
       name
       formattedName
+
+      descriptions(pagination: {limit: 1}) {
+        edges {
+          node {
+            text
+          }
+        }
+      }
     }
   }
 `;
 
-export class ItemInSearch extends EntityInSearch {
+export class ItemInSearch extends MainEntityInSearch {
+  public description: string
+
   constructor(gqlItem: ItemSearchResult) {
     super(gqlItem);
+
+    this.description = gqlItem.descriptions.edges[0].node.text;
   }
 }
 
@@ -74,7 +92,7 @@ export type ItemPageQuery = {
 }
 
 // TODO: confusesNature, naturalGift
-export interface ItemPageResult extends EntityPageResult {
+export interface ItemPageResult extends MainEntityPageResult {
   id: string
   name: string
   formattedName: string
@@ -84,7 +102,7 @@ export interface ItemPageResult extends EntityPageResult {
   }
 
   descriptions: {
-    edges: DescriptionEdge[]
+    edges: DescriptionsEdge[]
   }
 
   activatedByFieldState: CountField
@@ -189,7 +207,7 @@ export const ITEM_PAGE_QUERY = gql`
   }
 `;
 
-export class ItemOnPage extends EntityOnPage {
+export class ItemOnPage extends MainEntityOnPage {
   public activatedByFieldStateCount: number
   public boostsTypeCount: number
   public boostsUsageMethodCount: number
@@ -211,7 +229,8 @@ export class ItemOnPage extends EntityOnPage {
   constructor(gqlItem: ItemPageResult) {
     // Data for ItemPage
     super(gqlItem);
-    
+
+    // Counts for displaying accordions
     this.activatedByFieldStateCount = gqlItem.activatedByFieldState.count
     this.boostsTypeCount = gqlItem.boostsType.count
     this.boostsUsageMethodCount = gqlItem.boostsUsageMethod.count
@@ -249,11 +268,13 @@ export type ItemEffectQuery = {
   }[]
 }
 
-export interface ItemEffectEdge extends EntityConnectionEdge {
+export interface ItemEffectEdge extends MainToAuxConnectionEdge, DescriptionEdge {
   node: {
     id: string
     name: string
     formattedName: string
+
+    description: string
   }
 }
 
@@ -273,6 +294,8 @@ export const ITEM_EFFECT_QUERY = gql`
             id
             name
             formattedName
+
+            description
           }
         }
       }
@@ -280,9 +303,9 @@ export const ITEM_EFFECT_QUERY = gql`
   }
 `;
 
-export class ItemEffectResult extends EntityConnectionOnPage {
+export class ItemEffectResult extends MainToAuxConnectionOnPage {
   constructor(gqlItemEffect: ItemEffectEdge) {
-    super(gqlItemEffect)
+    super(gqlItemEffect);
   }
 }
 
@@ -309,11 +332,13 @@ export type ItemFieldStateQuery = {
   }[]
 }
 
-export interface ItemFieldStateEdge extends EntityConnectionEdge {
+export interface ItemFieldStateEdge extends MainToAuxConnectionEdge, DescriptionEdge {
   node: {
     id: string
     name: string
     formattedName: string
+
+    description: string
   }
   turns?: number
 }
@@ -333,6 +358,7 @@ export const ITEM_FIELDSTATE_QUERY = gql`
             id
             name
             formattedName
+            description
           }
         }
       }
@@ -342,6 +368,7 @@ export const ITEM_FIELDSTATE_QUERY = gql`
             id
             name
             formattedName
+            description
           }
           turns
         }
@@ -352,6 +379,7 @@ export const ITEM_FIELDSTATE_QUERY = gql`
             id
             name
             formattedName
+            description
           }
         }
       }
@@ -361,6 +389,7 @@ export const ITEM_FIELDSTATE_QUERY = gql`
             id
             name
             formattedName
+            description
           }
         }
       }
@@ -368,11 +397,11 @@ export const ITEM_FIELDSTATE_QUERY = gql`
   }
 `;
 
-export class ItemFieldStateResult extends EntityConnectionOnPage {
+export class ItemFieldStateResult extends MainToAuxConnectionOnPage {
   public turns?: number
 
   constructor(gqlItemFieldState: ItemFieldStateEdge) {
-    super(gqlItemFieldState)
+    super(gqlItemFieldState);
 
     if (gqlItemFieldState.turns) this.turns = gqlItemFieldState.turns;
   }

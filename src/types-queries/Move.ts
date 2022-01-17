@@ -3,24 +3,26 @@ import {
 } from '@apollo/client';
 import {
   EntitySearchQueryName,
-  EntitySearchResult,
+  MainEntitySearchResult,
   EntitySearchVars,
-  EntityInSearch,
+  MainEntityInSearch,
   
   EntityPageQueryName,
-  EntityOnPage,
-  EntityPageResult,
+  MainEntityOnPage,
+  MainEntityPageResult,
   EntityPageVars,
   CountField,
   
-  EntityConnectionEdge,
+  MainToAuxConnectionEdge,
   EntityConnectionVars,
-  EntityConnectionOnPage,
+  MainToAuxConnectionOnPage,
 
   TypeNameEdge,
   PokemonIconEdge,
   PokemonIconDatum,
   pokemonIconEdgeToPokemonIconDatum,
+  VersionDependentDescription,
+  DescriptionEdge,
 } from './helpers';
 import {
   TypeName,
@@ -31,7 +33,7 @@ import {
   IntroductionEdge,
 } from './Generation';
 import {
-  DescriptionEdge,
+  DescriptionsEdge,
 } from './Description';
 
 // Move in main search
@@ -41,7 +43,7 @@ export type MoveSearchQuery = {
   [searchQueryName in EntitySearchQueryName]?: MoveSearchResult[]
 }
 
-export interface MoveSearchResult extends EntitySearchResult {
+export interface MoveSearchResult extends MainEntitySearchResult {
   id: string
   name: string
   formattedName: string
@@ -53,6 +55,10 @@ export interface MoveSearchResult extends EntitySearchResult {
   pp: number
   priority: number
   target: string
+
+  descriptions: {
+    edges: DescriptionsEdge[]
+  }
 
   type: {
     edges: TypeNameEdge[]
@@ -88,6 +94,14 @@ export const MOVE_SEARCH_QUERY = gql`
       priority
       target
 
+      descriptions(pagination: {limit: 1}) {
+        edges {
+          node {
+            text
+          }
+        }
+      }
+
       type {
         edges {
           node {
@@ -119,7 +133,9 @@ export const MOVE_SEARCH_QUERY = gql`
   }
 `;
 
-export class MoveInSearch extends EntityInSearch {
+export class MoveInSearch extends MainEntityInSearch {
+  public description: string
+
   public accuracy: number
   public category: string
   public contact: boolean
@@ -134,6 +150,8 @@ export class MoveInSearch extends EntityInSearch {
 
   constructor(gqlMove: MoveSearchResult) {
     super(gqlMove);
+
+    this.description = gqlMove.descriptions.edges[0].node.text;
 
     const { accuracy, category, contact, power, pp, priority, target, } = gqlMove;
 
@@ -160,7 +178,7 @@ export type MovePageQuery = {
   [pageQueryName in EntityPageQueryName]?: MovePageResult[]
 }
 
-export interface MovePageResult extends EntityPageResult {
+export interface MovePageResult extends MainEntityPageResult {
   id: string
   name: string
   formattedName: string
@@ -178,7 +196,7 @@ export interface MovePageResult extends EntityPageResult {
   }
 
   descriptions: {
-    edges: DescriptionEdge[]
+    edges: DescriptionsEdge[]
   }
 
   type: {
@@ -307,7 +325,7 @@ export const MOVE_PAGE_QUERY = gql`
   }
 `;
 
-export class MoveOnPage extends EntityOnPage {
+export class MoveOnPage extends MainEntityOnPage {
   public accuracy: number
   public category: string
   public contact: boolean
@@ -392,11 +410,13 @@ export type MoveEffectQuery = {
   }[]
 }
 
-export interface MoveEffectEdge extends EntityConnectionEdge {
+export interface MoveEffectEdge extends MainToAuxConnectionEdge, DescriptionEdge {
   node: {
     id: string
     name: string
     formattedName: string
+
+    description: string
   }
 }
 
@@ -416,6 +436,8 @@ export const MOVE_EFFECT_QUERY = gql`
             id
             name
             formattedName
+
+            description
           }
         }
       }
@@ -423,9 +445,9 @@ export const MOVE_EFFECT_QUERY = gql`
   }
 `;
 
-export class MoveEffectResult extends EntityConnectionOnPage {
+export class MoveEffectResult extends MainToAuxConnectionOnPage {
   constructor(gqlMoveEffect: MoveEffectEdge) {
-    super(gqlMoveEffect)
+    super(gqlMoveEffect);
   }
 }
 
@@ -452,11 +474,13 @@ export type MoveFieldStateQuery = {
   }[]
 }
 
-export interface MoveFieldStateEdge extends EntityConnectionEdge {
+export interface MoveFieldStateEdge extends MainToAuxConnectionEdge, DescriptionEdge {
   node: {
     id: string
     name: string
     formattedName: string
+
+    description: string
   }
   turns?: number
 }
@@ -476,6 +500,7 @@ export const MOVE_FIELDSTATE_QUERY = gql`
             id
             name
             formattedName
+            description
           }
           turns
         }
@@ -486,6 +511,7 @@ export const MOVE_FIELDSTATE_QUERY = gql`
             id
             name
             formattedName
+            description
           }
         }
       }
@@ -495,6 +521,7 @@ export const MOVE_FIELDSTATE_QUERY = gql`
             id
             name
             formattedName
+            description
           }
         }
       }
@@ -504,6 +531,7 @@ export const MOVE_FIELDSTATE_QUERY = gql`
             id
             name
             formattedName
+            description
           }
         }
       }
@@ -511,11 +539,12 @@ export const MOVE_FIELDSTATE_QUERY = gql`
   }
 `;
 
-export class MoveFieldStateResult extends EntityConnectionOnPage {
+export class MoveFieldStateResult extends MainToAuxConnectionOnPage {
   public turns?: number
 
   constructor(gqlMoveFieldState: MoveFieldStateEdge) {
-    super(gqlMoveFieldState)
+    super(gqlMoveFieldState);
+
     if (gqlMoveFieldState.turns) this.turns = gqlMoveFieldState.turns;
   }
 }

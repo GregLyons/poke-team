@@ -3,30 +3,32 @@ import {
 } from '@apollo/client';
 import {
   EntitySearchQueryName,
-  EntitySearchResult,
+  MainEntitySearchResult,
   EntitySearchVars,
-  EntityInSearch,
+  MainEntityInSearch,
   
   EntityPageQueryName,
-  EntityOnPage,
-  EntityPageResult,
+  MainEntityOnPage,
+  MainEntityPageResult,
   EntityPageVars,
   CountField,
   
-  EntityConnectionEdge,
+  MainToAuxConnectionEdge,
   EntityConnectionVars,
-  EntityConnectionOnPage,
+  MainToAuxConnectionOnPage,
 
   PokemonIconDatum,
   PokemonIconEdge,
   pokemonIconEdgeToPokemonIconDatum,
+  DescriptionEdge,
+  VersionDependentDescription,
 } from './helpers';
 import {
   GenerationNum,
   IntroductionEdge,
 } from './Generation';
 import {
-  DescriptionEdge,
+  DescriptionsEdge,
 } from './Description';
 
 // Ability in main search
@@ -37,10 +39,13 @@ export type AbilitySearchQuery = {
 }
 
 
-export interface AbilitySearchResult extends EntitySearchResult {
+export interface AbilitySearchResult extends MainEntitySearchResult {
   id: string
   name: string
   formattedName: string
+  descriptions: {
+    edges: DescriptionsEdge[]
+  }
 
   pokemon: {
     edges: PokemonIconEdge[]
@@ -64,6 +69,14 @@ export const ABILITY_SEARCH_QUERY = gql`
       name
       formattedName
 
+      descriptions(pagination: {limit: 1}) {
+        edges {
+          node {
+            text
+          }
+        }
+      }
+
       pokemon {
         edges {
           node {
@@ -86,7 +99,7 @@ export const ABILITY_SEARCH_QUERY = gql`
   }
 `;
 
-export class AbilityInSearch extends EntityInSearch {
+export class AbilityInSearch extends MainEntityInSearch {
   public pokemonIconData: PokemonIconDatum[]
 
   constructor(gqlAbility: AbilitySearchResult) {
@@ -106,7 +119,7 @@ export type AbilityPageQuery = {
 }
 
 
-export interface AbilityPageResult extends EntityPageResult {
+export interface AbilityPageResult extends MainEntityPageResult {
   id: string
   name: string
   formattedName: string
@@ -116,7 +129,7 @@ export interface AbilityPageResult extends EntityPageResult {
   }
 
   descriptions: {
-    edges: DescriptionEdge[]
+    edges: DescriptionsEdge[]
   }
 
   activatedByFieldState: CountField
@@ -221,7 +234,7 @@ export const ABILITY_PAGE_QUERY = gql`
   }
 `;
 
-export class AbilityOnPage extends EntityOnPage {
+export class AbilityOnPage extends MainEntityOnPage {
   public activatedByFieldStateCount: number
   public boostsTypeCount: number
   public boostsUsageMethodCount: number
@@ -282,11 +295,13 @@ export type AbilityEffectQuery = {
   }[]
 }
 
-export interface AbilityEffectEdge extends EntityConnectionEdge {
+export interface AbilityEffectEdge extends MainToAuxConnectionEdge, DescriptionEdge {
   node: {
     id: string
     name: string
     formattedName: string
+    
+    description: string
   }
 }
 
@@ -305,6 +320,8 @@ export const ABILITY_EFFECT_QUERY = gql`
             id
             name
             formattedName
+
+            description
           }
         }
       }
@@ -312,9 +329,9 @@ export const ABILITY_EFFECT_QUERY = gql`
   }
 `;
 
-export class AbilityEffectResult extends EntityConnectionOnPage {
+export class AbilityEffectResult extends MainToAuxConnectionOnPage {
   constructor(gqlAbilityEffect: AbilityEffectEdge) {
-    super(gqlAbilityEffect)
+    super(gqlAbilityEffect);
   }
 }
 
@@ -347,11 +364,13 @@ export type AbilityFieldStateQuery = {
   }[]
 }
 
-export interface AbilityFieldStateEdge extends EntityConnectionEdge {
+export interface AbilityFieldStateEdge extends MainToAuxConnectionEdge {
   node: {
     id: string
     name: string
     formattedName: string
+
+    description: string
   }
   turns?: number
 }
@@ -371,6 +390,7 @@ export const ABILITY_FIELDSTATE_QUERY = gql`
             id
             name
             formattedName
+            description
           }
         }
       }
@@ -380,6 +400,7 @@ export const ABILITY_FIELDSTATE_QUERY = gql`
             id
             name
             formattedName
+            description
           }
           turns
         }
@@ -390,6 +411,7 @@ export const ABILITY_FIELDSTATE_QUERY = gql`
             id
             name
             formattedName
+            description
           }
         }
       }
@@ -399,6 +421,7 @@ export const ABILITY_FIELDSTATE_QUERY = gql`
             id
             name
             formattedName
+            description
           }
         }
       }
@@ -408,6 +431,7 @@ export const ABILITY_FIELDSTATE_QUERY = gql`
             id
             name
             formattedName
+            description
           }
         }
       }
@@ -417,6 +441,7 @@ export const ABILITY_FIELDSTATE_QUERY = gql`
             id
             name
             formattedName
+            description
           }
         }
       }
@@ -424,11 +449,12 @@ export const ABILITY_FIELDSTATE_QUERY = gql`
   }
 `;
 
-export class AbilityFieldStateResult extends EntityConnectionOnPage {
+export class AbilityFieldStateResult extends MainToAuxConnectionOnPage {
   public turns?: number
 
   constructor(gqlAbilityFieldState: AbilityFieldStateEdge) {
-    super(gqlAbilityFieldState)
+    super(gqlAbilityFieldState);
+
     if (gqlAbilityFieldState.turns) this.turns = gqlAbilityFieldState.turns;
   }
 }

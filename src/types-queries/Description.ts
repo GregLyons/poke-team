@@ -1,4 +1,4 @@
-export type DescriptionEdge = {
+export type DescriptionsEdge = {
   node: {
     text: string
   }

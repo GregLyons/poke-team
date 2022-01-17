@@ -3,19 +3,17 @@ import {
 } from '@apollo/client';
 import {
   EntitySearchQueryName,
-  EntitySearchResult,
+  MainEntitySearchResult,
   EntitySearchVars,
-  EntityInSearch,
+  MainEntityInSearch,
   
   EntityPageQueryName,
-  EntityOnPage,
-  EntityPageResult,
+  MainEntityOnPage,
+  MainEntityPageResult,
   EntityPageVars,
   CountField,
   
-  EntityConnectionEdge,
   EntityConnectionVars,
-  EntityConnectionOnPage,
 
   AbilityIconEdge,
   TypeNameEdge,
@@ -28,6 +26,15 @@ import {
   PokemonIconDatum,
   pokemonIconEdgeToPokemonIconDatum,
   MoveIconEdge,
+  AuxToMainConnectionEdge,
+  AuxToMainConnectionOnPage,
+  VersionDependentDescriptionEdge,
+  AuxToAuxConnectionEdge,
+  AuxToAuxConnectionOnPage,
+  AuxEntityInSearch,
+  AuxEntitySearchResult,
+  AuxEntityPageResult,
+  AuxEntityOnPage,
 } from './helpers';
 import {
   GenerationNum,
@@ -41,10 +48,11 @@ export type FieldStateSearchQuery = {
   [searchQueryName in EntitySearchQueryName]: FieldStateSearchResult[]
 }
 
-export interface FieldStateSearchResult extends EntitySearchResult {
+export interface FieldStateSearchResult extends AuxEntitySearchResult {
   id: string
   name: string
   formattedName: string
+  description: string
 
   fieldStateClass: string
   damagePercent: number
@@ -79,7 +87,7 @@ export const FIELDSTATE_SEARCH_QUERY = gql`
   }
 `;
 
-export class FieldStateInSearch extends EntityInSearch {
+export class FieldStateInSearch extends AuxEntityInSearch {
   public damagePercent: number
   public fieldStateClass: string
   public grounded: boolean
@@ -115,10 +123,11 @@ export type IntroductionQuery = {
   }[]
 }
 
-export interface FieldStatePageResult extends EntityPageResult {
+export interface FieldStatePageResult extends AuxEntityPageResult {
   id: string
   name: string
   formattedName: string
+  description: string
 
   introduced: {
     edges: IntroductionEdge[]
@@ -230,7 +239,7 @@ export const FIELDSTATE_PAGE_QUERY = gql`
   }
 `;
 
-export class FieldStateOnPage extends EntityOnPage {
+export class FieldStateOnPage extends AuxEntityOnPage {
   public activatesAbilityCount: number
   public activatesItemCount: number
   public boostsTypeCount: number
@@ -259,6 +268,7 @@ export class FieldStateOnPage extends EntityOnPage {
   constructor(gqlFieldState: FieldStatePageResult) {
     super(gqlFieldState);
 
+    // Counts for displaying accordions
     this.activatesAbilityCount = gqlFieldState.activatesAbility.count
     this.activatesItemCount = gqlFieldState.activatesItem.count
     this.boostsTypeCount = gqlFieldState.boostsType.count
@@ -320,11 +330,15 @@ export type FieldStateAbilityQuery = {
   }[]
 }
 
-export interface FieldStateAbilityEdge extends AbilityIconEdge {
+export interface FieldStateAbilityEdge extends AbilityIconEdge, AuxToMainConnectionEdge {
   node: {
     id: string
     name: string
     formattedName: string
+
+    descriptions: {
+      edges: VersionDependentDescriptionEdge[]
+    }
 
     pokemon: {
       edges: PokemonIconEdge[]
@@ -376,6 +390,14 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             name
             formattedName
 
+            descriptions(pagination: {limit: 1}) {
+              edges {
+                node {
+                  text
+                }
+              }
+            }
+
             pokemon {
               edges {
                 node {
@@ -404,6 +426,14 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             name
             formattedName
 
+            descriptions(pagination: {limit: 1}) {
+              edges {
+                node {
+                  text
+                }
+              }
+            }
+
             pokemon {
               edges {
                 node {
@@ -430,6 +460,14 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             id
             name
             formattedName
+
+            descriptions(pagination: {limit: 1}) {
+              edges {
+                node {
+                  text
+                }
+              }
+            }
 
             pokemon {
               edges {
@@ -458,6 +496,14 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             name
             formattedName
 
+            descriptions(pagination: {limit: 1}) {
+              edges {
+                node {
+                  text
+                }
+              }
+            }
+
             pokemon {
               edges {
                 node {
@@ -485,6 +531,14 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             name
             formattedName
 
+            descriptions(pagination: {limit: 1}) {
+              edges {
+                node {
+                  text
+                }
+              }
+            }
+
             pokemon {
               edges {
                 node {
@@ -509,7 +563,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
   }
 `;
 
-export class FieldStateAbilityResult extends EntityConnectionOnPage {
+export class FieldStateAbilityResult extends AuxToMainConnectionOnPage {
   public pokemonIconData: PokemonIconDatum[]
   public turns?: number
 
@@ -535,11 +589,13 @@ export type FieldStateEffectQuery = {
   }[]
 }
 
-export interface FieldStateEffectEdge extends EntityConnectionEdge {
+export interface FieldStateEffectEdge extends AuxToAuxConnectionEdge {
   node: {
     id: string
     name: string
     formattedName: string
+
+    description: string
   }
 }
 
@@ -558,6 +614,8 @@ export const FIELDSTATE_EFFECT_QUERY = gql`
             id
             name
             formattedName
+
+            description
           }
         }
       }
@@ -565,7 +623,7 @@ export const FIELDSTATE_EFFECT_QUERY = gql`
   }
 `;
 
-export class FieldStateEffectResult extends EntityConnectionOnPage {
+export class FieldStateEffectResult extends AuxToAuxConnectionOnPage {
   constructor(gqlFieldStateEffect: FieldStateEffectEdge) {
     super(gqlFieldStateEffect)
   }
@@ -594,11 +652,15 @@ export type FieldStateItemQuery = {
   }[]
 }
 
-export interface FieldStateItemEdge extends ItemIconEdge {
+export interface FieldStateItemEdge extends ItemIconEdge, AuxToMainConnectionEdge {
   node: {
     id: string
     name: string
     formattedName: string
+
+    descriptions: {
+      edges: VersionDependentDescriptionEdge[]
+    }
 
     introduced: {
       edges: IntroductionEdge[]
@@ -622,6 +684,13 @@ export const FIELDSTATE_ITEM_QUERY = gql`
             id
             name
             formattedName
+            descriptions(pagination: {limit: 1}) {
+              edges {
+                node {
+                  text
+                }
+              }
+            }
 
             introduced {
               edges {
@@ -639,6 +708,13 @@ export const FIELDSTATE_ITEM_QUERY = gql`
             id
             name
             formattedName
+            descriptions(pagination: {limit: 1}) {
+              edges {
+                node {
+                  text
+                }
+              }
+            }
 
             introduced {
               edges {
@@ -657,6 +733,13 @@ export const FIELDSTATE_ITEM_QUERY = gql`
             id
             name
             formattedName
+            descriptions(pagination: {limit: 1}) {
+              edges {
+                node {
+                  text
+                }
+              }
+            }
 
             introduced {
               edges {
@@ -674,6 +757,13 @@ export const FIELDSTATE_ITEM_QUERY = gql`
             id
             name
             formattedName
+            descriptions(pagination: {limit: 1}) {
+              edges {
+                node {
+                  text
+                }
+              }
+            }
 
             introduced {
               edges {
@@ -689,7 +779,7 @@ export const FIELDSTATE_ITEM_QUERY = gql`
   }
 `;
 
-export class FieldStateItemResult extends EntityConnectionOnPage {
+export class FieldStateItemResult extends AuxToMainConnectionOnPage {
   public itemIconData: ItemIconDatum
   public turns?: number
 
@@ -724,11 +814,15 @@ export type FieldStateMoveQuery = {
   }[]
 }
 
-export interface FieldStateMoveEdge extends MoveIconEdge {
+export interface FieldStateMoveEdge extends MoveIconEdge, AuxToMainConnectionEdge {
   node: {
     id: string
     name: string
     formattedName: string
+
+    descriptions: {
+      edges: VersionDependentDescriptionEdge[]
+    }
 
     type: {
       edges: TypeNameEdge[]
@@ -756,6 +850,13 @@ export const FIELDSTATE_MOVE_QUERY = gql`
             id
             name
             formattedName
+            descriptions(pagination: {limit: 1}) {
+              edges {
+                node {
+                  text
+                }
+              }
+            }
 
             type {
               edges {
@@ -794,6 +895,13 @@ export const FIELDSTATE_MOVE_QUERY = gql`
             id
             name
             formattedName
+            descriptions(pagination: {limit: 1}) {
+              edges {
+                node {
+                  text
+                }
+              }
+            }
 
             type {
               edges {
@@ -831,6 +939,13 @@ export const FIELDSTATE_MOVE_QUERY = gql`
             id
             name
             formattedName
+            descriptions(pagination: {limit: 1}) {
+              edges {
+                node {
+                  text
+                }
+              }
+            }
 
             type {
               edges {
@@ -868,6 +983,13 @@ export const FIELDSTATE_MOVE_QUERY = gql`
             id
             name
             formattedName
+            descriptions(pagination: {limit: 1}) {
+              edges {
+                node {
+                  text
+                }
+              }
+            }
 
             type {
               edges {
@@ -903,7 +1025,7 @@ export const FIELDSTATE_MOVE_QUERY = gql`
   }
 `;
 
-export class FieldStateMoveResult extends EntityConnectionOnPage {
+export class FieldStateMoveResult extends AuxToMainConnectionOnPage {
   public pokemonIconData: PokemonIconDatum[]
   public turns?: number
 
