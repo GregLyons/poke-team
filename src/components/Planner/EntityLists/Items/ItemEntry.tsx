@@ -29,11 +29,11 @@ const ItemEntry = ({
       {/* Item name */}
       <Link 
         to={`${item.name}`}
-        className="planner__item-name"
+        className="planner__table-name"
       >
         {item.formattedName}
       </Link>
-      <div>
+      <div className="planner__table-description">
         {item.description}
       </div>
       <Outlet />

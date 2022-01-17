@@ -30,17 +30,20 @@ const AbilityEntry = ({
       {/* Ability name */}
       <Link 
         to={`${ability.name}`}
-        className="planner__name"
+        className="planner__table-name"
       >
         {ability.formattedName}
       </Link>
 
-      <div>
+      <div className="planner__table-description">
         {ability.description}
       </div>
 
+      <div className="planner__table-data">
+      </div>
+
       {/* Pokemon icons */}
-      <div className="planner__pokemon-icon">
+      <div className="planner__table-icons">
         <div>
           {ability.pokemonIconData.map(pokemonIconDatum => {
             return (

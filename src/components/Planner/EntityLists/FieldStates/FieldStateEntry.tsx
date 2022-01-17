@@ -21,11 +21,11 @@ const FieldStateEntry = ({
       {/* FieldState name */}
       <Link 
         to={`${fieldState.name}`}
-        className="planner__fieldState-name"
+        className="planner__table-name"
       >
         {fieldState.formattedName}
       </Link>
-      <div>
+      <div className="planner__table-description">
         {fieldState.description}
       </div>
       <Outlet />

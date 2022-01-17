@@ -47,6 +47,7 @@
   display: flex;
   flex-direction: column;
 
+  --ability-table-column-layout: 1fr 1fr 4fr;
   --move-table-column-layout: 1fr 1fr 4fr;
 
   gap: 2rem;
@@ -56,41 +57,42 @@
   display: grid;
 }
 
-/* .planner__table-header */
-/* #region */
-
-.planner__table-header {
-  border: 1px solid black;
-  display: grid;
-  grid-template-columns: var(--move-table-column-layout);
-  grid-template-rows: 1fr;
-}
-
-.planner__table-name-header {
-  border: 1px solid black;
-  grid-column: 1 / 2;
-}
-
-.planner__table-data-header {
-  border: 1px solid black;
-  grid-column: 2 / 3;
-}
-
-.planner__table-pokemon-header {
-  border: 1px solid black;
-  grid-column: 3 / 4;
-}
-
-/* #end-region */
-
-
 /* planner__table-row */
 /* #region */ 
 
 .planner__table-row {
   border: 1px solid black;
   display: grid;
-  grid-template-columns: var(--move-table-column-layout);
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr 1fr 3fr;
+
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 100%;
+}
+
+.planner__table-row:nth-child(even) {
+  background-color: lightgray;
+}
+
+.planner__table-row-name {
+  border: 1px solid black;
+  grid-column: 1 / 2;
+}
+
+.planner__table-description {
+  border: 1px solid black;
+  grid-column: 2 / 3;
+}
+
+.planner__table-data {
+  border: 1px solid black;
+  grid-column: 3 / 4;
+}
+
+.planner__table-icons {
+  border: 1px solid black;
+  grid-column: 4 / 5;
 }
 
 /* #endregion */

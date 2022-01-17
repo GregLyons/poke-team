@@ -37,8 +37,12 @@ const MoveEntry = ({
         {move.formattedName}
       </Link>
 
+      <div className="planner__table-description">
+        {move.description}
+      </div>
+
       {/* Move data */}
-      <div className="planner__move-data">
+      <div className="planner__table-data">
         <div>Accuracy: {move.accuracy}</div>
         <div>Category: {move.category}</div>
         <div>{move.contact ? 'Contact' : 'Non-contact'}</div>
@@ -49,12 +53,8 @@ const MoveEntry = ({
         <div>Type: {move.type}</div>
       </div>
 
-      <div>
-        {move.description}
-      </div>
-
       {/* Pokemon icons */}
-      <div className="planner__pokemon-icon">
+      <div className="planner__table-icons">
         <div>
           {move.pokemonIconData.map(pokemonIconDatum => {
             // Ignore duplicate Pokemon

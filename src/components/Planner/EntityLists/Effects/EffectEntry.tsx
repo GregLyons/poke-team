@@ -21,11 +21,11 @@ const EffectEntry = ({
       {/* Effect name */}
       <Link 
         to={`${effect.name}`}
-        className="planner__effect-name"
+        className="planner__table-name"
       >
         {effect.formattedName}
       </Link>
-      <div>
+      <div className="planner__table-description">
         {effect.description}
       </div>
       <Outlet />
