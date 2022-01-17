@@ -3,30 +3,39 @@ import {
 } from "react-router-dom";
 
 import {
-  EffectAbilityEdge,
+  EffectAbilityResult,
   EffectAbilityQuery,
 
-  EffectFieldStateEdge,
+  EffectFieldStateResult,
   EffectFieldStateQuery,
 
-  EffectItemEdge,
+  EffectItemResult,
   EffectItemQuery,
 
-  EffectMoveEdge,
+  EffectMoveResult,
   EffectMoveQuery
 } from "../../../../types-queries/Effect";
+import EntityAccordionEntry from "../EntityAccordionEntry";
 import {
   ListRenderArgs,
 } from "../helpers";
 
 export const listRenderEffectAbility = ({ data, }: ListRenderArgs<EffectAbilityQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
+
+  const parentID = data.effectByName[0].id;
+
+  const abilityResults = data.effectByName[0].abilities.edges.map(edge => new EffectAbilityResult(edge));
+
   return (
     <>
-      {data.effectByName[0].abilities.edges.map((abilityEdge: EffectAbilityEdge) => (
-        <div className="planner__accordion-entry">
-          <Link to={`../abilities/${abilityEdge.node.name}`}>{abilityEdge.node.formattedName}</Link>
-        </div>
+      {abilityResults.map(result => (
+        <EntityAccordionEntry
+          parentEntityClass="effect"
+          key={`${parentID}_${result.id}_ability`}
+          name={result.formattedName}
+          description={result.description}
+        />
       ))}
     </>
   );
@@ -34,12 +43,20 @@ export const listRenderEffectAbility = ({ data, }: ListRenderArgs<EffectAbilityQ
 
 export const listRenderEffectFieldState = ({ data, }: ListRenderArgs<EffectFieldStateQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
+
+  const parentID = data.effectByName[0].id;
+
+  const fieldStateResults = data.effectByName[0].fieldStates.edges.map(edge => new EffectFieldStateResult(edge));
+
   return (
     <>
-      {data.effectByName[0].fieldStates.edges.map((FieldStateEdge: EffectFieldStateEdge) => (
-        <div className="planner__accordion-entry">
-          <Link to={`../fieldStates/${FieldStateEdge.node.name}`}>{FieldStateEdge.node.formattedName}</Link>
-        </div>
+      {fieldStateResults.map(result => (
+        <EntityAccordionEntry
+          parentEntityClass="effect"
+          key={`${parentID}_${result.id}_fieldState`}
+          name={result.formattedName}
+          description={result.description}
+        />
       ))}
     </>
   );
@@ -47,12 +64,20 @@ export const listRenderEffectFieldState = ({ data, }: ListRenderArgs<EffectField
 
 export const listRenderEffectItem = ({ data, }: ListRenderArgs<EffectItemQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
+
+  const parentID = data.effectByName[0].id;
+
+  const itemResults = data.effectByName[0].items.edges.map(edge => new EffectItemResult(edge));
+
   return (
     <>
-      {data.effectByName[0].items.edges.map((itemEdge: EffectItemEdge) => (
-        <div className="planner__accordion-entry">
-          <Link to={`../items/${itemEdge.node.name}`}>{itemEdge.node.formattedName}</Link>
-        </div>
+      {itemResults.map(result => (
+        <EntityAccordionEntry
+          parentEntityClass="effect"
+          key={`${parentID}_${result.id}_item`}
+          name={result.formattedName}
+          description={result.description}
+        />
       ))}
     </>
   );
@@ -60,12 +85,20 @@ export const listRenderEffectItem = ({ data, }: ListRenderArgs<EffectItemQuery>)
 
 export const listRenderEffectMove = ({ data, }: ListRenderArgs<EffectMoveQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
+
+  const parentID = data.effectByName[0].id;
+
+  const moveResults = data.effectByName[0].moves.edges.map(edge => new EffectAbilityResult(edge));
+
   return (
     <>
-      {data.effectByName[0].moves.edges.map((moveEdge: EffectMoveEdge) => (
-        <div className="planner__accordion-entry">
-          <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
-        </div>
+      {moveResults.map(result => (
+        <EntityAccordionEntry
+          parentEntityClass="effect"
+          key={`${parentID}_${result.id}_move`}
+          name={result.formattedName}
+          description={result.description}
+        />
       ))}
     </>
   );

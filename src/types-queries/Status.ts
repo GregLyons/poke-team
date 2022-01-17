@@ -658,7 +658,7 @@ export const STATUS_MOVE_QUERY = gql`
   }
 `;
 
-export class StatusCausedByMoveResult extends AuxToMainConnectionOnPage {
+export class StatusMoveResult extends AuxToMainConnectionOnPage {
   public pokemonIconData: PokemonIconDatum[]
   public type: TypeName
   public chance?: number

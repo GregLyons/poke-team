@@ -1,103 +1,124 @@
 import {
-  Link,
-} from "react-router-dom";
-import {
-  FieldStateAbilityEdge,
+  FieldStateAbilityResult,
   FieldStateAbilityQuery,
 
-  FieldStateEffectEdge,
+  FieldStateEffectResult,
   FieldStateEffectQuery,
 
-  FieldStateItemEdge,
+  FieldStateItemResult,
   FieldStateItemQuery,
 
-  FieldStateMoveEdge,
+  FieldStateMoveResult,
   FieldStateMoveQuery,
-  FieldStateStatusEdge,
+
+  FieldStateStatusResult,
   FieldStateStatusQuery,
 } from "../../../../types-queries/FieldState";
 import {
   ListRenderArgs,
 } from "../helpers";
 
+import EntityAccordionEntry from "../EntityAccordionEntry";
+
 let a: FieldStateAbilityQuery
 
 export const listRenderFieldStateAbility = ({ data, }: ListRenderArgs<FieldStateAbilityQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
 
-  const activatesEdges = data.fieldStateByName[0].activatesAbility.edges;
-  const createdByEdges = data.fieldStateByName[0].createdByAbility.edges;
-  const ignoredByEdges = data.fieldStateByName[0].ignoredByAbility.edges;
-  const preventedByEdges = data.fieldStateByName[0].preventedByAbility.edges;
-  const removedByEdges = data.fieldStateByName[0].removedByAbility.edges;
-  const suppressedByEdges = data.fieldStateByName[0].suppressedByAbility.edges;
+  const parentID = data.fieldStateByName[0].id;
+
+  const activatesResults = data.fieldStateByName[0].activatesAbility.edges.map(edge => new FieldStateAbilityResult(edge));
+  const createdByResults = data.fieldStateByName[0].createdByAbility.edges.map(edge => new FieldStateAbilityResult(edge));
+  const ignoredByResults = data.fieldStateByName[0].ignoredByAbility.edges.map(edge => new FieldStateAbilityResult(edge));
+  const preventedByResults = data.fieldStateByName[0].preventedByAbility.edges.map(edge => new FieldStateAbilityResult(edge));
+  const removedByResults = data.fieldStateByName[0].removedByAbility.edges.map(edge => new FieldStateAbilityResult(edge));
+  const suppressedByResults = data.fieldStateByName[0].suppressedByAbility.edges.map(edge => new FieldStateAbilityResult(edge));
 
   return (
     <>
-      {activatesEdges.length > 0 && (
+      {activatesResults.length > 0 && (
       <div className="planner__accordion-content--positive">
         <h3>Activates ability</h3>
-        {activatesEdges.map((fieldStateEdge: FieldStateAbilityEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
-          </div>
+        {activatesResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="fieldState"
+            key={`${parentID}_${result.id}_activate_ability`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
-      {createdByEdges.length > 0 && (
+      {createdByResults.length > 0 && (
       <div className="planner__accordion-content--positive">
         <h3>Created by ability</h3>
-        {createdByEdges.map((fieldStateEdge: FieldStateAbilityEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
-          </div>
+        {createdByResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="fieldState"
+            key={`${parentID}_${result.id}_create_ability`}
+            name={result.formattedName}
+            description={result.description}
+            data={[{key: 'Turns', value: result.turns || 0}]}
+          />
         ))}
       </div>)}
-      {ignoredByEdges.length > 0 && (
+      {ignoredByResults.length > 0 && (
       <div className="planner__accordion-content--negative">
         <h3>Ignored by ability</h3>
         <p className="planner__accordion-clarification">
           Effects of field state ignored by owner of the ability.
         </p>
-        {ignoredByEdges.map((fieldStateEdge: FieldStateAbilityEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
-          </div>
+        {createdByResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="fieldState"
+            key={`${parentID}_${result.id}_ignore_ability`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
-      {preventedByEdges.length > 0 && (
+      {preventedByResults.length > 0 && (
       <div className="planner__accordion-content--negative">
         <h3>Prevented by ability</h3>
         <p className="planner__accordion-clarification">
           Ability prevents the field state from being set up, but does not remove it if the field state is already present.
         </p>
-        {preventedByEdges.map((fieldStateEdge: FieldStateAbilityEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
-          </div>
+        {preventedByResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="fieldState"
+            key={`${parentID}_${result.id}_prevent_ability`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
-      {removedByEdges.length > 0 && (
+      {removedByResults.length > 0 && (
       <div className="planner__accordion-content--negative">
         <h3>Removed by ability</h3>
         <p className="planner__accordion-clarification">
           Ability removes the field state entirely.
         </p>
-        {removedByEdges.map((fieldStateEdge: FieldStateAbilityEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
-          </div>
+        {removedByResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="fieldState"
+            key={`${parentID}_${result.id}_remove_ability`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
-      {suppressedByEdges.length > 0 && (
+      {suppressedByResults.length > 0 && (
       <div className="planner__accordion-content--negative">
         <h3>Suppressed by ability</h3>
         <p className="planner__accordion-clarification">
           Effects are suppressed while the ability is present, but the field state is not removed entirely.
         </p>
-        {suppressedByEdges.map((fieldStateEdge: FieldStateAbilityEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
-          </div>
+        {suppressedByResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="fieldState"
+            key={`${parentID}_${result.id}_suppress_ability`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
     </>
@@ -107,12 +128,19 @@ export const listRenderFieldStateAbility = ({ data, }: ListRenderArgs<FieldState
 export const listRenderFieldStateEffect = ({ data, }: ListRenderArgs<FieldStateEffectQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
 
+  const parentID = data.fieldStateByName[0].id;
+
+  const effectResults = data.fieldStateByName[0].effects.edges.map(edge => new FieldStateEffectResult(edge));
+  
   return (
     <>
-      {data.fieldStateByName[0].effects.edges.map((effectEdge: FieldStateEffectEdge) => (
-        <div>
-          <Link to={`../effects/${effectEdge.node.name}`}>{effectEdge.node.formattedName}</Link>
-        </div>
+      {effectResults.map(result => (
+        <EntityAccordionEntry
+          parentEntityClass="fieldState"
+          key={`${parentID}_${result.id}_effect`}
+          name={result.formattedName}
+          description={result.description}
+        />
       ))}
     </>
   )
@@ -121,56 +149,71 @@ export const listRenderFieldStateEffect = ({ data, }: ListRenderArgs<FieldStateE
 export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateItemQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
 
-  const activatesEdges = data.fieldStateByName[0].activatesItem.edges
-  const extendedByEdges = data.fieldStateByName[0].extendedByItem.edges
-  const ignoredByEdges = data.fieldStateByName[0].ignoredByItem.edges
-  const resistedByEdges = data.fieldStateByName[0].resistedByItem.edges
+  const parentID = data.fieldStateByName[0].id;
+
+  const activatesResults = data.fieldStateByName[0].activatesItem.edges.map(edge => new FieldStateItemResult(edge));
+  const extendedByResults = data.fieldStateByName[0].extendedByItem.edges.map(edge => new FieldStateItemResult(edge));
+  const ignoredByResults = data.fieldStateByName[0].ignoredByItem.edges.map(edge => new FieldStateItemResult(edge));
+  const resistedByResults = data.fieldStateByName[0].resistedByItem.edges.map(edge => new FieldStateItemResult(edge));
 
   return (
     <>
-      {activatesEdges.length > 0 && (
+      {activatesResults.length > 0 && (
       <div className="planner__accordion-content--positive">
         <h3>Activates item</h3>
-        {activatesEdges.map((itemEdge: FieldStateItemEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../items/${itemEdge.node.name}`}>{itemEdge.node.formattedName}</Link>
-          </div>
+        {activatesResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="fieldState"
+            key={`${parentID}_${result.id}_activate_item`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
-      {extendedByEdges.length > 0 && (
+      {extendedByResults.length > 0 && (
       <div className="planner__accordion-content--positive">
         <h3>Extended by item</h3>
         <p className="planner__accordion-clarification">
           When the owner of the item creates this field state, the field state will last for a greater number of turns than usual.
         </p>
-        {extendedByEdges.map((itemEdge: FieldStateItemEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../items/${itemEdge.node.name}`}>{itemEdge.node.formattedName}</Link>
-          </div>
+        {extendedByResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="fieldState"
+            key={`${parentID}_${result.id}_extend_item`}
+            name={result.formattedName}
+            description={result.description}
+            data={[{key: 'Turns', value: result.turns || 0}]}
+          />
         ))}
       </div>)}
-      {ignoredByEdges.length > 0 && (
+      {ignoredByResults.length > 0 && (
       <div className="planner__accordion-content--negative">
         <h3>Ignored by item</h3>
         <p className="planner__accordion-clarification">
           Item allows the owner to ignore the effects of the field state.
         </p>
-        {ignoredByEdges.map((itemEdge: FieldStateItemEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../items/${itemEdge.node.name}`}>{itemEdge.node.formattedName}</Link>
-          </div>
+        {extendedByResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="fieldState"
+            key={`${parentID}_${result.id}_ignore_item`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
-      {resistedByEdges.length > 0 && (
+      {resistedByResults.length > 0 && (
       <div className="planner__accordion-content--negative">
         <h3>Resisted by item</h3>
         <p className="planner__accordion-clarification">
           Effects of the field state on the owner of the item are weakened (e.g. less damage).
         </p>
-        {resistedByEdges.map((itemEdge: FieldStateItemEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../items/${itemEdge.node.name}`}>{itemEdge.node.formattedName}</Link>
-          </div>
+        {resistedByResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="fieldState"
+            key={`${parentID}_${result.id}_resist_item`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
     </>
@@ -180,53 +223,68 @@ export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateIte
 export const listRenderFieldStateMove = ({ data, }: ListRenderArgs<FieldStateMoveQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
 
-  const createdByEdges = data.fieldStateByName[0].createdByMove.edges;
-  const enhancesEdges = data.fieldStateByName[0].enhancesMove.edges;
-  const hindersEdges = data.fieldStateByName[0].hindersMove.edges;
-  const removedByEdges = data.fieldStateByName[0].removedByMove.edges;
+  const parentID = data.fieldStateByName[0].id;
+
+  const createdByResults = data.fieldStateByName[0].createdByMove.edges.map(edge => new FieldStateMoveResult(edge));
+  const enhancesResults = data.fieldStateByName[0].enhancesMove.edges.map(edge => new FieldStateMoveResult(edge));
+  const hindersResults = data.fieldStateByName[0].hindersMove.edges.map(edge => new FieldStateMoveResult(edge));
+  const removedByResults = data.fieldStateByName[0].removedByMove.edges.map(edge => new FieldStateMoveResult(edge));
 
   return (
     <>
-      {createdByEdges.length > 0 && (
+      {createdByResults.length > 0 && (
       <div className="planner__accordion-content--positive">
         <h3>Created by move</h3>
-        {createdByEdges.map((moveEdge: FieldStateMoveEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
-          </div>
+        {createdByResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="fieldState"
+            key={`${parentID}_${result.id}_create_move`}
+            name={result.formattedName}
+            description={result.description}
+            data={[{key: 'Turns', value: result.turns || 0}]}
+          />
         ))}
       </div>)}
-      {enhancesEdges.length > 0 && (
+      {enhancesResults.length > 0 && (
       <div className="planner__accordion-content--positive">
         <h3>Enhances move</h3>
         <p className="planner__accordion-clarification">
           Presence of the field state increases the effectiveness of the move in some way.
         </p>
-        {enhancesEdges.map((moveEdge: FieldStateMoveEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
-          </div>
+        {enhancesResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="fieldState"
+            key={`${parentID}_${result.id}_enhance_move`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
-      {hindersEdges.length > 0 && (
+      {hindersResults.length > 0 && (
       <div className="planner__accordion-content--negative">
         <h3>Hinders move</h3>
         <p className="planner__accordion-clarification">
           Presence of the field state reduces the effectiveness of the move in some way.
         </p>
-        {hindersEdges.map((moveEdge: FieldStateMoveEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
-          </div>
+        {hindersResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="fieldState"
+            key={`${parentID}_${result.id}_hinder_move`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
-      {removedByEdges.length > 0 && (
+      {removedByResults.length > 0 && (
       <div className="planner__accordion-content--negative">
         <h3>Removed by move</h3>
-        {removedByEdges.map((moveEdge: FieldStateMoveEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../moves/${moveEdge.node.name}`}>{moveEdge.node.formattedName}</Link>
-          </div>
+        {removedByResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="fieldState"
+            key={`${parentID}_${result.id}_remove_move`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
     </>
@@ -235,28 +293,41 @@ export const listRenderFieldStateMove = ({ data, }: ListRenderArgs<FieldStateMov
 
 export const listRenderFieldStateStatus = ({ data, }: ListRenderArgs<FieldStateStatusQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'itemByName'.</div>);
+  
+  const parentID = data.fieldStateByName[0].id;
 
-  const causesStatusEdges = data.fieldStateByName[0].causesStatus.edges;
-  const resistsStatusEdges = data.fieldStateByName[0].resistsStatus.edges;
+  const causesResults = data.fieldStateByName
+  [0].causesStatus.edges.map(edge => new FieldStateStatusResult(edge));
+  const resistsResults = data.fieldStateByName[0].resistsStatus.edges.map(edge => new FieldStateStatusResult(edge));
 
   return (
     <>
-      {causesStatusEdges.length > 0 && (
+      {causesResults.length > 0 && (
       <div className="planner__accordion-content--positive">
         <h3>Causes status</h3>
-        {causesStatusEdges.map((statusEdge: FieldStateStatusEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../statuses/${statusEdge.node.name}`}>{statusEdge.node.formattedName}</Link>
-          </div>
+        {causesResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="fieldState"
+            key={`${parentID}_${result.id}_cause_status`}
+            name={result.formattedName}
+            description={result.description}
+            data={[{key: 'Chance', value: result.chance || 0}]}
+          />
         ))}
       </div>)}
-      {resistsStatusEdges.length > 0 && (
+      {resistsResults.length > 0 && (
       <div className="planner__accordion-content--negative">
         <h3>Resists status</h3>
-        {resistsStatusEdges.map((statusEdge: FieldStateStatusEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../statuses/${statusEdge.node.name}`}>{statusEdge.node.formattedName}</Link>
-          </div>
+        <p className="planner__accordion-clarification">
+          Presence of the field state fully cures the status, prevents the status, or mitigates the status in some way.
+        </p>
+        {causesResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="fieldState"
+            key={`${parentID}_${result.id}_resist_status`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
     </>

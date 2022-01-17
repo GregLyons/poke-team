@@ -1,31 +1,35 @@
 import {
-  Link,
-} from "react-router-dom";
-
-import {
-  MoveEffectEdge,
+  MoveEffectResult,
   MoveEffectQuery,
 
-  MoveFieldStateEdge,
+  MoveFieldStateResult,
   MoveFieldStateQuery,
-  MoveStatusEdge,
+  
+  MoveStatusResult,
   MoveStatusQuery,
 } from "../../../../types-queries/Move";
+import EntityAccordionEntry from "../EntityAccordionEntry";
 
 import {
   ListRenderArgs,
 } from "../helpers";
 
-let a: MoveEffectEdge
 export const listRenderMoveEffect = ({ data, }: ListRenderArgs<MoveEffectQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
+  const parentID = data.moveByName[0].id;
+
+  const effectResults = data.moveByName[0].effects.edges.map(edge => new MoveEffectResult(edge));
+
   return (
     <>
-      {data.moveByName[0].effects.edges.map((effectEdge: MoveEffectEdge) => (
-        <div>
-          <Link to={`../effects/${effectEdge.node.name}`}>{effectEdge.node.formattedName}</Link>
-        </div>
+      {effectResults.map(result => (
+        <EntityAccordionEntry
+          parentEntityClass="move"
+          key={`${parentID}_${result.id}_effect`}
+          name={result.formattedName}
+          description={result.description}
+        />
       ))}
     </>
   )
@@ -34,47 +38,62 @@ export const listRenderMoveEffect = ({ data, }: ListRenderArgs<MoveEffectQuery>)
 export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStateQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
-  const createsEdges = data.moveByName[0].createsFieldState.edges;
-  const enhancedByEdges = data.moveByName[0].enhancedByFieldState.edges;
-  const hinderedByEdges = data.moveByName[0].hinderedByFieldState.edges;
-  const removesEdges = data.moveByName[0].removesFieldState.edges;
+  const parentID = data.moveByName[0].id;
+
+  const createsResults = data.moveByName[0].createsFieldState.edges.map(edge => new MoveFieldStateResult(edge));
+  const enhancedByResults = data.moveByName[0].enhancedByFieldState.edges.map(edge => new MoveFieldStateResult(edge));
+  const hinderedByResults = data.moveByName[0].hinderedByFieldState.edges.map(edge => new MoveFieldStateResult(edge));
+  const removesResults = data.moveByName[0].removesFieldState.edges.map(edge => new MoveFieldStateResult(edge));
 
   return (
     <>
-      {createsEdges.length > 0 && (
+      {createsResults.length > 0 && (
       <div className="planner__accordion-content--positive">
         <h3>Creates field state</h3>
-        {createsEdges.map((fieldStateEdge: MoveFieldStateEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
-          </div>
+        {createsResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="move"
+            key={`${parentID}_${result.id}_create_fieldState`}
+            name={result.formattedName}
+            description={result.description}
+            data={[{key: 'Turns', value: result.turns || 0}]}
+          />
         ))}
       </div>)}
-      {enhancedByEdges.length > 0 && (
+      {enhancedByResults.length > 0 && (
       <div className="planner__accordion-content--positive">
         <h3>Enhanced by field state</h3>
-        {enhancedByEdges.map((fieldStateEdge: MoveFieldStateEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
-          </div>
+        {enhancedByResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="move"
+            key={`${parentID}_${result.id}_enhance_fieldState`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
-      {hinderedByEdges.length > 0 && (
+      {hinderedByResults.length > 0 && (
       <div className="planner__accordion-content--negative">
         <h3>Hindered by field state</h3>
-        {hinderedByEdges.map((fieldStateEdge: MoveFieldStateEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
-          </div>
+        {hinderedByResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="move"
+            key={`${parentID}_${result.id}_hinder_fieldState`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
-      {removesEdges.length > 0 && (
+      {removesResults.length > 0 && (
       <div className="planner__accordion-content--negative">
         <h3>Removes field state</h3>
-        {removesEdges.map((fieldStateEdge: MoveFieldStateEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
-          </div>
+        {removesResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="move"
+            key={`${parentID}_${result.id}_remove_fieldState`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
     </>
@@ -84,27 +103,39 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
 export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
-  const causesStatusEdges = data.moveByName[0].causesStatus.edges;
-  const resistsStatusEdges = data.moveByName[0].resistsStatus.edges;
+  const parentID = data.moveByName[0].id;
+
+  const causesResults = data.moveByName[0].causesStatus.edges.map(edge => new MoveStatusResult(edge));
+  const resistsResults = data.moveByName[0].resistsStatus.edges.map(edge => new MoveStatusResult(edge));
 
   return (
     <>
-      {causesStatusEdges.length > 0 && (
+      {causesResults.length > 0 && (
       <div className="planner__accordion-content--positive">
         <h3>Causes status</h3>
-        {causesStatusEdges.map((statusEdge: MoveStatusEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../statuses/${statusEdge.node.name}`}>{statusEdge.node.formattedName}</Link>
-          </div>
+        {causesResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="move"
+            key={`${parentID}_${result.id}_cause_status`}
+            name={result.formattedName}
+            description={result.description}
+            data={[{key: 'Chance', value: result.chance || 0}]}
+          />
         ))}
       </div>)}
-      {resistsStatusEdges.length > 0 && (
+      {resistsResults.length > 0 && (
       <div className="planner__accordion-content--negative">
         <h3>Resists status</h3>
-        {resistsStatusEdges.map((statusEdge: MoveStatusEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../statuses/${statusEdge.node.name}`}>{statusEdge.node.formattedName}</Link>
-          </div>
+        <p className="planner__accordion-clarification">
+          The move fully cures the status, prevents the status, or mitigates the status in some way.
+        </p>
+        {causesResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="move"
+            key={`${parentID}_${result.id}_resist_status`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
     </>

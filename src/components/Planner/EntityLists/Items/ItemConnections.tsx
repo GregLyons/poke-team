@@ -1,29 +1,35 @@
 import {
-  Link,
-} from "react-router-dom";
-
-import {
-  ItemEffectEdge,
+  ItemEffectResult,
   ItemEffectQuery,
 
-  ItemFieldStateEdge,
+  ItemFieldStateResult,
   ItemFieldStateQuery,
-  ItemStatusEdge,
+  
+  ItemStatusResult,
   ItemStatusQuery,
 } from "../../../../types-queries/Item";
 import {
   ListRenderArgs,
 } from "../helpers";
 
+import EntityAccordionEntry from "../EntityAccordionEntry";
+
 export const listRenderItemEffect = ({ data, }: ListRenderArgs<ItemEffectQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 
+  const parentID = data.itemByName[0].id;
+
+  const effectResults = data.itemByName[0].effects.edges.map(edge => new ItemEffectResult(edge));
+  
   return (
     <>
-      {data.itemByName[0].effects.edges.map((effectEdge: ItemEffectEdge) => (
-        <div>
-          <Link to={`../effects/${effectEdge.node.name}`}>{effectEdge.node.formattedName}</Link>
-        </div>
+      {effectResults.map(result => (
+        <EntityAccordionEntry
+          parentEntityClass="item"
+          key={`${parentID}_${result.id}_effect`}
+          name={result.formattedName}
+          description={result.description}
+        />
       ))}
     </>
   )
@@ -32,56 +38,71 @@ export const listRenderItemEffect = ({ data, }: ListRenderArgs<ItemEffectQuery>)
 export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStateQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 
-  const activatedByEdges = data.itemByName[0].activatedByFieldState.edges;
-  const extendsEdges = data.itemByName[0].extendsFieldState.edges;
-  const ignoresEdges = data.itemByName[0].ignoresFieldState.edges;
-  const resistsEdges = data.itemByName[0].resistsFieldState.edges;
+  const parentID = data.itemByName[0].id;
+
+  const activatedByResults = data.itemByName[0].activatedByFieldState.edges.map(edge => new ItemFieldStateResult(edge));
+  const extendsResults = data.itemByName[0].extendsFieldState.edges.map(edge => new ItemFieldStateResult(edge));
+  const ignoresResults = data.itemByName[0].ignoresFieldState.edges.map(edge => new ItemFieldStateResult(edge));
+  const resistsResults = data.itemByName[0].resistsFieldState.edges.map(edge => new ItemFieldStateResult(edge));
 
   return (
     <>
-      {activatedByEdges.length > 0 && (
+      {activatedByResults.length > 0 && (
       <div className="planner__accordion-content--positive">
         <h3>Activates field state</h3>
-        {activatedByEdges.map((fieldStateEdge: ItemFieldStateEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
-          </div>
+        {activatedByResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="item"
+            key={`${parentID}_${result.id}_activate_fieldState`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
-      {extendsEdges.length > 0 && (
+      {extendsResults.length > 0 && (
       <div className="planner__accordion-content--positive">
         <h3>Extends field state</h3>
         <p className="planner__accordion-clarification">
           When the owner of this item creates the field state, the field state will last for a greater number of turns than usual.
         </p>
-        {extendsEdges.map((fieldStateEdge: ItemFieldStateEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
-          </div>
+        {extendsResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="item"
+            key={`${parentID}_${result.id}_extend_fieldState`}
+            name={result.formattedName}
+            description={result.description}
+            data={[{key: 'Turns', value: result.turns || 0}]}
+          />
         ))}
       </div>)}
-      {ignoresEdges.length > 0 && (
+      {ignoresResults.length > 0 && (
       <div className="planner__accordion-content--negative">
         <h3>Ignores field state</h3>
         <p className="planner__accordion-clarification">
           Item allows the owner to ignore the effects of the field state.
         </p>
-        {ignoresEdges.map((fieldStateEdge: ItemFieldStateEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
-          </div>
+        {ignoresResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="item"
+            key={`${parentID}_${result.id}_ignore_fieldState`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
-      {resistsEdges.length > 0 && (
+      {resistsResults.length > 0 && (
       <div className="planner__accordion-content--negative">
         <h3>Resists field state</h3>
         <p className="planner__accordion-clarification">
           Effects of the field state on the owner of the item are weakened (e.g. less damage).
         </p>
-        {resistsEdges.map((fieldStateEdge: ItemFieldStateEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../fieldStates/${fieldStateEdge.node.name}`}>{fieldStateEdge.node.formattedName}</Link>
-          </div>
+        {resistsResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="item"
+            key={`${parentID}_${result.id}_resist_fieldState`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
     </>
@@ -91,27 +112,39 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
 export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 
-  const causesStatusEdges = data.itemByName[0].causesStatus.edges;
-  const resistsStatusEdges = data.itemByName[0].resistsStatus.edges;
+  const parentID = data.itemByName[0].id;
+
+  const causesResults = data.itemByName[0].causesStatus.edges.map(edge => new ItemStatusResult(edge));
+  const resistsResults = data.itemByName[0].resistsStatus.edges.map(edge => new ItemStatusResult(edge));
 
   return (
     <>
-      {causesStatusEdges.length > 0 && (
+      {causesResults.length > 0 && (
       <div className="planner__accordion-content--positive">
         <h3>Causes status</h3>
-        {causesStatusEdges.map((statusEdge: ItemStatusEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../statuses/${statusEdge.node.name}`}>{statusEdge.node.formattedName}</Link>
-          </div>
+        {causesResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="item"
+            key={`${parentID}_${result.id}_cause_status`}
+            name={result.formattedName}
+            description={result.description}
+            data={[{key: 'Chance', value: result.chance || 0}]}
+          />
         ))}
       </div>)}
-      {resistsStatusEdges.length > 0 && (
+      {resistsResults.length > 0 && (
       <div className="planner__accordion-content--negative">
         <h3>Resists status</h3>
-        {resistsStatusEdges.map((statusEdge: ItemStatusEdge) => (
-          <div className="planner__accordion-entry">
-            <Link to={`../statuses/${statusEdge.node.name}`}>{statusEdge.node.formattedName}</Link>
-          </div>
+        <p className="planner__accordion-clarification">
+          The item fully cures the status, prevents the status, or mitigates the status in some way.
+        </p>
+        {causesResults.map(result => (
+          <EntityAccordionEntry
+            parentEntityClass="item"
+            key={`${parentID}_${result.id}_resist_status`}
+            name={result.formattedName}
+            description={result.description}
+          />
         ))}
       </div>)}
     </>

@@ -241,11 +241,7 @@ export interface EffectAbilityQueryVars extends EntityConnectionVars {
 }
 
 export const EFFECT_ABILITY_QUERY = gql`
-  query EffectAbilitiesQuery(
-    $gen: Int!
-    $name: String!
-    $startsWith: String!
-  ) {
+  query EffectAbilitiesQuery($gen: Int! $name: String!) {
     effectByName(generation: $gen, name: $name) {
       id 
       abilities {
@@ -328,11 +324,7 @@ export interface EffectFieldStateQueryVars extends EntityConnectionVars {
 }
 
 export const EFFECT_FIELDSTATE_QUERY = gql`
-  query EffectFieldStatesQuery(
-    $gen: Int!
-    $name: String!
-    $startsWith: String!
-  ) {
+  query EffectFieldStatesQuery($gen: Int! $name: String!) {
     effectByName(generation: $gen, name: $name) {
       id 
       fieldStates {
@@ -387,11 +379,7 @@ export interface EffectItemQueryVars extends EntityConnectionVars {
 }
 
 export const EFFECT_ITEM_QUERY = gql`
-  query EffectItemsQuery(
-    $gen: Int!
-    $name: String!
-    $startsWith: String!
-  ) {
+  query EffectItemsQuery($gen: Int! $name: String!) {
     effectByName(generation: $gen, name: $name) {
       id 
       items {
@@ -461,11 +449,7 @@ export interface EffectMoveQueryVars extends EntityConnectionVars {
 }
 
 export const EFFECT_MOVE_QUERY = gql`
-  query EffectMovesQuery(
-    $gen: Int!
-    $name: String!
-    $startsWith: String!
-  ) {
+  query EffectMovesQuery($gen: Int! $name: String!) {
     effectByName(generation: $gen, name: $name) {
       id 
       moves {
