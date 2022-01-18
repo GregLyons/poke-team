@@ -49,7 +49,7 @@ import {
 } from "../../../App";
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
-import EntityConnectionAccordion from '../EntityConnectionAccordion';
+import ConnectionAccordion from '../ConnectionAccordion';
 import {
   listRenderStatusAbility,
   listRenderStatusFieldState,
@@ -210,14 +210,14 @@ const StatusPage = ({
   const statusResult = new StatusOnPage(data.statusByName[0]);
 
   return (
-    <>
+    <div className="planner__page">
       <h1 className="planner__page-header">{statusResult.formattedName}</h1>
 
       <AuxEntityDescription
         description={statusResult.description}
       />
 
-      <EntityConnectionAccordion 
+      <ConnectionAccordion 
         accordionData={[
           {
             title: `Ability interactions with ${statusResult.formattedName}`,
@@ -278,20 +278,7 @@ const StatusPage = ({
         ]}
       />
       <Outlet />
-    
-
-      {/* Descriptions */}      
-      {/* <h2>Descriptions</h2>
-
-      {result.descriptions.edges.map((edge: any) => {
-        return (
-          <div key={edge.versionGroupCode}>
-            {edge.versionGroupCode}: {edge.node.text}
-          </div>
-        );
-      })} */}
-
-    </>
+    </div>
   );
 }
 

@@ -52,7 +52,7 @@ import {
 } from "../../../App";
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
-import EntityConnectionAccordion from '../EntityConnectionAccordion';
+import ConnectionAccordion from '../ConnectionAccordion';
 import MainEntityDescriptionTable from '../MainEntityDescriptionTable';
 
 type MovePageProps = {
@@ -203,14 +203,14 @@ const MovePage = ({
   const moveResult = new MoveOnPage(data.moveByName[0]);
   
   return (
-    <>
+    <div className="planner__page">
       <h1 className="planner__page-header">{moveResult.formattedName}</h1>
 
       <MainEntityDescriptionTable
         descriptions={moveResult.descriptions}
       />
 
-      <EntityConnectionAccordion
+      <ConnectionAccordion
         accordionData={[
           {
             title: `Effects of ${moveResult.formattedName}`,
@@ -250,11 +250,8 @@ const MovePage = ({
           },
         ]}
       />
-      
-      
-      
       <Outlet />
-    </>
+    </div>
   );
 }
 

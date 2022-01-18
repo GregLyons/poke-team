@@ -19,7 +19,7 @@ import {
   MissingDispatchError,
 } from "../helpers";
 
-import EntityAccordionEntry from "../EntityAccordionEntry";
+import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 
 export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<FieldStateAbilityQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
@@ -37,11 +37,11 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
   return (
     <>
       {activatesResults.length > 0 && (
-      <div className="planner__accordion-content--positive">
-        <h3>Activates ability</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Activates ability</h3>
         {activatesResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="fieldStates"
+          <ConnectionAccordionEntry
+            targetEntityClass="abilities"
             key={`${parentID}_${result.id}_activate_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -55,11 +55,11 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         ))}
       </div>)}
       {createdByResults.length > 0 && (
-      <div className="planner__accordion-content--positive">
-        <h3>Created by ability</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Created by ability</h3>
         {createdByResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="fieldStates"
+          <ConnectionAccordionEntry
+            targetEntityClass="abilities"
             key={`${parentID}_${result.id}_create_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -74,14 +74,14 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         ))}
       </div>)}
       {ignoredByResults.length > 0 && (
-      <div className="planner__accordion-content--negative">
-        <h3>Ignored by ability</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Ignored by ability</h3>
         <p className="planner__accordion-clarification">
           Effects of field state ignored by owner of the ability.
         </p>
         {createdByResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="fieldStates"
+          <ConnectionAccordionEntry
+            targetEntityClass="abilities"
             key={`${parentID}_${result.id}_ignore_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -95,14 +95,14 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         ))}
       </div>)}
       {preventedByResults.length > 0 && (
-      <div className="planner__accordion-content--negative">
-        <h3>Prevented by ability</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Prevented by ability</h3>
         <p className="planner__accordion-clarification">
           Ability prevents the field state from being set up, but does not remove it if the field state is already present.
         </p>
         {preventedByResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="fieldStates"
+          <ConnectionAccordionEntry
+            targetEntityClass="abilities"
             key={`${parentID}_${result.id}_prevent_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -116,14 +116,14 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         ))}
       </div>)}
       {removedByResults.length > 0 && (
-      <div className="planner__accordion-content--negative">
-        <h3>Removed by ability</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Removed by ability</h3>
         <p className="planner__accordion-clarification">
           Ability removes the field state entirely.
         </p>
         {removedByResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="fieldStates"
+          <ConnectionAccordionEntry
+            targetEntityClass="abilities"
             key={`${parentID}_${result.id}_remove_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -137,14 +137,14 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         ))}
       </div>)}
       {suppressedByResults.length > 0 && (
-      <div className="planner__accordion-content--negative">
-        <h3>Suppressed by ability</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Suppressed by ability</h3>
         <p className="planner__accordion-clarification">
           Effects are suppressed while the ability is present, but the field state is not removed entirely.
         </p>
         {suppressedByResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="fieldStates"
+          <ConnectionAccordionEntry
+            targetEntityClass="abilities"
             key={`${parentID}_${result.id}_suppress_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -171,8 +171,8 @@ export const listRenderFieldStateEffect = ({ data, }: ListRenderArgs<FieldStateE
   return (
     <>
       {effectResults.map(result => (
-        <EntityAccordionEntry
-          parentEntityClass="fieldStates"
+        <ConnectionAccordionEntry
+          targetEntityClass="effects"
           key={`${parentID}_${result.id}_effect`}
           name={result.formattedName}
           linkName={result.name}
@@ -196,11 +196,11 @@ export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateIte
   return (
     <>
       {activatesResults.length > 0 && (
-      <div className="planner__accordion-content--positive">
-        <h3>Activates item</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Activates item</h3>
         {activatesResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="fieldStates"
+          <ConnectionAccordionEntry
+            targetEntityClass="items"
             key={`${parentID}_${result.id}_activate_item`}
             name={result.formattedName}
             linkName={result.name}
@@ -209,14 +209,14 @@ export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateIte
         ))}
       </div>)}
       {extendedByResults.length > 0 && (
-      <div className="planner__accordion-content--positive">
-        <h3>Extended by item</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Extended by item</h3>
         <p className="planner__accordion-clarification">
           When the owner of the item creates this field state, the field state will last for a greater number of turns than usual.
         </p>
         {extendedByResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="fieldStates"
+          <ConnectionAccordionEntry
+            targetEntityClass="items"
             key={`${parentID}_${result.id}_extend_item`}
             name={result.formattedName}
             linkName={result.name}
@@ -226,14 +226,14 @@ export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateIte
         ))}
       </div>)}
       {ignoredByResults.length > 0 && (
-      <div className="planner__accordion-content--negative">
-        <h3>Ignored by item</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Ignored by item</h3>
         <p className="planner__accordion-clarification">
           Item allows the owner to ignore the effects of the field state.
         </p>
         {extendedByResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="fieldStates"
+          <ConnectionAccordionEntry
+            targetEntityClass="items"
             key={`${parentID}_${result.id}_ignore_item`}
             name={result.formattedName}
             linkName={result.name}
@@ -242,14 +242,14 @@ export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateIte
         ))}
       </div>)}
       {resistedByResults.length > 0 && (
-      <div className="planner__accordion-content--negative">
-        <h3>Resisted by item</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Resisted by item</h3>
         <p className="planner__accordion-clarification">
           Effects of the field state on the owner of the item are weakened (e.g. less damage).
         </p>
         {resistedByResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="fieldStates"
+          <ConnectionAccordionEntry
+            targetEntityClass="items"
             key={`${parentID}_${result.id}_resist_item`}
             name={result.formattedName}
             linkName={result.name}
@@ -275,11 +275,11 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, }: 
   return (
     <>
       {createdByResults.length > 0 && (
-      <div className="planner__accordion-content--positive">
-        <h3>Created by move</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Created by move</h3>
         {createdByResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="fieldStates"
+          <ConnectionAccordionEntry
+            targetEntityClass="moves"
             key={`${parentID}_${result.id}_create_move`}
             name={result.formattedName}
             linkName={result.name}
@@ -294,14 +294,14 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, }: 
         ))}
       </div>)}
       {enhancesResults.length > 0 && (
-      <div className="planner__accordion-content--positive">
-        <h3>Enhances move</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Enhances move</h3>
         <p className="planner__accordion-clarification">
           Presence of the field state increases the effectiveness of the move in some way.
         </p>
         {enhancesResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="fieldStates"
+          <ConnectionAccordionEntry
+            targetEntityClass="moves"
             key={`${parentID}_${result.id}_enhance_move`}
             name={result.formattedName}
             linkName={result.name}
@@ -315,14 +315,14 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, }: 
         ))}
       </div>)}
       {hindersResults.length > 0 && (
-      <div className="planner__accordion-content--negative">
-        <h3>Hinders move</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Hinders move</h3>
         <p className="planner__accordion-clarification">
           Presence of the field state reduces the effectiveness of the move in some way.
         </p>
         {hindersResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="fieldStates"
+          <ConnectionAccordionEntry
+            targetEntityClass="moves"
             key={`${parentID}_${result.id}_hinder_move`}
             name={result.formattedName}
             linkName={result.name}
@@ -336,11 +336,11 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, }: 
         ))}
       </div>)}
       {removedByResults.length > 0 && (
-      <div className="planner__accordion-content--negative">
-        <h3>Removed by move</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Removed by move</h3>
         {removedByResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="fieldStates"
+          <ConnectionAccordionEntry
+            targetEntityClass="moves"
             key={`${parentID}_${result.id}_remove_move`}
             name={result.formattedName}
             linkName={result.name}
@@ -369,11 +369,11 @@ export const listRenderFieldStateStatus = ({ data, }: ListRenderArgs<FieldStateS
   return (
     <>
       {causesResults.length > 0 && (
-      <div className="planner__accordion-content--positive">
-        <h3>Causes status</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Causes status</h3>
         {causesResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="fieldStates"
+          <ConnectionAccordionEntry
+            targetEntityClass="statuses"
             key={`${parentID}_${result.id}_cause_status`}
             name={result.formattedName}
             linkName={result.name}
@@ -383,14 +383,14 @@ export const listRenderFieldStateStatus = ({ data, }: ListRenderArgs<FieldStateS
         ))}
       </div>)}
       {resistsResults.length > 0 && (
-      <div className="planner__accordion-content--negative">
-        <h3>Resists status</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Resists status</h3>
         <p className="planner__accordion-clarification">
           Presence of the field state fully cures the status, prevents the status, or mitigates the status in some way.
         </p>
         {resistsResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="fieldStates"
+          <ConnectionAccordionEntry
+            targetEntityClass="statuses"
             key={`${parentID}_${result.id}_resist_status`}
             name={result.formattedName}
             linkName={result.name}

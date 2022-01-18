@@ -49,7 +49,7 @@ import {
 } from "../../../App";
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
-import EntityConnectionAccordion from '../EntityConnectionAccordion';
+import ConnectionAccordion from '../ConnectionAccordion';
 import MainEntityDescriptionTable from '../MainEntityDescriptionTable';
 
 type AbilityPageProps = {
@@ -199,14 +199,14 @@ const AbilityPage = ({
   const abilityResult = new AbilityOnPage(data.abilityByName[0]);
   
   return (
-    <>
+    <div className="planner__page">
       <h1 className="planner__page-header">{abilityResult.formattedName}</h1>
 
       <MainEntityDescriptionTable
         descriptions={abilityResult.descriptions}
       />
 
-      <EntityConnectionAccordion 
+      <ConnectionAccordion 
         accordionData={[
           {
             title: `Effects of ${abilityResult.formattedName}`,
@@ -246,11 +246,8 @@ const AbilityPage = ({
           },
         ]} 
       />
-      
-      
-      
       <Outlet />
-    </>
+    </div>
   );
 }
 

@@ -49,7 +49,7 @@ import {
 } from "../../../App";
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
-import EntityConnectionAccordion from '../EntityConnectionAccordion';
+import ConnectionAccordion from '../ConnectionAccordion';
 import { listRenderEffectAbility, listRenderEffectFieldState, listRenderEffectItem, listRenderEffectMove } from './EffectConnections';
 import AuxEntityDescription from '../AuxEntityDescription';
 
@@ -205,14 +205,14 @@ const EffectPage = ({
   const effectResult = new EffectOnPage(data.effectByName[0]);
 
   return (
-    <>
+    <div className="planner__page">
       <h1 className="planner__page-header">{effectResult.formattedName}</h1>
 
       <AuxEntityDescription
         description={effectResult.description}
       />
 
-      <EntityConnectionAccordion 
+      <ConnectionAccordion 
         accordionData={[
           {
             title: `Abilities with '${effectResult.formattedName}'`,
@@ -272,84 +272,8 @@ const EffectPage = ({
           },
         ]}
       />
-      
-
-      
-      
-      
-      
-      
       <Outlet />
-      
-      {/* <EntityAccordion
-        accordionData={accordionData}
-      /> */}
-
-      {/* Descriptions */}      
-      {/* <h2>Descriptions</h2>
-
-      {result.descriptions.edges.map((edge: any) => {
-        return (
-          <div key={edge.versionGroupCode}>
-            {edge.versionGroupCode}: {edge.node.text}
-          </div>
-        );
-      })} */}
-
-      {/* Abilities */}
-      {/* {result.abilities.count > 0 && (<h2>Abilities</h2>)} */}
-      {/* {result.abilities.edges && result.abilities.edges.length > 0
-        && result.abilities.edges.map((ability: any) => {
-          return (
-            <div key={'abilities_' + ability.node.id}>
-              {ability.node.name}
-            </div>
-          )
-        })
-      } */}
-
-      {/* Field States */}
-      {/* {result.fieldStates.count > 0 
-        && (<h2>Field States</h2>)} */}
-      {/* {result.fieldStates.edges && result.fieldStates.edges.length > 0
-        && result.fieldStates.edges.map((fieldState: any) => {
-          return (
-            <div key={'fieldState_' + fieldState.node.id}>
-              {fieldState.node.name}
-            </div>
-          )
-        })
-      } */}
-
-      {/* Items */}
-      {/* {result.items.count > 0
-        && (<h2>Items</h2>)} */}
-      {/* {result.items.edges && result.items.edges.length > 0
-        && result.items.edges.map((items: any) => {
-          return (
-            <div key={'items_' + items.node.id}>
-              {items.node.name}
-            </div>
-          )
-        })
-      } */}
-
-      {/* Moves */}
-      {/* {result.moves.count > 0 
-        && (<h2>Moves</h2>)}
-      {result.moves.edges && result.moves.edges.length > 0
-        && result.moves.edges.map((edge: any) => {
-          return (
-            <Link
-              to={`../moves/${edge.node.name}`}
-              key={'move_' + edge.node.id}
-            >
-              {edge.node.name}
-            </Link>
-          )
-        })
-      } */}
-    </>
+    </div>
   );
 }
 

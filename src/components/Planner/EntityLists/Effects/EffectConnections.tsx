@@ -16,7 +16,7 @@ import {
   MissingDispatchError,
 } from "../helpers";
 
-import EntityAccordionEntry from "../EntityAccordionEntry";
+import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 
 export const listRenderEffectAbility = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<EffectAbilityQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
@@ -29,8 +29,8 @@ export const listRenderEffectAbility = ({ data, dispatchCart, dispatchTeam, }: L
   return (
     <>
       {abilityResults.map(result => (
-        <EntityAccordionEntry
-          parentEntityClass="effects"
+        <ConnectionAccordionEntry
+          targetEntityClass="abilities"
           key={`${parentID}_${result.id}_ability`}
           name={result.formattedName}
           linkName={result.name}
@@ -56,8 +56,8 @@ export const listRenderEffectFieldState = ({ data, }: ListRenderArgs<EffectField
   return (
     <>
       {fieldStateResults.map(result => (
-        <EntityAccordionEntry
-          parentEntityClass="effects"
+        <ConnectionAccordionEntry
+          targetEntityClass="fieldStates"
           key={`${parentID}_${result.id}_fieldState`}
           name={result.formattedName}
           linkName={result.name}
@@ -78,8 +78,8 @@ export const listRenderEffectItem = ({ data, }: ListRenderArgs<EffectItemQuery>)
   return (
     <>
       {itemResults.map(result => (
-        <EntityAccordionEntry
-          parentEntityClass="effects"
+        <ConnectionAccordionEntry
+          targetEntityClass="items"
           key={`${parentID}_${result.id}_item`}
           name={result.formattedName}
           linkName={result.name}
@@ -101,8 +101,8 @@ export const listRenderEffectMove = ({ data, dispatchCart, dispatchTeam, }: List
   return (
     <>
       {moveResults.map(result => (
-        <EntityAccordionEntry
-          parentEntityClass="effects"
+        <ConnectionAccordionEntry
+          targetEntityClass="moves"
           key={`${parentID}_${result.id}_move`}
           name={result.formattedName}
           linkName={result.name}

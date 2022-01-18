@@ -88,18 +88,20 @@ function App() {
   }
 
   return (
-    <>
-      <NavBar />
-      <GenSlider 
-        gen={gen}
-        handleGenSliderChange={handleGenSliderChange}
-      />
-      <TeamDisplay
-        dispatchCart={dispatchCart}
-        dispatchTeam={dispatchTeam}
-        gen={gen}
-        team={team}
-      />
+    <div className="app">
+      <header>
+        <NavBar />
+        <GenSlider 
+          gen={gen}
+          handleGenSliderChange={handleGenSliderChange}
+        />
+        <TeamDisplay
+          dispatchCart={dispatchCart}
+          dispatchTeam={dispatchTeam}
+          gen={gen}
+          team={team}
+        />
+      </header>
       <Routes>
         {/* Routing for Home */}
         <Route path="/" element={<div>Yo</div>} />
@@ -265,7 +267,7 @@ function App() {
         } />
         </Route>
       </Routes>
-    </>
+    </div>
   );
 }
 

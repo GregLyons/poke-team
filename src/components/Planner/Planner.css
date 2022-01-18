@@ -1,5 +1,4 @@
 .planner-container {
-  border: 1px solid black;
 }
 
 /* planner-nav-bar */
@@ -47,21 +46,14 @@
   display: flex;
   flex-direction: column;
 
-  --ability-table-column-layout: 1fr 1fr 4fr;
-  --move-table-column-layout: 1fr 1fr 4fr;
-
   gap: 2rem;
 }
 
-.planner__main-search-table--move {
-  display: grid;
-}
 
 /* Main search rows */
 /* #region */ 
 
 .planner__main-search-table-row {
-  border: 1px solid black;
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr 1fr 3fr;
@@ -80,23 +72,30 @@
   background-color: lightgray;
 }
 
+/* Name */
 .planner__main-search-row-name {
-  border: 1px solid black;
   grid-column: 1 / 2;
+
+  font-weight: 500;
+  text-decoration: none;
 }
 
+.planner__main-search-row-name:hover {
+  filter: brightness(1.5);
+}
+
+/* Description */
 .planner__main-search-row-description {
-  border: 1px solid black;
   grid-column: 2 / 3;
 }
 
+/* Data */
 .planner__main-search-row-data {
-  border: 1px solid black;
   grid-column: 3 / 4;
 }
 
+/* Icons */ 
 .planner__main-search-row-icons {
-  border: 1px solid black;
   grid-column: 4 / 5;
 }
 
@@ -107,15 +106,32 @@
 /* Entity pages */
 /* #region */
 
+.planner__page {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.planner__page > * + * {
+  margin-top: 0.5rem;
+}
+
 .planner__page-header {
   border: 1px solid black;
+  grid-column: 1 / 13;
 }
+
 
 /* Descriptions */
 /* #region */
 
 .planner__page-descriptions-table {
   border: 1px solid black;
+  grid-column: 1 / 13;
+}
+
+.planner__page-description {
+  border: 1px solid black;
+  grid-column: 1 / 13;
 }
 
 .planner__page-descriptions-table:nth-child(even) {
@@ -123,6 +139,7 @@
 }
 
 .planner__page-description--main-entity {
+  grid-column: 1 / 13;
   border: 1px solid black;
   display: grid;
   grid-template-rows: 1fr;
@@ -145,98 +162,181 @@
 
 /* #endregion */
 
+
 /* Connection accordions */
 /* #region */
 
 .planner__accordion {
-  border: 1px solid black;
+  grid-column: 2 / 12;
+
+  --accordion-left-padding: 0.25rem;
+}
+
+.planner__accordion > * + * {
+  margin-top: 1rem;
 }
 
 .planner__accordion-item {
-  border: 1px solid black;
+  grid-column: 1 / 11;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+
+  background-color: aquamarine;
+
+  overflow: hidden;
 }
 
+/* Accordion title */
+
 .planner__accordion-title {
-  border: 1px solid black;
+  grid-column: 1 / 11;
 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   cursor: pointer;
-  background-color: #21aeca;
+
+  padding-left: var(--accordion-left-padding);
 }
 
 .planner__accordion-title:hover {
   background-color: #3ab4cc;
 }
 
+/* Accordion content */
+
 .planner__accordion-content {
-  border: 1px solid black;
+  grid-column: 1 / 11;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
 
-  padding: 1rem;
-  background-color: #39b9d2;
+  background-color: #f0f0f0;
+  overflow: hidden;
+  transition: ease 0.25s;
 }
 
-.planner__accordion-content--positive {
-  border: 1px solid blue;
+.planner__accordion-content > * + * {
+  margin-top: 0.5rem;
 }
 
-.planner__accordion-content--negative {
-  border: 1px solid red;
+.planner__accordion-row:nth-of-type(odd) {
+  background-color: #e8e8e8;
 }
+
+.planner__accordion-subitem {
+  background-color: #f0f0f0;
+}
+
+.planner__accordion-subitem--positive {
+  grid-column: 1 / 11;
+
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+
+  box-shadow: -1rem 0 lightblue;
+  border: 1px solid lightblue;
+}
+
+.planner__accordion-subitem--negative {
+  grid-column: 1 / 11;
+
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+
+  box-shadow: -1rem 0 lightcoral;
+  border: 1px solid lightcoral;
+}
+
+.planner__accordion-subitem--positive > h3,
+.planner__accordion-subitem--negative > h3 {
+  grid-column: 1 / 11;
+}
+
+
+/* Accordion sub-items */
+
+.planner__accordion-subitem-header {
+  grid-column: 1 / 11;
+  padding-left: var(--accordion-left-padding);
+}
+
+.planner__accordion-clarification {
+  grid-column: 1 / 11;
+}
+
+
+/* Accordion entries */
 
 .planner__accordion-row {
-  border: 1px solid black;
+  grid-column: 1 / 11;
+
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 1fr 1fr 1fr 3fr;
+  grid-template-columns: 1fr 2fr 3fr 4fr;
 
-  padding-top: 5px;
-  padding-bottom: 5px;
   width: 100%;
+  height: 5rem;
+  overflow: hidden;
+
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .planner__accordion-row-name {
-  border: 1px solid black;
-
   grid-column: 1 / 2;
+
+  padding-left: var(--accordion-left-padding);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.planner__accordion-row-name:hover {
+  transform-origin: top left;
+  transform: scale(1.05);
+  transition: transform 0.1s;
 }
 
 .planner__accordion-row-description {
-  border: 1px solid black;
-
   grid-column: 2 / 3;
+  padding-left: 0.5rem;
 }
 
 .planner__accordion-row-data {
-  border: 1px solid black;
-
   grid-column: 3 / 4;
 
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
-.planner__accordion-row-data-head {
-  border: 1px solid black;
-
-  grid-column: 1 / 2;
-}
-
-.planner__accordion-row-data-value {
-  border: 1px solid black;
-  
+.planner__accordion-row-data-key {
   grid-column: 2 / 3;
 }
 
-/* #endregion */
+.planner__accordion-row-data-value {
+  grid-column: 3 / 4;
+}
 
 /* #endregion */
 
-/* */
+/* #endregion */
+
+/* Pokemon icons */
 /* #region */
 
+.planner__pokemon-icon {
+  background-image: url('../../assets/icons/pokemonicons-sheet.png');
+  background-repeat: 'no-repeat';
+}
 
+.planner__pokemon-icon:hover {
+  background-color: lightblue;
+  cursor: pointer;
+  transform: scale(1.2);
+  transition: transform 0.1s;
+}
 
 /* #endregion */
 

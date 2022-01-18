@@ -4,8 +4,8 @@ import { CartAction, TeamAction } from "../../App";
 import PokemonIcon from "../../PokemonIcon";
 
 
-type EntityAccordionEntryProps = {
-  parentEntityClass: string
+type ConnectionAccordionProps = {
+  targetEntityClass: string
   key: string
   name: string
   linkName: string
@@ -21,15 +21,15 @@ type EntityAccordionEntryProps = {
   }
 }
 
-const EntityAccordionEntry = ({
-  parentEntityClass,
+const ConnectionAccordionEntry = ({
+  targetEntityClass,
   key,
   name,
   linkName,
   description,
   data,
   icons,
-}: EntityAccordionEntryProps) => {
+}: ConnectionAccordionProps) => {
   // Since Pokemon can learn Moves in multiple ways, we need to worry about duplicates. The keys of this object are Pokemon names, and the value is always 'true'; we only care about the keys.
   let seenPokemon: {[k: string]: boolean} = {};
 
@@ -39,7 +39,7 @@ const EntityAccordionEntry = ({
       key={key}
     >
       <Link 
-        to={`../${parentEntityClass}/${linkName}`}
+        to={`../${targetEntityClass}/${linkName}`}
         className="planner__accordion-row-name"
       >
         {name}
@@ -50,9 +50,9 @@ const EntityAccordionEntry = ({
       <div className="planner__accordion-row-data">
         {data && data.map(({key, value}) => (
           <>
-            <div className="planner__accordion-row-data-head">
+            <b className="planner__accordion-row-data-key">
               {key}
-            </div>
+            </b>
             <div className="planner__accordion-row-data-value">
               {value}
             </div>
@@ -80,4 +80,4 @@ const EntityAccordionEntry = ({
   )
 }
 
-export default EntityAccordionEntry;
+export default ConnectionAccordionEntry;

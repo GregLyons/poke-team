@@ -8,7 +8,7 @@ import {
   MoveStatusResult,
   MoveStatusQuery,
 } from "../../../../types-queries/Move";
-import EntityAccordionEntry from "../EntityAccordionEntry";
+import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 
 import {
   ListRenderArgs,
@@ -24,8 +24,8 @@ export const listRenderMoveEffect = ({ data, }: ListRenderArgs<MoveEffectQuery>)
   return (
     <>
       {effectResults.map(result => (
-        <EntityAccordionEntry
-          parentEntityClass="moves"
+        <ConnectionAccordionEntry
+          targetEntityClass="effects"
           key={`${parentID}_${result.id}_effect`}
           name={result.formattedName}
           linkName={result.name}
@@ -49,11 +49,11 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
   return (
     <>
       {createsResults.length > 0 && (
-      <div className="planner__accordion-content--positive">
-        <h3>Creates field state</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Creates field state</h3>
         {createsResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="moves"
+          <ConnectionAccordionEntry
+            targetEntityClass="fieldStates"
             key={`${parentID}_${result.id}_create_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -63,11 +63,11 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
         ))}
       </div>)}
       {enhancedByResults.length > 0 && (
-      <div className="planner__accordion-content--positive">
-        <h3>Enhanced by field state</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Enhanced by field state</h3>
         {enhancedByResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="moves"
+          <ConnectionAccordionEntry
+            targetEntityClass="fieldStates"
             key={`${parentID}_${result.id}_enhance_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -76,11 +76,11 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
         ))}
       </div>)}
       {hinderedByResults.length > 0 && (
-      <div className="planner__accordion-content--negative">
-        <h3>Hindered by field state</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Hindered by field state</h3>
         {hinderedByResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="moves"
+          <ConnectionAccordionEntry
+            targetEntityClass="fieldStates"
             key={`${parentID}_${result.id}_hinder_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -89,11 +89,11 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
         ))}
       </div>)}
       {removesResults.length > 0 && (
-      <div className="planner__accordion-content--negative">
-        <h3>Removes field state</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Removes field state</h3>
         {removesResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="moves"
+          <ConnectionAccordionEntry
+            targetEntityClass="fieldStates"
             key={`${parentID}_${result.id}_remove_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -116,11 +116,11 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
   return (
     <>
       {causesResults.length > 0 && (
-      <div className="planner__accordion-content--positive">
-        <h3>Causes status</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Causes status</h3>
         {causesResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="moves"
+          <ConnectionAccordionEntry
+            targetEntityClass="statuses"
             key={`${parentID}_${result.id}_cause_status`}
             name={result.formattedName}
             linkName={result.name}
@@ -130,14 +130,14 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
         ))}
       </div>)}
       {resistsResults.length > 0 && (
-      <div className="planner__accordion-content--negative">
-        <h3>Resists status</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Resists status</h3>
         <p className="planner__accordion-clarification">
           The move fully cures the status, prevents the status, or mitigates the status in some way.
         </p>
         {resistsResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="moves"
+          <ConnectionAccordionEntry
+            targetEntityClass="statuses"
             key={`${parentID}_${result.id}_resist_status`}
             name={result.formattedName}
             linkName={result.name}

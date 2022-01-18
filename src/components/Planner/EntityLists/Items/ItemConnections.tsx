@@ -12,7 +12,7 @@ import {
   ListRenderArgs,
 } from "../helpers";
 
-import EntityAccordionEntry from "../EntityAccordionEntry";
+import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 
 export const listRenderItemEffect = ({ data, }: ListRenderArgs<ItemEffectQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
@@ -24,8 +24,8 @@ export const listRenderItemEffect = ({ data, }: ListRenderArgs<ItemEffectQuery>)
   return (
     <>
       {effectResults.map(result => (
-        <EntityAccordionEntry
-          parentEntityClass="items"
+        <ConnectionAccordionEntry
+          targetEntityClass="effects"
           key={`${parentID}_${result.id}_effect`}
           name={result.formattedName}
           linkName={result.name}
@@ -49,11 +49,11 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
   return (
     <>
       {activatedByResults.length > 0 && (
-      <div className="planner__accordion-content--positive">
-        <h3>Activates field state</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Activates field state</h3>
         {activatedByResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="items"
+          <ConnectionAccordionEntry
+            targetEntityClass="fieldStates"
             key={`${parentID}_${result.id}_activate_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -62,14 +62,14 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
         ))}
       </div>)}
       {extendsResults.length > 0 && (
-      <div className="planner__accordion-content--positive">
-        <h3>Extends field state</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Extends field state</h3>
         <p className="planner__accordion-clarification">
           When the owner of this item creates the field state, the field state will last for a greater number of turns than usual.
         </p>
         {extendsResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="items"
+          <ConnectionAccordionEntry
+            targetEntityClass="fieldStates"
             key={`${parentID}_${result.id}_extend_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -79,14 +79,14 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
         ))}
       </div>)}
       {ignoresResults.length > 0 && (
-      <div className="planner__accordion-content--negative">
-        <h3>Ignores field state</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Ignores field state</h3>
         <p className="planner__accordion-clarification">
           Item allows the owner to ignore the effects of the field state.
         </p>
         {ignoresResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="items"
+          <ConnectionAccordionEntry
+            targetEntityClass="fieldStates"
             key={`${parentID}_${result.id}_ignore_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -95,14 +95,14 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
         ))}
       </div>)}
       {resistsResults.length > 0 && (
-      <div className="planner__accordion-content--negative">
-        <h3>Resists field state</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Resists field state</h3>
         <p className="planner__accordion-clarification">
           Effects of the field state on the owner of the item are weakened (e.g. less damage).
         </p>
         {resistsResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="items"
+          <ConnectionAccordionEntry
+            targetEntityClass="fieldStates"
             key={`${parentID}_${result.id}_resist_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -125,11 +125,11 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
   return (
     <>
       {causesResults.length > 0 && (
-      <div className="planner__accordion-content--positive">
-        <h3>Causes status</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Causes status</h3>
         {causesResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="items"
+          <ConnectionAccordionEntry
+            targetEntityClass="statuses"
             key={`${parentID}_${result.id}_cause_status`}
             name={result.formattedName}
             linkName={result.name}
@@ -139,14 +139,14 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
         ))}
       </div>)}
       {resistsResults.length > 0 && (
-      <div className="planner__accordion-content--negative">
-        <h3>Resists status</h3>
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Resists status</h3>
         <p className="planner__accordion-clarification">
           The item fully cures the status, prevents the status, or mitigates the status in some way.
         </p>
         {causesResults.map(result => (
-          <EntityAccordionEntry
-            parentEntityClass="items"
+          <ConnectionAccordionEntry
+            targetEntityClass="statuses"
             key={`${parentID}_${result.id}_resist_status`}
             name={result.formattedName}
             linkName={result.name}

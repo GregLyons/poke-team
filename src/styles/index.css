@@ -1,6 +1,8 @@
 /* Variable declarations */
 :root {
   --app-width: 80vw;
+
+  overflow-y: scroll;
 }
 
 body {
@@ -12,7 +14,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-
+.app {
+  width: var(--app-width);
+  margin: auto;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

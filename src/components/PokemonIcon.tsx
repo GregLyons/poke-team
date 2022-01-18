@@ -26,15 +26,14 @@ const PokemonIcon = ({
 
   return (
     <div
-      title={`Icon for ${pokemonIconDatum.formattedName}`}
+      className="planner__pokemon-icon"
+      title={`Icon for the Pokemon ${pokemonIconDatum.formattedName}`}
       key={key}
       style={{
         width: '40px',
         height: '30px',
         display: 'inline-block',
-        backgroundImage: `url(${process.env.PUBLIC_URL + '/images/icons/pokemonicons-sheet.png'})`,
         backgroundPosition: `${left}px ${top}px`,
-        backgroundRepeat: 'no-repeat',
       }}              
     />
   );
