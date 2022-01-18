@@ -1,7 +1,4 @@
 import {
-  Link,
-} from "react-router-dom";
-import {
   StatusAbilityResult,
   StatusAbilityQuery,
 
@@ -14,15 +11,16 @@ import {
   StatusMoveResult,
   StatusMoveQuery,
 } from "../../../../types-queries/Status";
-import EntityAccordionEntry from "../EntityAccordionEntry";
 import {
   ListRenderArgs,
+  MissingDispatchError,
 } from "../helpers";
 
-let a: StatusAbilityQuery
+import EntityAccordionEntry from "../EntityAccordionEntry";
 
-export const listRenderStatusAbility = ({ data, }: ListRenderArgs<StatusAbilityQuery>) => {
+export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<StatusAbilityQuery>) => {
   if (!data || !data.statusByName) return (<div>Data not found for the query 'statusByName'.</div>);
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
 
   const parentID = data.statusByName[0].id;
 
@@ -42,6 +40,11 @@ export const listRenderStatusAbility = ({ data, }: ListRenderArgs<StatusAbilityQ
             linkName={result.name}
             description={result.description}
             data={[{key: 'Chance', value: result.chance || 0}]}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              iconData: result.pokemonIconData
+            }}
           />
         ))}
       </div>)}
@@ -58,6 +61,11 @@ export const listRenderStatusAbility = ({ data, }: ListRenderArgs<StatusAbilityQ
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              iconData: result.pokemonIconData
+            }}
           />
         ))}
       </div>)}
@@ -153,8 +161,9 @@ export const listRenderStatusItem = ({ data, }: ListRenderArgs<StatusItemQuery>)
   );
 }
 
-export const listRenderStatusMove = ({ data, }: ListRenderArgs<StatusMoveQuery>) => {
+export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<StatusMoveQuery>) => {
   if (!data || !data.statusByName) return (<div>Data not found for the query 'statusByName'.</div>);
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
 
   const parentID = data.statusByName[0].id;
 
@@ -174,6 +183,11 @@ export const listRenderStatusMove = ({ data, }: ListRenderArgs<StatusMoveQuery>)
             linkName={result.name}
             description={result.description}
             data={[{key: 'Chance', value: result.chance || 0}]}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              iconData: result.pokemonIconData
+            }}
           />
         ))}
       </div>)}
@@ -190,6 +204,11 @@ export const listRenderStatusMove = ({ data, }: ListRenderArgs<StatusMoveQuery>)
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              iconData: result.pokemonIconData
+            }}
           />
         ))}
       </div>)}

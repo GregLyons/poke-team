@@ -16,14 +16,14 @@ import {
 } from "../../../../types-queries/FieldState";
 import {
   ListRenderArgs,
+  MissingDispatchError,
 } from "../helpers";
 
 import EntityAccordionEntry from "../EntityAccordionEntry";
 
-let a: FieldStateAbilityQuery
-
-export const listRenderFieldStateAbility = ({ data, }: ListRenderArgs<FieldStateAbilityQuery>) => {
+export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<FieldStateAbilityQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
 
   const parentID = data.fieldStateByName[0].id;
 
@@ -46,6 +46,11 @@ export const listRenderFieldStateAbility = ({ data, }: ListRenderArgs<FieldState
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              iconData: result.pokemonIconData
+            }}
           />
         ))}
       </div>)}
@@ -60,6 +65,11 @@ export const listRenderFieldStateAbility = ({ data, }: ListRenderArgs<FieldState
             linkName={result.name}
             description={result.description}
             data={[{key: 'Turns', value: result.turns || 0}]}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              iconData: result.pokemonIconData
+            }}
           />
         ))}
       </div>)}
@@ -76,6 +86,11 @@ export const listRenderFieldStateAbility = ({ data, }: ListRenderArgs<FieldState
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              iconData: result.pokemonIconData
+            }}
           />
         ))}
       </div>)}
@@ -92,6 +107,11 @@ export const listRenderFieldStateAbility = ({ data, }: ListRenderArgs<FieldState
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              iconData: result.pokemonIconData
+            }}
           />
         ))}
       </div>)}
@@ -108,6 +128,11 @@ export const listRenderFieldStateAbility = ({ data, }: ListRenderArgs<FieldState
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              iconData: result.pokemonIconData
+            }}
           />
         ))}
       </div>)}
@@ -124,6 +149,11 @@ export const listRenderFieldStateAbility = ({ data, }: ListRenderArgs<FieldState
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              iconData: result.pokemonIconData
+            }}
           />
         ))}
       </div>)}
@@ -231,8 +261,9 @@ export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateIte
   );
 }
 
-export const listRenderFieldStateMove = ({ data, }: ListRenderArgs<FieldStateMoveQuery>) => {
+export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<FieldStateMoveQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
 
   const parentID = data.fieldStateByName[0].id;
 
@@ -254,6 +285,11 @@ export const listRenderFieldStateMove = ({ data, }: ListRenderArgs<FieldStateMov
             linkName={result.name}
             description={result.description}
             data={[{key: 'Turns', value: result.turns || 0}]}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              iconData: result.pokemonIconData
+            }}
           />
         ))}
       </div>)}
@@ -270,6 +306,11 @@ export const listRenderFieldStateMove = ({ data, }: ListRenderArgs<FieldStateMov
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              iconData: result.pokemonIconData
+            }}
           />
         ))}
       </div>)}
@@ -286,6 +327,11 @@ export const listRenderFieldStateMove = ({ data, }: ListRenderArgs<FieldStateMov
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              iconData: result.pokemonIconData
+            }}
           />
         ))}
       </div>)}
@@ -299,6 +345,11 @@ export const listRenderFieldStateMove = ({ data, }: ListRenderArgs<FieldStateMov
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              iconData: result.pokemonIconData
+            }}
           />
         ))}
       </div>)}
@@ -337,7 +388,7 @@ export const listRenderFieldStateStatus = ({ data, }: ListRenderArgs<FieldStateS
         <p className="planner__accordion-clarification">
           Presence of the field state fully cures the status, prevents the status, or mitigates the status in some way.
         </p>
-        {causesResults.map(result => (
+        {resistsResults.map(result => (
           <EntityAccordionEntry
             parentEntityClass="fieldStates"
             key={`${parentID}_${result.id}_resist_status`}

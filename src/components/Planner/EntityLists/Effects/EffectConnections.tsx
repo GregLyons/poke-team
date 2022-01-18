@@ -1,8 +1,4 @@
 import {
-  Link,
-} from "react-router-dom";
-
-import {
   EffectAbilityResult,
   EffectAbilityQuery,
 
@@ -15,13 +11,16 @@ import {
   EffectMoveResult,
   EffectMoveQuery
 } from "../../../../types-queries/Effect";
-import EntityAccordionEntry from "../EntityAccordionEntry";
 import {
   ListRenderArgs,
+  MissingDispatchError,
 } from "../helpers";
 
-export const listRenderEffectAbility = ({ data, }: ListRenderArgs<EffectAbilityQuery>) => {
+import EntityAccordionEntry from "../EntityAccordionEntry";
+
+export const listRenderEffectAbility = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<EffectAbilityQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
 
   const parentID = data.effectByName[0].id;
 
@@ -36,6 +35,11 @@ export const listRenderEffectAbility = ({ data, }: ListRenderArgs<EffectAbilityQ
           name={result.formattedName}
           linkName={result.name}
           description={result.description}
+          icons={{
+            dispatchCart: dispatchCart,
+            dispatchTeam: dispatchTeam,
+            iconData: result.pokemonIconData
+          }}
         />
       ))}
     </>
@@ -86,12 +90,13 @@ export const listRenderEffectItem = ({ data, }: ListRenderArgs<EffectItemQuery>)
   );
 }
 
-export const listRenderEffectMove = ({ data, }: ListRenderArgs<EffectMoveQuery>) => {
+export const listRenderEffectMove = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<EffectMoveQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
 
   const parentID = data.effectByName[0].id;
 
-  const moveResults = data.effectByName[0].moves.edges.map(edge => new EffectAbilityResult(edge));
+  const moveResults = data.effectByName[0].moves.edges.map(edge => new EffectMoveResult(edge));
 
   return (
     <>
@@ -102,6 +107,11 @@ export const listRenderEffectMove = ({ data, }: ListRenderArgs<EffectMoveQuery>)
           name={result.formattedName}
           linkName={result.name}
           description={result.description}
+          icons={{
+            dispatchCart: dispatchCart,
+            dispatchTeam: dispatchTeam,
+            iconData: result.pokemonIconData
+          }}
         />
       ))}
     </>

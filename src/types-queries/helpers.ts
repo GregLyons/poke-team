@@ -276,7 +276,14 @@ export abstract class AuxToMainConnectionOnPage {
     this.id = id;
     this.name = name;
     this.formattedName = formattedName;
-    this.description = gqlEdge.node.descriptions.edges[0].node.text;
+    
+    // TODO: Bulbapedia doesn't list all items, so there will be missing descriptions
+    if (gqlEdge.node.descriptions.edges.length > 0) {
+      this.description = gqlEdge.node.descriptions.edges[0].node.text;
+    }
+    else {
+      this.description = 'Placeholder description.';
+    }
   }
 }
 

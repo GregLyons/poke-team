@@ -478,7 +478,6 @@ export const STATUS_ITEM_QUERY = gql`
                 }
               }
             }
-
           }
           chance
         }

@@ -369,6 +369,14 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             name
             formattedName
 
+            descriptions {
+              edges (pagination: {limit: 1}) {
+                node {
+                  text
+                }
+              }
+            }
+
             pokemon {
               edges {
                 node {
@@ -411,6 +419,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  pokemonShowdownID
 
                   introduced {
                     edges {
@@ -447,6 +456,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  pokemonShowdownID
 
                   introduced {
                     edges {
@@ -482,6 +492,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  pokemonShowdownID
 
                   introduced {
                     edges {
@@ -517,6 +528,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  pokemonShowdownID
 
                   introduced {
                     edges {
@@ -552,6 +564,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  pokemonShowdownID
 
                   introduced {
                     edges {
@@ -927,6 +940,7 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   id
                   name
                   formattedName
+                  pokemonShowdownID
 
                   introduced {
                     edges {
@@ -971,6 +985,7 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   id
                   name
                   formattedName
+                  pokemonShowdownID
 
                   introduced {
                     edges {
@@ -1015,6 +1030,7 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   id
                   name
                   formattedName
+                  pokemonShowdownID
 
                   introduced {
                     edges {
