@@ -170,6 +170,10 @@
   grid-column: 2 / 12;
 
   --accordion-left-padding: 0.25rem;
+  --accordion-left-shadow-size: 1rem;
+  --accordion-item-background: lavender;
+  --positive: #90EE90;
+  --negative: lightcoral;
 }
 
 .planner__accordion > * + * {
@@ -181,11 +185,14 @@
   display: grid;
   grid-template-columns: repeat(10, 1fr);
 
+  /* Makes it so box shadow isn't hidden */
+  margin-left: calc(-1 * var(--accordion-left-shadow-size));
+  padding-left: var(--accordion-left-shadow-size);
+
   border-radius: 1rem;
   margin-bottom: 1rem;
 
-  background-color: aquamarine;
-
+  background-color: var(--accordion-item-background);
   overflow: hidden;
 }
 
@@ -213,8 +220,7 @@
   display: grid;
   grid-template-columns: repeat(10, 1fr);
 
-  background-color: #f0f0f0;
-  overflow: hidden;
+  background-color: var(--accordion-item-background);
   transition: ease 0.25s;
 }
 
@@ -236,8 +242,8 @@
   display: grid;
   grid-template-columns: repeat(10, 1fr);
 
-  box-shadow: -1rem 0 lightblue;
-  border: 1px solid lightblue;
+  box-shadow: calc(-1 * var(--accordion-left-shadow-size)) 0 var(--positive);
+  border: 1px solid var(--positive);
 }
 
 .planner__accordion-subitem--negative {
@@ -246,13 +252,8 @@
   display: grid;
   grid-template-columns: repeat(10, 1fr);
 
-  box-shadow: -1rem 0 lightcoral;
-  border: 1px solid lightcoral;
-}
-
-.planner__accordion-subitem--positive > h3,
-.planner__accordion-subitem--negative > h3 {
-  grid-column: 1 / 11;
+  box-shadow: calc(-1 * var(--accordion-left-shadow-size)) 0 var(--negative);
+  border: 1px solid var(--negative);
 }
 
 
@@ -265,6 +266,7 @@
 
 .planner__accordion-clarification {
   grid-column: 1 / 11;
+  padding-left: var(--accordion-left-padding);
 }
 
 
@@ -278,11 +280,18 @@
   grid-template-columns: 1fr 2fr 3fr 4fr;
 
   width: 100%;
-  height: 5rem;
-  overflow: hidden;
 
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  transition: ease 0.25s;
+
+  overflow: hidden;
+}
+
+.planner__accordion-row:hover {
+  outline: 1px solid black;
+  /* So outline appears over other entries */
+  z-index: 1;
 }
 
 .planner__accordion-row-name {
@@ -291,13 +300,13 @@
   padding-left: var(--accordion-left-padding);
   font-weight: 500;
   text-decoration: none;
+  transform-origin: top left;
 }
 
 .planner__accordion-row-name:hover {
-  transform-origin: top left;
-  transform: scale(1.05);
-  transition: transform 0.1s;
+  text-decoration: underline;
 }
+
 
 .planner__accordion-row-description {
   grid-column: 2 / 3;

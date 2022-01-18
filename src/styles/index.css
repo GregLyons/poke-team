@@ -3,6 +3,7 @@
   --app-width: 80vw;
 
   overflow-y: scroll;
+  line-height: 1.5;
 }
 
 body {
@@ -12,6 +13,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+a, a:visited, a:hover, a:active {
+  color: inherit;
 }
 
 .app {

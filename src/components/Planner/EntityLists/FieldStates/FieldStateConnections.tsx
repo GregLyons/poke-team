@@ -79,7 +79,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         <p className="planner__accordion-clarification">
           Effects of field state ignored by owner of the ability.
         </p>
-        {createdByResults.map(result => (
+        {ignoredByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="abilities"
             key={`${parentID}_${result.id}_ignore_ability`}
@@ -231,7 +231,7 @@ export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateIte
         <p className="planner__accordion-clarification">
           Item allows the owner to ignore the effects of the field state.
         </p>
-        {extendedByResults.map(result => (
+        {ignoredByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="items"
             key={`${parentID}_${result.id}_ignore_item`}
