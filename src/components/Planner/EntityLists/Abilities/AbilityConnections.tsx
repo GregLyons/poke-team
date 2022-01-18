@@ -23,9 +23,10 @@ export const listRenderAbilityEffect = ({ data, }: ListRenderArgs<AbilityEffectQ
     <>
       {effectResults.map(result => (
         <EntityAccordionEntry
-          parentEntityClass="ability"
+          parentEntityClass="abilities"
           key={`${parentID}_${result.id}_effect`}
           name={result.formattedName}
+          linkName={result.name}
           description={result.description}
         />
       ))}
@@ -52,9 +53,10 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
         <h3>Activated by field state</h3>
         {activatedByResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="ability"
+            parentEntityClass="abilities"
             key={`${parentID}_${result.id}_activate_fieldState`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
           />
         ))}
@@ -64,9 +66,10 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
         <h3>Creates field state</h3>
         {createsResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="ability"
+            parentEntityClass="abilities"
             key={`${parentID}_${result.id}_create_fieldState`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
             data={[{key: 'Turns', value: result.turns || 0}]}
           />
@@ -80,9 +83,10 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
         </p>
         {ignoresResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="ability"
+            parentEntityClass="abilities"
             key={`${parentID}_${result.id}_ignore_fieldState`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
           />
         ))}
@@ -95,9 +99,10 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
         </p>
         {preventsResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="ability"
+            parentEntityClass="abilities"
             key={`${parentID}_${result.id}_prevent_fieldState`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
           />
         ))}
@@ -110,9 +115,10 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
         </p>
         {removesResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="ability"
+            parentEntityClass="abilities"
             key={`${parentID}_${result.id}_remove_fieldState`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
           />
         ))}
@@ -125,9 +131,10 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
         </p>
         {suppressesResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="ability"
+            parentEntityClass="abilities"
             key={`${parentID}_${result.id}_suppress_fieldState`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
           />
         ))}
@@ -151,9 +158,10 @@ export const listRenderAbilityStatus = ({ data, }: ListRenderArgs<AbilityStatusQ
         <h3>Causes status</h3>
         {causesResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="ability"
+            parentEntityClass="abilities"
             key={`${parentID}_${result.id}_cause_status`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
             data={[{key: 'Chance', value: result.chance || 0}]}
           />
@@ -167,9 +175,10 @@ export const listRenderAbilityStatus = ({ data, }: ListRenderArgs<AbilityStatusQ
         </p>
         {causesResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="ability"
+            parentEntityClass="abilities"
             key={`${parentID}_${result.id}_resist_status`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
           />
         ))}

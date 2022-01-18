@@ -31,9 +31,10 @@ export const listRenderEffectAbility = ({ data, }: ListRenderArgs<EffectAbilityQ
     <>
       {abilityResults.map(result => (
         <EntityAccordionEntry
-          parentEntityClass="effect"
+          parentEntityClass="effects"
           key={`${parentID}_${result.id}_ability`}
           name={result.formattedName}
+          linkName={result.name}
           description={result.description}
         />
       ))}
@@ -52,9 +53,10 @@ export const listRenderEffectFieldState = ({ data, }: ListRenderArgs<EffectField
     <>
       {fieldStateResults.map(result => (
         <EntityAccordionEntry
-          parentEntityClass="effect"
+          parentEntityClass="effects"
           key={`${parentID}_${result.id}_fieldState`}
           name={result.formattedName}
+          linkName={result.name}
           description={result.description}
         />
       ))}
@@ -73,9 +75,10 @@ export const listRenderEffectItem = ({ data, }: ListRenderArgs<EffectItemQuery>)
     <>
       {itemResults.map(result => (
         <EntityAccordionEntry
-          parentEntityClass="effect"
+          parentEntityClass="effects"
           key={`${parentID}_${result.id}_item`}
           name={result.formattedName}
+          linkName={result.name}
           description={result.description}
         />
       ))}
@@ -94,9 +97,10 @@ export const listRenderEffectMove = ({ data, }: ListRenderArgs<EffectMoveQuery>)
     <>
       {moveResults.map(result => (
         <EntityAccordionEntry
-          parentEntityClass="effect"
+          parentEntityClass="effects"
           key={`${parentID}_${result.id}_move`}
           name={result.formattedName}
+          linkName={result.name}
           description={result.description}
         />
       ))}

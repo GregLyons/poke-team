@@ -36,9 +36,10 @@ export const listRenderStatusAbility = ({ data, }: ListRenderArgs<StatusAbilityQ
         <h3>Caused by ability</h3>
         {causedByResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="status"
+            parentEntityClass="statuses"
             key={`${parentID}_${result.id}_cause_ability`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
             data={[{key: 'Chance', value: result.chance || 0}]}
           />
@@ -52,9 +53,10 @@ export const listRenderStatusAbility = ({ data, }: ListRenderArgs<StatusAbilityQ
         </p>
         {resistedByResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="status"
+            parentEntityClass="statuses"
             key={`${parentID}_${result.id}_resist_ability`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
           />
         ))}
@@ -78,9 +80,10 @@ export const listRenderStatusFieldState = ({ data, }: ListRenderArgs<StatusField
         <h3>Caused by field state</h3>
         {causedByResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="status"
+            parentEntityClass="statuses"
             key={`${parentID}_${result.id}_cause_fieldState`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
             data={[{key: 'Chance', value: result.chance || 0}]}
           />
@@ -94,9 +97,10 @@ export const listRenderStatusFieldState = ({ data, }: ListRenderArgs<StatusField
         </p>
         {resistedByResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="status"
+            parentEntityClass="statuses"
             key={`${parentID}_${result.id}_resist_fieldState`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
           />
         ))}
@@ -120,9 +124,10 @@ export const listRenderStatusItem = ({ data, }: ListRenderArgs<StatusItemQuery>)
         <h3>Caused by item</h3>
         {causedByResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="status"
+            parentEntityClass="statuses"
             key={`${parentID}_${result.id}_cause_item`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
             data={[{key: 'Chance', value: result.chance || 0}]}
           />
@@ -136,9 +141,10 @@ export const listRenderStatusItem = ({ data, }: ListRenderArgs<StatusItemQuery>)
         </p>
         {resistedByResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="status"
+            parentEntityClass="statuses"
             key={`${parentID}_${result.id}_resist_item`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
           />
         ))}
@@ -162,9 +168,10 @@ export const listRenderStatusMove = ({ data, }: ListRenderArgs<StatusMoveQuery>)
         <h3>Caused by move</h3>
         {causedByResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="status"
+            parentEntityClass="statuses"
             key={`${parentID}_${result.id}_cause_move`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
             data={[{key: 'Chance', value: result.chance || 0}]}
           />
@@ -178,9 +185,10 @@ export const listRenderStatusMove = ({ data, }: ListRenderArgs<StatusMoveQuery>)
         </p>
         {resistedByResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="status"
+            parentEntityClass="statuses"
             key={`${parentID}_${result.id}_resist_move`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
           />
         ))}

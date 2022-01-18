@@ -185,6 +185,50 @@
   border: 1px solid red;
 }
 
+.planner__accordion-row {
+  border: 1px solid black;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr 1fr 3fr;
+
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 100%;
+}
+
+.planner__accordion-row-name {
+  border: 1px solid black;
+
+  grid-column: 1 / 2;
+}
+
+.planner__accordion-row-description {
+  border: 1px solid black;
+
+  grid-column: 2 / 3;
+}
+
+.planner__accordion-row-data {
+  border: 1px solid black;
+
+  grid-column: 3 / 4;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.planner__accordion-row-data-head {
+  border: 1px solid black;
+
+  grid-column: 1 / 2;
+}
+
+.planner__accordion-row-data-value {
+  border: 1px solid black;
+  
+  grid-column: 2 / 3;
+}
+
 /* #endregion */
 
 /* #endregion */

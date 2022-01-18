@@ -25,9 +25,10 @@ export const listRenderMoveEffect = ({ data, }: ListRenderArgs<MoveEffectQuery>)
     <>
       {effectResults.map(result => (
         <EntityAccordionEntry
-          parentEntityClass="move"
+          parentEntityClass="moves"
           key={`${parentID}_${result.id}_effect`}
           name={result.formattedName}
+          linkName={result.name}
           description={result.description}
         />
       ))}
@@ -52,9 +53,10 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
         <h3>Creates field state</h3>
         {createsResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="move"
+            parentEntityClass="moves"
             key={`${parentID}_${result.id}_create_fieldState`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
             data={[{key: 'Turns', value: result.turns || 0}]}
           />
@@ -65,9 +67,10 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
         <h3>Enhanced by field state</h3>
         {enhancedByResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="move"
+            parentEntityClass="moves"
             key={`${parentID}_${result.id}_enhance_fieldState`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
           />
         ))}
@@ -77,9 +80,10 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
         <h3>Hindered by field state</h3>
         {hinderedByResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="move"
+            parentEntityClass="moves"
             key={`${parentID}_${result.id}_hinder_fieldState`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
           />
         ))}
@@ -89,9 +93,10 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
         <h3>Removes field state</h3>
         {removesResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="move"
+            parentEntityClass="moves"
             key={`${parentID}_${result.id}_remove_fieldState`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
           />
         ))}
@@ -115,9 +120,10 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
         <h3>Causes status</h3>
         {causesResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="move"
+            parentEntityClass="moves"
             key={`${parentID}_${result.id}_cause_status`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
             data={[{key: 'Chance', value: result.chance || 0}]}
           />
@@ -129,11 +135,12 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
         <p className="planner__accordion-clarification">
           The move fully cures the status, prevents the status, or mitigates the status in some way.
         </p>
-        {causesResults.map(result => (
+        {resistsResults.map(result => (
           <EntityAccordionEntry
-            parentEntityClass="move"
+            parentEntityClass="moves"
             key={`${parentID}_${result.id}_resist_status`}
             name={result.formattedName}
+            linkName={result.name}
             description={result.description}
           />
         ))}
