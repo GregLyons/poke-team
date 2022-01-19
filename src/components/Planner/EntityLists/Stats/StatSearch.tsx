@@ -25,22 +25,29 @@ import {
   TeamAction,
 } from "../../../App";
 
-import StatEntry from './StatEntry';
 import EntitySearchMain from '../EntitySearchMain';
+import EntitySearchEntry from '../EntitySearchEntry';
 
 const listRender = ({ data, }: ListRenderArgs<StatSearchQuery>) => {
   if (!data || !data.stats) return (<div>Data not found for the query 'stats'.</div>);
   
   return (
     <>
-      {data.stats.map((stat: StatSearchResult) => (
+      {data.stats.map((statSearchResult: StatSearchResult) => {
+        const stat = new StatInSearch(statSearchResult);
+
+        return (
           <>
-            <StatEntry
+            <EntitySearchEntry
+              entityClass="stats"
               key={'statEntry_' + stat.id}
-              stat={new StatInSearch(stat)} 
+              name={stat.formattedName}
+              linkName={stat.name}
+              description={stat.description}
             />
           </>
-        ))}
+        );
+      })}
     </>
   );
 }
@@ -60,7 +67,7 @@ const StatSearch = ({
   const [queryVars, setQueryVars] = useState<StatSearchVars>({
     gen: gen,
     startsWith: '',
-    limit: 5,
+    limit: 100,
   })
 
   const handleSubmit: (newQueryVars: StatSearchVars) => void = (newQueryVars) => {

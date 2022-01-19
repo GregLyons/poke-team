@@ -86,8 +86,12 @@ export const STATUS_SEARCH_QUERY = gql`
 `;
 
 export class StatusInSearch extends AuxEntityInSearch {
+  public volatile: boolean;
+
   constructor(gqlStatus: StatusSearchResult) {
     super(gqlStatus);
+
+    this.volatile = gqlStatus.volatile;
   }
 }
 

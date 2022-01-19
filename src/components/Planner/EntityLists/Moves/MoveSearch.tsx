@@ -26,24 +26,57 @@ import {
 } from "../../../App";
 
 import EntitySearchMain from '../EntitySearchMain';
-import MoveEntry from './MoveEntry';
+import EntitySearchEntry from '../EntitySearchEntry';
 
 const listRender = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<MoveSearchQuery>) => {
   if (!data || !data.moves) return (<div>Data not found for the query 'moves'.</div>);
-  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.')
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
   
   return (
     <>
-      {data.moves.map((move: MoveSearchResult) => (
+      {data.moves.map((moveSearchResult: MoveSearchResult) => {
+        const move = new MoveInSearch(moveSearchResult);
+
+        return (
           <>
-            <MoveEntry 
-              dispatchCart={dispatchCart}
-              dispatchTeam={dispatchTeam}
+            <EntitySearchEntry
+              entityClass="moves"
               key={'moveEntry_' + move.id}
-              move={new MoveInSearch(move)} 
+              name={move.formattedName}
+              linkName={move.name}
+              description={move.description}
+              data={[
+                {
+                  key: 'Accuracy', value: move.accuracy === 0 ? '--' : move.accuracy,
+                },
+                {
+                  key: 'Category', value: move.category,
+                },
+                {
+                  key: 'Contact', value: move.contact ? 'Yes' : 'No'
+                },
+                {
+                  key: 'Power', value: move.power,
+                },
+                {
+                  key: 'PP', value: move.pp === 0 ? '--': move.pp,
+                },
+                {
+                  key: 'Priority', value: move.priority,
+                },
+                {
+                  key: 'Target', value: move.target,
+                },
+              ]}
+              icons={{
+                iconData: move.pokemonIconData,
+                dispatchCart,
+                dispatchTeam,
+              }}
             />
           </>
-        ))}
+        );
+      })}
     </>
   );
 }

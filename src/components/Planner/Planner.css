@@ -1,4 +1,8 @@
 .planner-container {
+  --entry-background: #f8f8f8;
+  --odd-entry-color: #e8e8e8;
+  --entry-vertical-padding: 0.5rem;
+  --entry-cell-left-padding: 0.25rem;
 }
 
 /* planner-nav-bar */
@@ -45,58 +49,46 @@
 .planner__main-search-table {
   display: flex;
   flex-direction: column;
-
-  gap: 2rem;
 }
 
 
 /* Main search rows */
 /* #region */ 
 
-.planner__main-search-table-row {
+.planner__search-row {
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 1fr 1fr 1fr 3fr;
+  grid-template-columns: repeat(12, 1fr);
 
-  padding-top: 5px;
-  padding-bottom: 5px;
   width: 100%;
 }
 
-.planner__main-search-table-row > * {
-  padding-left: 5px;
-  padding-right: 5px;
+.planner__search-row > * {
+  padding-left: var(--entry-cell-left-padding);
 }
 
-.planner__main-search-table-row:nth-child(even) {
-  background-color: lightgray;
+.planner__search-row:nth-of-type(odd) {
+  background-color: var(--odd-entry-color);
 }
 
 /* Name */
-.planner__main-search-row-name {
+.planner__search-row-name {
   grid-column: 1 / 2;
-
-  font-weight: 500;
-  text-decoration: none;
-}
-
-.planner__main-search-row-name:hover {
-  filter: brightness(1.5);
 }
 
 /* Description */
-.planner__main-search-row-description {
-  grid-column: 2 / 3;
+.planner__search-row-description {
+  grid-column: 2 / 5;
 }
 
 /* Data */
-.planner__main-search-row-data {
-  grid-column: 3 / 4;
+.planner__search-row-data {
+  grid-column: 5 / 8;
 }
 
 /* Icons */ 
-.planner__main-search-row-icons {
-  grid-column: 4 / 5;
+.planner__search-row-icons {
+  grid-column: 8 / 13;
 }
 
 /* #endregion */
@@ -171,10 +163,8 @@
 
   --accordion-left-padding: 0.25rem;
   --accordion-left-shadow-size: 1rem;
-  --accordion-item-background: #f8f8f8;
   --positive: #90EE90;
   --negative: lightcoral;
-  --accordion-odd-entry-color: #e8e8e8;
 }
 
 .planner__accordion > * + * {
@@ -193,7 +183,7 @@
   border-radius: 1rem;
   margin-bottom: 1rem;
 
-  background-color: var(--accordion-item-background);
+  background-color: var(--entry-background);
   overflow: hidden;
 }
 
@@ -221,7 +211,7 @@
   display: grid;
   grid-template-columns: repeat(10, 1fr);
 
-  background-color: var(--accordion-item-background);
+  background-color: var(--entry-background);
   transition: ease 0.25s;
 }
 
@@ -230,7 +220,7 @@
 }
 
 .planner__accordion-row:nth-of-type(odd) {
-  background-color: var(--accordion-odd-entry-color);
+  background-color: var(--odd-entry-color);
 }
 
 .planner__accordion-subitem {
@@ -284,16 +274,6 @@
   grid-template-columns: 1fr 2fr 3fr 4fr;
 
   width: 100%;
-
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  transition: ease 0.25s;
-
-  overflow: hidden;
-}
-
-.planner__accordion-row:hover {
-  box-shadow: -1px 0 black;
 }
 
 .planner__accordion-row-name {
@@ -302,13 +282,7 @@
   padding-left: var(--accordion-left-padding);
   font-weight: 500;
   text-decoration: none;
-  transform-origin: top left;
 }
-
-.planner__accordion-row-name:hover {
-  text-decoration: underline;
-}
-
 
 .planner__accordion-row-description {
   grid-column: 2 / 3;
@@ -351,10 +325,49 @@
 
 /* #endregion */
 
-/* */
+/* Search and accordion entries */
 /* #region */
 
+/* Entire row */
+.planner__search-row, .planner__accordion-row {
+  padding-top: var(--entry-vertical-padding);
+  padding-bottom: var(--entry-vertical-padding);
+  transition: ease 0.25s;
 
+  overflow: hidden;
+}
+
+.planner__accordion-row:hover, .planner__search-row:hover {
+  /* Doesn't change actual width, as opposed to border-left */
+  box-shadow: -1px 0 black;
+}
+
+/* Name */
+.planner__accordion-row-name, .planner__search-row-name {
+  font-weight: 500;
+  text-decoration: none;
+  transform-origin: top left;
+}
+
+.planner__accordion-row-name:hover, .planner__search-row-name:hover {
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+/* Data */
+.planner__search-row-data, .planner__accordion-row-data {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: fit-content;
+}
+
+.planner__search-row-data-key, .planner__accordion-row-data-key {
+  grid-column: 2 / 3;
+}
+
+.planner__search-row-data-value, .planner__accordion-row-data-value {
+  grid-column: 3 / 4;
+}
 
 /* #endregion */
 

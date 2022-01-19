@@ -15,15 +15,15 @@ import {
 import PokemonIcon from "../../PokemonIcon";
 
 
-type ConnectionAccordionEntryProps = {
-  targetEntityClass: string
+type EntitySearchEntryProps = {
+  entityClass: string
   key: string
   name: string
   linkName: string
   description: string
   data?: {
     key: string
-    value: string | number 
+    value: string | number | boolean
   }[]
   icons?: {
     iconData: PokemonIconDatum[]
@@ -32,15 +32,15 @@ type ConnectionAccordionEntryProps = {
   }
 }
 
-const ConnectionAccordionEntry = ({
-  targetEntityClass,
+const EntitySearchEntry = ({
+  entityClass,
   key,
   name,
   linkName,
   description,
   data,
   icons,
-}: ConnectionAccordionEntryProps) => {
+}: EntitySearchEntryProps) => {
   const [expand, setExpand] = useState(false);
   const [hover, setHover] = useState(false);
 
@@ -85,12 +85,12 @@ const ConnectionAccordionEntry = ({
               : ``, 
             }
       }
-      className="planner__accordion-row"
+      className="planner__search-row"
       key={key}
     >
       <Link
-        to={`../${targetEntityClass}/${linkName}`}
-        className="planner__accordion-row-name"
+        to={`../${entityClass}/${linkName}`}
+        className="planner__search-row-name"
         style={
           hover
             ? { 
@@ -103,23 +103,23 @@ const ConnectionAccordionEntry = ({
         {name}
       </Link>
       <div 
-        className="planner__accordion-row-description"
+        className="planner__search-row-description"
       >
         {description}
       </div>
-      <div className="planner__accordion-row-data">
+      <div className="planner__search-row-data">
         {data && data.map(({key, value}) => (
           <>
-            <b className="planner__accordion-row-data-key">
+            <b className="planner__search-row-data-key">
               {key}
             </b>
-            <div className="planner__accordion-row-data-value">
+            <div className="planner__search-row-data-value">
               {value}
             </div>
           </>
         ))}
       </div>
-      {icons && <div className="planner__accordion-row-icons">
+      {icons && <div className="planner__search-row-icons">
           {icons.iconData.map(pokemonIconDatum => {
             // Ignore duplicate Pokemon
             if(seenPokemon.hasOwnProperty(pokemonIconDatum.name)) return;
@@ -140,4 +140,4 @@ const ConnectionAccordionEntry = ({
   )
 }
 
-export default ConnectionAccordionEntry;
+export default EntitySearchEntry;

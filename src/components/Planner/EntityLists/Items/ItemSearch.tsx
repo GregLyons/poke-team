@@ -26,24 +26,34 @@ import {
 } from "../../../App";
 
 import EntitySearchMain from '../EntitySearchMain';
-import ItemEntry from './ItemEntry';
+import EntitySearchEntry from '../EntitySearchEntry';
 
 const listRender = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<ItemSearchQuery>) => {
   if (!data || !data.items) return (<div>Data not found for the query 'items'.</div>);
-  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.')
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
   
   return (
     <>
-      {data.items.map((item: ItemSearchResult) => (
+      {data.items.map((itemSearchResult: ItemSearchResult) => {
+        const item = new ItemInSearch(itemSearchResult);
+
+        return (
           <>
-            <ItemEntry 
-              dispatchCart={dispatchCart}
-              dispatchTeam={dispatchTeam}
-              key={'itemEntry_' + item.id}
-              item={new ItemInSearch(item)} 
+            <EntitySearchEntry
+              entityClass="stats"
+              key={'statEntry_' + item.id}
+              name={item.formattedName}
+              linkName={item.name}
+              data={[
+                {
+                  key: 'Class', value: item.itemClass,
+                },
+              ]}
+              description={item.description}
             />
           </>
-        ))}
+        );
+      })}
     </>
   );
 }

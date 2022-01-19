@@ -365,23 +365,113 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
 
   const parentID = data.fieldStateByName[0].id;
 
-  const statresults = data.fieldStateByName[0].modifiesStat.edges.map(edge => new FieldStateStatResult(edge));
-  
+  const statResults = data.fieldStateByName[0].modifiesStat.edges.map(edge => new FieldStateStatResult(edge));
+  const boostStageResults = statResults.filter(result => result.stage > 0);
+  const reduceStageResults = statResults.filter(result => result.stage < 0);
+  const boostMultiplierResults = statResults.filter(result => result.multiplier > 1);
+  const reduceMultiplierResults = statResults.filter(result => result.multiplier < 1);
+
   return (
     <>
-      {statresults.map(result => (
-        <ConnectionAccordionEntry
-          targetEntityClass="stats"
-          key={`${parentID}_${result.id}_stat`}
-          name={result.formattedName}
-          linkName={result.name}
-          description={result.description}
-        />
-      ))}
+      {boostStageResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Boosts by stage</h3>
+        {boostStageResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="stats"
+            key={`${parentID}_${result.id}_boost_stage_stat`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            data={[
+              {
+                key: 'Stage', value: result.stage,
+              },
+              {
+                key: 'Chance', value: result.chance,
+              },
+              {
+                key: 'Recipient', value: result.recipient,
+              },
+            ]}
+          />
+        ))}
+      </div>)}
+      {boostMultiplierResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Boost by multiplier</h3>
+        {boostMultiplierResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="stats"
+            key={`${parentID}_${result.id}_boost_multiplier_stat`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            data={[
+              {
+                key: 'Multiplier', value: result.multiplier,
+              },
+              {
+                key: 'Chance', value: result.chance,
+              },
+              {
+                key: 'Recipient', value: result.recipient,
+              },
+            ]}
+          />
+        ))}
+      </div>)}
+      {reduceStageResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Reduces by stage</h3>
+        {reduceStageResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="stats"
+            key={`${parentID}_${result.id}_reduce_stage_stat`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            data={[
+              {
+                key: 'Stage', value: result.stage,
+              },
+              {
+                key: 'Chance', value: result.chance,
+              },
+              {
+                key: 'Recipient', value: result.recipient,
+              },
+            ]}
+          />
+        ))}
+      </div>)}
+      {reduceMultiplierResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Reduces by multiplier</h3>
+        {reduceMultiplierResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="stats"
+            key={`${parentID}_${result.id}_reduce_multiplier_stat`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            data={[
+              {
+                key: 'Multiplier', value: result.multiplier,
+              },
+              {
+                key: 'Chance', value: result.chance,
+              },
+              {
+                key: 'Recipient', value: result.recipient,
+              },
+            ]}
+          />
+        ))}
+      </div>)}
     </>
-  )
+  );
 }
-
 
 export const listRenderFieldStateStatus = ({ data, }: ListRenderArgs<FieldStateStatusQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'itemByName'.</div>);

@@ -26,24 +26,24 @@ const AbilityEntry = ({
   dispatchTeam,
 }: AbilityEntryProps) => {
   return (
-    <div className="planner__main-search-table-row planner__main-search-table-row--ability">
+    <div className="planner__search-row planner__search-row--ability">
       {/* Ability name */}
       <Link 
         to={`${ability.name}`}
-        className="planner__main-search-row-name"
+        className="planner__search-row-name"
       >
         {ability.formattedName}
       </Link>
 
-      <div className="planner__main-search-row-description">
+      <div className="planner__search-row-description">
         {ability.description}
       </div>
 
-      <div className="planner__main-search-row-data">
+      <div className="planner__search-row-data">
       </div>
 
       {/* Pokemon icons */}
-      <div className="planner__main-search-row-icons">
+      <div className="planner__search-row-icons">
         <div>
           {ability.pokemonIconData.map(pokemonIconDatum => {
             return (

@@ -54,7 +54,7 @@ export interface FieldStateSearchResult extends AuxEntitySearchResult {
   formattedName: string
   description: string
 
-  fieldStateClass: string
+  class: string
   damagePercent: number
   grounded: boolean
   maxLayers: number
@@ -99,7 +99,7 @@ export class FieldStateInSearch extends AuxEntityInSearch {
   constructor(gqlFieldState: FieldStateSearchResult) {
     super(gqlFieldState);
 
-    const { damagePercent, fieldStateClass, grounded, maxLayers, target, } = gqlFieldState;
+    const { damagePercent, class: fieldStateClass, grounded, maxLayers, target, } = gqlFieldState;
     this.damagePercent = damagePercent;
     this.fieldStateClass = fieldStateClass;
     this.grounded = grounded;

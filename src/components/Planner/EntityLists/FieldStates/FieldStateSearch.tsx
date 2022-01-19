@@ -25,22 +25,41 @@ import {
   TeamAction,
 } from "../../../App";
 
-import FieldStateEntry from './FieldStateEntry';
 import EntitySearchMain from '../EntitySearchMain';
+import EntitySearchEntry from '../EntitySearchEntry';
 
 const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
   if (!data || !data.fieldStates) return (<div>Data not found for the query 'fieldStates'.</div>);
   
   return (
     <>
-      {data.fieldStates.map((fieldState: FieldStateSearchResult) => (
+      {data.fieldStates.map((fieldStateSearchResult: FieldStateSearchResult) => {
+        const fieldState = new FieldStateInSearch(fieldStateSearchResult);
+        
+        // Build up field state data, leaving out certain default values
+        const fieldStateData: { key: string, value: string | number | boolean }[] = [{ key: 'Class', value: fieldState.fieldStateClass, }];
+        
+        if (fieldState.damagePercent > 0) fieldStateData.push({ key: 'Damage %', value: fieldState.damagePercent, });
+
+        fieldStateData.push({ key: 'Grounded', value: fieldState.grounded ? 'Yes' : 'No', })
+
+        if (fieldState.maxLayers > 1) fieldStateData.push({ key: 'Max layers', value: fieldState.maxLayers, });
+
+        fieldStateData.push({ key: 'Target', value: fieldState.target, });
+        
+        return (
           <>
-            <FieldStateEntry
+            <EntitySearchEntry
+              entityClass="fieldStates"
               key={'fieldStateEntry_' + fieldState.id}
-              fieldState={new FieldStateInSearch(fieldState)} 
+              name={fieldState.formattedName}
+              linkName={fieldState.name}
+              data={fieldStateData}
+              description={fieldState.description}
             />
           </>
-        ))}
+        );
+      })}
     </>
   );
 }
@@ -60,7 +79,7 @@ const FieldStateSearch = ({
   const [queryVars, setQueryVars] = useState<FieldStateSearchVars>({
     gen: gen,
     startsWith: '',
-    limit: 5,
+    limit: 100,
   })
 
   const handleSubmit: (newQueryVars: FieldStateSearchVars) => void = (newQueryVars) => {

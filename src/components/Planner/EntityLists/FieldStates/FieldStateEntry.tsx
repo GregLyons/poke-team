@@ -17,15 +17,15 @@ const FieldStateEntry = ({
   // Since Pokemon can learn Moves in multiple ways, we need to worry about duplicates. The keys of this object are Pokemon names, and the value is always 'true'; we only care about the keys.
 
   return (
-    <div className="planner__main-search-table-row">
+    <div className="planner__search-row">
       {/* FieldState name */}
       <Link 
         to={`${fieldState.name}`}
-        className="planner__main-search-row-name"
+        className="planner__search-row-name"
       >
         {fieldState.formattedName}
       </Link>
-      <div className="planner__main-search-row-description">
+      <div className="planner__search-row-description">
         {fieldState.description}
       </div>
       <Outlet />

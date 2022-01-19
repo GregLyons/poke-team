@@ -13,6 +13,10 @@ missing/incorrect/additional data:
 
   synchronize causes status
 
+  intimidate lowers attack by 1, not raises
+
+  remove toxic spikes damage %
+
 add timer to gen switcher to reduce chance of abusing images
 
 investigate connection cache data issue

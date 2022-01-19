@@ -25,22 +25,29 @@ import {
   TeamAction,
 } from "../../../App";
 
-import EffectEntry from './EffectEntry';
 import EntitySearchMain from '../EntitySearchMain';
+import EntitySearchEntry from '../EntitySearchEntry';
 
 const listRender = ({ data, }: ListRenderArgs<EffectSearchQuery>) => {
   if (!data || !data.effects) return (<div>Data not found for the query 'effects'.</div>);
   
   return (
     <>
-      {data.effects.map((effect: EffectSearchResult) => (
+      {data.effects.map((effectSearchResult: EffectSearchResult) => {
+        const effect = new EffectInSearch(effectSearchResult);
+
+        return (
           <>
-            <EffectEntry
-              key={'moveEntry_' + effect.id}
-              effect={new EffectInSearch(effect)} 
+            <EntitySearchEntry
+              entityClass="effects"
+              key={'effectEntry_' + effect.id}
+              name={effect.formattedName}
+              linkName={effect.name}
+              description={effect.description}
             />
           </>
-        ))}
+        );
+      })}
     </>
   );
 }
@@ -60,7 +67,7 @@ const EffectSearch = ({
   const [queryVars, setQueryVars] = useState<EffectSearchVars>({
     gen: gen,
     startsWith: '',
-    limit: 5,
+    limit: 100,
   })
 
   const handleSubmit: (newQueryVars: EffectSearchVars) => void = (newQueryVars) => {

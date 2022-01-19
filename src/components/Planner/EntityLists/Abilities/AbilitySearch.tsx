@@ -25,25 +25,35 @@ import {
   TeamAction,
 } from "../../../App";
 
-import AbilityEntry from './AbilityEntry';
 import EntitySearchMain from '../EntitySearchMain';
+import EntitySearchEntry from '../EntitySearchEntry';
 
 const listRender = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<AbilitySearchQuery>) => {
   if (!data || !data.abilities) return (<div>Data not found for the query 'abilities'.</div>);
-  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.')
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
   
   return (
     <>
-      {data.abilities.map((ability: AbilitySearchResult) => (
+      {data.abilities.map((abilitySearchResult: AbilitySearchResult) => {
+        const ability = new AbilityInSearch(abilitySearchResult);
+
+        return (
           <>
-            <AbilityEntry
-              dispatchCart={dispatchCart}
-              dispatchTeam={dispatchTeam}
+            <EntitySearchEntry
+              entityClass="abilities"
               key={'abilityEntry_' + ability.id}
-              ability={new AbilityInSearch(ability)} 
+              name={ability.formattedName}
+              linkName={ability.name}
+              description={ability.description}
+              icons={{
+                iconData: ability.pokemonIconData,
+                dispatchCart,
+                dispatchTeam,
+              }}
             />
           </>
-        ))}
+        );
+      })}
     </>
   );
 }

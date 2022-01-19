@@ -25,22 +25,34 @@ import {
   TeamAction,
 } from "../../../App";
 
-import StatusEntry from './StatusEntry';
 import EntitySearchMain from '../EntitySearchMain';
+import EntitySearchEntry from '../EntitySearchEntry';
 
 const listRender = ({ data, }: ListRenderArgs<StatusSearchQuery>) => {
   if (!data || !data.statuses) return (<div>Data not found for the query 'statuses'.</div>);
   
   return (
     <>
-      {data.statuses.map((status: StatusSearchResult) => (
+      {data.statuses.map((statusSearchResult: StatusSearchResult) => {
+        const status = new StatusInSearch(statusSearchResult);
+
+        return (
           <>
-            <StatusEntry
+            <EntitySearchEntry
+              entityClass="statuses"
               key={'statusEntry_' + status.id}
-              status={new StatusInSearch(status)} 
+              name={status.formattedName}
+              linkName={status.name}
+              description={status.description}
+              data={[
+                {
+                  key: 'Volatile', value: status.volatile ? 'Yes' : 'No'
+                },
+              ]}
             />
           </>
-        ))}
+        );
+      })}
     </>
   );
 }
@@ -60,7 +72,7 @@ const StatusSearch = ({
   const [queryVars, setQueryVars] = useState<StatusSearchVars>({
     gen: gen,
     startsWith: '',
-    limit: 5,
+    limit: 100,
   })
 
   const handleSubmit: (newQueryVars: StatusSearchVars) => void = (newQueryVars) => {

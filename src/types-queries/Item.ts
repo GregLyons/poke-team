@@ -40,6 +40,7 @@ export interface ItemSearchResult extends MainEntitySearchResult {
   id: string
   name: string
   formattedName: string
+  class: string
 
   descriptions: {
     edges: VersionDependentDescriptionEdge[]
@@ -62,6 +63,7 @@ export const ITEM_SEARCH_QUERY = gql`
       id
       name
       formattedName
+      class
 
       descriptions {
         edges(pagination: {limit: 1}) {
@@ -75,8 +77,12 @@ export const ITEM_SEARCH_QUERY = gql`
 `;
 
 export class ItemInSearch extends MainEntityInSearch {
+  public itemClass: string
+
   constructor(gqlItem: ItemSearchResult) {
     super(gqlItem);
+
+    this.itemClass = gqlItem.class;
   }
 }
 
