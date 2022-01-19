@@ -21,6 +21,9 @@ import {
   ABILITY_FIELDSTATE_QUERY,
   AbilityFieldStateQueryVars,
 
+  ABILITY_STAT_QUERY,
+  AbilityStatQueryVars,
+
   ABILITY_STATUS_QUERY,
   AbilityStatusQueryVars,
 } from '../../../../types-queries/Ability';
@@ -40,6 +43,7 @@ import {
 import {
   listRenderAbilityEffect,
   listRenderAbilityFieldState,
+  listRenderAbilityStat,
   listRenderAbilityStatus,
 } from './AbilityConnections';
 
@@ -76,6 +80,11 @@ const AbilityPage = ({
   });
 
   const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<AbilityFieldStateQueryVars>({
+    gen: gen,
+    name: abilityName,
+  });
+
+  const [statQueryVars, handleChangeStat] = useEntityConnectionChangeHandler<AbilityStatQueryVars>({
     gen: gen,
     name: abilityName,
   });
@@ -229,6 +238,18 @@ const AbilityPage = ({
                 listRender={listRenderAbilityFieldState}
                 query={ABILITY_FIELDSTATE_QUERY}
                 queryVars={fieldStateQueryVars}
+              />
+            </>,
+          },
+          {
+            title: `Stat interactions with ${abilityResult.formattedName}`,
+            content: abilityResult.modifiesStatCount > 0 && <>
+              <EntityConnectionSearch
+                gen={gen}
+                handleChange={handleChangeStat}
+                listRender={listRenderAbilityStat}
+                query={ABILITY_STAT_QUERY}
+                queryVars={statQueryVars}
               />
             </>,
           },

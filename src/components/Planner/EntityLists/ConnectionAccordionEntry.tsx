@@ -1,7 +1,17 @@
-import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { PokemonIconDatum } from "../../../types-queries/helpers";
-import { CartAction, TeamAction } from "../../App";
+import { 
+  useRef,
+  useState,
+} from "react";
+import {
+  Link,
+} from "react-router-dom";
+import {
+  PokemonIconDatum,
+} from "../../../types-queries/helpers";
+import { 
+  CartAction,
+  TeamAction,
+} from "../../App";
 import PokemonIcon from "../../PokemonIcon";
 
 
@@ -52,7 +62,8 @@ const ConnectionAccordionEntry = ({
     ref={entryRef}
       onMouseEnter={() => { 
         setHover(true);
-        timer.current = setTimeout(onTimeout, 500);
+        // Only expand if there is overflow in the element
+        if (entryRef.current && entryRef.current.offsetHeight < entryRef.current.scrollHeight) timer.current = setTimeout(onTimeout, 300);
       }}
       onMouseLeave={() => {
         setHover(false);
@@ -125,6 +136,7 @@ const ConnectionAccordionEntry = ({
             );
           })}
       </div>}
+      {!expand && <div className="planner__accordion-row-fade" />}
     </div>
   )
 }

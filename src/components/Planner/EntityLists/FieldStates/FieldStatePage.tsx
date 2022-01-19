@@ -30,6 +30,9 @@ import {
   FIELDSTATE_MOVE_QUERY,
   FieldStateMoveQueryVars,
 
+  FIELDSTATE_STAT_QUERY,
+  FieldStateStatQueryVars,
+
   FIELDSTATE_STATUS_QUERY,
   FieldStateStatusQueryVars,
 } from '../../../../types-queries/FieldState';
@@ -50,17 +53,18 @@ import {
   CartAction,
   TeamAction,
 } from "../../../App";
-
-import EntityConnectionSearch from '../EntityConnectionSearch';
-import ConnectionAccordion from '../ConnectionAccordion';
 import {
   listRenderFieldStateAbility,
   listRenderFieldStateEffect,
   listRenderFieldStateItem,
   listRenderFieldStateMove,
-  listRenderFieldStateStatus
+  listRenderFieldStateStat,
+  listRenderFieldStateStatus,
 } from './FieldStateConnections';
 import AuxEntityDescription from '../AuxEntityDescription';
+
+import EntityConnectionSearch from '../EntityConnectionSearch';
+import ConnectionAccordion from '../ConnectionAccordion';
 
 type FieldStatePageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -96,6 +100,11 @@ const FieldStatePage = ({
   });
 
   const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<FieldStateMoveQueryVars>({
+    gen: gen,
+    name: fieldStateName,
+  });
+
+  const [statQueryVars, handleChangeStat] = useEntityConnectionChangeHandler<FieldStateStatQueryVars>({
     gen: gen,
     name: fieldStateName,
   });
@@ -284,7 +293,20 @@ const FieldStatePage = ({
               />
             </>,
           },
-
+          {
+            title: `Stat interactions with ${fieldStateResult.formattedName}`,
+            content: fieldStateResult.modifiesStatCount > 0 && <>
+              <EntityConnectionSearch
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
+                gen={gen}
+                handleChange={handleChangeStat}
+                listRender={listRenderFieldStateStat}
+                query={FIELDSTATE_STAT_QUERY}
+                queryVars={statQueryVars}
+              />
+            </>,
+          },
           {
             title: `Status interactions with ${fieldStateResult.formattedName}`,
             content: fieldStateResult.statusCount > 0 && <>

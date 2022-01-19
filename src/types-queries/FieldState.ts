@@ -1063,6 +1063,79 @@ export class FieldStateMoveResult extends AuxToMainConnectionOnPage {
 
 // #endregion
 
+// FieldStateStat
+// #region
+
+export type FieldStateStatQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    modifiesStat: {
+      edges: FieldStateStatEdge[]
+    }
+  }[]
+}
+
+export interface FieldStateStatEdge extends AuxToAuxConnectionEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+
+    description: string
+  }
+  stage: number
+  multiplier: number
+  chance: number
+  recipient: string
+}
+
+export interface FieldStateStatQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+}
+
+export const FIELDSTATE_STAT_QUERY = gql`
+  query FieldStateStatQuery($gen: Int! $name: String!) {
+    fieldStateByName(generation: $gen, name: $name) {
+      id
+      modifiesStat {
+        edges {
+          node {
+            id
+            name
+            formattedName
+
+            description
+          }
+          stage
+          multiplier
+          chance
+          recipient
+        }
+      }
+    }
+  }
+`;
+
+export class FieldStateStatResult extends AuxToAuxConnectionOnPage {
+  public stage: number
+  public multiplier: number
+  public chance: number
+  public recipient: string
+
+  constructor(gqlFieldStateStat: FieldStateStatEdge) {
+    super(gqlFieldStateStat);
+
+    const { stage, multiplier, chance, recipient } = gqlFieldStateStat;
+    this.stage = stage;
+    this.multiplier = multiplier;
+    this.chance = chance;
+    this.recipient = recipient;
+  }
+}
+
+// #endregion
+
 // FieldStateStatus
 // #region
 

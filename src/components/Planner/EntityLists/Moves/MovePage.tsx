@@ -22,6 +22,9 @@ import {
   MOVE_FIELDSTATE_QUERY,
   MoveFieldStateQueryVars,
 
+  MOVE_STAT_QUERY,
+  MoveStatQueryVars,
+
   MOVE_STATUS_QUERY,
   MoveStatusQueryVars,
 } from '../../../../types-queries/Move';
@@ -43,6 +46,7 @@ import {
 import {
   listRenderMoveEffect,
   listRenderMoveFieldState,
+  listRenderMoveStat,
   listRenderMoveStatus,
 } from './MoveConnections';
 
@@ -79,6 +83,11 @@ const MovePage = ({
   });
 
   const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<MoveFieldStateQueryVars>({
+    gen: gen,
+    name: moveName,
+  });
+
+  const [statQueryVars, handleChangeStat] = useEntityConnectionChangeHandler<MoveStatQueryVars>({
     gen: gen,
     name: moveName,
   });
@@ -233,6 +242,18 @@ const MovePage = ({
                 listRender={listRenderMoveFieldState}
                 query={MOVE_FIELDSTATE_QUERY}
                 queryVars={fieldStateQueryVars}
+              />
+            </>,
+          },
+          {
+            title: `Stat interactions with ${moveResult.formattedName}`,
+            content: moveResult.modifiesStatCount > 0 && <>
+              <EntityConnectionSearch
+                gen={gen}
+                handleChange={handleChangeStat}
+                listRender={listRenderMoveStat}
+                query={MOVE_STAT_QUERY}
+                queryVars={statQueryVars}
               />
             </>,
           },

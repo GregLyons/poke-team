@@ -5,6 +5,9 @@ import {
   ItemFieldStateResult,
   ItemFieldStateQuery,
   
+  ItemStatResult,
+  ItemStatQuery,
+
   ItemStatusResult,
   ItemStatusQuery,
 } from "../../../../types-queries/Item";
@@ -110,6 +113,28 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
           />
         ))}
       </div>)}
+    </>
+  )
+}
+
+export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => {
+  if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
+
+  const parentID = data.itemByName[0].id;
+
+  const statResults = data.itemByName[0].modifiesStat.edges.map(edge => new ItemStatResult(edge));
+  
+  return (
+    <>
+      {statResults.map(result => (
+        <ConnectionAccordionEntry
+          targetEntityClass="stats"
+          key={`${parentID}_${result.id}_stat`}
+          name={result.formattedName}
+          linkName={result.name}
+          description={result.description}
+        />
+      ))}
     </>
   )
 }

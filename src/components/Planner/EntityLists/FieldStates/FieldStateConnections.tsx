@@ -11,6 +11,9 @@ import {
   FieldStateMoveResult,
   FieldStateMoveQuery,
 
+  FieldStateStatResult,
+  FieldStateStatQuery,
+
   FieldStateStatusResult,
   FieldStateStatusQuery,
 } from "../../../../types-queries/FieldState";
@@ -356,6 +359,29 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, }: 
     </>
   );
 }
+
+export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateStatQuery>) => {
+  if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
+
+  const parentID = data.fieldStateByName[0].id;
+
+  const statresults = data.fieldStateByName[0].modifiesStat.edges.map(edge => new FieldStateStatResult(edge));
+  
+  return (
+    <>
+      {statresults.map(result => (
+        <ConnectionAccordionEntry
+          targetEntityClass="stats"
+          key={`${parentID}_${result.id}_stat`}
+          name={result.formattedName}
+          linkName={result.name}
+          description={result.description}
+        />
+      ))}
+    </>
+  )
+}
+
 
 export const listRenderFieldStateStatus = ({ data, }: ListRenderArgs<FieldStateStatusQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'itemByName'.</div>);

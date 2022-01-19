@@ -559,6 +559,79 @@ export class MoveFieldStateResult extends MainToAuxConnectionOnPage {
 
 // #endregion
 
+// MoveStat
+// #region
+
+export type MoveStatQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    modifiesStat: {
+      edges: MoveStatEdge[]
+    }
+  }[]
+}
+
+export interface MoveStatEdge extends MainToAuxConnectionEdge, DescriptionEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+    
+    description: string
+  }
+  stage: number
+  multiplier: number
+  chance: number
+  recipient: string
+}
+
+export interface MoveStatQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+}
+
+export const MOVE_STAT_QUERY = gql`
+  query MoveStatQuery($gen: Int! $name: String!) {
+    moveByName(generation: $gen, name: $name) {
+      id
+      modifiesStat {
+        edges {
+          node {
+            id
+            name
+            formattedName
+
+            description
+          }
+          stage
+          multiplier
+          chance
+          recipient
+        }
+      }
+    }
+  }
+`;
+
+export class MoveStatResult extends MainToAuxConnectionOnPage {
+  public stage: number
+  public multiplier: number
+  public chance: number
+  public recipient: string
+
+  constructor(gqlMoveStat: MoveStatEdge) {
+    super(gqlMoveStat);
+
+    const { stage, multiplier, chance, recipient } = gqlMoveStat;
+    this.stage = stage;
+    this.multiplier = multiplier;
+    this.chance = chance;
+    this.recipient = recipient;
+  }
+}
+
+// #endregion
+
 // MoveStatus
 // #region
 

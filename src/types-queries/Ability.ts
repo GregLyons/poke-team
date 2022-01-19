@@ -465,6 +465,79 @@ export class AbilityFieldStateResult extends MainToAuxConnectionOnPage {
 
 // #endregion
 
+// AbilityStat
+// #region
+
+export type AbilityStatQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    modifiesStat: {
+      edges: AbilityStatEdge[]
+    }
+  }[]
+}
+
+export interface AbilityStatEdge extends MainToAuxConnectionEdge, DescriptionEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+    
+    description: string
+  }
+  stage: number
+  multiplier: number
+  chance: number
+  recipient: string
+}
+
+export interface AbilityStatQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+}
+
+export const ABILITY_STAT_QUERY = gql`
+  query AbilityStatQuery($gen: Int! $name: String!) {
+    abilityByName(generation: $gen, name: $name) {
+      id
+      modifiesStat {
+        edges {
+          node {
+            id
+            name
+            formattedName
+
+            description
+          }
+          stage
+          multiplier
+          chance
+          recipient
+        }
+      }
+    }
+  }
+`;
+
+export class AbilityStatResult extends MainToAuxConnectionOnPage {
+  public stage: number
+  public multiplier: number
+  public chance: number
+  public recipient: string
+
+  constructor(gqlAbilityStat: AbilityStatEdge) {
+    super(gqlAbilityStat);
+
+    const { stage, multiplier, chance, recipient } = gqlAbilityStat;
+    this.stage = stage;
+    this.multiplier = multiplier;
+    this.chance = chance;
+    this.recipient = recipient;
+  }
+}
+
+// #endregion
+
 // AbilityStatus
 // #region
 
@@ -497,7 +570,7 @@ export interface AbilityStatusQueryVars extends EntityConnectionVars {
 }
 
 export const ABILITY_STATUS_QUERY = gql`
-  query AbilityEffectQuery($gen: Int! $name: String!) {
+  query AbilityStatusQuery($gen: Int! $name: String!) {
     abilityByName(generation: $gen, name: $name) {
       id
       causesStatus {
@@ -511,8 +584,6 @@ export const ABILITY_STATUS_QUERY = gql`
           }
           chance
         }
-        
-        
       }
       resistsStatus {
         edges {

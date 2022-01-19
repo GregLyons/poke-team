@@ -3,6 +3,8 @@ import {
   AbilityEffectResult,
   AbilityFieldStateQuery,
   AbilityFieldStateResult,
+  AbilityStatQuery,
+  AbilityStatResult,
   AbilityStatusQuery,
   AbilityStatusResult,
 } from "../../../../types-queries/Ability";
@@ -139,6 +141,28 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
           />
         ))}
       </div>)}
+    </>
+  )
+}
+
+export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery>) => {
+  if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
+
+  const parentID = data.abilityByName[0].id;
+
+  const statResults = data.abilityByName[0].modifiesStat.edges.map(edge => new AbilityStatResult(edge));
+  
+  return (
+    <>
+      {statResults.map(result => (
+        <ConnectionAccordionEntry
+          targetEntityClass="stats"
+          key={`${parentID}_${result.id}_stat`}
+          name={result.formattedName}
+          linkName={result.name}
+          description={result.description}
+        />
+      ))}
     </>
   )
 }

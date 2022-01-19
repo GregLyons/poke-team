@@ -409,6 +409,79 @@ export class ItemFieldStateResult extends MainToAuxConnectionOnPage {
 
 // #endregion
 
+// ItemStat
+// #region
+
+export type ItemStatQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    modifiesStat: {
+      edges: ItemStatEdge[]
+    }
+  }[]
+}
+
+export interface ItemStatEdge extends MainToAuxConnectionEdge, DescriptionEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+    
+    description: string
+  }
+  stage: number
+  multiplier: number
+  chance: number
+  recipient: string
+}
+
+export interface ItemStatQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+}
+
+export const ITEM_STAT_QUERY = gql`
+  query ItemStatQuery($gen: Int! $name: String!) {
+    itemByName(generation: $gen, name: $name) {
+      id
+      modifiesStat {
+        edges {
+          node {
+            id
+            name
+            formattedName
+
+            description
+          }
+          stage
+          multiplier
+          chance
+          recipient
+        }
+      }
+    }
+  }
+`;
+
+export class ItemStatResult extends MainToAuxConnectionOnPage {
+  public stage: number
+  public multiplier: number
+  public chance: number
+  public recipient: string
+
+  constructor(gqlItemStat: ItemStatEdge) {
+    super(gqlItemStat);
+
+    const { stage, multiplier, chance, recipient } = gqlItemStat;
+    this.stage = stage;
+    this.multiplier = multiplier;
+    this.chance = chance;
+    this.recipient = recipient;
+  }
+}
+
+// #endregion
+
 // ItemStatus
 // #region
 

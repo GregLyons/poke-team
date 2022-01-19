@@ -21,6 +21,9 @@ import {
   ITEM_FIELDSTATE_QUERY,
   ItemFieldStateQueryVars,
 
+  ITEM_STAT_QUERY,
+  ItemStatQueryVars,
+
   ITEM_STATUS_QUERY,
   ItemStatusQueryVars,
 } from '../../../../types-queries/Item';
@@ -42,6 +45,7 @@ import {
 import {
   listRenderItemEffect,
   listRenderItemFieldState,
+  listRenderItemStat,
   listRenderItemStatus,
 } from './ItemConnections';
 
@@ -77,6 +81,11 @@ const ItemPage = ({
   });
 
   const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<ItemFieldStateQueryVars>({
+    gen: gen,
+    name: itemName,
+  });
+
+  const [statQueryVars, handleChangeStat] = useEntityConnectionChangeHandler<ItemStatQueryVars>({
     gen: gen,
     name: itemName,
   });
@@ -231,6 +240,18 @@ const ItemPage = ({
                 listRender={listRenderItemFieldState}
                 query={ITEM_FIELDSTATE_QUERY}
                 queryVars={fieldStateQueryVars}
+              />
+            </>,
+          },
+          {
+            title: `Stat interactions with ${itemResult.formattedName}`,
+            content: itemResult.modifiesStatCount > 0 && <>
+              <EntityConnectionSearch
+                gen={gen}
+                handleChange={handleChangeStat}
+                listRender={listRenderItemStat}
+                query={ITEM_STAT_QUERY}
+                queryVars={statQueryVars}
               />
             </>,
           },

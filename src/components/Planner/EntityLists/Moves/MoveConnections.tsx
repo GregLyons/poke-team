@@ -5,6 +5,9 @@ import {
   MoveFieldStateResult,
   MoveFieldStateQuery,
   
+  MoveStatResult,
+  MoveStatQuery,
+
   MoveStatusResult,
   MoveStatusQuery,
 } from "../../../../types-queries/Move";
@@ -101,6 +104,28 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
           />
         ))}
       </div>)}
+    </>
+  )
+}
+
+export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => {
+  if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
+
+  const parentID = data.moveByName[0].id;
+
+  const statResults = data.moveByName[0].modifiesStat.edges.map(edge => new MoveStatResult(edge));
+  
+  return (
+    <>
+      {statResults.map(result => (
+        <ConnectionAccordionEntry
+          targetEntityClass="stats"
+          key={`${parentID}_${result.id}_stat`}
+          name={result.formattedName}
+          linkName={result.name}
+          description={result.description}
+        />
+      ))}
     </>
   )
 }

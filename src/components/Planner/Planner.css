@@ -171,9 +171,10 @@
 
   --accordion-left-padding: 0.25rem;
   --accordion-left-shadow-size: 1rem;
-  --accordion-item-background: lavender;
+  --accordion-item-background: #f8f8f8;
   --positive: #90EE90;
   --negative: lightcoral;
+  --accordion-odd-entry-color: #e8e8e8;
 }
 
 .planner__accordion > * + * {
@@ -229,7 +230,7 @@
 }
 
 .planner__accordion-row:nth-of-type(odd) {
-  background-color: #e8e8e8;
+  background-color: var(--accordion-odd-entry-color);
 }
 
 .planner__accordion-subitem {
@@ -273,6 +274,9 @@
 /* Accordion entries */
 
 .planner__accordion-row {
+  /* For fade */
+  position: relative;
+
   grid-column: 1 / 11;
 
   display: grid;
@@ -289,9 +293,7 @@
 }
 
 .planner__accordion-row:hover {
-  outline: 1px solid black;
-  /* So outline appears over other entries */
-  z-index: 1;
+  box-shadow: -1px 0 black;
 }
 
 .planner__accordion-row-name {

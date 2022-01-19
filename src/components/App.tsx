@@ -38,6 +38,8 @@ import ItemMainPage from './Planner/EntityLists/Items/ItemMainPage';
 import ItemPage from './Planner/EntityLists/Items/ItemPage';
 import MoveMainPage from './Planner/EntityLists/Moves/MoveMainPage';
 import MovePage from './Planner/EntityLists/Moves/MovePage';
+import StatMainPage from './Planner/EntityLists/Stats/StatMainPage';
+import StatPage from './Planner/EntityLists/Stats/StatPage';
 import StatusMainPage from './Planner/EntityLists/Statuses/StatusMainPage';
 import StatusPage from './Planner/EntityLists/Statuses/StatusPage';
 
@@ -211,12 +213,17 @@ function App() {
 
           <Route 
             path='stats' 
-            element={<PlannerHome
+            element={<StatMainPage
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               gen={gen}
             />}
           />
+          <Route path="stats/:statId" element={<StatPage
+            dispatchCart={dispatchCart}
+            dispatchTeam={dispatchTeam}
+            gen={gen}
+          />} />
 
           <Route 
             path='statuses' 
