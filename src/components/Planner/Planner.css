@@ -311,15 +311,24 @@
 /* Pokemon icons */
 /* #region */
 
+.planner__pokemon-icon-container {
+  position: relative;
+  margin-right: 1px;
+}
+
+.planner__pokemon-icon-background {
+  position: absolute;
+}
+
 .planner__pokemon-icon {
+  position: absolute;
   background-image: url('../../assets/icons/pokemonicons-sheet.png');
   background-repeat: 'no-repeat';
 }
 
 .planner__pokemon-icon:hover {
-  background-color: lightblue;
-  cursor: pointer;
   transform: scale(1.2);
+  cursor: pointer;
   transition: transform 0.1s;
 }
 

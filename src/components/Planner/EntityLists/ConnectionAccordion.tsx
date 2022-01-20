@@ -80,7 +80,7 @@ const EntityConnectionAccordionItem = ({
         style={
           active 
             ? { 
-                height: contentRef.current?.scrollHeight,
+                height: 'auto',
               }
             : {
                 height: 0,

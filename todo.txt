@@ -20,3 +20,5 @@ missing/incorrect/additional data:
 add timer to gen switcher to reduce chance of abusing images
 
 investigate connection cache data issue
+
+moves on effect page expands when selecting pokemon

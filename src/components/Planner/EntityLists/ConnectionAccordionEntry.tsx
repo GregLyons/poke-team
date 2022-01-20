@@ -1,10 +1,12 @@
 import { 
+  useEffect,
   useRef,
   useState,
 } from "react";
 import {
   Link,
 } from "react-router-dom";
+import { useEntryExpand, useSelection } from "../../../hooks/hooks";
 import { GenerationNum } from "../../../types-queries/Generation";
 import {
   PokemonIconDatum,
@@ -17,6 +19,7 @@ import {
   TeamAction,
 } from "../../App";
 import PokemonIcon from "../../PokemonIcon";
+import SelectionControls from "./SelectionControls";
 
 
 type ConnectionAccordionEntryProps = {
@@ -47,42 +50,49 @@ const ConnectionAccordionEntry = ({
   data,
   icons,
 }: ConnectionAccordionEntryProps) => {
-  const [expand, setExpand] = useState(false);
+  
   const [hover, setHover] = useState(false);
 
-  const entryRef = useRef<HTMLDivElement>(null);
+  // Changing scroll height 
+  // #region
+
+  // Expand entry on a delay after hovering
+  const [expand, setExpand] = useState(false);
   const timer = useRef<NodeJS.Timeout>();
-
-  const [selection, setSelection] = useState<{
-      [key: string]: {
-        nameData: PokemonNameData,
-        selected: boolean,
-      }
-    }>({});
-
-  const toggleSelection = (psID: string) => {
-    setSelection({
-      ...selection,
-      [psID]: {
-        nameData: selection[psID].nameData,
-        selected: !selection[psID].selected,
-      }
-    });
-  }
-
-  const entryHeight = "6rem";
-
   const onTimeout = () => {
     setExpand(true);
   }
 
+  // Ref for component
+  const entryRef = useRef<HTMLDivElement>(null);
+
+  // Default height
+  const entryHeight = "6rem";
+  
+  const originalScrollHeight = useEntryExpand(entryRef);
+
+  // #endregion
+
+  // Selecting
+  // #region
+
+  const [selection, dispatchSelection] = useSelection(icons ? icons.iconData : undefined);
+
+  const toggleSelection = (psID: string) => {
+    dispatchSelection({
+      type: 'toggle',
+      payload: psID,
+    });
+  }
+
+  // #endregion
 
   // Since Pokemon can learn Moves in multiple ways, we need to worry about duplicates. The keys of this object are Pokemon names, and the value is always 'true'; we only care about the keys.
   let seenPokemon: {[k: string]: boolean} = {};
 
   return (
     <div 
-    ref={entryRef}
+      ref={entryRef}
       onMouseEnter={() => { 
         setHover(true);
         // Only expand if there is overflow in the element
@@ -94,9 +104,9 @@ const ConnectionAccordionEntry = ({
         setExpand(false);
       }}
       style={
-        expand
+        expand 
           ? { 
-              height: entryRef.current?.scrollHeight,
+              height: originalScrollHeight || 0,
               transitionDuration: entryRef.current 
                 ? `${entryRef.current.scrollHeight * 0.5}ms`
                 : ``,
@@ -143,8 +153,9 @@ const ConnectionAccordionEntry = ({
         ))}
       </div>
       {icons && <div className="planner__accordion-row-icons">
+        <>
           {icons.iconData.map(pokemonIconDatum => {
-            const { formattedName, name, psID, introduced } = pokemonIconDatum;
+            const { psID, } = pokemonIconDatum;
             const tier = psIDToTier(icons.gen, pokemonIconDatum.psID);
 
             // Ignore duplicate Pokemon
@@ -157,24 +168,6 @@ const ConnectionAccordionEntry = ({
               return;
             }
 
-            setSelection({
-              ...selection,
-              [psID]: {
-                nameData: {
-                  formattedName,
-                  name,
-                  psID,
-                  introduced,
-                },
-                selected: 
-                  selection[psID] 
-                    ? selection[psID].selected === undefined 
-                      ? false
-                      : selection[psID].selected
-                    : false,
-              }
-            });
-            
             return (
               <PokemonIcon
                 dispatchCart={icons.dispatchCart}
@@ -186,6 +179,11 @@ const ConnectionAccordionEntry = ({
               />
             );
           })}
+          <br />
+          <SelectionControls
+            dispatchSelection={dispatchSelection}
+          />
+        </>
       </div>}
     </div>
   )

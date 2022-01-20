@@ -5,6 +5,7 @@ import {
 import {
   Link,
 } from "react-router-dom";
+import { useEntryExpand, useSelection } from "../../../hooks/hooks";
 import {
   GenerationNum,
 } from "../../../types-queries/Generation";
@@ -24,6 +25,7 @@ import {
 } from "../../App";
 
 import PokemonIcon from "../../PokemonIcon";
+import SelectionControls from "./SelectionControls";
 
 type EntitySearchEntryProps = {
   entityClass: string
@@ -53,53 +55,42 @@ const EntitySearchEntry = ({
   data,
   icons,
 }: EntitySearchEntryProps) => {
-  const [expand, setExpand] = useState(false);
   const [hover, setHover] = useState(false);
 
-  const initialSelection = icons 
-    ? icons.iconData.reduce((acc, curr) => {
-        const { psID, name, formattedName, introduced } = curr;
-        return {
-          ...acc,
-          [curr.psID]: {
-            nameData: {
-              psID,
-              name,
-              formattedName,
-              introduced,
-            },
-            selected: false,
-          }
-        };
-      }, {})
-    : null;
+  // Changing scroll height 
+  // #region
 
-
-  const [selection, setSelection] = useState<{
-      [key: string]: {
-        nameData: PokemonNameData,
-        selected: boolean,
-      }
-    }>(initialSelection ? initialSelection : {});
-
-  const toggleSelection = (psID: string) => {
-    setSelection({
-      ...selection,
-      [psID]: {
-        nameData: selection[psID].nameData,
-        selected: !selection[psID].selected,
-      }
-    });
-  }
-
-  const entryRef = useRef<HTMLDivElement>(null);
+  // Expand entry on a delay after hovering
+  const [expand, setExpand] = useState(false);
   const timer = useRef<NodeJS.Timeout>();
-
-  const entryHeight = "6rem";
-
   const onTimeout = () => {
     setExpand(true);
   }
+
+  // Ref for component
+  const entryRef = useRef<HTMLDivElement>(null);
+
+  // Default height
+  const entryHeight = "6rem";
+  
+  const originalScrollHeight = useEntryExpand(entryRef);
+
+  // #endregion
+
+
+  // Selecting
+  // #region
+
+  const [selection, dispatchSelection] = useSelection(icons ? icons.iconData : undefined);
+
+  const toggleSelection = (psID: string) => {
+    dispatchSelection({
+      type: 'toggle',
+      payload: psID,
+    });
+  }
+
+  // #endregion
 
 
   // Since Pokemon can learn Moves in multiple ways, we need to worry about duplicates. The keys of this object are Pokemon names, and the value is always 'true'; we only care about the keys.
@@ -168,30 +159,34 @@ const EntitySearchEntry = ({
         ))}
       </div>
       {icons && <div className="planner__search-row-icons">
-          {icons.iconData.map(pokemonIconDatum => {
-            const { psID, } = pokemonIconDatum;
-            const tier = psIDToTier(icons.gen, psID);
+        {icons.iconData.map(pokemonIconDatum => {
+          const { psID, } = pokemonIconDatum;
+          const tier = psIDToTier(icons.gen, psID);
 
-            // Ignore duplicate Pokemon
-            if(seenPokemon.hasOwnProperty(pokemonIconDatum.name) || (tier && !icons.tierFilter[tier])) return;
-            // Add Pokemon to list of seen Pokemon
-            else seenPokemon[pokemonIconDatum.name] = true;
+          // Ignore duplicate Pokemon
+          if(seenPokemon.hasOwnProperty(pokemonIconDatum.name) || (tier && !icons.tierFilter[tier])) return;
+          // Add Pokemon to list of seen Pokemon
+          else seenPokemon[pokemonIconDatum.name] = true;
 
-            if (tier && !icons.tierFilter[tier]) {
-              return;
-            }
-            
-            return (
-              <PokemonIcon
-                dispatchCart={icons.dispatchCart}
-                dispatchTeam={icons.dispatchTeam}
-                key={key + '_' + pokemonIconDatum.name + '_icon'}
-                pokemonIconDatum={pokemonIconDatum}
-                selected={selection[psID].selected}
-                toggleSelection={toggleSelection}
-              />
-            );
-          })}
+          if (tier && !icons.tierFilter[tier]) {
+            return;
+          }
+          
+          return (
+            <PokemonIcon
+              dispatchCart={icons.dispatchCart}
+              dispatchTeam={icons.dispatchTeam}
+              key={key + '_' + pokemonIconDatum.name + '_icon'}
+              pokemonIconDatum={pokemonIconDatum}
+              selected={selection[psID].selected}
+              toggleSelection={toggleSelection}
+            />
+          );
+        })}
+        <br />
+        <SelectionControls 
+          dispatchSelection={dispatchSelection}
+        />
       </div>}
     </div>
   )

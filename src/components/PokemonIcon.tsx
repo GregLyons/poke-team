@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   PokemonIconDatum,
 } from "../types-queries/helpers";
@@ -28,20 +29,40 @@ const PokemonIcon = ({
 }: PokemonIconProps) => {
   const {left, top} = getPokemonIcon(pokemonIconDatum);
 
+  const [hover, setHover] = useState(false);
+
   return (
-    <div
-      onClick={(e) => toggleSelection(pokemonIconDatum.psID)}
-      className="planner__pokemon-icon"
-      title={`Icon for the Pokemon ${pokemonIconDatum.formattedName}`}
-      key={key}
+    <div className="planner__pokemon-icon-container"
       style={{
         width: '40px',
         height: '30px',
         display: 'inline-block',
-        backgroundPosition: `${left}px ${top}px`,
-        backgroundColor: selected ? 'green' : 'red',
-      }}              
-    />
+      }}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      <div className="planner__pokemon-icon-background" 
+        style={{
+          width: '40px',
+          height: '30px',
+          backgroundColor: (!selected && hover) || (selected && !hover)
+            ? 'lightblue' 
+            : '',
+        }}
+      />
+      <div
+        onClick={(e) => toggleSelection(pokemonIconDatum.psID)}
+        className="planner__pokemon-icon"
+        title={`Icon for the Pokemon ${pokemonIconDatum.formattedName}`}
+        key={key}
+        style={{
+          width: '40px',
+          height: '30px',
+          display: 'inline-block',
+          backgroundPosition: `${left}px ${top}px`,
+        }}              
+      />
+    </div>
   );
 };
 
