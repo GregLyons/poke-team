@@ -35,7 +35,7 @@ import {
   IntroductionQueryVars,
 } from '../../../../types-queries/helpers';
 import {
-  NUMBER_OF_GENS,
+  NUMBER_OF_GENS, TierFilter,
 } from '../../../../utils/constants';
 import {
   GenerationNum,

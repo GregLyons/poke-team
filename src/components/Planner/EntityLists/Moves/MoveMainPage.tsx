@@ -1,4 +1,7 @@
 import { GenerationNum } from "../../../../types-queries/Generation";
+import {
+  TierFilter,
+} from "../../../../utils/constants";
 
 import { 
   CartAction,
@@ -11,18 +14,21 @@ type MoveMainProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
+  tierFilter: TierFilter
 }
 
 const MoveMainPage = ({ 
   dispatchCart,
   dispatchTeam,
   gen,
+  tierFilter,
 }: MoveMainProps) => {
   return (
     <MoveSearch 
       dispatchCart={dispatchCart}
       dispatchTeam={dispatchTeam}
       gen={gen}
+      tierFilter={tierFilter}
     />
   )
 }

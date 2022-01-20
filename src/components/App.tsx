@@ -8,6 +8,11 @@ import {
 } from 'react-router-dom';
 import './../styles/App.css';
 
+// Smogon
+import { Dex } from '@pkmn/dex';
+import { Generations } from '@pkmn/data';
+import { Smogon } from '@pkmn/smogon';
+
 import {
   stringToGenNumber,
   GenerationNum,
@@ -16,7 +21,8 @@ import {
   Pokemon,
 } from '../types-queries/Pokemon';
 import {
-  NUMBER_OF_GENS,
+  DEFAULT_TIER_FILTER,
+  NUMBER_OF_GENS, SinglesTier, SINGLES_TIERS, TierFilter,
 } from '../utils/constants';
 
 import NavBar from './NavBar/NavBar';
@@ -42,7 +48,11 @@ import StatMainPage from './Planner/EntityLists/Stats/StatMainPage';
 import StatPage from './Planner/EntityLists/Stats/StatPage';
 import StatusMainPage from './Planner/EntityLists/Statuses/StatusMainPage';
 import StatusPage from './Planner/EntityLists/Statuses/StatusPage';
+import TierFilterForm from './TierFilter';
 
+const gens = new Generations(Dex);
+const smogon = new Smogon(fetch);
+console.log(gens.get(8).species.get('darmanitanzen')?.tier);
 
 export type Team = Pokemon[];
 export type TeamAction = 
@@ -81,12 +91,22 @@ function cartReducer(state: Cart, action: CartAction) {
 
 function App() {
   const [gen, setGen] = useState<GenerationNum>(NUMBER_OF_GENS);
+  const [tierFilter, setTierFilter] = useState<TierFilter>(DEFAULT_TIER_FILTER);
   const [cart, dispatchCart] = useReducer(cartReducer, []);
   const [team, dispatchTeam] = useReducer(teamReducer, []);
 
   // Change gen when slider is changed
   const handleGenSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setGen(stringToGenNumber(e.target.value));
+  }
+
+  const handleTierFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name = (e.target.name as SinglesTier);
+    if (!name) return;
+    setTierFilter({
+      ...tierFilter,
+      [name]: !tierFilter[name],
+    });
   }
 
   return (
@@ -96,6 +116,10 @@ function App() {
         <GenSlider 
           gen={gen}
           handleGenSliderChange={handleGenSliderChange}
+        />
+        <TierFilterForm
+          tierFilter={tierFilter}
+          handleTierFilterChange={handleTierFilterChange}
         />
         <TeamDisplay
           dispatchCart={dispatchCart}
@@ -113,6 +137,7 @@ function App() {
           dispatchCart={dispatchCart}
           dispatchTeam={dispatchTeam}
           gen={gen}
+          tierFilter={tierFilter}
         />} />
 
         {/* Routing for Builder */}
@@ -120,6 +145,7 @@ function App() {
           dispatchCart={dispatchCart}
           dispatchTeam={dispatchTeam}
           gen={gen}
+          tierFilter={tierFilter}
         />} />
 
         {/* Routing for Planner */}
@@ -127,6 +153,7 @@ function App() {
           dispatchCart={dispatchCart}
           dispatchTeam={dispatchTeam}
           gen={gen}
+          tierFilter={tierFilter}
         />} >
           {/* */}
           <Route
@@ -135,6 +162,7 @@ function App() {
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               gen={gen}
+              tierFilter={tierFilter}
             />}
           />
 
@@ -145,6 +173,7 @@ function App() {
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               gen={gen}
+              tierFilter={tierFilter}
             />}
           />
           <Route path="abilities/:abilityId" element={<AbilityPage 
@@ -159,6 +188,7 @@ function App() {
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               gen={gen}
+              tierFilter={tierFilter}
             />}
           />
           <Route path="items/:itemId" element={<ItemPage 
@@ -173,6 +203,7 @@ function App() {
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               gen={gen}
+              tierFilter={tierFilter}
             />} 
           >
           </Route>
@@ -195,6 +226,7 @@ function App() {
             dispatchCart={dispatchCart}
             dispatchTeam={dispatchTeam}
             gen={gen}
+            tierFilter={tierFilter}
           />} />
 
           <Route 
@@ -203,12 +235,14 @@ function App() {
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               gen={gen}
+              tierFilter={tierFilter}
             />}
           />
           <Route path="fieldStates/:fieldStateId" element={<FieldStatePage
             dispatchCart={dispatchCart}
             dispatchTeam={dispatchTeam}
             gen={gen}
+            tierFilter={tierFilter}
           />} />
 
           <Route 
@@ -217,12 +251,14 @@ function App() {
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               gen={gen}
+              tierFilter={tierFilter}
             />}
           />
           <Route path="stats/:statId" element={<StatPage
             dispatchCart={dispatchCart}
             dispatchTeam={dispatchTeam}
             gen={gen}
+            tierFilter={tierFilter}
           />} />
 
           <Route 
@@ -231,12 +267,14 @@ function App() {
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               gen={gen}
+              tierFilter={tierFilter}
             />}
           />
           <Route path="statuses/:statusId" element={<StatusPage
             dispatchCart={dispatchCart}
             dispatchTeam={dispatchTeam}
             gen={gen}
+            tierFilter={tierFilter}
           />} />
 
           <Route 
@@ -245,6 +283,7 @@ function App() {
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               gen={gen}
+              tierFilter={tierFilter}
             />}
           />
           <Route 
@@ -253,6 +292,7 @@ function App() {
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               gen={gen}
+              tierFilter={tierFilter}
             />}
           />
 

@@ -6,14 +6,23 @@ import {
   Link,
 } from "react-router-dom";
 import {
+  GenerationNum,
+} from "../../../types-queries/Generation";
+import {
   PokemonIconDatum,
 } from "../../../types-queries/helpers";
+import {
+  SinglesTier,
+  TierFilter,
+} from "../../../utils/constants";
+import { psIDToTier } from "../../../utils/smogonLogic";
+
 import { 
   CartAction,
   TeamAction,
 } from "../../App";
-import PokemonIcon from "../../PokemonIcon";
 
+import PokemonIcon from "../../PokemonIcon";
 
 type EntitySearchEntryProps = {
   entityClass: string
@@ -29,6 +38,8 @@ type EntitySearchEntryProps = {
     iconData: PokemonIconDatum[]
     dispatchCart: React.Dispatch<CartAction>
     dispatchTeam: React.Dispatch<TeamAction>
+    gen: GenerationNum
+    tierFilter: TierFilter
   }
 }
 
@@ -121,8 +132,10 @@ const EntitySearchEntry = ({
       </div>
       {icons && <div className="planner__search-row-icons">
           {icons.iconData.map(pokemonIconDatum => {
+            const tier = psIDToTier(icons.gen, pokemonIconDatum.psID);
+
             // Ignore duplicate Pokemon
-            if(seenPokemon.hasOwnProperty(pokemonIconDatum.name)) return;
+            if(seenPokemon.hasOwnProperty(pokemonIconDatum.name) || (tier && !icons.tierFilter[tier])) return;
             // Add Pokemon to list of seen Pokemon
             else seenPokemon[pokemonIconDatum.name] = true;
             

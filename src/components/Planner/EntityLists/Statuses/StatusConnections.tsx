@@ -14,13 +14,17 @@ import {
 import {
   ListRenderArgs,
   MissingDispatchError,
+  MissingGenError,
+  MissingTierFilterError,
 } from "../helpers";
 
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 
-export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<StatusAbilityQuery>) => {
+export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<StatusAbilityQuery>) => {
   if (!data || !data.statusByName) return (<div>Data not found for the query 'statusByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
+  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parentID = data.statusByName[0].id;
 
@@ -43,7 +47,9 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, }: L
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData
+              iconData: result.pokemonIconData,
+              gen: gen,
+              tierFilter: tierFilter,
             }}
           />
         ))}
@@ -64,7 +70,9 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, }: L
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData
+              iconData: result.pokemonIconData,
+              gen: gen,
+              tierFilter: tierFilter,
             }}
           />
         ))}
@@ -161,9 +169,11 @@ export const listRenderStatusItem = ({ data, }: ListRenderArgs<StatusItemQuery>)
   );
 }
 
-export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<StatusMoveQuery>) => {
+export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<StatusMoveQuery>) => {
   if (!data || !data.statusByName) return (<div>Data not found for the query 'statusByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
+  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parentID = data.statusByName[0].id;
 
@@ -186,7 +196,9 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, }: List
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData
+              iconData: result.pokemonIconData,
+              gen: gen,
+              tierFilter: tierFilter,
             }}
           />
         ))}
@@ -207,7 +219,9 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, }: List
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData
+              iconData: result.pokemonIconData,
+              gen: gen,
+              tierFilter: tierFilter,
             }}
           />
         ))}

@@ -1,6 +1,7 @@
 import {
   GenerationNum,
 } from "../../../types-queries/Generation";
+import { TierFilter } from "../../../utils/constants";
 
 import { 
   CartAction,
@@ -11,12 +12,14 @@ type PlannerHomeProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
+  tierFilter: TierFilter
 }
 
 const PlannerHome = ({ 
   dispatchCart,
   dispatchTeam,
   gen,
+  tierFilter,
 }: PlannerHomeProps) => (
   <div>
     This is the planner page.

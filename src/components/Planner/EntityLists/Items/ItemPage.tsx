@@ -34,7 +34,7 @@ import {
   IntroductionQueryVars,
 } from '../../../../types-queries/helpers';
 import {
-  NUMBER_OF_GENS,
+  NUMBER_OF_GENS, TierFilter,
 } from '../../../../utils/constants';
 import {
   GenerationNum,
@@ -57,6 +57,7 @@ import {
 import EntityConnectionSearch from '../EntityConnectionSearch';
 import ConnectionAccordion from '../ConnectionAccordion';
 import MainEntityDescriptionTable from '../MainEntityDescriptionTable';
+
 type ItemPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>

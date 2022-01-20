@@ -12,17 +12,20 @@ import {
 } from "../App";
 
 import PlannerNavBar from './PlannerNavBar';
+import { TierFilter } from "../../utils/constants";
 
 type PlannerProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
+  tierFilter: TierFilter
 }
 
 const Planner = ({
   dispatchCart,
   dispatchTeam,
   gen,
+  tierFilter,
 }: PlannerProps) => {
   return (
     <div className="planner-container">

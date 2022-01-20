@@ -1,6 +1,9 @@
 import {
   GenerationNum,
 } from '../../types-queries/Generation';
+import {
+  TierFilter,
+} from '../../utils/constants';
 
 import {
   CartAction,
@@ -13,12 +16,14 @@ type BuilderProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
+  tierFilter: TierFilter
 }
 
 const Builder = ({
   dispatchCart,
   dispatchTeam,
   gen,
+  tierFilter,
 }: BuilderProps) => {
 
   return (
@@ -27,6 +32,7 @@ const Builder = ({
         dispatchCart={dispatchCart}
         dispatchTeam={dispatchTeam}
         gen={gen}
+        tierFilter={tierFilter}
       />
     </div>
   );

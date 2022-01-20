@@ -4,7 +4,11 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.5.6",
+    "@pkmn/data": "^0.5.4",
+    "@pkmn/dex": "^0.5.4",
     "@pkmn/img": "^0.1.14",
+    "@pkmn/sets": "^2.0.0",
+    "@pkmn/smogon": "^0.0.12",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",

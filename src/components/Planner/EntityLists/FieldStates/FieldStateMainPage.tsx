@@ -1,6 +1,9 @@
 import {
   GenerationNum,
 } from "../../../../types-queries/Generation";
+import {
+  TierFilter,
+} from "../../../../utils/constants";
 
 import { 
   CartAction,
@@ -13,6 +16,7 @@ type FieldStateMainPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
+  tierFilter: TierFilter
 }
 
 const FieldStateMainPage = ({ 

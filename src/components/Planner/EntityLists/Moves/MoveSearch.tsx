@@ -17,7 +17,7 @@ import {
   GenerationNum,
 } from '../../../../types-queries/Generation';
 import {
-  ListRenderArgs, MissingDispatchError,
+  ListRenderArgs, MissingDispatchError, MissingGenError, MissingTierFilterError,
 } from '../helpers';
 
 import { 
@@ -27,10 +27,13 @@ import {
 
 import EntitySearchMain from '../EntitySearchMain';
 import EntitySearchEntry from '../EntitySearchEntry';
+import { TierFilter } from '../../../../utils/constants';
 
-const listRender = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<MoveSearchQuery>) => {
+const listRender = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<MoveSearchQuery>) => {
   if (!data || !data.moves) return (<div>Data not found for the query 'moves'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntitySearchMain component.');
+  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the EntitySearchMain component.');
   
   return (
     <>
@@ -72,6 +75,8 @@ const listRender = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<MoveSe
                 iconData: move.pokemonIconData,
                 dispatchCart,
                 dispatchTeam,
+                gen,
+                tierFilter,
               }}
             />
           </>
@@ -85,12 +90,14 @@ type MoveSearchProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
+  tierFilter: TierFilter
 }
 
 const MoveSearch = ({
   dispatchCart,
   dispatchTeam,
   gen,
+  tierFilter,
 }: MoveSearchProps) => {
   const [queryVars, setQueryVars] = useState<MoveSearchVars>({
     gen: gen,
@@ -110,6 +117,7 @@ const MoveSearch = ({
         dispatchCart={dispatchCart}
         dispatchTeam={dispatchTeam}
         gen={gen}
+        tierFilter={tierFilter}
         handleSubmit={handleSubmit}
         listRender={listRender}
         query={MOVE_SEARCH_QUERY}

@@ -1,16 +1,19 @@
 import { GenerationNum } from "../../types-queries/Generation";
+import { TierFilter } from "../../utils/constants";
 import { CartAction, TeamAction } from "../App";
 
 type AnalyzerProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
+  tierFilter: TierFilter
 }
 
 const Analyzer = ({
   dispatchCart,
   dispatchTeam,
   gen,
+  tierFilter,
 }: AnalyzerProps) => {
   return (
     <div>I'm the analyzer</div>

@@ -1,6 +1,9 @@
 import {
   GenerationNum,
 } from "../../../../types-queries/Generation";
+import {
+  TierFilter,
+} from "../../../../utils/constants";
 
 import { 
   CartAction,

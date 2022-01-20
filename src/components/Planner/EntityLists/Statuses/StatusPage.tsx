@@ -37,7 +37,7 @@ import {
   IntroductionQueryVars,
 } from '../../../../types-queries/helpers';
 import {
-  NUMBER_OF_GENS,
+  NUMBER_OF_GENS, TierFilter,
 } from '../../../../utils/constants';
 import {
   GenerationNum,
@@ -62,12 +62,14 @@ type StatusPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
+  tierFilter: TierFilter
 }
 
 const StatusPage = ({
   dispatchCart,
   dispatchTeam,
   gen,
+  tierFilter,
 }: StatusPageProps) => {
   const params = useParams();
   
@@ -226,6 +228,7 @@ const StatusPage = ({
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
                 gen={gen}
+                tierFilter={tierFilter}
                 handleChange={handleChangeAbility}
                 listRender={listRenderStatusAbility}
                 query={STATUS_ABILITY_QUERY}
@@ -254,6 +257,7 @@ const StatusPage = ({
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
                 gen={gen}
+                tierFilter={tierFilter}
                 handleChange={handleChangeItem}
                 listRender={listRenderStatusItem}
                 query={STATUS_ITEM_QUERY}
@@ -268,6 +272,7 @@ const StatusPage = ({
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
                 gen={gen}
+                tierFilter={tierFilter}
                 handleChange={handleChangeMove}
                 listRender={listRenderStatusMove}
                 query={STATUS_MOVE_QUERY}

@@ -20,13 +20,17 @@ import {
 import {
   ListRenderArgs,
   MissingDispatchError,
+  MissingGenError,
+  MissingTierFilterError,
 } from "../helpers";
 
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 
-export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<FieldStateAbilityQuery>) => {
+export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<FieldStateAbilityQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
+  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parentID = data.fieldStateByName[0].id;
 
@@ -52,7 +56,9 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData
+              iconData: result.pokemonIconData,
+              gen: gen,
+              tierFilter: tierFilter,
             }}
           />
         ))}
@@ -71,7 +77,9 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData
+              iconData: result.pokemonIconData,
+              gen: gen,
+              tierFilter: tierFilter,
             }}
           />
         ))}
@@ -92,7 +100,9 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData
+              iconData: result.pokemonIconData,
+              gen: gen,
+              tierFilter: tierFilter,
             }}
           />
         ))}
@@ -113,7 +123,9 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData
+              iconData: result.pokemonIconData,
+              gen: gen,
+              tierFilter: tierFilter,
             }}
           />
         ))}
@@ -134,7 +146,9 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData
+              iconData: result.pokemonIconData,
+              gen: gen,
+              tierFilter: tierFilter,
             }}
           />
         ))}
@@ -155,7 +169,9 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData
+              iconData: result.pokemonIconData,
+              gen: gen,
+              tierFilter: tierFilter,
             }}
           />
         ))}
@@ -264,9 +280,11 @@ export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateIte
   );
 }
 
-export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<FieldStateMoveQuery>) => {
+export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<FieldStateMoveQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
+  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parentID = data.fieldStateByName[0].id;
 
@@ -291,7 +309,9 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, }: 
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData
+              iconData: result.pokemonIconData,
+              gen: gen,
+              tierFilter: tierFilter,
             }}
           />
         ))}
@@ -312,7 +332,9 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, }: 
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData
+              iconData: result.pokemonIconData,
+              gen: gen,
+              tierFilter: tierFilter,
             }}
           />
         ))}
@@ -333,7 +355,9 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, }: 
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData
+              iconData: result.pokemonIconData,
+              gen: gen,
+              tierFilter: tierFilter,
             }}
           />
         ))}
@@ -351,7 +375,9 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, }: 
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData
+              iconData: result.pokemonIconData,
+              gen: gen,
+              tierFilter: tierFilter,
             }}
           />
         ))}

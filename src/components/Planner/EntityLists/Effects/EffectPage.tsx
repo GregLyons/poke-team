@@ -37,7 +37,7 @@ import {
   IntroductionQueryVars,
 } from '../../../../types-queries/helpers';
 import {
-  NUMBER_OF_GENS,
+  NUMBER_OF_GENS, TierFilter,
 } from '../../../../utils/constants';
 import {
   GenerationNum,
@@ -57,12 +57,14 @@ type EffectPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
+  tierFilter: TierFilter
 }
 
 const EffectPage = ({
   dispatchCart,
   dispatchTeam,
   gen,
+  tierFilter,
 }: EffectPageProps) => {
   const params = useParams();
   
@@ -221,6 +223,7 @@ const EffectPage = ({
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
                 gen={gen}
+                tierFilter={tierFilter}
                 handleChange={handleChangeAbility}
                 listRender={listRenderEffectAbility}
                 query={EFFECT_ABILITY_QUERY}
@@ -249,6 +252,7 @@ const EffectPage = ({
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
                 gen={gen}
+                tierFilter={tierFilter}
                 handleChange={handleChangeItem}
                 listRender={listRenderEffectItem}
                 query={EFFECT_ITEM_QUERY}
@@ -263,6 +267,7 @@ const EffectPage = ({
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
                 gen={gen}
+                tierFilter={tierFilter}
                 handleChange={handleChangeMove}
                 listRender={listRenderEffectMove}
                 query={EFFECT_MOVE_QUERY}

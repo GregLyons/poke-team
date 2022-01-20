@@ -19,6 +19,7 @@ import {
   CartAction,
   TeamAction,
 } from '../App';
+import { TierFilter } from '../../utils/constants';
 
 const POKEMON_SEARCH_QUERY = gql`
   query PokemonSearchQuery(
@@ -68,12 +69,14 @@ type PokemonSearchProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
+  tierFilter: TierFilter
 }
 
 const PokemonSearch = ({
   dispatchCart,
   dispatchTeam,
   gen,
+  tierFilter,
 }: PokemonSearchProps) => {
   const [searchFilter, setSearchFilter] = useState({});
   const [executedSearch, setExecutedSearch] = useState<boolean>(false);

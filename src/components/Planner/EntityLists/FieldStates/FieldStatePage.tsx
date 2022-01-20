@@ -43,7 +43,7 @@ import {
   IntroductionQueryVars,
 } from '../../../../types-queries/helpers';
 import {
-  NUMBER_OF_GENS,
+  NUMBER_OF_GENS, TierFilter,
 } from '../../../../utils/constants';
 import {
   GenerationNum,
@@ -70,12 +70,14 @@ type FieldStatePageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
+  tierFilter: TierFilter
 }
 
 const FieldStatePage = ({
   dispatchCart,
   dispatchTeam,
   gen,
+  tierFilter,
 }: FieldStatePageProps) => {
   const params = useParams();
   
@@ -244,6 +246,7 @@ const FieldStatePage = ({
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
                 gen={gen}
+                tierFilter={tierFilter}
                 handleChange={handleChangeAbility}
                 listRender={listRenderFieldStateAbility}
                 query={FIELDSTATE_ABILITY_QUERY}
@@ -272,6 +275,7 @@ const FieldStatePage = ({
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
                 gen={gen}
+                tierFilter={tierFilter}
                 handleChange={handleChangeItem}
                 listRender={listRenderFieldStateItem}
                 query={FIELDSTATE_ITEM_QUERY}
@@ -286,6 +290,7 @@ const FieldStatePage = ({
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
                 gen={gen}
+                tierFilter={tierFilter}
                 handleChange={handleChangeMove}
                 listRender={listRenderFieldStateMove}
                 query={FIELDSTATE_MOVE_QUERY}

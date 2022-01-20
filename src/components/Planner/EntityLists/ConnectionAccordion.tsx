@@ -79,10 +79,12 @@ const EntityConnectionAccordionItem = ({
         className="planner__accordion-content"
         style={
           active 
-            ? {minHeight: contentRef.current?.scrollHeight,
-               maxHeight: 'none',}
-            : {minHeight: 0,
-               maxHeight: 0,}
+            ? { 
+                height: contentRef.current?.scrollHeight,
+              }
+            : {
+                height: 0,
+              }
         }
       >
         {content}

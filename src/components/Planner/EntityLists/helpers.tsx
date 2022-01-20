@@ -1,6 +1,8 @@
 import {
   useState,
 } from "react";
+import { GenerationNum } from "../../../types-queries/Generation";
+import { TierFilter } from "../../../utils/constants";
 
 import {
   CartAction,
@@ -14,6 +16,8 @@ export type ListRenderArgs<SearchQuery> = {
   data: SearchQuery
   dispatchCart?: React.Dispatch<CartAction>
   dispatchTeam?: React.Dispatch<TeamAction>
+  gen: GenerationNum
+  tierFilter?: TierFilter
 }
 
 export class MissingDispatchError extends Error {
@@ -27,6 +31,34 @@ export class MissingDispatchError extends Error {
     }
 
     this.name='MissingDispatchError';
+  }
+}
+
+export class MissingGenError extends Error {
+  constructor(msg: string) {
+    super(msg);
+
+    Object.setPrototypeOf(this, MissingGenError.prototype)
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, MissingGenError);
+    }
+
+    this.name='MissingGenError';
+  }
+}
+
+export class MissingTierFilterError extends Error {
+  constructor(msg: string) {
+    super(msg);
+
+    Object.setPrototypeOf(this, MissingTierFilterError.prototype)
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, MissingTierFilterError);
+    }
+
+    this.name='MissingTierFilterError';
   }
 }
 

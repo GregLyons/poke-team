@@ -24,11 +24,13 @@ import {
   CartAction,
   TeamAction,
 } from '../../App';
+import { TierFilter } from '../../../utils/constants';
 
 interface EntitySearchMainProps<SearchQuery, SearchQueryVars> {
   dispatchCart?: React.Dispatch<CartAction>
   dispatchTeam?: React.Dispatch<TeamAction>
   gen: GenerationNum
+  tierFilter?: TierFilter
   handleSubmit: (newQueryVars: SearchQueryVars) => void,
   query: DocumentNode,
   queryVars: SearchQueryVars,
@@ -39,6 +41,7 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
   dispatchCart,
   dispatchTeam,
   gen,
+  tierFilter,
   handleSubmit,
   listRender,
   query,
@@ -134,7 +137,7 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
       </form>
       {loading 
         ? <div>Loading...</div>
-        : data && listRender({ data, dispatchCart, dispatchTeam })
+        : data && listRender({ data, dispatchCart, dispatchTeam, tierFilter, gen, })
       }
     </>
   );
