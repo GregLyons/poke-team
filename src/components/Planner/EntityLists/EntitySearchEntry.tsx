@@ -16,6 +16,7 @@ import {
   TierFilter,
 } from "../../../utils/constants";
 import { psIDToTier } from "../../../utils/smogonLogic";
+import { PokemonNameData } from "../../../utils/sprites";
 
 import { 
   CartAction,
@@ -54,6 +55,42 @@ const EntitySearchEntry = ({
 }: EntitySearchEntryProps) => {
   const [expand, setExpand] = useState(false);
   const [hover, setHover] = useState(false);
+
+  const initialSelection = icons 
+    ? icons.iconData.reduce((acc, curr) => {
+        const { psID, name, formattedName, introduced } = curr;
+        return {
+          ...acc,
+          [curr.psID]: {
+            nameData: {
+              psID,
+              name,
+              formattedName,
+              introduced,
+            },
+            selected: false,
+          }
+        };
+      }, {})
+    : null;
+
+
+  const [selection, setSelection] = useState<{
+      [key: string]: {
+        nameData: PokemonNameData,
+        selected: boolean,
+      }
+    }>(initialSelection ? initialSelection : {});
+
+  const toggleSelection = (psID: string) => {
+    setSelection({
+      ...selection,
+      [psID]: {
+        nameData: selection[psID].nameData,
+        selected: !selection[psID].selected,
+      }
+    });
+  }
 
   const entryRef = useRef<HTMLDivElement>(null);
   const timer = useRef<NodeJS.Timeout>();
@@ -132,19 +169,26 @@ const EntitySearchEntry = ({
       </div>
       {icons && <div className="planner__search-row-icons">
           {icons.iconData.map(pokemonIconDatum => {
-            const tier = psIDToTier(icons.gen, pokemonIconDatum.psID);
+            const { psID, } = pokemonIconDatum;
+            const tier = psIDToTier(icons.gen, psID);
 
             // Ignore duplicate Pokemon
             if(seenPokemon.hasOwnProperty(pokemonIconDatum.name) || (tier && !icons.tierFilter[tier])) return;
             // Add Pokemon to list of seen Pokemon
             else seenPokemon[pokemonIconDatum.name] = true;
+
+            if (tier && !icons.tierFilter[tier]) {
+              return;
+            }
             
             return (
               <PokemonIcon
                 dispatchCart={icons.dispatchCart}
                 dispatchTeam={icons.dispatchTeam}
                 key={key + '_' + pokemonIconDatum.name + '_icon'}
-                pokemonIconDatum={pokemonIconDatum} 
+                pokemonIconDatum={pokemonIconDatum}
+                selected={selection[psID].selected}
+                toggleSelection={toggleSelection}
               />
             );
           })}

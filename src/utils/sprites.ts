@@ -7,10 +7,10 @@ import { Pokemon } from '../types-queries/Pokemon.js';
 //#region 
 
 // The 
-type PokemonNameData = {
+export type PokemonNameData = {
+  formattedName: string
   name: string
-  speciesName: string
-
+  psID: string
   introduced: GenerationNum
 }
 
@@ -23,7 +23,7 @@ export const getPokemonSprite = (pokemon: Pokemon | PokemonNameData, gen: Genera
 
   // If the pokemon.name is incompatible, use the speciesName instead.
   if (url.includes('0.png')) {
-    return Sprites.getPokemon(pokemon.speciesName.replace('_', ''), {gen: gen});
+    return Sprites.getPokemon(pokemon.psID.replace('_', ''), {gen: gen});
   } else {
     return Sprites.getPokemon(pokemon.name.replace('_', ''), {gen: gen});
   }
