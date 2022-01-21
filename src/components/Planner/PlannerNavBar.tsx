@@ -37,7 +37,7 @@ const PlannerNavBar = () => {
           <Link to="types">Types</Link>
         </li>
         <li className="planner-nav-bar__secondary-item">
-          <Link to="usage-methods">Usage methods</Link>
+          <Link to="usageMethods">Usage methods</Link>
         </li>
       </nav>
     </div>

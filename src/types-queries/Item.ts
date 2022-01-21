@@ -240,6 +240,7 @@ export class ItemOnPage extends MainEntityOnPage {
   public fieldStateCount: number
   public statusCount: number
   public typeCount: number
+  public usageMethodCount: number
 
   constructor(gqlItem: ItemPageResult) {
     // Data for ItemPage
@@ -268,6 +269,8 @@ export class ItemOnPage extends MainEntityOnPage {
     this.statusCount = this.causesStatusCount + this.resistsStatusCount;
 
     this.typeCount = this.boostsTypeCount + this.naturalGiftCount + this.resistsTypeCount;
+
+    this.usageMethodCount = this.boostsUsageMethodCount + this.resistsUsageMethodCount;
   }
 }
 
@@ -679,10 +682,10 @@ export class ItemTypeResult extends MainToAuxConnectionOnPage {
 export type ItemUsageMethodQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
-    boostsType: {
+    boostsUsageMethod: {
       edges: ItemUsageMethodEdge[]
     }
-    resistsType: {
+    resistsUsageMethod: {
       edges: ItemUsageMethodEdge[]
     }
   }[]
@@ -704,7 +707,7 @@ export interface ItemUsageMethodQueryVars extends EntityConnectionVars {
 }
 
 export const ITEM_USAGEMETHOD_QUERY = gql`
-  query ItemTypeQuery($gen: Int! $name: String!) {
+  query ItemUsageMethodQuery($gen: Int! $name: String!) {
     itemByName(generation: $gen, name: $name) {
       id
       boostsUsageMethod {

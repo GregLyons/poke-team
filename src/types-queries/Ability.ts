@@ -704,10 +704,10 @@ export class AbilityTypeResult extends MainToAuxConnectionOnPage {
 export type AbilityUsageMethodQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
-    boostsType: {
+    boostsUsageMethod: {
       edges: AbilityUsageMethodEdge[]
     }
-    resistsType: {
+    resistsUsageMethod: {
       edges: AbilityUsageMethodEdge[]
     }
   }[]
@@ -729,7 +729,7 @@ export interface AbilityUsageMethodQueryVars extends EntityConnectionVars {
 }
 
 export const ABILITY_USAGEMETHOD_QUERY = gql`
-  query AbilityTypeQuery($gen: Int! $name: String!) {
+  query AbilityUsageMethodQuery($gen: Int! $name: String!) {
     abilityByName(generation: $gen, name: $name) {
       id
       boostsUsageMethod {

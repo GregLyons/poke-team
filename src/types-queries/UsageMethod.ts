@@ -136,7 +136,7 @@ export interface UsageMethodPageQueryVars extends EntityPageVars {
 
 export const USAGEMETHOD_PAGE_QUERY = gql`
   query UsageMethodPageQuery($gen: Int! $name: String!) {
-    typeByName(generation: $gen, name: $name) {
+    usageMethodByName(generation: $gen, name: $name) {
       id
       name
       formattedName
@@ -238,7 +238,7 @@ export interface UsageMethodAbilityQueryVars extends EntityConnectionVars {
 
 export const USAGEMETHOD_ABILITY_QUERY = gql`
   query UsageMethodAbilitiesQuery($gen: Int! $name: String!) {
-    typeByName(generation: $gen, name: $name) {
+    usageMethodByName(generation: $gen, name: $name) {
       id 
       boostedByAbility {
         edges {
@@ -369,7 +369,7 @@ export interface UsageMethodItemQueryVars extends EntityConnectionVars {
 
 export const USAGEMETHOD_ITEM_QUERY = gql`
   query UsageMethodItemsQuery($gen: Int! $name: String!) {
-    typeByName(generation: $gen, name: $name) {
+    usageMethodByName(generation: $gen, name: $name) {
       id 
       boostedByItem {
         edges {
@@ -463,7 +463,7 @@ export interface UsageMethodMoveQueryVars extends EntityConnectionVars {
 
 export const USAGEMETHOD_MOVE_QUERY = gql`
   query UsageMethodMovesQuery($gen: Int! $name: String!) {
-    typeByName(generation: $gen, name: $name) {
+    usageMethodByName(generation: $gen, name: $name) {
       id 
       moves {
         edges {

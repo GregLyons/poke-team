@@ -9,6 +9,8 @@ import {
   AbilityStatusResult,
   AbilityTypeQuery,
   AbilityTypeResult,
+  AbilityUsageMethodQuery,
+  AbilityUsageMethodResult,
 } from "../../../../types-queries/Ability";
 import {
   ListRenderArgs,
@@ -327,7 +329,7 @@ export const listRenderAbilityType = ({ data, }: ListRenderArgs<AbilityTypeQuery
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multiplier', value: result.multiplier || 1}]}
+            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
           />
         ))}
       </div>)}
@@ -344,7 +346,58 @@ export const listRenderAbilityType = ({ data, }: ListRenderArgs<AbilityTypeQuery
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multiplier', value: result.multiplier || 1}]}
+            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+          />
+        ))}
+      </div>)}
+    </>
+  );
+}
+
+export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUsageMethodQuery>) => {
+  if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
+
+  const parentID = data.abilityByName[0].id;
+
+  const boostsResults = data.abilityByName[0].boostsUsageMethod.edges.map(edge => new AbilityUsageMethodResult(edge));
+  const resistsResults = data.abilityByName[0].resistsUsageMethod.edges.map(edge => new AbilityUsageMethodResult(edge));
+  resistsResults.map(result => {
+    console.log(result.multiplier)
+  });
+
+  return (
+    <>
+      {boostsResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Boosts usage method</h3>
+        <p className="planner__accordion-clarification">
+          Ability boosts the power of moves of this usage method used by the Pokemon.
+        </p> 
+        {boostsResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="usageMethods"
+            key={`${parentID}_${result.id}_boost_usageMethod`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            data={[{key: 'Multiplier', value: result.multiplier}]}
+          />
+        ))}
+      </div>)}
+      {resistsResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Resists usage method</h3>
+        <p className="planner__accordion-clarification">
+          Ability resists moves of this usage method used against the Pokemon.
+        </p>
+        {resistsResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="usageMethods"
+            key={`${parentID}_${result.id}_resist_usageMethod`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            data={[{key: 'Multiplier', value: result.multiplier}]}
           />
         ))}
       </div>)}

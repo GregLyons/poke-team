@@ -10,6 +10,8 @@ missing/incorrect/additional data:
   gravity field state
 
   grounded status
+  
+  other ability interactions with usage methods
 
   add status-cause chance to abilities, items, field states
 

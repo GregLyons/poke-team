@@ -36,17 +36,6 @@ const listRender = ({ data, }: ListRenderArgs<UsageMethodSearchQuery>) => {
       {data.usageMethods.map((usageMethodSearchResult: UsageMethodSearchResult) => {
         const usageMethod = new UsageMethodInSearch(usageMethodSearchResult);
         
-        // Build up field state data, leaving out certain default values
-        const usageMethodData: { key: string, value: string | number | boolean }[] = [{ key: 'Class', value: usageMethod.usageMethodClass, }];
-        
-        if (usageMethod.damagePercent > 0) usageMethodData.push({ key: 'Damage %', value: usageMethod.damagePercent, });
-
-        usageMethodData.push({ key: 'Grounded', value: usageMethod.grounded ? 'Yes' : 'No', })
-
-        if (usageMethod.maxLayers > 1) usageMethodData.push({ key: 'Max layers', value: usageMethod.maxLayers, });
-
-        usageMethodData.push({ key: 'Target', value: usageMethod.target, });
-        
         return (
           <>
             <EntitySearchEntry
@@ -54,7 +43,6 @@ const listRender = ({ data, }: ListRenderArgs<UsageMethodSearchQuery>) => {
               key={'usageMethodEntry_' + usageMethod.id}
               name={usageMethod.formattedName}
               linkName={usageMethod.name}
-              data={usageMethodData}
               description={usageMethod.description}
             />
           </>

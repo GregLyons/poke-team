@@ -21,23 +21,11 @@ import {
   USAGEMETHOD_ABILITY_QUERY,
   UsageMethodAbilityQueryVars,
 
-  USAGEMETHOD_EFFECT_QUERY,
-  UsageMethodEffectQueryVars,
-
   USAGEMETHOD_ITEM_QUERY,
   UsageMethodItemQueryVars,
 
   USAGEMETHOD_MOVE_QUERY,
   UsageMethodMoveQueryVars,
-
-  USAGEMETHOD_STAT_QUERY,
-  UsageMethodStatQueryVars,
-
-  USAGEMETHOD_STATUS_QUERY,
-  UsageMethodStatusQueryVars,
-
-  USAGEMETHOD_TYPE_QUERY,
-  UsageMethodTypeQueryVars,
 } from '../../../../types-queries/UsageMethod';
 import {
   INTRODUCTION_QUERY,
@@ -59,12 +47,8 @@ import {
 } from "../../../App";
 import {
   listRenderUsageMethodAbility,
-  listRenderUsageMethodEffect,
   listRenderUsageMethodItem,
   listRenderUsageMethodMove,
-  listRenderUsageMethodStat,
-  listRenderUsageMethodStatus,
-  listRenderUsageMethodType,
 } from './UsageMethodConnections';
 import AuxEntityDescription from '../AuxEntityDescription';
 
@@ -95,33 +79,12 @@ const UsageMethodPage = ({
     gen: gen,
     name: usageMethodName,
   });
-
-  const [effectQueryVars, handleChangeEffect] = useEntityConnectionChangeHandler<UsageMethodEffectQueryVars>({
-    gen: gen,
-    name: usageMethodName,
-  });
-
   const [itemQueryVars, handleChangeItem] = useEntityConnectionChangeHandler<UsageMethodItemQueryVars>({
     gen: gen,
     name: usageMethodName,
   });
 
   const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<UsageMethodMoveQueryVars>({
-    gen: gen,
-    name: usageMethodName,
-  });
-
-  const [statQueryVars, handleChangeStat] = useEntityConnectionChangeHandler<UsageMethodStatQueryVars>({
-    gen: gen,
-    name: usageMethodName,
-  });
-
-  const [statusQueryVars, handleChangeStatus] = useEntityConnectionChangeHandler<UsageMethodStatusQueryVars>({
-    gen: gen,
-    name: usageMethodName,
-  });
-
-  const [typeQueryVars, handleChangeType] = useEntityConnectionChangeHandler<UsageMethodTypeQueryVars>({
     gen: gen,
     name: usageMethodName,
   });
@@ -265,20 +228,6 @@ const UsageMethodPage = ({
             </>,
           },
           {
-            title: `Effects of ${usageMethodResult.formattedName}`,
-            content: usageMethodResult.effectCount > 0 && <>
-              <EntityConnectionSearch
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
-                gen={gen}
-                handleChange={handleChangeEffect}
-                listRender={listRenderUsageMethodEffect}
-                query={USAGEMETHOD_EFFECT_QUERY}
-                queryVars={effectQueryVars}
-              />
-            </>,
-          },
-          {
             title: `Item interactions with ${usageMethodResult.formattedName}`,
             content: usageMethodResult.itemCount > 0 && <>
               <EntityConnectionSearch
@@ -305,49 +254,6 @@ const UsageMethodPage = ({
                 listRender={listRenderUsageMethodMove}
                 query={USAGEMETHOD_MOVE_QUERY}
                 queryVars={moveQueryVars}
-              />
-            </>,
-          },
-          {
-            title: `Stat interactions with ${usageMethodResult.formattedName}`,
-            content: usageMethodResult.modifiesStatCount > 0 && <>
-              <EntityConnectionSearch
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
-                gen={gen}
-                handleChange={handleChangeStat}
-                listRender={listRenderUsageMethodStat}
-                query={USAGEMETHOD_STAT_QUERY}
-                queryVars={statQueryVars}
-              />
-            </>,
-          },
-          {
-            title: `Status interactions with ${usageMethodResult.formattedName}`,
-            content: usageMethodResult.statusCount > 0 && <>
-              <EntityConnectionSearch
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
-                gen={gen}
-                handleChange={handleChangeStatus}
-                listRender={listRenderUsageMethodStatus}
-                query={USAGEMETHOD_STATUS_QUERY}
-                queryVars={statusQueryVars}
-              />
-            </>,
-          },
-          {
-            title: `Type interactions with ${usageMethodResult.formattedName}`,
-            content: usageMethodResult.typeCount > 0 && <>
-              <EntityConnectionSearch
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
-                gen={gen}
-                tierFilter={tierFilter}
-                handleChange={handleChangeType}
-                listRender={listRenderUsageMethodType}
-                query={USAGEMETHOD_TYPE_QUERY}
-                queryVars={typeQueryVars}
               />
             </>,
           },

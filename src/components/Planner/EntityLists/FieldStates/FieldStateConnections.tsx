@@ -583,7 +583,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multiplier', value: result.multiplier || 0}]}
+            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
           />
         ))}
       </div>)}
@@ -600,7 +600,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multiplier', value: result.multiplier || 0}]}
+            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
           />
         ))}
       </div>)}
@@ -624,7 +624,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
               gen: gen,
               tierFilter: tierFilter,
             }}
-            data={[{key: 'Multiplier', value: result.multiplier || 0}]}
+            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
           />
         ))}
       </div>)}
@@ -710,7 +710,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
               gen: gen,
               tierFilter: tierFilter,
             }}
-            data={[{key: 'Multiplier', value: result.multiplier || 0}]}
+            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
           />
         ))}
       </div>)}

@@ -10,8 +10,12 @@ import {
 
   MoveStatusResult,
   MoveStatusQuery,
+
   MoveTypeQuery,
   MoveTypeResult,
+
+  MoveUsageMethodQuery,
+  MoveUsageMethodResult,
 } from "../../../../types-queries/Move";
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 
@@ -294,4 +298,26 @@ export const listRenderMoveType = ({ data, }: ListRenderArgs<MoveTypeQuery>) => 
       </div>)}
     </>
   );
+}
+
+export const listRenderMoveUsageMethod = ({ data, }: ListRenderArgs<MoveUsageMethodQuery>) => {
+  if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
+
+  const parentID = data.moveByName[0].id;
+
+  const usageMethodResults = data.moveByName[0].usageMethods.edges.map(edge => new MoveUsageMethodResult(edge));
+
+  return (
+    <>
+      {usageMethodResults.map(result => (
+        <ConnectionAccordionEntry
+          targetEntityClass="usageMethods"
+          key={`${parentID}_${result.id}_usageMethod`}
+          name={result.formattedName}
+          linkName={result.name}
+          description={result.description}
+        />
+      ))}
+    </>
+  )
 }

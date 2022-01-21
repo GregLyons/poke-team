@@ -220,7 +220,7 @@ export interface MovePageResult extends MainEntityPageResult {
   requiresPokemon: CountField
   requiresType: CountField
   resistsStatus: CountField
-  usageMethod: CountField
+  usageMethods: CountField
 }
 
 export interface MovePageQueryVars extends EntityPageVars {
@@ -323,7 +323,7 @@ export const MOVE_PAGE_QUERY = gql`
       requiresType {
         count
       }
-      usageMethod {
+      usageMethods {
         count
       }
     }
@@ -396,7 +396,7 @@ export class MoveOnPage extends MainEntityOnPage {
     this.requiresPokemonCount = gqlMove.requiresPokemon.count
     this.requiresTypeCount = gqlMove.requiresType.count
     this.resistsStatusCount = gqlMove.resistsStatus.count
-    this.usageMethodCount = gqlMove.usageMethod.count
+    this.usageMethodCount = gqlMove.usageMethods.count
 
     this.fieldStateCount = this.createsFieldStateCount + this.enhancedByFieldStateCount + this.hinderedByFieldStateCount + this.removesFieldStateCount;
 

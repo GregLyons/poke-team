@@ -13,6 +13,9 @@ import {
 
   ItemTypeResult,
   ItemTypeQuery,
+
+  ItemUsageMethodResult,
+  ItemUsageMethodQuery,
 } from "../../../../types-queries/Item";
 import {
   ListRenderArgs,
@@ -301,7 +304,7 @@ export const listRenderItemType = ({ data, }: ListRenderArgs<ItemTypeQuery>) => 
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multiplier', value: result.multiplier || 1}]}
+            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
           />
         ))}
       </div>)}
@@ -335,7 +338,55 @@ export const listRenderItemType = ({ data, }: ListRenderArgs<ItemTypeQuery>) => 
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multiplier', value: result.multiplier || 1}]}
+            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+          />
+        ))}
+      </div>)}
+    </>
+  );
+}
+
+export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMethodQuery>) => {
+  if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
+
+  const parentID = data.itemByName[0].id;
+
+  const boostsResults = data.itemByName[0].boostsUsageMethod.edges.map(edge => new ItemUsageMethodResult(edge));
+  const resistsResults = data.itemByName[0].resistsUsageMethod.edges.map(edge => new ItemUsageMethodResult(edge));
+
+  return (
+    <>
+      {boostsResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Boosts usage method</h3>
+        <p className="planner__accordion-clarification">
+          Item boosts the power of moves of this usage method used by the Pokemon.
+        </p> 
+        {boostsResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="usageMethods"
+            key={`${parentID}_${result.id}_boost_usageMethod`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+          />
+        ))}
+      </div>)}
+      {resistsResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Resists usage method</h3>
+        <p className="planner__accordion-clarification">
+          Item resists moves of this usage method used against the Pokemon.
+        </p>
+        {resistsResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="usageMethods"
+            key={`${parentID}_${result.id}_resist_usageMethod`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
           />
         ))}
       </div>)}

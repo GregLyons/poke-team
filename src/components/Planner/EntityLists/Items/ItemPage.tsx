@@ -29,6 +29,9 @@ import {
 
   ITEM_TYPE_QUERY,
   ItemTypeQueryVars,
+
+  ITEM_USAGEMETHOD_QUERY,
+  ItemUsageMethodQueryVars,
 } from '../../../../types-queries/Item';
 import {
   INTRODUCTION_QUERY,
@@ -51,6 +54,7 @@ import {
   listRenderItemStat,
   listRenderItemStatus,
   listRenderItemType,
+  listRenderItemUsageMethod,
 } from './ItemConnections';
 
 import { 
@@ -101,6 +105,11 @@ const ItemPage = ({
   });
 
   const [typeQueryVars, handleChangeType] = useEntityConnectionChangeHandler<ItemTypeQueryVars>({
+    gen: gen,
+    name: itemName,
+  });
+
+  const [usageMethodQueryVars, handleChangeUsageMethod] = useEntityConnectionChangeHandler<ItemUsageMethodQueryVars>({
     gen: gen,
     name: itemName,
   });
@@ -286,6 +295,18 @@ const ItemPage = ({
                 listRender={listRenderItemType}
                 query={ITEM_TYPE_QUERY}
                 queryVars={typeQueryVars}
+              />
+            </>,
+          },
+          {
+            title: `Usage method interactions with ${itemResult.formattedName}`,
+            content: itemResult.usageMethodCount > 0 && <>
+              <EntityConnectionSearch
+                gen={gen}
+                handleChange={handleChangeUsageMethod}
+                listRender={listRenderItemUsageMethod}
+                query={ITEM_USAGEMETHOD_QUERY}
+                queryVars={usageMethodQueryVars}
               />
             </>,
           },

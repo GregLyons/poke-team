@@ -29,6 +29,9 @@ import {
 
   ABILITY_TYPE_QUERY,
   AbilityTypeQueryVars,
+
+  ABILITY_USAGEMETHOD_QUERY,
+  AbilityUsageMethodQueryVars,
 } from '../../../../types-queries/Ability';
 import {
   INTRODUCTION_QUERY,
@@ -49,6 +52,7 @@ import {
   listRenderAbilityStat,
   listRenderAbilityStatus,
   listRenderAbilityType,
+  listRenderAbilityUsageMethod,
 } from './AbilityConnections';
 
 import { 
@@ -99,6 +103,11 @@ const AbilityPage = ({
   });
 
   const [typeQueryVars, handleChangeType] = useEntityConnectionChangeHandler<AbilityTypeQueryVars>({
+    gen: gen,
+    name: abilityName,
+  });
+
+  const [usageMethodQueryVars, handleChangeUsageMethod] = useEntityConnectionChangeHandler<AbilityUsageMethodQueryVars>({
     gen: gen,
     name: abilityName,
   });
@@ -283,6 +292,18 @@ const AbilityPage = ({
                 listRender={listRenderAbilityType}
                 query={ABILITY_TYPE_QUERY}
                 queryVars={typeQueryVars}
+              />
+            </>,
+          },
+          {
+            title: `Usage method interactions with ${abilityResult.formattedName}`,
+            content: abilityResult.usageMethodCount > 0 && <>
+              <EntityConnectionSearch
+                gen={gen}
+                handleChange={handleChangeUsageMethod}
+                listRender={listRenderAbilityUsageMethod}
+                query={ABILITY_USAGEMETHOD_QUERY}
+                queryVars={usageMethodQueryVars}
               />
             </>,
           },

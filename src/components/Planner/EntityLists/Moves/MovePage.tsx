@@ -30,6 +30,9 @@ import {
 
   MOVE_TYPE_QUERY,
   MoveTypeQueryVars,
+
+  MOVE_USAGEMETHOD_QUERY,
+  MoveUsageMethodQueryVars,
 } from '../../../../types-queries/Move';
 import {
   INTRODUCTION_QUERY,
@@ -52,6 +55,7 @@ import {
   listRenderMoveStat,
   listRenderMoveStatus,
   listRenderMoveType,
+  listRenderMoveUsageMethod,
 } from './MoveConnections';
 
 import { 
@@ -102,6 +106,11 @@ const MovePage = ({
   });
 
   const [typeQueryVars, handleChangeType] = useEntityConnectionChangeHandler<MoveTypeQueryVars>({
+    gen: gen,
+    name: moveName,
+  });
+
+  const [usageMethodQueryVars, handleChangeUsageMethod] = useEntityConnectionChangeHandler<MoveUsageMethodQueryVars>({
     gen: gen,
     name: moveName,
   });
@@ -287,6 +296,18 @@ const MovePage = ({
                 listRender={listRenderMoveType}
                 query={MOVE_TYPE_QUERY}
                 queryVars={typeQueryVars}
+              />
+            </>,
+          },
+          {
+            title: `Usage method interactions with ${moveResult.formattedName}`,
+            content: moveResult.usageMethodCount > 0 && <>
+              <EntityConnectionSearch
+                gen={gen}
+                handleChange={handleChangeUsageMethod}
+                listRender={listRenderMoveUsageMethod}
+                query={MOVE_USAGEMETHOD_QUERY}
+                queryVars={usageMethodQueryVars}
               />
             </>,
           },
