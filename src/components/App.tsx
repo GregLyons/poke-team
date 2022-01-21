@@ -8,11 +8,6 @@ import {
 } from 'react-router-dom';
 import './../styles/App.css';
 
-// Smogon
-import { Dex } from '@pkmn/dex';
-import { Generations } from '@pkmn/data';
-import { Smogon } from '@pkmn/smogon';
-
 import {
   stringToGenNumber,
   GenerationNum,
@@ -22,7 +17,9 @@ import {
 } from '../types-queries/Pokemon';
 import {
   DEFAULT_TIER_FILTER,
-  NUMBER_OF_GENS, SinglesTier, SINGLES_TIERS, TierFilter,
+  NUMBER_OF_GENS,
+  SinglesTier,
+  TierFilter,
 } from '../utils/constants';
 
 import NavBar from './NavBar/NavBar';
@@ -49,10 +46,6 @@ import StatPage from './Planner/EntityLists/Stats/StatPage';
 import StatusMainPage from './Planner/EntityLists/Statuses/StatusMainPage';
 import StatusPage from './Planner/EntityLists/Statuses/StatusPage';
 import TierFilterForm from './TierFilter';
-
-const gens = new Generations(Dex);
-const smogon = new Smogon(fetch);
-console.log(gens.get(8).species.get('darmanitanzen')?.tier);
 
 export type Team = Pokemon[];
 export type TeamAction = 

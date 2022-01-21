@@ -22,6 +22,7 @@ import {
   pokemonIconEdgeToPokemonIconDatum,
   DescriptionEdge,
   VersionDependentDescription,
+  TypeIconEdge,
 } from './helpers';
 import {
   GenerationNum,
@@ -613,5 +614,83 @@ export class AbilityStatusResult extends MainToAuxConnectionOnPage {
 }
 
 // #endregion
+
+// AbilityType
+// #region
+
+export type AbilityTypeQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    boostsType: {
+      edges: AbilityTypeEdge[]
+    }
+    resistsType: {
+      edges: AbilityTypeEdge[]
+    }
+  }[]
+}
+
+export interface AbilityTypeEdge extends MainToAuxConnectionEdge, TypeIconEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+
+    pokemon?: {
+      edges: PokemonIconEdge[]
+    }
+  }
+  multiplier: number
+}
+
+export interface AbilityTypeQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+}
+
+export const ABILITY_TYPE_QUERY = gql`
+  query AbilityTypeQuery($gen: Int! $name: String!) {
+    abilityByName(generation: $gen, name: $name) {
+      id
+      boostsType {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+          multiplier
+        }
+      }
+      resistsType {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+          multiplier
+        }
+      }
+    }
+  }
+`;
+
+export class AbilityTypeResult extends MainToAuxConnectionOnPage {
+  public pokemonIconData?: PokemonIconDatum[]
+  public multiplier?: number
+
+  constructor(gqlAbilityType: AbilityTypeEdge) {
+    super(gqlAbilityType);
+
+    const { multiplier, } = gqlAbilityType;
+    this.multiplier = multiplier;
+
+    this.pokemonIconData = gqlAbilityType.node.pokemon?.edges.map(pokemonIconEdgeToPokemonIconDatum);
+  }
+}
+
+// #endregion
+
 
 // #endregion

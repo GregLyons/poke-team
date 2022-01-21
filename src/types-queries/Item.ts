@@ -20,6 +20,10 @@ import {
   VersionDependentDescription,
   VersionDependentDescriptionEdgeWithCode,
   VersionDependentDescriptionEdge,
+  TypeIconEdge,
+  PokemonIconEdge,
+  PokemonIconDatum,
+  pokemonIconEdgeToPokemonIconDatum,
 } from './helpers';
 import {
   GenerationNum,
@@ -565,5 +569,100 @@ export class ItemStatusResult extends MainToAuxConnectionOnPage {
 }
 
 // #endregion
+
+// ItemType
+// #region
+
+export type ItemTypeQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    boostsType: {
+      edges: ItemTypeEdge[]
+    }
+    naturalGift: {
+      edges: ItemTypeEdge[]
+    }
+    resistsType: {
+      edges: ItemTypeEdge[]
+    }
+  }[]
+}
+
+export interface ItemTypeEdge extends MainToAuxConnectionEdge, TypeIconEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+
+    pokemon?: {
+      edges: PokemonIconEdge[]
+    }
+  }
+  multiplier?: number
+  power?: number
+}
+
+export interface ItemTypeQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+}
+
+export const ITEM_TYPE_QUERY = gql`
+  query ItemEffectQuery($gen: Int! $name: String!) {
+    itemByName(generation: $gen, name: $name) {
+      id
+      boostsType {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+          multiplier
+        }
+      }
+      naturalGift {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+          power
+        }
+      }
+      resistsType {
+        edges {
+          node {
+            id
+            name
+            formattedName
+
+            description
+          }
+        }
+      }
+    }
+  }
+`;
+
+export class ItemTypeResult extends MainToAuxConnectionOnPage {
+  public pokemonIconData?: PokemonIconDatum[]
+  public multiplier?: number
+  public power?: number
+
+  constructor(gqlItemType: ItemTypeEdge) {
+    super(gqlItemType);
+
+    const { multiplier, power } = gqlItemType;
+    this.multiplier = multiplier;
+    this.power = power;
+
+    this.pokemonIconData = gqlItemType.node.pokemon?.edges.map(pokemonIconEdgeToPokemonIconDatum);
+  }
+}
+
+// #endregion
+
 
 // #endregion

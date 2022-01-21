@@ -23,6 +23,7 @@ import {
   pokemonIconEdgeToPokemonIconDatum,
   VersionDependentDescription,
   DescriptionEdge,
+  TypeIconEdge,
 } from './helpers';
 import {
   TypeName,
@@ -701,6 +702,56 @@ export class MoveStatusResult extends MainToAuxConnectionOnPage {
     super(gqlMoveStatus);
 
     if (gqlMoveStatus.chance) this.chance = gqlMoveStatus.chance;
+  }
+}
+
+// #endregion
+
+// MoveType
+// #region
+
+export type MoveTypeQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    requiresType: {
+      edges: MoveTypeEdge[]
+    }
+  }[]
+}
+
+export interface MoveTypeEdge extends MainToAuxConnectionEdge, TypeIconEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+  }
+}
+
+export interface MoveTypeQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+}
+
+export const MOVE_TYPE_QUERY = gql`
+  query MoveTypeQuery($gen: Int! $name: String!) {
+    moveByName(generation: $gen, name: $name) {
+      id
+      requiresType {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+        }
+      }
+    }
+  }
+`;
+
+export class MoveTypeResult extends MainToAuxConnectionOnPage {
+  constructor(gqlMoveType: MoveTypeEdge) {
+    super(gqlMoveType);
   }
 }
 

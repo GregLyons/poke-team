@@ -22,4 +22,4 @@ export const DEFAULT_TIER_FILTER: TierFilter = {
   PU: true,
   NFE: true,
   LC: true,
-}
+};

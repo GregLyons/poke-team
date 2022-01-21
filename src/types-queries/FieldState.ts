@@ -35,6 +35,7 @@ import {
   AuxEntitySearchResult,
   AuxEntityPageResult,
   AuxEntityOnPage,
+  TypeIconEdge,
 } from './helpers';
 import {
   GenerationNum,
@@ -1214,4 +1215,192 @@ export class FieldStateStatusResult extends AuxToAuxConnectionOnPage {
 
 // #endregion
  
+// FieldStateStat
+// #region
+
+export type FieldStateTypeQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    boostsType: {
+      edges: FieldStateTypeEdge[]
+    }
+    ignoredByType: {
+      edges: FieldStateTypeEdge[]
+    }
+    removedByType: {
+      edges: FieldStateTypeEdge[]
+    }
+    resistedByType: {
+      edges: FieldStateTypeEdge[]
+    }
+    resistsType: {
+      edges: FieldStateTypeEdge[]
+    }
+    weatherBall: {
+      edges: FieldStateTypeEdge[]
+    }
+  }[]
+}
+
+export interface FieldStateTypeEdge extends AuxToAuxConnectionEdge, TypeIconEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+
+    pokemon?: {
+      edges: PokemonIconEdge[]
+    }
+  }
+  multiplier?: number
+  power?: number
+}
+
+export interface FieldStateTypeQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+}
+
+export const FIELDSTATE_TYPE_QUERY = gql`
+  query FieldStateStatQuery($gen: Int! $name: String!) {
+    fieldStateByName(generation: $gen, name: $name) {
+      id
+      boostsType {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+          multiplier
+        }
+      }
+      ignoredByType {
+        edges {
+          node {
+            id
+            name
+            formattedName
+
+            pokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      removedByType {
+        edges {
+          node {
+            id
+            name
+            formattedName
+
+            pokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      resistedByType {
+        edges {
+          node {
+            id
+            name
+            formattedName
+
+            pokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          multiplier
+        }
+      }
+      resistsType {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+          multiplier
+        }
+      }
+      weatherBall {
+        edges {
+          node {
+            id
+            name
+            formattedName
+          }
+          power
+        }
+      }
+    }
+  }
+`;
+
+export class FieldStateTypeResult extends AuxToAuxConnectionOnPage {
+  public pokemonIconData?: PokemonIconDatum[]
+  public multiplier?: number
+  public power?: number
+
+  constructor(gqlFieldStateType: FieldStateTypeEdge) {
+    super(gqlFieldStateType);
+
+    const { multiplier, power, } = gqlFieldStateType;
+    this.multiplier = multiplier;
+    this.power = power;
+
+    this.pokemonIconData = gqlFieldStateType.node.pokemon?.edges.map(pokemonIconEdgeToPokemonIconDatum);
+  }
+}
+
+// #endregion
+
+
 // #endregion

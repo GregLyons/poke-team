@@ -27,7 +27,7 @@ export interface AuxEntitySearchResult {
   id: string
   name: string
   formattedName: string
-  description: string
+  description?: string
 }
 
 export interface EntitySearchVars {
@@ -71,7 +71,7 @@ export abstract class AuxEntityInSearch {
     this.id = id;
     this.name = name;
     this.formattedName = formattedName;
-    this.description = description;
+    this.description = description || '';
   }
 }
 
@@ -112,7 +112,7 @@ export interface AuxEntityPageResult {
   id: string
   name: string
   formattedName: string
-  description: string
+  description?: string
   
   introduced: {
     edges: IntroductionEdge[]
@@ -177,7 +177,7 @@ export abstract class AuxEntityOnPage {
     this.id = id;
     this.name = name;
     this.formattedName = formattedName;
-    this.description = description;
+    this.description = description || '';
 
     this.introduced = gqlEntity.introduced.edges[0].node.number;
   }
@@ -201,7 +201,7 @@ export interface MainToAuxConnectionEdge extends NameEdge {
     name: string
     formattedName: string
 
-    description: string
+    description?: string
   }
 }
 
@@ -211,7 +211,7 @@ export interface AuxToAuxConnectionEdge extends NameEdge {
     name: string
     formattedName: string
 
-    description: string
+    description?: string
   }
 }
 
@@ -244,7 +244,7 @@ export abstract class MainToAuxConnectionOnPage {
     this.id = id;
     this.name = name;
     this.formattedName = formattedName;
-    this.description = description;
+    this.description = description || '';
   }
 }
 
@@ -260,7 +260,7 @@ export abstract class AuxToAuxConnectionOnPage {
     this.id = id;
     this.name = name;
     this.formattedName = formattedName;
-    this.description = description;
+    this.description = description || '';
   }
 }
 
@@ -355,6 +355,18 @@ export interface AbilityIconEdge extends NameEdge {
     formattedName: string
 
     pokemon: {
+      edges: PokemonIconEdge[]
+    }
+  }
+}
+
+export interface TypeIconEdge extends NameEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+
+    pokemon?: {
       edges: PokemonIconEdge[]
     }
   }

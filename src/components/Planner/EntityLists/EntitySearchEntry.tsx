@@ -5,7 +5,10 @@ import {
 import {
   Link,
 } from "react-router-dom";
-import { useEntryExpand, useSelection } from "../../../hooks/hooks";
+import {
+  useEntryExpand,
+  useSelection,
+} from "../../../hooks/hooks";
 import {
   GenerationNum,
 } from "../../../types-queries/Generation";
@@ -13,11 +16,9 @@ import {
   PokemonIconDatum,
 } from "../../../types-queries/helpers";
 import {
-  SinglesTier,
   TierFilter,
 } from "../../../utils/constants";
 import { psIDToTier } from "../../../utils/smogonLogic";
-import { PokemonNameData } from "../../../utils/sprites";
 
 import { 
   CartAction,
@@ -90,6 +91,14 @@ const EntitySearchEntry = ({
     });
   }
 
+  const handleAddToCart = () => {
+    if (!icons) return;
+    icons.dispatchCart({
+      type: 'add',
+    });
+    dispatchSelection({ type: 'remove_all' });
+  }
+
   // #endregion
 
 
@@ -112,7 +121,7 @@ const EntitySearchEntry = ({
       style={
         expand
           ? { 
-              height: entryRef.current?.scrollHeight,
+              height: originalScrollHeight || 0,
               transitionDuration: entryRef.current 
                 ? `${entryRef.current.scrollHeight * 0.5}ms`
                 : ``,
@@ -186,6 +195,7 @@ const EntitySearchEntry = ({
         <br />
         <SelectionControls 
           dispatchSelection={dispatchSelection}
+          handleAddToCart={handleAddToCart}
         />
       </div>}
     </div>

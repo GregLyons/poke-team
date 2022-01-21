@@ -14,15 +14,22 @@ type ConnectionAccordionProps = {
 const ConnectionAccordion = ({
   accordionData,
 }: ConnectionAccordionProps) => {
+  // Element is currently open
   const [activeElement, setActiveElement] = useState(accordionData.map(() => false));
+  // Element has been opened, so there's no need to re-render it since we have already loaded its contents
+  const [openedElement, setOpenedElement] = useState(accordionData.map(() => false));
 
   // Clicking on title element sets which accordion item is active
   const handleClick = (newIdx: number) => {
     setActiveElement(activeElement.map((d, idx) => {
-      // Open clicked element, unless that element is already open.
-      if (idx === newIdx && d !== true) return true;
-      // Close other elements, including an open element that has been clicked again.
-      else return false;
+      // Toggle element
+      if (idx === newIdx) return !d;
+      else return d;
+    }));
+
+    setOpenedElement(openedElement.map((d, idx) => {
+      if (idx === newIdx) return true;
+      else return d;
     }));
   }
 
@@ -37,6 +44,7 @@ const ConnectionAccordion = ({
 
           handleClick={handleClick}
           active={activeElement[idx]}
+          opened={openedElement[idx]}
           idx={idx}
         />
       ))}
@@ -49,6 +57,7 @@ type EntityConnectionAccordionItemProps = {
   content: JSX.Element
 
   active: boolean
+  opened: boolean
   handleClick: (idx: number) => void
   idx: number
 }
@@ -58,6 +67,7 @@ const EntityConnectionAccordionItem = ({
   content,
 
   active,
+  opened,
   handleClick,
   idx,
 }: EntityConnectionAccordionItemProps) => {
@@ -80,6 +90,7 @@ const EntityConnectionAccordionItem = ({
         style={
           active 
             ? { 
+              // Doesn't get transition animation
                 height: 'auto',
               }
             : {
@@ -87,7 +98,7 @@ const EntityConnectionAccordionItem = ({
               }
         }
       >
-        {content}
+        {opened && content}
       </div>
     </div>
   )

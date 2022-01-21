@@ -85,6 +85,14 @@ const ConnectionAccordionEntry = ({
     });
   }
 
+  const handleAddToCart = () => {
+    if (!icons) return;
+    icons.dispatchCart({
+      type: 'add',
+    });
+    dispatchSelection({ type: 'remove_all' });
+  }
+
   // #endregion
 
   // Since Pokemon can learn Moves in multiple ways, we need to worry about duplicates. The keys of this object are Pokemon names, and the value is always 'true'; we only care about the keys.
@@ -182,6 +190,7 @@ const ConnectionAccordionEntry = ({
           <br />
           <SelectionControls
             dispatchSelection={dispatchSelection}
+            handleAddToCart={handleAddToCart}
           />
         </>
       </div>}
