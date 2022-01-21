@@ -26,6 +26,9 @@ import {
 
   ITEM_STATUS_QUERY,
   ItemStatusQueryVars,
+
+  ITEM_TYPE_QUERY,
+  ItemTypeQueryVars,
 } from '../../../../types-queries/Item';
 import {
   INTRODUCTION_QUERY,
@@ -34,7 +37,7 @@ import {
   IntroductionQueryVars,
 } from '../../../../types-queries/helpers';
 import {
-  NUMBER_OF_GENS, TierFilter,
+  NUMBER_OF_GENS,
 } from '../../../../utils/constants';
 import {
   GenerationNum,
@@ -47,6 +50,7 @@ import {
   listRenderItemFieldState,
   listRenderItemStat,
   listRenderItemStatus,
+  listRenderItemType,
 } from './ItemConnections';
 
 import { 
@@ -92,6 +96,11 @@ const ItemPage = ({
   });
 
   const [statusQueryVars, handleChangeStatus] = useEntityConnectionChangeHandler<ItemStatusQueryVars>({
+    gen: gen,
+    name: itemName,
+  });
+
+  const [typeQueryVars, handleChangeType] = useEntityConnectionChangeHandler<ItemTypeQueryVars>({
     gen: gen,
     name: itemName,
   });
@@ -265,6 +274,18 @@ const ItemPage = ({
                 listRender={listRenderItemStatus}
                 query={ITEM_STATUS_QUERY}
                 queryVars={statusQueryVars}
+              />
+            </>,
+          },
+          {
+            title: `Type interactions with ${itemResult.formattedName}`,
+            content: itemResult.typeCount > 0 && <>
+              <EntityConnectionSearch
+                gen={gen}
+                handleChange={handleChangeType}
+                listRender={listRenderItemType}
+                query={ITEM_TYPE_QUERY}
+                queryVars={typeQueryVars}
               />
             </>,
           },

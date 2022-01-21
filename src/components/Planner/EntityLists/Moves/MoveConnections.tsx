@@ -10,6 +10,8 @@ import {
 
   MoveStatusResult,
   MoveStatusQuery,
+  MoveTypeQuery,
+  MoveTypeResult,
 } from "../../../../types-queries/Move";
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 
@@ -255,6 +257,35 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
           <ConnectionAccordionEntry
             targetEntityClass="statuses"
             key={`${parentID}_${result.id}_resist_status`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+          />
+        ))}
+      </div>)}
+    </>
+  );
+}
+
+export const listRenderMoveType = ({ data, }: ListRenderArgs<MoveTypeQuery>) => {
+  if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
+
+  const parentID = data.moveByName[0].id;
+
+  const requiresResults = data.moveByName[0].requiresType.edges.map(edge => new MoveTypeResult(edge));
+
+  return (
+    <>
+      {requiresResults.length > 0 && (
+      <div className="planner__accordion-subitem">
+        <h3 className="planner__accordion-subitem-header">Requires type</h3>
+        <p className="planner__accordion-clarification">
+          This move requires another move of the listed type as its base move.
+        </p>
+        {requiresResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="statuses"
+            key={`${parentID}_${result.id}_cause_status`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}

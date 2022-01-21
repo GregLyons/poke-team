@@ -45,6 +45,9 @@ import StatMainPage from './Planner/EntityLists/Stats/StatMainPage';
 import StatPage from './Planner/EntityLists/Stats/StatPage';
 import StatusMainPage from './Planner/EntityLists/Statuses/StatusMainPage';
 import StatusPage from './Planner/EntityLists/Statuses/StatusPage';
+import TypeMainPage from './Planner/EntityLists/Types/TypeMainPage';
+import TypePage from './Planner/EntityLists/Types/TypePage';
+
 import TierFilterForm from './TierFilter';
 
 export type Team = Pokemon[];
@@ -272,13 +275,20 @@ function App() {
 
           <Route 
             path='types' 
-            element={<PlannerHome
+            element={<TypeMainPage
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               gen={gen}
               tierFilter={tierFilter}
             />}
           />
+          <Route path="types/:typeId" element={<TypePage
+            dispatchCart={dispatchCart}
+            dispatchTeam={dispatchTeam}
+            gen={gen}
+            tierFilter={tierFilter}
+          />} />
+
           <Route 
             path='usage-methods' 
             element={<PlannerHome

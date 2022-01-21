@@ -26,6 +26,9 @@ import {
 
   ABILITY_STATUS_QUERY,
   AbilityStatusQueryVars,
+
+  ABILITY_TYPE_QUERY,
+  AbilityTypeQueryVars,
 } from '../../../../types-queries/Ability';
 import {
   INTRODUCTION_QUERY,
@@ -34,7 +37,7 @@ import {
   IntroductionQueryVars,
 } from '../../../../types-queries/helpers';
 import {
-  NUMBER_OF_GENS, TierFilter,
+  NUMBER_OF_GENS,
 } from '../../../../utils/constants';
 import { GenerationNum } from '../../../../types-queries/Generation';
 import {
@@ -45,6 +48,7 @@ import {
   listRenderAbilityFieldState,
   listRenderAbilityStat,
   listRenderAbilityStatus,
+  listRenderAbilityType,
 } from './AbilityConnections';
 
 import { 
@@ -90,6 +94,11 @@ const AbilityPage = ({
   });
 
   const [statusQueryVars, handleChangeStatus] = useEntityConnectionChangeHandler<AbilityStatusQueryVars>({
+    gen: gen,
+    name: abilityName,
+  });
+
+  const [typeQueryVars, handleChangeType] = useEntityConnectionChangeHandler<AbilityTypeQueryVars>({
     gen: gen,
     name: abilityName,
   });
@@ -262,6 +271,18 @@ const AbilityPage = ({
                 listRender={listRenderAbilityStatus}
                 query={ABILITY_STATUS_QUERY}
                 queryVars={statusQueryVars}
+              />
+            </>,
+          },
+          {
+            title: `Type interactions with ${abilityResult.formattedName}`,
+            content: abilityResult.typeCount > 0 && <>
+              <EntityConnectionSearch
+                gen={gen}
+                handleChange={handleChangeType}
+                listRender={listRenderAbilityType}
+                query={ABILITY_TYPE_QUERY}
+                queryVars={typeQueryVars}
               />
             </>,
           },

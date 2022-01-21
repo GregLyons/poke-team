@@ -224,6 +224,10 @@
 }
 
 .planner__accordion-subitem {
+  grid-column: 1 / 11;
+
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
   background-color: #f0f0f0;
 }
 

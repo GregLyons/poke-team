@@ -50,7 +50,6 @@ const ConnectionAccordionEntry = ({
   data,
   icons,
 }: ConnectionAccordionEntryProps) => {
-  
   const [hover, setHover] = useState(false);
 
   // Changing scroll height 

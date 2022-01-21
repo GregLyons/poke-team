@@ -35,6 +35,9 @@ import {
 
   FIELDSTATE_STATUS_QUERY,
   FieldStateStatusQueryVars,
+
+  FIELDSTATE_TYPE_QUERY,
+  FieldStateTypeQueryVars,
 } from '../../../../types-queries/FieldState';
 import {
   INTRODUCTION_QUERY,
@@ -43,7 +46,8 @@ import {
   IntroductionQueryVars,
 } from '../../../../types-queries/helpers';
 import {
-  NUMBER_OF_GENS, TierFilter,
+  NUMBER_OF_GENS,
+  TierFilter,
 } from '../../../../utils/constants';
 import {
   GenerationNum,
@@ -60,6 +64,7 @@ import {
   listRenderFieldStateMove,
   listRenderFieldStateStat,
   listRenderFieldStateStatus,
+  listRenderFieldStateType,
 } from './FieldStateConnections';
 import AuxEntityDescription from '../AuxEntityDescription';
 
@@ -112,6 +117,11 @@ const FieldStatePage = ({
   });
 
   const [statusQueryVars, handleChangeStatus] = useEntityConnectionChangeHandler<FieldStateStatusQueryVars>({
+    gen: gen,
+    name: fieldStateName,
+  });
+
+  const [typeQueryVars, handleChangeType] = useEntityConnectionChangeHandler<FieldStateTypeQueryVars>({
     gen: gen,
     name: fieldStateName,
   });
@@ -323,6 +333,21 @@ const FieldStatePage = ({
                 listRender={listRenderFieldStateStatus}
                 query={FIELDSTATE_STATUS_QUERY}
                 queryVars={statusQueryVars}
+              />
+            </>,
+          },
+          {
+            title: `Type interactions with ${fieldStateResult.formattedName}`,
+            content: fieldStateResult.typeCount > 0 && <>
+              <EntityConnectionSearch
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
+                gen={gen}
+                tierFilter={tierFilter}
+                handleChange={handleChangeType}
+                listRender={listRenderFieldStateType}
+                query={FIELDSTATE_TYPE_QUERY}
+                queryVars={typeQueryVars}
               />
             </>,
           },

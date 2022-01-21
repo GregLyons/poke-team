@@ -123,6 +123,7 @@ export interface ItemPageResult extends MainEntityPageResult {
   extendsFieldState: CountField
   ignoresFieldState: CountField
   modifiesStat: CountField
+  naturalGift: CountField
   requiresPokemon: CountField
   resistsFieldState: CountField
   resistsStatus: CountField
@@ -196,6 +197,9 @@ export const ITEM_PAGE_QUERY = gql`
       modifiesStat {
         count
       }
+      naturalGift {
+        count
+      }
       requiresPokemon {
         count
       }
@@ -226,6 +230,7 @@ export class ItemOnPage extends MainEntityOnPage {
   public extendsFieldStateCount: number
   public ignoresFieldStateCount: number
   public modifiesStatCount: number
+  public naturalGiftCount: number
   public requiresPokemonCount: number
   public resistsFieldStateCount: number
   public resistsStatusCount: number
@@ -234,6 +239,7 @@ export class ItemOnPage extends MainEntityOnPage {
 
   public fieldStateCount: number
   public statusCount: number
+  public typeCount: number
 
   constructor(gqlItem: ItemPageResult) {
     // Data for ItemPage
@@ -250,6 +256,7 @@ export class ItemOnPage extends MainEntityOnPage {
     this.extendsFieldStateCount = gqlItem.extendsFieldState.count
     this.ignoresFieldStateCount = gqlItem.ignoresFieldState.count
     this.modifiesStatCount = gqlItem.modifiesStat.count
+    this.naturalGiftCount = gqlItem.naturalGift.count
     this.requiresPokemonCount = gqlItem.requiresPokemon.count
     this.resistsFieldStateCount = gqlItem.resistsFieldState.count
     this.resistsStatusCount = gqlItem.resistsStatus.count
@@ -259,6 +266,8 @@ export class ItemOnPage extends MainEntityOnPage {
     this.fieldStateCount = this.activatedByFieldStateCount + this.extendsFieldStateCount + this.ignoresFieldStateCount + this.resistsFieldStateCount;
 
     this.statusCount = this.causesStatusCount + this.resistsStatusCount;
+
+    this.typeCount = this.boostsTypeCount + this.naturalGiftCount + this.resistsTypeCount;
   }
 }
 

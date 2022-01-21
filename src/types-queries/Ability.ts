@@ -255,6 +255,7 @@ export class AbilityOnPage extends MainEntityOnPage {
 
   public fieldStateCount: number
   public statusCount: number
+  public typeCount: number
 
   constructor(gqlAbility: AbilityPageResult) {
     // Data for AbilityPage
@@ -280,6 +281,8 @@ export class AbilityOnPage extends MainEntityOnPage {
     this.fieldStateCount = this.activatedByFieldStateCount + this.createsFieldStateCount + this.ignoresFieldStateCount + this.preventsFieldStateCount + this.removesFieldStateCount + this.suppressesFieldStateCount;
     
     this.statusCount = this.causesStatusCount + this.resistsStatusCount;
+
+    this.typeCount = this.boostsTypeCount + this.resistsTypeCount;
   }
 }
 

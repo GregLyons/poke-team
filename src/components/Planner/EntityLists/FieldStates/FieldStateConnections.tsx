@@ -16,6 +16,9 @@ import {
 
   FieldStateStatusResult,
   FieldStateStatusQuery,
+  
+  FieldStateTypeResult,
+  FieldStateTypeQuery,
 } from "../../../../types-queries/FieldState";
 import {
   ListRenderArgs,
@@ -25,6 +28,7 @@ import {
 } from "../helpers";
 
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
+import { DUMMY_POKEMON_ICON_DATUM } from "../../../../types-queries/helpers";
 
 export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<FieldStateAbilityQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
@@ -537,6 +541,176 @@ export const listRenderFieldStateStatus = ({ data, }: ListRenderArgs<FieldStateS
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+          />
+        ))}
+      </div>)}
+    </>
+  );
+}
+
+export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<FieldStateTypeQuery>) => {
+  if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
+  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
+  
+  const parentID = data.fieldStateByName[0].id;
+
+  const boostsResults = data.fieldStateByName
+  [0].boostsType.edges.map(edge => new FieldStateTypeResult(edge));
+  const ignoredByResults = data.fieldStateByName
+  [0].ignoredByType.edges.map(edge => new FieldStateTypeResult(edge));
+  const removedByResults = data.fieldStateByName
+  [0].removedByType.edges.map(edge => new FieldStateTypeResult(edge));
+  const resistanceResults = data.fieldStateByName
+  [0].resistedByType.edges.map(edge => new FieldStateTypeResult(edge));
+  const resistsResults = data.fieldStateByName[0].resistsType.edges.map(edge => new FieldStateTypeResult(edge));
+  const weatherBallResults = data.fieldStateByName
+  [0].weatherBall.edges.map(edge => new FieldStateTypeResult(edge));
+  
+  return (
+    <>
+      {boostsResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Boosts type</h3>
+        <p className="planner__accordion-clarification">
+          Presence of this field state boosts the power of moves of the listed type.
+        </p>
+        {boostsResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="types"
+            key={`${parentID}_${result.id}_boost_type`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            data={[{key: 'Multiplier', value: result.multiplier || 0}]}
+          />
+        ))}
+      </div>)}
+      {resistsResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Weakens type</h3>
+        <p className="planner__accordion-clarification">
+          Presence of this field state weakens the power of moves of the listed type.
+        </p>
+        {resistsResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="types"
+            key={`${parentID}_${result.id}_weaken_type`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            data={[{key: 'Multiplier', value: result.multiplier || 0}]}
+          />
+        ))}
+      </div>)}
+      {resistanceResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Strong against type</h3>
+        <p className="planner__accordion-clarification">
+          Negative effects of the field state on Pokemon of the listed type are heightened (e.g. more damage).
+        </p>
+        {resistanceResults.filter(result => result.multiplier && result.multiplier > 1).map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="types"
+            key={`${parentID}_${result.id}_resist_type`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              iconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
+              gen: gen,
+              tierFilter: tierFilter,
+            }}
+            data={[{key: 'Multiplier', value: result.multiplier || 0}]}
+          />
+        ))}
+      </div>)}
+      {weatherBallResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Weather Ball</h3>
+        <p className="planner__accordion-clarification">
+          Presence of this field state changes the type of Weather Ball to the listed type.
+        </p>
+        {weatherBallResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="types"
+            key={`${parentID}_${result.id}_weather_ball_type`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+          />
+        ))}
+      </div>)}
+      {ignoredByResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+          <h3 className="planner__accordion-subitem-header">Ignored by type</h3>
+          <p className="planner__accordion-clarification">
+            Effects of field state ignored by Pokemon of the listed type.
+          </p>
+          {ignoredByResults.map(result => (
+            <ConnectionAccordionEntry
+              targetEntityClass="types"
+              key={`${parentID}_${result.id}_ignore_type`}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              icons={{
+                dispatchCart: dispatchCart,
+                dispatchTeam: dispatchTeam,
+                iconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
+                gen: gen,
+                tierFilter: tierFilter,
+              }}
+            />
+          ))}
+      </div>)}
+      {removedByResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Removed by type</h3>
+        <p className="planner__accordion-clarification">
+          Pokemon of the listed type remove this field state upon entry.
+        </p>
+        {removedByResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="types"
+            key={`${parentID}_${result.id}_remove_type`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              iconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
+              gen: gen,
+              tierFilter: tierFilter,
+            }}
+          />
+        ))}
+      </div>)}
+      {resistanceResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Resisted by type</h3>
+        <p className="planner__accordion-clarification">
+          Negative effects of the field state on Pokemon of the listed type are mitigated (e.g. less damage).
+        </p>
+        {resistanceResults.filter(result => result.multiplier && result.multiplier < 1).map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="types"
+            key={`${parentID}_${result.id}_resist_type`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              iconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
+              gen: gen,
+              tierFilter: tierFilter,
+            }}
+            data={[{key: 'Multiplier', value: result.multiplier || 0}]}
           />
         ))}
       </div>)}

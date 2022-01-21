@@ -27,6 +27,9 @@ import {
 
   MOVE_STATUS_QUERY,
   MoveStatusQueryVars,
+
+  MOVE_TYPE_QUERY,
+  MoveTypeQueryVars,
 } from '../../../../types-queries/Move';
 import {
   INTRODUCTION_QUERY,
@@ -35,7 +38,7 @@ import {
   IntroductionQueryVars,
 } from '../../../../types-queries/helpers';
 import {
-  NUMBER_OF_GENS, TierFilter,
+  NUMBER_OF_GENS,
 } from '../../../../utils/constants';
 import {
   GenerationNum,
@@ -48,6 +51,7 @@ import {
   listRenderMoveFieldState,
   listRenderMoveStat,
   listRenderMoveStatus,
+  listRenderMoveType,
 } from './MoveConnections';
 
 import { 
@@ -93,6 +97,11 @@ const MovePage = ({
   });
 
   const [statusQueryVars, handleChangeStatus] = useEntityConnectionChangeHandler<MoveStatusQueryVars>({
+    gen: gen,
+    name: moveName,
+  });
+
+  const [typeQueryVars, handleChangeType] = useEntityConnectionChangeHandler<MoveTypeQueryVars>({
     gen: gen,
     name: moveName,
   });
@@ -266,6 +275,18 @@ const MovePage = ({
                 listRender={listRenderMoveStatus}
                 query={MOVE_STATUS_QUERY}
                 queryVars={statusQueryVars}
+              />
+            </>,
+          },
+          {
+            title: `Type interactions with ${moveResult.formattedName}`,
+            content: moveResult.typeCount > 0 && <>
+              <EntityConnectionSearch
+                gen={gen}
+                handleChange={handleChangeType}
+                listRender={listRenderMoveType}
+                query={MOVE_TYPE_QUERY}
+                queryVars={typeQueryVars}
               />
             </>,
           },

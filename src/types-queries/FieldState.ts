@@ -148,12 +148,16 @@ export interface FieldStatePageResult extends AuxEntityPageResult {
   hindersMove: CountField
   ignoredByAbility: CountField
   ignoredByItem: CountField
+  ignoredByType: CountField
   modifiesStat: CountField
   preventedByAbility: CountField
   removedByAbility: CountField
   removedByMove: CountField
+  removedByType: CountField
   resistedByItem: CountField
+  resistedByType: CountField
   resistsStatus: CountField
+  resistsType: CountField
   suppressedByAbility: CountField
   weatherBall: CountField
 }
@@ -215,6 +219,9 @@ export const FIELDSTATE_PAGE_QUERY = gql`
       ignoredByItem {
         count
       }
+      ignoredByType {
+        count
+      }
       modifiesStat {
         count
       }
@@ -227,10 +234,19 @@ export const FIELDSTATE_PAGE_QUERY = gql`
       removedByMove {
         count
       }
+      removedByType {
+        count
+      }
       resistedByItem {
         count
       }
+      resistedByType {
+        count
+      }
       resistsStatus {
+        count
+      }
+      resistsType {
         count
       }
       suppressedByAbility {
@@ -256,12 +272,16 @@ export class FieldStateOnPage extends AuxEntityOnPage {
   public hindersMoveCount: number
   public ignoredByAbilityCount: number
   public ignoredByItemCount: number
+  public ignoredByTypeCount: number
   public modifiesStatCount: number
   public preventedByAbilityCount: number
   public removedByAbilityCount: number
   public removedByMoveCount: number
+  public removedByTypeCount: number
   public resistedByItemCount: number
+  public resistedByTypeCount: number
   public resistsStatusCount: number
+  public resistsTypeCount: number
   public suppressedByAbilityCount: number
   public weatherBallCount: number
 
@@ -269,31 +289,36 @@ export class FieldStateOnPage extends AuxEntityOnPage {
   public itemCount: number
   public moveCount: number
   public statusCount: number
+  public typeCount: number
 
   constructor(gqlFieldState: FieldStatePageResult) {
     super(gqlFieldState);
 
     // Counts for displaying accordions
-    this.activatesAbilityCount = gqlFieldState.activatesAbility.count
-    this.activatesItemCount = gqlFieldState.activatesItem.count
-    this.boostsTypeCount = gqlFieldState.boostsType.count
-    this.causesStatusCount = gqlFieldState.causesStatus.count
-    this.createdByAbilityCount = gqlFieldState.createdByAbility.count
-    this.createdByMoveCount = gqlFieldState.createdByMove.count
-    this.effectCount = gqlFieldState.effects.count
-    this.enhancesMoveCount = gqlFieldState.enhancesMove.count
-    this.extendedByItemCount = gqlFieldState.extendedByItem.count
-    this.hindersMoveCount = gqlFieldState.hindersMove.count
-    this.ignoredByAbilityCount = gqlFieldState.ignoredByAbility.count
-    this.ignoredByItemCount = gqlFieldState.ignoredByItem.count
-    this.modifiesStatCount = gqlFieldState.modifiesStat.count
-    this.preventedByAbilityCount = gqlFieldState.preventedByAbility.count
-    this.removedByAbilityCount = gqlFieldState.removedByAbility.count
-    this.removedByMoveCount = gqlFieldState.removedByMove.count
-    this.resistedByItemCount = gqlFieldState.resistedByItem.count
-    this.resistsStatusCount = gqlFieldState.resistsStatus.count
-    this.suppressedByAbilityCount = gqlFieldState.suppressedByAbility.count
-    this.weatherBallCount = gqlFieldState.weatherBall.count
+    this.activatesAbilityCount = gqlFieldState.activatesAbility.count;
+    this.activatesItemCount = gqlFieldState.activatesItem.count;
+    this.boostsTypeCount = gqlFieldState.boostsType.count;
+    this.causesStatusCount = gqlFieldState.causesStatus.count;
+    this.createdByAbilityCount = gqlFieldState.createdByAbility.count;
+    this.createdByMoveCount = gqlFieldState.createdByMove.count;
+    this.effectCount = gqlFieldState.effects.count;
+    this.enhancesMoveCount = gqlFieldState.enhancesMove.count;
+    this.extendedByItemCount = gqlFieldState.extendedByItem.count;
+    this.hindersMoveCount = gqlFieldState.hindersMove.count;
+    this.ignoredByAbilityCount = gqlFieldState.ignoredByAbility.count;
+    this.ignoredByItemCount = gqlFieldState.ignoredByItem.count;
+    this.ignoredByTypeCount = gqlFieldState.ignoredByType.count;
+    this.modifiesStatCount = gqlFieldState.modifiesStat.count;
+    this.preventedByAbilityCount = gqlFieldState.preventedByAbility.count;
+    this.removedByAbilityCount = gqlFieldState.removedByAbility.count;
+    this.removedByMoveCount = gqlFieldState.removedByMove.count;
+    this.removedByTypeCount = gqlFieldState.removedByType.count;
+    this.resistedByItemCount = gqlFieldState.resistedByItem.count;
+    this.resistedByTypeCount = gqlFieldState.resistedByType.count;
+    this.resistsStatusCount = gqlFieldState.resistsStatus.count;
+    this.resistsTypeCount = gqlFieldState.resistsType.count;
+    this.suppressedByAbilityCount = gqlFieldState.suppressedByAbility.count;
+    this.weatherBallCount = gqlFieldState.weatherBall.count;
 
     this.abilityCount = this.activatesAbilityCount + this.createdByAbilityCount + this.ignoredByAbilityCount + this.preventedByAbilityCount + this.removedByAbilityCount + this.suppressedByAbilityCount;
 
@@ -302,6 +327,8 @@ export class FieldStateOnPage extends AuxEntityOnPage {
     this.moveCount = this.createdByMoveCount + this.enhancesMoveCount + this.hindersMoveCount + this.removedByMoveCount;
 
     this.statusCount = this.causesStatusCount + this.resistsStatusCount;
+
+    this.typeCount = this.boostsTypeCount + this.ignoredByTypeCount + this.removedByTypeCount + this.removedByTypeCount + this.resistedByTypeCount + this.resistsTypeCount + this.weatherBallCount;
   }
 }
 
@@ -1215,7 +1242,7 @@ export class FieldStateStatusResult extends AuxToAuxConnectionOnPage {
 
 // #endregion
  
-// FieldStateStat
+// FieldStateType
 // #region
 
 export type FieldStateTypeQuery = {
@@ -1253,7 +1280,6 @@ export interface FieldStateTypeEdge extends AuxToAuxConnectionEdge, TypeIconEdge
     }
   }
   multiplier?: number
-  power?: number
 }
 
 export interface FieldStateTypeQueryVars extends EntityConnectionVars {
@@ -1377,7 +1403,6 @@ export const FIELDSTATE_TYPE_QUERY = gql`
             name
             formattedName
           }
-          power
         }
       }
     }
@@ -1392,9 +1417,8 @@ export class FieldStateTypeResult extends AuxToAuxConnectionOnPage {
   constructor(gqlFieldStateType: FieldStateTypeEdge) {
     super(gqlFieldStateType);
 
-    const { multiplier, power, } = gqlFieldStateType;
+    const { multiplier, } = gqlFieldStateType;
     this.multiplier = multiplier;
-    this.power = power;
 
     this.pokemonIconData = gqlFieldStateType.node.pokemon?.edges.map(pokemonIconEdgeToPokemonIconDatum);
   }

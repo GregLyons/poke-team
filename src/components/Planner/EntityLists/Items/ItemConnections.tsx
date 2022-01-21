@@ -10,6 +10,9 @@ import {
 
   ItemStatusResult,
   ItemStatusQuery,
+
+  ItemTypeResult,
+  ItemTypeQuery,
 } from "../../../../types-queries/Item";
 import {
   ListRenderArgs,
@@ -267,6 +270,72 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+          />
+        ))}
+      </div>)}
+    </>
+  );
+}
+
+export const listRenderItemType = ({ data, }: ListRenderArgs<ItemTypeQuery>) => {
+  if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
+
+  const parentID = data.itemByName[0].id;
+
+  const boostsResults = data.itemByName[0].boostsType.edges.map(edge => new ItemTypeResult(edge));
+  const naturalGiftResults = data.itemByName[0].naturalGift.edges.map(edge => new ItemTypeResult(edge));
+  const resistsResults = data.itemByName[0].resistsType.edges.map(edge => new ItemTypeResult(edge));
+
+  return (
+    <>
+      {boostsResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Boosts type</h3>
+        <p className="planner__accordion-clarification">
+          Item boosts the power of moves of the listed type used by the owner.
+        </p> 
+        {boostsResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="types"
+            key={`${parentID}_${result.id}_boost_type`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            data={[{key: 'Multiplier', value: result.multiplier || 1}]}
+          />
+        ))}
+      </div>)}
+      {naturalGiftResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Natural gift</h3>
+        <p className="planner__accordion-clarification">
+          When the owner of this item uses Natural Gift, the move will be of the listed type.
+        </p> 
+        {naturalGiftResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="types"
+            key={`${parentID}_${result.id}_naturalGift_type`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            data={[{key: 'Power', value: result.power || 1}]}
+          />
+        ))}
+      </div>)}
+      {resistsResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Resists type</h3>
+        <p className="planner__accordion-clarification">
+          Item resists moves of the listed type used against the owner.
+        </p>
+        {resistsResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="types"
+            key={`${parentID}_${result.id}_resist_type`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            data={[{key: 'Multiplier', value: result.multiplier || 1}]}
           />
         ))}
       </div>)}

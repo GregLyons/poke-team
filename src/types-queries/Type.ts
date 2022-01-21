@@ -710,25 +710,6 @@ export const TYPE_ITEM_QUERY = gql`
                 }
               }
             }
-
-            pokemon {
-              edges {
-                node {
-                  id
-                  name
-                  formattedName
-                  pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
-                }
-              }
-            }
           }
           multiplier
         }
@@ -762,25 +743,6 @@ export const TYPE_ITEM_QUERY = gql`
               edges(pagination: {limit: 1}) {
                 node {
                   text
-                }
-              }
-            }
-
-            pokemon {
-              edges {
-                node {
-                  id
-                  name
-                  formattedName
-                  pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }

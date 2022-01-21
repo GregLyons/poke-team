@@ -361,6 +361,7 @@ export class MoveOnPage extends MainEntityOnPage {
 
   public fieldStateCount: number
   public statusCount: number
+  public typeCount: number
 
   constructor(gqlMove: MovePageResult) {
     // Data for MovePage
@@ -400,6 +401,8 @@ export class MoveOnPage extends MainEntityOnPage {
     this.fieldStateCount = this.createsFieldStateCount + this.enhancedByFieldStateCount + this.hinderedByFieldStateCount + this.removesFieldStateCount;
 
     this.statusCount = this.causesStatusCount + this.resistsStatusCount;
+
+    this.typeCount = this.requiresTypeCount;
   }
 }
 

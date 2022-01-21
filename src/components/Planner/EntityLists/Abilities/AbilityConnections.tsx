@@ -7,6 +7,8 @@ import {
   AbilityStatResult,
   AbilityStatusQuery,
   AbilityStatusResult,
+  AbilityTypeQuery,
+  AbilityTypeResult,
 } from "../../../../types-queries/Ability";
 import {
   ListRenderArgs,
@@ -288,13 +290,61 @@ export const listRenderAbilityStatus = ({ data, }: ListRenderArgs<AbilityStatusQ
         <p className="planner__accordion-clarification">
           The ability fully cures the status, prevents the status, or mitigates the status in some way.
         </p>
-        {causesResults.map(result => (
+        {resistsResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="statuses"
             key={`${parentID}_${result.id}_resist_status`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+          />
+        ))}
+      </div>)}
+    </>
+  );
+}
+
+export const listRenderAbilityType = ({ data, }: ListRenderArgs<AbilityTypeQuery>) => {
+  if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
+
+  const parentID = data.abilityByName[0].id;
+
+  const boostsResults = data.abilityByName[0].boostsType.edges.map(edge => new AbilityTypeResult(edge));
+  const resistsResults = data.abilityByName[0].resistsType.edges.map(edge => new AbilityTypeResult(edge));
+
+  return (
+    <>
+      {boostsResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Boosts type</h3>
+        <p className="planner__accordion-clarification">
+          Ability boosts the power of moves of this type used by the Pokemon.
+        </p> 
+        {boostsResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="types"
+            key={`${parentID}_${result.id}_boost_type`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            data={[{key: 'Multiplier', value: result.multiplier || 1}]}
+          />
+        ))}
+      </div>)}
+      {resistsResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
+        <h3 className="planner__accordion-subitem-header">Resists type</h3>
+        <p className="planner__accordion-clarification">
+          Ability resists moves of this type used against the Pokemon.
+        </p>
+        {resistsResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="types"
+            key={`${parentID}_${result.id}_resist_type`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            data={[{key: 'Multiplier', value: result.multiplier || 1}]}
           />
         ))}
       </div>)}

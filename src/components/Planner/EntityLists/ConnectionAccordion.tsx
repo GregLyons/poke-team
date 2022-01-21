@@ -15,8 +15,10 @@ const ConnectionAccordion = ({
   accordionData,
 }: ConnectionAccordionProps) => {
   // Element is currently open
+  // If accordion has only one item, open by default.
   const [activeElement, setActiveElement] = useState(accordionData.map(() => false));
   // Element has been opened, so there's no need to re-render it since we have already loaded its contents
+  // If accordion has only one item, open by default.
   const [openedElement, setOpenedElement] = useState(accordionData.map(() => false));
 
   // Clicking on title element sets which accordion item is active

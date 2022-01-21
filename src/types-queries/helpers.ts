@@ -1,6 +1,7 @@
 import {
   gql,
 } from "@apollo/client";
+import { NUMBER_OF_GENS } from "../utils/constants";
 import {
   GenerationNum,
   IntroductionEdge
@@ -436,6 +437,13 @@ export type PokemonIconDatum = {
   psID: string
   introduced: GenerationNum
 }
+
+export const DUMMY_POKEMON_ICON_DATUM: PokemonIconDatum = {
+  formattedName: '',
+  name: '',
+  psID: '',
+  introduced: 1,
+};
 
 export const pokemonIconEdgeToPokemonIconDatum: (edge: PokemonIconEdge) => PokemonIconDatum = (edge) => {
   return {
