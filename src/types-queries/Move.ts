@@ -760,4 +760,56 @@ export class MoveTypeResult extends MainToAuxConnectionOnPage {
 
 // #endregion
 
+// MoveUsageMethod
+// #region
+
+export type MoveUsageMethodQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    usageMethods: {
+      edges: MoveUsageMethodEdge[]
+    }
+  }[]
+}
+
+export interface MoveUsageMethodEdge extends MainToAuxConnectionEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+    description: string
+  }
+}
+
+export interface MoveUsageMethodQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+}
+
+export const MOVE_USAGEMETHOD_QUERY = gql`
+  query MoveTypeQuery($gen: Int! $name: String!) {
+    moveByName(generation: $gen, name: $name) {
+      id
+      usageMethods {
+        edges {
+          node {
+            id
+            name
+            formattedName
+            description
+          }
+        }
+      }
+    }
+  }
+`;
+
+export class MoveUsageMethodResult extends MainToAuxConnectionOnPage {
+  constructor(gqlUsageMethod: MoveUsageMethodEdge) {
+    super(gqlUsageMethod);
+  }
+}
+
+// #endregion
+
 // #endregion

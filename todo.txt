@@ -9,6 +9,8 @@ missing/incorrect/additional data:
 
   gravity field state
 
+  grounded status
+
   add status-cause chance to abilities, items, field states
 
   synchronize causes status

@@ -47,6 +47,8 @@ import StatusMainPage from './Planner/EntityLists/Statuses/StatusMainPage';
 import StatusPage from './Planner/EntityLists/Statuses/StatusPage';
 import TypeMainPage from './Planner/EntityLists/Types/TypeMainPage';
 import TypePage from './Planner/EntityLists/Types/TypePage';
+import UsageMethodMainPage from './Planner/EntityLists/UsageMethods/UsageMethodMainPage';
+import UsageMethodPage from './Planner/EntityLists/UsageMethods/UsageMethodPage';
 
 import TierFilterForm from './TierFilter';
 
@@ -290,14 +292,20 @@ function App() {
           />} />
 
           <Route 
-            path='usage-methods' 
-            element={<PlannerHome
+            path='usageMethods' 
+            element={<UsageMethodMainPage
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               gen={gen}
               tierFilter={tierFilter}
             />}
           />
+          <Route path="usageMethods/:usageMethodId" element={<UsageMethodPage
+            dispatchCart={dispatchCart}
+            dispatchTeam={dispatchTeam}
+            gen={gen}
+            tierFilter={tierFilter}
+          />} />
 
           {/* */}
           <Route

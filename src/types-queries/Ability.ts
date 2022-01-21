@@ -256,6 +256,7 @@ export class AbilityOnPage extends MainEntityOnPage {
   public fieldStateCount: number
   public statusCount: number
   public typeCount: number
+  public usageMethodCount: number
 
   constructor(gqlAbility: AbilityPageResult) {
     // Data for AbilityPage
@@ -283,6 +284,8 @@ export class AbilityOnPage extends MainEntityOnPage {
     this.statusCount = this.causesStatusCount + this.resistsStatusCount;
 
     this.typeCount = this.boostsTypeCount + this.resistsTypeCount;
+
+    this.usageMethodCount = this.boostsUsageMethodCount + this.resistsUsageMethodCount;
   }
 }
 
@@ -695,5 +698,77 @@ export class AbilityTypeResult extends MainToAuxConnectionOnPage {
 
 // #endregion
 
+// AbilityUsageMethod
+// #region
+
+export type AbilityUsageMethodQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    boostsType: {
+      edges: AbilityUsageMethodEdge[]
+    }
+    resistsType: {
+      edges: AbilityUsageMethodEdge[]
+    }
+  }[]
+}
+
+export interface AbilityUsageMethodEdge extends MainToAuxConnectionEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+    description: string
+  }
+  multiplier: number
+}
+
+export interface AbilityUsageMethodQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+}
+
+export const ABILITY_USAGEMETHOD_QUERY = gql`
+  query AbilityTypeQuery($gen: Int! $name: String!) {
+    abilityByName(generation: $gen, name: $name) {
+      id
+      boostsUsageMethod {
+        edges {
+          node {
+            id
+            name
+            formattedName
+            description
+          }
+          multiplier
+        }
+      }
+      resistsUsageMethod {
+        edges {
+          node {
+            id
+            name
+            formattedName
+            description
+          }
+          multiplier
+        }
+      }
+    }
+  }
+`;
+
+export class AbilityUsageMethodResult extends MainToAuxConnectionOnPage {
+  public multiplier: number
+
+  constructor(gqlAbilityUsageMethod: AbilityUsageMethodEdge) {
+    super(gqlAbilityUsageMethod);
+
+    const { multiplier, } = gqlAbilityUsageMethod;
+    this.multiplier = multiplier;
+  }
+}
+
+// #endregion
 
 // #endregion

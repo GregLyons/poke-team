@@ -673,5 +673,77 @@ export class ItemTypeResult extends MainToAuxConnectionOnPage {
 
 // #endregion
 
+// ItemUsageMethod
+// #region
+
+export type ItemUsageMethodQuery = {
+  [pageQueryName in EntityPageQueryName]?: {
+    id: string
+    boostsType: {
+      edges: ItemUsageMethodEdge[]
+    }
+    resistsType: {
+      edges: ItemUsageMethodEdge[]
+    }
+  }[]
+}
+
+export interface ItemUsageMethodEdge extends MainToAuxConnectionEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+    description: string
+  }
+  multiplier: number
+}
+
+export interface ItemUsageMethodQueryVars extends EntityConnectionVars {
+  gen: GenerationNum
+  name: string
+}
+
+export const ITEM_USAGEMETHOD_QUERY = gql`
+  query ItemTypeQuery($gen: Int! $name: String!) {
+    itemByName(generation: $gen, name: $name) {
+      id
+      boostsUsageMethod {
+        edges {
+          node {
+            id
+            name
+            formattedName
+            description
+          }
+          multiplier
+        }
+      }
+      resistsUsageMethod {
+        edges {
+          node {
+            id
+            name
+            formattedName
+            description
+          }
+          multiplier
+        }
+      }
+    }
+  }
+`;
+
+export class ItemUsageMethodResult extends MainToAuxConnectionOnPage {
+  public multiplier: number
+
+  constructor(gqlItemUsageMethod: ItemUsageMethodEdge) {
+    super(gqlItemUsageMethod);
+
+    const { multiplier, } = gqlItemUsageMethod;
+    this.multiplier = multiplier;
+  }
+}
+
+// #endregion
 
 // #endregion
