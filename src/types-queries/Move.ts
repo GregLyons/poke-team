@@ -112,7 +112,7 @@ export const MOVE_SEARCH_QUERY = gql`
         }
       }
 
-      pokemon(filter: {formClass: [ALOLA, BASE, COSMETIC, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+      pokemon(filter: {formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
         edges {
           node {
             id

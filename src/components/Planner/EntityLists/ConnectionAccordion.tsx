@@ -1,5 +1,4 @@
 import {
-  SetStateAction,
   useRef,
   useState,
 } from 'react';

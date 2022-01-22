@@ -50,7 +50,7 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, gen,
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
-              cartNote: `${result.formattedName} causes ${parentdFormattedName}.`,
+              cartNote: `'${result.formattedName}' causes '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -74,6 +74,7 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, gen,
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -200,6 +201,7 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, gen, ti
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' causes '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -223,6 +225,7 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, gen, ti
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
             }}
           />
         ))}

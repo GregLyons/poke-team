@@ -51,11 +51,12 @@ import UsageMethodMainPage from './Planner/EntityLists/UsageMethods/UsageMethodM
 import UsageMethodPage from './Planner/EntityLists/UsageMethods/UsageMethodPage';
 
 import TierFilterForm from './TierFilter';
+import { PokemonIconDatum } from '../types-queries/helpers';
 
 export type Team = Pokemon[];
 export type TeamAction = 
-| { type: 'add', payload: Pokemon }
-| { type: 'remove', payload: number }
+| { type: 'add', payload: Pokemon, }
+| { type: 'remove', payload: number, }
 
 function teamReducer(state: Team, action: TeamAction) {
   switch(action.type) {
@@ -71,15 +72,27 @@ function teamReducer(state: Team, action: TeamAction) {
   }
 }
 
-export type Cart = Pokemon[];
+export type Cart = {
+  [key: string]: PokemonIconDatum[]
+};
+
 export type CartAction =
-| { type: 'add' }
-| { type: 'remove' }
+| { 
+  type: 'add',
+  payload: {
+    pokemon: PokemonIconDatum[],
+    note: string,
+  },
+}
+| { type: 'remove', };
 
 function cartReducer(state: Cart, action: CartAction) {
   switch(action.type) {
     case 'add':
-      return state;
+      return {
+        ...state,
+        [action.payload.note]: action.payload.pokemon,
+      }
     case 'remove':
       return state;
     default:
@@ -90,8 +103,9 @@ function cartReducer(state: Cart, action: CartAction) {
 function App() {
   const [gen, setGen] = useState<GenerationNum>(NUMBER_OF_GENS);
   const [tierFilter, setTierFilter] = useState<TierFilter>(DEFAULT_TIER_FILTER);
-  const [cart, dispatchCart] = useReducer(cartReducer, []);
+  const [cart, dispatchCart] = useReducer(cartReducer, {});
   const [team, dispatchTeam] = useReducer(teamReducer, []);
+  console.log(cart);
 
   // Change gen when slider is changed
   const handleGenSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {

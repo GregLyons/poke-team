@@ -45,6 +45,7 @@ export const listRenderEffectAbility = ({ data, dispatchCart, dispatchTeam, gen,
             iconData: result.pokemonIconData,
             gen: gen,
             tierFilter: tierFilter,
+            cartNote: `'${result.formattedName}' has the effect '${parent.formattedName}'.`,
           }}
         />
       ))}
@@ -121,6 +122,7 @@ export const listRenderEffectMove = ({ data, dispatchCart, dispatchTeam, gen, ti
             iconData: result.pokemonIconData,
             gen: gen,
             tierFilter: tierFilter,
+            cartNote: `'${result.formattedName}' has the effect '${parent.formattedName}'.`,
           }}
         />
       ))}

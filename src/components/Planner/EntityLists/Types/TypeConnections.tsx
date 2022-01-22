@@ -51,7 +51,7 @@ export const listRenderTypeAbility = ({ data, dispatchCart, dispatchTeam, gen, t
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
-              cartNote: `${parentFormattedName} boosts ${result.formattedName}.`,
+              cartNote: `'${result.formattedName}' boosted by '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -73,7 +73,7 @@ export const listRenderTypeAbility = ({ data, dispatchCart, dispatchTeam, gen, t
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
-              cartNote: `${parentFormattedName} resists ${result.formattedName}.`,
+              cartNote: `'${result.formattedName}' resisted by by '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -313,7 +313,7 @@ export const listRenderTypeMove = ({ data, dispatchCart, dispatchTeam, gen, tier
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
-              cartNote: `${parentFormattedName} enables ${result.formattedName}.`,
+              cartNote: `'${result.formattedName}' enabled by '${parent.formattedName}'.`,
             }}
           />
         ))}

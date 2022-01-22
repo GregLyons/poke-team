@@ -1,23 +1,34 @@
-import { 
-  useEffect,
+import {
   useRef,
   useState,
 } from "react";
 import {
   Link,
 } from "react-router-dom";
-import { useEntryExpand, useSelection } from "../../../hooks/hooks";
-import { GenerationNum } from "../../../types-queries/Generation";
+
+import {
+  selectionToPokemonIconData,
+  useEntryExpand,
+  useSelection,
+} from "../../../hooks/hooks";
+
+import {
+  GenerationNum,
+} from "../../../types-queries/Generation";
 import {
   PokemonIconDatum,
 } from "../../../types-queries/helpers";
-import { TierFilter } from "../../../utils/constants";
-import { psIDToTier } from "../../../utils/smogonLogic";
-import { PokemonNameData } from "../../../utils/sprites";
+import {
+  TierFilter,
+} from "../../../utils/constants";
+import {
+  psIDToTier,
+} from "../../../utils/smogonLogic";
 import { 
   CartAction,
   TeamAction,
 } from "../../App";
+
 import PokemonIcon from "../../PokemonIcon";
 import SelectionControls from "./SelectionControls";
 
@@ -89,6 +100,10 @@ const ConnectionAccordionEntry = ({
     if (!icons) return;
     icons.dispatchCart({
       type: 'add',
+      payload: {
+        pokemon: selectionToPokemonIconData(selection),
+        note: icons.cartNote,
+      }
     });
     dispatchSelection({ type: 'remove_all' });
   }

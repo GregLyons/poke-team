@@ -5,7 +5,6 @@ import {
 } from "react"
 import { CartAction } from "../components/App";
 import { PokemonIconDatum } from "../types-queries/helpers";
-import { PokemonNameData } from "../utils/sprites";
 
 /* 
   Once the entry expands to its scroll height, its scroll height then increases slightly. Thus, if we modify our selection, the component will re-render with the new, slightly increased scroll height, and the effect is that the height increases slightly whenever we click on a selection. 
@@ -62,11 +61,21 @@ export const useSelection = (iconData: PokemonIconDatum[] | undefined): [Selecti
   return [selection, dispatchSelection];
 }
 
+// Keys are psIDs
 export type Selection = {
   [key: string]: {
-    nameData: PokemonNameData,
+    nameData: PokemonIconDatum,
     selected: boolean,
   }
+}
+
+export const selectionToPokemonIconData = (selection: Selection): PokemonIconDatum[] => {
+  const iconData = Object.keys(selection).reduce((acc: PokemonIconDatum[], curr: string) => {
+    if (selection[curr].selected) return acc.concat(selection[curr].nameData);
+    else return acc;
+  }, [])
+
+  return iconData;
 }
 
 export type SelectionAction = 

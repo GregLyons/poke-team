@@ -5,6 +5,8 @@ missing/incorrect/additional data:
 
   sticky web lowers speed by 1, not raises
 
+  alcremie gmax is not cosmetic
+
 add timer to gen switcher to reduce chance of abusing images
 
 investigate connection cache data issue

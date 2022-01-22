@@ -54,6 +54,7 @@ const listRender = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: List
                 dispatchTeam,
                 gen,
                 tierFilter,
+                cartNote: `Pokemon who can have '${ability.formattedName}'.`
               }}
             />
           </>

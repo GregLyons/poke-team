@@ -49,6 +49,7 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' activated by '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -70,6 +71,7 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' boosts '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -93,6 +95,7 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' prevents '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -114,6 +117,7 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -210,6 +214,7 @@ export const listRenderUsageMethodMove = ({ data, dispatchCart, dispatchTeam, ge
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' has '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -233,6 +238,7 @@ export const listRenderUsageMethodMove = ({ data, dispatchCart, dispatchTeam, ge
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' prevents '${parent.formattedName}'.`,
             }}
           />
         ))}

@@ -6,6 +6,7 @@ import {
   Link,
 } from "react-router-dom";
 import {
+  selectionToPokemonIconData,
   useEntryExpand,
   useSelection,
 } from "../../../hooks/hooks";
@@ -96,6 +97,10 @@ const EntitySearchEntry = ({
     if (!icons) return;
     icons.dispatchCart({
       type: 'add',
+      payload: {
+        pokemon: selectionToPokemonIconData(selection),
+        note: icons.cartNote,
+      }
     });
     dispatchSelection({ type: 'remove_all' });
   }

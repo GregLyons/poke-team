@@ -63,6 +63,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' activates '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -84,6 +85,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' created by '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -107,6 +109,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' ignored by '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -130,6 +133,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' prevented by '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -153,6 +157,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' removed by '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -176,6 +181,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' suppressed by '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -316,6 +322,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' creates '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -339,6 +346,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' enhances '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -362,6 +370,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' hinders '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -382,6 +391,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' removes '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -623,6 +633,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
               iconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' strong against '${parent.formattedName}'.`,
             }}
             data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
           />
@@ -663,6 +674,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
                 iconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
                 gen: gen,
                 tierFilter: tierFilter,
+                cartNote: `'${result.formattedName}' ignored by '${parent.formattedName}'.`,
               }}
             />
           ))}
@@ -686,6 +698,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
               iconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' removed by '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -709,6 +722,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
               iconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' resisted by '${parent.formattedName}'.`,
             }}
             data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
           />
