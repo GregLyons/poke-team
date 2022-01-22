@@ -128,7 +128,7 @@ export const TYPE_SEARCH_QUERY = gql`
         }
       }
 
-      pokemon {
+      pokemon(filter: {formClass: [ALOLA, BASE, COSMETIC, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
         edges {
           node {
             id
@@ -452,7 +452,7 @@ export const TYPE_ABILITY_QUERY = gql`
               }
             }
 
-            pokemon {
+            pokemon(filter: {formClass: [ALOLA, BASE, COSMETIC, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
               edges {
                 node {
                   id
@@ -489,7 +489,7 @@ export const TYPE_ABILITY_QUERY = gql`
               }
             }
 
-            pokemon {
+            pokemon(filter: {formClass: [ALOLA, BASE, COSMETIC, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
               edges {
                 node {
                   id
@@ -865,7 +865,7 @@ export const TYPE_MOVE_QUERY = gql`
               }
             }
 
-            pokemon {
+            pokemon(filter: {formClass: [ALOLA, BASE, COSMETIC, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
               edges {
                 node {
                   id
@@ -911,7 +911,7 @@ export const TYPE_MOVE_QUERY = gql`
               }
             }
 
-            pokemon {
+            pokemon(filter: {formClass: [ALOLA, BASE, COSMETIC, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
               edges {
                 node {
                   id
