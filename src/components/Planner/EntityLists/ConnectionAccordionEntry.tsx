@@ -38,6 +38,7 @@ type ConnectionAccordionEntryProps = {
     dispatchTeam: React.Dispatch<TeamAction>
     gen: GenerationNum
     tierFilter: TierFilter
+    cartNote: string
   }
 }
 

@@ -135,6 +135,7 @@ export interface AbilityPageResult extends MainEntityPageResult {
   }
 
   activatedByFieldState: CountField
+  activatedByUsageMethod: CountField
   boostsType: CountField
   boostsUsageMethod: CountField
   causesStatus: CountField
@@ -144,6 +145,7 @@ export interface AbilityPageResult extends MainEntityPageResult {
   modifiesStat: CountField
   pokemon: CountField
   preventsFieldState: CountField
+  preventsUsageMethod: CountField
   removesFieldState: CountField
   resistsStatus: CountField
   resistsType: CountField
@@ -190,6 +192,9 @@ export const ABILITY_PAGE_QUERY = gql`
       activatedByFieldState {
         count
       }
+      activatedByUsageMethod {
+        count
+      }
       boostsType {
         count
       }
@@ -217,6 +222,9 @@ export const ABILITY_PAGE_QUERY = gql`
       preventsFieldState {
         count
       }
+      preventsUsageMethod {
+        count
+      }
       removesFieldState {
         count
       }
@@ -238,6 +246,7 @@ export const ABILITY_PAGE_QUERY = gql`
 
 export class AbilityOnPage extends MainEntityOnPage {
   public activatedByFieldStateCount: number
+  public activatedByUsageMethodCount: number
   public boostsTypeCount: number
   public boostsUsageMethodCount: number
   public causesStatusCount: number
@@ -247,6 +256,7 @@ export class AbilityOnPage extends MainEntityOnPage {
   public modifiesStatCount: number
   public pokemonCount: number
   public preventsFieldStateCount: number
+  public preventsUsageMethodCount: number
   public removesFieldStateCount: number
   public resistsStatusCount: number
   public resistsTypeCount: number
@@ -264,6 +274,7 @@ export class AbilityOnPage extends MainEntityOnPage {
 
     // Counts for displaying accordions
     this.activatedByFieldStateCount = gqlAbility.activatedByFieldState.count
+    this.activatedByUsageMethodCount = gqlAbility.activatedByUsageMethod.count
     this.boostsTypeCount = gqlAbility.boostsType.count
     this.boostsUsageMethodCount = gqlAbility.boostsUsageMethod.count
     this.causesStatusCount = gqlAbility.causesStatus.count
@@ -273,6 +284,7 @@ export class AbilityOnPage extends MainEntityOnPage {
     this.modifiesStatCount = gqlAbility.modifiesStat.count
     this.pokemonCount = gqlAbility.pokemon.count
     this.preventsFieldStateCount = gqlAbility.preventsFieldState.count
+    this.preventsUsageMethodCount = gqlAbility.preventsUsageMethod.count
     this.removesFieldStateCount = gqlAbility.removesFieldState.count
     this.resistsStatusCount = gqlAbility.resistsStatus.count
     this.resistsTypeCount = gqlAbility.resistsType.count
@@ -285,7 +297,7 @@ export class AbilityOnPage extends MainEntityOnPage {
 
     this.typeCount = this.boostsTypeCount + this.resistsTypeCount;
 
-    this.usageMethodCount = this.boostsUsageMethodCount + this.resistsUsageMethodCount;
+    this.usageMethodCount = this.activatedByUsageMethodCount + this.boostsUsageMethodCount + this.preventsUsageMethodCount + this.resistsUsageMethodCount;
   }
 }
 
@@ -300,6 +312,9 @@ export class AbilityOnPage extends MainEntityOnPage {
 export type AbilityEffectQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     effects: {
       edges: AbilityEffectEdge[]
     }
@@ -325,6 +340,9 @@ export const ABILITY_EFFECT_QUERY = gql`
   query AbilityEffectQuery($gen: Int! $name: String!) {
     abilityByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
       effects {
         edges {
           node {
@@ -354,6 +372,9 @@ export class AbilityEffectResult extends MainToAuxConnectionOnPage {
 export type AbilityFieldStateQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     activatedByFieldState: {
       edges: AbilityFieldStateEdge[]
     }
@@ -395,6 +416,9 @@ export const ABILITY_FIELDSTATE_QUERY = gql`
   query AbilityEffectQuery($gen: Int! $name: String!) {
     abilityByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
       activatedByFieldState {
         edges {
           node {
@@ -478,6 +502,9 @@ export class AbilityFieldStateResult extends MainToAuxConnectionOnPage {
 export type AbilityStatQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     modifiesStat: {
       edges: AbilityStatEdge[]
     }
@@ -507,6 +534,9 @@ export const ABILITY_STAT_QUERY = gql`
   query AbilityStatQuery($gen: Int! $name: String!) {
     abilityByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
       modifiesStat {
         edges {
           node {
@@ -551,6 +581,9 @@ export class AbilityStatResult extends MainToAuxConnectionOnPage {
 export type AbilityStatusQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     causesStatus: {
       edges: AbilityStatusEdge[]
     }
@@ -580,6 +613,9 @@ export const ABILITY_STATUS_QUERY = gql`
   query AbilityStatusQuery($gen: Int! $name: String!) {
     abilityByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
       causesStatus {
         edges {
           node {
@@ -627,6 +663,9 @@ export class AbilityStatusResult extends MainToAuxConnectionOnPage {
 export type AbilityTypeQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     boostsType: {
       edges: AbilityTypeEdge[]
     }
@@ -658,6 +697,9 @@ export const ABILITY_TYPE_QUERY = gql`
   query AbilityTypeQuery($gen: Int! $name: String!) {
     abilityByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
       boostsType {
         edges {
           node {
@@ -704,7 +746,16 @@ export class AbilityTypeResult extends MainToAuxConnectionOnPage {
 export type AbilityUsageMethodQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
+    activatedByUsageMethod: {
+      edges: AbilityUsageMethodEdge[]
+    }
     boostsUsageMethod: {
+      edges: AbilityUsageMethodEdge[]
+    }
+    preventsUsageMethod: {
       edges: AbilityUsageMethodEdge[]
     }
     resistsUsageMethod: {
@@ -732,6 +783,19 @@ export const ABILITY_USAGEMETHOD_QUERY = gql`
   query AbilityUsageMethodQuery($gen: Int! $name: String!) {
     abilityByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
+      activatedByUsageMethod {
+        edges {
+          node {
+            id
+            name
+            formattedName
+            description
+          }
+        }
+      }
       boostsUsageMethod {
         edges {
           node {
@@ -741,6 +805,16 @@ export const ABILITY_USAGEMETHOD_QUERY = gql`
             description
           }
           multiplier
+        }
+      }
+      preventsUsageMethod {
+        edges {
+          node {
+            id
+            name
+            formattedName
+            description
+          }
         }
       }
       resistsUsageMethod {

@@ -154,6 +154,9 @@ export const EFFECT_PAGE_QUERY = gql`
       id
       name
       formattedName
+      
+      name
+      formattedName
 
       description
 
@@ -213,6 +216,9 @@ export class EffectOnPage extends AuxEntityOnPage {
 export type EffectAbilityQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     abilities: {
       edges: EffectAbilityEdge[]
     }
@@ -243,7 +249,10 @@ export interface EffectAbilityQueryVars extends EntityConnectionVars {
 export const EFFECT_ABILITY_QUERY = gql`
   query EffectAbilitiesQuery($gen: Int! $name: String!) {
     effectByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       abilities {
         edges {
           node {
@@ -302,6 +311,9 @@ export class EffectAbilityResult extends AuxToMainConnectionOnPage {
 export type EffectFieldStateQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     fieldStates: {
       edges: EffectFieldStateEdge[]
     }
@@ -326,7 +338,10 @@ export interface EffectFieldStateQueryVars extends EntityConnectionVars {
 export const EFFECT_FIELDSTATE_QUERY = gql`
   query EffectFieldStatesQuery($gen: Int! $name: String!) {
     effectByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       fieldStates {
         edges {
           node {
@@ -355,6 +370,9 @@ export class EffectFieldStateResult extends AuxToAuxConnectionOnPage {
 export type EffectItemQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     items: {
       edges: EffectItemEdge[]
     }
@@ -381,7 +399,10 @@ export interface EffectItemQueryVars extends EntityConnectionVars {
 export const EFFECT_ITEM_QUERY = gql`
   query EffectItemsQuery($gen: Int! $name: String!) {
     effectByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       items {
         edges {
           node {
@@ -417,6 +438,9 @@ export class EffectItemResult extends AuxToMainConnectionOnPage {
 export type EffectMoveQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     moves: {
       edges: EffectMoveEdge[]
     }
@@ -451,7 +475,10 @@ export interface EffectMoveQueryVars extends EntityConnectionVars {
 export const EFFECT_MOVE_QUERY = gql`
   query EffectMovesQuery($gen: Int! $name: String!) {
     effectByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       moves {
         edges {
           node {

@@ -257,6 +257,9 @@ export const TYPE_PAGE_QUERY = gql`
       id
       name
       formattedName
+      
+      name
+      formattedName
 
       introduced {
         edges {
@@ -393,6 +396,9 @@ export class TypeOnPage extends AuxEntityOnPage {
 export type TypeAbilityQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     boostedByAbility: {
       edges: TypeAbilityEdge[]
     }
@@ -427,7 +433,10 @@ export interface TypeAbilityQueryVars extends EntityConnectionVars {
 export const TYPE_ABILITY_QUERY = gql`
   query TypeAbilitiesQuery($gen: Int! $name: String!) {
     typeByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       boostedByAbility {
         edges {
           node {
@@ -528,6 +537,9 @@ export class TypeAbilityResult extends AuxToMainConnectionOnPage {
 export type TypeFieldStateQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     boostedByFieldState: {
       edges: TypeFieldStateEdge[]
     }
@@ -568,7 +580,10 @@ export interface TypeFieldStateQueryVars extends EntityConnectionVars {
 export const TYPE_FIELDSTATE_QUERY = gql`
   query TypeAbilitiesQuery($gen: Int! $name: String!) {
     typeByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       boostedByFieldState {
         edges {
           node {
@@ -661,6 +676,9 @@ export class TypeFieldStateResult extends AuxToAuxConnectionOnPage {
 export type TypeItemQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     boostedByItem: {
       edges: TypeItemEdge[]
     }
@@ -695,7 +713,10 @@ export interface TypeItemQueryVars extends EntityConnectionVars {
 export const TYPE_ITEM_QUERY = gql`
   query TypeItemsQuery($gen: Int! $name: String!) {
     typeByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       boostedByItem {
         edges {
           node {
@@ -775,6 +796,9 @@ export class TypeItemResult extends AuxToMainConnectionOnPage {
 export type TypeMoveQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     enablesMove: {
       edges: TypeMoveEdge[]
     }
@@ -812,7 +836,10 @@ export interface TypeMoveQueryVars extends EntityConnectionVars {
 export const TYPE_MOVE_QUERY = gql`
   query TypeMovesQuery($gen: Int! $name: String!) {
     typeByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       enablesMove {
         edges {
           node {

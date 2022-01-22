@@ -136,6 +136,9 @@ export const STAT_PAGE_QUERY = gql`
       id
       name
       formattedName
+      
+      name
+      formattedName
 
       description
 
@@ -194,6 +197,9 @@ export class StatOnPage extends AuxEntityOnPage {
 export type StatAbilityQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     modifiedByAbility: {
       edges: StatAbilityEdge[]
     }
@@ -228,7 +234,10 @@ export interface StatAbilityQueryVars extends EntityConnectionVars {
 export const STAT_ABILITY_QUERY = gql`
   query StatAbilitiesQuery($gen: Int! $name: String!) {
     statByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       modifiedByAbility {
         edges {
           node {
@@ -301,6 +310,9 @@ export class StatAbilityResult extends AuxToMainConnectionOnPage {
 export type StatFieldStateQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     modifiedByFieldState: {
       edges: StatFieldStateEdge[]
     }
@@ -329,7 +341,10 @@ export interface StatFieldStateQueryVars extends EntityConnectionVars {
 export const STAT_FIELDSTATE_QUERY = gql`
   query StatFieldStatesQuery($gen: Int! $name: String!) {
     statByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       modifiedByFieldState {
         edges {
           node {
@@ -373,6 +388,9 @@ export class StatFieldStateResult extends AuxToAuxConnectionOnPage {
 export type StatItemQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     modifiedByItem: {
       edges: StatItemEdge[]
     }
@@ -403,7 +421,10 @@ export interface StatItemQueryVars extends EntityConnectionVars {
 export const STAT_ITEM_QUERY = gql`
   query StatItemsQuery($gen: Int! $name: String!) {
     statByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       modifiedByItem {
         edges {
           node {
@@ -454,6 +475,9 @@ export class StatItemResult extends AuxToMainConnectionOnPage {
 export type StatMoveQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     modifiedByMove: {
       edges: StatMoveEdge[]
     }
@@ -492,7 +516,10 @@ export interface StatMoveQueryVars extends EntityConnectionVars {
 export const STAT_MOVE_QUERY = gql`
   query StatMovesQuery($gen: Int! $name: String!) {
     statByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       modifiedByMove {
         edges {
           node {

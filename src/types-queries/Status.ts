@@ -146,6 +146,9 @@ export const STATUS_PAGE_QUERY = gql`
       id
       name
       formattedName
+      
+      name
+      formattedName
 
       description
 
@@ -231,6 +234,9 @@ export class StatusOnPage extends AuxEntityOnPage {
 export type StatusAbilityQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     causedByAbility: {
       edges: StatusAbilityEdge[]
     }
@@ -265,7 +271,10 @@ export interface StatusAbilityQueryVars extends EntityConnectionVars {
 export const STATUS_ABILITY_QUERY = gql`
   query StatusAbilitiesQuery($gen: Int! $name: String!) {
     statusByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       causedByAbility {
         edges {
           node {
@@ -364,6 +373,9 @@ export class StatusAbilityResult extends AuxToMainConnectionOnPage {
 export type StatusFieldStateQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     causedByFieldState: {
       edges: StatusFieldStateEdge[]
     }
@@ -391,7 +403,10 @@ export interface StatusFieldStateQueryVars extends EntityConnectionVars {
 export const STATUS_FIELDSTATE_QUERY = gql`
   query StatusFieldStatesQuery($gen: Int! $name: String!) {
     statusByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       causedByFieldState {
         edges {
           node {
@@ -437,6 +452,9 @@ export class StatusFieldStateResult extends AuxToAuxConnectionOnPage {
 export type StatusItemQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     causedByItem: {
       edges: StatusItemEdge[]
     }
@@ -467,7 +485,10 @@ export interface StatusItemQueryVars extends EntityConnectionVars {
 export const STATUS_ITEM_QUERY = gql`
   query StatusItemsQuery($gen: Int! $name: String!) {
     statusByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       causedByItem {
         edges {
           node {
@@ -525,6 +546,9 @@ export class StatusItemResult extends AuxToMainConnectionOnPage {
 export type StatusMoveQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     causedByMove: {
       edges: StatusMoveEdge[]
     }
@@ -563,7 +587,10 @@ export interface StatusMoveQueryVars extends EntityConnectionVars {
 export const STATUS_MOVE_QUERY = gql`
   query StatusMovesQuery($gen: Int! $name: String!) {
     statusByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       causedByMove {
         edges {
           node {

@@ -26,16 +26,16 @@ export const listRenderEffectAbility = ({ data, dispatchCart, dispatchTeam, gen,
   if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
-  const parentID = data.effectByName[0].id;
+  const parent = data.effectByName[0];
 
-  const abilityResults = data.effectByName[0].abilities.edges.map(edge => new EffectAbilityResult(edge));
+  const abilityResults = parent.abilities.edges.map(edge => new EffectAbilityResult(edge));
 
   return (
     <>
       {abilityResults.map(result => (
         <ConnectionAccordionEntry
           targetEntityClass="abilities"
-          key={`${parentID}_${result.id}_ability`}
+          key={`${parent.id}_${result.id}_ability`}
           name={result.formattedName}
           linkName={result.name}
           description={result.description}
@@ -55,16 +55,16 @@ export const listRenderEffectAbility = ({ data, dispatchCart, dispatchTeam, gen,
 export const listRenderEffectFieldState = ({ data, }: ListRenderArgs<EffectFieldStateQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
 
-  const parentID = data.effectByName[0].id;
+  const parent = data.effectByName[0];
 
-  const fieldStateResults = data.effectByName[0].fieldStates.edges.map(edge => new EffectFieldStateResult(edge));
+  const fieldStateResults = parent.fieldStates.edges.map(edge => new EffectFieldStateResult(edge));
 
   return (
     <>
       {fieldStateResults.map(result => (
         <ConnectionAccordionEntry
           targetEntityClass="fieldStates"
-          key={`${parentID}_${result.id}_fieldState`}
+          key={`${parent.id}_${result.id}_fieldState`}
           name={result.formattedName}
           linkName={result.name}
           description={result.description}
@@ -77,16 +77,16 @@ export const listRenderEffectFieldState = ({ data, }: ListRenderArgs<EffectField
 export const listRenderEffectItem = ({ data, }: ListRenderArgs<EffectItemQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
 
-  const parentID = data.effectByName[0].id;
+  const parent = data.effectByName[0];
 
-  const itemResults = data.effectByName[0].items.edges.map(edge => new EffectItemResult(edge));
+  const itemResults = parent.items.edges.map(edge => new EffectItemResult(edge));
 
   return (
     <>
       {itemResults.map(result => (
         <ConnectionAccordionEntry
           targetEntityClass="items"
-          key={`${parentID}_${result.id}_item`}
+          key={`${parent.id}_${result.id}_item`}
           name={result.formattedName}
           linkName={result.name}
           description={result.description}
@@ -102,16 +102,16 @@ export const listRenderEffectMove = ({ data, dispatchCart, dispatchTeam, gen, ti
   if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
-  const parentID = data.effectByName[0].id;
+  const parent = data.effectByName[0];
 
-  const moveResults = data.effectByName[0].moves.edges.map(edge => new EffectMoveResult(edge));
+  const moveResults = parent.moves.edges.map(edge => new EffectMoveResult(edge));
 
   return (
     <>
       {moveResults.map(result => (
         <ConnectionAccordionEntry
           targetEntityClass="moves"
-          key={`${parentID}_${result.id}_move`}
+          key={`${parent.id}_${result.id}_move`}
           name={result.formattedName}
           linkName={result.name}
           description={result.description}

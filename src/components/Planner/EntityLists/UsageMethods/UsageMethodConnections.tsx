@@ -24,10 +24,10 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
   if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
-  const parentID = data.usageMethodByName[0].id;
+  const parent = data.usageMethodByName[0];
 
-  const boostedByResults = data.usageMethodByName[0].boostedByAbility.edges.map(edge => new UsageMethodAbilityResult(edge));
-  const resistedByResults = data.usageMethodByName[0].resistedByAbility.edges.map(edge => new UsageMethodAbilityResult(edge));
+  const boostedByResults = parent.boostedByAbility.edges.map(edge => new UsageMethodAbilityResult(edge));
+  const resistedByResults = parent.resistedByAbility.edges.map(edge => new UsageMethodAbilityResult(edge));
 
   return (
     <>
@@ -37,7 +37,7 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
         {boostedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="abilities"
-            key={`${parentID}_${result.id}_boost_ability`}
+            key={`${parent.id}_${result.id}_boost_ability`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -58,7 +58,7 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
         {resistedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="abilities"
-            key={`${parentID}_${result.id}_resist_ability`}
+            key={`${parent.id}_${result.id}_resist_ability`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -83,10 +83,10 @@ export const listRenderUsageMethodItem = ({ data, dispatchCart, dispatchTeam, ge
   if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
-  const parentID = data.usageMethodByName[0].id;
+  const parent = data.usageMethodByName[0];
 
-  const boostedByResults = data.usageMethodByName[0].boostedByItem.edges.map(edge => new UsageMethodItemResult(edge));
-  const resistedByResults = data.usageMethodByName[0].resistedByItem.edges.map(edge => new UsageMethodItemResult(edge));
+  const boostedByResults = parent.boostedByItem.edges.map(edge => new UsageMethodItemResult(edge));
+  const resistedByResults = parent.resistedByItem.edges.map(edge => new UsageMethodItemResult(edge));
 
   return (
     <>
@@ -96,7 +96,7 @@ export const listRenderUsageMethodItem = ({ data, dispatchCart, dispatchTeam, ge
         {boostedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="items"
-            key={`${parentID}_${result.id}_boost_item`}
+            key={`${parent.id}_${result.id}_boost_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -110,7 +110,7 @@ export const listRenderUsageMethodItem = ({ data, dispatchCart, dispatchTeam, ge
         {resistedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="items"
-            key={`${parentID}_${result.id}_resist_item`}
+            key={`${parent.id}_${result.id}_resist_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -128,16 +128,16 @@ export const listRenderUsageMethodMove = ({ data, dispatchCart, dispatchTeam, ge
   if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
-  const parentID = data.usageMethodByName[0].id;
+  const parent = data.usageMethodByName[0];
 
-  const moveResults = data.usageMethodByName[0].moves.edges.map(edge => new UsageMethodMoveResult(edge));
+  const moveResults = parent.moves.edges.map(edge => new UsageMethodMoveResult(edge));
 
   return (
     <>
       {moveResults.map(result => (
         <ConnectionAccordionEntry
           targetEntityClass="moves"
-          key={`${parentID}_${result.id}_move`}
+          key={`${parent.id}_${result.id}_move`}
           name={result.formattedName}
           linkName={result.name}
           description={result.description}

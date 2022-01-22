@@ -122,11 +122,15 @@ export interface UsageMethodPageResult extends AuxEntityPageResult {
     edges: IntroductionEdge[]
   }
 
+  activatesAbility: CountField
+  activatesItem: CountField
   boostedByAbility: CountField
   boostedByItem: CountField
+  preventedByAbility: CountField
+  moves: CountField
+  preventedByMove: CountField
   resistedByAbility: CountField
   resistedByItem: CountField
-  moves: CountField
 }
 
 export interface UsageMethodPageQueryVars extends EntityPageVars {
@@ -140,6 +144,9 @@ export const USAGEMETHOD_PAGE_QUERY = gql`
       id
       name
       formattedName
+      
+      name
+      formattedName
 
       introduced {
         edges {
@@ -149,10 +156,22 @@ export const USAGEMETHOD_PAGE_QUERY = gql`
         }
       }
 
+      activatedByAbility {
+        count
+      }
+      activatedByItem {
+        count
+      }
       boostedByAbility {
         count
       }
       boostedByItem {
+        count
+      }
+      preventedByAbility {
+        count
+      }
+      preventedByMove {
         count
       }
       resistedByAbility {
@@ -169,8 +188,13 @@ export const USAGEMETHOD_PAGE_QUERY = gql`
 `;
 
 export class UsageMethodOnPage extends AuxEntityOnPage {
+  public activatesAbilityCount: number
+  public activatesItemCount: number
   public boostedByAbilityCount: number
   public boostedByItemCount: number
+  public hadByMoveCount: number
+  public preventedByAbilityCount: number
+  public preventedByMoveCount: number
   public resistedByAbilityCount: number
   public resistedByItemCount: number
 
@@ -182,15 +206,19 @@ export class UsageMethodOnPage extends AuxEntityOnPage {
     super(gqlUsageMethod);
 
     // Counts for displaying accordions
+    this.activatesAbilityCount = gqlUsageMethod.activatesAbility.count;
+    this.activatesItemCount = gqlUsageMethod.activatesItem.count;
     this.boostedByAbilityCount = gqlUsageMethod.boostedByAbility.count;
     this.boostedByItemCount = gqlUsageMethod.boostedByItem.count;
+    this.hadByMoveCount = gqlUsageMethod.moves.count;
+    this.preventedByAbilityCount = gqlUsageMethod.preventedByAbility.count;
+    this.preventedByMoveCount = gqlUsageMethod.preventedByMove.count;
     this.resistedByAbilityCount = gqlUsageMethod.resistedByAbility.count;
     this.resistedByItemCount = gqlUsageMethod.resistedByItem.count;
-    this.moveCount = gqlUsageMethod.moves.count;
 
-    this.abilityCount = this.boostedByAbilityCount + this.resistedByAbilityCount;
-    this.itemCount = this.boostedByItemCount + this.resistedByItemCount;
-    this.moveCount = this.moveCount;
+    this.abilityCount = this.activatesAbilityCount + this.boostedByAbilityCount + this.preventedByAbilityCount + this.resistedByAbilityCount;
+    this.itemCount = this.activatesItemCount + this.boostedByItemCount + this.resistedByItemCount;
+    this.moveCount = this.hadByMoveCount + this.preventedByMoveCount;
   }
 }
 
@@ -205,6 +233,12 @@ export class UsageMethodOnPage extends AuxEntityOnPage {
 export type UsageMethodAbilityQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
+    activatesAbility: {
+      edges: UsageMethodAbilityEdge[]
+    }
     boostedByAbility: {
       edges: UsageMethodAbilityEdge[]
     }
@@ -239,7 +273,46 @@ export interface UsageMethodAbilityQueryVars extends EntityConnectionVars {
 export const USAGEMETHOD_ABILITY_QUERY = gql`
   query UsageMethodAbilitiesQuery($gen: Int! $name: String!) {
     usageMethodByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
+      activatesAbility {
+        edges {
+          node {
+            id
+            name
+            formattedName
+
+            descriptions {
+              edges (pagination: {limit: 1}) {
+                node {
+                  text
+                }
+              }
+            }
+
+            pokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
       boostedByAbility {
         edges {
           node {
@@ -275,6 +348,42 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
             }
           }
           multiplier
+        }
+      }
+      preventedByAbility {
+        edges {
+          node {
+            id
+            name
+            formattedName
+
+            descriptions {
+              edges(pagination: {limit: 1}) {
+                node {
+                  text
+                }
+              }
+            }
+
+            pokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
       resistedByAbility {
@@ -340,6 +449,12 @@ export class UsageMethodAbilityResult extends AuxToMainConnectionOnPage {
 export type UsageMethodItemQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+
+    activatesItem: {
+      edges: UsageMethodItemEdge[]
+    }
     boostedByItem: {
       edges: UsageMethodItemEdge[]
     }
@@ -370,7 +485,34 @@ export interface UsageMethodItemQueryVars extends EntityConnectionVars {
 export const USAGEMETHOD_ITEM_QUERY = gql`
   query UsageMethodItemsQuery($gen: Int! $name: String!) {
     usageMethodByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
+      activatesItem {
+        edges {
+          node {
+            id
+            name
+            formattedName
+            descriptions {
+              edges(pagination: {limit: 1}) {
+                node {
+                  text
+                }
+              }
+            }
+
+            introduced {
+              edges {
+                node {
+                  number
+                }
+              }
+            }
+          }
+        }
+      }
       boostedByItem {
         edges {
           node {
@@ -430,7 +572,13 @@ export class UsageMethodItemResult extends AuxToMainConnectionOnPage {
 export type UsageMethodMoveQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     moves: {
+      edges: UsageMethodMoveEdge[]
+    }
+    preventedByMove: {
       edges: UsageMethodMoveEdge[]
     }
   }[]
@@ -464,7 +612,10 @@ export interface UsageMethodMoveQueryVars extends EntityConnectionVars {
 export const USAGEMETHOD_MOVE_QUERY = gql`
   query UsageMethodMovesQuery($gen: Int! $name: String!) {
     usageMethodByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       moves {
         edges {
           node {
@@ -480,6 +631,51 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
               }
             }
             
+            type {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                }
+              }
+            }
+
+            pokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      preventedByMove {
+        edges {
+          node {
+            id
+            name
+            formattedName
+            descriptions {
+              edges(pagination: {limit: 1}) {
+                node {
+                  text
+                }
+              }
+            }
+
             type {
               edges {
                 node {

@@ -214,6 +214,7 @@ export interface MovePageResult extends MainEntityPageResult {
   interactsWithMove: CountField
   modifiesStat: CountField
   pokemon: CountField
+  preventsUsageMethod: CountField
   removesFieldState: CountField
   requiresItem: CountField
   requiresMove: CountField
@@ -305,6 +306,9 @@ export const MOVE_PAGE_QUERY = gql`
       pokemon {
         count
       }
+      preventsUsageMethod {
+        count
+      }
       removesFieldState {
         count
       }
@@ -346,22 +350,24 @@ export class MoveOnPage extends MainEntityOnPage {
   public effectCount: number
   public enablesMoveCount: number
   public enhancedByFieldStateCount: number
+  public hasUsageMethodCount: number
   public hinderedByFieldStateCount: number
   public interactedWithByMoveCount: number
   public interactsWithMoveCount: number
   public modifiesStatCount: number
   public pokemonCount: number
+  public preventsUsageMethodCount: number
   public removesFieldStateCount: number
   public requiresItemCount: number
   public requiresMoveCount: number
   public requiresPokemonCount: number
   public requiresTypeCount: number
   public resistsStatusCount: number
-  public usageMethodCount: number
-
+  
   public fieldStateCount: number
   public statusCount: number
   public typeCount: number
+  public usageMethodCount: number
 
   constructor(gqlMove: MovePageResult) {
     // Data for MovePage
@@ -385,24 +391,27 @@ export class MoveOnPage extends MainEntityOnPage {
     this.effectCount = gqlMove.effects.count
     this.enablesMoveCount = gqlMove.enablesMove.count
     this.enhancedByFieldStateCount = gqlMove.enhancedByFieldState.count
+    this.hasUsageMethodCount = gqlMove.usageMethods.count
     this.hinderedByFieldStateCount = gqlMove.hinderedByFieldState.count
     this.interactedWithByMoveCount = gqlMove.interactedWithByMove.count
     this.interactsWithMoveCount = gqlMove.interactsWithMove.count
     this.modifiesStatCount = gqlMove.modifiesStat.count
     this.pokemonCount = gqlMove.pokemon.count
+    this.preventsUsageMethodCount = gqlMove.preventsUsageMethod.count
     this.removesFieldStateCount = gqlMove.removesFieldState.count
     this.requiresItemCount = gqlMove.requiresItem.count
     this.requiresMoveCount = gqlMove.requiresMove.count
     this.requiresPokemonCount = gqlMove.requiresPokemon.count
     this.requiresTypeCount = gqlMove.requiresType.count
     this.resistsStatusCount = gqlMove.resistsStatus.count
-    this.usageMethodCount = gqlMove.usageMethods.count
 
     this.fieldStateCount = this.createsFieldStateCount + this.enhancedByFieldStateCount + this.hinderedByFieldStateCount + this.removesFieldStateCount;
 
     this.statusCount = this.causesStatusCount + this.resistsStatusCount;
 
     this.typeCount = this.requiresTypeCount;
+
+    this.usageMethodCount = this.hasUsageMethodCount + this.preventsUsageMethodCount;
   }
 }
 
@@ -417,6 +426,9 @@ export class MoveOnPage extends MainEntityOnPage {
 export type MoveEffectQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     effects: {
       edges: MoveEffectEdge[]
     }
@@ -442,6 +454,9 @@ export const MOVE_EFFECT_QUERY = gql`
   query MoveEffectQuery($gen: Int! $name: String!) {
     moveByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
       effects {
         edges {
           node {
@@ -471,6 +486,9 @@ export class MoveEffectResult extends MainToAuxConnectionOnPage {
 export type MoveFieldStateQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     createsFieldState: {
       edges: MoveFieldStateEdge[]
     }
@@ -506,6 +524,9 @@ export const MOVE_FIELDSTATE_QUERY = gql`
   query MoveEffectQuery($gen: Int! $name: String!) {
     moveByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
       createsFieldState {
         edges {
           node {
@@ -569,6 +590,9 @@ export class MoveFieldStateResult extends MainToAuxConnectionOnPage {
 export type MoveStatQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     modifiesStat: {
       edges: MoveStatEdge[]
     }
@@ -598,6 +622,9 @@ export const MOVE_STAT_QUERY = gql`
   query MoveStatQuery($gen: Int! $name: String!) {
     moveByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
       modifiesStat {
         edges {
           node {
@@ -642,6 +669,9 @@ export class MoveStatResult extends MainToAuxConnectionOnPage {
 export type MoveStatusQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     causesStatus: {
       edges: MoveStatusEdge[]
     }
@@ -671,6 +701,9 @@ export const MOVE_STATUS_QUERY = gql`
   query MoveStatusQuery($gen: Int! $name: String!) {
     moveByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
       causesStatus {
         edges {
           node {
@@ -716,6 +749,9 @@ export class MoveStatusResult extends MainToAuxConnectionOnPage {
 export type MoveTypeQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     requiresType: {
       edges: MoveTypeEdge[]
     }
@@ -739,6 +775,9 @@ export const MOVE_TYPE_QUERY = gql`
   query MoveTypeQuery($gen: Int! $name: String!) {
     moveByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
       requiresType {
         edges {
           node {
@@ -766,6 +805,12 @@ export class MoveTypeResult extends MainToAuxConnectionOnPage {
 export type MoveUsageMethodQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+
+    preventsUsageMethod: {
+      edges: MoveUsageMethodEdge[]
+    }
     usageMethods: {
       edges: MoveUsageMethodEdge[]
     }
@@ -790,6 +835,19 @@ export const MOVE_USAGEMETHOD_QUERY = gql`
   query MoveTypeQuery($gen: Int! $name: String!) {
     moveByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+
+      preventsUsageMethod {
+        edges {
+          node {
+            id
+            name
+            formattedName
+            description
+          }
+        }
+      }
       usageMethods {
         edges {
           node {

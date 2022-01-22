@@ -26,16 +26,16 @@ import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 export const listRenderItemEffect = ({ data, }: ListRenderArgs<ItemEffectQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 
-  const parentID = data.itemByName[0].id;
+  const parent = data.itemByName[0];
 
-  const effectResults = data.itemByName[0].effects.edges.map(edge => new ItemEffectResult(edge));
+  const effectResults = parent.effects.edges.map(edge => new ItemEffectResult(edge));
   
   return (
     <>
       {effectResults.map(result => (
         <ConnectionAccordionEntry
           targetEntityClass="effects"
-          key={`${parentID}_${result.id}_effect`}
+          key={`${parent.id}_${result.id}_effect`}
           name={result.formattedName}
           linkName={result.name}
           description={result.description}
@@ -48,12 +48,12 @@ export const listRenderItemEffect = ({ data, }: ListRenderArgs<ItemEffectQuery>)
 export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStateQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 
-  const parentID = data.itemByName[0].id;
+  const parent = data.itemByName[0];
 
-  const activatedByResults = data.itemByName[0].activatedByFieldState.edges.map(edge => new ItemFieldStateResult(edge));
-  const extendsResults = data.itemByName[0].extendsFieldState.edges.map(edge => new ItemFieldStateResult(edge));
-  const ignoresResults = data.itemByName[0].ignoresFieldState.edges.map(edge => new ItemFieldStateResult(edge));
-  const resistsResults = data.itemByName[0].resistsFieldState.edges.map(edge => new ItemFieldStateResult(edge));
+  const activatedByResults = parent.activatedByFieldState.edges.map(edge => new ItemFieldStateResult(edge));
+  const extendsResults = parent.extendsFieldState.edges.map(edge => new ItemFieldStateResult(edge));
+  const ignoresResults = parent.ignoresFieldState.edges.map(edge => new ItemFieldStateResult(edge));
+  const resistsResults = parent.resistsFieldState.edges.map(edge => new ItemFieldStateResult(edge));
 
   return (
     <>
@@ -63,7 +63,7 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
         {activatedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_activate_fieldState`}
+            key={`${parent.id}_${result.id}_activate_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -79,7 +79,7 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
         {extendsResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_extend_fieldState`}
+            key={`${parent.id}_${result.id}_extend_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -96,7 +96,7 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
         {ignoresResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_ignore_fieldState`}
+            key={`${parent.id}_${result.id}_ignore_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -112,7 +112,7 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
         {resistsResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_resist_fieldState`}
+            key={`${parent.id}_${result.id}_resist_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -126,9 +126,9 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
 export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 
-  const parentID = data.itemByName[0].id;
+  const parent = data.itemByName[0];
 
-  const statResults = data.itemByName[0].modifiesStat.edges.map(edge => new ItemStatResult(edge));
+  const statResults = parent.modifiesStat.edges.map(edge => new ItemStatResult(edge));
   const boostStageResults = statResults.filter(result => result.stage > 0);
   const reduceStageResults = statResults.filter(result => result.stage < 0);
   const boostMultiplierResults = statResults.filter(result => result.multiplier > 1);
@@ -142,7 +142,7 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="stats"
-            key={`${parentID}_${result.id}_boost_stage_stat`}
+            key={`${parent.id}_${result.id}_boost_stage_stat`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -166,7 +166,7 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="stats"
-            key={`${parentID}_${result.id}_boost_multiplier_stat`}
+            key={`${parent.id}_${result.id}_boost_multiplier_stat`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -190,7 +190,7 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="stats"
-            key={`${parentID}_${result.id}_reduce_stage_stat`}
+            key={`${parent.id}_${result.id}_reduce_stage_stat`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -214,7 +214,7 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="stats"
-            key={`${parentID}_${result.id}_reduce_multiplier_stat`}
+            key={`${parent.id}_${result.id}_reduce_multiplier_stat`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -239,10 +239,10 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
 export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 
-  const parentID = data.itemByName[0].id;
+  const parent = data.itemByName[0];
 
-  const causesResults = data.itemByName[0].causesStatus.edges.map(edge => new ItemStatusResult(edge));
-  const resistsResults = data.itemByName[0].resistsStatus.edges.map(edge => new ItemStatusResult(edge));
+  const causesResults = parent.causesStatus.edges.map(edge => new ItemStatusResult(edge));
+  const resistsResults = parent.resistsStatus.edges.map(edge => new ItemStatusResult(edge));
 
   return (
     <>
@@ -252,7 +252,7 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
         {causesResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="statuses"
-            key={`${parentID}_${result.id}_cause_status`}
+            key={`${parent.id}_${result.id}_cause_status`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -269,7 +269,7 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
         {causesResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="statuses"
-            key={`${parentID}_${result.id}_resist_status`}
+            key={`${parent.id}_${result.id}_resist_status`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -283,11 +283,11 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
 export const listRenderItemType = ({ data, }: ListRenderArgs<ItemTypeQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 
-  const parentID = data.itemByName[0].id;
+  const parent = data.itemByName[0];
 
-  const boostsResults = data.itemByName[0].boostsType.edges.map(edge => new ItemTypeResult(edge));
-  const naturalGiftResults = data.itemByName[0].naturalGift.edges.map(edge => new ItemTypeResult(edge));
-  const resistsResults = data.itemByName[0].resistsType.edges.map(edge => new ItemTypeResult(edge));
+  const boostsResults = parent.boostsType.edges.map(edge => new ItemTypeResult(edge));
+  const naturalGiftResults = parent.naturalGift.edges.map(edge => new ItemTypeResult(edge));
+  const resistsResults = parent.resistsType.edges.map(edge => new ItemTypeResult(edge));
 
   return (
     <>
@@ -300,7 +300,7 @@ export const listRenderItemType = ({ data, }: ListRenderArgs<ItemTypeQuery>) => 
         {boostsResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="types"
-            key={`${parentID}_${result.id}_boost_type`}
+            key={`${parent.id}_${result.id}_boost_type`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -317,7 +317,7 @@ export const listRenderItemType = ({ data, }: ListRenderArgs<ItemTypeQuery>) => 
         {naturalGiftResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="types"
-            key={`${parentID}_${result.id}_naturalGift_type`}
+            key={`${parent.id}_${result.id}_naturalGift_type`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -334,7 +334,7 @@ export const listRenderItemType = ({ data, }: ListRenderArgs<ItemTypeQuery>) => 
         {resistsResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="types"
-            key={`${parentID}_${result.id}_resist_type`}
+            key={`${parent.id}_${result.id}_resist_type`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -349,10 +349,10 @@ export const listRenderItemType = ({ data, }: ListRenderArgs<ItemTypeQuery>) => 
 export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMethodQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 
-  const parentID = data.itemByName[0].id;
+  const parent = data.itemByName[0];
 
-  const boostsResults = data.itemByName[0].boostsUsageMethod.edges.map(edge => new ItemUsageMethodResult(edge));
-  const resistsResults = data.itemByName[0].resistsUsageMethod.edges.map(edge => new ItemUsageMethodResult(edge));
+  const boostsResults = parent.boostsUsageMethod.edges.map(edge => new ItemUsageMethodResult(edge));
+  const resistsResults = parent.resistsUsageMethod.edges.map(edge => new ItemUsageMethodResult(edge));
 
   return (
     <>
@@ -365,7 +365,7 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
         {boostsResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="usageMethods"
-            key={`${parentID}_${result.id}_boost_usageMethod`}
+            key={`${parent.id}_${result.id}_boost_usageMethod`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -382,7 +382,7 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
         {resistsResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="usageMethods"
-            key={`${parentID}_${result.id}_resist_usageMethod`}
+            key={`${parent.id}_${result.id}_resist_usageMethod`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}

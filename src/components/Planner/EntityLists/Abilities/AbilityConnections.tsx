@@ -21,16 +21,16 @@ import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 export const listRenderAbilityEffect = ({ data, }: ListRenderArgs<AbilityEffectQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
 
-  const parentID = data.abilityByName[0].id;
+  const parent = data.abilityByName[0];
 
-  const effectResults = data.abilityByName[0].effects.edges.map(edge => new AbilityEffectResult(edge));
+  const effectResults = parent.effects.edges.map(edge => new AbilityEffectResult(edge));
   
   return (
     <>
       {effectResults.map(result => (
         <ConnectionAccordionEntry
           targetEntityClass="effects"
-          key={`${parentID}_${result.id}_effect`}
+          key={`${parent.id}_${result.id}_effect`}
           name={result.formattedName}
           linkName={result.name}
           description={result.description}
@@ -43,14 +43,14 @@ export const listRenderAbilityEffect = ({ data, }: ListRenderArgs<AbilityEffectQ
 export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFieldStateQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
 
-  const parentID = data.abilityByName[0].id;
+  const parent = data.abilityByName[0];
 
-  const activatedByResults = data.abilityByName[0].activatedByFieldState.edges.map(edge => new AbilityFieldStateResult(edge));
-  const createsResults = data.abilityByName[0].createsFieldState.edges.map(edge => new AbilityFieldStateResult(edge));
-  const ignoresResults = data.abilityByName[0].ignoresFieldState.edges.map(edge => new AbilityFieldStateResult(edge));
-  const preventsResults = data.abilityByName[0].preventsFieldState.edges.map(edge => new AbilityFieldStateResult(edge));
-  const removesResults = data.abilityByName[0].removesFieldState.edges.map(edge => new AbilityFieldStateResult(edge));
-  const suppressesResults = data.abilityByName[0].suppressesFieldState.edges.map(edge => new AbilityFieldStateResult(edge));
+  const activatedByResults = parent.activatedByFieldState.edges.map(edge => new AbilityFieldStateResult(edge));
+  const createsResults = parent.createsFieldState.edges.map(edge => new AbilityFieldStateResult(edge));
+  const ignoresResults = parent.ignoresFieldState.edges.map(edge => new AbilityFieldStateResult(edge));
+  const preventsResults = parent.preventsFieldState.edges.map(edge => new AbilityFieldStateResult(edge));
+  const removesResults = parent.removesFieldState.edges.map(edge => new AbilityFieldStateResult(edge));
+  const suppressesResults = parent.suppressesFieldState.edges.map(edge => new AbilityFieldStateResult(edge));
 
   return (
     <>
@@ -60,7 +60,7 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
         {activatedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_activate_fieldState`}
+            key={`${parent.id}_${result.id}_activate_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -73,7 +73,7 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
         {createsResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_create_fieldState`}
+            key={`${parent.id}_${result.id}_create_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -90,7 +90,7 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
         {ignoresResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_ignore_fieldState`}
+            key={`${parent.id}_${result.id}_ignore_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -106,7 +106,7 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
         {preventsResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_prevent_fieldState`}
+            key={`${parent.id}_${result.id}_prevent_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -122,7 +122,7 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
         {removesResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_remove_fieldState`}
+            key={`${parent.id}_${result.id}_remove_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -138,7 +138,7 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
         {suppressesResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_suppress_fieldState`}
+            key={`${parent.id}_${result.id}_suppress_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -152,9 +152,9 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
 export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
 
-  const parentID = data.abilityByName[0].id;
+  const parent = data.abilityByName[0];
 
-  const statResults = data.abilityByName[0].modifiesStat.edges.map(edge => new AbilityStatResult(edge));
+  const statResults = parent.modifiesStat.edges.map(edge => new AbilityStatResult(edge));
   const boostStageResults = statResults.filter(result => result.stage > 0);
   const reduceStageResults = statResults.filter(result => result.stage < 0);
   const boostMultiplierResults = statResults.filter(result => result.multiplier > 1);
@@ -168,7 +168,7 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="stats"
-            key={`${parentID}_${result.id}_boost_stage_stat`}
+            key={`${parent.id}_${result.id}_boost_stage_stat`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -192,7 +192,7 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="stats"
-            key={`${parentID}_${result.id}_boost_multiplier_stat`}
+            key={`${parent.id}_${result.id}_boost_multiplier_stat`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -216,7 +216,7 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="stats"
-            key={`${parentID}_${result.id}_reduce_stage_stat`}
+            key={`${parent.id}_${result.id}_reduce_stage_stat`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -240,7 +240,7 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="stats"
-            key={`${parentID}_${result.id}_reduce_multiplier_stat`}
+            key={`${parent.id}_${result.id}_reduce_multiplier_stat`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -265,10 +265,10 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
 export const listRenderAbilityStatus = ({ data, }: ListRenderArgs<AbilityStatusQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
 
-  const parentID = data.abilityByName[0].id;
+  const parent = data.abilityByName[0];
 
-  const causesResults = data.abilityByName[0].causesStatus.edges.map(edge => new AbilityStatusResult(edge));
-  const resistsResults = data.abilityByName[0].resistsStatus.edges.map(edge => new AbilityStatusResult(edge));
+  const causesResults = parent.causesStatus.edges.map(edge => new AbilityStatusResult(edge));
+  const resistsResults = parent.resistsStatus.edges.map(edge => new AbilityStatusResult(edge));
 
   return (
     <>
@@ -278,7 +278,7 @@ export const listRenderAbilityStatus = ({ data, }: ListRenderArgs<AbilityStatusQ
         {causesResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="statuses"
-            key={`${parentID}_${result.id}_cause_status`}
+            key={`${parent.id}_${result.id}_cause_status`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -295,7 +295,7 @@ export const listRenderAbilityStatus = ({ data, }: ListRenderArgs<AbilityStatusQ
         {resistsResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="statuses"
-            key={`${parentID}_${result.id}_resist_status`}
+            key={`${parent.id}_${result.id}_resist_status`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -309,10 +309,10 @@ export const listRenderAbilityStatus = ({ data, }: ListRenderArgs<AbilityStatusQ
 export const listRenderAbilityType = ({ data, }: ListRenderArgs<AbilityTypeQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
 
-  const parentID = data.abilityByName[0].id;
+  const parent = data.abilityByName[0];
 
-  const boostsResults = data.abilityByName[0].boostsType.edges.map(edge => new AbilityTypeResult(edge));
-  const resistsResults = data.abilityByName[0].resistsType.edges.map(edge => new AbilityTypeResult(edge));
+  const boostsResults = parent.boostsType.edges.map(edge => new AbilityTypeResult(edge));
+  const resistsResults = parent.resistsType.edges.map(edge => new AbilityTypeResult(edge));
 
   return (
     <>
@@ -325,7 +325,7 @@ export const listRenderAbilityType = ({ data, }: ListRenderArgs<AbilityTypeQuery
         {boostsResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="types"
-            key={`${parentID}_${result.id}_boost_type`}
+            key={`${parent.id}_${result.id}_boost_type`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -342,7 +342,7 @@ export const listRenderAbilityType = ({ data, }: ListRenderArgs<AbilityTypeQuery
         {resistsResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="types"
-            key={`${parentID}_${result.id}_resist_type`}
+            key={`${parent.id}_${result.id}_resist_type`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -357,10 +357,10 @@ export const listRenderAbilityType = ({ data, }: ListRenderArgs<AbilityTypeQuery
 export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUsageMethodQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
 
-  const parentID = data.abilityByName[0].id;
+  const parent = data.abilityByName[0];
 
-  const boostsResults = data.abilityByName[0].boostsUsageMethod.edges.map(edge => new AbilityUsageMethodResult(edge));
-  const resistsResults = data.abilityByName[0].resistsUsageMethod.edges.map(edge => new AbilityUsageMethodResult(edge));
+  const boostsResults = parent.boostsUsageMethod.edges.map(edge => new AbilityUsageMethodResult(edge));
+  const resistsResults = parent.resistsUsageMethod.edges.map(edge => new AbilityUsageMethodResult(edge));
   resistsResults.map(result => {
     console.log(result.multiplier)
   });
@@ -376,7 +376,7 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
         {boostsResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="usageMethods"
-            key={`${parentID}_${result.id}_boost_usageMethod`}
+            key={`${parent.id}_${result.id}_boost_usageMethod`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -393,7 +393,7 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
         {resistsResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="usageMethods"
-            key={`${parentID}_${result.id}_resist_usageMethod`}
+            key={`${parent.id}_${result.id}_resist_usageMethod`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}

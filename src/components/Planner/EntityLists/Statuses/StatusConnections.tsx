@@ -26,10 +26,10 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, gen,
   if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
-  const parentID = data.statusByName[0].id;
+  const parent = data.statusByName[0];
 
-  const causedByResults = data.statusByName[0].causedByAbility.edges.map(edge => new StatusAbilityResult(edge));
-  const resistedByResults = data.statusByName[0].resistedByAbility.edges.map(edge => new StatusAbilityResult(edge));
+  const causedByResults = parent.causedByAbility.edges.map(edge => new StatusAbilityResult(edge));
+  const resistedByResults = parent.resistedByAbility.edges.map(edge => new StatusAbilityResult(edge));
 
   return (
     <>
@@ -39,7 +39,7 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, gen,
         {causedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="abilities"
-            key={`${parentID}_${result.id}_cause_ability`}
+            key={`${parent.id}_${result.id}_cause_ability`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -50,6 +50,7 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, gen,
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `${result.formattedName} causes ${parentdFormattedName}.`,
             }}
           />
         ))}
@@ -63,7 +64,7 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, gen,
         {resistedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="abilities"
-            key={`${parentID}_${result.id}_resist_ability`}
+            key={`${parent.id}_${result.id}_resist_ability`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -84,10 +85,10 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, gen,
 export const listRenderStatusFieldState = ({ data, }: ListRenderArgs<StatusFieldStateQuery>) => {
   if (!data || !data.statusByName) return (<div>Data not found for the query 'statusByName'.</div>);
 
-  const parentID = data.statusByName[0].id;
+  const parent = data.statusByName[0];
 
-  const causedByResults = data.statusByName[0].causedByFieldState.edges.map(edge => new StatusFieldStateResult(edge));
-  const resistedByResults = data.statusByName[0].resistedByFieldState.edges.map(edge => new StatusFieldStateResult(edge));
+  const causedByResults = parent.causedByFieldState.edges.map(edge => new StatusFieldStateResult(edge));
+  const resistedByResults = parent.resistedByFieldState.edges.map(edge => new StatusFieldStateResult(edge));
 
   return (
     <>
@@ -97,7 +98,7 @@ export const listRenderStatusFieldState = ({ data, }: ListRenderArgs<StatusField
         {causedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_cause_fieldState`}
+            key={`${parent.id}_${result.id}_cause_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -114,7 +115,7 @@ export const listRenderStatusFieldState = ({ data, }: ListRenderArgs<StatusField
         {resistedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_resist_fieldState`}
+            key={`${parent.id}_${result.id}_resist_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -128,10 +129,10 @@ export const listRenderStatusFieldState = ({ data, }: ListRenderArgs<StatusField
 export const listRenderStatusItem = ({ data, }: ListRenderArgs<StatusItemQuery>) => {
   if (!data || !data.statusByName) return (<div>Data not found for the query 'statusByName'.</div>);
 
-  const parentID = data.statusByName[0].id;
+  const parent = data.statusByName[0];
 
-  const causedByResults = data.statusByName[0].causedByItem.edges.map(edge => new StatusItemResult(edge));
-  const resistedByResults = data.statusByName[0].resistedByItem.edges.map(edge => new StatusItemResult(edge));
+  const causedByResults = parent.causedByItem.edges.map(edge => new StatusItemResult(edge));
+  const resistedByResults = parent.resistedByItem.edges.map(edge => new StatusItemResult(edge));
 
   return (
     <>
@@ -141,7 +142,7 @@ export const listRenderStatusItem = ({ data, }: ListRenderArgs<StatusItemQuery>)
         {causedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="items"
-            key={`${parentID}_${result.id}_cause_item`}
+            key={`${parent.id}_${result.id}_cause_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -158,7 +159,7 @@ export const listRenderStatusItem = ({ data, }: ListRenderArgs<StatusItemQuery>)
         {resistedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="items"
-            key={`${parentID}_${result.id}_resist_item`}
+            key={`${parent.id}_${result.id}_resist_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -175,10 +176,10 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, gen, ti
   if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
-  const parentID = data.statusByName[0].id;
+  const parent = data.statusByName[0];
 
-  const causedByResults = data.statusByName[0].causedByMove.edges.map(edge => new StatusMoveResult(edge));
-  const resistedByResults = data.statusByName[0].resistedByMove.edges.map(edge => new StatusMoveResult(edge));
+  const causedByResults = parent.causedByMove.edges.map(edge => new StatusMoveResult(edge));
+  const resistedByResults = parent.resistedByMove.edges.map(edge => new StatusMoveResult(edge));
 
   return (
     <>
@@ -188,7 +189,7 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, gen, ti
         {causedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="moves"
-            key={`${parentID}_${result.id}_cause_move`}
+            key={`${parent.id}_${result.id}_cause_move`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -212,7 +213,7 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, gen, ti
         {resistedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="moves"
-            key={`${parentID}_${result.id}_resist_move`}
+            key={`${parent.id}_${result.id}_resist_move`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}

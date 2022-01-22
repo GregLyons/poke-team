@@ -36,14 +36,14 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
   if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
-  const parentID = data.fieldStateByName[0].id;
+  const parent = data.fieldStateByName[0];
 
-  const activatesResults = data.fieldStateByName[0].activatesAbility.edges.map(edge => new FieldStateAbilityResult(edge));
-  const createdByResults = data.fieldStateByName[0].createdByAbility.edges.map(edge => new FieldStateAbilityResult(edge));
-  const ignoredByResults = data.fieldStateByName[0].ignoredByAbility.edges.map(edge => new FieldStateAbilityResult(edge));
-  const preventedByResults = data.fieldStateByName[0].preventedByAbility.edges.map(edge => new FieldStateAbilityResult(edge));
-  const removedByResults = data.fieldStateByName[0].removedByAbility.edges.map(edge => new FieldStateAbilityResult(edge));
-  const suppressedByResults = data.fieldStateByName[0].suppressedByAbility.edges.map(edge => new FieldStateAbilityResult(edge));
+  const activatesResults = parent.activatesAbility.edges.map(edge => new FieldStateAbilityResult(edge));
+  const createdByResults = parent.createdByAbility.edges.map(edge => new FieldStateAbilityResult(edge));
+  const ignoredByResults = parent.ignoredByAbility.edges.map(edge => new FieldStateAbilityResult(edge));
+  const preventedByResults = parent.preventedByAbility.edges.map(edge => new FieldStateAbilityResult(edge));
+  const removedByResults = parent.removedByAbility.edges.map(edge => new FieldStateAbilityResult(edge));
+  const suppressedByResults = parent.suppressedByAbility.edges.map(edge => new FieldStateAbilityResult(edge));
 
   return (
     <>
@@ -53,7 +53,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         {activatesResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="abilities"
-            key={`${parentID}_${result.id}_activate_ability`}
+            key={`${parent.id}_${result.id}_activate_ability`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -73,7 +73,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         {createdByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="abilities"
-            key={`${parentID}_${result.id}_create_ability`}
+            key={`${parent.id}_${result.id}_create_ability`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -97,7 +97,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         {ignoredByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="abilities"
-            key={`${parentID}_${result.id}_ignore_ability`}
+            key={`${parent.id}_${result.id}_ignore_ability`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -120,7 +120,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         {preventedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="abilities"
-            key={`${parentID}_${result.id}_prevent_ability`}
+            key={`${parent.id}_${result.id}_prevent_ability`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -143,7 +143,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         {removedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="abilities"
-            key={`${parentID}_${result.id}_remove_ability`}
+            key={`${parent.id}_${result.id}_remove_ability`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -166,7 +166,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         {suppressedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="abilities"
-            key={`${parentID}_${result.id}_suppress_ability`}
+            key={`${parent.id}_${result.id}_suppress_ability`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -187,16 +187,16 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
 export const listRenderFieldStateEffect = ({ data, }: ListRenderArgs<FieldStateEffectQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
 
-  const parentID = data.fieldStateByName[0].id;
+  const parent = data.fieldStateByName[0];
 
-  const effectResults = data.fieldStateByName[0].effects.edges.map(edge => new FieldStateEffectResult(edge));
+  const effectResults = parent.effects.edges.map(edge => new FieldStateEffectResult(edge));
   
   return (
     <>
       {effectResults.map(result => (
         <ConnectionAccordionEntry
           targetEntityClass="effects"
-          key={`${parentID}_${result.id}_effect`}
+          key={`${parent.id}_${result.id}_effect`}
           name={result.formattedName}
           linkName={result.name}
           description={result.description}
@@ -209,12 +209,12 @@ export const listRenderFieldStateEffect = ({ data, }: ListRenderArgs<FieldStateE
 export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateItemQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
 
-  const parentID = data.fieldStateByName[0].id;
+  const parent = data.fieldStateByName[0];
 
-  const activatesResults = data.fieldStateByName[0].activatesItem.edges.map(edge => new FieldStateItemResult(edge));
-  const extendedByResults = data.fieldStateByName[0].extendedByItem.edges.map(edge => new FieldStateItemResult(edge));
-  const ignoredByResults = data.fieldStateByName[0].ignoredByItem.edges.map(edge => new FieldStateItemResult(edge));
-  const resistedByResults = data.fieldStateByName[0].resistedByItem.edges.map(edge => new FieldStateItemResult(edge));
+  const activatesResults = parent.activatesItem.edges.map(edge => new FieldStateItemResult(edge));
+  const extendedByResults = parent.extendedByItem.edges.map(edge => new FieldStateItemResult(edge));
+  const ignoredByResults = parent.ignoredByItem.edges.map(edge => new FieldStateItemResult(edge));
+  const resistedByResults = parent.resistedByItem.edges.map(edge => new FieldStateItemResult(edge));
 
   return (
     <>
@@ -224,7 +224,7 @@ export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateIte
         {activatesResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="items"
-            key={`${parentID}_${result.id}_activate_item`}
+            key={`${parent.id}_${result.id}_activate_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -240,7 +240,7 @@ export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateIte
         {extendedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="items"
-            key={`${parentID}_${result.id}_extend_item`}
+            key={`${parent.id}_${result.id}_extend_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -257,7 +257,7 @@ export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateIte
         {ignoredByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="items"
-            key={`${parentID}_${result.id}_ignore_item`}
+            key={`${parent.id}_${result.id}_ignore_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -273,7 +273,7 @@ export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateIte
         {resistedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="items"
-            key={`${parentID}_${result.id}_resist_item`}
+            key={`${parent.id}_${result.id}_resist_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -290,12 +290,12 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
   if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
-  const parentID = data.fieldStateByName[0].id;
+  const parent = data.fieldStateByName[0];
 
-  const createdByResults = data.fieldStateByName[0].createdByMove.edges.map(edge => new FieldStateMoveResult(edge));
-  const enhancesResults = data.fieldStateByName[0].enhancesMove.edges.map(edge => new FieldStateMoveResult(edge));
-  const hindersResults = data.fieldStateByName[0].hindersMove.edges.map(edge => new FieldStateMoveResult(edge));
-  const removedByResults = data.fieldStateByName[0].removedByMove.edges.map(edge => new FieldStateMoveResult(edge));
+  const createdByResults = parent.createdByMove.edges.map(edge => new FieldStateMoveResult(edge));
+  const enhancesResults = parent.enhancesMove.edges.map(edge => new FieldStateMoveResult(edge));
+  const hindersResults = parent.hindersMove.edges.map(edge => new FieldStateMoveResult(edge));
+  const removedByResults = parent.removedByMove.edges.map(edge => new FieldStateMoveResult(edge));
 
   return (
     <>
@@ -305,7 +305,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
         {createdByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="moves"
-            key={`${parentID}_${result.id}_create_move`}
+            key={`${parent.id}_${result.id}_create_move`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -329,7 +329,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
         {enhancesResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="moves"
-            key={`${parentID}_${result.id}_enhance_move`}
+            key={`${parent.id}_${result.id}_enhance_move`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -352,7 +352,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
         {hindersResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="moves"
-            key={`${parentID}_${result.id}_hinder_move`}
+            key={`${parent.id}_${result.id}_hinder_move`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -372,7 +372,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
         {removedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="moves"
-            key={`${parentID}_${result.id}_remove_move`}
+            key={`${parent.id}_${result.id}_remove_move`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -393,9 +393,9 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
 export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateStatQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
 
-  const parentID = data.fieldStateByName[0].id;
+  const parent = data.fieldStateByName[0];
 
-  const statResults = data.fieldStateByName[0].modifiesStat.edges.map(edge => new FieldStateStatResult(edge));
+  const statResults = parent.modifiesStat.edges.map(edge => new FieldStateStatResult(edge));
   const boostStageResults = statResults.filter(result => result.stage > 0);
   const reduceStageResults = statResults.filter(result => result.stage < 0);
   const boostMultiplierResults = statResults.filter(result => result.multiplier > 1);
@@ -409,7 +409,7 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="stats"
-            key={`${parentID}_${result.id}_boost_stage_stat`}
+            key={`${parent.id}_${result.id}_boost_stage_stat`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -433,7 +433,7 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="stats"
-            key={`${parentID}_${result.id}_boost_multiplier_stat`}
+            key={`${parent.id}_${result.id}_boost_multiplier_stat`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -457,7 +457,7 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="stats"
-            key={`${parentID}_${result.id}_reduce_stage_stat`}
+            key={`${parent.id}_${result.id}_reduce_stage_stat`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -481,7 +481,7 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="stats"
-            key={`${parentID}_${result.id}_reduce_multiplier_stat`}
+            key={`${parent.id}_${result.id}_reduce_multiplier_stat`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -506,11 +506,11 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
 export const listRenderFieldStateStatus = ({ data, }: ListRenderArgs<FieldStateStatusQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'itemByName'.</div>);
   
-  const parentID = data.fieldStateByName[0].id;
+  const parent = data.fieldStateByName[0];
 
   const causesResults = data.fieldStateByName
   [0].causesStatus.edges.map(edge => new FieldStateStatusResult(edge));
-  const resistsResults = data.fieldStateByName[0].resistsStatus.edges.map(edge => new FieldStateStatusResult(edge));
+  const resistsResults = parent.resistsStatus.edges.map(edge => new FieldStateStatusResult(edge));
 
   return (
     <>
@@ -520,7 +520,7 @@ export const listRenderFieldStateStatus = ({ data, }: ListRenderArgs<FieldStateS
         {causesResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="statuses"
-            key={`${parentID}_${result.id}_cause_status`}
+            key={`${parent.id}_${result.id}_cause_status`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -537,7 +537,7 @@ export const listRenderFieldStateStatus = ({ data, }: ListRenderArgs<FieldStateS
         {resistsResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="statuses"
-            key={`${parentID}_${result.id}_resist_status`}
+            key={`${parent.id}_${result.id}_resist_status`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -554,7 +554,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
   if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
   
-  const parentID = data.fieldStateByName[0].id;
+  const parent = data.fieldStateByName[0];
 
   const boostsResults = data.fieldStateByName
   [0].boostsType.edges.map(edge => new FieldStateTypeResult(edge));
@@ -564,7 +564,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
   [0].removedByType.edges.map(edge => new FieldStateTypeResult(edge));
   const resistanceResults = data.fieldStateByName
   [0].resistedByType.edges.map(edge => new FieldStateTypeResult(edge));
-  const resistsResults = data.fieldStateByName[0].resistsType.edges.map(edge => new FieldStateTypeResult(edge));
+  const resistsResults = parent.resistsType.edges.map(edge => new FieldStateTypeResult(edge));
   const weatherBallResults = data.fieldStateByName
   [0].weatherBall.edges.map(edge => new FieldStateTypeResult(edge));
   
@@ -579,7 +579,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
         {boostsResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="types"
-            key={`${parentID}_${result.id}_boost_type`}
+            key={`${parent.id}_${result.id}_boost_type`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -596,7 +596,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
         {resistsResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="types"
-            key={`${parentID}_${result.id}_weaken_type`}
+            key={`${parent.id}_${result.id}_weaken_type`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -604,7 +604,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
           />
         ))}
       </div>)}
-      {resistanceResults.length > 0 && (
+      {resistanceResults.filter(result => result.multiplier && result.multiplier > 1).length > 0 && (
       <div className="planner__accordion-subitem planner__accordion-subitem--positive">
         <h3 className="planner__accordion-subitem-header">Strong against type</h3>
         <p className="planner__accordion-clarification">
@@ -613,7 +613,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
         {resistanceResults.filter(result => result.multiplier && result.multiplier > 1).map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="types"
-            key={`${parentID}_${result.id}_resist_type`}
+            key={`${parent.id}_${result.id}_resist_type`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -637,7 +637,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
         {weatherBallResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="types"
-            key={`${parentID}_${result.id}_weather_ball_type`}
+            key={`${parent.id}_${result.id}_weather_ball_type`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -653,7 +653,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
           {ignoredByResults.map(result => (
             <ConnectionAccordionEntry
               targetEntityClass="types"
-              key={`${parentID}_${result.id}_ignore_type`}
+              key={`${parent.id}_${result.id}_ignore_type`}
               name={result.formattedName}
               linkName={result.name}
               description={result.description}
@@ -676,7 +676,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
         {removedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="types"
-            key={`${parentID}_${result.id}_remove_type`}
+            key={`${parent.id}_${result.id}_remove_type`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -690,7 +690,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
           />
         ))}
       </div>)}
-      {resistanceResults.length > 0 && (
+      {resistanceResults.filter(result => result.multiplier && result.multiplier < 1).length > 0 && (
       <div className="planner__accordion-subitem planner__accordion-subitem--negative">
         <h3 className="planner__accordion-subitem-header">Resisted by type</h3>
         <p className="planner__accordion-clarification">
@@ -699,7 +699,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
         {resistanceResults.filter(result => result.multiplier && result.multiplier < 1).map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="types"
-            key={`${parentID}_${result.id}_resist_type`}
+            key={`${parent.id}_${result.id}_resist_type`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}

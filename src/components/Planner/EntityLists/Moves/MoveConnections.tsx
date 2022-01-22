@@ -26,16 +26,16 @@ import {
 export const listRenderMoveEffect = ({ data, }: ListRenderArgs<MoveEffectQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
-  const parentID = data.moveByName[0].id;
+  const parent = data.moveByName[0];
 
-  const effectResults = data.moveByName[0].effects.edges.map(edge => new MoveEffectResult(edge));
+  const effectResults = parent.effects.edges.map(edge => new MoveEffectResult(edge));
 
   return (
     <>
       {effectResults.map(result => (
         <ConnectionAccordionEntry
           targetEntityClass="effects"
-          key={`${parentID}_${result.id}_effect`}
+          key={`${parent.id}_${result.id}_effect`}
           name={result.formattedName}
           linkName={result.name}
           description={result.description}
@@ -48,12 +48,12 @@ export const listRenderMoveEffect = ({ data, }: ListRenderArgs<MoveEffectQuery>)
 export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStateQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
-  const parentID = data.moveByName[0].id;
+  const parent = data.moveByName[0];
 
-  const createsResults = data.moveByName[0].createsFieldState.edges.map(edge => new MoveFieldStateResult(edge));
-  const enhancedByResults = data.moveByName[0].enhancedByFieldState.edges.map(edge => new MoveFieldStateResult(edge));
-  const hinderedByResults = data.moveByName[0].hinderedByFieldState.edges.map(edge => new MoveFieldStateResult(edge));
-  const removesResults = data.moveByName[0].removesFieldState.edges.map(edge => new MoveFieldStateResult(edge));
+  const createsResults = parent.createsFieldState.edges.map(edge => new MoveFieldStateResult(edge));
+  const enhancedByResults = parent.enhancedByFieldState.edges.map(edge => new MoveFieldStateResult(edge));
+  const hinderedByResults = parent.hinderedByFieldState.edges.map(edge => new MoveFieldStateResult(edge));
+  const removesResults = parent.removesFieldState.edges.map(edge => new MoveFieldStateResult(edge));
 
   return (
     <>
@@ -63,7 +63,7 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
         {createsResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_create_fieldState`}
+            key={`${parent.id}_${result.id}_create_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -77,7 +77,7 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
         {enhancedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_enhance_fieldState`}
+            key={`${parent.id}_${result.id}_enhance_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -90,7 +90,7 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
         {hinderedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_hinder_fieldState`}
+            key={`${parent.id}_${result.id}_hinder_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -103,7 +103,7 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
         {removesResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_remove_fieldState`}
+            key={`${parent.id}_${result.id}_remove_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -117,9 +117,9 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
 export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
-  const parentID = data.moveByName[0].id;
+  const parent = data.moveByName[0];
 
-  const statResults = data.moveByName[0].modifiesStat.edges.map(edge => new MoveStatResult(edge));
+  const statResults = parent.modifiesStat.edges.map(edge => new MoveStatResult(edge));
   const boostStageResults = statResults.filter(result => result.stage > 0);
   const reduceStageResults = statResults.filter(result => result.stage < 0);
   const boostMultiplierResults = statResults.filter(result => result.multiplier > 1);
@@ -133,7 +133,7 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="stats"
-            key={`${parentID}_${result.id}_boost_stage_stat`}
+            key={`${parent.id}_${result.id}_boost_stage_stat`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -157,7 +157,7 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="stats"
-            key={`${parentID}_${result.id}_boost_multiplier_stat`}
+            key={`${parent.id}_${result.id}_boost_multiplier_stat`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -181,7 +181,7 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="stats"
-            key={`${parentID}_${result.id}_reduce_stage_stat`}
+            key={`${parent.id}_${result.id}_reduce_stage_stat`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -205,7 +205,7 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="stats"
-            key={`${parentID}_${result.id}_reduce_multiplier_stat`}
+            key={`${parent.id}_${result.id}_reduce_multiplier_stat`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -230,10 +230,10 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
 export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
-  const parentID = data.moveByName[0].id;
+  const parent = data.moveByName[0];
 
-  const causesResults = data.moveByName[0].causesStatus.edges.map(edge => new MoveStatusResult(edge));
-  const resistsResults = data.moveByName[0].resistsStatus.edges.map(edge => new MoveStatusResult(edge));
+  const causesResults = parent.causesStatus.edges.map(edge => new MoveStatusResult(edge));
+  const resistsResults = parent.resistsStatus.edges.map(edge => new MoveStatusResult(edge));
 
   return (
     <>
@@ -243,7 +243,7 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
         {causesResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="statuses"
-            key={`${parentID}_${result.id}_cause_status`}
+            key={`${parent.id}_${result.id}_cause_status`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -260,7 +260,7 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
         {resistsResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="statuses"
-            key={`${parentID}_${result.id}_resist_status`}
+            key={`${parent.id}_${result.id}_resist_status`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -274,9 +274,9 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
 export const listRenderMoveType = ({ data, }: ListRenderArgs<MoveTypeQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
-  const parentID = data.moveByName[0].id;
+  const parent = data.moveByName[0];
 
-  const requiresResults = data.moveByName[0].requiresType.edges.map(edge => new MoveTypeResult(edge));
+  const requiresResults = parent.requiresType.edges.map(edge => new MoveTypeResult(edge));
 
   return (
     <>
@@ -289,7 +289,7 @@ export const listRenderMoveType = ({ data, }: ListRenderArgs<MoveTypeQuery>) => 
         {requiresResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="statuses"
-            key={`${parentID}_${result.id}_cause_status`}
+            key={`${parent.id}_${result.id}_cause_status`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -303,16 +303,16 @@ export const listRenderMoveType = ({ data, }: ListRenderArgs<MoveTypeQuery>) => 
 export const listRenderMoveUsageMethod = ({ data, }: ListRenderArgs<MoveUsageMethodQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
-  const parentID = data.moveByName[0].id;
+  const parent = data.moveByName[0];
 
-  const usageMethodResults = data.moveByName[0].usageMethods.edges.map(edge => new MoveUsageMethodResult(edge));
+  const usageMethodResults = parent.usageMethods.edges.map(edge => new MoveUsageMethodResult(edge));
 
   return (
     <>
       {usageMethodResults.map(result => (
         <ConnectionAccordionEntry
           targetEntityClass="usageMethods"
-          key={`${parentID}_${result.id}_usageMethod`}
+          key={`${parent.id}_${result.id}_usageMethod`}
           name={result.formattedName}
           linkName={result.name}
           description={result.description}

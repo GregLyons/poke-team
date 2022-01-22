@@ -27,10 +27,10 @@ export const listRenderTypeAbility = ({ data, dispatchCart, dispatchTeam, gen, t
   if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
-  const parentID = data.typeByName[0].id;
+  const parent = data.typeByName[0];
 
-  const boostedByResults = data.typeByName[0].boostedByAbility.edges.map(edge => new TypeAbilityResult(edge));
-  const resistedByResults = data.typeByName[0].resistedByAbility.edges.map(edge => new TypeAbilityResult(edge));
+  const boostedByResults = parent.boostedByAbility.edges.map(edge => new TypeAbilityResult(edge));
+  const resistedByResults = parent.resistedByAbility.edges.map(edge => new TypeAbilityResult(edge));
 
   return (
     <>
@@ -40,7 +40,7 @@ export const listRenderTypeAbility = ({ data, dispatchCart, dispatchTeam, gen, t
         {boostedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="abilities"
-            key={`${parentID}_${result.id}_boost_ability`}
+            key={`${parent.id}_${result.id}_boost_ability`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -51,6 +51,7 @@ export const listRenderTypeAbility = ({ data, dispatchCart, dispatchTeam, gen, t
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `${parentFormattedName} boosts ${result.formattedName}.`,
             }}
           />
         ))}
@@ -61,7 +62,7 @@ export const listRenderTypeAbility = ({ data, dispatchCart, dispatchTeam, gen, t
         {resistedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="abilities"
-            key={`${parentID}_${result.id}_resist_ability`}
+            key={`${parent.id}_${result.id}_resist_ability`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -72,6 +73,7 @@ export const listRenderTypeAbility = ({ data, dispatchCart, dispatchTeam, gen, t
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `${parentFormattedName} resists ${result.formattedName}.`,
             }}
           />
         ))}
@@ -86,14 +88,14 @@ export const listRenderTypeFieldState = ({ data, dispatchCart, dispatchTeam, gen
   if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
-  const parentID = data.typeByName[0].id;
+  const parent = data.typeByName[0];
 
-  const boostedByResults = data.typeByName[0].boostedByFieldState.edges.map(edge => new TypeFieldStateResult(edge));
-  const ignoresResults = data.typeByName[0].ignoresFieldState.edges.map(edge => new TypeFieldStateResult(edge));
-  const removesResults = data.typeByName[0].removesFieldState.edges.map(edge => new TypeFieldStateResult(edge));
-  const resistedByResults = data.typeByName[0].resistedByFieldState.edges.map(edge => new TypeFieldStateResult(edge));
-  const resistanceResults = data.typeByName[0].resistsFieldState.edges.map(edge => new TypeFieldStateResult(edge));
-  const weatherBallResults = data.typeByName[0].weatherBall.edges.map(edge => new TypeFieldStateResult(edge));
+  const boostedByResults = parent.boostedByFieldState.edges.map(edge => new TypeFieldStateResult(edge));
+  const ignoresResults = parent.ignoresFieldState.edges.map(edge => new TypeFieldStateResult(edge));
+  const removesResults = parent.removesFieldState.edges.map(edge => new TypeFieldStateResult(edge));
+  const resistedByResults = parent.resistedByFieldState.edges.map(edge => new TypeFieldStateResult(edge));
+  const resistanceResults = parent.resistsFieldState.edges.map(edge => new TypeFieldStateResult(edge));
+  const weatherBallResults = parent.weatherBall.edges.map(edge => new TypeFieldStateResult(edge));
 
   return (
     <>
@@ -106,7 +108,7 @@ export const listRenderTypeFieldState = ({ data, dispatchCart, dispatchTeam, gen
         {boostedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_boost_fieldState`}
+            key={`${parent.id}_${result.id}_boost_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -114,7 +116,7 @@ export const listRenderTypeFieldState = ({ data, dispatchCart, dispatchTeam, gen
           />
         ))}
       </div>)}
-      {resistanceResults.length > 0 && (
+      {resistanceResults.filter(result => result.multiplier && result.multiplier < 1).length > 0 && (
       <div className="planner__accordion-subitem planner__accordion-subitem--positive">
         <h3 className="planner__accordion-subitem-header">Resists field state</h3>
         <p className="planner__accordion-clarification">
@@ -123,7 +125,7 @@ export const listRenderTypeFieldState = ({ data, dispatchCart, dispatchTeam, gen
         {resistanceResults.filter(result => result.multiplier && result.multiplier < 1).map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_resist_fieldState`}
+            key={`${parent.id}_${result.id}_resist_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -140,7 +142,7 @@ export const listRenderTypeFieldState = ({ data, dispatchCart, dispatchTeam, gen
           {ignoresResults.map(result => (
             <ConnectionAccordionEntry
               targetEntityClass="fieldStates"
-              key={`${parentID}_${result.id}_ignore_fieldState`}
+              key={`${parent.id}_${result.id}_ignore_fieldState`}
               name={result.formattedName}
               linkName={result.name}
               description={result.description}
@@ -156,7 +158,7 @@ export const listRenderTypeFieldState = ({ data, dispatchCart, dispatchTeam, gen
         {removesResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_remove_fieldState`}
+            key={`${parent.id}_${result.id}_remove_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -172,7 +174,7 @@ export const listRenderTypeFieldState = ({ data, dispatchCart, dispatchTeam, gen
         {weatherBallResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_weather_ball_fieldState`}
+            key={`${parent.id}_${result.id}_weather_ball_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -188,7 +190,7 @@ export const listRenderTypeFieldState = ({ data, dispatchCart, dispatchTeam, gen
         {resistedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_resist_fieldState`}
+            key={`${parent.id}_${result.id}_resist_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -196,7 +198,7 @@ export const listRenderTypeFieldState = ({ data, dispatchCart, dispatchTeam, gen
           />
         ))}
       </div>)}
-      {resistanceResults.length > 0 && (
+      {resistanceResults.filter(result => result.multiplier && result.multiplier > 1).length > 0 && (
       <div className="planner__accordion-subitem planner__accordion-subitem--negative">
         <h3 className="planner__accordion-subitem-header">Weak to field state</h3>
         <p className="planner__accordion-clarification">
@@ -205,7 +207,7 @@ export const listRenderTypeFieldState = ({ data, dispatchCart, dispatchTeam, gen
         {resistanceResults.filter(result => result.multiplier && result.multiplier > 1).map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_resist_fieldState`}
+            key={`${parent.id}_${result.id}_resist_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -223,11 +225,11 @@ export const listRenderTypeItem = ({ data, dispatchCart, dispatchTeam, gen, tier
   if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
-  const parentID = data.typeByName[0].id;
+  const parent = data.typeByName[0];
 
-  const boostedByResults = data.typeByName[0].boostedByItem.edges.map(edge => new TypeItemResult(edge));
-  const naturalGiftResults = data.typeByName[0].naturalGift.edges.map(edge => new TypeItemResult(edge));
-  const resistedByResults = data.typeByName[0].resistedByItem.edges.map(edge => new TypeItemResult(edge));
+  const boostedByResults = parent.boostedByItem.edges.map(edge => new TypeItemResult(edge));
+  const naturalGiftResults = parent.naturalGift.edges.map(edge => new TypeItemResult(edge));
+  const resistedByResults = parent.resistedByItem.edges.map(edge => new TypeItemResult(edge));
 
   return (
     <>
@@ -237,7 +239,7 @@ export const listRenderTypeItem = ({ data, dispatchCart, dispatchTeam, gen, tier
         {boostedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="items"
-            key={`${parentID}_${result.id}_boost_item`}
+            key={`${parent.id}_${result.id}_boost_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -254,7 +256,7 @@ export const listRenderTypeItem = ({ data, dispatchCart, dispatchTeam, gen, tier
         {naturalGiftResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="items"
-            key={`${parentID}_${result.id}_boost_item`}
+            key={`${parent.id}_${result.id}_boost_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -268,7 +270,7 @@ export const listRenderTypeItem = ({ data, dispatchCart, dispatchTeam, gen, tier
         {resistedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="items"
-            key={`${parentID}_${result.id}_resist_item`}
+            key={`${parent.id}_${result.id}_resist_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -286,9 +288,9 @@ export const listRenderTypeMove = ({ data, dispatchCart, dispatchTeam, gen, tier
   if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
-  const parentID = data.typeByName[0].id;
+  const parent = data.typeByName[0];
 
-  const enablesResult = data.typeByName[0].enablesMove.edges.map(edge => new TypeMoveResult(edge));
+  const enablesResult = parent.enablesMove.edges.map(edge => new TypeMoveResult(edge));
 
   return (
     <>
@@ -301,7 +303,7 @@ export const listRenderTypeMove = ({ data, dispatchCart, dispatchTeam, gen, tier
         {enablesResult.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="moves"
-            key={`${parentID}_${result.id}_enable_move`}
+            key={`${parent.id}_${result.id}_enable_move`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -311,6 +313,7 @@ export const listRenderTypeMove = ({ data, dispatchCart, dispatchTeam, gen, tier
               iconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
+              cartNote: `${parentFormattedName} enables ${result.formattedName}.`,
             }}
           />
         ))}

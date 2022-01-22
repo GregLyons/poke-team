@@ -1,28 +1,14 @@
 missing/incorrect/additional data:
   missing item descriptions/Z-move descriptions
 
-  only shellder learns clamp in gen 8; what about cloyster? also occurs with acid--vileplume learns in certain gens but not in others
-
-  field state-move interactions:
-    sandstorm: says created by hail, not removed by hail
-    hail: says creates sandstorm and removes hail
-
-  gravity field state
-
-  grounded status
-  
-  other ability interactions with usage methods
-
-  add status-cause chance to abilities, items, field states
-
-  synchronize causes status
-
   intimidate lowers attack by 1, not raises
 
-  remove toxic spikes damage %
+  sticky web lowers speed by 1, not raises
 
 add timer to gen switcher to reduce chance of abusing images
 
 investigate connection cache data issue
 
 moves on effect page expands when selecting pokemon
+
+gogoat is NFE???

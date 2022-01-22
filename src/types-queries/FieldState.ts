@@ -173,6 +173,9 @@ export const FIELDSTATE_PAGE_QUERY = gql`
       id
       name
       formattedName
+      
+      name
+      formattedName
       description
 
       introduced {
@@ -343,6 +346,9 @@ export class FieldStateOnPage extends AuxEntityOnPage {
 export type FieldStateAbilityQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     activatesAbility: {
       edges: FieldStateAbilityEdge[]
     }
@@ -389,7 +395,10 @@ export interface FieldStateAbilityQueryVars extends EntityConnectionVars {
 export const FIELDSTATE_ABILITY_QUERY = gql`
   query FieldStateAbilitiesQuery($gen: Int!$name: String!) {
     fieldStateByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       activatesAbility {
         edges {
           node {
@@ -631,6 +640,9 @@ export class FieldStateAbilityResult extends AuxToMainConnectionOnPage {
 export type FieldStateEffectQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     effects: {
       edges: FieldStateEffectEdge[]
     }
@@ -656,6 +668,9 @@ export const FIELDSTATE_EFFECT_QUERY = gql`
   query FieldStateEffectQuery($gen: Int! $name: String!) {
     fieldStateByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
       effects {
         edges {
           node {
@@ -685,6 +700,9 @@ export class FieldStateEffectResult extends AuxToAuxConnectionOnPage {
 export type FieldStateItemQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     activatesItem: {
       edges: FieldStateItemEdge[]
     }
@@ -723,9 +741,12 @@ export interface FieldStateItemQueryVars extends EntityConnectionVars {
 }
 
 export const FIELDSTATE_ITEM_QUERY = gql`
-  query FieldStateAbilitiesQuery($gen: Int! $name: String!) {
+  query FieldStateItemsQuery($gen: Int! $name: String!) {
     fieldStateByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       activatesItem {
         edges {
           node {
@@ -847,6 +868,9 @@ export class FieldStateItemResult extends AuxToMainConnectionOnPage {
 export type FieldStateMoveQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     createdByMove: {
       edges: FieldStateMoveEdge[]
     }
@@ -891,7 +915,10 @@ export interface FieldStateMoveQueryVars extends EntityConnectionVars {
 export const FIELDSTATE_MOVE_QUERY = gql`
   query FieldStateAbilitiesQuery($gen: Int! $name: String!) {
     fieldStateByName(generation: $gen, name: $name) {
-      id 
+      id
+      name
+      formattedName
+       
       createdByMove {
         edges {
           node {
@@ -1097,6 +1124,9 @@ export class FieldStateMoveResult extends AuxToMainConnectionOnPage {
 export type FieldStateStatQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     modifiesStat: {
       edges: FieldStateStatEdge[]
     }
@@ -1126,6 +1156,9 @@ export const FIELDSTATE_STAT_QUERY = gql`
   query FieldStateStatQuery($gen: Int! $name: String!) {
     fieldStateByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
       modifiesStat {
         edges {
           node {
@@ -1170,6 +1203,9 @@ export class FieldStateStatResult extends AuxToAuxConnectionOnPage {
 export type FieldStateStatusQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     causesStatus: {
       edges: FieldStateStatusEdge[]
     }
@@ -1199,6 +1235,9 @@ export const FIELDSTATE_STATUS_QUERY = gql`
   query FieldStateStatusQuery($gen: Int! $name: String!) {
     fieldStateByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
       causesStatus {
         edges {
           node {
@@ -1248,6 +1287,9 @@ export class FieldStateStatusResult extends AuxToAuxConnectionOnPage {
 export type FieldStateTypeQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     boostsType: {
       edges: FieldStateTypeEdge[]
     }
@@ -1291,6 +1333,9 @@ export const FIELDSTATE_TYPE_QUERY = gql`
   query FieldStateStatQuery($gen: Int! $name: String!) {
     fieldStateByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
       boostsType {
         edges {
           node {

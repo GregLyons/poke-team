@@ -114,6 +114,7 @@ export interface ItemPageResult extends MainEntityPageResult {
   }
 
   activatedByFieldState: CountField
+  activatedByUsageMethod: CountField
   boostsType: CountField
   boostsUsageMethod: CountField
   causesStatus: CountField
@@ -170,6 +171,9 @@ export const ITEM_PAGE_QUERY = gql`
       activatedByFieldState {
         count
       }
+      activatedByUsageMethod {
+        count
+      }
       boostsType {
         count
       }
@@ -221,6 +225,7 @@ export const ITEM_PAGE_QUERY = gql`
 
 export class ItemOnPage extends MainEntityOnPage {
   public activatedByFieldStateCount: number
+  public activatedByUsageMethodCount: number
   public boostsTypeCount: number
   public boostsUsageMethodCount: number
   public causesStatusCount: number
@@ -248,6 +253,7 @@ export class ItemOnPage extends MainEntityOnPage {
 
     // Counts for displaying accordions
     this.activatedByFieldStateCount = gqlItem.activatedByFieldState.count
+    this.activatedByUsageMethodCount = gqlItem.activatedByUsageMethod.count
     this.boostsTypeCount = gqlItem.boostsType.count
     this.boostsUsageMethodCount = gqlItem.boostsUsageMethod.count
     this.causesStatusCount = gqlItem.causesStatus.count
@@ -270,7 +276,7 @@ export class ItemOnPage extends MainEntityOnPage {
 
     this.typeCount = this.boostsTypeCount + this.naturalGiftCount + this.resistsTypeCount;
 
-    this.usageMethodCount = this.boostsUsageMethodCount + this.resistsUsageMethodCount;
+    this.usageMethodCount = this.activatedByUsageMethodCount + this.boostsUsageMethodCount + this.resistsUsageMethodCount;
   }
 }
 
@@ -285,6 +291,9 @@ export class ItemOnPage extends MainEntityOnPage {
 export type ItemEffectQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     effects: {
       edges: ItemEffectEdge[]
     }
@@ -310,6 +319,9 @@ export const ITEM_EFFECT_QUERY = gql`
   query ItemEffectQuery($gen: Int! $name: String!) {
     itemByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
       effects {
         edges {
           node {
@@ -339,6 +351,9 @@ export class ItemEffectResult extends MainToAuxConnectionOnPage {
 export type ItemFieldStateQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     activatedByFieldState: {
       edges: ItemFieldStateEdge[]
     }
@@ -374,6 +389,9 @@ export const ITEM_FIELDSTATE_QUERY = gql`
   query ItemEffectQuery($gen: Int! $name: String!) {
     itemByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
       activatedByFieldState {
         edges {
           node {
@@ -437,6 +455,9 @@ export class ItemFieldStateResult extends MainToAuxConnectionOnPage {
 export type ItemStatQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     modifiesStat: {
       edges: ItemStatEdge[]
     }
@@ -466,6 +487,9 @@ export const ITEM_STAT_QUERY = gql`
   query ItemStatQuery($gen: Int! $name: String!) {
     itemByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
       modifiesStat {
         edges {
           node {
@@ -510,6 +534,9 @@ export class ItemStatResult extends MainToAuxConnectionOnPage {
 export type ItemStatusQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     causesStatus: {
       edges: ItemStatusEdge[]
     }
@@ -539,6 +566,9 @@ export const ITEM_STATUS_QUERY = gql`
   query ItemEffectQuery($gen: Int! $name: String!) {
     itemByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
       causesStatus {
         edges {
           node {
@@ -588,6 +618,9 @@ export class ItemStatusResult extends MainToAuxConnectionOnPage {
 export type ItemTypeQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
     boostsType: {
       edges: ItemTypeEdge[]
     }
@@ -623,6 +656,9 @@ export const ITEM_TYPE_QUERY = gql`
   query ItemEffectQuery($gen: Int! $name: String!) {
     itemByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
       boostsType {
         edges {
           node {
@@ -682,6 +718,12 @@ export class ItemTypeResult extends MainToAuxConnectionOnPage {
 export type ItemUsageMethodQuery = {
   [pageQueryName in EntityPageQueryName]?: {
     id: string
+    name: string
+    formattedName: string
+    
+    activatedByUsageMethod: {
+      edges: ItemUsageMethodEdge[]
+    }
     boostsUsageMethod: {
       edges: ItemUsageMethodEdge[]
     }
@@ -710,6 +752,19 @@ export const ITEM_USAGEMETHOD_QUERY = gql`
   query ItemUsageMethodQuery($gen: Int! $name: String!) {
     itemByName(generation: $gen, name: $name) {
       id
+      name
+      formattedName
+      
+      activatedByUsageMethod {
+        edges {
+          node {
+            id
+            name
+            formattedName
+            description
+          }
+        }
+      }
       boostsUsageMethod {
         edges {
           node {

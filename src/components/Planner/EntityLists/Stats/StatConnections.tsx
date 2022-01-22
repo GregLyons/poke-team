@@ -26,9 +26,9 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, gen, t
   if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
-  const parentID = data.statByName[0].id;
+  const parent = data.statByName[0];
 
-  const abilityResults = data.statByName[0].modifiedByAbility.edges.map(edge => new StatAbilityResult(edge));
+  const abilityResults = parent.modifiedByAbility.edges.map(edge => new StatAbilityResult(edge));
   const boostStageResults = abilityResults.filter(result => result.stage > 0);
   const reduceStageResults = abilityResults.filter(result => result.stage < 0);
   const boostMultiplierResults = abilityResults.filter(result => result.multiplier > 1);
@@ -42,7 +42,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, gen, t
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="abilities"
-            key={`${parentID}_${result.id}_boost_stage_ability`}
+            key={`${parent.id}_${result.id}_boost_stage_ability`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -73,7 +73,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, gen, t
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="abilities"
-            key={`${parentID}_${result.id}_boost_multiplier_ability`}
+            key={`${parent.id}_${result.id}_boost_multiplier_ability`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -104,7 +104,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, gen, t
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="abilities"
-            key={`${parentID}_${result.id}_reduce_stage_ability`}
+            key={`${parent.id}_${result.id}_reduce_stage_ability`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -135,7 +135,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, gen, t
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="abilities"
-            key={`${parentID}_${result.id}_reduce_multiplier_ability`}
+            key={`${parent.id}_${result.id}_reduce_multiplier_ability`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -167,9 +167,9 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, gen, t
 export const listRenderStatFieldState = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<StatFieldStateQuery>) => {
   if (!data || !data.statByName) return (<div>Data not found for the query 'statByName'.</div>);
 
-  const parentID = data.statByName[0].id;
+  const parent = data.statByName[0];
 
-  const fieldStateResults = data.statByName[0].modifiedByFieldState.edges.map(edge => new StatFieldStateResult(edge));
+  const fieldStateResults = parent.modifiedByFieldState.edges.map(edge => new StatFieldStateResult(edge));
   const boostStageResults = fieldStateResults.filter(result => result.stage > 0);
   const reduceStageResults = fieldStateResults.filter(result => result.stage < 0);
   const boostMultiplierResults = fieldStateResults.filter(result => result.multiplier > 1);
@@ -183,7 +183,7 @@ export const listRenderStatFieldState = ({ data, dispatchCart, dispatchTeam, }: 
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_boost_stage_fieldState`}
+            key={`${parent.id}_${result.id}_boost_stage_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -207,7 +207,7 @@ export const listRenderStatFieldState = ({ data, dispatchCart, dispatchTeam, }: 
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_boost_multiplier_fieldState`}
+            key={`${parent.id}_${result.id}_boost_multiplier_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -231,7 +231,7 @@ export const listRenderStatFieldState = ({ data, dispatchCart, dispatchTeam, }: 
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_reduce_stage_fieldState`}
+            key={`${parent.id}_${result.id}_reduce_stage_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -255,7 +255,7 @@ export const listRenderStatFieldState = ({ data, dispatchCart, dispatchTeam, }: 
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
-            key={`${parentID}_${result.id}_reduce_multiplier_fieldState`}
+            key={`${parent.id}_${result.id}_reduce_multiplier_fieldState`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -280,9 +280,9 @@ export const listRenderStatFieldState = ({ data, dispatchCart, dispatchTeam, }: 
 export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<StatItemQuery>) => {
   if (!data || !data.statByName) return (<div>Data not found for the query 'statByName'.</div>);
 
-  const parentID = data.statByName[0].id;
+  const parent = data.statByName[0];
 
-  const itemResults = data.statByName[0].modifiedByItem.edges.map(edge => new StatItemResult(edge));
+  const itemResults = parent.modifiedByItem.edges.map(edge => new StatItemResult(edge));
   const boostStageResults = itemResults.filter(result => result.stage > 0);
   const reduceStageResults = itemResults.filter(result => result.stage < 0);
   const boostMultiplierResults = itemResults.filter(result => result.multiplier > 1);
@@ -296,7 +296,7 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, }: ListRe
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="items"
-            key={`${parentID}_${result.id}_boost_stage_item`}
+            key={`${parent.id}_${result.id}_boost_stage_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -320,7 +320,7 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, }: ListRe
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="items"
-            key={`${parentID}_${result.id}_boost_multiplier_item`}
+            key={`${parent.id}_${result.id}_boost_multiplier_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -344,7 +344,7 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, }: ListRe
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="items"
-            key={`${parentID}_${result.id}_reduce_stage_item`}
+            key={`${parent.id}_${result.id}_reduce_stage_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -368,7 +368,7 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, }: ListRe
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="items"
-            key={`${parentID}_${result.id}_reduce_multiplier_item`}
+            key={`${parent.id}_${result.id}_reduce_multiplier_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -396,9 +396,9 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, gen, tier
   if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
-  const parentID = data.statByName[0].id;
+  const parent = data.statByName[0];
 
-  const moveResults = data.statByName[0].modifiedByMove.edges.map(edge => new StatMoveResult(edge));
+  const moveResults = parent.modifiedByMove.edges.map(edge => new StatMoveResult(edge));
   const boostStageResults = moveResults.filter(result => result.stage > 0);
   const reduceStageResults = moveResults.filter(result => result.stage < 0);
   const boostMultiplierResults = moveResults.filter(result => result.multiplier > 1);
@@ -412,7 +412,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, gen, tier
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="moves"
-            key={`${parentID}_${result.id}_boost_stage_move`}
+            key={`${parent.id}_${result.id}_boost_stage_move`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -443,7 +443,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, gen, tier
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="moves"
-            key={`${parentID}_${result.id}_boost_multiplier_move`}
+            key={`${parent.id}_${result.id}_boost_multiplier_move`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -474,7 +474,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, gen, tier
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="moves"
-            key={`${parentID}_${result.id}_reduce_stage_move`}
+            key={`${parent.id}_${result.id}_reduce_stage_move`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -505,7 +505,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, gen, tier
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="moves"
-            key={`${parentID}_${result.id}_reduce_multiplier_move`}
+            key={`${parent.id}_${result.id}_reduce_multiplier_move`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
