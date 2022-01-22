@@ -59,7 +59,7 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
     <>
       {activatedByResults.length > 0 && (
       <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Activates field state</h3>
+        <h3 className="planner__accordion-subitem-header">Activated by field state</h3>
         {activatedByResults.map(result => (
           <ConnectionAccordionEntry
             targetEntityClass="fieldStates"
@@ -351,11 +351,25 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
 
   const parent = data.itemByName[0];
 
+  const activatedByResults = parent.activatedByUsageMethod.edges.map(edge => new ItemUsageMethodResult(edge));
   const boostsResults = parent.boostsUsageMethod.edges.map(edge => new ItemUsageMethodResult(edge));
   const resistsResults = parent.resistsUsageMethod.edges.map(edge => new ItemUsageMethodResult(edge));
 
   return (
     <>
+      {activatedByResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Activated by usage method</h3>
+        {activatedByResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="fieldStates"
+            key={`${parent.id}_${result.id}_activate_fieldState`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+          />
+        ))}
+      </div>)}
       {boostsResults.length > 0 && (
       <div className="planner__accordion-subitem planner__accordion-subitem--positive">
         <h3 className="planner__accordion-subitem-header">Boosts usage method</h3>

@@ -305,19 +305,40 @@ export const listRenderMoveUsageMethod = ({ data, }: ListRenderArgs<MoveUsageMet
 
   const parent = data.moveByName[0];
 
-  const usageMethodResults = parent.usageMethods.edges.map(edge => new MoveUsageMethodResult(edge));
+  const hasResults = parent.usageMethods.edges.map(edge => new MoveUsageMethodResult(edge));
+  const preventsResults = parent.preventsUsageMethod.edges.map(edge => new MoveUsageMethodResult(edge));
 
   return (
     <>
-      {usageMethodResults.map(result => (
-        <ConnectionAccordionEntry
-          targetEntityClass="usageMethods"
-          key={`${parent.id}_${result.id}_usageMethod`}
-          name={result.formattedName}
-          linkName={result.name}
-          description={result.description}
-        />
-      ))}
+      {hasResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Has usage method</h3>
+        {hasResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="usageMethods"
+            key={`${parent.id}_${result.id}_has_usageMethod`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+          />
+        ))}
+      </div>)}
+      {preventsResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Prevents usage method</h3>
+        <p className="planner__accordion-subitem-positive">
+          This move can prevent other Pokemon from using moves of the listed usage method.
+        </p>
+        {preventsResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="usageMethods"
+            key={`${parent.id}_${result.id}_prevent_usageMethod`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+          />
+        ))}
+      </div>)}
     </>
   )
 }

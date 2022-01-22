@@ -740,7 +740,7 @@ export interface ItemUsageMethodEdge extends MainToAuxConnectionEdge {
     formattedName: string
     description: string
   }
-  multiplier: number
+  multiplier?: number
 }
 
 export interface ItemUsageMethodQueryVars extends EntityConnectionVars {
@@ -792,7 +792,7 @@ export const ITEM_USAGEMETHOD_QUERY = gql`
 `;
 
 export class ItemUsageMethodResult extends MainToAuxConnectionOnPage {
-  public multiplier: number
+  public multiplier?: number
 
   constructor(gqlItemUsageMethod: ItemUsageMethodEdge) {
     super(gqlItemUsageMethod);

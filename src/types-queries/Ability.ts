@@ -771,7 +771,7 @@ export interface AbilityUsageMethodEdge extends MainToAuxConnectionEdge {
     formattedName: string
     description: string
   }
-  multiplier: number
+  multiplier?: number
 }
 
 export interface AbilityUsageMethodQueryVars extends EntityConnectionVars {
@@ -833,7 +833,7 @@ export const ABILITY_USAGEMETHOD_QUERY = gql`
 `;
 
 export class AbilityUsageMethodResult extends MainToAuxConnectionOnPage {
-  public multiplier: number
+  public multiplier?: number
 
   constructor(gqlAbilityUsageMethod: AbilityUsageMethodEdge) {
     super(gqlAbilityUsageMethod);

@@ -242,6 +242,9 @@ export type UsageMethodAbilityQuery = {
     boostedByAbility: {
       edges: UsageMethodAbilityEdge[]
     }
+    preventedByAbility: {
+      edges: UsageMethodAbilityEdge[]
+    }
     resistedByAbility: {
       edges: UsageMethodAbilityEdge[]
     }
@@ -262,7 +265,7 @@ export interface UsageMethodAbilityEdge extends AbilityIconEdge, AuxToMainConnec
       edges: PokemonIconEdge[]
     }
   }
-  multiplier: number
+  multiplier?: number
 }
 
 export interface UsageMethodAbilityQueryVars extends EntityConnectionVars {
@@ -429,7 +432,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
 
 export class UsageMethodAbilityResult extends AuxToMainConnectionOnPage {
   public pokemonIconData: PokemonIconDatum[]
-  public multiplier: number
+  public multiplier?: number
 
   constructor(gqlUsageMethodAbility: UsageMethodAbilityEdge) {
     super(gqlUsageMethodAbility);
@@ -474,7 +477,7 @@ export interface UsageMethodItemEdge extends AuxToMainConnectionEdge {
       edges: VersionDependentDescriptionEdge[]
     }
   }
-  multiplier: number
+  multiplier?: number
 }
 
 export interface UsageMethodItemQueryVars extends EntityConnectionVars {
@@ -554,7 +557,7 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
 `;
 
 export class UsageMethodItemResult extends AuxToMainConnectionOnPage {
-  public multiplier: number
+  public multiplier?: number
 
   constructor(gqlUsageMethodItem: UsageMethodItemEdge) {
     super(gqlUsageMethodItem);

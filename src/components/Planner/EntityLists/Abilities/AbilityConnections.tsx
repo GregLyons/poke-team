@@ -359,7 +359,9 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
 
   const parent = data.abilityByName[0];
 
+  const activatedByResults = parent.activatedByUsageMethod.edges.map(edge => new AbilityUsageMethodResult(edge));
   const boostsResults = parent.boostsUsageMethod.edges.map(edge => new AbilityUsageMethodResult(edge));
+  const preventsResults = parent.preventsUsageMethod.edges.map(edge => new AbilityUsageMethodResult(edge));
   const resistsResults = parent.resistsUsageMethod.edges.map(edge => new AbilityUsageMethodResult(edge));
   resistsResults.map(result => {
     console.log(result.multiplier)
@@ -367,6 +369,19 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
 
   return (
     <>
+      {activatedByResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Activated by usage method</h3>
+        {activatedByResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="usageMethods"
+            key={`${parent.id}_${result.id}_activate_usageMethod`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+          />
+        ))}
+      </div>)}
       {boostsResults.length > 0 && (
       <div className="planner__accordion-subitem planner__accordion-subitem--positive">
         <h3 className="planner__accordion-subitem-header">Boosts usage method</h3>
@@ -380,7 +395,23 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multiplier', value: result.multiplier}]}
+            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+          />
+        ))}
+      </div>)}
+      {preventsResults.length > 0 && (
+      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
+        <h3 className="planner__accordion-subitem-header">Prevents usage method</h3>
+        <p className="planner__accordion-clarification">
+          Prevents moves of the listed usage method from being used while this ability is present.
+        </p>
+        {preventsResults.map(result => (
+          <ConnectionAccordionEntry
+            targetEntityClass="usageMethods"
+            key={`${parent.id}_${result.id}_prevent_usageMethod`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
           />
         ))}
       </div>)}
@@ -397,7 +428,7 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multiplier', value: result.multiplier}]}
+            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
           />
         ))}
       </div>)}
