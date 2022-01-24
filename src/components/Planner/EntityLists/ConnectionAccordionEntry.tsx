@@ -62,17 +62,8 @@ const ConnectionAccordionEntry = ({
   data,
   icons,
 }: ConnectionAccordionEntryProps) => {
-  const [hover, setHover] = useState(false);
-
   // Changing scroll height 
   // #region
-
-  // Expand entry on a delay after hovering
-  const [expand, setExpand] = useState(false);
-  const timer = useRef<NodeJS.Timeout>();
-  const onTimeout = () => {
-    setExpand(true);
-  }
 
   // Ref for component
   const entryRef = useRef<HTMLDivElement>(null);
@@ -80,7 +71,7 @@ const ConnectionAccordionEntry = ({
   // Default height
   const entryHeight = "6rem";
   
-  const originalScrollHeight = useEntryExpand(entryRef);
+  const { hover, expand, expandListeners, originalScrollHeight } = useEntryExpand(entryRef);
 
   // #endregion
 
@@ -116,16 +107,7 @@ const ConnectionAccordionEntry = ({
   return (
     <div 
       ref={entryRef}
-      onMouseEnter={() => { 
-        setHover(true);
-        // Only expand if there is overflow in the element
-        if (entryRef.current && entryRef.current.offsetHeight < entryRef.current.scrollHeight) timer.current = setTimeout(onTimeout, 300);
-      }}
-      onMouseLeave={() => {
-        setHover(false);
-        if (timer.current) clearTimeout(timer.current);
-        setExpand(false);
-      }}
+      {...expandListeners}
       style={
         expand 
           ? { 

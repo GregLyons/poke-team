@@ -17,8 +17,6 @@ import {
   EntityConnectionVars,
   MainToAuxConnectionOnPage,
   DescriptionEdge,
-  VersionDependentDescription,
-  VersionDependentDescriptionEdgeWithCode,
   VersionDependentDescriptionEdge,
   TypeIconEdge,
   PokemonIconEdge,

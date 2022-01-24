@@ -21,7 +21,6 @@ import {
   PokemonIconEdge,
   pokemonIconEdgeToPokemonIconDatum,
   DescriptionEdge,
-  VersionDependentDescription,
   TypeIconEdge,
 } from './helpers';
 import {

@@ -3,19 +3,13 @@ import {
 } from '@apollo/client';
 import {
   EntitySearchQueryName,
-  MainEntitySearchResult,
   EntitySearchVars,
-  MainEntityInSearch,
   
   EntityPageQueryName,
-  MainEntityOnPage,
-  MainEntityPageResult,
   EntityPageVars,
   CountField,
   
-  MainToAuxConnectionEdge,
   EntityConnectionVars,
-  MainToAuxConnectionOnPage,
 
   AbilityIconEdge,
   MoveIconEdge,
@@ -23,9 +17,6 @@ import {
   PokemonIconEdge,
   PokemonIconDatum,
   pokemonIconEdgeToPokemonIconDatum,
-  NameEdge,
-  VersionDependentDescription,
-  DescriptionEdge,
   VersionDependentDescriptionEdge,
   AuxToMainConnectionEdge,
   AuxEntityInSearch,
@@ -33,8 +24,6 @@ import {
   AuxEntityPageResult,
   AuxEntityOnPage,
   AuxToMainConnectionOnPage,
-  AuxToAuxConnectionEdge,
-  AuxToAuxConnectionOnPage,
   TypeNameEdge,
 } from './helpers';
 import {
@@ -42,9 +31,9 @@ import {
   IntroductionEdge,
 } from './Generation.js';
 import {
-  DescriptionsEdge,
-} from './Description';
-import { TypeName, typeNameEdgeToTypeName } from './Type';
+  TypeName,
+  typeNameEdgeToTypeName,
+} from './Type';
 
 // UsageMethod in main search
 // #region

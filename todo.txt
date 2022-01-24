@@ -7,10 +7,16 @@ missing/incorrect/additional data:
 
   alcremie gmax is not cosmetic
 
+  form flags
+    mothim trash, mothim sandy cosmetic? or not at all?
+    genesect drives?
+    xerneas active vs. neutral?
+
+make, 'search', 'startsWith', 'orderBy', etc. in API easier to use
+fix 'orderBy' on edges
+
 add timer to gen switcher to reduce chance of abusing images
 
 investigate connection cache data issue
 
 moves on effect page expands when selecting pokemon
-
-gogoat is NFE???

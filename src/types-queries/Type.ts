@@ -3,19 +3,13 @@ import {
 } from '@apollo/client';
 import {
   EntitySearchQueryName,
-  MainEntitySearchResult,
   EntitySearchVars,
-  MainEntityInSearch,
   
   EntityPageQueryName,
-  MainEntityOnPage,
-  MainEntityPageResult,
   EntityPageVars,
   CountField,
   
-  MainToAuxConnectionEdge,
   EntityConnectionVars,
-  MainToAuxConnectionOnPage,
 
   TypeNameEdge,
   AbilityIconEdge,
@@ -24,9 +18,6 @@ import {
   PokemonIconEdge,
   PokemonIconDatum,
   pokemonIconEdgeToPokemonIconDatum,
-  NameEdge,
-  VersionDependentDescription,
-  DescriptionEdge,
   VersionDependentDescriptionEdge,
   AuxToMainConnectionEdge,
   AuxEntityInSearch,
@@ -41,9 +32,6 @@ import {
   GenerationNum,
   IntroductionEdge,
 } from './Generation.js';
-import {
-  DescriptionsEdge,
-} from './Description';
 
 // Type names
 // #region
@@ -128,7 +116,7 @@ export const TYPE_SEARCH_QUERY = gql`
         }
       }
 
-      pokemon(filter: {formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+      pokemon(filter: {formClass: [ALOLA, BASE, COSMETIC, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
         edges {
           node {
             id
@@ -240,7 +228,7 @@ export interface TypePageResult extends AuxEntityPageResult {
   naturalGift: CountField
   removesFieldState: CountField
   resistedByAbility: CountField
-  resistedByFieldState: CountField
+  weakenedByFieldState: CountField
   resistedByItem: CountField
   resistsFieldState: CountField
   weatherBall: CountField
@@ -318,7 +306,7 @@ export const TYPE_PAGE_QUERY = gql`
       resistedByAbility {
         count
       }
-      resistedByFieldState {
+      weakenedByFieldState {
         count
       }
       resistedByItem {
@@ -347,7 +335,7 @@ export class TypeOnPage extends AuxEntityOnPage {
   public naturalGiftCount: number
   public removesFieldStateCount: number
   public resistedByAbilityCount: number
-  public resistedByFieldStateCount: number
+  public weakenedByFieldStateCount: number
   public resistedByItemCount: number
   public resistsFieldStateCount: number
   public weatherBallCount: number
@@ -373,13 +361,13 @@ export class TypeOnPage extends AuxEntityOnPage {
     this.naturalGiftCount = gqlType.naturalGift.count;
     this.removesFieldStateCount = gqlType.removesFieldState.count;
     this.resistedByAbilityCount = gqlType.resistedByAbility.count;
-    this.resistedByFieldStateCount = gqlType.resistedByFieldState.count;
+    this.weakenedByFieldStateCount = gqlType.weakenedByFieldState.count;
     this.resistedByItemCount = gqlType.resistedByItem.count;
     this.resistsFieldStateCount = gqlType.resistsFieldState.count;
     this.weatherBallCount = gqlType.weatherBall.count;
 
     this.abilityCount = this.boostedByAbilityCount + this.resistedByAbilityCount;
-    this.fieldStateCount = this.boostedByFieldStateCount + this.ignoresFieldStateCount + this.removesFieldStateCount + this.resistedByFieldStateCount + this.resistsFieldStateCount + this.weatherBallCount;
+    this.fieldStateCount = this.boostedByFieldStateCount + this.ignoresFieldStateCount + this.removesFieldStateCount + this.weakenedByFieldStateCount + this.resistsFieldStateCount + this.weatherBallCount;
     this.itemCount = this.boostedByItemCount + this.naturalGiftCount + this.resistedByItemCount;
     this.moveCount = this.enablesMoveCount + this.moveCount;
   }
@@ -452,7 +440,7 @@ export const TYPE_ABILITY_QUERY = gql`
               }
             }
 
-            pokemon(filter: {formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+            pokemon(filter: {formClass: [ALOLA, BASE, COSMETIC, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
               edges {
                 node {
                   id
@@ -489,7 +477,7 @@ export const TYPE_ABILITY_QUERY = gql`
               }
             }
 
-            pokemon(filter: {formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+            pokemon(filter: {formClass: [ALOLA, BASE, COSMETIC, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
               edges {
                 node {
                   id
@@ -549,7 +537,7 @@ export type TypeFieldStateQuery = {
     removesFieldState: {
       edges: TypeFieldStateEdge[]
     }
-    resistedByFieldState: {
+    weakenedByFieldState: {
       edges: TypeFieldStateEdge[]
     }
     resistsFieldState: {
@@ -618,7 +606,7 @@ export const TYPE_FIELDSTATE_QUERY = gql`
           }
         }
       }
-      resistedByFieldState {
+      weakenedByFieldState {
         edges {
           node {
             id
@@ -865,7 +853,7 @@ export const TYPE_MOVE_QUERY = gql`
               }
             }
 
-            pokemon(filter: {formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+            pokemon(filter: {formClass: [ALOLA, BASE, COSMETIC, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
               edges {
                 node {
                   id
@@ -911,7 +899,7 @@ export const TYPE_MOVE_QUERY = gql`
               }
             }
 
-            pokemon(filter: {formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+            pokemon(filter: {formClass: [ALOLA, BASE, COSMETIC, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
               edges {
                 node {
                   id

@@ -574,7 +574,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
   [0].removedByType.edges.map(edge => new FieldStateTypeResult(edge));
   const resistanceResults = data.fieldStateByName
   [0].resistedByType.edges.map(edge => new FieldStateTypeResult(edge));
-  const resistsResults = parent.resistsType.edges.map(edge => new FieldStateTypeResult(edge));
+  const resistsResults = parent.weakensType.edges.map(edge => new FieldStateTypeResult(edge));
   const weatherBallResults = data.fieldStateByName
   [0].weatherBall.edges.map(edge => new FieldStateTypeResult(edge));
   

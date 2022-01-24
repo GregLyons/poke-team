@@ -78,7 +78,10 @@ const EntityConnectionAccordionItem = ({
     <div className="planner__accordion-item">
       <div 
         className="planner__accordion-title"
-        onClick={() => handleClick(idx)}
+        onClick={() => {
+          // Set 'active'
+          handleClick(idx);
+        }}
       >
         <h2>{title}</h2>
         <div>
@@ -90,8 +93,7 @@ const EntityConnectionAccordionItem = ({
         className="planner__accordion-content"
         style={
           active 
-            ? { 
-              // Doesn't get transition animation
+            ? {
                 height: 'auto',
               }
             : {

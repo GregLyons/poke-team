@@ -91,7 +91,12 @@ function cartReducer(state: Cart, action: CartAction) {
     case 'add':
       return {
         ...state,
-        [action.payload.note]: action.payload.pokemon,
+        [action.payload.note]: {
+          // Old Pokemon with this note
+          ...state[action.payload.note],
+          // Current Pokemon to be added
+          ...action.payload.pokemon,
+        }
       }
     case 'remove':
       return state;

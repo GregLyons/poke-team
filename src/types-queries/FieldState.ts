@@ -3,13 +3,9 @@ import {
 } from '@apollo/client';
 import {
   EntitySearchQueryName,
-  MainEntitySearchResult,
   EntitySearchVars,
-  MainEntityInSearch,
   
   EntityPageQueryName,
-  MainEntityOnPage,
-  MainEntityPageResult,
   EntityPageVars,
   CountField,
   
@@ -157,7 +153,7 @@ export interface FieldStatePageResult extends AuxEntityPageResult {
   resistedByItem: CountField
   resistedByType: CountField
   resistsStatus: CountField
-  resistsType: CountField
+  weakensType: CountField
   suppressedByAbility: CountField
   weatherBall: CountField
 }
@@ -249,7 +245,7 @@ export const FIELDSTATE_PAGE_QUERY = gql`
       resistsStatus {
         count
       }
-      resistsType {
+      weakensType {
         count
       }
       suppressedByAbility {
@@ -284,7 +280,7 @@ export class FieldStateOnPage extends AuxEntityOnPage {
   public resistedByItemCount: number
   public resistedByTypeCount: number
   public resistsStatusCount: number
-  public resistsTypeCount: number
+  public weakensTypeCount: number
   public suppressedByAbilityCount: number
   public weatherBallCount: number
 
@@ -319,7 +315,7 @@ export class FieldStateOnPage extends AuxEntityOnPage {
     this.resistedByItemCount = gqlFieldState.resistedByItem.count;
     this.resistedByTypeCount = gqlFieldState.resistedByType.count;
     this.resistsStatusCount = gqlFieldState.resistsStatus.count;
-    this.resistsTypeCount = gqlFieldState.resistsType.count;
+    this.weakensTypeCount = gqlFieldState.weakensType.count;
     this.suppressedByAbilityCount = gqlFieldState.suppressedByAbility.count;
     this.weatherBallCount = gqlFieldState.weatherBall.count;
 
@@ -331,7 +327,7 @@ export class FieldStateOnPage extends AuxEntityOnPage {
 
     this.statusCount = this.causesStatusCount + this.resistsStatusCount;
 
-    this.typeCount = this.boostsTypeCount + this.ignoredByTypeCount + this.removedByTypeCount + this.removedByTypeCount + this.resistedByTypeCount + this.resistsTypeCount + this.weatherBallCount;
+    this.typeCount = this.boostsTypeCount + this.ignoredByTypeCount + this.removedByTypeCount + this.removedByTypeCount + this.resistedByTypeCount + this.weakensTypeCount + this.weatherBallCount;
   }
 }
 
@@ -1302,7 +1298,7 @@ export type FieldStateTypeQuery = {
     resistedByType: {
       edges: FieldStateTypeEdge[]
     }
-    resistsType: {
+    weakensType: {
       edges: FieldStateTypeEdge[]
     }
     weatherBall: {
@@ -1431,7 +1427,7 @@ export const FIELDSTATE_TYPE_QUERY = gql`
           multiplier
         }
       }
-      resistsType {
+      weakensType {
         edges {
           node {
             id

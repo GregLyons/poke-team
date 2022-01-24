@@ -93,7 +93,7 @@ export const listRenderTypeFieldState = ({ data, dispatchCart, dispatchTeam, gen
   const boostedByResults = parent.boostedByFieldState.edges.map(edge => new TypeFieldStateResult(edge));
   const ignoresResults = parent.ignoresFieldState.edges.map(edge => new TypeFieldStateResult(edge));
   const removesResults = parent.removesFieldState.edges.map(edge => new TypeFieldStateResult(edge));
-  const resistedByResults = parent.resistedByFieldState.edges.map(edge => new TypeFieldStateResult(edge));
+  const resistedByResults = parent.weakenedByFieldState.edges.map(edge => new TypeFieldStateResult(edge));
   const resistanceResults = parent.resistsFieldState.edges.map(edge => new TypeFieldStateResult(edge));
   const weatherBallResults = parent.weatherBall.edges.map(edge => new TypeFieldStateResult(edge));
 
