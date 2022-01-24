@@ -16,7 +16,7 @@ import {
 
   ItemUsageMethodResult,
   ItemUsageMethodQuery,
-} from "../../../../types-queries/Item";
+} from "../../../../types-queries/Planner/Item";
 import {
   ListRenderArgs,
 } from "../helpers";

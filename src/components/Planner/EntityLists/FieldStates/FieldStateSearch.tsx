@@ -15,10 +15,10 @@ import {
   FieldStateInSearch,
 
   FIELDSTATE_SEARCH_QUERY,
-} from '../../../../types-queries/FieldState';
+} from '../../../../types-queries/Planner/FieldState';
 import {
   GenerationNum,
-} from '../../../../types-queries/Generation';
+} from '../../../../types-queries/helpers';
 
 import { 
   CartAction,

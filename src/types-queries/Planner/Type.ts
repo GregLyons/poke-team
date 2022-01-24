@@ -2,6 +2,16 @@ import {
   gql,
 } from '@apollo/client';
 import {
+  AbilityIconEdge,
+  GenerationNum,
+  IntroductionEdge,
+  MoveIconEdge, PokemonIconDatum,
+  PokemonIconEdge,
+  pokemonIconEdgeToPokemonIconDatum,
+  TypeName, TypeNameEdge,
+  typeNameEdgeToTypeName,
+} from '../helpers';
+import {
   EntitySearchQueryName,
   EntitySearchVars,
   
@@ -11,13 +21,6 @@ import {
   
   EntityConnectionVars,
 
-  TypeNameEdge,
-  AbilityIconEdge,
-  MoveIconEdge,
-
-  PokemonIconEdge,
-  PokemonIconDatum,
-  pokemonIconEdgeToPokemonIconDatum,
   VersionDependentDescriptionEdge,
   AuxToMainConnectionEdge,
   AuxEntityInSearch,
@@ -28,19 +31,7 @@ import {
   AuxToAuxConnectionEdge,
   AuxToAuxConnectionOnPage,
 } from './helpers';
-import {
-  GenerationNum,
-  IntroductionEdge,
-} from './Generation.js';
 
-// Type names
-// #region
-
-export type TypeName = 'normal' | 'fighting' | 'flying' | 'poison' | 'ground' | 'rock' | 'bug' | 'ghost' | 'steel' | 'fire' | 'water' | 'grass' | 'electric' | 'psychic' | 'ice' | 'dragon' | 'dark' | 'fairy';
-
-export const typeNameEdgeToTypeName: (edge: TypeNameEdge) => TypeName = edge => edge.node.name;
-
-// #endregion
 
 // Type in main search
 // #region

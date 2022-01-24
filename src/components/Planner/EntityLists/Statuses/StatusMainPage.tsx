@@ -1,6 +1,6 @@
 import {
   GenerationNum,
-} from "../../../../types-queries/Generation";
+} from "../../../../types-queries/helpers";
 import {
   TierFilter,
 } from "../../../../utils/constants";

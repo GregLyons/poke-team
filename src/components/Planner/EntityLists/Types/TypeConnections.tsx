@@ -10,7 +10,7 @@ import {
 
   TypeMoveResult,
   TypeMoveQuery,
-} from "../../../../types-queries/Type";
+} from "../../../../types-queries/Planner/Type";
 import {
   ListRenderArgs,
   MissingDispatchError,
@@ -19,7 +19,6 @@ import {
 } from "../helpers";
 
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
-import { DUMMY_POKEMON_ICON_DATUM } from "../../../../types-queries/helpers";
 
 export const listRenderTypeAbility = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<TypeAbilityQuery>) => {
   if (!data || !data.typeByName) return (<div>Data not found for the query 'typeByName'.</div>);

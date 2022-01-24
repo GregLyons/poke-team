@@ -12,10 +12,10 @@ import {
   ItemInSearch,
 
   ITEM_SEARCH_QUERY,
-} from '../../../../types-queries/Item';
+} from '../../../../types-queries/Planner/Item';
 import {
   GenerationNum,
-} from '../../../../types-queries/Generation';
+} from '../../../../types-queries/helpers';
 import {
   ListRenderArgs, MissingDispatchError,
 } from '../helpers';

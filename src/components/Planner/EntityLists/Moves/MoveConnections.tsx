@@ -16,7 +16,7 @@ import {
 
   MoveUsageMethodQuery,
   MoveUsageMethodResult,
-} from "../../../../types-queries/Move";
+} from "../../../../types-queries/Planner/Move";
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 
 import {

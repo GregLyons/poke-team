@@ -4,10 +4,7 @@ import {
   useRef,
   useState,
 } from "react";
-
-import {
-  PokemonIconDatum,
-} from "../types-queries/helpers";
+import { PokemonIconDatum } from "../types-queries/helpers";
 
 /* 
   Once the entry expands to its scroll height, its scroll height then increases slightly. Thus, if we modify our selection, the component will re-render with the new, slightly increased scroll height, and the effect is that the height increases slightly whenever we click on a selection. 

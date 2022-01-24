@@ -11,7 +11,7 @@ import {
   AbilityTypeResult,
   AbilityUsageMethodQuery,
   AbilityUsageMethodResult,
-} from "../../../../types-queries/Ability";
+} from "../../../../types-queries/Planner/Ability";
 import {
   ListRenderArgs,
 } from "../helpers";

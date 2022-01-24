@@ -1,9 +1,9 @@
 import {
-  Pokemon,
-} from '../../types-queries/Pokemon';
-import {
   GenerationNum,
-} from '../../types-queries/Generation';
+} from '../../types-queries/helpers';
+import {
+  Pokemon,
+} from '../../types-queries/Planner/Pokemon';
 
 import {
   CartAction,

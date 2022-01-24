@@ -1,9 +1,9 @@
 import {
   GenerationNum,
-} from '../../types-queries/Generation';
+} from '../../types-queries/helpers';
 import {
   Pokemon,
-} from '../../types-queries/Pokemon';
+} from '../../types-queries/Planner/Pokemon';
 import {
   getPokemonSprite,
 } from '../../utils/sprites';

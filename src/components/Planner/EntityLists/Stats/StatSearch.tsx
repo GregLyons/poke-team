@@ -15,10 +15,10 @@ import {
   StatInSearch,
 
   STAT_SEARCH_QUERY,
-} from '../../../../types-queries/Stat';
+} from '../../../../types-queries/Planner/Stat';
 import {
   GenerationNum,
-} from '../../../../types-queries/Generation';
+} from '../../../../types-queries/helpers';
 
 import { 
   CartAction,

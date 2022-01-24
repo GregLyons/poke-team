@@ -10,10 +10,10 @@ import {
 import {
   Pokemon,
   PokemonGQLResult,
-} from '../../types-queries/Pokemon';
+} from '../../types-queries/Planner/Pokemon';
 import {
   GenerationNum,
-} from '../../types-queries/Generation';
+} from '../../types-queries/helpers';
 
 import {
   CartAction,

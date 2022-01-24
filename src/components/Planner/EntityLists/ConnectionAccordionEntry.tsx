@@ -14,7 +14,7 @@ import {
 
 import {
   GenerationNum,
-} from "../../../types-queries/Generation";
+} from "../../../types-queries/helpers";
 import {
   PokemonIconDatum,
 } from "../../../types-queries/helpers";
@@ -29,7 +29,7 @@ import {
   TeamAction,
 } from "../../App";
 
-import PokemonIcon from "../../PokemonIcon";
+import PlannerPokemonIcon from "../PlannerPokemonIcon";
 import SelectionControls from "./SelectionControls";
 
 
@@ -174,7 +174,7 @@ const ConnectionAccordionEntry = ({
             }
 
             return (
-              <PokemonIcon
+              <PlannerPokemonIcon
                 dispatchCart={icons.dispatchCart}
                 dispatchTeam={icons.dispatchTeam}
                 key={key + '_' + pokemonIconDatum.name + '_icon'}

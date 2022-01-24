@@ -1,16 +1,18 @@
-import { useState } from "react";
+import {
+  useState,
+} from "react";
 import {
   PokemonIconDatum,
-} from "../types-queries/helpers";
+} from "../../../types-queries/helpers";
 import {
   getPokemonIcon,
-} from "../utils/sprites";
+} from "../../../utils/sprites";
 import {
   CartAction,
   TeamAction,
-} from "./App";
+} from "../../App";
 
-type PokemonIconProps = {
+type CartViewPokemonIconProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   key: string
@@ -19,14 +21,14 @@ type PokemonIconProps = {
   toggleSelection: (psID: string) => void
 }
 
-const PokemonIcon = ({
+const CartViewPokemonIconProps = ({
   dispatchCart,
   dispatchTeam,
   key,
   pokemonIconDatum,
   selected,
   toggleSelection,
-}: PokemonIconProps) => {
+}: CartViewPokemonIconProps) => {
   const {left, top} = getPokemonIcon(pokemonIconDatum);
 
   const [hover, setHover] = useState(false);
@@ -66,4 +68,4 @@ const PokemonIcon = ({
   );
 };
 
-export default PokemonIcon;
+export default CartViewPokemonIconProps;

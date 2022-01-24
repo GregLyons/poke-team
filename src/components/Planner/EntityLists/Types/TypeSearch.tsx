@@ -15,10 +15,10 @@ import {
   TypeInSearch,
 
   TYPE_SEARCH_QUERY,
-} from '../../../../types-queries/Type';
+} from '../../../../types-queries/Planner/Type';
 import {
   GenerationNum,
-} from '../../../../types-queries/Generation';
+} from '../../../../types-queries/helpers';
 
 import { 
   CartAction,

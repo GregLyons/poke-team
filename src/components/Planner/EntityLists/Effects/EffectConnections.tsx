@@ -10,7 +10,7 @@ import {
 
   EffectMoveResult,
   EffectMoveQuery
-} from "../../../../types-queries/Effect";
+} from "../../../../types-queries/Planner/Effect";
 import {
   ListRenderArgs,
   MissingDispatchError,

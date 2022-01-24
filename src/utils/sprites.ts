@@ -4,13 +4,11 @@ import {
 } from '@pkmn/img';
 import {
   GenerationNum,
-} from '../types-queries/Generation.js';
-import {
   PokemonIconDatum,
 } from '../types-queries/helpers.js';
 import {
   Pokemon,
-} from '../types-queries/Pokemon.js';
+} from '../types-queries/Planner/Pokemon.js';
 
 // Get Pokemon sprites
 //#region 

@@ -9,12 +9,8 @@ import {
 import './../styles/App.css';
 
 import {
-  stringToGenNumber,
-  GenerationNum,
-} from '../types-queries/Generation';
-import {
   Pokemon,
-} from '../types-queries/Pokemon';
+} from '../types-queries/Planner/Pokemon';
 import {
   DEFAULT_TIER_FILTER,
   NUMBER_OF_GENS,
@@ -28,6 +24,7 @@ import TeamDisplay from './PokemonTeam/TeamDisplay';
 
 import Analyzer from './Analyzer/Analyzer';
 import Builder from './Builder/Builder';
+import BuilderHome from './Builder/BuilderHome';
 import Planner from './Planner/Planner';
 import PlannerHome from './Planner/EntityLists/PlannerHome';
 
@@ -51,7 +48,7 @@ import UsageMethodMainPage from './Planner/EntityLists/UsageMethods/UsageMethodM
 import UsageMethodPage from './Planner/EntityLists/UsageMethods/UsageMethodPage';
 
 import TierFilterForm from './TierFilter';
-import { PokemonIconDatum } from '../types-queries/helpers';
+import { GenerationNum, PokemonIconDatum, stringToGenNumber } from '../types-queries/helpers';
 
 export type Team = Pokemon[];
 export type TeamAction = 
@@ -110,7 +107,6 @@ function App() {
   const [tierFilter, setTierFilter] = useState<TierFilter>(DEFAULT_TIER_FILTER);
   const [cart, dispatchCart] = useReducer(cartReducer, {});
   const [team, dispatchTeam] = useReducer(teamReducer, []);
-  console.log(cart);
 
   // Change gen when slider is changed
   const handleGenSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -125,6 +121,8 @@ function App() {
       [name]: !tierFilter[name],
     });
   }
+  console.log('app');
+  console.log(cart);
 
   return (
     <div className="app">
@@ -159,11 +157,24 @@ function App() {
 
         {/* Routing for Builder */}
         <Route path="/builder" element={<Builder
+          cart={cart}
           dispatchCart={dispatchCart}
           dispatchTeam={dispatchTeam}
           gen={gen}
           tierFilter={tierFilter}
-        />} />
+        />} >
+        {/* */}
+          <Route
+            index
+            element={<BuilderHome
+              cart={cart}
+              dispatchCart={dispatchCart}
+              dispatchTeam={dispatchTeam}
+              gen={gen}
+              tierFilter={tierFilter}
+            />}
+          />
+        </Route>
 
         {/* Routing for Planner */}
         <Route path="/planner" element={<Planner 

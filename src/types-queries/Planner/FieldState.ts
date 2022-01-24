@@ -1,6 +1,24 @@
 import {
   gql,
 } from '@apollo/client';
+
+import {
+  AbilityIconEdge,
+  DescriptionEdge,
+  GenerationNum,
+  IntroductionEdge,
+  ItemIconDatum,
+  ItemIconEdge,
+  itemIconEdgeToItemIconDatum,
+  MoveIconEdge,
+  PokemonIconDatum,
+  PokemonIconEdge,
+  pokemonIconEdgeToPokemonIconDatum,
+  TypeIconEdge,
+  TypeName, 
+  TypeNameEdge,
+  typeNameEdgeToTypeName,
+} from '../helpers';
 import {
   EntitySearchQueryName,
   EntitySearchVars,
@@ -11,17 +29,6 @@ import {
   
   EntityConnectionVars,
 
-  AbilityIconEdge,
-  TypeNameEdge,
-
-  ItemIconEdge,
-  ItemIconDatum,
-  itemIconEdgeToItemIconDatum,
-
-  PokemonIconEdge,
-  PokemonIconDatum,
-  pokemonIconEdgeToPokemonIconDatum,
-  MoveIconEdge,
   AuxToMainConnectionEdge,
   AuxToMainConnectionOnPage,
   VersionDependentDescriptionEdge,
@@ -31,12 +38,7 @@ import {
   AuxEntitySearchResult,
   AuxEntityPageResult,
   AuxEntityOnPage,
-  TypeIconEdge,
 } from './helpers';
-import {
-  GenerationNum,
-  IntroductionEdge,
-} from './Generation.js';
 
 // FieldState in main search
 // #region
@@ -1310,8 +1312,12 @@ export type FieldStateTypeQuery = {
 export interface FieldStateTypeEdge extends AuxToAuxConnectionEdge, TypeIconEdge {
   node: {
     id: string
-    name: string
+    name: TypeName
     formattedName: string
+
+    introduced: {
+      edges: IntroductionEdge[]
+    }
 
     pokemon?: {
       edges: PokemonIconEdge[]

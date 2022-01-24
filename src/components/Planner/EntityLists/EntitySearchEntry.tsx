@@ -1,6 +1,5 @@
 import { 
   useRef,
-  useState,
 } from "react";
 import {
   Link,
@@ -12,7 +11,7 @@ import {
 } from "../../../hooks/hooks";
 import {
   GenerationNum,
-} from "../../../types-queries/Generation";
+} from "../../../types-queries/helpers";
 import {
   PokemonIconDatum,
 } from "../../../types-queries/helpers";
@@ -26,7 +25,7 @@ import {
   TeamAction,
 } from "../../App";
 
-import PokemonIcon from "../../PokemonIcon";
+import PlannerPokemonIcon from "../PlannerPokemonIcon";
 import SelectionControls from "./SelectionControls";
 
 type EntitySearchEntryProps = {
@@ -170,7 +169,7 @@ const EntitySearchEntry = ({
           }
           
           return (
-            <PokemonIcon
+            <PlannerPokemonIcon
               dispatchCart={icons.dispatchCart}
               dispatchTeam={icons.dispatchTeam}
               key={key + '_' + pokemonIconDatum.name + '_icon'}

@@ -12,10 +12,10 @@ import {
   MoveInSearch,
 
   MOVE_SEARCH_QUERY,
-} from '../../../../types-queries/Move';
+} from '../../../../types-queries/Planner/Move';
 import {
   GenerationNum,
-} from '../../../../types-queries/Generation';
+} from '../../../../types-queries/helpers';
 import {
   ListRenderArgs, MissingDispatchError, MissingGenError, MissingTierFilterError,
 } from '../helpers';

@@ -5,7 +5,7 @@ import {
 
 import {
   StatusInSearch,
-} from '../../../../types-queries/Status';
+} from '../../../../types-queries/Planner/Status';
 
 type StatusEntryProps = {
   status: StatusInSearch

@@ -1,7 +1,7 @@
 import {
   useState,
 } from "react";
-import { GenerationNum } from "../../../types-queries/Generation";
+import { GenerationNum } from "../../../types-queries/helpers";
 import { TierFilter } from "../../../utils/constants";
 
 import {

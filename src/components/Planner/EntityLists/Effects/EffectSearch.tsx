@@ -15,10 +15,10 @@ import {
   EffectInSearch,
 
   EFFECT_SEARCH_QUERY,
-} from '../../../../types-queries/Effect';
+} from '../../../../types-queries/Planner/Effect';
 import {
   GenerationNum,
-} from '../../../../types-queries/Generation';
+} from '../../../../types-queries/helpers';
 
 import { 
   CartAction,

@@ -32,17 +32,17 @@ import {
 
   ABILITY_USAGEMETHOD_QUERY,
   AbilityUsageMethodQueryVars,
-} from '../../../../types-queries/Ability';
+} from '../../../../types-queries/Planner/Ability';
 import {
   INTRODUCTION_QUERY,
   
   IntroductionQuery,
   IntroductionQueryVars,
-} from '../../../../types-queries/helpers';
+} from '../../../../types-queries/Planner/helpers';
 import {
   NUMBER_OF_GENS,
 } from '../../../../utils/constants';
-import { GenerationNum } from '../../../../types-queries/Generation';
+import { GenerationNum } from '../../../../types-queries/helpers';
 import {
   useEntityConnectionChangeHandler,
 } from '../helpers';

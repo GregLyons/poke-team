@@ -1,18 +1,23 @@
 import {
-  GenerationNum,
-} from '../../types-queries/Generation';
-import {
-  TierFilter,
-} from '../../utils/constants';
+  Outlet,
+} from "react-router-dom";
 
 import {
+  Cart,
   CartAction,
   TeamAction,
-} from '../App';
+} from "../App";
 
-import PokemonSearch from './PokemonSearch';
+import BuilderNavBar from './BuilderNavBar';
+import {
+  TierFilter,
+} from "../../utils/constants";
+import {
+  GenerationNum,
+} from "../../types-queries/helpers";
 
 type BuilderProps = {
+  cart: Cart
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum
@@ -20,20 +25,16 @@ type BuilderProps = {
 }
 
 const Builder = ({
+  cart,
   dispatchCart,
   dispatchTeam,
   gen,
   tierFilter,
 }: BuilderProps) => {
-
   return (
-    <div className="builder-wrapper">
-      <PokemonSearch 
-        dispatchCart={dispatchCart}
-        dispatchTeam={dispatchTeam}
-        gen={gen}
-        tierFilter={tierFilter}
-      />
+    <div className="builder-container">
+      <BuilderNavBar />
+      <Outlet />
     </div>
   );
 }

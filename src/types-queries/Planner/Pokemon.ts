@@ -1,13 +1,10 @@
 import {
   GenerationNum,
   IntroductionEdge,
-} from './Generation.js';
-import {
   TypeName,
-} from './Type.js';
-import {
   TypeNameEdge,
-} from './helpers.js';
+} from "../helpers"
+
 
 
 // An object containing the base stats for the Pokemon

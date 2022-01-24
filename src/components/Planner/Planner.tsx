@@ -5,7 +5,7 @@ import './Planner.css';
 
 import {
   GenerationNum,
-} from "../../types-queries/Generation";
+} from "../../types-queries/helpers";
 import {
   CartAction,
   TeamAction,

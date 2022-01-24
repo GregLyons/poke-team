@@ -19,16 +19,18 @@ import {
   
   FieldStateTypeResult,
   FieldStateTypeQuery,
-} from "../../../../types-queries/FieldState";
+} from "../../../../types-queries/Planner/FieldState";
 import {
   ListRenderArgs,
   MissingDispatchError,
   MissingGenError,
   MissingTierFilterError,
 } from "../helpers";
+import {
+  DUMMY_POKEMON_ICON_DATUM,
+} from "../../../../types-queries/helpers";
 
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
-import { DUMMY_POKEMON_ICON_DATUM } from "../../../../types-queries/helpers";
 
 export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<FieldStateAbilityQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);

@@ -3,7 +3,7 @@ import {
 } from "../utils/constants";
 import {
   GenerationNum,
-} from "../types-queries/Generation";
+} from "../types-queries/helpers";
 
 type GenSliderProps = {
   gen: GenerationNum,

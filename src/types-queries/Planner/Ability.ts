@@ -1,6 +1,18 @@
 import {
   gql,
 } from '@apollo/client';
+
+import {
+  DescriptionEdge,
+  DescriptionsEdge,
+  GenerationNum,
+  IntroductionEdge,
+  PokemonIconDatum,
+  PokemonIconEdge,
+  pokemonIconEdgeToPokemonIconDatum,
+  TypeIconEdge,
+  TypeName,
+} from '../helpers';
 import {
   EntitySearchQueryName,
   MainEntitySearchResult,
@@ -16,20 +28,7 @@ import {
   MainToAuxConnectionEdge,
   EntityConnectionVars,
   MainToAuxConnectionOnPage,
-
-  PokemonIconDatum,
-  PokemonIconEdge,
-  pokemonIconEdgeToPokemonIconDatum,
-  DescriptionEdge,
-  TypeIconEdge,
 } from './helpers';
-import {
-  GenerationNum,
-  IntroductionEdge,
-} from './Generation';
-import {
-  DescriptionsEdge,
-} from './Description';
 
 // Ability in main search
 // #region
@@ -677,8 +676,12 @@ export type AbilityTypeQuery = {
 export interface AbilityTypeEdge extends MainToAuxConnectionEdge, TypeIconEdge {
   node: {
     id: string
-    name: string
+    name: TypeName
     formattedName: string
+
+    introduced: {
+      edges: IntroductionEdge[]
+    }
 
     pokemon?: {
       edges: PokemonIconEdge[]

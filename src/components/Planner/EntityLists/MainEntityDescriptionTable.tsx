@@ -1,6 +1,6 @@
 import {
   VersionDependentDescription,
-} from "../../../types-queries/helpers";
+} from "../../../types-queries/Planner/helpers";
 
 type MainEntityDescriptionsProps = {
   descriptions: VersionDependentDescription[]

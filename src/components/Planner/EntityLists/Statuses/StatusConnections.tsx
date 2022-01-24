@@ -10,7 +10,7 @@ import {
 
   StatusMoveResult,
   StatusMoveQuery,
-} from "../../../../types-queries/Status";
+} from "../../../../types-queries/Planner/Status";
 import {
   ListRenderArgs,
   MissingDispatchError,

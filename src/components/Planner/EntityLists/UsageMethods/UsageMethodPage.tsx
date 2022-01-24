@@ -26,20 +26,20 @@ import {
 
   USAGEMETHOD_MOVE_QUERY,
   UsageMethodMoveQueryVars,
-} from '../../../../types-queries/UsageMethod';
+} from '../../../../types-queries/Planner/UsageMethod';
 import {
   INTRODUCTION_QUERY,
   
   IntroductionQuery,
   IntroductionQueryVars,
-} from '../../../../types-queries/helpers';
+} from '../../../../types-queries/Planner/helpers';
 import {
   NUMBER_OF_GENS,
   TierFilter,
 } from '../../../../utils/constants';
 import {
   GenerationNum,
-} from '../../../../types-queries/Generation';
+} from '../../../../types-queries/helpers';
 
 import { 
   CartAction,

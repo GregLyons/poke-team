@@ -15,7 +15,7 @@ import {
 
 import {
   GenerationNum,
-} from '../../../types-queries/Generation';
+} from '../../../types-queries/helpers';
 import {
   ListRenderArgs,
 } from './helpers';

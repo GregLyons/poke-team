@@ -1,6 +1,18 @@
 import {
   gql,
 } from '@apollo/client';
+
+import {
+  DescriptionEdge,
+  DescriptionsEdge,
+  GenerationNum,
+  IntroductionEdge,
+  PokemonIconDatum,
+  PokemonIconEdge,
+  pokemonIconEdgeToPokemonIconDatum,
+  TypeIconEdge,
+  TypeName,
+} from '../helpers';
 import {
   EntitySearchQueryName,
   MainEntitySearchResult,
@@ -16,20 +28,8 @@ import {
   MainToAuxConnectionEdge,
   EntityConnectionVars,
   MainToAuxConnectionOnPage,
-  DescriptionEdge,
   VersionDependentDescriptionEdge,
-  TypeIconEdge,
-  PokemonIconEdge,
-  PokemonIconDatum,
-  pokemonIconEdgeToPokemonIconDatum,
 } from './helpers';
-import {
-  GenerationNum,
-  IntroductionEdge,
-} from './Generation';
-import {
-  DescriptionsEdge,
-} from './Description';
 
 // Item in main search
 // #region
@@ -634,8 +634,12 @@ export type ItemTypeQuery = {
 export interface ItemTypeEdge extends MainToAuxConnectionEdge, TypeIconEdge {
   node: {
     id: string
-    name: string
+    name: TypeName
     formattedName: string
+
+    introduced: {
+      edges: IntroductionEdge[]
+    }
 
     pokemon?: {
       edges: PokemonIconEdge[]

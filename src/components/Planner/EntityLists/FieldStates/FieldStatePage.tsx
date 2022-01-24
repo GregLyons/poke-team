@@ -38,20 +38,20 @@ import {
 
   FIELDSTATE_TYPE_QUERY,
   FieldStateTypeQueryVars,
-} from '../../../../types-queries/FieldState';
+} from '../../../../types-queries/Planner/FieldState';
 import {
   INTRODUCTION_QUERY,
   
   IntroductionQuery,
   IntroductionQueryVars,
-} from '../../../../types-queries/helpers';
+} from '../../../../types-queries/Planner/helpers';
 import {
   NUMBER_OF_GENS,
   TierFilter,
 } from '../../../../utils/constants';
 import {
   GenerationNum,
-} from '../../../../types-queries/Generation';
+} from '../../../../types-queries/helpers';
 
 import { 
   CartAction,

@@ -1,6 +1,20 @@
 import {
   gql,
 } from '@apollo/client';
+
+import {
+  DescriptionEdge,
+  DescriptionsEdge,
+  GenerationNum,
+  IntroductionEdge,
+  PokemonIconDatum,
+  PokemonIconEdge,
+  pokemonIconEdgeToPokemonIconDatum,
+  TypeIconEdge,
+  TypeName, 
+  TypeNameEdge,
+  typeNameEdgeToTypeName,
+} from '../helpers';
 import {
   EntitySearchQueryName,
   MainEntitySearchResult,
@@ -16,25 +30,7 @@ import {
   MainToAuxConnectionEdge,
   EntityConnectionVars,
   MainToAuxConnectionOnPage,
-
-  TypeNameEdge,
-  PokemonIconEdge,
-  PokemonIconDatum,
-  pokemonIconEdgeToPokemonIconDatum,
-  DescriptionEdge,
-  TypeIconEdge,
 } from './helpers';
-import {
-  TypeName,
-  typeNameEdgeToTypeName,
-} from './Type';
-import {
-  GenerationNum,
-  IntroductionEdge,
-} from './Generation';
-import {
-  DescriptionsEdge,
-} from './Description';
 
 // Move in main search
 // #region
@@ -760,8 +756,12 @@ export type MoveTypeQuery = {
 export interface MoveTypeEdge extends MainToAuxConnectionEdge, TypeIconEdge {
   node: {
     id: string
-    name: string
+    name: TypeName
     formattedName: string
+
+    introduced: {
+      edges: IntroductionEdge[]
+    }
   }
 }
 

@@ -15,10 +15,10 @@ import {
   UsageMethodInSearch,
 
   USAGEMETHOD_SEARCH_QUERY,
-} from '../../../../types-queries/UsageMethod';
+} from '../../../../types-queries/Planner/UsageMethod';
 import {
   GenerationNum,
-} from '../../../../types-queries/Generation';
+} from '../../../../types-queries/helpers';
 
 import { 
   CartAction,

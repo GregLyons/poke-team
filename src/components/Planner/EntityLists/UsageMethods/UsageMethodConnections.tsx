@@ -7,7 +7,7 @@ import {
 
   UsageMethodMoveResult,
   UsageMethodMoveQuery,
-} from "../../../../types-queries/UsageMethod";
+} from "../../../../types-queries/Planner/UsageMethod";
 import {
   ListRenderArgs,
   MissingDispatchError,
@@ -16,7 +16,6 @@ import {
 } from "../helpers";
 
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
-import { DUMMY_POKEMON_ICON_DATUM } from "../../../../types-queries/helpers";
 
 export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<UsageMethodAbilityQuery>) => {
   if (!data || !data.usageMethodByName) return (<div>Data not found for the query 'usageMethodByName'.</div>);

@@ -29,20 +29,20 @@ import {
 
   TYPE_MOVE_QUERY,
   TypeMoveQueryVars,
-} from '../../../../types-queries/Type';
+} from '../../../../types-queries/Planner/Type';
 import {
   INTRODUCTION_QUERY,
   
   IntroductionQuery,
   IntroductionQueryVars,
-} from '../../../../types-queries/helpers';
+} from '../../../../types-queries/Planner/helpers';
 import {
   NUMBER_OF_GENS,
   TierFilter,
 } from '../../../../utils/constants';
 import {
   GenerationNum,
-} from '../../../../types-queries/Generation';
+} from '../../../../types-queries/helpers';
 
 import { 
   CartAction,

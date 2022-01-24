@@ -10,7 +10,7 @@ import {
 
   StatMoveResult,
   StatMoveQuery
-} from "../../../../types-queries/Stat";
+} from "../../../../types-queries/Planner/Stat";
 import {
   ListRenderArgs,
   MissingDispatchError,

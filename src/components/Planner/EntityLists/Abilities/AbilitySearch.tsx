@@ -15,10 +15,10 @@ import {
   AbilityInSearch,
 
   ABILITY_SEARCH_QUERY,
-} from '../../../../types-queries/Ability';
+} from '../../../../types-queries/Planner/Ability';
 import {
   GenerationNum,
-} from '../../../../types-queries/Generation';
+} from '../../../../types-queries/helpers';
 
 import { 
   CartAction,

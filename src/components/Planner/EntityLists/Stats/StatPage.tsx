@@ -29,19 +29,19 @@ import {
 
   STAT_MOVE_QUERY,
   StatMoveQueryVars,
-} from '../../../../types-queries/Stat';
+} from '../../../../types-queries/Planner/Stat';
 import {
   INTRODUCTION_QUERY,
   
   IntroductionQuery,
   IntroductionQueryVars,
-} from '../../../../types-queries/helpers';
+} from '../../../../types-queries/Planner/helpers';
 import {
   NUMBER_OF_GENS, TierFilter,
 } from '../../../../utils/constants';
 import {
   GenerationNum,
-} from '../../../../types-queries/Generation';
+} from '../../../../types-queries/helpers';
 
 import { 
   CartAction,
