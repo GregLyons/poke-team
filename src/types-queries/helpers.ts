@@ -67,6 +67,10 @@ export const itemIconEdgeToItemIconDatum: (edge: ItemIconEdge) => ItemIconDatum 
   };
 }
 
+export const itemRequiresPokemonEdgeToRequiredPokemonIconData: (itemEdge: ItemRequiresPokemonEdge) => PokemonIconDatum[] = (itemEdge) => {
+  return itemEdge.node.requiresPokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
+}
+
 // #endregion
 
 // Type icons
@@ -170,7 +174,7 @@ export interface AbilityIconEdge extends NameEdge {
   }
 }
 
-// Item edges which contain data for rendering Item icons
+// Item edges which contain data for rendering item icons
 export interface ItemIconEdge extends NameEdge {
   node: {
     id: string
@@ -179,6 +183,23 @@ export interface ItemIconEdge extends NameEdge {
 
     introduced: {
       edges: IntroductionEdge[]
+    }
+  }
+}
+
+// Item edges which contain data for rendering icons for Pokemon which the item requires
+export interface ItemRequiresPokemonEdge extends NameEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+
+    introduced: {
+      edges: IntroductionEdge[]
+    }
+
+    requiresPokemon: {
+      edges: PokemonIconEdge[]
     }
   }
 }

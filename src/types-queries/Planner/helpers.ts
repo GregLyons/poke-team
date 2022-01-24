@@ -1,7 +1,8 @@
 import {
   gql,
 } from "@apollo/client";
-import { GenerationNum, IntroductionEdge, NameEdge } from "../helpers";
+import { GenerationNum, IntroductionEdge, ItemIconDatum, ItemIconEdge, itemIconEdgeToItemIconDatum, ItemRequiresPokemonEdge, itemRequiresPokemonEdgeToRequiredPokemonIconData, NameEdge, PokemonIconDatum, PokemonIconEdge } from "../helpers";
+import { Pokemon } from "./Pokemon";
 
 // Entity in search
 // #region
@@ -209,6 +210,26 @@ export interface AuxToAuxConnectionEdge extends NameEdge {
   }
 }
 
+export interface AuxToItemConnectionEdge extends AuxToMainConnectionEdge, ItemIconEdge, ItemRequiresPokemonEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+
+    descriptions: {
+      edges: VersionDependentDescriptionEdge[]
+    }
+
+    introduced: {
+      edges: IntroductionEdge[]
+    }
+
+    requiresPokemon: {
+      edges: PokemonIconEdge[]
+    }
+  }
+}
+
 export interface AuxToMainConnectionEdge extends NameEdge {
   node: {
     id: string
@@ -281,6 +302,18 @@ export abstract class AuxToMainConnectionOnPage {
   }
 }
 
+export abstract class AuxToItemConnectionOnPage extends AuxToMainConnectionOnPage {
+  public itemIconDatum: ItemIconDatum
+  public requiredPokemonIconData: PokemonIconDatum[]
+
+  constructor(gqlEdge: AuxToItemConnectionEdge) {
+    super(gqlEdge);
+    
+    this.itemIconDatum = itemIconEdgeToItemIconDatum(gqlEdge);
+    this.requiredPokemonIconData = itemRequiresPokemonEdgeToRequiredPokemonIconData(gqlEdge);
+  }
+}
+
 // #endregion
 
 // #region
@@ -314,6 +347,5 @@ export const INTRODUCTION_QUERY = (queryName: EntityPageQueryName) => gql`
 `;
 
 // #endregion
-
 
 // #endregion

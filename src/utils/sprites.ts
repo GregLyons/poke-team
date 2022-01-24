@@ -4,6 +4,7 @@ import {
 } from '@pkmn/img';
 import {
   GenerationNum,
+  ItemIconDatum,
   PokemonIconDatum,
 } from '../types-queries/helpers.js';
 import {
@@ -33,3 +34,12 @@ export const getPokemonIcon = (pokemon: PokemonIconDatum) => {
 }
 
 //#endregion
+
+// Get item sprites 
+// #region
+
+export const getItemIcon = (item: ItemIconDatum) => {
+  return Icons.getItem(item.name);
+}
+
+// #endregion

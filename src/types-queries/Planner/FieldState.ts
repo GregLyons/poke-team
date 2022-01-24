@@ -8,7 +8,7 @@ import {
   GenerationNum,
   IntroductionEdge,
   ItemIconDatum,
-  ItemIconEdge,
+  ItemRequiresPokemonEdge,
   itemIconEdgeToItemIconDatum,
   MoveIconEdge,
   PokemonIconDatum,
@@ -38,6 +38,8 @@ import {
   AuxEntitySearchResult,
   AuxEntityPageResult,
   AuxEntityOnPage,
+  AuxToItemConnectionOnPage,
+  AuxToItemConnectionEdge,
 } from './helpers';
 
 // FieldState in main search
@@ -716,7 +718,7 @@ export type FieldStateItemQuery = {
   }[]
 }
 
-export interface FieldStateItemEdge extends ItemIconEdge, AuxToMainConnectionEdge {
+export interface FieldStateItemEdge extends AuxToItemConnectionEdge {
   node: {
     id: string
     name: string
@@ -728,6 +730,10 @@ export interface FieldStateItemEdge extends ItemIconEdge, AuxToMainConnectionEdg
 
     introduced: {
       edges: IntroductionEdge[]
+    }
+
+    requiresPokemon: {
+      edges: PokemonIconEdge[]
     }
   }
   turns?: number
@@ -766,6 +772,25 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                 }
               }
             }
+            
+            requiresPokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -787,6 +812,25 @@ export const FIELDSTATE_ITEM_QUERY = gql`
               edges {
                 node {
                   number
+                }
+              }
+            }
+
+            requiresPokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -815,6 +859,19 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                 }
               }
             }
+            
+            requiresPokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  intr
+                }
+              }
+            }
           }
         }
       }
@@ -839,6 +896,25 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                 }
               }
             }
+            
+            requiresPokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -846,7 +922,7 @@ export const FIELDSTATE_ITEM_QUERY = gql`
   }
 `;
 
-export class FieldStateItemResult extends AuxToMainConnectionOnPage {
+export class FieldStateItemResult extends AuxToItemConnectionOnPage {
   public itemIconData: ItemIconDatum
   public turns?: number
 

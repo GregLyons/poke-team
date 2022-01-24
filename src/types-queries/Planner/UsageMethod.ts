@@ -33,6 +33,8 @@ import {
   AuxEntityPageResult,
   AuxEntityOnPage,
   AuxToMainConnectionOnPage,
+  AuxToItemConnectionEdge,
+  AuxToItemConnectionOnPage,
 } from './helpers';
 
 // UsageMethod in main search
@@ -456,7 +458,7 @@ export type UsageMethodItemQuery = {
   }[]
 }
 
-export interface UsageMethodItemEdge extends AuxToMainConnectionEdge {
+export interface UsageMethodItemEdge extends AuxToItemConnectionEdge {
   node: {
     id: string
     name: string
@@ -464,6 +466,14 @@ export interface UsageMethodItemEdge extends AuxToMainConnectionEdge {
 
     descriptions: { 
       edges: VersionDependentDescriptionEdge[]
+    }
+
+    introduced: {
+      edges: IntroductionEdge[]
+    }
+
+    requiresPokemon: {
+      edges: PokemonIconEdge[]
     }
   }
   multiplier?: number
@@ -502,6 +512,25 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
                 }
               }
             }
+
+            requiresPokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -516,6 +545,33 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
               edges(pagination: {limit: 1}) {
                 node {
                   text
+                }
+              }
+            }
+
+            introduced {
+              edges {
+                node {
+                  number
+                }
+              }
+            }
+
+            requiresPokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -537,6 +593,33 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
                 }
               }
             }
+
+            introduced {
+              edges {
+                node {
+                  number
+                }
+              }
+            }
+
+            requiresPokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
           multiplier
         }
@@ -545,7 +628,7 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
   }
 `;
 
-export class UsageMethodItemResult extends AuxToMainConnectionOnPage {
+export class UsageMethodItemResult extends AuxToItemConnectionOnPage {
   public multiplier?: number
 
   constructor(gqlUsageMethodItem: UsageMethodItemEdge) {

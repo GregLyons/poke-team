@@ -47,6 +47,10 @@ export interface ItemSearchResult extends MainEntitySearchResult {
   descriptions: {
     edges: VersionDependentDescriptionEdge[]
   }
+
+  requiresPokemon: {
+    edges: PokemonIconEdge[]
+  }
 }
 
 export interface ItemSearchVars extends EntitySearchVars {
@@ -71,6 +75,25 @@ export const ITEM_SEARCH_QUERY = gql`
         edges(pagination: {limit: 1}) {
           node {
             text
+          }
+        }
+      }
+      
+      requiresPokemon {
+        edges {
+          node {
+            id
+            name
+            formattedName
+            pokemonShowdownID
+
+            introduced {
+              edges {
+                node {
+                  number
+                }
+              }
+            }
           }
         }
       }

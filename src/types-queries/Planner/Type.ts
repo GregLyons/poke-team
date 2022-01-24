@@ -30,8 +30,9 @@ import {
   AuxToMainConnectionOnPage,
   AuxToAuxConnectionEdge,
   AuxToAuxConnectionOnPage,
+  AuxToItemConnectionEdge,
+  AuxToItemConnectionOnPage,
 } from './helpers';
-
 
 // Type in main search
 // #region
@@ -670,7 +671,7 @@ export type TypeItemQuery = {
   }[]
 }
 
-export interface TypeItemEdge extends AuxToMainConnectionEdge {
+export interface TypeItemEdge extends AuxToItemConnectionEdge {
   node: {
     id: string
     name: string
@@ -678,6 +679,14 @@ export interface TypeItemEdge extends AuxToMainConnectionEdge {
 
     descriptions: { 
       edges: VersionDependentDescriptionEdge[]
+    }
+
+    introduced: {
+      edges: IntroductionEdge[]
+    }
+
+    requiresPokemon: {
+      edges: PokemonIconEdge[]
     }
   }
   multiplier?: number
@@ -710,6 +719,33 @@ export const TYPE_ITEM_QUERY = gql`
                 }
               }
             }
+
+            introduced {
+              edges {
+                node {
+                  number
+                }
+              }
+            }
+
+            requiresPokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
           multiplier
         }
@@ -725,6 +761,33 @@ export const TYPE_ITEM_QUERY = gql`
               edges(pagination: {limit: 1}) {
                 node {
                   text
+                }
+              }
+            }
+
+            introduced {
+              edges {
+                node {
+                  number
+                }
+              }
+            }
+
+            requiresPokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -746,6 +809,33 @@ export const TYPE_ITEM_QUERY = gql`
                 }
               }
             }
+
+            introduced {
+              edges {
+                node {
+                  number
+                }
+              }
+            }
+
+            requiresPokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
           multiplier
         }
@@ -754,7 +844,7 @@ export const TYPE_ITEM_QUERY = gql`
   }
 `;
 
-export class TypeItemResult extends AuxToMainConnectionOnPage {
+export class TypeItemResult extends AuxToItemConnectionOnPage {
   public multiplier?: number
   public power?: number
 

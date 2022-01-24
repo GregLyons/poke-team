@@ -33,6 +33,8 @@ import {
   AuxToMainConnectionOnPage,
   AuxToAuxConnectionEdge,
   AuxToAuxConnectionOnPage,
+  AuxToItemConnectionEdge,
+  AuxToItemConnectionOnPage,
 } from './helpers';
 
 // Status in main search
@@ -452,7 +454,7 @@ export type StatusItemQuery = {
   }[]
 }
 
-export interface StatusItemEdge extends AuxToMainConnectionEdge {
+export interface StatusItemEdge extends AuxToItemConnectionEdge {
   node: {
     id: string
     name: string
@@ -460,6 +462,14 @@ export interface StatusItemEdge extends AuxToMainConnectionEdge {
 
     descriptions: { 
       edges: VersionDependentDescriptionEdge[]
+    }
+
+    introduced: {
+      edges: IntroductionEdge[]
+    }
+
+    requiresPokemon: {
+      edges: PokemonIconEdge[]
     }
   }
   chance?: number
@@ -491,6 +501,33 @@ export const STATUS_ITEM_QUERY = gql`
                 }
               }
             }
+
+            introduced {
+              edges {
+                node {
+                  number
+                }
+              }
+            }
+
+            requiresPokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
           chance
         }
@@ -509,6 +546,33 @@ export const STATUS_ITEM_QUERY = gql`
                 }
               }
             }
+
+            introduced {
+              edges {
+                node {
+                  number
+                }
+              }
+            }
+
+            requiresPokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -516,7 +580,7 @@ export const STATUS_ITEM_QUERY = gql`
   }
 `;
 
-export class StatusItemResult extends AuxToMainConnectionOnPage {
+export class StatusItemResult extends AuxToItemConnectionOnPage {
   public chance?: number
 
   constructor(gqlStatusItem: StatusItemEdge) {

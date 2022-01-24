@@ -6,6 +6,7 @@ import {
   AbilityIconEdge,
   GenerationNum,
   IntroductionEdge,
+  ItemRequiresPokemonEdge,
   MoveIconEdge,
   PokemonIconDatum,
   PokemonIconEdge,
@@ -33,6 +34,8 @@ import {
   AuxToMainConnectionOnPage,
   AuxToAuxConnectionEdge,
   AuxToAuxConnectionOnPage,
+  AuxToItemConnectionEdge,
+  AuxToItemConnectionOnPage,
 } from './helpers';
 
 // Effect in main search
@@ -367,7 +370,7 @@ export type EffectItemQuery = {
   }[]
 }
 
-export interface EffectItemEdge extends AuxToMainConnectionEdge {
+export interface EffectItemEdge extends AuxToItemConnectionEdge {
   node: {
     id: string
     name: string
@@ -375,6 +378,14 @@ export interface EffectItemEdge extends AuxToMainConnectionEdge {
 
     descriptions: {
       edges: VersionDependentDescriptionEdge[]
+    }
+
+    introduced: {
+      edges: IntroductionEdge[]
+    }
+
+    requiresPokemon: {
+      edges: PokemonIconEdge[]
     }
   }
 }
@@ -405,6 +416,33 @@ export const EFFECT_ITEM_QUERY = gql`
                 }
               }
             }
+
+            introduced {
+              edges {
+                node {
+                  number
+                }
+              }
+            }
+
+            requiresPokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -412,7 +450,7 @@ export const EFFECT_ITEM_QUERY = gql`
   }
 `;
 
-export class EffectItemResult extends AuxToMainConnectionOnPage {
+export class EffectItemResult extends AuxToItemConnectionOnPage {
   constructor(gqlEffectItem: EffectItemEdge) {
     super(gqlEffectItem);
   }

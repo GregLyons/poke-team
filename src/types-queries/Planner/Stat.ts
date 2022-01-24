@@ -6,6 +6,7 @@ import {
   AbilityIconEdge,
   GenerationNum,
   IntroductionEdge,
+  ItemIconEdge,
   MoveIconEdge,
   PokemonIconDatum,
   PokemonIconEdge,
@@ -32,6 +33,7 @@ import {
   AuxToMainConnectionOnPage,
   AuxToAuxConnectionEdge,
   AuxToAuxConnectionOnPage,
+  AuxToItemConnectionOnPage,
 } from './helpers';
 
 // Stat in main search
@@ -382,7 +384,7 @@ export type StatItemQuery = {
   }[]
 }
 
-export interface StatItemEdge extends AuxToMainConnectionEdge {
+export interface StatItemEdge extends AuxToItemConnectionOnPage {
   node: {
     id: string
     name: string
@@ -390,6 +392,14 @@ export interface StatItemEdge extends AuxToMainConnectionEdge {
 
     descriptions: {
       edges: VersionDependentDescriptionEdge[]
+    }
+
+    introduced: {
+      edges: IntroductionEdge[]
+    }
+
+    requiresPokemon: {
+      edges: PokemonIconEdge[]
     }
   }
   stage: number
@@ -424,6 +434,33 @@ export const STAT_ITEM_QUERY = gql`
                 }
               }
             }
+
+            introduced {
+              edges {
+                node {
+                  number
+                }
+              }
+            }
+
+            requiresPokemon {
+              edges {
+                node {
+                  id
+                  name
+                  formattedName
+                  pokemonShowdownID
+
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
           stage
           multiplier
@@ -435,7 +472,7 @@ export const STAT_ITEM_QUERY = gql`
   }
 `;
 
-export class StatItemResult extends AuxToMainConnectionOnPage {
+export class StatItemResult extends AuxToItemConnectionOnPage {
   public stage: number
   public multiplier: number
   public chance: number
