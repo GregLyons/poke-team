@@ -50,7 +50,7 @@ const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
         return (
           <>
             <EntitySearchEntry
-              entityClass="fieldStates"
+              entityClass="Field state"
               key={'fieldStateEntry_' + fieldState.id}
               name={fieldState.formattedName}
               linkName={fieldState.name}

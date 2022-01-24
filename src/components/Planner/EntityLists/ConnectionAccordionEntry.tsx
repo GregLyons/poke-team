@@ -13,12 +13,14 @@ import {
 } from "../../../hooks/hooks";
 
 import {
-  GenerationNum,
+  GenerationNum, ItemIconDatum,
 } from "../../../types-queries/helpers";
 import {
   PokemonIconDatum,
 } from "../../../types-queries/helpers";
 import {
+  EntityClass,
+  ENTITY_CLASS_TO_PLANNER_LINK,
   TierFilter,
 } from "../../../utils/constants";
 import {
@@ -34,7 +36,8 @@ import SelectionControls from "./SelectionControls";
 
 
 type ConnectionAccordionEntryProps = {
-  targetEntityClass: string
+  parentEntityClass: EntityClass
+  targetEntityClass: EntityClass
   key: string
   name: string
   linkName: string
@@ -44,7 +47,8 @@ type ConnectionAccordionEntryProps = {
     value: string | number 
   }[]
   icons?: {
-    iconData: PokemonIconDatum[]
+    pokemonIconData: PokemonIconDatum[]
+    itemIcon?: ItemIconDatum
     dispatchCart: React.Dispatch<CartAction>
     dispatchTeam: React.Dispatch<TeamAction>
     gen: GenerationNum
@@ -54,13 +58,14 @@ type ConnectionAccordionEntryProps = {
 }
 
 const ConnectionAccordionEntry = ({
+  parentEntityClass,
   targetEntityClass,
   key,
   name,
   linkName,
   description,
   data,
-  icons,
+  icons: icons,
 }: ConnectionAccordionEntryProps) => {
   // Changing scroll height 
   // #region
@@ -78,7 +83,7 @@ const ConnectionAccordionEntry = ({
   // Selecting
   // #region
 
-  const [selection, dispatchSelection] = useSelection(icons ? icons.iconData : undefined);
+  const [selection, dispatchSelection] = useSelection(icons ? icons.pokemonIconData : undefined);
 
   const toggleSelection = (psID: string) => {
     dispatchSelection({
@@ -90,8 +95,10 @@ const ConnectionAccordionEntry = ({
   const handleAddToCart = () => {
     if (!icons) return;
     icons.dispatchCart({
-      type: 'add',
+      type: 'add_pokemon',
       payload: {
+        parentEntityClass,
+        targetEntityClass,
         pokemon: selectionToPokemonIconData(selection),
         note: icons.cartNote,
       }
@@ -127,7 +134,7 @@ const ConnectionAccordionEntry = ({
       key={key}
     >
       <Link
-        to={`../${targetEntityClass}/${linkName}`}
+        to={`../${ENTITY_CLASS_TO_PLANNER_LINK.get(targetEntityClass)}/${linkName}`}
         className="planner__accordion-row-name"
         style={
           hover
@@ -159,7 +166,7 @@ const ConnectionAccordionEntry = ({
       </div>
       {icons && <div className="planner__accordion-row-icons">
         <>
-          {icons.iconData.map(pokemonIconDatum => {
+          {icons.pokemonIconData.map(pokemonIconDatum => {
             const { psID, } = pokemonIconDatum;
             const tier = psIDToTier(icons.gen, pokemonIconDatum.psID);
 

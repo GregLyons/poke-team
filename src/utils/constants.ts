@@ -1,3 +1,19 @@
+export type EntityClass = 'Ability' | 'Effect' | 'Field state' | 'Item' | 'Move' | 'Stat' | 'Status' | 'Type' | 'Usage method';
+
+export type EntityLink = 'abilities' | 'effects' | 'fieldStates' | 'items' | 'moves' | 'stats' | 'statuses' | 'types' | 'usageMethods';
+
+export const ENTITY_CLASS_TO_PLANNER_LINK = new Map<EntityClass, EntityLink>([
+  ['Ability', 'abilities'],
+  ['Effect', 'effects'],
+  ['Field state', 'fieldStates'],
+  ['Item', 'items'],
+  ['Move', 'moves'],
+  ['Stat', 'stats'],
+  ['Status', 'statuses'],
+  ['Type', 'types'],
+  ['Usage method', 'usageMethods'],
+]);
+
 export const NUMBER_OF_GENS = 8;
 
 export type SinglesTier = 'AG' | 'Uber' | 'OU' | 'UUBL' | 'UU' | 'RUBL' | 'RU' | 'NUBL' | 'NU' | 'PUBL' | 'PU' | 'NFE' | 'LC'

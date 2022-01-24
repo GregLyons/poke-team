@@ -13,6 +13,7 @@ import {
 } from '../types-queries/Planner/Pokemon';
 import {
   DEFAULT_TIER_FILTER,
+  EntityClass,
   NUMBER_OF_GENS,
   SinglesTier,
   TierFilter,
@@ -70,14 +71,26 @@ function teamReducer(state: Team, action: TeamAction) {
 }
 
 export type Cart = {
-  [key: string]: PokemonIconDatum[]
+  pokemon: {
+    [parentEntityClass in EntityClass]?: {
+      [targetEntityClass in EntityClass | 'Has']?: {
+        [note: string]: PokemonIconDatum[]
+      }
+    } 
+  }
+  items: {
+    [key: string]: PokemonIconDatum[]
+  }
 };
+
 
 export type CartAction =
 | { 
-  type: 'add',
+  type: 'add_pokemon',
   payload: {
     pokemon: PokemonIconDatum[],
+    parentEntityClass: EntityClass,
+    targetEntityClass: EntityClass | 'Has',
     note: string,
   },
 }
@@ -85,14 +98,22 @@ export type CartAction =
 
 function cartReducer(state: Cart, action: CartAction) {
   switch(action.type) {
-    case 'add':
+    case 'add_pokemon':
       return {
         ...state,
-        [action.payload.note]: {
-          // Old Pokemon with this note
-          ...state[action.payload.note],
-          // Current Pokemon to be added
-          ...action.payload.pokemon,
+        // Overwriting Pokemon
+        pokemon: {
+          // Overwriting parentEntityClass
+          ...state.pokemon,
+          [action.payload.parentEntityClass]: {
+            // Overwriting targetEntityClass within parentEntityClass
+            ...state.pokemon?.[action.payload.parentEntityClass],
+            [action.payload.targetEntityClass]: {
+              // Overwriting note within targetEntityClass
+              ...state.pokemon?.[action.payload.parentEntityClass]?.[action.payload.targetEntityClass],
+              [action.payload.note]: action.payload.pokemon,
+            }
+          }
         }
       }
     case 'remove':
@@ -105,7 +126,7 @@ function cartReducer(state: Cart, action: CartAction) {
 function App() {
   const [gen, setGen] = useState<GenerationNum>(NUMBER_OF_GENS);
   const [tierFilter, setTierFilter] = useState<TierFilter>(DEFAULT_TIER_FILTER);
-  const [cart, dispatchCart] = useReducer(cartReducer, {});
+  const [cart, dispatchCart] = useReducer(cartReducer, { pokemon: {}, items: {}});
   const [team, dispatchTeam] = useReducer(teamReducer, []);
 
   // Change gen when slider is changed

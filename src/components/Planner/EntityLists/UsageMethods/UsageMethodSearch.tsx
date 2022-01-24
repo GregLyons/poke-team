@@ -39,7 +39,7 @@ const listRender = ({ data, }: ListRenderArgs<UsageMethodSearchQuery>) => {
         return (
           <>
             <EntitySearchEntry
-              entityClass="usageMethods"
+              entityClass="Usage method"
               key={'usageMethodEntry_' + usageMethod.id}
               name={usageMethod.formattedName}
               linkName={usageMethod.name}

@@ -17,7 +17,10 @@ import {
   GenerationNum,
 } from '../../../../types-queries/helpers';
 import {
-  ListRenderArgs, MissingDispatchError, MissingGenError, MissingTierFilterError,
+  ListRenderArgs,
+  MissingDispatchError,
+  MissingGenError,
+  MissingTierFilterError,
 } from '../helpers';
 
 import { 
@@ -43,7 +46,7 @@ const listRender = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: List
         return (
           <>
             <EntitySearchEntry
-              entityClass="moves"
+              entityClass="Move"
               key={'moveEntry_' + move.id}
               name={move.formattedName}
               linkName={move.name}
@@ -72,12 +75,12 @@ const listRender = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: List
                 },
               ]}
               icons={{
-                iconData: move.pokemonIconData,
+                pokemonIconData: move.pokemonIconData,
                 dispatchCart,
                 dispatchTeam,
                 gen,
                 tierFilter,
-                cartNote: `Pokemon who can learn '${move.formattedName}'.`
+                cartNote: `Pokemon who learn '${move.formattedName}'.`
               }}
             />
           </>

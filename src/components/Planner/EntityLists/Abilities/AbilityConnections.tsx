@@ -29,7 +29,8 @@ export const listRenderAbilityEffect = ({ data, }: ListRenderArgs<AbilityEffectQ
     <>
       {effectResults.map(result => (
         <ConnectionAccordionEntry
-          targetEntityClass="effects"
+          parentEntityClass="Ability"
+          targetEntityClass="Effect"
           key={`${parent.id}_${result.id}_effect`}
           name={result.formattedName}
           linkName={result.name}
@@ -59,7 +60,8 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
         <h3 className="planner__accordion-subitem-header">Activated by field state</h3>
         {activatedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Ability"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_activate_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -72,7 +74,8 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
         <h3 className="planner__accordion-subitem-header">Creates field state</h3>
         {createsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Ability"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_create_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -89,7 +92,8 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
         </p>
         {ignoresResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Ability"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_ignore_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -105,7 +109,8 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
         </p>
         {preventsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Ability"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_prevent_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -121,7 +126,8 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
         </p>
         {removesResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Ability"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_remove_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -137,7 +143,8 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
         </p>
         {suppressesResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Ability"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_suppress_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -167,7 +174,8 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
         <h3 className="planner__accordion-subitem-header">Boosts by stage</h3>
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="stats"
+          parentEntityClass="Ability"
+            targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_boost_stage_stat`}
             name={result.formattedName}
             linkName={result.name}
@@ -191,7 +199,8 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
         <h3 className="planner__accordion-subitem-header">Boost by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="stats"
+          parentEntityClass="Ability"
+            targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_boost_multiplier_stat`}
             name={result.formattedName}
             linkName={result.name}
@@ -215,7 +224,8 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
         <h3 className="planner__accordion-subitem-header">Reduces by stage</h3>
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="stats"
+          parentEntityClass="Ability"
+            targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_reduce_stage_stat`}
             name={result.formattedName}
             linkName={result.name}
@@ -239,7 +249,8 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
         <h3 className="planner__accordion-subitem-header">Reduces by multiplier</h3>
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="stats"
+          parentEntityClass="Ability"
+            targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_reduce_multiplier_stat`}
             name={result.formattedName}
             linkName={result.name}
@@ -277,7 +288,8 @@ export const listRenderAbilityStatus = ({ data, }: ListRenderArgs<AbilityStatusQ
         <h3 className="planner__accordion-subitem-header">Causes status</h3>
         {causesResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="statuses"
+          parentEntityClass="Ability"
+            targetEntityClass="Status"
             key={`${parent.id}_${result.id}_cause_status`}
             name={result.formattedName}
             linkName={result.name}
@@ -294,7 +306,8 @@ export const listRenderAbilityStatus = ({ data, }: ListRenderArgs<AbilityStatusQ
         </p>
         {resistsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="statuses"
+          parentEntityClass="Ability"
+            targetEntityClass="Status"
             key={`${parent.id}_${result.id}_resist_status`}
             name={result.formattedName}
             linkName={result.name}
@@ -324,7 +337,8 @@ export const listRenderAbilityType = ({ data, }: ListRenderArgs<AbilityTypeQuery
         </p> 
         {boostsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="types"
+          parentEntityClass="Ability"
+            targetEntityClass="Type"
             key={`${parent.id}_${result.id}_boost_type`}
             name={result.formattedName}
             linkName={result.name}
@@ -341,7 +355,8 @@ export const listRenderAbilityType = ({ data, }: ListRenderArgs<AbilityTypeQuery
         </p>
         {resistsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="types"
+          parentEntityClass="Ability"
+            targetEntityClass="Type"
             key={`${parent.id}_${result.id}_resist_type`}
             name={result.formattedName}
             linkName={result.name}
@@ -374,7 +389,8 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
         <h3 className="planner__accordion-subitem-header">Activated by usage method</h3>
         {activatedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="usageMethods"
+          parentEntityClass="Ability"
+            targetEntityClass="Usage method"
             key={`${parent.id}_${result.id}_activate_usageMethod`}
             name={result.formattedName}
             linkName={result.name}
@@ -390,7 +406,8 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
         </p> 
         {boostsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="usageMethods"
+          parentEntityClass="Ability"
+            targetEntityClass="Usage method"
             key={`${parent.id}_${result.id}_boost_usageMethod`}
             name={result.formattedName}
             linkName={result.name}
@@ -407,7 +424,8 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
         </p>
         {preventsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="usageMethods"
+          parentEntityClass="Ability"
+            targetEntityClass="Usage method"
             key={`${parent.id}_${result.id}_prevent_usageMethod`}
             name={result.formattedName}
             linkName={result.name}
@@ -423,7 +441,8 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
         </p>
         {resistsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="usageMethods"
+          parentEntityClass="Ability"
+            targetEntityClass="Usage method"
             key={`${parent.id}_${result.id}_resist_usageMethod`}
             name={result.formattedName}
             linkName={result.name}

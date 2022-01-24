@@ -10,15 +10,19 @@ import {
   useSelection,
 } from "../../../hooks/hooks";
 import {
-  GenerationNum,
+  GenerationNum, ItemIconDatum,
 } from "../../../types-queries/helpers";
 import {
   PokemonIconDatum,
 } from "../../../types-queries/helpers";
 import {
+  EntityClass,
+  ENTITY_CLASS_TO_PLANNER_LINK,
   TierFilter,
 } from "../../../utils/constants";
-import { psIDToTier } from "../../../utils/smogonLogic";
+import {
+  psIDToTier,
+} from "../../../utils/smogonLogic";
 
 import { 
   CartAction,
@@ -29,7 +33,7 @@ import PlannerPokemonIcon from "../PlannerPokemonIcon";
 import SelectionControls from "./SelectionControls";
 
 type EntitySearchEntryProps = {
-  entityClass: string
+  entityClass: EntityClass
   key: string
   name: string
   linkName: string
@@ -39,7 +43,8 @@ type EntitySearchEntryProps = {
     value: string | number | boolean
   }[]
   icons?: {
-    iconData: PokemonIconDatum[]
+    pokemonIconData: PokemonIconDatum[]
+    itemIconData?: ItemIconDatum
     dispatchCart: React.Dispatch<CartAction>
     dispatchTeam: React.Dispatch<TeamAction>
     gen: GenerationNum
@@ -74,7 +79,7 @@ const EntitySearchEntry = ({
   // Selecting
   // #region
 
-  const [selection, dispatchSelection] = useSelection(icons ? icons.iconData : undefined);
+  const [selection, dispatchSelection] = useSelection(icons ? icons.pokemonIconData : undefined);
 
   const toggleSelection = (psID: string) => {
     dispatchSelection({
@@ -86,8 +91,10 @@ const EntitySearchEntry = ({
   const handleAddToCart = () => {
     if (!icons) return;
     icons.dispatchCart({
-      type: 'add',
+      type: 'add_pokemon',
       payload: {
+        parentEntityClass: entityClass,
+        targetEntityClass: 'Has',
         pokemon: selectionToPokemonIconData(selection),
         note: icons.cartNote,
       }
@@ -124,7 +131,7 @@ const EntitySearchEntry = ({
       key={key}
     >
       <Link
-        to={`../${entityClass}/${linkName}`}
+        to={`../${ENTITY_CLASS_TO_PLANNER_LINK.get(entityClass)}/${linkName}`}
         className="planner__search-row-name"
         style={
           hover
@@ -155,7 +162,7 @@ const EntitySearchEntry = ({
         ))}
       </div>
       {icons && <div className="planner__search-row-icons">
-        {icons.iconData.map(pokemonIconDatum => {
+        {icons.pokemonIconData.map(pokemonIconDatum => {
           const { psID, } = pokemonIconDatum;
           const tier = psIDToTier(icons.gen, psID);
 

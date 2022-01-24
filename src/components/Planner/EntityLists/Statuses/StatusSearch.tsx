@@ -39,7 +39,7 @@ const listRender = ({ data, }: ListRenderArgs<StatusSearchQuery>) => {
         return (
           <>
             <EntitySearchEntry
-              entityClass="statuses"
+              entityClass="Status"
               key={'statusEntry_' + status.id}
               name={status.formattedName}
               linkName={status.name}

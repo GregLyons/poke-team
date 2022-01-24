@@ -43,18 +43,18 @@ const listRender = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: List
         return (
           <>
             <EntitySearchEntry
-              entityClass="abilities"
+              entityClass="Ability"
               key={'abilityEntry_' + ability.id}
               name={ability.formattedName}
               linkName={ability.name}
               description={ability.description}
               icons={{
-                iconData: ability.pokemonIconData,
+                pokemonIconData: ability.pokemonIconData,
                 dispatchCart,
                 dispatchTeam,
                 gen,
                 tierFilter,
-                cartNote: `Pokemon who can have '${ability.formattedName}'.`
+                cartNote: `Pokemon who have '${ability.formattedName}'.`
               }}
             />
           </>

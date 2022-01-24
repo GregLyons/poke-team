@@ -54,7 +54,8 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         <h3 className="planner__accordion-subitem-header">Activates ability</h3>
         {activatesResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="abilities"
+          parentEntityClass="Field state"
+            targetEntityClass="Ability"
             key={`${parent.id}_${result.id}_activate_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -62,7 +63,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' activates '${parent.formattedName}'.`,
@@ -75,7 +76,8 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         <h3 className="planner__accordion-subitem-header">Created by ability</h3>
         {createdByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="abilities"
+          parentEntityClass="Field state"
+            targetEntityClass="Ability"
             key={`${parent.id}_${result.id}_create_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -84,7 +86,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' created by '${parent.formattedName}'.`,
@@ -100,7 +102,8 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         </p>
         {ignoredByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="abilities"
+          parentEntityClass="Field state"
+            targetEntityClass="Ability"
             key={`${parent.id}_${result.id}_ignore_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -108,7 +111,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' ignored by '${parent.formattedName}'.`,
@@ -124,7 +127,8 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         </p>
         {preventedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="abilities"
+          parentEntityClass="Field state"
+            targetEntityClass="Ability"
             key={`${parent.id}_${result.id}_prevent_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -132,7 +136,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' prevented by '${parent.formattedName}'.`,
@@ -148,7 +152,8 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         </p>
         {removedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="abilities"
+          parentEntityClass="Field state"
+            targetEntityClass="Ability"
             key={`${parent.id}_${result.id}_remove_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -156,7 +161,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' removed by '${parent.formattedName}'.`,
@@ -172,7 +177,8 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         </p>
         {suppressedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="abilities"
+          parentEntityClass="Field state"
+            targetEntityClass="Ability"
             key={`${parent.id}_${result.id}_suppress_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -180,7 +186,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' suppressed by '${parent.formattedName}'.`,
@@ -203,7 +209,8 @@ export const listRenderFieldStateEffect = ({ data, }: ListRenderArgs<FieldStateE
     <>
       {effectResults.map(result => (
         <ConnectionAccordionEntry
-          targetEntityClass="effects"
+          parentEntityClass="Field state"
+          targetEntityClass="Effect"
           key={`${parent.id}_${result.id}_effect`}
           name={result.formattedName}
           linkName={result.name}
@@ -214,8 +221,11 @@ export const listRenderFieldStateEffect = ({ data, }: ListRenderArgs<FieldStateE
   )
 }
 
-export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateItemQuery>) => {
+export const listRenderFieldStateItem = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<FieldStateItemQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
+  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parent = data.fieldStateByName[0];
 
@@ -231,11 +241,21 @@ export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateIte
         <h3 className="planner__accordion-subitem-header">Activates item</h3>
         {activatesResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="items"
+          parentEntityClass="Field state"
+            targetEntityClass="Item"
             key={`${parent.id}_${result.id}_activate_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              pokemonIconData: result.requiredPokemonIconData,
+              itemIcon: result.itemIconDatum,
+              gen: gen,
+              tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' is activated by '${parent.formattedName}'.`,
+            }}
           />
         ))}
       </div>)}
@@ -247,12 +267,22 @@ export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateIte
         </p>
         {extendedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="items"
+          parentEntityClass="Field state"
+            targetEntityClass="Item"
             key={`${parent.id}_${result.id}_extend_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
             data={[{key: 'Turns', value: result.turns || 0}]}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              pokemonIconData: result.requiredPokemonIconData,
+              itemIcon: result.itemIconDatum,
+              gen: gen,
+              tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' extends '${parent.formattedName}'.`,
+            }}
           />
         ))}
       </div>)}
@@ -264,11 +294,21 @@ export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateIte
         </p>
         {ignoredByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="items"
+          parentEntityClass="Field state"
+            targetEntityClass="Item"
             key={`${parent.id}_${result.id}_ignore_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              pokemonIconData: result.requiredPokemonIconData,
+              itemIcon: result.itemIconDatum,
+              gen: gen,
+              tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' ignores '${parent.formattedName}'.`,
+            }}
           />
         ))}
       </div>)}
@@ -280,11 +320,21 @@ export const listRenderFieldStateItem = ({ data, }: ListRenderArgs<FieldStateIte
         </p>
         {resistedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="items"
+          parentEntityClass="Field state"
+            targetEntityClass="Item"
             key={`${parent.id}_${result.id}_resist_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              pokemonIconData: result.requiredPokemonIconData,
+              itemIcon: result.itemIconDatum,
+              gen: gen,
+              tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
+            }}
           />
         ))}
       </div>)}
@@ -312,7 +362,8 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
         <h3 className="planner__accordion-subitem-header">Created by move</h3>
         {createdByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="moves"
+          parentEntityClass="Field state"
+            targetEntityClass="Move"
             key={`${parent.id}_${result.id}_create_move`}
             name={result.formattedName}
             linkName={result.name}
@@ -321,7 +372,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' creates '${parent.formattedName}'.`,
@@ -337,7 +388,8 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
         </p>
         {enhancesResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="moves"
+          parentEntityClass="Field state"
+            targetEntityClass="Move"
             key={`${parent.id}_${result.id}_enhance_move`}
             name={result.formattedName}
             linkName={result.name}
@@ -345,7 +397,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' enhances '${parent.formattedName}'.`,
@@ -361,7 +413,8 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
         </p>
         {hindersResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="moves"
+          parentEntityClass="Field state"
+            targetEntityClass="Move"
             key={`${parent.id}_${result.id}_hinder_move`}
             name={result.formattedName}
             linkName={result.name}
@@ -369,7 +422,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' hinders '${parent.formattedName}'.`,
@@ -382,7 +435,8 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
         <h3 className="planner__accordion-subitem-header">Removed by move</h3>
         {removedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="moves"
+          parentEntityClass="Field state"
+            targetEntityClass="Move"
             key={`${parent.id}_${result.id}_remove_move`}
             name={result.formattedName}
             linkName={result.name}
@@ -390,7 +444,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' removes '${parent.formattedName}'.`,
@@ -420,7 +474,8 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
         <h3 className="planner__accordion-subitem-header">Boosts by stage</h3>
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="stats"
+          parentEntityClass="Field state"
+            targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_boost_stage_stat`}
             name={result.formattedName}
             linkName={result.name}
@@ -444,7 +499,8 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
         <h3 className="planner__accordion-subitem-header">Boost by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="stats"
+          parentEntityClass="Field state"
+            targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_boost_multiplier_stat`}
             name={result.formattedName}
             linkName={result.name}
@@ -468,7 +524,8 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
         <h3 className="planner__accordion-subitem-header">Reduces by stage</h3>
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="stats"
+          parentEntityClass="Field state"
+            targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_reduce_stage_stat`}
             name={result.formattedName}
             linkName={result.name}
@@ -492,7 +549,8 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
         <h3 className="planner__accordion-subitem-header">Reduces by multiplier</h3>
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="stats"
+          parentEntityClass="Field state"
+            targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_reduce_multiplier_stat`}
             name={result.formattedName}
             linkName={result.name}
@@ -531,7 +589,8 @@ export const listRenderFieldStateStatus = ({ data, }: ListRenderArgs<FieldStateS
         <h3 className="planner__accordion-subitem-header">Causes status</h3>
         {causesResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="statuses"
+          parentEntityClass="Field state"
+            targetEntityClass="Status"
             key={`${parent.id}_${result.id}_cause_status`}
             name={result.formattedName}
             linkName={result.name}
@@ -548,7 +607,8 @@ export const listRenderFieldStateStatus = ({ data, }: ListRenderArgs<FieldStateS
         </p>
         {resistsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="statuses"
+          parentEntityClass="Field state"
+            targetEntityClass="Status"
             key={`${parent.id}_${result.id}_resist_status`}
             name={result.formattedName}
             linkName={result.name}
@@ -590,7 +650,8 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
         </p>
         {boostsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="types"
+          parentEntityClass="Field state"
+            targetEntityClass="Type"
             key={`${parent.id}_${result.id}_boost_type`}
             name={result.formattedName}
             linkName={result.name}
@@ -607,7 +668,8 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
         </p>
         {resistsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="types"
+          parentEntityClass="Field state"
+            targetEntityClass="Type"
             key={`${parent.id}_${result.id}_weaken_type`}
             name={result.formattedName}
             linkName={result.name}
@@ -624,7 +686,8 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
         </p>
         {resistanceResults.filter(result => result.multiplier && result.multiplier > 1).map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="types"
+          parentEntityClass="Field state"
+            targetEntityClass="Type"
             key={`${parent.id}_${result.id}_resist_type`}
             name={result.formattedName}
             linkName={result.name}
@@ -632,7 +695,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
+              pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' strong against '${parent.formattedName}'.`,
@@ -649,7 +712,8 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
         </p>
         {weatherBallResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="types"
+          parentEntityClass="Field state"
+            targetEntityClass="Type"
             key={`${parent.id}_${result.id}_weather_ball_type`}
             name={result.formattedName}
             linkName={result.name}
@@ -665,7 +729,8 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
           </p>
           {ignoredByResults.map(result => (
             <ConnectionAccordionEntry
-              targetEntityClass="types"
+          parentEntityClass="Field state"
+              targetEntityClass="Type"
               key={`${parent.id}_${result.id}_ignore_type`}
               name={result.formattedName}
               linkName={result.name}
@@ -673,7 +738,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
               icons={{
                 dispatchCart: dispatchCart,
                 dispatchTeam: dispatchTeam,
-                iconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
+                pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
                 gen: gen,
                 tierFilter: tierFilter,
                 cartNote: `'${result.formattedName}' ignored by '${parent.formattedName}'.`,
@@ -689,7 +754,8 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
         </p>
         {removedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="types"
+          parentEntityClass="Field state"
+            targetEntityClass="Type"
             key={`${parent.id}_${result.id}_remove_type`}
             name={result.formattedName}
             linkName={result.name}
@@ -697,7 +763,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
+              pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' removed by '${parent.formattedName}'.`,
@@ -713,7 +779,8 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
         </p>
         {resistanceResults.filter(result => result.multiplier && result.multiplier < 1).map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="types"
+          parentEntityClass="Field state"
+            targetEntityClass="Type"
             key={`${parent.id}_${result.id}_resist_type`}
             name={result.formattedName}
             linkName={result.name}
@@ -721,7 +788,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
+              pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' resisted by '${parent.formattedName}'.`,

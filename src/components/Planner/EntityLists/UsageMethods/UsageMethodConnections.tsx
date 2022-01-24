@@ -37,7 +37,8 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
         <h3 className="planner__accordion-subitem-header">Activates ability</h3>
         {activatesResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="abilities"
+          parentEntityClass="Usage method"
+            targetEntityClass="Ability"
             key={`${parent.id}_${result.id}_activate_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -45,7 +46,7 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' activated by '${parent.formattedName}'.`,
@@ -58,7 +59,8 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
         <h3 className="planner__accordion-subitem-header">Boosted by ability</h3>
         {boostedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="abilities"
+          parentEntityClass="Usage method"
+            targetEntityClass="Ability"
             key={`${parent.id}_${result.id}_boost_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -67,7 +69,7 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' boosts '${parent.formattedName}'.`,
@@ -83,7 +85,8 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
         </p>
         {preventedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="abilities"
+          parentEntityClass="Usage method"
+            targetEntityClass="Ability"
             key={`${parent.id}_${result.id}_prevent_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -91,7 +94,7 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' prevents '${parent.formattedName}'.`,
@@ -104,7 +107,8 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
         <h3 className="planner__accordion-subitem-header">Resisted by ability</h3>
         {resistedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="abilities"
+          parentEntityClass="Usage method"
+            targetEntityClass="Ability"
             key={`${parent.id}_${result.id}_resist_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -113,7 +117,7 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
@@ -144,11 +148,21 @@ export const listRenderUsageMethodItem = ({ data, dispatchCart, dispatchTeam, ge
         <h3 className="planner__accordion-subitem-header">Activates item</h3>
         {activatesResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="items"
+          parentEntityClass="Usage method"
+            targetEntityClass="Item"
             key={`${parent.id}_${result.id}_activate_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              pokemonIconData: result.requiredPokemonIconData,
+              itemIcon: result.itemIconDatum,
+              gen: gen,
+              tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' is activated by '${parent.formattedName}'.`,
+            }}
           />
         ))}
       </div>)}
@@ -157,12 +171,22 @@ export const listRenderUsageMethodItem = ({ data, dispatchCart, dispatchTeam, ge
         <h3 className="planner__accordion-subitem-header">Boosted by item</h3>
         {boostedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="items"
+          parentEntityClass="Usage method"
+            targetEntityClass="Item"
             key={`${parent.id}_${result.id}_boost_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
             data={[{key: 'Multipler', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              pokemonIconData: result.requiredPokemonIconData,
+              itemIcon: result.itemIconDatum,
+              gen: gen,
+              tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' boosts '${parent.formattedName}'.`,
+            }}
           />
         ))}
       </div>)}
@@ -171,12 +195,22 @@ export const listRenderUsageMethodItem = ({ data, dispatchCart, dispatchTeam, ge
         <h3 className="planner__accordion-subitem-header">Resisted by item</h3>
         {resistedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="items"
+          parentEntityClass="Usage method"
+            targetEntityClass="Item"
             key={`${parent.id}_${result.id}_resist_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
             data={[{key: 'Multipler', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              pokemonIconData: result.requiredPokemonIconData,
+              itemIcon: result.itemIconDatum,
+              gen: gen,
+              tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
+            }}
           />
         ))}
       </div>)}
@@ -202,7 +236,8 @@ export const listRenderUsageMethodMove = ({ data, dispatchCart, dispatchTeam, ge
         <h3 className="planner__accordion-subitem-header">Possessed by move</h3>
         {hadResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="moves"
+          parentEntityClass="Usage method"
+            targetEntityClass="Move"
             key={`${parent.id}_${result.id}_has_move`}
             name={result.formattedName}
             linkName={result.name}
@@ -210,7 +245,7 @@ export const listRenderUsageMethodMove = ({ data, dispatchCart, dispatchTeam, ge
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' has '${parent.formattedName}'.`,
@@ -226,7 +261,8 @@ export const listRenderUsageMethodMove = ({ data, dispatchCart, dispatchTeam, ge
         </p>
         {preventedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="moves"
+          parentEntityClass="Usage method"
+            targetEntityClass="Move"
             key={`${parent.id}_${result.id}_prevent_move`}
             name={result.formattedName}
             linkName={result.name}
@@ -234,7 +270,7 @@ export const listRenderUsageMethodMove = ({ data, dispatchCart, dispatchTeam, ge
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' prevents '${parent.formattedName}'.`,

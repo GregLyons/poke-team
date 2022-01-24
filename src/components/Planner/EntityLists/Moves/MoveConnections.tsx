@@ -34,7 +34,8 @@ export const listRenderMoveEffect = ({ data, }: ListRenderArgs<MoveEffectQuery>)
     <>
       {effectResults.map(result => (
         <ConnectionAccordionEntry
-          targetEntityClass="effects"
+          parentEntityClass="Move"
+          targetEntityClass="Effect"
           key={`${parent.id}_${result.id}_effect`}
           name={result.formattedName}
           linkName={result.name}
@@ -62,7 +63,8 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
         <h3 className="planner__accordion-subitem-header">Creates field state</h3>
         {createsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Move"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_create_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -76,7 +78,8 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
         <h3 className="planner__accordion-subitem-header">Enhanced by field state</h3>
         {enhancedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Move"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_enhance_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -89,7 +92,8 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
         <h3 className="planner__accordion-subitem-header">Hindered by field state</h3>
         {hinderedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Move"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_hinder_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -102,7 +106,8 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
         <h3 className="planner__accordion-subitem-header">Removes field state</h3>
         {removesResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Move"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_remove_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -132,7 +137,8 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
         <h3 className="planner__accordion-subitem-header">Boosts by stage</h3>
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="stats"
+          parentEntityClass="Move"
+            targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_boost_stage_stat`}
             name={result.formattedName}
             linkName={result.name}
@@ -156,7 +162,8 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
         <h3 className="planner__accordion-subitem-header">Boost by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="stats"
+          parentEntityClass="Move"
+            targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_boost_multiplier_stat`}
             name={result.formattedName}
             linkName={result.name}
@@ -180,7 +187,8 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
         <h3 className="planner__accordion-subitem-header">Reduces by stage</h3>
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="stats"
+          parentEntityClass="Move"
+            targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_reduce_stage_stat`}
             name={result.formattedName}
             linkName={result.name}
@@ -204,7 +212,8 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
         <h3 className="planner__accordion-subitem-header">Reduces by multiplier</h3>
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="stats"
+          parentEntityClass="Move"
+            targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_reduce_multiplier_stat`}
             name={result.formattedName}
             linkName={result.name}
@@ -242,7 +251,8 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
         <h3 className="planner__accordion-subitem-header">Causes status</h3>
         {causesResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="statuses"
+          parentEntityClass="Move"
+            targetEntityClass="Status"
             key={`${parent.id}_${result.id}_cause_status`}
             name={result.formattedName}
             linkName={result.name}
@@ -259,7 +269,8 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
         </p>
         {resistsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="statuses"
+          parentEntityClass="Move"
+            targetEntityClass="Status"
             key={`${parent.id}_${result.id}_resist_status`}
             name={result.formattedName}
             linkName={result.name}
@@ -288,7 +299,8 @@ export const listRenderMoveType = ({ data, }: ListRenderArgs<MoveTypeQuery>) => 
         </p>
         {requiresResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="statuses"
+          parentEntityClass="Move"
+            targetEntityClass="Status"
             key={`${parent.id}_${result.id}_cause_status`}
             name={result.formattedName}
             linkName={result.name}
@@ -315,7 +327,8 @@ export const listRenderMoveUsageMethod = ({ data, }: ListRenderArgs<MoveUsageMet
         <h3 className="planner__accordion-subitem-header">Has usage method</h3>
         {hasResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="usageMethods"
+          parentEntityClass="Move"
+            targetEntityClass="Usage method"
             key={`${parent.id}_${result.id}_has_usageMethod`}
             name={result.formattedName}
             linkName={result.name}
@@ -331,7 +344,8 @@ export const listRenderMoveUsageMethod = ({ data, }: ListRenderArgs<MoveUsageMet
         </p>
         {preventsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="usageMethods"
+          parentEntityClass="Move"
+            targetEntityClass="Usage method"
             key={`${parent.id}_${result.id}_prevent_usageMethod`}
             name={result.formattedName}
             linkName={result.name}

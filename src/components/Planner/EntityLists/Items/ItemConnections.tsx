@@ -34,7 +34,8 @@ export const listRenderItemEffect = ({ data, }: ListRenderArgs<ItemEffectQuery>)
     <>
       {effectResults.map(result => (
         <ConnectionAccordionEntry
-          targetEntityClass="effects"
+          parentEntityClass="Item"
+          targetEntityClass="Effect"
           key={`${parent.id}_${result.id}_effect`}
           name={result.formattedName}
           linkName={result.name}
@@ -62,7 +63,8 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
         <h3 className="planner__accordion-subitem-header">Activated by field state</h3>
         {activatedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Item"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_activate_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -78,7 +80,8 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
         </p>
         {extendsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Item"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_extend_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -95,7 +98,8 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
         </p>
         {ignoresResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Item"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_ignore_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -111,7 +115,8 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
         </p>
         {resistsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Item"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_resist_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -141,7 +146,8 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
         <h3 className="planner__accordion-subitem-header">Boosts by stage</h3>
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="stats"
+          parentEntityClass="Item"
+            targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_boost_stage_stat`}
             name={result.formattedName}
             linkName={result.name}
@@ -165,7 +171,8 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
         <h3 className="planner__accordion-subitem-header">Boost by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="stats"
+          parentEntityClass="Item"
+            targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_boost_multiplier_stat`}
             name={result.formattedName}
             linkName={result.name}
@@ -189,7 +196,8 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
         <h3 className="planner__accordion-subitem-header">Reduces by stage</h3>
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="stats"
+          parentEntityClass="Item"
+            targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_reduce_stage_stat`}
             name={result.formattedName}
             linkName={result.name}
@@ -213,7 +221,8 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
         <h3 className="planner__accordion-subitem-header">Reduces by multiplier</h3>
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="stats"
+          parentEntityClass="Item"
+            targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_reduce_multiplier_stat`}
             name={result.formattedName}
             linkName={result.name}
@@ -251,7 +260,8 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
         <h3 className="planner__accordion-subitem-header">Causes status</h3>
         {causesResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="statuses"
+          parentEntityClass="Item"
+            targetEntityClass="Status"
             key={`${parent.id}_${result.id}_cause_status`}
             name={result.formattedName}
             linkName={result.name}
@@ -268,7 +278,8 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
         </p>
         {causesResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="statuses"
+          parentEntityClass="Item"
+            targetEntityClass="Status"
             key={`${parent.id}_${result.id}_resist_status`}
             name={result.formattedName}
             linkName={result.name}
@@ -299,7 +310,8 @@ export const listRenderItemType = ({ data, }: ListRenderArgs<ItemTypeQuery>) => 
         </p> 
         {boostsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="types"
+          parentEntityClass="Item"
+            targetEntityClass="Type"
             key={`${parent.id}_${result.id}_boost_type`}
             name={result.formattedName}
             linkName={result.name}
@@ -316,7 +328,8 @@ export const listRenderItemType = ({ data, }: ListRenderArgs<ItemTypeQuery>) => 
         </p> 
         {naturalGiftResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="types"
+          parentEntityClass="Item"
+            targetEntityClass="Type"
             key={`${parent.id}_${result.id}_naturalGift_type`}
             name={result.formattedName}
             linkName={result.name}
@@ -333,7 +346,8 @@ export const listRenderItemType = ({ data, }: ListRenderArgs<ItemTypeQuery>) => 
         </p>
         {resistsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="types"
+          parentEntityClass="Item"
+            targetEntityClass="Type"
             key={`${parent.id}_${result.id}_resist_type`}
             name={result.formattedName}
             linkName={result.name}
@@ -362,7 +376,8 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
         <h3 className="planner__accordion-subitem-header">Activated by usage method</h3>
         {activatedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Item"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_activate_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -378,7 +393,8 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
         </p> 
         {boostsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="usageMethods"
+          parentEntityClass="Item"
+            targetEntityClass="Usage method"
             key={`${parent.id}_${result.id}_boost_usageMethod`}
             name={result.formattedName}
             linkName={result.name}
@@ -395,7 +411,8 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
         </p>
         {resistsResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="usageMethods"
+          parentEntityClass="Item"
+            targetEntityClass="Usage method"
             key={`${parent.id}_${result.id}_resist_usageMethod`}
             name={result.formattedName}
             linkName={result.name}

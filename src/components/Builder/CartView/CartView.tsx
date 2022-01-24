@@ -12,18 +12,7 @@ const CartView = ({
 }: CartViewProps) => {
   return (
     <>
-      {Object.entries(cart).map(([note, pokemon]) => {
-        return (
-          <div
-            key={note}
-            >
-            <h2>{note}</h2>
-            <CartViewGroup 
-              pokemonIconData={pokemon}
-            />
-          </div>
-        )
-      })}
+      yo
     </>
   )
 }

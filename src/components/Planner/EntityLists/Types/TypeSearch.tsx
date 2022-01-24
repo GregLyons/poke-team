@@ -39,7 +39,7 @@ const listRender = ({ data, }: ListRenderArgs<TypeSearchQuery>) => {
         return (
           <>
             <EntitySearchEntry
-              entityClass="types"
+              entityClass="Type"
               key={'typeEntry_' + type.id}
               name={type.formattedName}
               linkName={type.name}

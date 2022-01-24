@@ -40,8 +40,8 @@ const listRender = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<ItemSe
         return (
           <>
             <EntitySearchEntry
-              entityClass="stats"
-              key={'statEntry_' + item.id}
+              entityClass="Item"
+              key={'itemEntry_' + item.id}
               name={item.formattedName}
               linkName={item.name}
               data={[

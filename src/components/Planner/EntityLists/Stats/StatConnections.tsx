@@ -41,7 +41,8 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, gen, t
         <h3 className="planner__accordion-subitem-header">Boosts by stage</h3>
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="abilities"
+          parentEntityClass="Stat"
+            targetEntityClass="Ability"
             key={`${parent.id}_${result.id}_boost_stage_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -60,7 +61,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, gen, t
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' boosts '${parent.formattedName}'.`,
@@ -73,7 +74,8 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, gen, t
         <h3 className="planner__accordion-subitem-header">Boost by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="abilities"
+          parentEntityClass="Stat"
+            targetEntityClass="Ability"
             key={`${parent.id}_${result.id}_boost_multiplier_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -92,7 +94,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, gen, t
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' boosts '${parent.formattedName}'.`,
@@ -105,7 +107,8 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, gen, t
         <h3 className="planner__accordion-subitem-header">Reduces by stage</h3>
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="abilities"
+          parentEntityClass="Stat"
+            targetEntityClass="Ability"
             key={`${parent.id}_${result.id}_reduce_stage_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -124,7 +127,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, gen, t
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' reduces '${parent.formattedName}'.`,
@@ -137,7 +140,8 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, gen, t
         <h3 className="planner__accordion-subitem-header">Reduces by multiplier</h3>
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="abilities"
+          parentEntityClass="Stat"
+            targetEntityClass="Ability"
             key={`${parent.id}_${result.id}_reduce_multiplier_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -156,7 +160,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, gen, t
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' reduces '${parent.formattedName}'.`,
@@ -186,7 +190,8 @@ export const listRenderStatFieldState = ({ data, dispatchCart, dispatchTeam, }: 
         <h3 className="planner__accordion-subitem-header">Boosts by stage</h3>
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Stat"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_boost_stage_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -210,7 +215,8 @@ export const listRenderStatFieldState = ({ data, dispatchCart, dispatchTeam, }: 
         <h3 className="planner__accordion-subitem-header">Boost by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Stat"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_boost_multiplier_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -234,7 +240,8 @@ export const listRenderStatFieldState = ({ data, dispatchCart, dispatchTeam, }: 
         <h3 className="planner__accordion-subitem-header">Reduces by stage</h3>
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Stat"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_reduce_stage_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -258,7 +265,8 @@ export const listRenderStatFieldState = ({ data, dispatchCart, dispatchTeam, }: 
         <h3 className="planner__accordion-subitem-header">Reduces by multiplier</h3>
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Stat"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_reduce_multiplier_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -281,8 +289,11 @@ export const listRenderStatFieldState = ({ data, dispatchCart, dispatchTeam, }: 
   );
 }
 
-export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, }: ListRenderArgs<StatItemQuery>) => {
+export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<StatItemQuery>) => {
   if (!data || !data.statByName) return (<div>Data not found for the query 'statByName'.</div>);
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
+  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parent = data.statByName[0];
 
@@ -299,7 +310,8 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, }: ListRe
         <h3 className="planner__accordion-subitem-header">Boosts by stage</h3>
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="items"
+          parentEntityClass="Stat"
+            targetEntityClass="Item"
             key={`${parent.id}_${result.id}_boost_stage_item`}
             name={result.formattedName}
             linkName={result.name}
@@ -315,6 +327,15 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, }: ListRe
                 key: 'Recipient', value: result.recipient,
               },
             ]}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              pokemonIconData: result.requiredPokemonIconData,
+              itemIcon: result.itemIconDatum,
+              gen: gen,
+              tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' raises '${parent.formattedName}'.`,
+            }}
           />
         ))}
       </div>)}
@@ -323,7 +344,8 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, }: ListRe
         <h3 className="planner__accordion-subitem-header">Boost by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="items"
+          parentEntityClass="Stat"
+            targetEntityClass="Item"
             key={`${parent.id}_${result.id}_boost_multiplier_item`}
             name={result.formattedName}
             linkName={result.name}
@@ -339,6 +361,15 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, }: ListRe
                 key: 'Recipient', value: result.recipient,
               },
             ]}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              pokemonIconData: result.requiredPokemonIconData,
+              itemIcon: result.itemIconDatum,
+              gen: gen,
+              tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' boosts '${parent.formattedName}'.`,
+            }}
           />
         ))}
       </div>)}
@@ -347,7 +378,8 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, }: ListRe
         <h3 className="planner__accordion-subitem-header">Reduces by stage</h3>
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="items"
+          parentEntityClass="Stat"
+            targetEntityClass="Item"
             key={`${parent.id}_${result.id}_reduce_stage_item`}
             name={result.formattedName}
             linkName={result.name}
@@ -363,6 +395,15 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, }: ListRe
                 key: 'Recipient', value: result.recipient,
               },
             ]}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              pokemonIconData: result.requiredPokemonIconData,
+              itemIcon: result.itemIconDatum,
+              gen: gen,
+              tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' lowers '${parent.formattedName}'.`,
+            }}
           />
         ))}
       </div>)}
@@ -371,7 +412,8 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, }: ListRe
         <h3 className="planner__accordion-subitem-header">Reduces by multiplier</h3>
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="items"
+          parentEntityClass="Stat"
+            targetEntityClass="Item"
             key={`${parent.id}_${result.id}_reduce_multiplier_item`}
             name={result.formattedName}
             linkName={result.name}
@@ -387,6 +429,15 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, }: ListRe
                 key: 'Recipient', value: result.recipient,
               },
             ]}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              pokemonIconData: result.requiredPokemonIconData,
+              itemIcon: result.itemIconDatum,
+              gen: gen,
+              tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' reduces '${parent.formattedName}'.`,
+            }}
           />
         ))}
       </div>)}
@@ -415,7 +466,8 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, gen, tier
         <h3 className="planner__accordion-subitem-header">Boosts by stage</h3>
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="moves"
+          parentEntityClass="Stat"
+            targetEntityClass="Move"
             key={`${parent.id}_${result.id}_boost_stage_move`}
             name={result.formattedName}
             linkName={result.name}
@@ -434,7 +486,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, gen, tier
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' boosts '${parent.formattedName}'.`,
@@ -447,7 +499,8 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, gen, tier
         <h3 className="planner__accordion-subitem-header">Boost by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="moves"
+          parentEntityClass="Stat"
+            targetEntityClass="Move"
             key={`${parent.id}_${result.id}_boost_multiplier_move`}
             name={result.formattedName}
             linkName={result.name}
@@ -466,7 +519,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, gen, tier
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' boosts '${parent.formattedName}'.`,
@@ -479,7 +532,8 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, gen, tier
         <h3 className="planner__accordion-subitem-header">Reduces by stage</h3>
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="moves"
+          parentEntityClass="Stat"
+            targetEntityClass="Move"
             key={`${parent.id}_${result.id}_reduce_stage_move`}
             name={result.formattedName}
             linkName={result.name}
@@ -498,7 +552,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, gen, tier
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' reduces '${parent.formattedName}'.`,
@@ -511,7 +565,8 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, gen, tier
         <h3 className="planner__accordion-subitem-header">Reduces by multiplier</h3>
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="moves"
+          parentEntityClass="Stat"
+            targetEntityClass="Move"
             key={`${parent.id}_${result.id}_reduce_multiplier_move`}
             name={result.formattedName}
             linkName={result.name}
@@ -530,7 +585,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, gen, tier
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' reduces '${parent.formattedName}'.`,

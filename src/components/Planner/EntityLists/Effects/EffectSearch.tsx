@@ -39,7 +39,7 @@ const listRender = ({ data, }: ListRenderArgs<EffectSearchQuery>) => {
         return (
           <>
             <EntitySearchEntry
-              entityClass="effects"
+              entityClass="Effect"
               key={'effectEntry_' + effect.id}
               name={effect.formattedName}
               linkName={effect.name}

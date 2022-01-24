@@ -38,7 +38,8 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, gen,
         <h3 className="planner__accordion-subitem-header">Caused by ability</h3>
         {causedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="abilities"
+          parentEntityClass="Status"
+            targetEntityClass="Ability"
             key={`${parent.id}_${result.id}_cause_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -47,7 +48,7 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, gen,
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' causes '${parent.formattedName}'.`,
@@ -63,7 +64,8 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, gen,
         </p>
         {resistedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="abilities"
+          parentEntityClass="Status"
+            targetEntityClass="Ability"
             key={`${parent.id}_${result.id}_resist_ability`}
             name={result.formattedName}
             linkName={result.name}
@@ -71,7 +73,7 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, gen,
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
@@ -98,7 +100,8 @@ export const listRenderStatusFieldState = ({ data, }: ListRenderArgs<StatusField
         <h3 className="planner__accordion-subitem-header">Caused by field state</h3>
         {causedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Status"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_cause_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -115,7 +118,8 @@ export const listRenderStatusFieldState = ({ data, }: ListRenderArgs<StatusField
         </p>
         {resistedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="fieldStates"
+          parentEntityClass="Status"
+            targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_resist_fieldState`}
             name={result.formattedName}
             linkName={result.name}
@@ -127,8 +131,11 @@ export const listRenderStatusFieldState = ({ data, }: ListRenderArgs<StatusField
   );
 }
 
-export const listRenderStatusItem = ({ data, }: ListRenderArgs<StatusItemQuery>) => {
+export const listRenderStatusItem = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<StatusItemQuery>) => {
   if (!data || !data.statusByName) return (<div>Data not found for the query 'statusByName'.</div>);
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
+  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parent = data.statusByName[0];
 
@@ -142,12 +149,22 @@ export const listRenderStatusItem = ({ data, }: ListRenderArgs<StatusItemQuery>)
         <h3 className="planner__accordion-subitem-header">Caused by item</h3>
         {causedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="items"
+          parentEntityClass="Status"
+            targetEntityClass="Item"
             key={`${parent.id}_${result.id}_cause_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
             data={[{key: 'Chance', value: result.chance || 0}]}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              pokemonIconData: result.requiredPokemonIconData,
+              itemIcon: result.itemIconDatum,
+              gen: gen,
+              tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' causes '${parent.formattedName}'.`,
+            }}
           />
         ))}
       </div>)}
@@ -159,11 +176,21 @@ export const listRenderStatusItem = ({ data, }: ListRenderArgs<StatusItemQuery>)
         </p>
         {resistedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="items"
+          parentEntityClass="Status"
+            targetEntityClass="Item"
             key={`${parent.id}_${result.id}_resist_item`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              pokemonIconData: result.requiredPokemonIconData,
+              itemIcon: result.itemIconDatum,
+              gen: gen,
+              tierFilter: tierFilter,
+              cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
+            }}
           />
         ))}
       </div>)}
@@ -189,7 +216,8 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, gen, ti
         <h3 className="planner__accordion-subitem-header">Caused by move</h3>
         {causedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="moves"
+          parentEntityClass="Status"
+            targetEntityClass="Move"
             key={`${parent.id}_${result.id}_cause_move`}
             name={result.formattedName}
             linkName={result.name}
@@ -198,7 +226,7 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, gen, ti
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' causes '${parent.formattedName}'.`,
@@ -214,7 +242,8 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, gen, ti
         </p>
         {resistedByResults.map(result => (
           <ConnectionAccordionEntry
-            targetEntityClass="moves"
+          parentEntityClass="Status"
+            targetEntityClass="Move"
             key={`${parent.id}_${result.id}_resist_move`}
             name={result.formattedName}
             linkName={result.name}
@@ -222,7 +251,7 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, gen, ti
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
-              iconData: result.pokemonIconData,
+              pokemonIconData: result.pokemonIconData,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
