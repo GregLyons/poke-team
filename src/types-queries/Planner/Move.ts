@@ -10,7 +10,9 @@ import {
   PokemonIconDatum,
   PokemonIconEdge,
   pokemonIconEdgeToPokemonIconDatum,
+  TypeIconDatum,
   TypeIconEdge,
+  typeIconEdgeToTypeIconDatum,
   TypeName, 
   TypeNameEdge,
   typeNameEdgeToTypeName,
@@ -57,7 +59,7 @@ export interface MoveSearchResult extends MainEntitySearchResult {
   }
 
   type: {
-    edges: TypeNameEdge[]
+    edges: TypeIconEdge[]
   }
 
   pokemon: {
@@ -103,6 +105,15 @@ export const MOVE_SEARCH_QUERY = gql`
           node {
             id
             name
+            formattedName
+
+            introduced {
+              edges {
+                node {
+                  number
+                }
+              }
+            }
           }
         }
       }
@@ -143,6 +154,7 @@ export class MoveInSearch extends MainEntityInSearch {
   public type: TypeName
 
   public pokemonIconData: PokemonIconDatum[]
+  public typeIconDatum: TypeIconDatum
 
   constructor(gqlMove: MoveSearchResult) {
     super(gqlMove);
@@ -162,6 +174,7 @@ export class MoveInSearch extends MainEntityInSearch {
     this.type = gqlMove.type.edges.map(typeNameEdgeToTypeName)[0]
 
     this.pokemonIconData = gqlMove.pokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
+    this.typeIconDatum = typeIconEdgeToTypeIconDatum(gqlMove.type.edges[0]);
   }
 }
 

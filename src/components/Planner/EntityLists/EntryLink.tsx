@@ -1,9 +1,11 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { GenerationNum, ItemIconDatum, PokemonIconDatum } from "../../../types-queries/helpers";
-import { EntityClass, ENTITY_CLASS_TO_PLANNER_LINK, TierFilter } from "../../../utils/constants";
+import { EntityClass, ENTITYCLASS_TO_PLANNERLINK, TierFilter } from "../../../utils/constants";
 import { CartAction, TeamAction } from "../../App";
+import { EntryIconData } from "./helpers";
 import PlannerItemIcon from "./PlannerItemIcon";
+import PlannerTypeIcon from "./PlannerTypeIcon";
 
 type EntryLinkProps = {
   hover: boolean
@@ -11,15 +13,7 @@ type EntryLinkProps = {
   targetEntityClass: EntityClass | 'From search'
   linkName: string
   name: string
-  icons?: {
-    pokemonIconData: PokemonIconDatum[]
-    itemIconDatum?: ItemIconDatum
-    dispatchCart: React.Dispatch<CartAction>
-    dispatchTeam: React.Dispatch<TeamAction>
-    gen: GenerationNum
-    tierFilter: TierFilter
-    cartNote: string
-  }
+  icons?: EntryIconData
 }
 
 const EntryLink = ({
@@ -52,7 +46,7 @@ const EntryLink = ({
     <div className="planner__entry-row-name-container">
       <Link
         ref={linkRef}
-        to={`../${ENTITY_CLASS_TO_PLANNER_LINK.get(parentEntityClass)}/${linkName}`}
+        to={`../${ENTITYCLASS_TO_PLANNERLINK.get(parentEntityClass)}/${linkName}`}
       >
         {<span
           className="planner__entry-row-name"
@@ -65,20 +59,34 @@ const EntryLink = ({
         </span>}
       </Link>
       <br />
-      {icons?.itemIconDatum && 
-      <>
-          <PlannerItemIcon
-            dispatchCart={icons.dispatchCart}
-            dispatchTeam={icons.dispatchTeam}
-            key={name}
-            itemIconDatum={icons.itemIconDatum}
-          />
-          <button
-            onClick={() => addItemToCart(icons.itemIconDatum)}
-          >
-            Add
-          </button>
-      </>}
+      {icons?.itemIconDatum
+        ? <>
+            <PlannerItemIcon
+              dispatchCart={icons.dispatchCart}
+              dispatchTeam={icons.dispatchTeam}
+              key={name}
+              itemIconDatum={icons.itemIconDatum}
+            />
+            <button
+              onClick={() => addItemToCart(icons.itemIconDatum)}
+            >
+              Add
+            </button>
+          </>
+        : icons?.typeIconDatum 
+          ? <>
+              <PlannerTypeIcon
+                dispatchCart={icons.dispatchCart}
+                dispatchTeam={icons.dispatchTeam}
+                key={name}
+                typeIconData={{
+                  type: icons.typeIconDatum,
+                  gen: icons.gen,
+                }}
+              />
+            </>
+          : ''
+      }
     </div>
   )
 }

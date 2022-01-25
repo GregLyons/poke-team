@@ -76,6 +76,7 @@ const listRender = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: List
               ]}
               icons={{
                 pokemonIconData: move.pokemonIconData,
+                typeIconDatum: move.typeIconDatum,
                 dispatchCart,
                 dispatchTeam,
                 gen,

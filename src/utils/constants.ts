@@ -2,7 +2,7 @@ export type EntityClass = 'Ability' | 'Effect' | 'Field state' | 'Item' | 'Move'
 
 export type EntityLink = 'abilities' | 'effects' | 'fieldStates' | 'items' | 'moves' | 'stats' | 'statuses' | 'types' | 'usageMethods';
 
-export const ENTITY_CLASS_TO_PLANNER_LINK = new Map<EntityClass, EntityLink>([
+export const ENTITYCLASS_TO_PLANNERLINK = new Map<EntityClass, EntityLink>([
   ['Ability', 'abilities'],
   ['Effect', 'effects'],
   ['Field state', 'fieldStates'],

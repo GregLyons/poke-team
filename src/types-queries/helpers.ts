@@ -75,7 +75,7 @@ export const itemRequiresPokemonEdgeToRequiredPokemonIconData: (itemEdge: ItemRe
 
 // Type icons
 // #region 
-
+ 
 export type TypeIconDatum = {
   name: TypeName
   formattedName: string

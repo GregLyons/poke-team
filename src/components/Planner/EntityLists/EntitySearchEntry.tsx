@@ -18,7 +18,7 @@ import {
 } from "../../../types-queries/helpers";
 import {
   EntityClass,
-  ENTITY_CLASS_TO_PLANNER_LINK,
+  ENTITYCLASS_TO_PLANNERLINK,
   TierFilter,
 } from "../../../utils/constants";
 import {

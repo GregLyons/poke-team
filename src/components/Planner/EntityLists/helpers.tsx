@@ -1,7 +1,7 @@
 import {
   useState,
 } from "react";
-import { GenerationNum, ItemIconDatum, PokemonIconDatum } from "../../../types-queries/helpers";
+import { GenerationNum, ItemIconDatum, PokemonIconDatum, TypeIconDatum } from "../../../types-queries/helpers";
 import { TierFilter } from "../../../utils/constants";
 
 import {
@@ -77,6 +77,7 @@ export function useEntityConnectionChangeHandler<QueryVars>(defaultQueryVars: Qu
 export type EntryIconData = {
   pokemonIconData: PokemonIconDatum[]
   itemIconDatum?: ItemIconDatum
+  typeIconDatum?: TypeIconDatum
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   gen: GenerationNum

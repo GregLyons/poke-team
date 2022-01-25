@@ -23,12 +23,14 @@ const TypeMainPage = ({
   dispatchCart,
   dispatchTeam,
   gen,
+  tierFilter,
 }: TypeMainPageProps) => {
   return (
     <TypeSearch
       dispatchCart={dispatchCart}
       dispatchTeam={dispatchTeam}
       gen={gen}
+      tierFilter={tierFilter}
     />
   )
 }
