@@ -118,13 +118,13 @@ export const listRenderTypeFieldState = ({ data, dispatchCart, dispatchTeam, gen
           />
         ))}
       </div>)}
-      {resistanceResults.filter(result => result.multiplier && result.multiplier < 1).length > 0 && (
+      {resistanceResults.filter(result => result.multiplier !== undefined && result.multiplier < 1).length > 0 && (
       <div className="planner__accordion-subitem planner__accordion-subitem--positive">
         <h3 className="planner__accordion-subitem-header">Resists field state</h3>
         <p className="planner__accordion-clarification">
           Negative effects of the listed field state on Pokemon of this type are mitigated.
         </p>
-        {resistanceResults.filter(result => result.multiplier && result.multiplier < 1).map(result => (
+        {resistanceResults.filter(result => result.multiplier !== undefined && result.multiplier < 1).map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Type"
             targetEntityClass="Field state"
@@ -205,13 +205,13 @@ export const listRenderTypeFieldState = ({ data, dispatchCart, dispatchTeam, gen
           />
         ))}
       </div>)}
-      {resistanceResults.filter(result => result.multiplier && result.multiplier > 1).length > 0 && (
+      {resistanceResults.filter(result => result.multiplier !== undefined && result.multiplier > 1).length > 0 && (
       <div className="planner__accordion-subitem planner__accordion-subitem--negative">
         <h3 className="planner__accordion-subitem-header">Weak to field state</h3>
         <p className="planner__accordion-clarification">
           Negative effects of the listed field state on Pokemon of this type are increased.
         </p>
-        {resistanceResults.filter(result => result.multiplier && result.multiplier > 1).map(result => (
+        {resistanceResults.filter(result => result.multiplier !== undefined && result.multiplier > 1).map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Type"
             targetEntityClass="Field state"

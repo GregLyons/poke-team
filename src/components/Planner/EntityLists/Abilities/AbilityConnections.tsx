@@ -13,12 +13,13 @@ import {
   AbilityUsageMethodResult,
 } from "../../../../types-queries/Planner/Ability";
 import {
-  ListRenderArgs,
+  ListRenderArgs, MissingDispatchError, MissingGenError, MissingTierFilterError,
 } from "../helpers";
 
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
+import { DUMMY_POKEMON_ICON_DATUM } from "../../../../types-queries/helpers";
 
-export const listRenderAbilityEffect = ({ data, }: ListRenderArgs<AbilityEffectQuery>) => {
+export const listRenderAbilityEffect = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<AbilityEffectQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
 
   const parent = data.abilityByName[0];
@@ -41,7 +42,7 @@ export const listRenderAbilityEffect = ({ data, }: ListRenderArgs<AbilityEffectQ
   )
 }
 
-export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFieldStateQuery>) => {
+export const listRenderAbilityFieldState = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<AbilityFieldStateQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
 
   const parent = data.abilityByName[0];
@@ -156,7 +157,7 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
   )
 }
 
-export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery>) => {
+export const listRenderAbilityStat = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<AbilityStatQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
 
   const parent = data.abilityByName[0];
@@ -273,7 +274,7 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
   );
 }
 
-export const listRenderAbilityStatus = ({ data, }: ListRenderArgs<AbilityStatusQuery>) => {
+export const listRenderAbilityStatus = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<AbilityStatusQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
 
   const parent = data.abilityByName[0];
@@ -319,8 +320,11 @@ export const listRenderAbilityStatus = ({ data, }: ListRenderArgs<AbilityStatusQ
   );
 }
 
-export const listRenderAbilityType = ({ data, }: ListRenderArgs<AbilityTypeQuery>) => {
+export const listRenderAbilityType = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<AbilityTypeQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
+  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parent = data.abilityByName[0];
 
@@ -344,6 +348,15 @@ export const listRenderAbilityType = ({ data, }: ListRenderArgs<AbilityTypeQuery
             linkName={result.name}
             description={result.description}
             data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            icons={{
+              pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
+              typeIconDatum: result.typeIconDatum,
+              dispatchCart,
+              dispatchTeam,
+              gen,
+              tierFilter,
+              cartNote: ``
+            }}
           />
         ))}
       </div>)}
@@ -362,6 +375,15 @@ export const listRenderAbilityType = ({ data, }: ListRenderArgs<AbilityTypeQuery
             linkName={result.name}
             description={result.description}
             data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            icons={{
+              pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
+              typeIconDatum: result.typeIconDatum,
+              dispatchCart,
+              dispatchTeam,
+              gen,
+              tierFilter,
+              cartNote: ``
+            }}
           />
         ))}
       </div>)}
@@ -369,7 +391,7 @@ export const listRenderAbilityType = ({ data, }: ListRenderArgs<AbilityTypeQuery
   );
 }
 
-export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUsageMethodQuery>) => {
+export const listRenderAbilityUsageMethod = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<AbilityUsageMethodQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
 
   const parent = data.abilityByName[0];

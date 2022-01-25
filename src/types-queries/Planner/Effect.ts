@@ -11,6 +11,9 @@ import {
   PokemonIconDatum,
   PokemonIconEdge,
   pokemonIconEdgeToPokemonIconDatum,
+  TypeIconDatum,
+  TypeIconEdge,
+  typeIconEdgeToTypeIconDatum,
   TypeName, 
   TypeNameEdge,
   typeNameEdgeToTypeName,
@@ -266,14 +269,6 @@ export const EFFECT_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -380,10 +375,6 @@ export interface EffectItemEdge extends AuxToItemConnectionEdge {
       edges: VersionDependentDescriptionEdge[]
     }
 
-    introduced: {
-      edges: IntroductionEdge[]
-    }
-
     requiresPokemon: {
       edges: PokemonIconEdge[]
     }
@@ -417,14 +408,6 @@ export const EFFECT_ITEM_QUERY = gql`
               }
             }
 
-            introduced {
-              edges {
-                node {
-                  number
-                }
-              }
-            }
-
             requiresPokemon {
               edges {
                 node {
@@ -432,14 +415,6 @@ export const EFFECT_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -484,7 +459,7 @@ export interface EffectMoveEdge extends MoveIconEdge, AuxToMainConnectionEdge {
     }
 
     type: {
-      edges: TypeNameEdge[]
+      edges: TypeIconEdge[]
     }
 
     pokemon: {
@@ -537,14 +512,6 @@ export const EFFECT_MOVE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -559,6 +526,7 @@ export class EffectMoveResult extends AuxToMainConnectionOnPage {
   public type: TypeName
 
   public pokemonIconData: PokemonIconDatum[]
+  public typeIconDatum: TypeIconDatum
 
   constructor(gqlEffectMove: EffectMoveEdge) {
     super(gqlEffectMove);
@@ -566,6 +534,7 @@ export class EffectMoveResult extends AuxToMainConnectionOnPage {
     this.type = gqlEffectMove.node.type.edges.map(typeNameEdgeToTypeName)[0];
 
     this.pokemonIconData = gqlEffectMove.node.pokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
+    this.typeIconDatum = typeIconEdgeToTypeIconDatum(gqlEffectMove.node.type.edges[0]);
   }
 }
 

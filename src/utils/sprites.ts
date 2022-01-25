@@ -18,9 +18,9 @@ import {
 export const getPokemonSprite = (pokemon: Pokemon | PokemonIconDatum, gen: GenerationNum = 8) => {
   let {url} = Sprites.getPokemon(pokemon.name.replace('_', ''), {gen: gen});
 
-  if (gen < pokemon.introduced) {
-    return Sprites.getPokemon(pokemon.name.replace('_', ''), {gen: pokemon.introduced})
-  }
+  // if (gen < pokemon.introduced) {
+  //   return Sprites.getPokemon(pokemon.name.replace('_', ''), {gen: pokemon.introduced})
+  // }
 
   // If the pokemon.name is incompatible, use the speciesName instead.
   if (url.includes('0.png')) {

@@ -771,10 +771,6 @@ export interface MoveTypeEdge extends MainToAuxConnectionEdge, TypeIconEdge {
     id: string
     name: TypeName
     formattedName: string
-
-    introduced: {
-      edges: IntroductionEdge[]
-    }
   }
 }
 
@@ -804,8 +800,12 @@ export const MOVE_TYPE_QUERY = gql`
 `;
 
 export class MoveTypeResult extends MainToAuxConnectionOnPage {
+  public typeIconDatum: TypeIconDatum
+
   constructor(gqlMoveType: MoveTypeEdge) {
     super(gqlMoveType);
+
+    this.typeIconDatum = typeIconEdgeToTypeIconDatum(gqlMoveType);
   }
 }
 

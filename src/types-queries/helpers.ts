@@ -29,14 +29,12 @@ export type PokemonIconDatum = {
   formattedName: string
   name: string
   psID: string
-  introduced: GenerationNum
 }
 
 export const DUMMY_POKEMON_ICON_DATUM: PokemonIconDatum = {
   formattedName: '',
   name: '',
   psID: '',
-  introduced: 1,
 };
 
 export const pokemonIconEdgeToPokemonIconDatum: (edge: PokemonIconEdge) => PokemonIconDatum = (edge) => {
@@ -44,7 +42,6 @@ export const pokemonIconEdgeToPokemonIconDatum: (edge: PokemonIconEdge) => Pokem
     formattedName: edge.node.formattedName,
     name: edge.node.name,
     psID: edge.node.pokemonShowdownID,
-    introduced: edge.node.introduced.edges[0].node.number,
   };
 }
 
@@ -56,14 +53,12 @@ export const pokemonIconEdgeToPokemonIconDatum: (edge: PokemonIconEdge) => Pokem
 export type ItemIconDatum = {
   name: string
   formattedName: string
-  introduced: GenerationNum
 }
 
 export const itemIconEdgeToItemIconDatum: (edge: ItemIconEdge) => ItemIconDatum = (edge) => {
   return {
     name: edge.node.name,
     formattedName: edge.node.formattedName,
-    introduced: edge.node.introduced.edges[0].node.number,
   };
 }
 
@@ -79,14 +74,12 @@ export const itemRequiresPokemonEdgeToRequiredPokemonIconData: (itemEdge: ItemRe
 export type TypeIconDatum = {
   name: TypeName
   formattedName: string
-  introduced: GenerationNum
 }
 
 export const typeIconEdgeToTypeIconDatum: (edge: TypeIconEdge) => TypeIconDatum = (edge) => {
   return {
     name: edge.node.name,
     formattedName: edge.node.formattedName,
-    introduced: edge.node.introduced.edges[0].node.number,
   };
 }
 
@@ -180,10 +173,6 @@ export interface ItemIconEdge extends NameEdge {
     id: string
     name: string
     formattedName: string
-
-    introduced: {
-      edges: IntroductionEdge[]
-    }
   }
 }
 
@@ -193,10 +182,6 @@ export interface ItemRequiresPokemonEdge extends NameEdge {
     id: string
     name: string
     formattedName: string
-
-    introduced: {
-      edges: IntroductionEdge[]
-    }
 
     requiresPokemon: {
       edges: PokemonIconEdge[]
@@ -212,7 +197,7 @@ export interface MoveIconEdge extends NameEdge {
     formattedName: string
 
     type: {
-      edges: TypeNameEdge[]
+      edges: TypeIconEdge[]
     }
 
     pokemon: {
@@ -229,10 +214,6 @@ export interface PokemonIconEdge extends NameEdge {
     name: string
     formattedName: string
     pokemonShowdownID: string
-
-    introduced: {
-      edges: IntroductionEdge[]
-    }
   }
 }
 
@@ -243,10 +224,6 @@ export interface TypeIconEdge extends NameEdge {
     id: string
     name: TypeName
     formattedName: string
-
-    introduced: {
-      edges: IntroductionEdge[]
-    }
 
     pokemon?: {
       edges: PokemonIconEdge[]

@@ -80,7 +80,7 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
       {preventedByResults.length > 0 && (
       <div className="planner__accordion-subitem planner__accordion-subitem--negative">
         <h3 className="planner__accordion-subitem-header">Prevented by ability</h3>
-        <p className="planner__accordion-subitem-clarification">
+        <p className="planner__accordion-clarification">
           Presence of the listed ability prevents moves of this usage method from being used.
         </p>
         {preventedByResults.map(result => (
@@ -246,6 +246,7 @@ export const listRenderUsageMethodMove = ({ data, dispatchCart, dispatchTeam, ge
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
+              typeIconDatum: result.typeIconDatum,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' has '${parent.formattedName}'.`,
@@ -271,6 +272,7 @@ export const listRenderUsageMethodMove = ({ data, dispatchCart, dispatchTeam, ge
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
+              typeIconDatum: result.typeIconDatum,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' prevents '${parent.formattedName}'.`,

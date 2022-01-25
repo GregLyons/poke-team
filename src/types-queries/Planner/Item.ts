@@ -13,7 +13,9 @@ import {
   PokemonIconDatum,
   PokemonIconEdge,
   pokemonIconEdgeToPokemonIconDatum,
+  TypeIconDatum,
   TypeIconEdge,
+  typeIconEdgeToTypeIconDatum,
   TypeName,
 } from '../helpers';
 import {
@@ -740,9 +742,11 @@ export const ITEM_TYPE_QUERY = gql`
 `;
 
 export class ItemTypeResult extends MainToAuxConnectionOnPage {
-  public pokemonIconData?: PokemonIconDatum[]
   public multiplier?: number
   public power?: number
+
+  public pokemonIconData?: PokemonIconDatum[]
+  public typeIconDatum: TypeIconDatum
 
   constructor(gqlItemType: ItemTypeEdge) {
     super(gqlItemType);
@@ -752,6 +756,7 @@ export class ItemTypeResult extends MainToAuxConnectionOnPage {
     this.power = power;
 
     this.pokemonIconData = gqlItemType.node.pokemon?.edges.map(pokemonIconEdgeToPokemonIconDatum);
+    this.typeIconDatum = typeIconEdgeToTypeIconDatum(gqlItemType);
   }
 }
 

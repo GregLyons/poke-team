@@ -129,14 +129,6 @@ export const TYPE_SEARCH_QUERY = gql`
             name
             formattedName
             pokemonShowdownID
-            introduced {
-              edges {
-                node {
-                  id
-                  number
-                }
-              }
-            }
           }
         }
       }
@@ -461,14 +453,6 @@ export const TYPE_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -498,14 +482,6 @@ export const TYPE_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -703,10 +679,6 @@ export interface TypeItemEdge extends AuxToItemConnectionEdge {
       edges: VersionDependentDescriptionEdge[]
     }
 
-    introduced: {
-      edges: IntroductionEdge[]
-    }
-
     requiresPokemon: {
       edges: PokemonIconEdge[]
     }
@@ -742,14 +714,6 @@ export const TYPE_ITEM_QUERY = gql`
               }
             }
 
-            introduced {
-              edges {
-                node {
-                  number
-                }
-              }
-            }
-
             requiresPokemon {
               edges {
                 node {
@@ -757,14 +721,6 @@ export const TYPE_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -787,14 +743,6 @@ export const TYPE_ITEM_QUERY = gql`
               }
             }
 
-            introduced {
-              edges {
-                node {
-                  number
-                }
-              }
-            }
-
             requiresPokemon {
               edges {
                 node {
@@ -802,14 +750,6 @@ export const TYPE_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -832,14 +772,6 @@ export const TYPE_ITEM_QUERY = gql`
               }
             }
 
-            introduced {
-              edges {
-                node {
-                  number
-                }
-              }
-            }
-
             requiresPokemon {
               edges {
                 node {
@@ -847,14 +779,6 @@ export const TYPE_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -963,14 +887,6 @@ export const TYPE_MOVE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -1009,14 +925,6 @@ export const TYPE_MOVE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }

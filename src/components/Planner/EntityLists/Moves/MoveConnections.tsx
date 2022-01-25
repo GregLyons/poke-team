@@ -1,3 +1,4 @@
+import { DUMMY_POKEMON_ICON_DATUM } from "../../../../types-queries/helpers";
 import {
   MoveEffectResult,
   MoveEffectQuery,
@@ -20,10 +21,10 @@ import {
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 
 import {
-  ListRenderArgs,
+  ListRenderArgs, MissingDispatchError, MissingGenError, MissingTierFilterError,
 } from "../helpers";
 
-export const listRenderMoveEffect = ({ data, }: ListRenderArgs<MoveEffectQuery>) => {
+export const listRenderMoveEffect = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<MoveEffectQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
   const parent = data.moveByName[0];
@@ -46,7 +47,7 @@ export const listRenderMoveEffect = ({ data, }: ListRenderArgs<MoveEffectQuery>)
   )
 }
 
-export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStateQuery>) => {
+export const listRenderMoveFieldState = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<MoveFieldStateQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
   const parent = data.moveByName[0];
@@ -119,7 +120,7 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
   )
 }
 
-export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => {
+export const listRenderMoveStat = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<MoveStatQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
   const parent = data.moveByName[0];
@@ -236,7 +237,7 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
   );
 }
 
-export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>) => {
+export const listRenderMoveStatus = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<MoveStatusQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
   const parent = data.moveByName[0];
@@ -282,8 +283,11 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
   );
 }
 
-export const listRenderMoveType = ({ data, }: ListRenderArgs<MoveTypeQuery>) => {
+export const listRenderMoveType = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<MoveTypeQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
+  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parent = data.moveByName[0];
 
@@ -305,6 +309,15 @@ export const listRenderMoveType = ({ data, }: ListRenderArgs<MoveTypeQuery>) => 
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+            icons={{
+              pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
+              typeIconDatum: result.typeIconDatum,
+              dispatchCart,
+              dispatchTeam,
+              gen,
+              tierFilter,
+              cartNote: ``
+            }}
           />
         ))}
       </div>)}
@@ -312,7 +325,7 @@ export const listRenderMoveType = ({ data, }: ListRenderArgs<MoveTypeQuery>) => 
   );
 }
 
-export const listRenderMoveUsageMethod = ({ data, }: ListRenderArgs<MoveUsageMethodQuery>) => {
+export const listRenderMoveUsageMethod = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<MoveUsageMethodQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
   const parent = data.moveByName[0];

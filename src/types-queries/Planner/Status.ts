@@ -10,6 +10,9 @@ import {
   PokemonIconDatum,
   PokemonIconEdge,
   pokemonIconEdgeToPokemonIconDatum,
+  TypeIconDatum,
+  TypeIconEdge,
+  typeIconEdgeToTypeIconDatum,
   TypeName, 
   TypeNameEdge,
   typeNameEdgeToTypeName,
@@ -287,14 +290,6 @@ export const STATUS_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -324,14 +319,6 @@ export const STATUS_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -464,10 +451,6 @@ export interface StatusItemEdge extends AuxToItemConnectionEdge {
       edges: VersionDependentDescriptionEdge[]
     }
 
-    introduced: {
-      edges: IntroductionEdge[]
-    }
-
     requiresPokemon: {
       edges: PokemonIconEdge[]
     }
@@ -502,14 +485,6 @@ export const STATUS_ITEM_QUERY = gql`
               }
             }
 
-            introduced {
-              edges {
-                node {
-                  number
-                }
-              }
-            }
-
             requiresPokemon {
               edges {
                 node {
@@ -517,14 +492,6 @@ export const STATUS_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -547,14 +514,6 @@ export const STATUS_ITEM_QUERY = gql`
               }
             }
 
-            introduced {
-              edges {
-                node {
-                  number
-                }
-              }
-            }
-
             requiresPokemon {
               edges {
                 node {
@@ -562,14 +521,6 @@ export const STATUS_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -621,7 +572,7 @@ export interface StatusMoveEdge extends MoveIconEdge, AuxToMainConnectionEdge {
     }
 
     type: {
-      edges: TypeNameEdge[]
+      edges: TypeIconEdge[]
     }
 
     pokemon: {
@@ -675,14 +626,6 @@ export const STATUS_MOVE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -722,14 +665,6 @@ export const STATUS_MOVE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -741,9 +676,11 @@ export const STATUS_MOVE_QUERY = gql`
 `;
 
 export class StatusMoveResult extends AuxToMainConnectionOnPage {
-  public pokemonIconData: PokemonIconDatum[]
   public type: TypeName
   public chance?: number
+  
+  public pokemonIconData: PokemonIconDatum[]
+  public typeIconDatum: TypeIconDatum
 
   constructor(gqlStatusMove: StatusMoveEdge) {
     super(gqlStatusMove);
@@ -753,6 +690,7 @@ export class StatusMoveResult extends AuxToMainConnectionOnPage {
     this.type = gqlStatusMove.node.type.edges.map(typeNameEdgeToTypeName)[0];
 
     this.pokemonIconData = gqlStatusMove.node.pokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
+    this.typeIconDatum = typeIconEdgeToTypeIconDatum(gqlStatusMove.node.type.edges[0]);
   }
 }
 

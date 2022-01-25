@@ -219,10 +219,6 @@ export interface AuxToItemConnectionEdge extends AuxToMainConnectionEdge, ItemIc
       edges: VersionDependentDescriptionEdge[]
     }
 
-    introduced: {
-      edges: IntroductionEdge[]
-    }
-
     requiresPokemon: {
       edges: PokemonIconEdge[]
     }

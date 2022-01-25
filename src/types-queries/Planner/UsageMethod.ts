@@ -11,7 +11,9 @@ import {
   PokemonIconDatum,
   PokemonIconEdge,
   pokemonIconEdgeToPokemonIconDatum,
+  TypeIconDatum,
   TypeIconEdge,
+  typeIconEdgeToTypeIconDatum,
   TypeName, 
   TypeNameEdge,
   typeNameEdgeToTypeName,
@@ -147,10 +149,10 @@ export const USAGEMETHOD_PAGE_QUERY = gql`
         }
       }
 
-      activatedByAbility {
+      activatesAbility {
         count
       }
-      activatedByItem {
+      activatesItem {
         count
       }
       boostedByAbility {
@@ -293,14 +295,6 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -329,14 +323,6 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -366,14 +352,6 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -402,14 +380,6 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -468,10 +438,6 @@ export interface UsageMethodItemEdge extends AuxToItemConnectionEdge {
       edges: VersionDependentDescriptionEdge[]
     }
 
-    introduced: {
-      edges: IntroductionEdge[]
-    }
-
     requiresPokemon: {
       edges: PokemonIconEdge[]
     }
@@ -505,14 +471,6 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
               }
             }
 
-            introduced {
-              edges {
-                node {
-                  number
-                }
-              }
-            }
-
             requiresPokemon {
               edges {
                 node {
@@ -520,14 +478,6 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -549,14 +499,6 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
               }
             }
 
-            introduced {
-              edges {
-                node {
-                  number
-                }
-              }
-            }
-
             requiresPokemon {
               edges {
                 node {
@@ -564,14 +506,6 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -594,14 +528,6 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
               }
             }
 
-            introduced {
-              edges {
-                node {
-                  number
-                }
-              }
-            }
-
             requiresPokemon {
               edges {
                 node {
@@ -609,14 +535,6 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -670,7 +588,7 @@ export interface UsageMethodMoveEdge extends MoveIconEdge, AuxToMainConnectionEd
     }
 
     type: {
-      edges: TypeNameEdge[]
+      edges: TypeIconEdge[]
     }
 
     pokemon: {
@@ -723,14 +641,6 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -768,14 +678,6 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -786,16 +688,15 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
   }
 `;
 
-export class UsageMethodMoveResult extends AuxToMainConnectionOnPage {
-  public type: TypeName
+export class UsageMethodMoveResult extends AuxToMainConnectionOnPage { 
   public pokemonIconData: PokemonIconDatum[]
+  public typeIconDatum: TypeIconDatum
 
   constructor(gqlUsageMethodMove: UsageMethodMoveEdge) {
     super(gqlUsageMethodMove);
 
-    this.type = gqlUsageMethodMove.node.type.edges.map(typeNameEdgeToTypeName)[0];
-
     this.pokemonIconData = gqlUsageMethodMove.node.pokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
+    this.typeIconDatum = typeIconEdgeToTypeIconDatum(gqlUsageMethodMove.node.type.edges[0]);
   }
 }
 

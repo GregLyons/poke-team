@@ -85,7 +85,7 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, gen,
   );
 }
 
-export const listRenderStatusFieldState = ({ data, }: ListRenderArgs<StatusFieldStateQuery>) => {
+export const listRenderStatusFieldState = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<StatusFieldStateQuery>) => {
   if (!data || !data.statusByName) return (<div>Data not found for the query 'statusByName'.</div>);
 
   const parent = data.statusByName[0];
@@ -227,6 +227,7 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, gen, ti
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
+              typeIconDatum: result.typeIconDatum,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' causes '${parent.formattedName}'.`,
@@ -252,6 +253,7 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, gen, ti
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
+              typeIconDatum: result.typeIconDatum,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,

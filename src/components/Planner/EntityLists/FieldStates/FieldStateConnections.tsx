@@ -198,7 +198,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
   );
 }
 
-export const listRenderFieldStateEffect = ({ data, }: ListRenderArgs<FieldStateEffectQuery>) => {
+export const listRenderFieldStateEffect = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<FieldStateEffectQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
 
   const parent = data.fieldStateByName[0];
@@ -373,6 +373,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
+              typeIconDatum: result.typeIconDatum,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' creates '${parent.formattedName}'.`,
@@ -398,6 +399,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
+              typeIconDatum: result.typeIconDatum,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' enhances '${parent.formattedName}'.`,
@@ -423,6 +425,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
+              typeIconDatum: result.typeIconDatum,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' hinders '${parent.formattedName}'.`,
@@ -445,6 +448,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
+              typeIconDatum: result.typeIconDatum,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' removes '${parent.formattedName}'.`,
@@ -456,7 +460,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
   );
 }
 
-export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateStatQuery>) => {
+export const listRenderFieldStateStat = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<FieldStateStatQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
 
   const parent = data.fieldStateByName[0];
@@ -573,7 +577,7 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
   );
 }
 
-export const listRenderFieldStateStatus = ({ data, }: ListRenderArgs<FieldStateStatusQuery>) => {
+export const listRenderFieldStateStatus = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<FieldStateStatusQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'itemByName'.</div>);
   
   const parent = data.fieldStateByName[0];
@@ -639,7 +643,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
   const resistsResults = parent.weakensType.edges.map(edge => new FieldStateTypeResult(edge));
   const weatherBallResults = data.fieldStateByName
   [0].weatherBall.edges.map(edge => new FieldStateTypeResult(edge));
-  
+
   return (
     <>
       {boostsResults.length > 0 && (
@@ -657,6 +661,15 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
             linkName={result.name}
             description={result.description}
             data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            icons={{
+              pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
+              typeIconDatum: result.typeIconDatum,
+              dispatchCart,
+              dispatchTeam,
+              gen,
+              tierFilter,
+              cartNote: ``
+            }}
           />
         ))}
       </div>)}
@@ -675,16 +688,25 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
             linkName={result.name}
             description={result.description}
             data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            icons={{
+              pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
+              typeIconDatum: result.typeIconDatum,
+              dispatchCart,
+              dispatchTeam,
+              gen,
+              tierFilter,
+              cartNote: ``
+            }}
           />
         ))}
       </div>)}
-      {resistanceResults.filter(result => result.multiplier && result.multiplier > 1).length > 0 && (
+      {resistanceResults.filter(result => result.multiplier !== undefined && result.multiplier > 1).length > 0 && (
       <div className="planner__accordion-subitem planner__accordion-subitem--positive">
         <h3 className="planner__accordion-subitem-header">Strong against type</h3>
         <p className="planner__accordion-clarification">
           Negative effects of the field state on Pokemon of the listed type are heightened (e.g. more damage).
         </p>
-        {resistanceResults.filter(result => result.multiplier && result.multiplier > 1).map(result => (
+        {resistanceResults.filter(result => result.multiplier !== undefined && result.multiplier > 1).map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Type"
@@ -696,6 +718,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
+              typeIconDatum: result.typeIconDatum,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' strong against '${parent.formattedName}'.`,
@@ -718,6 +741,15 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
+            icons={{
+              pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
+              typeIconDatum: result.typeIconDatum,
+              dispatchCart,
+              dispatchTeam,
+              gen,
+              tierFilter,
+              cartNote: ``
+            }}
           />
         ))}
       </div>)}
@@ -739,6 +771,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
                 dispatchCart: dispatchCart,
                 dispatchTeam: dispatchTeam,
                 pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
+                typeIconDatum: result.typeIconDatum,
                 gen: gen,
                 tierFilter: tierFilter,
                 cartNote: `'${result.formattedName}' ignored by '${parent.formattedName}'.`,
@@ -764,6 +797,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
+              typeIconDatum: result.typeIconDatum,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' removed by '${parent.formattedName}'.`,
@@ -771,13 +805,13 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
           />
         ))}
       </div>)}
-      {resistanceResults.filter(result => result.multiplier && result.multiplier < 1).length > 0 && (
+      {resistanceResults.filter(result => result.multiplier !== undefined && result.multiplier < 1).length > 0 && (
       <div className="planner__accordion-subitem planner__accordion-subitem--negative">
         <h3 className="planner__accordion-subitem-header">Resisted by type</h3>
         <p className="planner__accordion-clarification">
           Negative effects of the field state on Pokemon of the listed type are mitigated (e.g. less damage).
         </p>
-        {resistanceResults.filter(result => result.multiplier && result.multiplier < 1).map(result => (
+        {resistanceResults.filter(result => result.multiplier !== undefined && result.multiplier < 1).map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Type"
@@ -789,6 +823,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
+              typeIconDatum: result.typeIconDatum,
               gen: gen,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' resisted by '${parent.formattedName}'.`,

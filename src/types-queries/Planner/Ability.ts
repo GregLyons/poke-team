@@ -10,7 +10,9 @@ import {
   PokemonIconDatum,
   PokemonIconEdge,
   pokemonIconEdgeToPokemonIconDatum,
+  TypeIconDatum,
   TypeIconEdge,
+  typeIconEdgeToTypeIconDatum,
   TypeName,
 } from '../helpers';
 import {
@@ -83,15 +85,6 @@ export const ABILITY_SEARCH_QUERY = gql`
             name
             formattedName
             pokemonShowdownID
-
-            introduced {
-              edges {
-                node {
-                  id
-                  number
-                }
-              }
-            }
           }
         }
       }
@@ -679,10 +672,7 @@ export interface AbilityTypeEdge extends MainToAuxConnectionEdge, TypeIconEdge {
     name: TypeName
     formattedName: string
 
-    introduced: {
-      edges: IntroductionEdge[]
-    }
-
+    // Currently no Pokemon edges necessary 
     pokemon?: {
       edges: PokemonIconEdge[]
     }
@@ -727,8 +717,10 @@ export const ABILITY_TYPE_QUERY = gql`
 `;
 
 export class AbilityTypeResult extends MainToAuxConnectionOnPage {
-  public pokemonIconData?: PokemonIconDatum[]
   public multiplier?: number
+  
+  public pokemonIconData?: PokemonIconDatum[]
+  public typeIconDatum: TypeIconDatum
 
   constructor(gqlAbilityType: AbilityTypeEdge) {
     super(gqlAbilityType);
@@ -737,6 +729,7 @@ export class AbilityTypeResult extends MainToAuxConnectionOnPage {
     this.multiplier = multiplier;
 
     this.pokemonIconData = gqlAbilityType.node.pokemon?.edges.map(pokemonIconEdgeToPokemonIconDatum);
+    this.typeIconDatum = typeIconEdgeToTypeIconDatum(gqlAbilityType);
   }
 }
 

@@ -18,6 +18,8 @@ import {
   TypeName, 
   TypeNameEdge,
   typeNameEdgeToTypeName,
+  TypeIconDatum,
+  typeIconEdgeToTypeIconDatum,
 } from '../helpers';
 import {
   EntitySearchQueryName,
@@ -421,14 +423,6 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -457,14 +451,6 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -494,14 +480,6 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -530,14 +508,6 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -566,14 +536,6 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -602,14 +564,6 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -728,10 +682,6 @@ export interface FieldStateItemEdge extends AuxToItemConnectionEdge {
       edges: VersionDependentDescriptionEdge[]
     }
 
-    introduced: {
-      edges: IntroductionEdge[]
-    }
-
     requiresPokemon: {
       edges: PokemonIconEdge[]
     }
@@ -765,14 +715,6 @@ export const FIELDSTATE_ITEM_QUERY = gql`
               }
             }
 
-            introduced {
-              edges {
-                node {
-                  number
-                }
-              }
-            }
-            
             requiresPokemon {
               edges {
                 node {
@@ -780,14 +722,6 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -808,14 +742,6 @@ export const FIELDSTATE_ITEM_QUERY = gql`
               }
             }
 
-            introduced {
-              edges {
-                node {
-                  number
-                }
-              }
-            }
-
             requiresPokemon {
               edges {
                 node {
@@ -823,14 +749,6 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -852,14 +770,6 @@ export const FIELDSTATE_ITEM_QUERY = gql`
               }
             }
 
-            introduced {
-              edges {
-                node {
-                  number
-                }
-              }
-            }
-            
             requiresPokemon {
               edges {
                 node {
@@ -867,14 +777,6 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -895,14 +797,6 @@ export const FIELDSTATE_ITEM_QUERY = gql`
               }
             }
 
-            introduced {
-              edges {
-                node {
-                  number
-                }
-              }
-            }
-            
             requiresPokemon {
               edges {
                 node {
@@ -910,14 +804,6 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -1030,14 +916,6 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -1076,14 +954,6 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -1121,14 +991,6 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -1166,14 +1028,6 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -1185,14 +1039,18 @@ export const FIELDSTATE_MOVE_QUERY = gql`
 `;
 
 export class FieldStateMoveResult extends AuxToMainConnectionOnPage {
-  public pokemonIconData: PokemonIconDatum[]
   public turns?: number
+
+  public pokemonIconData: PokemonIconDatum[]
+  public typeIconDatum: TypeIconDatum
 
   constructor(gqlFieldStateMove: FieldStateMoveEdge) {
     super(gqlFieldStateMove);
 
-    this.pokemonIconData = gqlFieldStateMove.node.pokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
     if (gqlFieldStateMove.turns) this.turns = gqlFieldStateMove.turns;
+
+    this.pokemonIconData = gqlFieldStateMove.node.pokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
+    this.typeIconDatum = typeIconEdgeToTypeIconDatum(gqlFieldStateMove.node.type.edges[0]);
   }
 }
 
@@ -1444,14 +1302,6 @@ export const FIELDSTATE_TYPE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -1472,14 +1322,6 @@ export const FIELDSTATE_TYPE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -1500,14 +1342,6 @@ export const FIELDSTATE_TYPE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
-
-                  introduced {
-                    edges {
-                      node {
-                        number
-                      }
-                    }
-                  }
                 }
               }
             }
@@ -1539,9 +1373,11 @@ export const FIELDSTATE_TYPE_QUERY = gql`
 `;
 
 export class FieldStateTypeResult extends AuxToAuxConnectionOnPage {
-  public pokemonIconData?: PokemonIconDatum[]
   public multiplier?: number
   public power?: number
+
+  public pokemonIconData?: PokemonIconDatum[]
+  public typeIconDatum: TypeIconDatum
 
   constructor(gqlFieldStateType: FieldStateTypeEdge) {
     super(gqlFieldStateType);
@@ -1550,6 +1386,7 @@ export class FieldStateTypeResult extends AuxToAuxConnectionOnPage {
     this.multiplier = multiplier;
 
     this.pokemonIconData = gqlFieldStateType.node.pokemon?.edges.map(pokemonIconEdgeToPokemonIconDatum);
+    this.typeIconDatum = typeIconEdgeToTypeIconDatum(gqlFieldStateType);
   }
 }
 

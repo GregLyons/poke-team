@@ -54,7 +54,7 @@ export const listRenderEffectAbility = ({ data, dispatchCart, dispatchTeam, gen,
   );
 }
 
-export const listRenderEffectFieldState = ({ data, }: ListRenderArgs<EffectFieldStateQuery>) => {
+export const listRenderEffectFieldState = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<EffectFieldStateQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
 
   const parent = data.effectByName[0];

@@ -12,6 +12,7 @@ missing/incorrect/additional data:
     genesect drives?
     xerneas active vs. neutral?
 
+
 make, 'search', 'startsWith', 'orderBy', etc. in API easier to use
 fix 'orderBy' on edges
 
@@ -20,3 +21,5 @@ add timer to gen switcher to reduce chance of abusing images
 investigate connection cache data issue
 
 moves on effect page expands when selecting pokemon
+
+ice resists hail

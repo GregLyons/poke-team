@@ -360,6 +360,8 @@
 
 .planner__type-icon-container {
   position: relative;
+
+  padding-left: var(--accordion-left-padding);
   margin-top: 1rem;
 }
 
@@ -377,6 +379,8 @@
 .planner__type-icon--8 {
   position: absolute;
   zoom: 0.4;
+  -moz-transform:scale(0.4);
+  -moz-transform-origin: 0 0;
   background-image: url('../../assets/icons/typeicons8-sheet.png');
   background-repeat: no-repeat;
 }

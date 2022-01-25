@@ -18,12 +18,13 @@ import {
   ItemUsageMethodQuery,
 } from "../../../../types-queries/Planner/Item";
 import {
-  ListRenderArgs,
+  ListRenderArgs, MissingDispatchError, MissingGenError, MissingTierFilterError,
 } from "../helpers";
 
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
+import { DUMMY_POKEMON_ICON_DATUM } from "../../../../types-queries/helpers";
 
-export const listRenderItemEffect = ({ data, }: ListRenderArgs<ItemEffectQuery>) => {
+export const listRenderItemEffect = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<ItemEffectQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 
   const parent = data.itemByName[0];
@@ -46,7 +47,7 @@ export const listRenderItemEffect = ({ data, }: ListRenderArgs<ItemEffectQuery>)
   )
 }
 
-export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStateQuery>) => {
+export const listRenderItemFieldState = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<ItemFieldStateQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 
   const parent = data.itemByName[0];
@@ -128,7 +129,7 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
   )
 }
 
-export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => {
+export const listRenderItemStat = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<ItemStatQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 
   const parent = data.itemByName[0];
@@ -245,7 +246,7 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
   );
 }
 
-export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>) => {
+export const listRenderItemStatus = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<ItemStatusQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 
   const parent = data.itemByName[0];
@@ -291,8 +292,11 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
   );
 }
 
-export const listRenderItemType = ({ data, }: ListRenderArgs<ItemTypeQuery>) => {
+export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<ItemTypeQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
+  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parent = data.itemByName[0];
 
@@ -317,6 +321,15 @@ export const listRenderItemType = ({ data, }: ListRenderArgs<ItemTypeQuery>) => 
             linkName={result.name}
             description={result.description}
             data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            icons={{
+              pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
+              typeIconDatum: result.typeIconDatum,
+              dispatchCart,
+              dispatchTeam,
+              gen,
+              tierFilter,
+              cartNote: ``
+            }}
           />
         ))}
       </div>)}
@@ -335,6 +348,15 @@ export const listRenderItemType = ({ data, }: ListRenderArgs<ItemTypeQuery>) => 
             linkName={result.name}
             description={result.description}
             data={[{key: 'Power', value: result.power || 1}]}
+            icons={{
+              pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
+              typeIconDatum: result.typeIconDatum,
+              dispatchCart,
+              dispatchTeam,
+              gen,
+              tierFilter,
+              cartNote: ``
+            }}
           />
         ))}
       </div>)}
@@ -353,6 +375,15 @@ export const listRenderItemType = ({ data, }: ListRenderArgs<ItemTypeQuery>) => 
             linkName={result.name}
             description={result.description}
             data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            icons={{
+              pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
+              typeIconDatum: result.typeIconDatum,
+              dispatchCart,
+              dispatchTeam,
+              gen,
+              tierFilter,
+              cartNote: ``
+            }}
           />
         ))}
       </div>)}
@@ -360,7 +391,7 @@ export const listRenderItemType = ({ data, }: ListRenderArgs<ItemTypeQuery>) => 
   );
 }
 
-export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMethodQuery>) => {
+export const listRenderItemUsageMethod = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<ItemUsageMethodQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 
   const parent = data.itemByName[0];
