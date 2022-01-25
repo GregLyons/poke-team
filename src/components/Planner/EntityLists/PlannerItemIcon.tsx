@@ -4,15 +4,15 @@ import {
 import {
   ItemIconDatum,
   PokemonIconDatum,
-} from "../../types-queries/helpers";
+} from "../../../types-queries/helpers";
 import {
   getItemIcon,
   getPokemonIcon,
-} from "../../utils/sprites";
+} from "../../../utils/sprites";
 import {
   CartAction,
   TeamAction,
-} from "../App";
+} from "../../App";
 
 type PlannerItemIconProps = {
   dispatchCart: React.Dispatch<CartAction>

@@ -49,7 +49,7 @@ import UsageMethodMainPage from './Planner/EntityLists/UsageMethods/UsageMethodM
 import UsageMethodPage from './Planner/EntityLists/UsageMethods/UsageMethodPage';
 
 import TierFilterForm from './TierFilter';
-import { GenerationNum, PokemonIconDatum, stringToGenNumber } from '../types-queries/helpers';
+import { GenerationNum, ItemIconDatum, PokemonIconDatum, stringToGenNumber } from '../types-queries/helpers';
 
 export type Team = Pokemon[];
 export type TeamAction = 
@@ -74,26 +74,44 @@ export type Cart = {
   pokemon: {
     [parentEntityClass in EntityClass]?: {
       [targetEntityClass in EntityClass | 'Has']?: {
+        // Key: Describes relationship between parent and target entity.
+        // Value: Pokemon from selection.
         [note: string]: PokemonIconDatum[]
       }
     } 
   }
   items: {
-    [key: string]: PokemonIconDatum[]
+    [parentEntityClass in EntityClass]?: {
+      [targetEntityClass in EntityClass | 'From search']?: {
+        // Key: Describes relationship between parent and target entity.
+        // Value: Pokemon required for item, or [].
+        [note: string]: PokemonIconDatum[]
+      }
+    } 
   }
 };
 
 
 export type CartAction =
 | { 
-  type: 'add_pokemon',
-  payload: {
-    pokemon: PokemonIconDatum[],
-    parentEntityClass: EntityClass,
-    targetEntityClass: EntityClass | 'Has',
-    note: string,
-  },
-}
+    type: 'add_pokemon',
+    payload: {
+      pokemon: PokemonIconDatum[],
+      parentEntityClass: EntityClass,
+      targetEntityClass: EntityClass | 'Has',
+      note: string,
+    },
+  }
+| {
+    type: 'add_item'
+    payload: {
+      item: ItemIconDatum,
+      requiredPokemon: PokemonIconDatum[],
+      parentEntityClass: EntityClass,
+      targetEntityClass: EntityClass | 'From search'
+      note: string
+    }
+  }
 | { type: 'remove', };
 
 function cartReducer(state: Cart, action: CartAction) {
@@ -112,6 +130,24 @@ function cartReducer(state: Cart, action: CartAction) {
               // Overwriting note within targetEntityClass
               ...state.pokemon?.[action.payload.parentEntityClass]?.[action.payload.targetEntityClass],
               [action.payload.note]: action.payload.pokemon,
+            }
+          }
+        }
+      }
+    case 'add_item':
+      return {
+        ...state,
+        // Overwriting items
+        items: {
+          // Overwriting parentEntityClass
+          ...state.items,
+          [action.payload.parentEntityClass]: {
+            // Overwriting targetEntityClass within parentEntityClass
+            ...state.items?.[action.payload.parentEntityClass],
+            [action.payload.targetEntityClass]: {
+              // Overwriting note within targetEntityClass
+              ...state.items?.[action.payload.parentEntityClass]?.[action.payload.targetEntityClass],
+              [action.payload.note]: action.payload.requiredPokemon,
             }
           }
         }

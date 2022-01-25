@@ -29,6 +29,7 @@ import {
 
 import PlannerPokemonIcon from "../PlannerPokemonIcon";
 import EntryLink from "./EntryLink";
+import { EntryIconData } from "./helpers";
 import PlannerPokemonIcons from "./PlannerPokemonIcons";
 import SelectionControls from "./SelectionControls";
 
@@ -44,15 +45,7 @@ type ConnectionAccordionEntryProps = {
     key: string
     value: string | number 
   }[]
-  icons?: {
-    pokemonIconData: PokemonIconDatum[]
-    itemIconDatum?: ItemIconDatum
-    dispatchCart: React.Dispatch<CartAction>
-    dispatchTeam: React.Dispatch<TeamAction>
-    gen: GenerationNum
-    tierFilter: TierFilter
-    cartNote: string
-  }
+  icons?: EntryIconData
 }
 
 const ConnectionAccordionEntry = ({
@@ -132,7 +125,8 @@ const ConnectionAccordionEntry = ({
       
       <EntryLink
         hover={hover}
-        entityClass={parentEntityClass}
+        parentEntityClass={parentEntityClass}
+        targetEntityClass={targetEntityClass}
         linkName={linkName}
         name={name}
         icons={icons}

@@ -29,10 +29,11 @@ import {
   CartAction,
   TeamAction,
 } from "../../App";
-import PlannerItemIcon from "../PlannerItemIcon";
+import PlannerItemIcon from "./PlannerItemIcon";
 
 import PlannerPokemonIcon from "../PlannerPokemonIcon";
 import EntryLink from "./EntryLink";
+import { EntryIconData } from "./helpers";
 import PlannerPokemonIcons from "./PlannerPokemonIcons";
 import SelectionControls from "./SelectionControls";
 
@@ -46,15 +47,7 @@ type EntitySearchEntryProps = {
     key: string
     value: string | number | boolean
   }[]
-  icons?: {
-    pokemonIconData: PokemonIconDatum[]
-    itemIconDatum?: ItemIconDatum
-    dispatchCart: React.Dispatch<CartAction>
-    dispatchTeam: React.Dispatch<TeamAction>
-    gen: GenerationNum
-    tierFilter: TierFilter
-    cartNote: string
-  }
+  icons?: EntryIconData
 }
 
 const EntitySearchEntry = ({
@@ -141,7 +134,8 @@ const EntitySearchEntry = ({
     >
       <EntryLink
         hover={hover}
-        entityClass={entityClass}
+        parentEntityClass={entityClass}
+        targetEntityClass={'From search'}
         linkName={linkName}
         name={name}
         icons={icons}

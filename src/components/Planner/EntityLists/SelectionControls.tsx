@@ -4,20 +4,13 @@ import {
 import { GenerationNum, ItemIconDatum, PokemonIconDatum } from "../../../types-queries/helpers";
 import { TierFilter } from "../../../utils/constants";
 import { CartAction, TeamAction } from "../../App";
+import { EntryIconData } from "./helpers";
 
 type SelectionControlsProps = {
   dispatchSelection: React.Dispatch<SelectionAction>
   handleAddToCart: () => void,
   hasIcon: React.MutableRefObject<boolean>
-  icons?: {
-    pokemonIconData: PokemonIconDatum[]
-    itemIconDatum?: ItemIconDatum
-    dispatchCart: React.Dispatch<CartAction>
-    dispatchTeam: React.Dispatch<TeamAction>
-    gen: GenerationNum
-    tierFilter: TierFilter
-    cartNote: string
-  }
+  icons: EntryIconData
 }
 
 const SelectionControls = ({
