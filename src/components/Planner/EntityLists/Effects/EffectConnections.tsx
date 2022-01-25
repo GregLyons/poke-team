@@ -101,7 +101,7 @@ export const listRenderEffectItem = ({ data, dispatchCart, dispatchTeam, gen, ti
             dispatchCart: dispatchCart,
             dispatchTeam: dispatchTeam,
             pokemonIconData: result.requiredPokemonIconData,
-            itemIcon: result.itemIconDatum,
+            itemIconDatum: result.itemIconDatum,
             gen: gen,
             tierFilter: tierFilter,
             cartNote: `'${result.formattedName}' has the effect '${parent.formattedName}'.`,

@@ -2,7 +2,6 @@ import {
   gql,
 } from "@apollo/client";
 import { GenerationNum, IntroductionEdge, ItemIconDatum, ItemIconEdge, itemIconEdgeToItemIconDatum, ItemRequiresPokemonEdge, itemRequiresPokemonEdgeToRequiredPokemonIconData, NameEdge, PokemonIconDatum, PokemonIconEdge } from "../helpers";
-import { Pokemon } from "./Pokemon";
 
 // Entity in search
 // #region

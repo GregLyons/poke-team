@@ -868,7 +868,13 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                   formattedName
                   pokemonShowdownID
 
-                  intr
+                  introduced {
+                    edges {
+                      node {
+                        number
+                      }
+                    }
+                  }
                 }
               }
             }

@@ -1,10 +1,7 @@
 import {
+  useEffect,
   useRef,
-  useState,
 } from "react";
-import {
-  Link,
-} from "react-router-dom";
 
 import {
   selectionToPokemonIconData,
@@ -20,7 +17,6 @@ import {
 } from "../../../types-queries/helpers";
 import {
   EntityClass,
-  ENTITY_CLASS_TO_PLANNER_LINK,
   TierFilter,
 } from "../../../utils/constants";
 import {
@@ -32,6 +28,8 @@ import {
 } from "../../App";
 
 import PlannerPokemonIcon from "../PlannerPokemonIcon";
+import EntryLink from "./EntryLink";
+import PlannerPokemonIcons from "./PlannerPokemonIcons";
 import SelectionControls from "./SelectionControls";
 
 
@@ -48,7 +46,7 @@ type ConnectionAccordionEntryProps = {
   }[]
   icons?: {
     pokemonIconData: PokemonIconDatum[]
-    itemIcon?: ItemIconDatum
+    itemIconDatum?: ItemIconDatum
     dispatchCart: React.Dispatch<CartAction>
     dispatchTeam: React.Dispatch<TeamAction>
     gen: GenerationNum
@@ -65,7 +63,7 @@ const ConnectionAccordionEntry = ({
   linkName,
   description,
   data,
-  icons: icons,
+  icons,
 }: ConnectionAccordionEntryProps) => {
   // Changing scroll height 
   // #region
@@ -108,8 +106,6 @@ const ConnectionAccordionEntry = ({
 
   // #endregion
 
-  // Since Pokemon can learn Moves in multiple ways, we need to worry about duplicates. The keys of this object are Pokemon names, and the value is always 'true'; we only care about the keys.
-  let seenPokemon: {[k: string]: boolean} = {};
 
   return (
     <div 
@@ -119,34 +115,29 @@ const ConnectionAccordionEntry = ({
         expand 
           ? { 
               height: originalScrollHeight || 0,
-              transitionDuration: entryRef.current 
-                ? `${entryRef.current.scrollHeight * 0.5}ms`
+              transition: entryRef.current 
+                ? `height ${entryRef.current.scrollHeight * 0.5}ms`
                 : ``,
             }
           : { 
               height: `${entryHeight}`,
-              transitionDuration: entryRef.current 
-              ? `${entryRef.current.scrollHeight * 0.5}ms`
+              transition: entryRef.current 
+              ? `height ${entryRef.current.scrollHeight * 0.5}ms`
               : ``, 
             }
       }
       className="planner__accordion-row"
       key={key}
     >
-      <Link
-        to={`../${ENTITY_CLASS_TO_PLANNER_LINK.get(targetEntityClass)}/${linkName}`}
-        className="planner__accordion-row-name"
-        style={
-          hover
-            ? { 
-                transform: "scale(1.05)",
-                transition: "transform 0.1s",
-              }
-            : {}
-        }
-      >
-        {name}
-      </Link>
+      
+      <EntryLink
+        hover={hover}
+        entityClass={parentEntityClass}
+        linkName={linkName}
+        name={name}
+        icons={icons}
+      />
+
       <div 
         className="planner__accordion-row-description"
       >
@@ -164,40 +155,15 @@ const ConnectionAccordionEntry = ({
           </>
         ))}
       </div>
-      {icons && <div className="planner__accordion-row-icons">
-        <>
-          {icons.pokemonIconData.map(pokemonIconDatum => {
-            const { psID, } = pokemonIconDatum;
-            const tier = psIDToTier(icons.gen, pokemonIconDatum.psID);
-
-            // Ignore duplicate Pokemon
-            if(seenPokemon.hasOwnProperty(pokemonIconDatum.name)) return
-          
-            // Add Pokemon to list of seen Pokemon
-            else seenPokemon[pokemonIconDatum.name] = true;
-
-            if (tier && !icons.tierFilter[tier]) {
-              return;
-            }
-
-            return (
-              <PlannerPokemonIcon
-                dispatchCart={icons.dispatchCart}
-                dispatchTeam={icons.dispatchTeam}
-                key={key + '_' + pokemonIconDatum.name + '_icon'}
-                pokemonIconDatum={pokemonIconDatum}
-                selected={selection[psID].selected}
-                toggleSelection={toggleSelection}
-              />
-            );
-          })}
-          <br />
-          <SelectionControls
-            dispatchSelection={dispatchSelection}
-            handleAddToCart={handleAddToCart}
-          />
-        </>
-      </div>}
+      {icons && <PlannerPokemonIcons
+        context="accordion" 
+        key={key}
+        selection={selection}
+        dispatchSelection={dispatchSelection}
+        toggleSelection={toggleSelection}
+        icons={icons}
+        handleAddToCart={handleAddToCart}
+      />}
     </div>
   )
 }

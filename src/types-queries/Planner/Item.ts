@@ -7,6 +7,9 @@ import {
   DescriptionsEdge,
   GenerationNum,
   IntroductionEdge,
+  ItemIconDatum,
+  itemIconEdgeToItemIconDatum,
+  itemRequiresPokemonEdgeToRequiredPokemonIconData,
   PokemonIconDatum,
   PokemonIconEdge,
   pokemonIconEdgeToPokemonIconDatum,
@@ -48,6 +51,10 @@ export interface ItemSearchResult extends MainEntitySearchResult {
     edges: VersionDependentDescriptionEdge[]
   }
 
+  introduced: {
+    edges: IntroductionEdge[]
+  }
+
   requiresPokemon: {
     edges: PokemonIconEdge[]
   }
@@ -78,6 +85,14 @@ export const ITEM_SEARCH_QUERY = gql`
           }
         }
       }
+
+      introduced {
+        edges {
+          node {
+            number
+          }
+        }
+      }
       
       requiresPokemon {
         edges {
@@ -103,11 +118,16 @@ export const ITEM_SEARCH_QUERY = gql`
 
 export class ItemInSearch extends MainEntityInSearch {
   public itemClass: string
+  public itemIconDatum: ItemIconDatum
+  public requiredPokemonIconData: PokemonIconDatum[]
 
   constructor(gqlItem: ItemSearchResult) {
     super(gqlItem);
 
     this.itemClass = gqlItem.class;
+    
+    this.itemIconDatum = itemIconEdgeToItemIconDatum({node: gqlItem});
+    this.requiredPokemonIconData = itemRequiresPokemonEdgeToRequiredPokemonIconData({node: gqlItem});
   }
 }
 

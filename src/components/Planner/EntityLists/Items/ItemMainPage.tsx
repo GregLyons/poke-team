@@ -21,12 +21,14 @@ const ItemMainPage = ({
   dispatchCart,
   dispatchTeam,
   gen,
+  tierFilter,
 }: ItemMainProps) => {
   return (
     <ItemSearch 
       dispatchCart={dispatchCart}
       dispatchTeam={dispatchTeam}
       gen={gen}
+      tierFilter={tierFilter}
     />
   )
 }
