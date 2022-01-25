@@ -18,7 +18,9 @@ import {
 import {
   DEFAULT_SINGLES_TIER_FILTER,
   DoublesTier,
+  DOUBLES_TIERS,
   SinglesTier,
+  SINGLES_TIERS,
   TierFilter,
 } from '../utils/smogonLogic';
 
@@ -173,26 +175,64 @@ function App() {
     setGen(stringToGenNumber(e.target.value));
   }
 
+  // Tier filtering
+  // #region
+
   const handleTierModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = (e.target.name as 'singles' | 'doubles');
     if (!name) return;
     setTierFilter({
       ...tierFilter,
-      mode: name,
+      format: name,
     })
   }
 
   const handleTierFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = (e.target.name as SinglesTier | DoublesTier);
     if (!name) return;
+    if (tierFilter.selectionMode === 'exact') {
+      setTierFilter({
+        ...tierFilter,
+        tiers: {
+          ...tierFilter.tiers,
+          [name]: !tierFilter.tiers[name],
+        }
+      });
+      return;
+    }
+    else {
+      const idx = tierFilter.format === 'singles'
+        ? SINGLES_TIERS.findIndex((s: SinglesTier) => s === name)
+        : DOUBLES_TIERS.findIndex((s: DoublesTier) => s === name);
+      const lowerTierNames = tierFilter.format === 'singles'
+        ? SINGLES_TIERS.slice(idx)
+        : DOUBLES_TIERS.slice(idx);
+
+      const newFilters: {
+        [tierName in SinglesTier | DoublesTier]? : boolean 
+      } = {};
+      for (let lowerTierName of lowerTierNames) {
+        newFilters[lowerTierName] = !tierFilter.tiers[name];
+      }
+
+      setTierFilter({
+        ...tierFilter,
+        tiers: {
+          ...tierFilter.tiers,
+          ...newFilters,
+        }
+      });
+    }
+  }
+
+  const toggleSelectionMode = () => {
     setTierFilter({
       ...tierFilter,
-      tiers: {
-        ...tierFilter.tiers,
-        [name]: !tierFilter.tiers[name],
-      }
-    });
+      selectionMode: tierFilter.selectionMode === 'exact' ? 'range' : 'exact',
+    })
   }
+
+  // #endregion
   
   return (
     <div className="app">
@@ -206,6 +246,7 @@ function App() {
           tierFilter={tierFilter}
           handleTierModeChange={handleTierModeChange}
           handleTierFilterChange={handleTierFilterChange}
+          toggleSelectionMode={toggleSelectionMode}
         />
         <TeamDisplay
           dispatchCart={dispatchCart}

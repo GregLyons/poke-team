@@ -3,7 +3,6 @@ import {
 } from "react";
 import {
   DOUBLES_TIERS,
-  SinglesTier,
   SINGLES_TIERS,
   TierFilter,
 } from "../utils/smogonLogic";
@@ -12,14 +11,15 @@ type TierFilterFormProps = {
   tierFilter: TierFilter
   handleTierModeChange: (e: ChangeEvent<HTMLInputElement>) => void
   handleTierFilterChange: (e: ChangeEvent<HTMLInputElement>) => void
+  toggleSelectionMode: () => void
 }
 
 const TierFilterForm = ({
   tierFilter,
   handleTierModeChange,
   handleTierFilterChange,
+  toggleSelectionMode,
 }: TierFilterFormProps) => {
-  console.log(tierFilter);
   return (
     <form>
       <label>
@@ -27,7 +27,7 @@ const TierFilterForm = ({
         <input 
           name="singles"
           type="checkbox"
-          checked={tierFilter.mode === 'singles'}
+          checked={tierFilter.format === 'singles'}
           onChange={handleTierModeChange}
         />
       </label>
@@ -40,17 +40,18 @@ const TierFilterForm = ({
               type="checkbox"
               checked={tierFilter.tiers[tier]}
               onChange={handleTierFilterChange}
-              disabled={tierFilter.mode !== 'singles'}
+              disabled={tierFilter.format !== 'singles'}
             />
           </label>
         )
       })}
+      <br />
       <label>
         Doubles mode
         <input 
           name="doubles"
           type="checkbox"
-          checked={tierFilter.mode === 'doubles'}
+          checked={tierFilter.format === 'doubles'}
           onChange={handleTierModeChange}
         />
       </label>
@@ -63,11 +64,20 @@ const TierFilterForm = ({
               type="checkbox"
               checked={tierFilter.tiers[tier]}
               onChange={handleTierFilterChange}
-              disabled={tierFilter.mode !== 'doubles'}
+              disabled={tierFilter.format !== 'doubles'}
             />
           </label>
         )
       })}
+      <br />
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          toggleSelectionMode();
+        }}
+      >
+        {tierFilter.selectionMode === 'exact' ? 'Change to range mode' : 'Change to exact mode'}
+      </button>
     </form>
   )
 }

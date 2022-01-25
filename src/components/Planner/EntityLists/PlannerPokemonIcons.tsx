@@ -47,7 +47,7 @@ const PlannerPokemonIcons = ({
     <div className={`planner__${context}-row-icons`}>
       {icons.pokemonIconData.map(pokemonIconDatum => {
         const { psID, } = pokemonIconDatum;
-        const tier = icons.tierFilter.mode === 'singles' ? psIDToSinglesTier(icons.gen, pokemonIconDatum.psID) : psIDToDoublesTier(icons.gen, pokemonIconDatum.psID);
+        const tier = icons.tierFilter.format === 'singles' ? psIDToSinglesTier(icons.gen, pokemonIconDatum.psID) : psIDToDoublesTier(icons.gen, pokemonIconDatum.psID);
 
         // Ignore duplicate Pokemon
         if(seenPokemon.hasOwnProperty(pokemonIconDatum.name)) return
@@ -55,7 +55,6 @@ const PlannerPokemonIcons = ({
         // Add Pokemon to list of seen Pokemon
         else seenPokemon[pokemonIconDatum.name] = true;
         
-        console.log(tier);
         // If tier is not selected, return
         if (tier && !icons.tierFilter['tiers'][tier]) return;
 

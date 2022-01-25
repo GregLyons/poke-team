@@ -16,7 +16,8 @@ export type SinglesTier = 'AG' | 'Uber' | 'OU' | 'UUBL' | 'UU' | 'RUBL' | 'RU' |
 export const SINGLES_TIERS: SinglesTier[] = ['AG', 'Uber', 'OU', 'UUBL', 'UU', 'RUBL', 'RU', 'NUBL', 'NU', 'PUBL', 'PU', 'NFE', 'LC'];
 
 export type TierFilter = {
-  mode: 'singles' | 'doubles'
+  format: 'singles' | 'doubles'
+  selectionMode: 'exact' | 'range'
   tiers: {
     [tierName in SinglesTier | DoublesTier]: boolean
   }
@@ -26,12 +27,9 @@ export type DoublesTier = 'DUber' | 'DOU' | 'DBL' | 'DUU' | 'NFE' | 'LC';
 
 export const DOUBLES_TIERS: DoublesTier[] = ['DUber', 'DOU', 'DBL', 'DUU', 'NFE', 'LC'];
 
-export type DoublesTierFilter = {
-  [tierName in DoublesTier]: boolean
-}
-
 export const DEFAULT_SINGLES_TIER_FILTER: TierFilter = {
-  mode: 'singles',
+  format: 'singles',
+  selectionMode: 'exact',
   tiers: {
     // Singles tiers
     AG: true,
@@ -56,7 +54,8 @@ export const DEFAULT_SINGLES_TIER_FILTER: TierFilter = {
 };
 
 export const DEFAULT_DOUBLES_TIER_FILTER: TierFilter = {
-  mode: 'doubles',
+  format: 'doubles',
+  selectionMode: 'exact',
   tiers: {
     // Singles tiers
     AG: false,
