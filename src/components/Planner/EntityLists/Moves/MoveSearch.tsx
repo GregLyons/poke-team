@@ -30,7 +30,12 @@ import {
 
 import EntitySearchMain from '../EntitySearchMain';
 import EntitySearchEntry from '../EntitySearchEntry';
-import { TierFilter } from '../../../../utils/constants';
+import {
+  ENUMCASE_TO_TITLECASE,
+} from '../../../../utils/constants';
+import {
+  TierFilter,
+} from '../../../../utils/smogonLogic';
 
 const listRender = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<MoveSearchQuery>) => {
   if (!data || !data.moves) return (<div>Data not found for the query 'moves'.</div>);
@@ -56,7 +61,7 @@ const listRender = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: List
                   key: 'Accuracy', value: move.accuracy === 0 ? '--' : move.accuracy,
                 },
                 {
-                  key: 'Category', value: move.category,
+                  key: 'Category', value: ENUMCASE_TO_TITLECASE(move.category),
                 },
                 {
                   key: 'Contact', value: move.contact ? 'Yes' : 'No'
@@ -71,7 +76,7 @@ const listRender = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: List
                   key: 'Priority', value: move.priority,
                 },
                 {
-                  key: 'Target', value: move.target,
+                  key: 'Target', value: ENUMCASE_TO_TITLECASE(move.target),
                 },
               ]}
               icons={{

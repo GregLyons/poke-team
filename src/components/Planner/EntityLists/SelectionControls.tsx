@@ -2,7 +2,7 @@ import {
   SelectionAction,
 } from "../../../hooks/hooks"
 import { GenerationNum, ItemIconDatum, PokemonIconDatum } from "../../../types-queries/helpers";
-import { TierFilter } from "../../../utils/constants";
+import { TierFilter } from "../../../utils/smogonLogic";
 import { CartAction, TeamAction } from "../../App";
 import { EntryIconData } from "./helpers";
 

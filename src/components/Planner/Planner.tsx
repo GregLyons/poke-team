@@ -12,7 +12,7 @@ import {
 } from "../App";
 
 import PlannerNavBar from './PlannerNavBar';
-import { TierFilter } from "../../utils/constants";
+import { TierFilter } from "../../utils/smogonLogic";
 
 type PlannerProps = {
   dispatchCart: React.Dispatch<CartAction>

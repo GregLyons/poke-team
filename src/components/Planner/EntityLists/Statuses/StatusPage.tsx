@@ -37,8 +37,11 @@ import {
   IntroductionQueryVars,
 } from '../../../../types-queries/Planner/helpers';
 import {
-  NUMBER_OF_GENS, TierFilter,
+  NUMBER_OF_GENS,
 } from '../../../../utils/constants';
+import {
+  TierFilter,
+} from '../../../../utils/smogonLogic';
 import {
   GenerationNum,
 } from '../../../../types-queries/helpers';
@@ -176,7 +179,6 @@ const StatusPage = ({
   }
   else if (error) {
     console.log('error');
-    console.log()
     return (
       <div>
         Error! {error.message}

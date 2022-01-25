@@ -31,6 +31,7 @@ import {
 } from "../../../../types-queries/helpers";
 
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
+import { ENUMCASE_TO_TITLECASE } from "../../../../utils/constants";
 
 export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<FieldStateAbilityQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
@@ -492,7 +493,7 @@ export const listRenderFieldStateStat = ({ data, dispatchCart, dispatchTeam, gen
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -517,7 +518,7 @@ export const listRenderFieldStateStat = ({ data, dispatchCart, dispatchTeam, gen
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -542,7 +543,7 @@ export const listRenderFieldStateStat = ({ data, dispatchCart, dispatchTeam, gen
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -567,7 +568,7 @@ export const listRenderFieldStateStat = ({ data, dispatchCart, dispatchTeam, gen
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />

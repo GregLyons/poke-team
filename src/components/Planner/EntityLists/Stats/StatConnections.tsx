@@ -19,6 +19,7 @@ import {
 } from "../helpers";
 
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
+import { ENUMCASE_TO_TITLECASE } from "../../../../utils/constants";
 
 export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<StatAbilityQuery>) => {
   if (!data || !data.statByName) return (<div>Data not found for the query 'statByName'.</div>);
@@ -55,7 +56,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, gen, t
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -88,7 +89,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, gen, t
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -121,7 +122,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, gen, t
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -154,7 +155,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, gen, t
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -204,7 +205,7 @@ export const listRenderStatFieldState = ({ data, dispatchCart, dispatchTeam, }: 
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -229,7 +230,7 @@ export const listRenderStatFieldState = ({ data, dispatchCart, dispatchTeam, }: 
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -254,7 +255,7 @@ export const listRenderStatFieldState = ({ data, dispatchCart, dispatchTeam, }: 
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -279,7 +280,7 @@ export const listRenderStatFieldState = ({ data, dispatchCart, dispatchTeam, }: 
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -324,7 +325,7 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, gen, tier
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -358,7 +359,7 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, gen, tier
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -392,7 +393,7 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, gen, tier
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -426,7 +427,7 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, gen, tier
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -480,7 +481,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, gen, tier
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -514,7 +515,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, gen, tier
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -548,7 +549,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, gen, tier
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -582,7 +583,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, gen, tier
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{

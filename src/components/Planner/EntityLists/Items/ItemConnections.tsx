@@ -23,6 +23,7 @@ import {
 
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 import { DUMMY_POKEMON_ICON_DATUM } from "../../../../types-queries/helpers";
+import { ENUMCASE_TO_TITLECASE } from "../../../../utils/constants";
 
 export const listRenderItemEffect = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<ItemEffectQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
@@ -161,7 +162,7 @@ export const listRenderItemStat = ({ data, dispatchCart, dispatchTeam, gen, tier
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -186,7 +187,7 @@ export const listRenderItemStat = ({ data, dispatchCart, dispatchTeam, gen, tier
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -211,7 +212,7 @@ export const listRenderItemStat = ({ data, dispatchCart, dispatchTeam, gen, tier
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -236,7 +237,7 @@ export const listRenderItemStat = ({ data, dispatchCart, dispatchTeam, gen, tier
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />

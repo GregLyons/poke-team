@@ -18,6 +18,7 @@ import {
   MoveUsageMethodQuery,
   MoveUsageMethodResult,
 } from "../../../../types-queries/Planner/Move";
+import { ENUMCASE_TO_TITLECASE } from "../../../../utils/constants";
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 
 import {
@@ -152,7 +153,7 @@ export const listRenderMoveStat = ({ data, dispatchCart, dispatchTeam, gen, tier
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -177,7 +178,7 @@ export const listRenderMoveStat = ({ data, dispatchCart, dispatchTeam, gen, tier
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -202,7 +203,7 @@ export const listRenderMoveStat = ({ data, dispatchCart, dispatchTeam, gen, tier
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -227,7 +228,7 @@ export const listRenderMoveStat = ({ data, dispatchCart, dispatchTeam, gen, tier
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />

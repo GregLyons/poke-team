@@ -19,10 +19,12 @@ import {
 import {
   EntityClass,
   ENTITYCLASS_TO_PLANNERLINK,
-  TierFilter,
-} from "../../../utils/constants";
+} from '../../../utils/constants';
 import {
-  psIDToTier,
+  TierFilter,
+} from '../../../utils/smogonLogic';
+import {
+  psIDToSinglesTier,
 } from "../../../utils/smogonLogic";
 
 import { 

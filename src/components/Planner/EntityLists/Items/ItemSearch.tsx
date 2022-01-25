@@ -27,7 +27,12 @@ import {
 
 import EntitySearchMain from '../EntitySearchMain';
 import EntitySearchEntry from '../EntitySearchEntry';
-import { TierFilter } from '../../../../utils/constants';
+import {
+  ENUMCASE_TO_TITLECASE,
+} from '../../../../utils/constants';
+import {
+  TierFilter,
+} from '../../../../utils/smogonLogic';
 
 const listRender = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<ItemSearchQuery>) => {
   if (!data || !data.items) return (<div>Data not found for the query 'items'.</div>);
@@ -49,7 +54,7 @@ const listRender = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: List
               linkName={item.name}
               data={[
                 {
-                  key: 'Class', value: item.itemClass,
+                  key: 'Class', value: ENUMCASE_TO_TITLECASE(item.itemClass),
                 },
               ]}
               description={item.description}
@@ -86,7 +91,7 @@ const ItemSearch = ({
   const [queryVars, setQueryVars] = useState<ItemSearchVars>({
     gen: gen,
     startsWith: '',
-    limit: 5,
+    limit: 300,
   })
 
   const handleSubmit: (newQueryVars: ItemSearchVars) => void = (newQueryVars) => {

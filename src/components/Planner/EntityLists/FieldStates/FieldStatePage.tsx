@@ -47,8 +47,10 @@ import {
 } from '../../../../types-queries/Planner/helpers';
 import {
   NUMBER_OF_GENS,
-  TierFilter,
 } from '../../../../utils/constants';
+import {
+  TierFilter,
+} from '../../../../utils/smogonLogic';
 import {
   GenerationNum,
 } from '../../../../types-queries/helpers';
@@ -204,7 +206,6 @@ const FieldStatePage = ({
   }
   else if (error) {
     console.log('error');
-    console.log()
     return (
       <div>
         Error! {error.message}

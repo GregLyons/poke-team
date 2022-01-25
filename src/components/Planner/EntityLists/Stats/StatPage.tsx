@@ -37,8 +37,11 @@ import {
   IntroductionQueryVars,
 } from '../../../../types-queries/Planner/helpers';
 import {
-  NUMBER_OF_GENS, TierFilter,
+  NUMBER_OF_GENS,
 } from '../../../../utils/constants';
+import {
+  TierFilter,
+} from '../../../../utils/smogonLogic';
 import {
   GenerationNum,
 } from '../../../../types-queries/helpers';
@@ -148,7 +151,6 @@ const StatPage = ({
     );
   }
 
-  console.log(data_introduced.statByName[0])
   const debutGen = data_introduced.statByName[0].introduced.edges[0].node.number;
 
   if (debutGen > gen) return (

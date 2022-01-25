@@ -24,7 +24,7 @@ import {
   CartAction,
   TeamAction,
 } from '../../App';
-import { TierFilter } from '../../../utils/constants';
+import { TierFilter } from '../../../utils/smogonLogic';
 
 interface EntitySearchMainProps<SearchQuery, SearchQueryVars> {
   dispatchCart?: React.Dispatch<CartAction>

@@ -2,7 +2,7 @@ import {
   useState,
 } from "react";
 import { GenerationNum, ItemIconDatum, PokemonIconDatum, TypeIconDatum } from "../../../types-queries/helpers";
-import { TierFilter } from "../../../utils/constants";
+import { TierFilter } from '../../../utils/smogonLogic';
 
 import {
   CartAction,

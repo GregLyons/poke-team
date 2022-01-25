@@ -27,6 +27,7 @@ import {
 
 import EntitySearchMain from '../EntitySearchMain';
 import EntitySearchEntry from '../EntitySearchEntry';
+import { ENUMCASE_TO_TITLECASE } from '../../../../utils/constants';
 
 const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
   if (!data || !data.fieldStates) return (<div>Data not found for the query 'fieldStates'.</div>);
@@ -37,7 +38,7 @@ const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
         const fieldState = new FieldStateInSearch(fieldStateSearchResult);
         
         // Build up field state data, leaving out certain default values
-        const fieldStateData: { key: string, value: string | number | boolean }[] = [{ key: 'Class', value: fieldState.fieldStateClass, }];
+        const fieldStateData: { key: string, value: string | number | boolean }[] = [{ key: 'Class', value: ENUMCASE_TO_TITLECASE(fieldState.fieldStateClass), }];
         
         if (fieldState.damagePercent > 0) fieldStateData.push({ key: 'Damage %', value: fieldState.damagePercent, });
 
@@ -45,7 +46,7 @@ const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
 
         if (fieldState.maxLayers > 1) fieldStateData.push({ key: 'Max layers', value: fieldState.maxLayers, });
 
-        fieldStateData.push({ key: 'Target', value: fieldState.target, });
+        fieldStateData.push({ key: 'Target', value: ENUMCASE_TO_TITLECASE(fieldState.target), });
         
         return (
           <>

@@ -17,10 +17,12 @@ import {
 } from "../../../types-queries/helpers";
 import {
   EntityClass,
-  TierFilter,
 } from "../../../utils/constants";
 import {
-  psIDToTier,
+  TierFilter,
+} from "../../../utils/smogonLogic";
+import {
+  psIDToSinglesTier,
 } from "../../../utils/smogonLogic";
 import { 
   CartAction,

@@ -27,7 +27,7 @@ import {
 
 import EntitySearchMain from '../EntitySearchMain';
 import EntitySearchEntry from '../EntitySearchEntry';
-import { TierFilter } from '../../../../utils/constants';
+import { TierFilter } from '../../../../utils/smogonLogic';
 
 const listRender = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<TypeSearchQuery>) => {
   if (!data || !data.types) return (<div>Data not found for the query 'types'.</div>);

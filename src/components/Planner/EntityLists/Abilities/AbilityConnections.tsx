@@ -18,6 +18,7 @@ import {
 
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 import { DUMMY_POKEMON_ICON_DATUM } from "../../../../types-queries/helpers";
+import { ENUMCASE_TO_TITLECASE } from "../../../../utils/constants";
 
 export const listRenderAbilityEffect = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<AbilityEffectQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
@@ -189,7 +190,7 @@ export const listRenderAbilityStat = ({ data, dispatchCart, dispatchTeam, gen, t
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -214,7 +215,7 @@ export const listRenderAbilityStat = ({ data, dispatchCart, dispatchTeam, gen, t
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -239,7 +240,7 @@ export const listRenderAbilityStat = ({ data, dispatchCart, dispatchTeam, gen, t
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -264,7 +265,7 @@ export const listRenderAbilityStat = ({ data, dispatchCart, dispatchTeam, gen, t
                 key: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: result.recipient,
+                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -400,9 +401,6 @@ export const listRenderAbilityUsageMethod = ({ data, dispatchCart, dispatchTeam,
   const boostsResults = parent.boostsUsageMethod.edges.map(edge => new AbilityUsageMethodResult(edge));
   const preventsResults = parent.preventsUsageMethod.edges.map(edge => new AbilityUsageMethodResult(edge));
   const resistsResults = parent.resistsUsageMethod.edges.map(edge => new AbilityUsageMethodResult(edge));
-  resistsResults.map(result => {
-    console.log(result.multiplier)
-  });
 
   return (
     <>

@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import { Selection, SelectionAction } from "../../../hooks/hooks";
 import { GenerationNum, ItemIconDatum, PokemonIconDatum } from "../../../types-queries/helpers";
-import { TierFilter } from "../../../utils/constants";
-import { psIDToTier } from "../../../utils/smogonLogic";
+import { psIDToDoublesTier, TierFilter } from '../../../utils/smogonLogic';
+import { psIDToSinglesTier as psIDToSinglesTier } from "../../../utils/smogonLogic";
 import { CartAction, TeamAction } from "../../App";
 import PlannerPokemonIcon from "../PlannerPokemonIcon";
 import SelectionControls from "./SelectionControls";
@@ -47,17 +47,17 @@ const PlannerPokemonIcons = ({
     <div className={`planner__${context}-row-icons`}>
       {icons.pokemonIconData.map(pokemonIconDatum => {
         const { psID, } = pokemonIconDatum;
-        const tier = psIDToTier(icons.gen, pokemonIconDatum.psID);
+        const tier = icons.tierFilter.mode === 'singles' ? psIDToSinglesTier(icons.gen, pokemonIconDatum.psID) : psIDToDoublesTier(icons.gen, pokemonIconDatum.psID);
 
         // Ignore duplicate Pokemon
         if(seenPokemon.hasOwnProperty(pokemonIconDatum.name)) return
       
         // Add Pokemon to list of seen Pokemon
         else seenPokemon[pokemonIconDatum.name] = true;
-
-        if (tier && !icons.tierFilter[tier]) {
-          return;
-        }
+        
+        console.log(tier);
+        // If tier is not selected, return
+        if (tier && !icons.tierFilter['tiers'][tier]) return;
 
         hasIcon.current = true;
 

@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { GenerationNum, ItemIconDatum, PokemonIconDatum } from "../../../types-queries/helpers";
-import { EntityClass, ENTITYCLASS_TO_PLANNERLINK, TierFilter } from "../../../utils/constants";
+import { EntityClass, ENTITYCLASS_TO_PLANNERLINK, } from "../../../utils/constants";
+import { TierFilter } from "../../../utils/smogonLogic";
 import { CartAction, TeamAction } from "../../App";
 import { EntryIconData } from "./helpers";
 import PlannerItemIcon from "./PlannerItemIcon";
@@ -25,7 +26,6 @@ const EntryLink = ({
   icons,
 }: EntryLinkProps) => {
   const linkRef = useRef<HTMLAnchorElement>(null);
-  console.log(hover);
 
   const addItemToCart = (itemIconDatum: ItemIconDatum | undefined) => {
     if (!itemIconDatum) return;

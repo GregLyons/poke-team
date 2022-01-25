@@ -3,7 +3,7 @@ import {
 } from "../../../types-queries/helpers";
 import {
   TierFilter,
-} from "../../../utils/constants";
+} from "../../../utils/smogonLogic";
 
 import { 
   CartAction,

@@ -1,5 +1,5 @@
 import { GenerationNum } from "../../types-queries/helpers";
-import { TierFilter } from "../../utils/constants";
+import { TierFilter } from "../../utils/smogonLogic";
 import { CartAction, TeamAction } from "../App";
 
 type AnalyzerProps = {

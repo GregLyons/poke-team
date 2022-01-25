@@ -11,7 +11,7 @@ import {
 import BuilderNavBar from './BuilderNavBar';
 import {
   TierFilter,
-} from "../../utils/constants";
+} from "../../utils/smogonLogic";
 import {
   GenerationNum,
 } from "../../types-queries/helpers";

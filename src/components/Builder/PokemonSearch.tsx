@@ -19,7 +19,7 @@ import {
   CartAction,
   TeamAction,
 } from '../App';
-import { TierFilter } from '../../utils/constants';
+import { TierFilter } from '../../utils/smogonLogic';
 
 const POKEMON_SEARCH_QUERY = gql`
   query PokemonSearchQuery(
@@ -86,7 +86,6 @@ const PokemonSearch = ({
   );
 
   useEffect(() => {
-    console.log(searchFilter);
     if (executedSearch) {
       executeSearch({
         variables: {

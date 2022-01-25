@@ -7,10 +7,128 @@ missing/incorrect/additional data:
 
   alcremie gmax is not cosmetic
 
+  gloom doesn't learn absorb in gen 5 ARRRRGHGHHHH
+
   form flags
     mothim trash, mothim sandy cosmetic? or not at all?
     genesect drives?
     xerneas active vs. neutral?
+
+  items
+    remove
+      amulet coin
+      cleanse tag
+      everstone
+      exp share
+      green scarf
+      luck incense
+      lucky egg
+      pink scarf
+      pure incense
+      red scarf
+      smoke ball
+      yellow scarf
+
+      *soothe bell
+
+    missing descriptions
+      adamant_orb
+      berry
+      berserk_gene
+      bitter_berry
+      black_belt
+      black_glasses
+      blue_scarf
+      bug_gem
+      burnt_berry
+      charcoal
+      cleanse_tag
+      dark_gem
+      deep_sea_scale
+      deep_sea_tooth
+      draco_plate
+      dragon_fang
+      dragon_gem
+      dread_plate
+      dubious_disc
+      earth_plate
+      electirizer
+      electric_gem
+      everstone
+      eviolite
+      exp_share
+      fighting_gem
+      fire_gem
+      fist_plate
+      flame_plate
+      flying_gem
+      ghost_gem
+      gold_berry
+      grass_gem
+      green_scarf
+      griseous_orb
+      ground_gem
+      hard_stone
+      ice_berry
+      ice_gem
+      icicle_plate
+      insect_plate
+      iron_plate
+      leek
+      light_ball
+      lucky_egg
+      lucky_punch
+      lustrous_orb
+      magmarizer
+      magnet
+      meadow_plate
+      metal_coat
+      metal_powder
+      mind_plate
+      mint_berry
+      miracle_seed
+      miracle_berry
+      mystery_berry
+      mystic_water
+      never_melt_ice
+      normal_gem
+      pink_bow
+      pink_scarf
+      poison_barb
+      poison_gem
+      polkadot_bow
+      protector
+      prz_cure_berry
+      psn_cure_berry
+      psychic_gem
+      pure_incense
+      quick_powder
+      reaper_cloth
+      red_scarf
+      rock_gem
+      sharp_beak
+      silk_scarf
+      silver_powder
+      sky_plate
+      soft_sand
+      soothe_bell
+      soul_dew
+      spell_tag
+      splash_plate
+      spooky_plate
+      steel_gem
+      stone_plate
+      thick_club
+      toxic_plate
+      twisted_spoon
+      water_gem
+      yellow_scarf
+      zap_plate
+
+
+
+    rename
+      metronome item
 
 
 make, 'search', 'startsWith', 'orderBy', etc. in API easier to use

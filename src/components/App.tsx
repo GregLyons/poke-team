@@ -12,12 +12,15 @@ import {
   Pokemon,
 } from '../types-queries/Planner/Pokemon';
 import {
-  DEFAULT_TIER_FILTER,
   EntityClass,
   NUMBER_OF_GENS,
+} from '../utils/constants';
+import {
+  DEFAULT_SINGLES_TIER_FILTER,
+  DoublesTier,
   SinglesTier,
   TierFilter,
-} from '../utils/constants';
+} from '../utils/smogonLogic';
 
 import NavBar from './NavBar/NavBar';
 import GenSlider from './GenSlider';
@@ -161,7 +164,7 @@ function cartReducer(state: Cart, action: CartAction) {
 
 function App() {
   const [gen, setGen] = useState<GenerationNum>(NUMBER_OF_GENS);
-  const [tierFilter, setTierFilter] = useState<TierFilter>(DEFAULT_TIER_FILTER);
+  const [tierFilter, setTierFilter] = useState<TierFilter>(DEFAULT_SINGLES_TIER_FILTER);
   const [cart, dispatchCart] = useReducer(cartReducer, { pokemon: {}, items: {}});
   const [team, dispatchTeam] = useReducer(teamReducer, []);
 
@@ -170,17 +173,27 @@ function App() {
     setGen(stringToGenNumber(e.target.value));
   }
 
-  const handleTierFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name = (e.target.name as SinglesTier);
+  const handleTierModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name = (e.target.name as 'singles' | 'doubles');
     if (!name) return;
     setTierFilter({
       ...tierFilter,
-      [name]: !tierFilter[name],
+      mode: name,
+    })
+  }
+
+  const handleTierFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name = (e.target.name as SinglesTier | DoublesTier);
+    if (!name) return;
+    setTierFilter({
+      ...tierFilter,
+      tiers: {
+        ...tierFilter.tiers,
+        [name]: !tierFilter.tiers[name],
+      }
     });
   }
-  console.log('app');
-  console.log(cart);
-
+  
   return (
     <div className="app">
       <header>
@@ -191,6 +204,7 @@ function App() {
         />
         <TierFilterForm
           tierFilter={tierFilter}
+          handleTierModeChange={handleTierModeChange}
           handleTierFilterChange={handleTierFilterChange}
         />
         <TeamDisplay

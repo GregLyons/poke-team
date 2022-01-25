@@ -3,7 +3,7 @@ import {
 } from '../../types-queries/helpers';
 import {
   TierFilter,
-} from '../../utils/constants';
+} from '../../utils/smogonLogic';
 
 import {
   Cart,
@@ -29,9 +29,6 @@ const BuilderHome = ({
   gen,
   tierFilter,
 }: BuilderHomeProps) => {
-  console.log('builder');
-  console.log(cart);
-  console.log(gen);
 
   return (
     <div className="builder-wrapper">
