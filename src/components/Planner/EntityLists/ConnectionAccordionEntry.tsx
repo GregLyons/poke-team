@@ -7,7 +7,7 @@ import {
   selectionToPokemonIconData,
   useEntryExpand,
   useSelection,
-} from "../../../hooks/hooks";
+} from "../../../hooks/planner-hooks";
 
 import {
   GenerationNum, ItemIconDatum,
@@ -27,7 +27,7 @@ import {
 import { 
   CartAction,
   TeamAction,
-} from "../../App";
+} from '../../../hooks/app-hooks';
 
 import PlannerPokemonIcon from "../PlannerPokemonIcon";
 import EntryLink from "./EntryLink";
@@ -90,6 +90,7 @@ const ConnectionAccordionEntry = ({
     icons.dispatchCart({
       type: 'add_pokemon',
       payload: {
+        gen: icons.gen,
         parentEntityClass,
         targetEntityClass,
         pokemon: selectionToPokemonIconData(selection),

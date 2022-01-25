@@ -141,3 +141,5 @@ investigate connection cache data issue
 moves on effect page expands when selecting pokemon
 
 ice resists hail
+
+field state planner search sometimes have 'touppercase null' error

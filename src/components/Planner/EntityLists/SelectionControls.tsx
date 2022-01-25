@@ -1,9 +1,9 @@
 import {
   SelectionAction,
-} from "../../../hooks/hooks"
+} from "../../../hooks/planner-hooks"
 import { GenerationNum, ItemIconDatum, PokemonIconDatum } from "../../../types-queries/helpers";
 import { TierFilter } from "../../../utils/smogonLogic";
-import { CartAction, TeamAction } from "../../App";
+import { CartAction, TeamAction } from "../../../hooks/app-hooks";
 import { EntryIconData } from "./helpers";
 
 type SelectionControlsProps = {

@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
-import { Selection, SelectionAction } from "../../../hooks/hooks";
+import { Selection, SelectionAction } from "../../../hooks/planner-hooks";
 import { GenerationNum, ItemIconDatum, PokemonIconDatum } from "../../../types-queries/helpers";
 import { psIDToDoublesTier, TierFilter } from '../../../utils/smogonLogic';
 import { psIDToSinglesTier as psIDToSinglesTier } from "../../../utils/smogonLogic";
-import { CartAction, TeamAction } from "../../App";
+import { CartAction, TeamAction } from "../../../hooks/app-hooks";
 import PlannerPokemonIcon from "../PlannerPokemonIcon";
 import SelectionControls from "./SelectionControls";
 

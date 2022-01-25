@@ -7,7 +7,7 @@ import { TierFilter } from '../../../utils/smogonLogic';
 import {
   CartAction,
   TeamAction,
-} from "../../App";
+} from "../../../hooks/app-hooks";
 
 // Rendering lists
 // #region

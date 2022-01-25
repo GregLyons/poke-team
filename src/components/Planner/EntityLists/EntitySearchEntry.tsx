@@ -9,7 +9,7 @@ import {
   selectionToPokemonIconData,
   useEntryExpand,
   useSelection,
-} from "../../../hooks/hooks";
+} from "../../../hooks/planner-hooks";
 import {
   GenerationNum, ItemIconDatum,
 } from "../../../types-queries/helpers";
@@ -30,7 +30,7 @@ import {
 import { 
   CartAction,
   TeamAction,
-} from "../../App";
+} from "../../../hooks/app-hooks";
 import PlannerItemIcon from "./PlannerItemIcon";
 
 import PlannerPokemonIcon from "../PlannerPokemonIcon";
@@ -92,6 +92,7 @@ const EntitySearchEntry = ({
     icons.dispatchCart({
       type: 'add_pokemon',
       payload: {
+        gen: icons.gen,
         parentEntityClass: entityClass,
         targetEntityClass: 'Has',
         pokemon: selectionToPokemonIconData(selection),

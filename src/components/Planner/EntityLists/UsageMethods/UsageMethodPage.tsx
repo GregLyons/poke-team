@@ -46,7 +46,7 @@ import {
 import { 
   CartAction,
   TeamAction,
-} from "../../../App";
+} from '../../../../hooks/app-hooks';
 import {
   listRenderUsageMethodAbility,
   listRenderUsageMethodItem,

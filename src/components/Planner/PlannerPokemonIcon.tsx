@@ -10,7 +10,7 @@ import {
 import {
   CartAction,
   TeamAction,
-} from "../App";
+} from "../../hooks/app-hooks";
 
 type PlannerPokemonIconProps = {
   dispatchCart: React.Dispatch<CartAction>

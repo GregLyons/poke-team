@@ -12,7 +12,7 @@ import {
 import {
   CartAction,
   TeamAction,
-} from "../../App";
+} from "../../../hooks/app-hooks";
 
 type PlannerItemIconProps = {
   dispatchCart: React.Dispatch<CartAction>

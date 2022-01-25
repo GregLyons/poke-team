@@ -10,7 +10,7 @@ import {
 
 import {
   TeamAction,
-} from '../App';
+} from '../../hooks/app-hooks';
 
 // Converts keys from BaseStat object to formatted names.
 // const baseStatMap_fullName = new Map([

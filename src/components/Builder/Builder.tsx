@@ -6,7 +6,7 @@ import {
   Cart,
   CartAction,
   TeamAction,
-} from "../App";
+} from "../../hooks/app-hooks";
 
 import BuilderNavBar from './BuilderNavBar';
 import {

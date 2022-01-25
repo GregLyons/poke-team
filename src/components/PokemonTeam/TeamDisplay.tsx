@@ -9,7 +9,7 @@ import {
   CartAction,
   Team,
   TeamAction,
-} from '../App';
+} from '../../hooks/app-hooks';
 
 import TeamMember from './PokemonTeamMember';
 

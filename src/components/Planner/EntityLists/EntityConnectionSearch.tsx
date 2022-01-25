@@ -19,7 +19,7 @@ import {
 import {
   CartAction,
   TeamAction,
-} from '../../App';
+} from '../../../hooks/app-hooks';
 import { TierFilter } from '../../../utils/smogonLogic';
 
 interface EntityConnectionSearchProps<SearchQuery, SearchQueryVars> {

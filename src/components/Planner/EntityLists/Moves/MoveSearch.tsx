@@ -26,7 +26,7 @@ import {
 import { 
   CartAction,
   TeamAction,
-} from "../../../App";
+} from '../../../../hooks/app-hooks';
 
 import EntitySearchMain from '../EntitySearchMain';
 import EntitySearchEntry from '../EntitySearchEntry';

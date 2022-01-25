@@ -9,7 +9,7 @@ import {
 import {
   CartAction,
   TeamAction,
-} from "../App";
+} from "../../hooks/app-hooks";
 
 import PlannerNavBar from './PlannerNavBar';
 import { TierFilter } from "../../utils/smogonLogic";

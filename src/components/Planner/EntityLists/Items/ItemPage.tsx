@@ -60,7 +60,7 @@ import {
 import { 
   CartAction,
   TeamAction,
-} from "../../../App";
+} from '../../../../hooks/app-hooks';
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
 import ConnectionAccordion from '../ConnectionAccordion';

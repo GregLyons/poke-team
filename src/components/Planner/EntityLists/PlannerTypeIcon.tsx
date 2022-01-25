@@ -9,7 +9,7 @@ import {
 import {
   CartAction,
   TeamAction,
-} from "../../App";
+} from "../../../hooks/app-hooks";
 
 type PlannerTypeIconProps = {
   dispatchCart: React.Dispatch<CartAction>

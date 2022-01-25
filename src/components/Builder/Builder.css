@@ -1,0 +1,26 @@
+
+/* Pokemon icons */
+/* #region */
+
+.builder__pokemon-icon-container {
+  position: relative;
+  margin-right: 1px;
+}
+
+.builder__pokemon-icon-background {
+  position: absolute;
+}
+
+.builder__pokemon-icon {
+  position: absolute;
+  background-image: url('../../assets/icons/pokemonicons-sheet.png');
+  background-repeat: no-repeat;
+}
+
+.builder__pokemon-icon:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+/* #endregion */

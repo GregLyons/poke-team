@@ -9,7 +9,7 @@ import {
   Cart,
   CartAction,
   TeamAction,
-} from '../App';
+} from '../../hooks/app-hooks';
 
 import CartView from './CartView/CartView';
 import PokemonSearch from './PokemonSearch';
@@ -35,6 +35,10 @@ const BuilderHome = ({
       home
       <CartView 
         cart={cart}
+        dispatchCart={dispatchCart}
+        dispatchTeam={dispatchTeam}
+        gen={gen}
+        tierFilter={tierFilter}
       />
     </div>
   );

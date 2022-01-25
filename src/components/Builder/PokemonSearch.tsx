@@ -18,7 +18,7 @@ import {
 import {
   CartAction,
   TeamAction,
-} from '../App';
+} from '../../hooks/app-hooks';
 import { TierFilter } from '../../utils/smogonLogic';
 
 const POKEMON_SEARCH_QUERY = gql`

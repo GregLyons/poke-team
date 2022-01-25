@@ -55,119 +55,13 @@ import UsageMethodPage from './Planner/EntityLists/UsageMethods/UsageMethodPage'
 
 import TierFilterForm from './TierFilter';
 import { GenerationNum, ItemIconDatum, PokemonIconDatum, stringToGenNumber } from '../types-queries/helpers';
+import { cartReducer, DEFAULT_CART, teamReducer } from '../hooks/app-hooks';
 
-export type Team = Pokemon[];
-export type TeamAction = 
-| { type: 'add', payload: Pokemon, }
-| { type: 'remove', payload: number, }
-
-function teamReducer(state: Team, action: TeamAction) {
-  switch(action.type) {
-    case 'add':
-      return [
-        ...state,
-        action.payload,
-      ];
-    case 'remove':
-      return state.filter((d, i) => i !== action.payload);
-    default:
-      throw new Error();
-  }
-}
-
-export type Cart = {
-  pokemon: {
-    [parentEntityClass in EntityClass]?: {
-      [targetEntityClass in EntityClass | 'Has']?: {
-        // Key: Describes relationship between parent and target entity.
-        // Value: Pokemon from selection.
-        [note: string]: PokemonIconDatum[]
-      }
-    } 
-  }
-  items: {
-    [parentEntityClass in EntityClass]?: {
-      [targetEntityClass in EntityClass | 'From search']?: {
-        // Key: Describes relationship between parent and target entity.
-        // Value: Pokemon required for item, or [].
-        [note: string]: PokemonIconDatum[]
-      }
-    } 
-  }
-};
-
-
-export type CartAction =
-| { 
-    type: 'add_pokemon',
-    payload: {
-      pokemon: PokemonIconDatum[],
-      parentEntityClass: EntityClass,
-      targetEntityClass: EntityClass | 'Has',
-      note: string,
-    },
-  }
-| {
-    type: 'add_item'
-    payload: {
-      item: ItemIconDatum,
-      requiredPokemon: PokemonIconDatum[],
-      parentEntityClass: EntityClass,
-      targetEntityClass: EntityClass | 'From search'
-      note: string
-    }
-  }
-| { type: 'remove', };
-
-function cartReducer(state: Cart, action: CartAction) {
-  switch(action.type) {
-    case 'add_pokemon':
-      return {
-        ...state,
-        // Overwriting Pokemon
-        pokemon: {
-          // Overwriting parentEntityClass
-          ...state.pokemon,
-          [action.payload.parentEntityClass]: {
-            // Overwriting targetEntityClass within parentEntityClass
-            ...state.pokemon?.[action.payload.parentEntityClass],
-            [action.payload.targetEntityClass]: {
-              // Overwriting note within targetEntityClass
-              ...state.pokemon?.[action.payload.parentEntityClass]?.[action.payload.targetEntityClass],
-              [action.payload.note]: action.payload.pokemon,
-            }
-          }
-        }
-      }
-    case 'add_item':
-      return {
-        ...state,
-        // Overwriting items
-        items: {
-          // Overwriting parentEntityClass
-          ...state.items,
-          [action.payload.parentEntityClass]: {
-            // Overwriting targetEntityClass within parentEntityClass
-            ...state.items?.[action.payload.parentEntityClass],
-            [action.payload.targetEntityClass]: {
-              // Overwriting note within targetEntityClass
-              ...state.items?.[action.payload.parentEntityClass]?.[action.payload.targetEntityClass],
-              [action.payload.note]: action.payload.requiredPokemon,
-            }
-          }
-        }
-      }
-    case 'remove':
-      return state;
-    default:
-      throw new Error();
-  }
-}
 
 function App() {
   const [gen, setGen] = useState<GenerationNum>(NUMBER_OF_GENS);
   const [tierFilter, setTierFilter] = useState<TierFilter>(DEFAULT_SINGLES_TIER_FILTER);
-  const [cart, dispatchCart] = useReducer(cartReducer, { pokemon: {}, items: {}});
+  const [cart, dispatchCart] = useReducer(cartReducer, DEFAULT_CART);
   const [team, dispatchTeam] = useReducer(teamReducer, []);
 
   // Change gen when slider is changed

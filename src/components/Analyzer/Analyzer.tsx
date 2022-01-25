@@ -1,6 +1,6 @@
 import { GenerationNum } from "../../types-queries/helpers";
 import { TierFilter } from "../../utils/smogonLogic";
-import { CartAction, TeamAction } from "../App";
+import { CartAction, TeamAction } from "../../hooks/app-hooks";
 
 type AnalyzerProps = {
   dispatchCart: React.Dispatch<CartAction>
