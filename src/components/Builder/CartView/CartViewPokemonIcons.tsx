@@ -33,7 +33,7 @@ const CartViewPokemonIcons = ({
   let seenPokemon: {[k: string]: boolean} = {};
 
   return (
-    <div>
+    <div className="builder__pokemon-icons">
       {pokemonIconData.map(pokemonIconDatum => {
         const { name, psID, } = pokemonIconDatum;
         const tier = tierFilter.format === 'singles' ? psIDToSinglesTier(gen, psID) : psIDToDoublesTier(gen, psID);

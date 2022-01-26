@@ -31,8 +31,10 @@ const BuilderHome = ({
 }: BuilderHomeProps) => {
 
   return (
-    <div className="builder-wrapper">
-      home
+    <div className="builder__wrapper">
+      <div>
+        Home
+      </div>
       <CartView 
         cart={cart}
         dispatchCart={dispatchCart}

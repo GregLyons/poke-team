@@ -1,7 +1,4 @@
 import {
-  useState,
-} from "react";
-import {
   PokemonIconDatum,
 } from "../../../types-queries/helpers";
 import {
@@ -28,19 +25,11 @@ const CartViewPokemonIcon = ({
   const {left, top} = getPokemonIcon(pokemonIconDatum);
 
   return (
-    <div className="builder__pokemon-icon-container"
+    <div className="builder__pokemon-icon-wrapper"
       style={{
-        width: '40px',
-        height: '30px',
-        display: 'inline-block',
+        height: 'auto',
       }}
     >
-      <div className="builder__pokemon-icon-background" 
-        style={{
-          width: '40px',
-          height: '30px',
-        }}
-      />
       <div
         className="builder__pokemon-icon"
         title={`Icon for the Pokemon ${pokemonIconDatum.formattedName}`}
@@ -52,6 +41,15 @@ const CartViewPokemonIcon = ({
           backgroundPosition: `${left}px ${top}px`,
         }}              
       />
+      <div
+        className="builder__pokemon-icon-name"
+      >
+        {/* Split name into species name and form name, on different rows*/}
+        {pokemonIconDatum.formattedName.split('(').map((d, idx) => {
+          if (idx === 0) return <div>{d}</div>;
+          else return <div>{'(' + d}</div>;
+        })}
+      </div>
     </div>
   );
 };

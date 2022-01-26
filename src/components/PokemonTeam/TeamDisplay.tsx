@@ -29,17 +29,8 @@ const TeamDisplay = ({
   return (
     <div className="pokemon-team">
       {[
-        // Actual members of the team
-        ...team.map((pokemon: Pokemon, idx: number) => (
-        <TeamMember
-          gen={gen}
-          pokemon={pokemon}
-          idx={idx}
-          dispatchTeam={dispatchTeam}
-        />
-        )),
         // Placeholder for missing team members
-        ...(new Array(6 - team.length)
+        ...(new Array(12 - team.length)
             .fill(0)
             .map((d, idx) => (
               <div 

@@ -6,7 +6,7 @@
 
 .pokemon-team {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(12, 1fr);
 
   width: 100%;
   min-height: 100px;

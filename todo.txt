@@ -9,6 +9,8 @@ missing/incorrect/additional data:
 
   gloom doesn't learn absorb in gen 5 ARRRRGHGHHHH
 
+  gravity and terrains missing target class
+
   form flags
     mothim trash, mothim sandy cosmetic? or not at all?
     genesect drives?
@@ -143,3 +145,5 @@ moves on effect page expands when selecting pokemon
 ice resists hail
 
 field state planner search sometimes have 'touppercase null' error
+
+removed from gen 8/swsh/bdsp filters
