@@ -32,6 +32,7 @@ import {
 import EntitySearchMain from '../EntitySearchMain';
 import EntitySearchEntry from '../EntitySearchEntry';
 import { TierFilter } from '../../../../utils/smogonLogic';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
 
 const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<TypeSearchQuery>) => {
   if (!data || !data.types) return (<div>Data not found for the query 'types'.</div>);
@@ -47,6 +48,7 @@ const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }
         return (
           <>
             <EntitySearchEntry
+              genFilter={genFilter}
               entityClass="Type"
               key={'typeEntry_' + type.id}
               name={type.formattedName}
@@ -82,18 +84,20 @@ const TypeSearch = ({
   genFilter,
   tierFilter,
 }: TypeSearchMainProps) => {
+  const [queryVars, setQueryVars] = useRemovalConnectedSearchVars<TypeSearchVars>(
+    {
+      gen: genFilter.gen,
+      startsWith: '',
+      limit: 5,
+      removedFromSwSh: removedFromSwSh(genFilter),
+      removedFromBDSP: removedFromBDSP(genFilter),
+    },
+    genFilter);
 
-  const [queryVars, setQueryVars] = useState<TypeSearchVars>({
-    gen: genFilter.gen,
-    startsWith: '',
-    limit: 100,
-    removedFromSwSh: removedFromSwSh(genFilter),
-    removedFromBDSP: removedFromBDSP(genFilter),
-  })
-
-  const handleSubmit: (newQueryVars: TypeSearchVars) => void = (newQueryVars) => {
+  const handleSearchBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQueryVars({
-      ...newQueryVars,
+      ...queryVars,
+      startsWith: e.target.value,
     });
   }
 
@@ -104,7 +108,7 @@ const TypeSearch = ({
         dispatchTeam={dispatchTeam}
         genFilter={genFilter}
         tierFilter={tierFilter}
-        handleSubmit={handleSubmit}
+        handleSearchBoxChange={handleSearchBoxChange}
         listRender={listRender}
         query={TYPE_SEARCH_QUERY}
         queryVars={queryVars}

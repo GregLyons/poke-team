@@ -59,6 +59,7 @@ const PlannerPokemonIcons = ({
         if (tier && !icons.tierFilter['tiers'][tier]) return;
 
         hasIcon.current = true;
+        console.log(psID);
 
         return (
           <PlannerPokemonIcon
@@ -66,7 +67,7 @@ const PlannerPokemonIcons = ({
             dispatchTeam={icons.dispatchTeam}
             key={key + '_' + pokemonIconDatum.name + '_icon'}
             pokemonIconDatum={pokemonIconDatum}
-            selected={selection[psID].selected}
+            selected={selection[psID]?.selected}
             toggleSelection={toggleSelection}
           />
         );

@@ -39,6 +39,7 @@ import {
 import {
   TierFilter,
 } from '../../../../utils/smogonLogic';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
 
 const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<MoveSearchQuery>) => {
   if (!data || !data.moves) return (<div>Data not found for the query 'moves'.</div>);
@@ -54,6 +55,7 @@ const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }
         return (
           <>
             <EntitySearchEntry
+              genFilter={genFilter}
               entityClass="Move"
               key={'moveEntry_' + move.id}
               name={move.formattedName}
@@ -112,19 +114,24 @@ const MoveSearch = ({
   genFilter,
   tierFilter,
 }: MoveSearchProps) => {
-  const [queryVars, setQueryVars] = useState<MoveSearchVars>({
-    gen: genFilter.gen,
-    startsWith: '',
-    limit: 5,
-    removedFromSwSh: removedFromSwSh(genFilter),
-    removedFromBDSP: removedFromBDSP(genFilter),
-  })
+  const [queryVars, setQueryVars] = useRemovalConnectedSearchVars<MoveSearchVars>(
+    {
+      gen: genFilter.gen,
+      startsWith: '',
+      limit: 5,
+      removedFromSwSh: removedFromSwSh(genFilter),
+      removedFromBDSP: removedFromBDSP(genFilter),
+    },
+    genFilter,
+  );
 
-  const handleSubmit: (newQueryVars: MoveSearchVars) => void = (newQueryVars) => {
+  const handleSearchBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQueryVars({
-      ...newQueryVars,
+      ...queryVars,
+      startsWith: e.target.value,
     });
   }
+
 
   return (
     <>
@@ -133,7 +140,7 @@ const MoveSearch = ({
         dispatchTeam={dispatchTeam}
         genFilter={genFilter}
         tierFilter={tierFilter}
-        handleSubmit={handleSubmit}
+        handleSearchBoxChange={handleSearchBoxChange}
         listRender={listRender}
         query={MOVE_SEARCH_QUERY}
         queryVars={queryVars}

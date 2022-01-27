@@ -28,6 +28,7 @@ import {
 
 import EntitySearchMain from '../EntitySearchMain';
 import EntitySearchEntry from '../EntitySearchEntry';
+import { useGenConnectedSearchVars } from '../../../../hooks/planner-hooks';
 
 const listRender = ({ data, }: ListRenderArgs<EffectSearchQuery>) => {
   if (!data || !data.effects) return (<div>Data not found for the query 'effects'.</div>);
@@ -64,24 +65,28 @@ const EffectSearch = ({
   dispatchTeam,
   genFilter,
 }: EffectSearchMainProps) => {
+  const [queryVars, setQueryVars] = useGenConnectedSearchVars<EffectSearchVars>(
+    {
+      gen: genFilter.gen,
+      startsWith: '',
+      limit: 5,
+    },
+    genFilter,
+  );
 
-  const [queryVars, setQueryVars] = useState<EffectSearchVars>({
-    gen: genFilter.gen,
-    startsWith: '',
-    limit: 100,
-  })
-
-  const handleSubmit: (newQueryVars: EffectSearchVars) => void = (newQueryVars) => {
+  const handleSearchBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQueryVars({
-      ...newQueryVars,
+      ...queryVars,
+      startsWith: e.target.value,
     });
   }
+
 
   return (
     <>
       <EntitySearchMain
         genFilter={genFilter}
-        handleSubmit={handleSubmit}
+        handleSearchBoxChange={handleSearchBoxChange}
         listRender={listRender}
         query={EFFECT_SEARCH_QUERY}
         queryVars={queryVars}

@@ -722,7 +722,7 @@ export interface FieldStateItemQueryVars extends EntityConnectionVars {
 }
 
 export const FIELDSTATE_ITEM_QUERY = gql`
-  query FieldStateItemsQuery($gen: Int! $name: String!) {
+  query FieldStateItemsQuery($gen: Int! $name: String! $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
     fieldStateByName(generation: $gen, name: $name) {
       id
       name

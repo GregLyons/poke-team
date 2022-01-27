@@ -28,6 +28,7 @@ import {
 
 import EntitySearchMain from '../EntitySearchMain';
 import EntitySearchEntry from '../EntitySearchEntry';
+import { useGenConnectedSearchVars } from '../../../../hooks/planner-hooks';
 
 const listRender = ({ data, }: ListRenderArgs<StatusSearchQuery>) => {
   if (!data || !data.statuses) return (<div>Data not found for the query 'statuses'.</div>);
@@ -69,24 +70,28 @@ const StatusSearch = ({
   dispatchTeam,
   genFilter,
 }: StatusSearchMainProps) => {
+  const [queryVars, setQueryVars] = useGenConnectedSearchVars<StatusSearchVars>(
+    {
+      gen: genFilter.gen,
+      startsWith: '',
+      limit: 5,
+    },
+    genFilter,
+  );
 
-  const [queryVars, setQueryVars] = useState<StatusSearchVars>({
-    gen: genFilter.gen,
-    startsWith: '',
-    limit: 100,
-  })
-
-  const handleSubmit: (newQueryVars: StatusSearchVars) => void = (newQueryVars) => {
+  const handleSearchBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQueryVars({
-      ...newQueryVars,
+      ...queryVars,
+      startsWith: e.target.value,
     });
   }
+
 
   return (
     <>
       <EntitySearchMain
         genFilter={genFilter}
-        handleSubmit={handleSubmit}
+        handleSearchBoxChange={handleSearchBoxChange}
         listRender={listRender}
         query={STATUS_SEARCH_QUERY}
         queryVars={queryVars}

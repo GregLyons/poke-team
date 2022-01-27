@@ -83,10 +83,10 @@ export const ABILITY_SEARCH_QUERY = gql`
       }
 
       pokemon(filter: {
-              formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
-              removedFromSwSh: $removedFromSwSh,
-              removedFromBDSP: $removedFromBDSP
-            }) {
+        formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+        removedFromSwSh: $removedFromSwSh,
+        removedFromBDSP: $removedFromBDSP
+      }) {
         edges {
           node {
             id

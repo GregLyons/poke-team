@@ -38,8 +38,6 @@ const CartViewAccordion = ({
     }));
   }
 
-  console.log(activeElement);
-
   return (
     <div className={`builder__accordion builder__accordion--${accordionRole}`}>
       {accordionData.map(({title, content}, idx) => (

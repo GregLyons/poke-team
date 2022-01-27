@@ -25,7 +25,7 @@ import {
 } from '../utils/smogonLogic';
 
 import NavBar from './NavBar/NavBar';
-import GenDropdown from './ControlPanel/GenFilterForm';
+import GenFilterForm from './ControlPanel/GenFilterForm';
 import TeamDisplay from './ControlPanel/PokemonTeam/TeamDisplay';
 
 import Analyzer from './Analyzer/Analyzer';

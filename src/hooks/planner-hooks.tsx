@@ -1,10 +1,48 @@
 import {
+  SetStateAction,
   useEffect,
   useReducer,
   useRef,
   useState,
 } from "react";
 import { PokemonIconDatum } from "../types-queries/helpers";
+import { GenFilter, removedFromBDSP, removedFromSwSh } from "./app-hooks";
+
+// Main searches
+// #region
+
+export function useGenConnectedSearchVars<SearchVars>(defaultSearchVars: SearchVars, genFilter: GenFilter): [SearchVars, React.Dispatch<SetStateAction<SearchVars>>] {
+  const [queryVars, setQueryVars] = useState<SearchVars>(defaultSearchVars);
+
+  useEffect(() => {
+    setQueryVars({
+      ...queryVars,
+      gen: genFilter.gen,
+    });
+  }, [genFilter]);
+
+  return [queryVars, setQueryVars];
+}
+
+export function useRemovalConnectedSearchVars<SearchVars>(defaultSearchVars: SearchVars, genFilter: GenFilter): [SearchVars, React.Dispatch<SetStateAction<SearchVars>>] {
+  const [queryVars, setQueryVars] = useState<SearchVars>(defaultSearchVars);
+  
+  useEffect(() => {
+    setQueryVars({
+      ...queryVars,
+      gen: genFilter.gen,
+      removedFromSwSh: removedFromSwSh(genFilter),
+      removedFromBDSP: removedFromBDSP(genFilter),
+    })
+  }, [genFilter]);
+
+  return [queryVars, setQueryVars];
+}
+
+// #endregion
+
+// Entries
+// #region
 
 /* 
   Once the entry expands to its scroll height, its scroll height then increases slightly. Thus, if we modify our selection, the component will re-render with the new, slightly increased scroll height, and the effect is that the height increases slightly whenever we click on a selection. 
@@ -47,6 +85,11 @@ export const useEntryExpand = (entryRef: React.RefObject<HTMLDivElement>) => {
 
   return {hover, expand, expandListeners, originalScrollHeight};
 }
+
+// #endregion
+
+// Selecting
+// #region
 
 export const useSelection = (iconData: PokemonIconDatum[] | undefined): [Selection, React.Dispatch<SelectionAction>] => {
   const initialSelection = iconData
@@ -143,3 +186,5 @@ const selectionReducer = (selection: Selection, action: SelectionAction): Select
       throw new Error();
   }
 }
+
+// #endregion

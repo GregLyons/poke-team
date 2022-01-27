@@ -32,6 +32,7 @@ import {
 import EntitySearchMain from '../EntitySearchMain';
 import EntitySearchEntry from '../EntitySearchEntry';
 import { TierFilter } from '../../../../utils/smogonLogic';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
 
 const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<AbilitySearchQuery>) => {
   if (!data || !data.abilities) return (<div>Data not found for the query 'abilities'.</div>);
@@ -47,6 +48,7 @@ const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }
         return (
           <>
             <EntitySearchEntry
+              genFilter={genFilter}
               entityClass="Ability"
               key={'abilityEntry_' + ability.id}
               name={ability.formattedName}
@@ -81,27 +83,16 @@ const AbilitySearch = ({
   genFilter,
   tierFilter,
 }: AbilitySearchMainProps) => {
-  const [queryVars, setQueryVars] = useState<AbilitySearchVars>({
-    gen: genFilter.gen,
-    startsWith: '',
-    limit: 5,
-    removedFromSwSh: removedFromSwSh(genFilter),
-    removedFromBDSP: removedFromBDSP(genFilter),
-  });
-
-  useEffect(() => {
-    setQueryVars({
-      ...queryVars,
+  const [queryVars, setQueryVars] = useRemovalConnectedSearchVars<AbilitySearchVars>(
+    {
       gen: genFilter.gen,
-    })
-  }, [genFilter]);
-  
-
-  // const handleSubmit: (newQueryVars: AbilitySearchVars) => void = (newQueryVars) => {
-  //   setQueryVars({
-  //     ...newQueryVars,
-  //   });
-  // }
+      startsWith: '',
+      limit: 5,
+      removedFromSwSh: removedFromSwSh(genFilter),
+      removedFromBDSP: removedFromBDSP(genFilter),
+    },
+    genFilter,
+  );
 
   const handleSearchBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQueryVars({

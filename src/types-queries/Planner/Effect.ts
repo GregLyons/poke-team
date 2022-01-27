@@ -246,7 +246,7 @@ export interface EffectAbilityQueryVars extends EntityConnectionVars, RemovedFro
 }
 
 export const EFFECT_ABILITY_QUERY = gql`
-  query EffectAbilitiesQuery($gen: Int! $name: String!) {
+  query EffectAbilitiesQuery($gen: Int! $name: String! $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
     effectByName(generation: $gen, name: $name) {
       id
       name

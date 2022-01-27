@@ -32,7 +32,6 @@ interface EntitySearchMainProps<SearchQuery, SearchQueryVars> {
   dispatchTeam?: React.Dispatch<TeamAction>
   genFilter: GenFilter
   tierFilter?: TierFilter
-  handleSubmit?: (newQueryVars: SearchQueryVars) => void
   handleSearchBoxChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   query: DocumentNode
   queryVars: SearchQueryVars
@@ -44,7 +43,6 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
   dispatchTeam,
   genFilter,
   tierFilter,
-  handleSubmit,
   handleSearchBoxChange,
   listRender,
   query,
@@ -53,6 +51,7 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
   const { data, loading, error } = useQuery<SearchQuery, SearchQueryVars>(query, {
     variables: queryVars,
   });
+  console.log(queryVars);
   const [searchBox, setSearchBox] = useState('');
 
   if (error) { return (<div>{error.message}</div>)}

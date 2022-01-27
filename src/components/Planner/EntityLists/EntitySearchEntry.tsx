@@ -29,6 +29,7 @@ import {
 
 import { 
   CartAction,
+  GenFilter,
   TeamAction,
 } from "../../../hooks/app-hooks";
 import PlannerItemIcon from "./PlannerItemIcon";
@@ -40,6 +41,7 @@ import PlannerPokemonIcons from "./PlannerPokemonIcons";
 import SelectionControls from "./SelectionControls";
 
 type EntitySearchEntryProps = {
+  genFilter?: GenFilter
   entityClass: EntityClass
   key: string
   name: string
@@ -53,6 +55,7 @@ type EntitySearchEntryProps = {
 }
 
 const EntitySearchEntry = ({
+  genFilter,
   entityClass,
   key,
   name,
@@ -73,7 +76,6 @@ const EntitySearchEntry = ({
   const { hover, expand, expandListeners, originalScrollHeight } = useEntryExpand(entryRef);
 
   // #endregion
-
 
   // Selecting
   // #region

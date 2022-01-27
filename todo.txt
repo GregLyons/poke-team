@@ -16,6 +16,10 @@ missing/incorrect/additional data:
     genesect drives?
     xerneas active vs. neutral?
 
+  only darmanitan galar zen has zen mode
+
+  oricorio present in bdsp??
+
   items
     remove
       amulet coin
@@ -147,3 +151,6 @@ ice resists hail
 field state planner search sometimes have 'touppercase null' error
 
 removed from gen 8/swsh/bdsp filters
+
+
+Fix queries:

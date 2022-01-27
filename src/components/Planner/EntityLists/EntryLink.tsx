@@ -47,7 +47,7 @@ const EntryLink = ({
     <div className="planner__entry-row-name-container">
       <Link
         ref={linkRef}
-        to={`../${ENTITYCLASS_TO_PLANNERLINK.get(parentEntityClass)}/${linkName}`}
+        to={`../${ENTITYCLASS_TO_PLANNERLINK.get(targetEntityClass === 'From search' ? parentEntityClass : targetEntityClass)}/${linkName}`}
       >
         {<span
           className="planner__entry-row-name"

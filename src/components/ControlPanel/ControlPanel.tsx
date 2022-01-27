@@ -4,7 +4,7 @@ import { CartAction, GenFilter, GenFilterAction, Team, TeamAction } from "../../
 import { GenerationNum } from "../../types-queries/helpers";
 import { Pokemon } from "../../types-queries/Planner/Pokemon";
 import { TierFilter } from "../../utils/smogonLogic";
-import GenDropdown from "./GenFilterForm";
+import GenFilterForm from "./GenFilterForm";
 import TeamDisplay from "./PokemonTeam/TeamDisplay";
 import TierFilterForm from "./TierFilterForm";
 import PokemonFilterForm from './PokemonFilterForm';
@@ -39,7 +39,7 @@ const ControlPanel = ({
 }: ControlPanelProps) => {
   return (
     <div className="control-panel__wrapper">
-      <GenDropdown
+      <GenFilterForm
         genFilter={genFilter}
         dispatchGenFilter={dispatchGenFilter}
       />

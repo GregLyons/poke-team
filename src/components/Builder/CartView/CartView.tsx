@@ -19,7 +19,6 @@ const CartView = ({
   genFilter,
   tierFilter,
 }: CartViewProps) => {
-  console.log(cart);
   return (
     <div className="builder__cart-view-wrapper">
       <CartViewAccordion
