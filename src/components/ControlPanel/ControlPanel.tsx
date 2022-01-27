@@ -1,10 +1,10 @@
 import './ControlPanel.css';
 
-import { CartAction, GenFilter, Team, TeamAction } from "../../hooks/app-hooks";
+import { CartAction, GenFilter, GenFilterAction, Team, TeamAction } from "../../hooks/app-hooks";
 import { GenerationNum } from "../../types-queries/helpers";
 import { Pokemon } from "../../types-queries/Planner/Pokemon";
 import { TierFilter } from "../../utils/smogonLogic";
-import GenDropdown from "./GenSlider";
+import GenDropdown from "./GenFilterForm";
 import TeamDisplay from "./PokemonTeam/TeamDisplay";
 import TierFilterForm from "./TierFilterForm";
 import PokemonFilterForm from './PokemonFilterForm';
@@ -13,8 +13,8 @@ type ControlPanelProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
 
+  dispatchGenFilter: React.Dispatch<GenFilterAction>
   genFilter: GenFilter
-  selectGen: (gen: GenerationNum) => void
   
   tierFilter: TierFilter
   handleTierModeChange: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -27,8 +27,10 @@ type ControlPanelProps = {
 const ControlPanel = ({
   dispatchCart,
   dispatchTeam,
+
+  dispatchGenFilter,
   genFilter,
-  selectGen,
+
   tierFilter,
   handleTierModeChange,
   handleTierFilterChange,
@@ -39,7 +41,7 @@ const ControlPanel = ({
     <div className="control-panel__wrapper">
       <GenDropdown
         genFilter={genFilter}
-        selectGen={selectGen}
+        dispatchGenFilter={dispatchGenFilter}
       />
       <TierFilterForm
         tierFilter={tierFilter}

@@ -1,4 +1,5 @@
 import {
+  useEffect,
   useState,
 } from 'react';
 import {
@@ -77,10 +78,9 @@ type AbilitySearchMainProps = {
 const AbilitySearch = ({
   dispatchCart,
   dispatchTeam,
-  genFilter: genFilter,
+  genFilter,
   tierFilter,
 }: AbilitySearchMainProps) => {
-
   const [queryVars, setQueryVars] = useState<AbilitySearchVars>({
     gen: genFilter.gen,
     startsWith: '',
@@ -89,9 +89,24 @@ const AbilitySearch = ({
     removedFromBDSP: removedFromBDSP(genFilter),
   });
 
-  const handleSubmit: (newQueryVars: AbilitySearchVars) => void = (newQueryVars) => {
+  useEffect(() => {
     setQueryVars({
-      ...newQueryVars,
+      ...queryVars,
+      gen: genFilter.gen,
+    })
+  }, [genFilter]);
+  
+
+  // const handleSubmit: (newQueryVars: AbilitySearchVars) => void = (newQueryVars) => {
+  //   setQueryVars({
+  //     ...newQueryVars,
+  //   });
+  // }
+
+  const handleSearchBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQueryVars({
+      ...queryVars,
+      startsWith: e.target.value,
     });
   }
 
@@ -102,7 +117,7 @@ const AbilitySearch = ({
         dispatchTeam={dispatchTeam}
         genFilter={genFilter}
         tierFilter={tierFilter}
-        handleSubmit={handleSubmit}
+        handleSearchBoxChange={handleSearchBoxChange}
         listRender={listRender}
         query={ABILITY_SEARCH_QUERY}
         queryVars={queryVars}

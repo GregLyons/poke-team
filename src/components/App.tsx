@@ -25,7 +25,7 @@ import {
 } from '../utils/smogonLogic';
 
 import NavBar from './NavBar/NavBar';
-import GenDropdown from './ControlPanel/GenSlider';
+import GenDropdown from './ControlPanel/GenFilterForm';
 import TeamDisplay from './ControlPanel/PokemonTeam/TeamDisplay';
 
 import Analyzer from './Analyzer/Analyzer';
@@ -63,21 +63,6 @@ function App() {
   const [tierFilter, setTierFilter] = useState<TierFilter>(DEFAULT_SINGLES_TIER_FILTER);
   const [cart, dispatchCart] = useReducer(cartReducer, DEFAULT_CART);
   const [team, dispatchTeam] = useReducer(teamReducer, []);
-
-  // Gen filtering
-  // #region
-
-  const selectGen = (gen: GenerationNum) => {
-    dispatchGenFilter({
-      type: 'set_gen',
-      payload: {
-        gen,
-      },
-    });
-  }
-
-
-  // #endregion
 
   // Tier filtering
   // #region
@@ -145,8 +130,8 @@ function App() {
         <ControlPanel 
           dispatchCart={dispatchCart}
           dispatchTeam={dispatchTeam}
+          dispatchGenFilter={dispatchGenFilter}
           genFilter={genFilter}
-          selectGen={selectGen}
           tierFilter={tierFilter}
           handleTierModeChange={handleTierModeChange}
           handleTierFilterChange={handleTierFilterChange}

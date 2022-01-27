@@ -66,6 +66,9 @@ function DropdownMenu<E extends Item<F>, F>({
               <li
                 className="dropdown__option"
                 key={`${title}_${item.id}`}
+                style={{
+                  backgroundColor: item.selected ? 'lightblue' : '',
+                }}
               >
                 <span
                   className="dropdown__button"
@@ -74,12 +77,8 @@ function DropdownMenu<E extends Item<F>, F>({
                     toggleSelect(item.id)
                   }}
                 >
-                  {item.selected
-                    ? <FontAwesome name="check-circle" />
-                    : <FontAwesome name="circle" />}
+                  {item.label}
                 </span>
-                {' '}
-                {item.label}
               </li>
             )
           })}

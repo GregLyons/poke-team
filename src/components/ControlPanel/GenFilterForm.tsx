@@ -5,13 +5,13 @@ import {
 import {
   GenerationNum,
 } from "../../types-queries/helpers";
-import { GenFilter } from "../../hooks/app-hooks";
+import { GenFilter, GenFilterAction } from "../../hooks/app-hooks";
 import Dropdown from "../Forms/Dropdown";
 import { useState } from "react";
 
 type GenDropdownProps = {
   genFilter: GenFilter,
-  selectGen: (gen: GenerationNum) => void
+  dispatchGenFilter: React.Dispatch<GenFilterAction>
 }
 
 type GenItemID = GenerationNum;
@@ -25,19 +25,22 @@ type GenItem = {
 const DEFAULT_GEN_ITEMS: GenItem[] = GEN_ARRAY.map(gen => {
   return {
     id: gen,
-    label: 'Generation ' + gen,
+    label: 'Gen ' + gen,
     selected: gen === 8,
   }
 });
 
 const GenDropdown = ({
   genFilter,
-  selectGen,
+  dispatchGenFilter: dispatchGenFilter,
 }: GenDropdownProps) => {
   const [genItems, setGenItems] = useState<GenItem[]>(DEFAULT_GEN_ITEMS);
 
   const handleGenSelect = (selectedGenItemID: GenItemID) => {
-    selectGen(selectedGenItemID);
+    dispatchGenFilter({
+      type: 'set_gen',
+      payload: { gen: selectedGenItemID },
+    });
     setGenItems(genItems.map(genItem => {
       return {
         ...genItem,
