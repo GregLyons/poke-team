@@ -25,7 +25,7 @@ import {
 } from '../utils/smogonLogic';
 
 import NavBar from './NavBar/NavBar';
-import GenSlider from './ControlPanel/GenSlider';
+import GenDropdown from './ControlPanel/GenSlider';
 import TeamDisplay from './ControlPanel/PokemonTeam/TeamDisplay';
 
 import Analyzer from './Analyzer/Analyzer';
@@ -67,13 +67,13 @@ function App() {
   // Gen filtering
   // #region
 
-  const handleGenSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const selectGen = (gen: GenerationNum) => {
     dispatchGenFilter({
       type: 'set_gen',
       payload: {
-        gen: stringToGenNumber(e.target.value)
+        gen,
       },
-    })
+    });
   }
 
 
@@ -146,7 +146,7 @@ function App() {
           dispatchCart={dispatchCart}
           dispatchTeam={dispatchTeam}
           genFilter={genFilter}
-          handleGenSliderChange={handleGenSliderChange}
+          selectGen={selectGen}
           tierFilter={tierFilter}
           handleTierModeChange={handleTierModeChange}
           handleTierFilterChange={handleTierFilterChange}

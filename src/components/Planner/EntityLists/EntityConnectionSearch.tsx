@@ -47,7 +47,7 @@ function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
   useEffect(() => {
     handleChange({
       ...queryVars,
-      gen: genFilter,
+      gen: genFilter.gen,
     })
   }, [genFilter])
 

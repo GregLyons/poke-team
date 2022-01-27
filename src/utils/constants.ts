@@ -1,6 +1,8 @@
 // Entity classes
 // #region
 
+import { GenerationNum } from "../types-queries/helpers";
+
 export type EntityClass = 'Ability' | 'Effect' | 'Field state' | 'Item' | 'Move' | 'Stat' | 'Status' | 'Type' | 'Usage method';
 
 export type EntityLink = 'abilities' | 'effects' | 'fieldStates' | 'items' | 'moves' | 'stats' | 'statuses' | 'types' | 'usageMethods';
@@ -20,6 +22,8 @@ export const ENTITYCLASS_TO_PLANNERLINK = new Map<EntityClass, EntityLink>([
 // #endregion
 
 export const NUMBER_OF_GENS = 8;
+
+export const GEN_ARRAY: GenerationNum[] = [1, 2, 3, 4, 5, 6, 7, 8];
 
 // 'THIS_IS_ENUM_CASE' => 'This is title case'
 export const ENUMCASE_TO_TITLECASE = (enumCase: string): string => {

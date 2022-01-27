@@ -107,14 +107,14 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
           handleSubmit({
             ...queryVars,
             startsWith: searchBox.value,
-            gen: genFilter,
+            gen: genFilter.gen,
           });
         } 
         else {
           handleSubmit({
             ...queryVars,
             startsWith: searchParams.get('startsWith') || '',
-            gen: genFilter,
+            gen: genFilter.gen,
           });
         }
       }}>
