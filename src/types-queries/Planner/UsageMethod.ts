@@ -37,6 +37,7 @@ import {
   AuxToMainConnectionOnPage,
   AuxToItemConnectionEdge,
   AuxToItemConnectionOnPage,
+  RemovedFromGameQueryVars,
 } from './helpers';
 
 // UsageMethod in main search
@@ -126,13 +127,15 @@ export interface UsageMethodPageResult extends AuxEntityPageResult {
   resistedByItem: CountField
 }
 
-export interface UsageMethodPageQueryVars extends EntityPageVars {
+export interface UsageMethodPageQueryVars extends EntityPageVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
 }
 
 export const USAGEMETHOD_PAGE_QUERY = gql`
-  query UsageMethodPageQuery($gen: Int! $name: String!) {
+  query UsageMethodPageQuery($gen: Int! $name: String! $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
     usageMethodByName(generation: $gen, name: $name) {
       id
       name
@@ -164,7 +167,10 @@ export const USAGEMETHOD_PAGE_QUERY = gql`
       preventedByAbility {
         count
       }
-      preventedByMove {
+      preventedByMove(filter: {
+        removedFromSwSh: $removedFromSwSh,
+        removedFromBDSP: $removedFromBDSP
+      }) {
         count
       }
       resistedByAbility {
@@ -173,7 +179,10 @@ export const USAGEMETHOD_PAGE_QUERY = gql`
       resistedByItem {
         count
       }
-      moves {
+      moves(filter: {
+        removedFromSwSh: $removedFromSwSh,
+        removedFromBDSP: $removedFromBDSP
+      }) {
         count
       }
     }
@@ -261,13 +270,15 @@ export interface UsageMethodAbilityEdge extends AbilityIconEdge, AuxToMainConnec
   multiplier?: number
 }
 
-export interface UsageMethodAbilityQueryVars extends EntityConnectionVars {
+export interface UsageMethodAbilityQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
 }
 
 export const USAGEMETHOD_ABILITY_QUERY = gql`
-  query UsageMethodAbilitiesQuery($gen: Int! $name: String!) {
+  query UsageMethodAbilitiesQuery($gen: Int! $name: String! $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
     usageMethodByName(generation: $gen, name: $name) {
       id
       name
@@ -288,7 +299,11 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
               }
             }
 
-            pokemon(filter: {formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+            pokemon(filter: {
+              formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+              removedFromSwSh: $removedFromSwSh,
+              removedFromBDSP: $removedFromBDSP
+            }) {
               edges {
                 node {
                   id
@@ -316,7 +331,11 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
               }
             }
 
-            pokemon(filter: {formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+            pokemon(filter: {
+              formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+              removedFromSwSh: $removedFromSwSh,
+              removedFromBDSP: $removedFromBDSP
+            }) {
               edges {
                 node {
                   id
@@ -345,7 +364,11 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
               }
             }
 
-            pokemon(filter: {formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+            pokemon(filter: {
+              formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+              removedFromSwSh: $removedFromSwSh,
+              removedFromBDSP: $removedFromBDSP
+            }) {
               edges {
                 node {
                   id
@@ -373,7 +396,11 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
               }
             }
 
-            pokemon(filter: {formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+            pokemon(filter: {
+              formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+              removedFromSwSh: $removedFromSwSh,
+              removedFromBDSP: $removedFromBDSP
+            }) {
               edges {
                 node {
                   id
@@ -445,13 +472,15 @@ export interface UsageMethodItemEdge extends AuxToItemConnectionEdge {
   multiplier?: number
 }
 
-export interface UsageMethodItemQueryVars extends EntityConnectionVars {
+export interface UsageMethodItemQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
 }
 
 export const USAGEMETHOD_ITEM_QUERY = gql`
-  query UsageMethodItemsQuery($gen: Int! $name: String!) {
+  query UsageMethodItemsQuery($gen: Int! $name: String! $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
     usageMethodByName(generation: $gen, name: $name) {
       id
       name
@@ -471,7 +500,7 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
               }
             }
 
-            requiresPokemon {
+            requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
               edges {
                 node {
                   id
@@ -499,7 +528,7 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
               }
             }
 
-            requiresPokemon {
+            requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
               edges {
                 node {
                   id
@@ -528,7 +557,7 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
               }
             }
 
-            requiresPokemon {
+            requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
               edges {
                 node {
                   id
@@ -597,19 +626,24 @@ export interface UsageMethodMoveEdge extends MoveIconEdge, AuxToMainConnectionEd
   }
 }
 
-export interface UsageMethodMoveQueryVars extends EntityConnectionVars {
+export interface UsageMethodMoveQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
 }
 
 export const USAGEMETHOD_MOVE_QUERY = gql`
-  query UsageMethodMovesQuery($gen: Int! $name: String!) {
+  query UsageMethodMovesQuery($gen: Int! $name: String! $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
     usageMethodByName(generation: $gen, name: $name) {
       id
       name
       formattedName
        
-      moves {
+      moves(filter: {
+        removedFromSwSh: $removedFromSwSh,
+        removedFromBDSP: $removedFromBDSP
+      }) {
         edges {
           node {
             id
@@ -634,7 +668,11 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
               }
             }
 
-            pokemon(filter: {formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+            pokemon(filter: {
+              formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+              removedFromSwSh: $removedFromSwSh,
+              removedFromBDSP: $removedFromBDSP
+            }) {
               edges {
                 node {
                   id
@@ -647,7 +685,10 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
           }
         }
       }
-      preventedByMove {
+      preventedByMove(filter: {
+        removedFromSwSh: $removedFromSwSh,
+        removedFromBDSP: $removedFromBDSP
+      }) {
         edges {
           node {
             id
@@ -671,7 +712,11 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
               }
             }
 
-            pokemon(filter: {formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+            pokemon(filter: {
+              formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+              removedFromSwSh: $removedFromSwSh,
+              removedFromBDSP: $removedFromBDSP
+            }) {
               edges {
                 node {
                   id

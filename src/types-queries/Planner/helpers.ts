@@ -311,6 +311,7 @@ export abstract class AuxToItemConnectionOnPage extends AuxToMainConnectionOnPag
 
 // #endregion
 
+// Introduction query
 // #region
 
 export type IntroductionQuery = {
@@ -342,5 +343,16 @@ export const INTRODUCTION_QUERY = (queryName: EntityPageQueryName) => gql`
 `;
 
 // #endregion
+
+// QueryVars for Moves/Pokemon, removed from BDSP/SwSh
+// #region
+
+export interface RemovedFromGameQueryVars {
+  removedFromSwSh: boolean 
+  removedFromBDSP: boolean
+}
+
+// #endregion
+
 
 // #endregion

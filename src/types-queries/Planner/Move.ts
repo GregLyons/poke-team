@@ -32,6 +32,7 @@ import {
   MainToAuxConnectionEdge,
   EntityConnectionVars,
   MainToAuxConnectionOnPage,
+  RemovedFromGameQueryVars,
 } from './helpers';
 
 // Move in main search
@@ -67,17 +68,19 @@ export interface MoveSearchResult extends MainEntitySearchResult {
   }
 }
 
-export interface MoveSearchVars extends EntitySearchVars {
+export interface MoveSearchVars extends EntitySearchVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   limit: number
   startsWith: string
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
 }
 
 export const MOVE_SEARCH_QUERY = gql`
-  query MoveSearchQuery($gen: Int! $limit: Int! $startsWith: String) {
+  query MoveSearchQuery($gen: Int! $limit: Int! $startsWith: String $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
     moves(
       generation: $gen 
-      filter: { startsWith: $startsWith } 
+      filter: { startsWith: $startsWith, removedFromSwSh: $removedFromSwSh removedFromBDSP: $removedFromBDSP } 
       pagination: { limit: $limit }
     ) {
       id
@@ -118,21 +121,17 @@ export const MOVE_SEARCH_QUERY = gql`
         }
       }
 
-      pokemon(filter: {formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+      pokemon(filter: {
+        formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+        removedFromSwSh: $removedFromSwSh,
+        removedFromBDSP: $removedFromBDSP
+      }) {
         edges {
           node {
             id
             name
             formattedName
             pokemonShowdownID
-            introduced {
-              edges {
-                node {
-                  id
-                  number
-                }
-              }
-            }
           }
         }
       }
@@ -200,6 +199,9 @@ export interface MovePageResult extends MainEntityPageResult {
   priority: number
   target: string
 
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
+
   introduced: {
     edges: IntroductionEdge[]
   }
@@ -232,20 +234,16 @@ export interface MovePageResult extends MainEntityPageResult {
   usageMethods: CountField
 }
 
-export interface MovePageQueryVars extends EntityPageVars {
+export interface MovePageQueryVars extends EntityPageVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
 }
 
 export const MOVE_PAGE_QUERY = gql`
-  query MovePageQuery(
-    $gen: Int!
-    $name: String!
-  ) {
-    moveByName(
-      generation: $gen,
-      name: $name
-    ) {
+  query MovePageQuery($gen: Int! $name: String! $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
+    moveByName(generation: $gen, name: $name) {
       id
 
       name
@@ -258,6 +256,9 @@ export const MOVE_PAGE_QUERY = gql`
       pp
       priority
       target
+
+      removedFromSwSh
+      removedFromBDSP
 
       introduced {
         edges {
@@ -293,7 +294,7 @@ export const MOVE_PAGE_QUERY = gql`
       effects {
         count
       }
-      enablesMove {
+      enablesMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
         count
       }
       enhancedByFieldState {
@@ -302,16 +303,16 @@ export const MOVE_PAGE_QUERY = gql`
       hinderedByFieldState {
         count
       }
-      interactedWithByMove {
+      interactedWithByMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
         count
       }
-      interactsWithMove {
+      interactsWithMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
         count
       }
       modifiesStat {
         count
       }
-      pokemon {
+      pokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
         count
       }
       preventsUsageMethod {
@@ -323,10 +324,10 @@ export const MOVE_PAGE_QUERY = gql`
       requiresItem {
         count
       }
-      requiresMove {
+      requiresMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
         count
       }
-      requiresPokemon {
+      requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
         count
       }
       resistsStatus {
@@ -350,6 +351,9 @@ export class MoveOnPage extends MainEntityOnPage {
   public pp: number
   public priority: number
   public target: string
+
+  public removedFromSwSh: boolean
+  public removedFromBDSP: boolean
 
   public type: TypeName
 
@@ -381,7 +385,7 @@ export class MoveOnPage extends MainEntityOnPage {
     // Data for MovePage
     super(gqlMove);
 
-    const { accuracy, category, contact, power, pp, priority, target } = gqlMove;
+    const { accuracy, category, contact, power, pp, priority, target, removedFromSwSh, removedFromBDSP } = gqlMove;
 
     this.accuracy = accuracy;
     this.category = category;
@@ -390,6 +394,8 @@ export class MoveOnPage extends MainEntityOnPage {
     this.pp = pp;
     this.priority = priority;
     this.target = target;
+    this.removedFromSwSh = removedFromSwSh;
+    this.removedFromBDSP = removedFromBDSP;
 
     this.type = gqlMove.type.edges.map(typeNameEdgeToTypeName)[0]
 

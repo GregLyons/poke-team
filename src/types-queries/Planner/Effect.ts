@@ -39,6 +39,7 @@ import {
   AuxToAuxConnectionOnPage,
   AuxToItemConnectionEdge,
   AuxToItemConnectionOnPage,
+  RemovedFromGameQueryVars,
 } from './helpers';
 
 // Effect in main search
@@ -137,13 +138,15 @@ export interface EffectPageResult extends AuxEntityPageResult {
   moves: CountField
 }
 
-export interface EffectPageQueryVars extends EntityPageVars {
+export interface EffectPageQueryVars extends EntityPageVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
 }
 
 export const EFFECT_PAGE_QUERY = gql`
-  query EffectPageQuery($gen: Int! $name: String!) {
+  query EffectPageQuery($gen: Int! $name: String! $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
     effectByName(generation: $gen, name: $name) {
       id
       name
@@ -174,7 +177,7 @@ export const EFFECT_PAGE_QUERY = gql`
         count
       }
 
-      moves {
+      moves(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
         count
       }
 
@@ -235,9 +238,11 @@ export interface EffectAbilityEdge extends AbilityIconEdge, AuxToMainConnectionE
   }
 }
 
-export interface EffectAbilityQueryVars extends EntityConnectionVars {
+export interface EffectAbilityQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
 }
 
 export const EFFECT_ABILITY_QUERY = gql`
@@ -262,7 +267,11 @@ export const EFFECT_ABILITY_QUERY = gql`
               }
             }
 
-            pokemon(filter: {formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+            pokemon(filter: {
+              formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+              removedFromSwSh: $removedFromSwSh,
+              removedFromBDSP: $removedFromBDSP
+            }) {
               edges {
                 node {
                   id
@@ -381,13 +390,15 @@ export interface EffectItemEdge extends AuxToItemConnectionEdge {
   }
 }
 
-export interface EffectItemQueryVars extends EntityConnectionVars {
+export interface EffectItemQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
 }
 
 export const EFFECT_ITEM_QUERY = gql`
-  query EffectItemsQuery($gen: Int! $name: String!) {
+  query EffectItemsQuery($gen: Int! $name: String! $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
     effectByName(generation: $gen, name: $name) {
       id
       name
@@ -408,7 +419,7 @@ export const EFFECT_ITEM_QUERY = gql`
               }
             }
 
-            requiresPokemon {
+            requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
               edges {
                 node {
                   id
@@ -468,19 +479,24 @@ export interface EffectMoveEdge extends MoveIconEdge, AuxToMainConnectionEdge {
   }
 }
 
-export interface EffectMoveQueryVars extends EntityConnectionVars {
+export interface EffectMoveQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
 }
 
 export const EFFECT_MOVE_QUERY = gql`
-  query EffectMovesQuery($gen: Int! $name: String!) {
+  query EffectMovesQuery($gen: Int! $name: String! $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
     effectByName(generation: $gen, name: $name) {
       id
       name
       formattedName
        
-      moves {
+      moves(filter: {
+        removedFromSwSh: $removedFromSwSh,
+        removedFromBDSP: $removedFromBDSP
+      }) {
         edges {
           node {
             id
@@ -505,7 +521,11 @@ export const EFFECT_MOVE_QUERY = gql`
               }
             }
 
-            pokemon(filter: {formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+            pokemon(filter: {
+              formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+              removedFromSwSh: $removedFromSwSh,
+              removedFromBDSP: $removedFromBDSP
+            }) {
               edges {
                 node {
                   id

@@ -34,6 +34,7 @@ import {
   AuxToAuxConnectionOnPage,
   AuxToItemConnectionEdge,
   AuxToItemConnectionOnPage,
+  RemovedFromGameQueryVars,
 } from './helpers';
 
 // Type in main search
@@ -75,14 +76,16 @@ export interface TypeMatchupEdge {
   multiplier: number
 }
 
-export interface TypeSearchVars extends EntitySearchVars {
+export interface TypeSearchVars extends EntitySearchVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   limit: number
   startsWith: string
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
 }
 
 export const TYPE_SEARCH_QUERY = gql`
-  query TypeSearchQuery($gen: Int! $limit: Int! $startsWith: String) {
+  query TypeSearchQuery($gen: Int! $limit: Int! $startsWith: String $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
     types(
       generation: $gen
       filter: { startsWith: $startsWith }
@@ -122,7 +125,11 @@ export const TYPE_SEARCH_QUERY = gql`
         }
       }
 
-      pokemon(filter: {formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+      pokemon(filter: {
+        formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+        removedFromSwSh: $removedFromSwSh,
+        removedFromBDSP: $removedFromBDSP
+      }) {
         edges {
           node {
             id
@@ -240,13 +247,15 @@ export interface TypePageResult extends AuxEntityPageResult {
   weatherBall: CountField
 }
 
-export interface TypePageQueryVars extends EntityPageVars {
+export interface TypePageQueryVars extends EntityPageVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
 }
 
 export const TYPE_PAGE_QUERY = gql`
-  query TypePageQuery($gen: Int! $name: String!) {
+  query TypePageQuery($gen: Int! $name: String! $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
     typeByName(generation: $gen, name: $name) {
       id
       name
@@ -294,13 +303,13 @@ export const TYPE_PAGE_QUERY = gql`
       boostedByItem {
         count
       }
-      enablesMove {
+      enablesMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
         count
       }
       ignoresFieldState {
         count
       }
-      moves {
+      moves(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
         count
       }
       naturalGift {
@@ -419,13 +428,15 @@ export interface TypeAbilityEdge extends AbilityIconEdge, AuxToMainConnectionEdg
   multiplier: number
 }
 
-export interface TypeAbilityQueryVars extends EntityConnectionVars {
+export interface TypeAbilityQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
 }
 
 export const TYPE_ABILITY_QUERY = gql`
-  query TypeAbilitiesQuery($gen: Int! $name: String!) {
+  query TypeAbilitiesQuery($gen: Int! $name: String! $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
     typeByName(generation: $gen, name: $name) {
       id
       name
@@ -446,7 +457,11 @@ export const TYPE_ABILITY_QUERY = gql`
               }
             }
 
-            pokemon(filter: {formClass: [ALOLA, BASE, COSMETIC, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+            pokemon(filter: {
+              formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+              removedFromSwSh: $removedFromSwSh,
+              removedFromBDSP: $removedFromBDSP
+            }) {
               edges {
                 node {
                   id
@@ -475,7 +490,11 @@ export const TYPE_ABILITY_QUERY = gql`
               }
             }
 
-            pokemon(filter: {formClass: [ALOLA, BASE, COSMETIC, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+            pokemon(filter: {
+              formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+              removedFromSwSh: $removedFromSwSh,
+              removedFromBDSP: $removedFromBDSP
+            }) {
               edges {
                 node {
                   id
@@ -687,13 +706,15 @@ export interface TypeItemEdge extends AuxToItemConnectionEdge {
   power?: number
 }
 
-export interface TypeItemQueryVars extends EntityConnectionVars {
+export interface TypeItemQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
 }
 
 export const TYPE_ITEM_QUERY = gql`
-  query TypeItemsQuery($gen: Int! $name: String!) {
+  query TypeItemsQuery($gen: Int! $name: String! $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
     typeByName(generation: $gen, name: $name) {
       id
       name
@@ -714,7 +735,7 @@ export const TYPE_ITEM_QUERY = gql`
               }
             }
 
-            requiresPokemon {
+            requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
               edges {
                 node {
                   id
@@ -743,7 +764,7 @@ export const TYPE_ITEM_QUERY = gql`
               }
             }
 
-            requiresPokemon {
+            requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
               edges {
                 node {
                   id
@@ -772,7 +793,7 @@ export const TYPE_ITEM_QUERY = gql`
               }
             }
 
-            requiresPokemon {
+            requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
               edges {
                 node {
                   id
@@ -843,19 +864,24 @@ export interface TypeMoveEdge extends MoveIconEdge, AuxToMainConnectionEdge {
   }
 }
 
-export interface TypeMoveQueryVars extends EntityConnectionVars {
+export interface TypeMoveQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
 }
 
 export const TYPE_MOVE_QUERY = gql`
-  query TypeMovesQuery($gen: Int! $name: String!) {
+  query TypeMovesQuery($gen: Int! $name: String! $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
     typeByName(generation: $gen, name: $name) {
       id
       name
       formattedName
        
-      enablesMove {
+      enablesMove(filter: {
+        removedFromSwSh: $removedFromSwSh,
+        removedFromBDSP: $removedFromBDSP
+      }) {
         edges {
           node {
             id
@@ -880,7 +906,11 @@ export const TYPE_MOVE_QUERY = gql`
               }
             }
 
-            pokemon(filter: {formClass: [ALOLA, BASE, COSMETIC, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+            pokemon(filter: {
+              formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+              removedFromSwSh: $removedFromSwSh,
+              removedFromBDSP: $removedFromBDSP
+            }) {
               edges {
                 node {
                   id
@@ -893,7 +923,10 @@ export const TYPE_MOVE_QUERY = gql`
           }
         }
       }
-      moves {
+      moves(filter: {
+        removedFromSwSh: $removedFromSwSh,
+        removedFromBDSP: $removedFromBDSP
+      }) {
         edges {
           node {
             id
@@ -918,7 +951,11 @@ export const TYPE_MOVE_QUERY = gql`
               }
             }
 
-            pokemon(filter: {formClass: [ALOLA, BASE, COSMETIC, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+            pokemon(filter: {
+              formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+              removedFromSwSh: $removedFromSwSh,
+              removedFromBDSP: $removedFromBDSP
+            }) {
               edges {
                 node {
                   id

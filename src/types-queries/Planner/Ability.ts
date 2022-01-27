@@ -1,6 +1,7 @@
 import {
   gql,
 } from '@apollo/client';
+import { Generation } from '@pkmn/data';
 
 import {
   DescriptionEdge,
@@ -30,6 +31,7 @@ import {
   MainToAuxConnectionEdge,
   EntityConnectionVars,
   MainToAuxConnectionOnPage,
+  RemovedFromGameQueryVars,
 } from './helpers';
 
 // Ability in main search
@@ -53,14 +55,16 @@ export interface AbilitySearchResult extends MainEntitySearchResult {
   }
 }
 
-export interface AbilitySearchVars extends EntitySearchVars {
+export interface AbilitySearchVars extends EntitySearchVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   limit: number
   startsWith: string
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
 }
 
 export const ABILITY_SEARCH_QUERY = gql`
-  query AbilitySearchQuery($gen: Int! $limit: Int! $startsWith: String) {
+  query AbilitySearchQuery($gen: Int! $limit: Int! $startsWith: String $removedFromBDSP: Boolean $removedFromSwSh: Boolean) {
     abilities(
       generation: $gen 
       filter: { startsWith: $startsWith } 
@@ -78,7 +82,11 @@ export const ABILITY_SEARCH_QUERY = gql`
         }
       }
 
-      pokemon(filter: {formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER]}) {
+      pokemon(filter: {
+              formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+              removedFromSwSh: $removedFromSwSh,
+              removedFromBDSP: $removedFromBDSP
+            }) {
         edges {
           node {
             id
@@ -680,7 +688,7 @@ export interface AbilityTypeEdge extends MainToAuxConnectionEdge, TypeIconEdge {
   multiplier: number
 }
 
-export interface AbilityTypeQueryVars extends EntityConnectionVars {
+export interface AbilityTypeQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
 }

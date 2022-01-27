@@ -34,6 +34,7 @@ import {
   EntityConnectionVars,
   MainToAuxConnectionOnPage,
   VersionDependentDescriptionEdge,
+  RemovedFromGameQueryVars,
 } from './helpers';
 
 // Item in main search
@@ -62,14 +63,16 @@ export interface ItemSearchResult extends MainEntitySearchResult {
   }
 }
 
-export interface ItemSearchVars extends EntitySearchVars {
+export interface ItemSearchVars extends EntitySearchVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   limit: number
   startsWith: string
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
 }
 
 export const ITEM_SEARCH_QUERY = gql`
-  query ItemSearchQuery($gen: Int! $limit: Int! $startsWith: String) {
+  query ItemSearchQuery($gen: Int! $limit: Int! $startsWith: String $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
     items(
       generation: $gen 
       filter: { startsWith: $startsWith } 
@@ -96,7 +99,7 @@ export const ITEM_SEARCH_QUERY = gql`
         }
       }
       
-      requiresPokemon {
+      requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
         edges {
           node {
             id
@@ -175,20 +178,16 @@ export interface ItemPageResult extends MainEntityPageResult {
   resistsUsageMethod: CountField
 }
 
-export interface ItemPageQueryVars extends EntityPageVars {
+export interface ItemPageQueryVars extends EntityPageVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
 }
 
 export const ITEM_PAGE_QUERY = gql`
-  query ItemPageQuery(
-    $gen: Int!
-    $name: String!
-  ) {
-    itemByName(
-      generation: $gen,
-      name: $name
-    ) {
+  query ItemPageQuery($gen: Int! $name: String! $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
+    itemByName(generation: $gen, name: $name) {
       id
 
       name
@@ -229,10 +228,10 @@ export const ITEM_PAGE_QUERY = gql`
       effects {
         count
       }
-      enablesMove {
+      enablesMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
         count
       }
-      enablesPokemon {
+      enablesPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
         count
       }
       extendsFieldState {
@@ -247,7 +246,7 @@ export const ITEM_PAGE_QUERY = gql`
       naturalGift {
         count
       }
-      requiresPokemon {
+      requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
         count
       }
       resistsFieldState {
