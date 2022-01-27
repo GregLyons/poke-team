@@ -1,16 +1,16 @@
 import {
   GenerationNum,
-} from '../../types-queries/helpers';
+} from '../../../types-queries/helpers';
 import {
   Pokemon,
-} from '../../types-queries/Planner/Pokemon';
+} from '../../../types-queries/Planner/Pokemon';
 import {
   getPokemonSprite,
-} from '../../utils/sprites';
+} from '../../../utils/sprites';
 
 import {
   TeamAction,
-} from '../../hooks/app-hooks';
+} from '../../../hooks/app-hooks';
 
 // Converts keys from BaseStat object to formatted names.
 // const baseStatMap_fullName = new Map([

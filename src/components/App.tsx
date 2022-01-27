@@ -25,8 +25,8 @@ import {
 } from '../utils/smogonLogic';
 
 import NavBar from './NavBar/NavBar';
-import GenSlider from './GenSlider';
-import TeamDisplay from './PokemonTeam/TeamDisplay';
+import GenSlider from './ControlPanel/GenSlider';
+import TeamDisplay from './ControlPanel/PokemonTeam/TeamDisplay';
 
 import Analyzer from './Analyzer/Analyzer';
 import Builder from './Builder/Builder';
@@ -53,9 +53,9 @@ import TypePage from './Planner/EntityLists/Types/TypePage';
 import UsageMethodMainPage from './Planner/EntityLists/UsageMethods/UsageMethodMainPage';
 import UsageMethodPage from './Planner/EntityLists/UsageMethods/UsageMethodPage';
 
-import TierFilterForm from './TierFilter';
 import { GenerationNum, ItemIconDatum, PokemonIconDatum, stringToGenNumber } from '../types-queries/helpers';
 import { cartReducer, DEFAULT_CART, teamReducer } from '../hooks/app-hooks';
+import ControlPanel from './ControlPanel/ControlPanel';
 
 
 function App() {
@@ -132,20 +132,15 @@ function App() {
     <div className="app">
       <header>
         <NavBar />
-        <GenSlider 
+        <ControlPanel 
+          dispatchCart={dispatchCart}
+          dispatchTeam={dispatchTeam}
           gen={gen}
           handleGenSliderChange={handleGenSliderChange}
-        />
-        <TierFilterForm
           tierFilter={tierFilter}
           handleTierModeChange={handleTierModeChange}
           handleTierFilterChange={handleTierFilterChange}
           toggleSelectionMode={toggleSelectionMode}
-        />
-        <TeamDisplay
-          dispatchCart={dispatchCart}
-          dispatchTeam={dispatchTeam}
-          gen={gen}
           team={team}
         />
       </header>
