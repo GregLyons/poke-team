@@ -130,8 +130,8 @@ export interface UsageMethodPageResult extends AuxEntityPageResult {
 export interface UsageMethodPageQueryVars extends EntityPageVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const USAGEMETHOD_PAGE_QUERY = gql`
@@ -273,8 +273,8 @@ export interface UsageMethodAbilityEdge extends AbilityIconEdge, AuxToMainConnec
 export interface UsageMethodAbilityQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const USAGEMETHOD_ABILITY_QUERY = gql`
@@ -475,8 +475,8 @@ export interface UsageMethodItemEdge extends AuxToItemConnectionEdge {
 export interface UsageMethodItemQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const USAGEMETHOD_ITEM_QUERY = gql`
@@ -629,8 +629,8 @@ export interface UsageMethodMoveEdge extends MoveIconEdge, AuxToMainConnectionEd
 export interface UsageMethodMoveQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const USAGEMETHOD_MOVE_QUERY = gql`

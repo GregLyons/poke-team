@@ -58,6 +58,8 @@ import {
 import { 
   CartAction,
   GenFilter,
+  removedFromBDSP,
+  removedFromSwSh,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -106,6 +108,8 @@ const AbilityPage = ({
   const [typeQueryVars, handleChangeType] = useEntityConnectionChangeHandler<AbilityTypeQueryVars>({
     gen: genFilter.gen,
     name: abilityName,
+    removedFromSwSh: removedFromSwSh(genFilter),
+    removedFromBDSP: removedFromBDSP(genFilter),
   });
 
   const [usageMethodQueryVars, handleChangeUsageMethod] = useEntityConnectionChangeHandler<AbilityUsageMethodQueryVars>({

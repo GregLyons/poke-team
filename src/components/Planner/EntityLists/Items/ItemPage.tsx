@@ -60,6 +60,8 @@ import {
 import { 
   CartAction,
   GenFilter,
+  removedFromBDSP,
+  removedFromSwSh,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -126,6 +128,8 @@ const ItemPage = ({
       variables: {
         gen: genFilter.gen,
         name: itemName,
+        removedFromSwSh: removedFromSwSh(genFilter),
+        removedFromBDSP: removedFromBDSP(genFilter),
       }
     })
   }, [genFilter, itemName, executeSearch]);

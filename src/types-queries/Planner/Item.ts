@@ -67,8 +67,8 @@ export interface ItemSearchVars extends EntitySearchVars, RemovedFromGameQueryVa
   gen: GenerationNum
   limit: number
   startsWith: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const ITEM_SEARCH_QUERY = gql`
@@ -181,8 +181,8 @@ export interface ItemPageResult extends MainEntityPageResult {
 export interface ItemPageQueryVars extends EntityPageVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const ITEM_PAGE_QUERY = gql`

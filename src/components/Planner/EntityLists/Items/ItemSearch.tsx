@@ -23,6 +23,8 @@ import {
 import { 
   CartAction,
   GenFilter,
+  removedFromBDSP,
+  removedFromSwSh,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -93,6 +95,8 @@ const ItemSearch = ({
     gen: genFilter.gen,
     startsWith: '',
     limit: 300,
+    removedFromSwSh: removedFromSwSh(genFilter),
+    removedFromBDSP: removedFromBDSP(genFilter),
   })
 
   const handleSubmit: (newQueryVars: ItemSearchVars) => void = (newQueryVars) => {

@@ -59,8 +59,8 @@ export interface AbilitySearchVars extends EntitySearchVars, RemovedFromGameQuer
   gen: GenerationNum
   limit: number
   startsWith: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const ABILITY_SEARCH_QUERY = gql`

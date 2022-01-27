@@ -132,8 +132,8 @@ export interface StatusPageResult extends AuxEntityPageResult {
 export interface StatusPageQueryVars extends EntityPageVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const STATUS_PAGE_QUERY = gql`
@@ -262,8 +262,8 @@ export interface StatusAbilityEdge extends AbilityIconEdge, AuxToMainConnectionE
 export interface StatusAbilityQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const STATUS_ABILITY_QUERY = gql`
@@ -474,8 +474,8 @@ export interface StatusItemEdge extends AuxToItemConnectionEdge {
 export interface StatusItemQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const STATUS_ITEM_QUERY = gql`
@@ -600,8 +600,8 @@ export interface StatusMoveEdge extends MoveIconEdge, AuxToMainConnectionEdge {
 export interface StatusMoveQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const STATUS_MOVE_QUERY = gql`

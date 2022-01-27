@@ -72,8 +72,8 @@ export interface MoveSearchVars extends EntitySearchVars, RemovedFromGameQueryVa
   gen: GenerationNum
   limit: number
   startsWith: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const MOVE_SEARCH_QUERY = gql`
@@ -199,8 +199,8 @@ export interface MovePageResult extends MainEntityPageResult {
   priority: number
   target: string
 
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 
   introduced: {
     edges: IntroductionEdge[]
@@ -237,8 +237,8 @@ export interface MovePageResult extends MainEntityPageResult {
 export interface MovePageQueryVars extends EntityPageVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const MOVE_PAGE_QUERY = gql`
@@ -352,8 +352,8 @@ export class MoveOnPage extends MainEntityOnPage {
   public priority: number
   public target: string
 
-  public removedFromSwSh: boolean
-  public removedFromBDSP: boolean
+  public removedFromSwSh: false | null
+  public removedFromBDSP: false | null
 
   public type: TypeName
 

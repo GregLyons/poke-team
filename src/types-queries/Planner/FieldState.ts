@@ -168,8 +168,8 @@ export interface FieldStatePageResult extends AuxEntityPageResult {
 export interface FieldStatePageQueryVars extends EntityPageVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const FIELDSTATE_PAGE_QUERY = gql`
@@ -903,8 +903,8 @@ export interface FieldStateMoveEdge extends MoveIconEdge, AuxToMainConnectionEdg
 export interface FieldStateMoveQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const FIELDSTATE_MOVE_QUERY = gql`
@@ -1314,8 +1314,8 @@ export interface FieldStateTypeEdge extends AuxToAuxConnectionEdge, TypeIconEdge
 export interface FieldStateTypeQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const FIELDSTATE_TYPE_QUERY = gql`

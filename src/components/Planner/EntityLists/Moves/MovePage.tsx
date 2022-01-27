@@ -61,6 +61,8 @@ import {
 import { 
   CartAction,
   GenFilter,
+  removedFromBDSP,
+  removedFromSwSh,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -127,6 +129,8 @@ const MovePage = ({
       variables: {
         gen: genFilter.gen,
         name: moveName,
+        removedFromSwSh: removedFromSwSh(genFilter),
+        removedFromBDSP: removedFromBDSP(genFilter),
       }
     })
   }, [genFilter, moveName, executeSearch]);

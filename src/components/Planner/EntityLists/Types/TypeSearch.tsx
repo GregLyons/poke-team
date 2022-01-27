@@ -24,6 +24,8 @@ import {
   CartAction,
   GenFilter,
   GenFilterAction,
+  removedFromBDSP,
+  removedFromSwSh,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -85,6 +87,8 @@ const TypeSearch = ({
     gen: genFilter.gen,
     startsWith: '',
     limit: 100,
+    removedFromSwSh: removedFromSwSh(genFilter),
+    removedFromBDSP: removedFromBDSP(genFilter),
   })
 
   const handleSubmit: (newQueryVars: TypeSearchVars) => void = (newQueryVars) => {

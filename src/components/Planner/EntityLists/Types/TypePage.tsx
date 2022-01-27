@@ -49,6 +49,8 @@ import {
 import { 
   CartAction,
   GenFilter,
+  removedFromBDSP,
+  removedFromSwSh,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 import {
@@ -85,6 +87,8 @@ const TypePage = ({
   const [abilityQueryVars, handleChangeAbility] = useEntityConnectionChangeHandler<TypeAbilityQueryVars>({
     gen: genFilter.gen,
     name: typeName,
+    removedFromSwSh: removedFromSwSh(genFilter),
+    removedFromBDSP: removedFromBDSP(genFilter),
   });
 
   const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<TypeFieldStateQueryVars>({
@@ -95,11 +99,15 @@ const TypePage = ({
   const [itemQueryVars, handleChangeItem] = useEntityConnectionChangeHandler<TypeItemQueryVars>({
     gen: genFilter.gen,
     name: typeName,
+    removedFromSwSh: removedFromSwSh(genFilter),
+    removedFromBDSP: removedFromBDSP(genFilter),
   });
 
   const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<TypeMoveQueryVars>({
     gen: genFilter.gen,
     name: typeName,
+    removedFromSwSh: removedFromSwSh(genFilter),
+    removedFromBDSP: removedFromBDSP(genFilter),
   });
 
   // #endregion
@@ -111,6 +119,8 @@ const TypePage = ({
       variables: {
         gen: genFilter.gen,
         name: typeName,
+        removedFromSwSh: removedFromSwSh(genFilter),
+        removedFromBDSP: removedFromBDSP(genFilter),
       }
     })
   }, [genFilter, typeName, executeSearch]);

@@ -119,8 +119,8 @@ export interface StatPageResult extends AuxEntityPageResult {
 export interface StatPageQueryVars extends EntityPageVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const STAT_PAGE_QUERY = gql`
@@ -222,8 +222,8 @@ export interface StatAbilityEdge extends AbilityIconEdge, AuxToMainConnectionEdg
 export interface StatAbilityQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const STAT_ABILITY_QUERY = gql`
@@ -411,8 +411,8 @@ export interface StatItemEdge extends AuxToItemConnectionOnPage {
 export interface StatItemQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const STAT_ITEM_QUERY = gql`
@@ -519,8 +519,8 @@ export interface StatMoveEdge extends MoveIconEdge, AuxToMainConnectionEdge {
 export interface StatMoveQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const STAT_MOVE_QUERY = gql`

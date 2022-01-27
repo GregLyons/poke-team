@@ -80,8 +80,8 @@ export interface TypeSearchVars extends EntitySearchVars, RemovedFromGameQueryVa
   gen: GenerationNum
   limit: number
   startsWith: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const TYPE_SEARCH_QUERY = gql`
@@ -250,8 +250,8 @@ export interface TypePageResult extends AuxEntityPageResult {
 export interface TypePageQueryVars extends EntityPageVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const TYPE_PAGE_QUERY = gql`
@@ -431,8 +431,8 @@ export interface TypeAbilityEdge extends AbilityIconEdge, AuxToMainConnectionEdg
 export interface TypeAbilityQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const TYPE_ABILITY_QUERY = gql`
@@ -709,8 +709,8 @@ export interface TypeItemEdge extends AuxToItemConnectionEdge {
 export interface TypeItemQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const TYPE_ITEM_QUERY = gql`
@@ -867,8 +867,8 @@ export interface TypeMoveEdge extends MoveIconEdge, AuxToMainConnectionEdge {
 export interface TypeMoveQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const TYPE_MOVE_QUERY = gql`

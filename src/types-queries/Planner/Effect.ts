@@ -141,8 +141,8 @@ export interface EffectPageResult extends AuxEntityPageResult {
 export interface EffectPageQueryVars extends EntityPageVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const EFFECT_PAGE_QUERY = gql`
@@ -241,8 +241,8 @@ export interface EffectAbilityEdge extends AbilityIconEdge, AuxToMainConnectionE
 export interface EffectAbilityQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const EFFECT_ABILITY_QUERY = gql`
@@ -393,8 +393,8 @@ export interface EffectItemEdge extends AuxToItemConnectionEdge {
 export interface EffectItemQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const EFFECT_ITEM_QUERY = gql`
@@ -482,8 +482,8 @@ export interface EffectMoveEdge extends MoveIconEdge, AuxToMainConnectionEdge {
 export interface EffectMoveQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   name: string
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 export const EFFECT_MOVE_QUERY = gql`

@@ -17,6 +17,16 @@ export const DEFAULT_GEN_FILTER: GenFilter = {
   includeRemovedFromBDSP: true,
 }
 
+export function removedFromSwSh(genFilter: GenFilter): false | null {
+  if (genFilter.gen !== 8 || genFilter.includeRemovedFromSwSh) return null;
+  return false;
+}
+
+export function removedFromBDSP(genFilter: GenFilter): false | null {
+  if (genFilter.gen !== 8 || genFilter.includeRemovedFromBDSP) return null;
+  return false;
+}
+
 export type GenFilterAction =
 | {
     type: 'set_gen',

@@ -348,8 +348,8 @@ export const INTRODUCTION_QUERY = (queryName: EntityPageQueryName) => gql`
 // #region
 
 export interface RemovedFromGameQueryVars {
-  removedFromSwSh: boolean 
-  removedFromBDSP: boolean
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
 }
 
 // #endregion
