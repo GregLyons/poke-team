@@ -48,6 +48,7 @@ import {
 
 import { 
   CartAction,
+  GenFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -59,14 +60,14 @@ import AuxEntityDescription from '../AuxEntityDescription';
 type EffectPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter: TierFilter
 }
 
 const EffectPage = ({
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
   tierFilter,
 }: EffectPageProps) => {
   const params = useParams();
@@ -77,22 +78,22 @@ const EffectPage = ({
   // #region 
   
   const [abilityQueryVars, handleChangeAbility] = useEntityConnectionChangeHandler<EffectAbilityQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: effectName,
   });
 
   const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<EffectFieldStateQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: effectName,
   });
 
   const [itemQueryVars, handleChangeItem] = useEntityConnectionChangeHandler<EffectItemQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: effectName,
   });
 
   const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<EffectMoveQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: effectName,
   });
 
@@ -103,11 +104,11 @@ const EffectPage = ({
   useEffect(() => {
     executeSearch({
       variables: {
-        gen: gen,
+        gen: genFilter.gen,
         name: effectName,
       }
     })
-  }, [gen, effectName, executeSearch]);
+  }, [genFilter, effectName, executeSearch]);
       
   // Before actually getting the move data, we need to check that it's present in the given generation
   // #region
@@ -153,9 +154,9 @@ const EffectPage = ({
 
   const debutGen = data_introduced.effectByName[0].introduced.edges[0].node.number;
 
-  if (debutGen > gen) return (
+  if (debutGen > genFilter.gen) return (
     <div>
-      {effectName} doesn't exist in Generation {gen}.
+      {effectName} doesn't exist in Generation {genFilter.gen}.
     </div>
   );
 
@@ -224,7 +225,7 @@ const EffectPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeAbility}
                 listRender={listRenderEffectAbility}
@@ -239,7 +240,7 @@ const EffectPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeFieldState}
                 listRender={listRenderEffectFieldState}
                 query={EFFECT_FIELDSTATE_QUERY}
@@ -253,7 +254,7 @@ const EffectPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeItem}
                 listRender={listRenderEffectItem}
@@ -268,7 +269,7 @@ const EffectPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeMove}
                 listRender={listRenderEffectMove}

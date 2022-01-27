@@ -22,6 +22,7 @@ import {
 
 import { 
   CartAction,
+  GenFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -34,11 +35,11 @@ import {
   TierFilter,
 } from '../../../../utils/smogonLogic';
 
-const listRender = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<ItemSearchQuery>) => {
+const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<ItemSearchQuery>) => {
   if (!data || !data.items) return (<div>Data not found for the query 'items'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntitySearchMain component.');
-  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the EntitySearchMain component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the EntitySearchMain component.');
   
   return (
     <>
@@ -63,7 +64,7 @@ const listRender = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: List
                 itemIconDatum: item.itemIconDatum,
                 dispatchCart,
                 dispatchTeam,
-                gen,
+                genFilter,
                 tierFilter,
                 cartNote: `Pokemon who have '${item.formattedName}'.`
               }}
@@ -78,18 +79,18 @@ const listRender = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: List
 type ItemSearchProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter: TierFilter
 }
 
 const ItemSearch = ({
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
   tierFilter,
 }: ItemSearchProps) => {
   const [queryVars, setQueryVars] = useState<ItemSearchVars>({
-    gen: gen,
+    gen: genFilter.gen,
     startsWith: '',
     limit: 300,
   })
@@ -105,7 +106,7 @@ const ItemSearch = ({
       <EntitySearchMain 
         dispatchCart={dispatchCart}
         dispatchTeam={dispatchTeam}
-        gen={gen}
+        genFilter={genFilter}
         tierFilter={tierFilter}
         handleSubmit={handleSubmit}
         listRender={listRender}

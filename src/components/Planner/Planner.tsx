@@ -8,6 +8,7 @@ import {
 } from "../../types-queries/helpers";
 import {
   CartAction,
+  GenFilter,
   TeamAction,
 } from "../../hooks/app-hooks";
 
@@ -17,14 +18,14 @@ import { TierFilter } from "../../utils/smogonLogic";
 type PlannerProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter: TierFilter
 }
 
 const Planner = ({
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
   tierFilter,
 }: PlannerProps) => {
   return (

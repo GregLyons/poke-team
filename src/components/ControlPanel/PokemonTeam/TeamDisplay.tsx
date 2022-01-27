@@ -7,6 +7,7 @@ import {
 
 import {
   CartAction,
+  GenFilter,
   Team,
   TeamAction,
 } from '../../../hooks/app-hooks';
@@ -16,14 +17,14 @@ import TeamMember from './PokemonTeamMember';
 type TeamDisplayProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   team: Team
 }
 
 const TeamDisplay = ({
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
   team,
 }: TeamDisplayProps) => {
   return (

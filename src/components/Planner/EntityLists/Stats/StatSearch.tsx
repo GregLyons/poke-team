@@ -22,6 +22,7 @@ import {
 
 import { 
   CartAction,
+  GenFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -55,17 +56,17 @@ const listRender = ({ data, }: ListRenderArgs<StatSearchQuery>) => {
 type StatSearchMainProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
 }
 
 const StatSearch = ({
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
 }: StatSearchMainProps) => {
 
   const [queryVars, setQueryVars] = useState<StatSearchVars>({
-    gen: gen,
+    gen: genFilter.gen,
     startsWith: '',
     limit: 100,
   })
@@ -79,7 +80,7 @@ const StatSearch = ({
   return (
     <>
       <EntitySearchMain
-        gen={gen}
+        genFilter={genFilter}
         handleSubmit={handleSubmit}
         listRender={listRender}
         query={STAT_SEARCH_QUERY}

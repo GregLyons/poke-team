@@ -57,6 +57,7 @@ import {
 
 import { 
   CartAction,
+  GenFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 import {
@@ -76,14 +77,14 @@ import ConnectionAccordion from '../ConnectionAccordion';
 type FieldStatePageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter: TierFilter
 }
 
 const FieldStatePage = ({
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
   tierFilter,
 }: FieldStatePageProps) => {
   const params = useParams();
@@ -94,37 +95,37 @@ const FieldStatePage = ({
   // #region 
   
   const [abilityQueryVars, handleChangeAbility] = useEntityConnectionChangeHandler<FieldStateAbilityQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: fieldStateName,
   });
 
   const [effectQueryVars, handleChangeEffect] = useEntityConnectionChangeHandler<FieldStateEffectQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: fieldStateName,
   });
 
   const [itemQueryVars, handleChangeItem] = useEntityConnectionChangeHandler<FieldStateItemQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: fieldStateName,
   });
 
   const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<FieldStateMoveQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: fieldStateName,
   });
 
   const [statQueryVars, handleChangeStat] = useEntityConnectionChangeHandler<FieldStateStatQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: fieldStateName,
   });
 
   const [statusQueryVars, handleChangeStatus] = useEntityConnectionChangeHandler<FieldStateStatusQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: fieldStateName,
   });
 
   const [typeQueryVars, handleChangeType] = useEntityConnectionChangeHandler<FieldStateTypeQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: fieldStateName,
   });
 
@@ -135,11 +136,11 @@ const FieldStatePage = ({
   useEffect(() => {
     executeSearch({
       variables: {
-        gen: gen,
+        gen: genFilter.gen,
         name: fieldStateName,
       }
     })
-  }, [gen, fieldStateName, executeSearch]);
+  }, [genFilter, fieldStateName, executeSearch]);
       
   // Before actually getting the move data, we need to check that it's present in the given generation
   // #region
@@ -185,9 +186,9 @@ const FieldStatePage = ({
 
   const debutGen = data_introduced.fieldStateByName[0].introduced.edges[0].node.number;
 
-  if (debutGen > gen) return (
+  if (debutGen > genFilter.gen) return (
     <div>
-      {fieldStateName} doesn't exist in Generation {gen}.
+      {fieldStateName} doesn't exist in Generation {genFilter.gen}.
     </div>
   );
 
@@ -256,7 +257,7 @@ const FieldStatePage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeAbility}
                 listRender={listRenderFieldStateAbility}
@@ -271,7 +272,7 @@ const FieldStatePage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeEffect}
                 listRender={listRenderFieldStateEffect}
                 query={FIELDSTATE_EFFECT_QUERY}
@@ -285,7 +286,7 @@ const FieldStatePage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeItem}
                 listRender={listRenderFieldStateItem}
@@ -300,7 +301,7 @@ const FieldStatePage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeMove}
                 listRender={listRenderFieldStateMove}
@@ -315,7 +316,7 @@ const FieldStatePage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeStat}
                 listRender={listRenderFieldStateStat}
                 query={FIELDSTATE_STAT_QUERY}
@@ -329,7 +330,7 @@ const FieldStatePage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeStatus}
                 listRender={listRenderFieldStateStatus}
                 query={FIELDSTATE_STATUS_QUERY}
@@ -343,7 +344,7 @@ const FieldStatePage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeType}
                 listRender={listRenderFieldStateType}

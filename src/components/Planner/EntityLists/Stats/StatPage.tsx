@@ -48,6 +48,7 @@ import {
 
 import { 
   CartAction,
+  GenFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -59,14 +60,14 @@ import AuxEntityDescription from '../AuxEntityDescription';
 type StatPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter: TierFilter
 }
 
 const StatPage = ({
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
   tierFilter,
 }: StatPageProps) => {
   const params = useParams();
@@ -77,22 +78,22 @@ const StatPage = ({
   // #region 
   
   const [abilityQueryVars, handleChangeAbility] = useEntityConnectionChangeHandler<StatAbilityQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: statName,
   });
 
   const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<StatFieldStateQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: statName,
   });
 
   const [itemQueryVars, handleChangeItem] = useEntityConnectionChangeHandler<StatItemQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: statName,
   });
 
   const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<StatMoveQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: statName,
   });
 
@@ -103,11 +104,11 @@ const StatPage = ({
   useEffect(() => {
     executeSearch({
       variables: {
-        gen: gen,
+        gen: genFilter.gen,
         name: statName,
       }
     })
-  }, [gen, statName, executeSearch]);
+  }, [genFilter, statName, executeSearch]);
       
   // Before actually getting the move data, we need to check that it's present in the given generation
   // #region
@@ -153,9 +154,9 @@ const StatPage = ({
 
   const debutGen = data_introduced.statByName[0].introduced.edges[0].node.number;
 
-  if (debutGen > gen) return (
+  if (debutGen > genFilter.gen) return (
     <div>
-      {statName} doesn't exist in Generation {gen}.
+      {statName} doesn't exist in Generation {genFilter.gen}.
     </div>
   );
 
@@ -224,7 +225,7 @@ const StatPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeAbility}
                 listRender={listRenderStatAbility}
@@ -239,7 +240,7 @@ const StatPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeFieldState}
                 listRender={listRenderStatFieldState}
                 query={STAT_FIELDSTATE_QUERY}
@@ -253,7 +254,7 @@ const StatPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeItem}
                 listRender={listRenderStatItem}
@@ -268,7 +269,7 @@ const StatPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeMove}
                 listRender={listRenderStatMove}

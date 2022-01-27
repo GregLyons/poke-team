@@ -45,6 +45,7 @@ import {
 
 import { 
   CartAction,
+  GenFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 import {
@@ -60,14 +61,14 @@ import ConnectionAccordion from '../ConnectionAccordion';
 type UsageMethodPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter: TierFilter
 }
 
 const UsageMethodPage = ({
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
   tierFilter,
 }: UsageMethodPageProps) => {
   const params = useParams();
@@ -78,16 +79,16 @@ const UsageMethodPage = ({
   // #region 
   
   const [abilityQueryVars, handleChangeAbility] = useEntityConnectionChangeHandler<UsageMethodAbilityQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: usageMethodName,
   });
   const [itemQueryVars, handleChangeItem] = useEntityConnectionChangeHandler<UsageMethodItemQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: usageMethodName,
   });
 
   const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<UsageMethodMoveQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: usageMethodName,
   });
 
@@ -98,11 +99,11 @@ const UsageMethodPage = ({
   useEffect(() => {
     executeSearch({
       variables: {
-        gen: gen,
+        gen: genFilter.gen,
         name: usageMethodName,
       }
     })
-  }, [gen, usageMethodName, executeSearch]);
+  }, [genFilter, usageMethodName, executeSearch]);
       
   // Before actually getting the move data, we need to check that it's present in the given generation
   // #region
@@ -148,9 +149,9 @@ const UsageMethodPage = ({
 
   const debutGen = data_introduced.usageMethodByName[0].introduced.edges[0].node.number;
 
-  if (debutGen > gen) return (
+  if (debutGen > genFilter.gen) return (
     <div>
-      {usageMethodName} doesn't exist in Generation {gen}.
+      {usageMethodName} doesn't exist in Generation {genFilter.gen}.
     </div>
   );
 
@@ -219,7 +220,7 @@ const UsageMethodPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeAbility}
                 listRender={listRenderUsageMethodAbility}
@@ -234,7 +235,7 @@ const UsageMethodPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeItem}
                 listRender={listRenderUsageMethodItem}
@@ -249,7 +250,7 @@ const UsageMethodPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeMove}
                 listRender={listRenderUsageMethodMove}

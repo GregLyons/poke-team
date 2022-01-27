@@ -22,6 +22,7 @@ import {
 
 import {
   CartAction,
+  GenFilter,
   TeamAction,
 } from '../../../hooks/app-hooks';
 import { TierFilter } from '../../../utils/smogonLogic';
@@ -29,7 +30,7 @@ import { TierFilter } from '../../../utils/smogonLogic';
 interface EntitySearchMainProps<SearchQuery, SearchQueryVars> {
   dispatchCart?: React.Dispatch<CartAction>
   dispatchTeam?: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter?: TierFilter
   handleSubmit: (newQueryVars: SearchQueryVars) => void,
   query: DocumentNode,
@@ -40,7 +41,7 @@ interface EntitySearchMainProps<SearchQuery, SearchQueryVars> {
 function EntitySearchMain<SearchQuery, SearchQueryVars>({
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
   tierFilter,
   handleSubmit,
   listRender,
@@ -66,7 +67,7 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
 
     // If search button is present, execute search
     if (searchButtonRef.current) searchButtonRef.current.click();
-  }, [gen]);
+  }, [genFilter]);
 
   useEffect(() => {
     // If search button is present and searchBox.ready is false, execute search using searchParams
@@ -106,14 +107,14 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
           handleSubmit({
             ...queryVars,
             startsWith: searchBox.value,
-            gen: gen,
+            gen: genFilter,
           });
         } 
         else {
           handleSubmit({
             ...queryVars,
             startsWith: searchParams.get('startsWith') || '',
-            gen: gen,
+            gen: genFilter,
           });
         }
       }}>
@@ -137,7 +138,7 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
       </form>
       {loading 
         ? <div>Loading...</div>
-        : data && listRender({ data, dispatchCart, dispatchTeam, tierFilter, gen, })
+        : data && listRender({ data, dispatchCart, dispatchTeam, tierFilter, genFilter, })
       }
     </>
   );

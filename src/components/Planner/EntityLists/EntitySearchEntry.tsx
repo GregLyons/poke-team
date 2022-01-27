@@ -92,7 +92,7 @@ const EntitySearchEntry = ({
     icons.dispatchCart({
       type: 'add_pokemon',
       payload: {
-        gen: icons.gen,
+        gen: icons.genFilter.gen,
         parentEntityClass: entityClass,
         targetEntityClass: 'Has',
         pokemon: selectionToPokemonIconData(selection),

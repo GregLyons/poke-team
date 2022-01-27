@@ -33,7 +33,7 @@ const EntryLink = ({
     icons?.dispatchCart({
       type: 'add_item',
       payload: {
-        gen: icons.gen,
+        gen: icons.genFilter.gen,
         item: itemIconDatum,
         requiredPokemon: icons?.pokemonIconData,
         parentEntityClass: parentEntityClass,
@@ -82,7 +82,7 @@ const EntryLink = ({
                 key={name}
                 typeIconData={{
                   type: icons.typeIconDatum,
-                  gen: icons.gen,
+                  genFilter: icons.genFilter,
                 }}
               />
             </>

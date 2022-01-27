@@ -6,6 +6,7 @@ import { TierFilter } from '../../../utils/smogonLogic';
 
 import {
   CartAction,
+  GenFilter,
   TeamAction,
 } from "../../../hooks/app-hooks";
 
@@ -16,7 +17,7 @@ export type ListRenderArgs<SearchQuery> = {
   data: SearchQuery
   dispatchCart?: React.Dispatch<CartAction>
   dispatchTeam?: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter?: TierFilter
 }
 
@@ -80,7 +81,7 @@ export type EntryIconData = {
   typeIconDatum?: TypeIconDatum
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter: TierFilter
   cartNote: string
 }

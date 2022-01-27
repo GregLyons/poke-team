@@ -5,6 +5,7 @@ import {
 
 import { 
   CartAction,
+  GenFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -13,21 +14,21 @@ import ItemSearch from "./ItemSearch";
 type ItemMainProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter: TierFilter
 }
 
 const ItemMainPage = ({ 
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
   tierFilter,
 }: ItemMainProps) => {
   return (
     <ItemSearch 
       dispatchCart={dispatchCart}
       dispatchTeam={dispatchTeam}
-      gen={gen}
+      genFilter={genFilter}
       tierFilter={tierFilter}
     />
   )

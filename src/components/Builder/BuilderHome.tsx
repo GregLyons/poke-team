@@ -8,6 +8,7 @@ import {
 import {
   Cart,
   CartAction,
+  GenFilter,
   TeamAction,
 } from '../../hooks/app-hooks';
 
@@ -18,7 +19,7 @@ type BuilderHomeProps = {
   cart: Cart
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter: TierFilter
 }
 
@@ -26,7 +27,7 @@ const BuilderHome = ({
   cart,
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
   tierFilter,
 }: BuilderHomeProps) => {
 
@@ -39,7 +40,7 @@ const BuilderHome = ({
         cart={cart}
         dispatchCart={dispatchCart}
         dispatchTeam={dispatchTeam}
-        gen={gen}
+        genFilter={genFilter}
         tierFilter={tierFilter}
       />
     </div>

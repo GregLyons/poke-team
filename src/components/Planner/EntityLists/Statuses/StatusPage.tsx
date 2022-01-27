@@ -48,6 +48,7 @@ import {
 
 import { 
   CartAction,
+  GenFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -64,14 +65,14 @@ import AuxEntityDescription from '../AuxEntityDescription';
 type StatusPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter: TierFilter
 }
 
 const StatusPage = ({
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
   tierFilter,
 }: StatusPageProps) => {
   const params = useParams();
@@ -82,22 +83,22 @@ const StatusPage = ({
   // #region 
   
   const [abilityQueryVars, handleChangeAbility] = useEntityConnectionChangeHandler<StatusAbilityQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: statusName,
   });
 
   const [effectQueryVars, handleChangeEffect] = useEntityConnectionChangeHandler<StatusFieldStateQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: statusName,
   });
 
   const [itemQueryVars, handleChangeItem] = useEntityConnectionChangeHandler<StatusItemQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: statusName,
   });
 
   const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<StatusMoveQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: statusName,
   });
 
@@ -108,11 +109,11 @@ const StatusPage = ({
   useEffect(() => {
     executeSearch({
       variables: {
-        gen: gen,
+        gen: genFilter.gen,
         name: statusName,
       }
     })
-  }, [gen, statusName, executeSearch]);
+  }, [genFilter, statusName, executeSearch]);
       
   // Before actually getting the move data, we need to check that it's present in the given generation
   // #region
@@ -158,9 +159,9 @@ const StatusPage = ({
 
   const debutGen = data_introduced.statusByName[0].introduced.edges[0].node.number;
 
-  if (debutGen > gen) return (
+  if (debutGen > genFilter.gen) return (
     <div>
-      {statusName} doesn't exist in Generation {gen}.
+      {statusName} doesn't exist in Generation {genFilter.gen}.
     </div>
   );
 
@@ -229,7 +230,7 @@ const StatusPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeAbility}
                 listRender={listRenderStatusAbility}
@@ -244,7 +245,7 @@ const StatusPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeEffect}
                 listRender={listRenderStatusFieldState}
                 query={STATUS_FIELDSTATE_QUERY}
@@ -258,7 +259,7 @@ const StatusPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeItem}
                 listRender={listRenderStatusItem}
@@ -273,7 +274,7 @@ const StatusPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeMove}
                 listRender={listRenderStatusMove}

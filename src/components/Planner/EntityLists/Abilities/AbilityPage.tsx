@@ -57,6 +57,7 @@ import {
 
 import { 
   CartAction,
+  GenFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -67,13 +68,13 @@ import MainEntityDescriptionTable from '../MainEntityDescriptionTable';
 type AbilityPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
 }
 
 const AbilityPage = ({ 
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
 }: AbilityPageProps) => {
   const params = useParams();
   
@@ -83,32 +84,32 @@ const AbilityPage = ({
   // #region
 
   const [effectQueryVars, handleChangeEffect] = useEntityConnectionChangeHandler<AbilityEffectQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: abilityName,
   });
 
   const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<AbilityFieldStateQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: abilityName,
   });
 
   const [statQueryVars, handleChangeStat] = useEntityConnectionChangeHandler<AbilityStatQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: abilityName,
   });
 
   const [statusQueryVars, handleChangeStatus] = useEntityConnectionChangeHandler<AbilityStatusQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: abilityName,
   });
 
   const [typeQueryVars, handleChangeType] = useEntityConnectionChangeHandler<AbilityTypeQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: abilityName,
   });
 
   const [usageMethodQueryVars, handleChangeUsageMethod] = useEntityConnectionChangeHandler<AbilityUsageMethodQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: abilityName,
   });
 
@@ -121,11 +122,11 @@ const AbilityPage = ({
     console.log('queried');
     executeSearch({
       variables: {
-        gen: gen,
+        gen: genFilter.gen,
         name: abilityName,
       }
     })
-  }, [gen, abilityName, executeSearch]);
+  }, [genFilter, abilityName, executeSearch]);
     
   // Before actually getting the ability data, we need to check that it's present in the given generation
   // #region
@@ -171,9 +172,9 @@ const AbilityPage = ({
 
   const debutGen = data_introduced.abilityByName[0].introduced.edges[0].node.number;
 
-  if (debutGen > gen) return (
+  if (debutGen > genFilter.gen) return (
     <div>
-      {abilityName} doesn't exist in Generation {gen}.
+      {abilityName} doesn't exist in Generation {genFilter.gen}.
     </div>
   );
 
@@ -239,7 +240,7 @@ const AbilityPage = ({
             title: `Effects of ${abilityResult.formattedName}`,
             content: abilityResult.effectCount > 0 && <>
               <EntityConnectionSearch
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeEffect}
                 listRender={listRenderAbilityEffect}
                 query={ABILITY_EFFECT_QUERY}
@@ -251,7 +252,7 @@ const AbilityPage = ({
             title: `Field state interactions with ${abilityResult.formattedName}`,
             content: abilityResult.fieldStateCount > 0 && <>
               <EntityConnectionSearch
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeFieldState}
                 listRender={listRenderAbilityFieldState}
                 query={ABILITY_FIELDSTATE_QUERY}
@@ -263,7 +264,7 @@ const AbilityPage = ({
             title: `Stat interactions with ${abilityResult.formattedName}`,
             content: abilityResult.modifiesStatCount > 0 && <>
               <EntityConnectionSearch
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeStat}
                 listRender={listRenderAbilityStat}
                 query={ABILITY_STAT_QUERY}
@@ -275,7 +276,7 @@ const AbilityPage = ({
             title: `Status interactions with ${abilityResult.formattedName}`,
             content: abilityResult.statusCount > 0 && <>
               <EntityConnectionSearch
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeStatus}
                 listRender={listRenderAbilityStatus}
                 query={ABILITY_STATUS_QUERY}
@@ -287,7 +288,7 @@ const AbilityPage = ({
             title: `Type interactions with ${abilityResult.formattedName}`,
             content: abilityResult.typeCount > 0 && <>
               <EntityConnectionSearch
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeType}
                 listRender={listRenderAbilityType}
                 query={ABILITY_TYPE_QUERY}
@@ -299,7 +300,7 @@ const AbilityPage = ({
             title: `Usage method interactions with ${abilityResult.formattedName}`,
             content: abilityResult.usageMethodCount > 0 && <>
               <EntityConnectionSearch
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeUsageMethod}
                 listRender={listRenderAbilityUsageMethod}
                 query={ABILITY_USAGEMETHOD_QUERY}

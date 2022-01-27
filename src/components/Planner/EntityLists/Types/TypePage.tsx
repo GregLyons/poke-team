@@ -48,6 +48,7 @@ import {
 
 import { 
   CartAction,
+  GenFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 import {
@@ -64,14 +65,14 @@ import ConnectionAccordion from '../ConnectionAccordion';
 type TypePageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter: TierFilter
 }
 
 const TypePage = ({
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
   tierFilter,
 }: TypePageProps) => {
   const params = useParams();
@@ -82,22 +83,22 @@ const TypePage = ({
   // #region 
   
   const [abilityQueryVars, handleChangeAbility] = useEntityConnectionChangeHandler<TypeAbilityQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: typeName,
   });
 
   const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<TypeFieldStateQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: typeName,
   });
 
   const [itemQueryVars, handleChangeItem] = useEntityConnectionChangeHandler<TypeItemQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: typeName,
   });
 
   const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<TypeMoveQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: typeName,
   });
 
@@ -108,11 +109,11 @@ const TypePage = ({
   useEffect(() => {
     executeSearch({
       variables: {
-        gen: gen,
+        gen: genFilter.gen,
         name: typeName,
       }
     })
-  }, [gen, typeName, executeSearch]);
+  }, [genFilter, typeName, executeSearch]);
       
   // Before actually getting the move data, we need to check that it's present in the given generation
   // #region
@@ -158,9 +159,9 @@ const TypePage = ({
 
   const debutGen = data_introduced.typeByName[0].introduced.edges[0].node.number;
 
-  if (debutGen > gen) return (
+  if (debutGen > genFilter.gen) return (
     <div>
-      {typeName} doesn't exist in Generation {gen}.
+      {typeName} doesn't exist in Generation {genFilter.gen}.
     </div>
   );
 
@@ -229,7 +230,7 @@ const TypePage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeAbility}
                 listRender={listRenderTypeAbility}
@@ -244,7 +245,7 @@ const TypePage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeFieldState}
                 listRender={listRenderTypeFieldState}
@@ -259,7 +260,7 @@ const TypePage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeItem}
                 listRender={listRenderTypeItem}
@@ -274,7 +275,7 @@ const TypePage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
-                gen={gen}
+                genFilter={genFilter}
                 tierFilter={tierFilter}
                 handleChange={handleChangeMove}
                 listRender={listRenderTypeMove}

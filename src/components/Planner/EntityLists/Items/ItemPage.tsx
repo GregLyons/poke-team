@@ -59,6 +59,7 @@ import {
 
 import { 
   CartAction,
+  GenFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -69,13 +70,13 @@ import MainEntityDescriptionTable from '../MainEntityDescriptionTable';
 type ItemPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
 }
 
 const ItemPage = ({ 
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
 }: ItemPageProps) => {
   const params = useParams();
   
@@ -85,32 +86,32 @@ const ItemPage = ({
   // #region
 
   const [effectQueryVars, handleChangeEffect] = useEntityConnectionChangeHandler<ItemEffectQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: itemName,
   });
 
   const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<ItemFieldStateQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: itemName,
   });
 
   const [statQueryVars, handleChangeStat] = useEntityConnectionChangeHandler<ItemStatQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: itemName,
   });
 
   const [statusQueryVars, handleChangeStatus] = useEntityConnectionChangeHandler<ItemStatusQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: itemName,
   });
 
   const [typeQueryVars, handleChangeType] = useEntityConnectionChangeHandler<ItemTypeQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: itemName,
   });
 
   const [usageMethodQueryVars, handleChangeUsageMethod] = useEntityConnectionChangeHandler<ItemUsageMethodQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: itemName,
   });
 
@@ -123,11 +124,11 @@ const ItemPage = ({
     console.log('queried');
     executeSearch({
       variables: {
-        gen: gen,
+        gen: genFilter.gen,
         name: itemName,
       }
     })
-  }, [gen, itemName, executeSearch]);
+  }, [genFilter, itemName, executeSearch]);
     
   // Before actually getting the item data, we need to check that it's present in the given generation
   // #region
@@ -173,9 +174,9 @@ const ItemPage = ({
 
   const debutGen = data_introduced.itemByName[0].introduced.edges[0].node.number;
 
-  if (debutGen > gen) return (
+  if (debutGen > genFilter.gen) return (
     <div>
-      {itemName} doesn't exist in Generation {gen}.
+      {itemName} doesn't exist in Generation {genFilter.gen}.
     </div>
   );
 
@@ -242,7 +243,7 @@ const ItemPage = ({
             title: `Effects of ${itemResult.formattedName}`,
             content: itemResult.effectCount > 0 && <>
               <EntityConnectionSearch
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeEffect}
                 listRender={listRenderItemEffect}
                 query={ITEM_EFFECT_QUERY}
@@ -254,7 +255,7 @@ const ItemPage = ({
             title: `Field state interactions with ${itemResult.formattedName}`,
             content: itemResult.fieldStateCount > 0 && <>
               <EntityConnectionSearch
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeFieldState}
                 listRender={listRenderItemFieldState}
                 query={ITEM_FIELDSTATE_QUERY}
@@ -266,7 +267,7 @@ const ItemPage = ({
             title: `Stat interactions with ${itemResult.formattedName}`,
             content: itemResult.modifiesStatCount > 0 && <>
               <EntityConnectionSearch
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeStat}
                 listRender={listRenderItemStat}
                 query={ITEM_STAT_QUERY}
@@ -278,7 +279,7 @@ const ItemPage = ({
             title: `Status interactions with ${itemResult.formattedName}`,
             content: itemResult.statusCount > 0 && <>
               <EntityConnectionSearch
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeStatus}
                 listRender={listRenderItemStatus}
                 query={ITEM_STATUS_QUERY}
@@ -290,7 +291,7 @@ const ItemPage = ({
             title: `Type interactions with ${itemResult.formattedName}`,
             content: itemResult.typeCount > 0 && <>
               <EntityConnectionSearch
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeType}
                 listRender={listRenderItemType}
                 query={ITEM_TYPE_QUERY}
@@ -302,7 +303,7 @@ const ItemPage = ({
             title: `Usage method interactions with ${itemResult.formattedName}`,
             content: itemResult.usageMethodCount > 0 && <>
               <EntityConnectionSearch
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeUsageMethod}
                 listRender={listRenderItemUsageMethod}
                 query={ITEM_USAGEMETHOD_QUERY}

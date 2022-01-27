@@ -1,18 +1,18 @@
 import { GenerationNum } from "../../types-queries/helpers";
 import { TierFilter } from "../../utils/smogonLogic";
-import { CartAction, TeamAction } from "../../hooks/app-hooks";
+import { CartAction, GenFilter, TeamAction } from "../../hooks/app-hooks";
 
 type AnalyzerProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter: TierFilter
 }
 
 const Analyzer = ({
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
   tierFilter,
 }: AnalyzerProps) => {
   return (

@@ -7,6 +7,7 @@ import {
 
 import { 
   CartAction,
+  GenFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -15,20 +16,20 @@ import StatSearch from "./StatSearch"
 type StatMainPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter: TierFilter
 }
 
 const StatMainPage = ({ 
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
 }: StatMainPageProps) => {
   return (
     <StatSearch
       dispatchCart={dispatchCart}
       dispatchTeam={dispatchTeam}
-      gen={gen}
+      genFilter={genFilter}
     />
   )
 }

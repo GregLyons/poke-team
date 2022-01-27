@@ -7,6 +7,7 @@ import {
 
 import { 
   CartAction,
+  GenFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -15,19 +16,19 @@ import EffectSearch from "./EffectSearch"
 type EffectMainPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
 }
 
 const EffectMainPage = ({ 
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
 }: EffectMainPageProps) => {
   return (
     <EffectSearch
       dispatchCart={dispatchCart}
       dispatchTeam={dispatchTeam}
-      gen={gen}
+      genFilter={genFilter}
     />
   )
 }

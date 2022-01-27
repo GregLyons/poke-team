@@ -2,8 +2,84 @@ import { GenerationNum, ItemIconDatum, PokemonIconDatum } from "../types-queries
 import { Pokemon } from "../types-queries/Planner/Pokemon";
 import { EntityClass } from "../utils/constants";
 
+// Gen
+// #region
+
+export type GenFilter = {
+  gen: GenerationNum
+  includeRemovedFromSwSh: boolean
+  includeRemovedFromBDSP: boolean
+}
+
+export const DEFAULT_GEN_FILTER: GenFilter = {
+  gen: 8,
+  includeRemovedFromSwSh: false,
+  includeRemovedFromBDSP: true,
+}
+
+export type GenFilterAction =
+| {
+    type: 'set_gen',
+    payload: {
+      gen: GenerationNum,
+    },
+  }
+| {
+    type: 'toggle_swsh',
+  }
+| {
+    type: 'toggle_bdsp',
+  };
+
+export function genReducer(state: GenFilter, action: GenFilterAction) {
+  switch(action.type) {
+    case 'set_gen':
+      return {
+        ...state,
+        gen: action.payload.gen,
+      };
+    case 'toggle_swsh':
+      return {
+        ...state,
+        includeRemovedFromSwSh: !state.includeRemovedFromSwSh,
+      };
+    case 'toggle_bdsp':
+      return {
+        ...state,
+        includeRemovedFromBDSP: !state.includeRemovedFromBDSP,
+      };
+    default:
+      throw new Error();
+  }
+}
+
+// #endregion
+
 // Cart
 // #region
+
+export type Cart = {
+  [gen in GenerationNum]: {
+    pokemon: {
+      [parentEntityClass in EntityClass]?: {
+        [targetEntityClass in EntityClass | 'Has']?: {
+          // Key: Describes relationship between parent and target entity.
+          // Value: Pokemon from selection.
+          [note: string]: PokemonIconDatum[]
+        }
+      } 
+    }
+    items: {
+      [parentEntityClass in EntityClass]?: {
+        [targetEntityClass in EntityClass | 'From search']?: {
+          // Key: Describes relationship between parent and target entity.
+          // Value: Pokemon required for item, or [].
+          [note: string]: PokemonIconDatum[]
+        }
+      } 
+    }
+  }
+};
 
 export const DEFAULT_CART: Cart = {
   1: {
@@ -39,29 +115,6 @@ export const DEFAULT_CART: Cart = {
     items: {},
   },
 }
-
-export type Cart = {
-  [gen in GenerationNum]: {
-    pokemon: {
-      [parentEntityClass in EntityClass]?: {
-        [targetEntityClass in EntityClass | 'Has']?: {
-          // Key: Describes relationship between parent and target entity.
-          // Value: Pokemon from selection.
-          [note: string]: PokemonIconDatum[]
-        }
-      } 
-    }
-    items: {
-      [parentEntityClass in EntityClass]?: {
-        [targetEntityClass in EntityClass | 'From search']?: {
-          // Key: Describes relationship between parent and target entity.
-          // Value: Pokemon required for item, or [].
-          [note: string]: PokemonIconDatum[]
-        }
-      } 
-    }
-  }
-};
 
 export type CartAction =
 | { 

@@ -20,10 +20,10 @@ import {
 
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 
-export const listRenderTypeAbility = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<TypeAbilityQuery>) => {
+export const listRenderTypeAbility = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<TypeAbilityQuery>) => {
   if (!data || !data.typeByName) return (<div>Data not found for the query 'typeByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
-  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parent = data.typeByName[0];
@@ -49,7 +49,7 @@ export const listRenderTypeAbility = ({ data, dispatchCart, dispatchTeam, gen, t
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' boosted by '${parent.formattedName}'.`,
             }}
@@ -72,7 +72,7 @@ export const listRenderTypeAbility = ({ data, dispatchCart, dispatchTeam, gen, t
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' resisted by by '${parent.formattedName}'.`,
             }}
@@ -83,10 +83,10 @@ export const listRenderTypeAbility = ({ data, dispatchCart, dispatchTeam, gen, t
   );
 }
 
-export const listRenderTypeFieldState = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<TypeFieldStateQuery>) => {
+export const listRenderTypeFieldState = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<TypeFieldStateQuery>) => {
   if (!data || !data.typeByName) return (<div>Data not found for the query 'typeByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
-  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parent = data.typeByName[0];
@@ -227,10 +227,10 @@ export const listRenderTypeFieldState = ({ data, dispatchCart, dispatchTeam, gen
   );
 }
 
-export const listRenderTypeItem = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<TypeItemQuery>) => {
+export const listRenderTypeItem = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<TypeItemQuery>) => {
   if (!data || !data.typeByName) return (<div>Data not found for the query 'typeByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
-  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parent = data.typeByName[0];
@@ -258,7 +258,7 @@ export const listRenderTypeItem = ({ data, dispatchCart, dispatchTeam, gen, tier
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' boosts '${parent.formattedName}'.`,
             }}
@@ -285,7 +285,7 @@ export const listRenderTypeItem = ({ data, dispatchCart, dispatchTeam, gen, tier
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' has Natural Gift type '${parent.formattedName}'.`,
             }}
@@ -309,7 +309,7 @@ export const listRenderTypeItem = ({ data, dispatchCart, dispatchTeam, gen, tier
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
             }}
@@ -320,10 +320,10 @@ export const listRenderTypeItem = ({ data, dispatchCart, dispatchTeam, gen, tier
   );
 }
 
-export const listRenderTypeMove = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<TypeMoveQuery>) => {
+export const listRenderTypeMove = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<TypeMoveQuery>) => {
   if (!data || !data.typeByName) return (<div>Data not found for the query 'typeByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
-  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parent = data.typeByName[0];
@@ -350,7 +350,7 @@ export const listRenderTypeMove = ({ data, dispatchCart, dispatchTeam, gen, tier
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' enabled by '${parent.formattedName}'.`,
             }}

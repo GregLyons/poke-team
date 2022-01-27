@@ -33,10 +33,10 @@ import {
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 import { ENUMCASE_TO_TITLECASE } from "../../../../utils/constants";
 
-export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<FieldStateAbilityQuery>) => {
+export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<FieldStateAbilityQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
-  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parent = data.fieldStateByName[0];
@@ -65,7 +65,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' activates '${parent.formattedName}'.`,
             }}
@@ -88,7 +88,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' created by '${parent.formattedName}'.`,
             }}
@@ -113,7 +113,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' ignored by '${parent.formattedName}'.`,
             }}
@@ -138,7 +138,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' prevented by '${parent.formattedName}'.`,
             }}
@@ -163,7 +163,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' removed by '${parent.formattedName}'.`,
             }}
@@ -188,7 +188,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' suppressed by '${parent.formattedName}'.`,
             }}
@@ -199,7 +199,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
   );
 }
 
-export const listRenderFieldStateEffect = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<FieldStateEffectQuery>) => {
+export const listRenderFieldStateEffect = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<FieldStateEffectQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
 
   const parent = data.fieldStateByName[0];
@@ -222,10 +222,10 @@ export const listRenderFieldStateEffect = ({ data, dispatchCart, dispatchTeam, g
   )
 }
 
-export const listRenderFieldStateItem = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<FieldStateItemQuery>) => {
+export const listRenderFieldStateItem = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<FieldStateItemQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
-  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parent = data.fieldStateByName[0];
@@ -253,7 +253,7 @@ export const listRenderFieldStateItem = ({ data, dispatchCart, dispatchTeam, gen
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' is activated by '${parent.formattedName}'.`,
             }}
@@ -280,7 +280,7 @@ export const listRenderFieldStateItem = ({ data, dispatchCart, dispatchTeam, gen
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' extends '${parent.formattedName}'.`,
             }}
@@ -306,7 +306,7 @@ export const listRenderFieldStateItem = ({ data, dispatchCart, dispatchTeam, gen
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' ignores '${parent.formattedName}'.`,
             }}
@@ -332,7 +332,7 @@ export const listRenderFieldStateItem = ({ data, dispatchCart, dispatchTeam, gen
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
             }}
@@ -343,10 +343,10 @@ export const listRenderFieldStateItem = ({ data, dispatchCart, dispatchTeam, gen
   );
 }
 
-export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<FieldStateMoveQuery>) => {
+export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<FieldStateMoveQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
-  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parent = data.fieldStateByName[0];
@@ -375,7 +375,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' creates '${parent.formattedName}'.`,
             }}
@@ -401,7 +401,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' enhances '${parent.formattedName}'.`,
             }}
@@ -427,7 +427,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' hinders '${parent.formattedName}'.`,
             }}
@@ -450,7 +450,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' removes '${parent.formattedName}'.`,
             }}
@@ -461,7 +461,7 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
   );
 }
 
-export const listRenderFieldStateStat = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<FieldStateStatQuery>) => {
+export const listRenderFieldStateStat = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<FieldStateStatQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
 
   const parent = data.fieldStateByName[0];
@@ -578,7 +578,7 @@ export const listRenderFieldStateStat = ({ data, dispatchCart, dispatchTeam, gen
   );
 }
 
-export const listRenderFieldStateStatus = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<FieldStateStatusQuery>) => {
+export const listRenderFieldStateStatus = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<FieldStateStatusQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'itemByName'.</div>);
   
   const parent = data.fieldStateByName[0];
@@ -625,10 +625,10 @@ export const listRenderFieldStateStatus = ({ data, dispatchCart, dispatchTeam, g
   );
 }
 
-export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<FieldStateTypeQuery>) => {
+export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<FieldStateTypeQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
-  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
   
   const parent = data.fieldStateByName[0];
@@ -667,7 +667,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
               typeIconDatum: result.typeIconDatum,
               dispatchCart,
               dispatchTeam,
-              gen,
+              genFilter,
               tierFilter,
               cartNote: ``
             }}
@@ -694,7 +694,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
               typeIconDatum: result.typeIconDatum,
               dispatchCart,
               dispatchTeam,
-              gen,
+              genFilter,
               tierFilter,
               cartNote: ``
             }}
@@ -720,7 +720,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
               typeIconDatum: result.typeIconDatum,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' strong against '${parent.formattedName}'.`,
             }}
@@ -747,7 +747,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
               typeIconDatum: result.typeIconDatum,
               dispatchCart,
               dispatchTeam,
-              gen,
+              genFilter,
               tierFilter,
               cartNote: ``
             }}
@@ -773,7 +773,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
                 dispatchTeam: dispatchTeam,
                 pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
                 typeIconDatum: result.typeIconDatum,
-                gen: gen,
+                genFilter,
                 tierFilter: tierFilter,
                 cartNote: `'${result.formattedName}' ignored by '${parent.formattedName}'.`,
               }}
@@ -799,7 +799,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
               typeIconDatum: result.typeIconDatum,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' removed by '${parent.formattedName}'.`,
             }}
@@ -825,7 +825,7 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
               typeIconDatum: result.typeIconDatum,
-              gen: gen,
+              genFilter,
               tierFilter: tierFilter,
               cartNote: `'${result.formattedName}' resisted by '${parent.formattedName}'.`,
             }}

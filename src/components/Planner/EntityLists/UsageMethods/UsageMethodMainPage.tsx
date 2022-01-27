@@ -7,6 +7,7 @@ import {
 
 import { 
   CartAction,
+  GenFilter,
   TeamAction,
 } from "../../../../hooks/app-hooks";
 
@@ -15,20 +16,20 @@ import UsageMethodSearch from "./UsageMethodSearch"
 type UsageMethodMainPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter: TierFilter
 }
 
 const UsageMethodMainPage = ({ 
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
 }: UsageMethodMainPageProps) => {
   return (
     <UsageMethodSearch
       dispatchCart={dispatchCart}
       dispatchTeam={dispatchTeam}
-      gen={gen}
+      genFilter={genFilter}
     />
   )
 }

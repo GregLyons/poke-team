@@ -1,6 +1,6 @@
 import './ControlPanel.css';
 
-import { CartAction, Team, TeamAction } from "../../hooks/app-hooks";
+import { CartAction, GenFilter, Team, TeamAction } from "../../hooks/app-hooks";
 import { GenerationNum } from "../../types-queries/helpers";
 import { Pokemon } from "../../types-queries/Planner/Pokemon";
 import { TierFilter } from "../../utils/smogonLogic";
@@ -13,7 +13,7 @@ type ControlPanelProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
 
-  gen: GenerationNum
+  genFilter: GenFilter
   handleGenSliderChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   
   tierFilter: TierFilter
@@ -27,7 +27,7 @@ type ControlPanelProps = {
 const ControlPanel = ({
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter: gen,
   handleGenSliderChange,
   tierFilter,
   handleTierModeChange,
@@ -38,7 +38,7 @@ const ControlPanel = ({
   return (
     <div className="control-panel__wrapper">
       <GenSlider
-        gen={gen}
+        genFilter={gen}
         handleGenSliderChange={handleGenSliderChange}
       />
       <TierFilterForm
@@ -50,7 +50,7 @@ const ControlPanel = ({
       <TeamDisplay
         dispatchCart={dispatchCart}
         dispatchTeam={dispatchTeam}
-        gen={gen}
+        genFilter={gen}
         team={team}
       />
       <PokemonFilterForm

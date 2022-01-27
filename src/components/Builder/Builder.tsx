@@ -5,6 +5,7 @@ import {
 import {
   Cart,
   CartAction,
+  GenFilter,
   TeamAction,
 } from "../../hooks/app-hooks";
 
@@ -20,7 +21,7 @@ type BuilderProps = {
   cart: Cart
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter: TierFilter
 }
 
@@ -28,7 +29,7 @@ const Builder = ({
   cart,
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
   tierFilter,
 }: BuilderProps) => {
   return (

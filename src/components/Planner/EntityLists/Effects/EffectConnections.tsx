@@ -20,10 +20,10 @@ import {
 
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 
-export const listRenderEffectAbility = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<EffectAbilityQuery>) => {
+export const listRenderEffectAbility = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<EffectAbilityQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
-  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parent = data.effectByName[0];
@@ -44,7 +44,7 @@ export const listRenderEffectAbility = ({ data, dispatchCart, dispatchTeam, gen,
             dispatchCart: dispatchCart,
             dispatchTeam: dispatchTeam,
             pokemonIconData: result.pokemonIconData,
-            gen: gen,
+            genFilter,
             tierFilter: tierFilter,
             cartNote: `'${result.formattedName}' has the effect '${parent.formattedName}'.`,
           }}
@@ -54,7 +54,7 @@ export const listRenderEffectAbility = ({ data, dispatchCart, dispatchTeam, gen,
   );
 }
 
-export const listRenderEffectFieldState = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<EffectFieldStateQuery>) => {
+export const listRenderEffectFieldState = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<EffectFieldStateQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
 
   const parent = data.effectByName[0];
@@ -77,10 +77,10 @@ export const listRenderEffectFieldState = ({ data, dispatchCart, dispatchTeam, g
   );
 }
 
-export const listRenderEffectItem = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<EffectItemQuery>) => {
+export const listRenderEffectItem = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<EffectItemQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
-  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parent = data.effectByName[0];
@@ -102,7 +102,7 @@ export const listRenderEffectItem = ({ data, dispatchCart, dispatchTeam, gen, ti
             dispatchTeam: dispatchTeam,
             pokemonIconData: result.requiredPokemonIconData,
             itemIconDatum: result.itemIconDatum,
-            gen: gen,
+            genFilter,
             tierFilter: tierFilter,
             cartNote: `'${result.formattedName}' has the effect '${parent.formattedName}'.`,
           }}
@@ -112,10 +112,10 @@ export const listRenderEffectItem = ({ data, dispatchCart, dispatchTeam, gen, ti
   );
 }
 
-export const listRenderEffectMove = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<EffectMoveQuery>) => {
+export const listRenderEffectMove = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<EffectMoveQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
-  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parent = data.effectByName[0];
@@ -136,7 +136,7 @@ export const listRenderEffectMove = ({ data, dispatchCart, dispatchTeam, gen, ti
             dispatchCart: dispatchCart,
             dispatchTeam: dispatchTeam,
             pokemonIconData: result.pokemonIconData,
-            gen: gen,
+            genFilter,
             tierFilter: tierFilter,
             cartNote: `'${result.formattedName}' has the effect '${parent.formattedName}'.`,
           }}

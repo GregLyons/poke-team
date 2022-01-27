@@ -25,7 +25,7 @@ import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 import { DUMMY_POKEMON_ICON_DATUM } from "../../../../types-queries/helpers";
 import { ENUMCASE_TO_TITLECASE } from "../../../../utils/constants";
 
-export const listRenderItemEffect = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<ItemEffectQuery>) => {
+export const listRenderItemEffect = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<ItemEffectQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 
   const parent = data.itemByName[0];
@@ -48,7 +48,7 @@ export const listRenderItemEffect = ({ data, dispatchCart, dispatchTeam, gen, ti
   )
 }
 
-export const listRenderItemFieldState = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<ItemFieldStateQuery>) => {
+export const listRenderItemFieldState = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<ItemFieldStateQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 
   const parent = data.itemByName[0];
@@ -130,7 +130,7 @@ export const listRenderItemFieldState = ({ data, dispatchCart, dispatchTeam, gen
   )
 }
 
-export const listRenderItemStat = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<ItemStatQuery>) => {
+export const listRenderItemStat = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<ItemStatQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 
   const parent = data.itemByName[0];
@@ -247,7 +247,7 @@ export const listRenderItemStat = ({ data, dispatchCart, dispatchTeam, gen, tier
   );
 }
 
-export const listRenderItemStatus = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<ItemStatusQuery>) => {
+export const listRenderItemStatus = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<ItemStatusQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 
   const parent = data.itemByName[0];
@@ -293,10 +293,10 @@ export const listRenderItemStatus = ({ data, dispatchCart, dispatchTeam, gen, ti
   );
 }
 
-export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<ItemTypeQuery>) => {
+export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<ItemTypeQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
-  if (!gen) throw new MissingGenError('Missing gen. Check that you passed gen to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
   const parent = data.itemByName[0];
@@ -327,7 +327,7 @@ export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, gen, tier
               typeIconDatum: result.typeIconDatum,
               dispatchCart,
               dispatchTeam,
-              gen,
+              genFilter,
               tierFilter,
               cartNote: ``
             }}
@@ -354,7 +354,7 @@ export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, gen, tier
               typeIconDatum: result.typeIconDatum,
               dispatchCart,
               dispatchTeam,
-              gen,
+              genFilter,
               tierFilter,
               cartNote: ``
             }}
@@ -381,7 +381,7 @@ export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, gen, tier
               typeIconDatum: result.typeIconDatum,
               dispatchCart,
               dispatchTeam,
-              gen,
+              genFilter,
               tierFilter,
               cartNote: ``
             }}
@@ -392,7 +392,7 @@ export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, gen, tier
   );
 }
 
-export const listRenderItemUsageMethod = ({ data, dispatchCart, dispatchTeam, gen, tierFilter, }: ListRenderArgs<ItemUsageMethodQuery>) => {
+export const listRenderItemUsageMethod = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<ItemUsageMethodQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 
   const parent = data.itemByName[0];

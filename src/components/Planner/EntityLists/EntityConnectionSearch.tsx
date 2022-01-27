@@ -18,6 +18,7 @@ import {
 
 import {
   CartAction,
+  GenFilter,
   TeamAction,
 } from '../../../hooks/app-hooks';
 import { TierFilter } from '../../../utils/smogonLogic';
@@ -25,7 +26,7 @@ import { TierFilter } from '../../../utils/smogonLogic';
 interface EntityConnectionSearchProps<SearchQuery, SearchQueryVars> {
   dispatchCart?: React.Dispatch<CartAction>
   dispatchTeam?: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter?: TierFilter
   handleChange: (newQueryVars: SearchQueryVars) => void,
   listRender: ({ data, dispatchCart, dispatchTeam }: ListRenderArgs<SearchQuery>) => JSX.Element,
@@ -36,7 +37,7 @@ interface EntityConnectionSearchProps<SearchQuery, SearchQueryVars> {
 function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
   tierFilter,
   handleChange,
   listRender,
@@ -46,9 +47,9 @@ function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
   useEffect(() => {
     handleChange({
       ...queryVars,
-      gen: gen,
+      gen: genFilter,
     })
-  }, [gen])
+  }, [genFilter])
 
   const { data, loading, error } = useQuery<SearchQuery, SearchQueryVars>(
     query,
@@ -65,7 +66,7 @@ function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
     <>
       {loading 
         ? <div>Loading...</div>
-        : data && listRender({ data, dispatchCart, dispatchTeam, gen, tierFilter, })
+        : data && listRender({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, })
       }
     </>
   );

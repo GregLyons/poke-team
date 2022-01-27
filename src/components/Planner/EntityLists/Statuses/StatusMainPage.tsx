@@ -7,6 +7,7 @@ import {
 
 import { 
   CartAction,
+  GenFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -15,20 +16,20 @@ import StatusSearch from "./StatusSearch"
 type FieldStateMainPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter: TierFilter
 }
 
 const FieldStateMainPage = ({ 
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
 }: FieldStateMainPageProps) => {
   return (
     <StatusSearch
       dispatchCart={dispatchCart}
       dispatchTeam={dispatchTeam}
-      gen={gen}
+      genFilter={genFilter}
     />
   )
 }

@@ -8,6 +8,7 @@ import {
 
 import {
   CartAction,
+  GenFilter,
   TeamAction,
 } from "../../../hooks/app-hooks";
 
@@ -17,7 +18,7 @@ type PlannerTypeIconProps = {
   key: string
   typeIconData: {
     type: TypeIconDatum
-    gen: GenerationNum
+    genFilter: GenFilter
   }
 }
 
@@ -25,7 +26,7 @@ const PlannerTypeIcon = ({
   key,
   typeIconData,
 }: PlannerTypeIconProps) => {
-  const {left, top} = getTypeIcon(typeIconData.type.name, typeIconData.gen);
+  const {left, top} = getTypeIcon(typeIconData.type.name, typeIconData.genFilter.gen);
   
   return (
     <div className="planner__type-icon-container"
@@ -42,12 +43,12 @@ const PlannerTypeIcon = ({
         }}
       />
       <div
-        className={`planner__type-icon--${typeIconData.gen < 6 ? 5 : 8}`}
+        className={`planner__type-icon--${typeIconData.genFilter.gen < 6 ? 5 : 8}`}
         title={`Icon for the Type ${typeIconData.type.formattedName}`}
         key={key}
         style={{
-          width: typeIconData.gen < 6 ? '32px' : '200px',
-          height: typeIconData.gen < 6 ? '12px' : '44px',
+          width: typeIconData.genFilter.gen < 6 ? '32px' : '200px',
+          height: typeIconData.genFilter.gen < 6 ? '12px' : '44px',
           display: 'inline-block',
           backgroundPosition: `${left}px ${top}px`,
         }}

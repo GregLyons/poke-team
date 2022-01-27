@@ -3,7 +3,7 @@ import { Selection, SelectionAction } from "../../../hooks/planner-hooks";
 import { GenerationNum, ItemIconDatum, PokemonIconDatum } from "../../../types-queries/helpers";
 import { psIDToDoublesTier, TierFilter } from '../../../utils/smogonLogic';
 import { psIDToSinglesTier as psIDToSinglesTier } from "../../../utils/smogonLogic";
-import { CartAction, TeamAction } from "../../../hooks/app-hooks";
+import { CartAction, GenFilter, TeamAction } from "../../../hooks/app-hooks";
 import CartViewPokemonIcon from "./CartViewPokemonIcon";
 
 type CartViewPokemonIconProps = {
@@ -11,7 +11,7 @@ type CartViewPokemonIconProps = {
   pokemonIconData: PokemonIconDatum[]
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter: TierFilter
 }
 
@@ -20,7 +20,7 @@ const CartViewPokemonIcons = ({
   pokemonIconData,
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
   tierFilter,
 }: CartViewPokemonIconProps) => {
   // If there is no icon 
@@ -36,7 +36,7 @@ const CartViewPokemonIcons = ({
     <div className="builder__pokemon-icons">
       {pokemonIconData.map(pokemonIconDatum => {
         const { name, psID, } = pokemonIconDatum;
-        const tier = tierFilter.format === 'singles' ? psIDToSinglesTier(gen, psID) : psIDToDoublesTier(gen, psID);
+        const tier = tierFilter.format === 'singles' ? psIDToSinglesTier(genFilter.gen, psID) : psIDToDoublesTier(genFilter.gen, psID);
 
         // Ignore duplicate Pokemon
         if(seenPokemon.hasOwnProperty(name)) return

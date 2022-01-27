@@ -1,4 +1,4 @@
-import { Cart, CartAction, TeamAction } from "../../../hooks/app-hooks";
+import { Cart, CartAction, GenFilter, TeamAction } from "../../../hooks/app-hooks";
 import { GenerationNum } from "../../../types-queries/helpers";
 import { TierFilter } from "../../../utils/smogonLogic";
 import CartViewAccordion from "./CartViewAccordion";
@@ -8,7 +8,7 @@ type CartViewProps = {
   cart: Cart
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
   tierFilter: TierFilter
 }
 
@@ -16,7 +16,7 @@ const CartView = ({
   cart,
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
   tierFilter,
 }: CartViewProps) => {
   console.log(cart);
@@ -24,7 +24,7 @@ const CartView = ({
     <div className="builder__cart-view-wrapper">
       <CartViewAccordion
         accordionRole="parent-entity"
-        accordionData={Object.entries(cart[gen].pokemon).map(([parentEntityClass, obj]) => {
+        accordionData={Object.entries(cart[genFilter.gen].pokemon).map(([parentEntityClass, obj]) => {
           return {
             title: parentEntityClass,
             content: (
@@ -47,7 +47,7 @@ const CartView = ({
                                     pokemonIconData={pokemonIconData}
                                     dispatchCart={dispatchCart}
                                     dispatchTeam={dispatchTeam}
-                                    gen={gen}
+                                    genFilter={genFilter}
                                     tierFilter={tierFilter}
                                   />
                                 )

@@ -22,6 +22,7 @@ import {
 
 import { 
   CartAction,
+  GenFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -55,17 +56,17 @@ const listRender = ({ data, }: ListRenderArgs<UsageMethodSearchQuery>) => {
 type UsageMethodSearchMainProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
 }
 
 const UsageMethodSearch = ({
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
 }: UsageMethodSearchMainProps) => {
 
   const [queryVars, setQueryVars] = useState<UsageMethodSearchVars>({
-    gen: gen,
+    gen: genFilter.gen,
     startsWith: '',
     limit: 100,
   })
@@ -79,7 +80,7 @@ const UsageMethodSearch = ({
   return (
     <>
       <EntitySearchMain
-        gen={gen}
+        genFilter={genFilter}
         handleSubmit={handleSubmit}
         listRender={listRender}
         query={USAGEMETHOD_SEARCH_QUERY}

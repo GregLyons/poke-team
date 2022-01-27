@@ -60,6 +60,7 @@ import {
 
 import { 
   CartAction,
+  GenFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -70,13 +71,13 @@ import MainEntityDescriptionTable from '../MainEntityDescriptionTable';
 type MovePageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
-  gen: GenerationNum
+  genFilter: GenFilter
 }
 
 const MovePage = ({ 
   dispatchCart,
   dispatchTeam,
-  gen,
+  genFilter,
 }: MovePageProps) => {
   const params = useParams();
   
@@ -86,32 +87,32 @@ const MovePage = ({
   // #region
   
   const [effectQueryVars, handleChangeEffect] = useEntityConnectionChangeHandler<MoveEffectQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: moveName,
   });
 
   const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<MoveFieldStateQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: moveName,
   });
 
   const [statQueryVars, handleChangeStat] = useEntityConnectionChangeHandler<MoveStatQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: moveName,
   });
 
   const [statusQueryVars, handleChangeStatus] = useEntityConnectionChangeHandler<MoveStatusQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: moveName,
   });
 
   const [typeQueryVars, handleChangeType] = useEntityConnectionChangeHandler<MoveTypeQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: moveName,
   });
 
   const [usageMethodQueryVars, handleChangeUsageMethod] = useEntityConnectionChangeHandler<MoveUsageMethodQueryVars>({
-    gen: gen,
+    gen: genFilter.gen,
     name: moveName,
   });
 
@@ -124,11 +125,11 @@ const MovePage = ({
     console.log('queried');
     executeSearch({
       variables: {
-        gen: gen,
+        gen: genFilter.gen,
         name: moveName,
       }
     })
-  }, [gen, moveName, executeSearch]);
+  }, [genFilter, moveName, executeSearch]);
     
   // Before actually getting the move data, we need to check that it's present in the given generation
   // #region
@@ -174,9 +175,9 @@ const MovePage = ({
 
   const debutGen = data_introduced.moveByName[0].introduced.edges[0].node.number;
 
-  if (debutGen > gen) return (
+  if (debutGen > genFilter.gen) return (
     <div>
-      {moveName} doesn't exist in Generation {gen}.
+      {moveName} doesn't exist in Generation {genFilter.gen}.
     </div>
   );
 
@@ -243,7 +244,7 @@ const MovePage = ({
             title: `Effects of ${moveResult.formattedName}`,
             content: moveResult.effectCount > 0 && <>
               <EntityConnectionSearch
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeEffect}
                 listRender={listRenderMoveEffect}
                 query={MOVE_EFFECT_QUERY}
@@ -255,7 +256,7 @@ const MovePage = ({
             title: `Field state interactions with ${moveResult.formattedName}`,
             content: moveResult.fieldStateCount > 0 && <>
               <EntityConnectionSearch
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeFieldState}
                 listRender={listRenderMoveFieldState}
                 query={MOVE_FIELDSTATE_QUERY}
@@ -267,7 +268,7 @@ const MovePage = ({
             title: `Stat interactions with ${moveResult.formattedName}`,
             content: moveResult.modifiesStatCount > 0 && <>
               <EntityConnectionSearch
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeStat}
                 listRender={listRenderMoveStat}
                 query={MOVE_STAT_QUERY}
@@ -279,7 +280,7 @@ const MovePage = ({
             title: `Status interactions with ${moveResult.formattedName}`,
             content: moveResult.statusCount > 0 && <>
               <EntityConnectionSearch
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeStatus}
                 listRender={listRenderMoveStatus}
                 query={MOVE_STATUS_QUERY}
@@ -291,7 +292,7 @@ const MovePage = ({
             title: `Type interactions with ${moveResult.formattedName}`,
             content: moveResult.typeCount > 0 && <>
               <EntityConnectionSearch
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeType}
                 listRender={listRenderMoveType}
                 query={MOVE_TYPE_QUERY}
@@ -303,7 +304,7 @@ const MovePage = ({
             title: `Usage method interactions with ${moveResult.formattedName}`,
             content: moveResult.usageMethodCount > 0 && <>
               <EntityConnectionSearch
-                gen={gen}
+                genFilter={genFilter}
                 handleChange={handleChangeUsageMethod}
                 listRender={listRenderMoveUsageMethod}
                 query={MOVE_USAGEMETHOD_QUERY}

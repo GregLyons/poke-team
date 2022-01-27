@@ -4,13 +4,14 @@ import {
 import {
   GenerationNum,
 } from "../../types-queries/helpers";
+import { GenFilter } from "../../hooks/app-hooks";
 
 type GenSliderProps = {
-  gen: GenerationNum,
+  genFilter: GenFilter,
   handleGenSliderChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const GenSlider = ({ gen, handleGenSliderChange}: GenSliderProps) => {
+const GenSlider = ({ genFilter, handleGenSliderChange}: GenSliderProps) => {
 
   return (
     <div className="control-panel__gen-slider-wrapper">
@@ -20,10 +21,10 @@ const GenSlider = ({ gen, handleGenSliderChange}: GenSliderProps) => {
             type="range"
             min="1"
             max={NUMBER_OF_GENS}
-            value={gen}
+            value={genFilter.gen}
             onChange={handleGenSliderChange}
           />
-          {gen}
+          {genFilter.gen}
         </label>
         <br />
         <label>

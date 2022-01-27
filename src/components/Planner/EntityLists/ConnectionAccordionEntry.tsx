@@ -90,7 +90,7 @@ const ConnectionAccordionEntry = ({
     icons.dispatchCart({
       type: 'add_pokemon',
       payload: {
-        gen: icons.gen,
+        gen: icons.genFilter.gen,
         parentEntityClass,
         targetEntityClass,
         pokemon: selectionToPokemonIconData(selection),
