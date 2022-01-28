@@ -128,7 +128,7 @@ export const TYPE_SEARCH_QUERY = gql`
       pokemon(filter: {
         formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
         removedFromSwSh: $removedFromSwSh,
-        removedFromBDSP: $removedFromBDSP
+        removedFromBDSP: $removedFromBDSP,
       }) {
         edges {
           node {
@@ -136,6 +136,17 @@ export const TYPE_SEARCH_QUERY = gql`
             name
             formattedName
             pokemonShowdownID
+
+            typeNames
+
+            baseStats {
+              hp
+              attack
+              defense
+              specialAttack
+              specialDefense
+              speed
+            }
           }
         }
       }
@@ -468,6 +479,17 @@ export const TYPE_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -501,6 +523,17 @@ export const TYPE_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -742,6 +775,17 @@ export const TYPE_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -771,6 +815,17 @@ export const TYPE_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -800,6 +855,17 @@ export const TYPE_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -917,6 +983,17 @@ export const TYPE_MOVE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -962,6 +1039,17 @@ export const TYPE_MOVE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }

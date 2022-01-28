@@ -67,16 +67,19 @@ import EntityConnectionSearch from '../EntityConnectionSearch';
 import ConnectionAccordion from '../ConnectionAccordion';
 import MainEntityDescriptionTable from '../MainEntityDescriptionTable';
 import { useGenConnectedSearchVars } from '../../../../hooks/planner-hooks';
+import { TierFilter } from '../../../../utils/smogonLogic';
 
 type MovePageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
+  tierFilter: TierFilter
   genFilter: GenFilter
 }
 
 const MovePage = ({ 
   dispatchCart,
   dispatchTeam,
+  tierFilter,
   genFilter,
 }: MovePageProps) => {
   const params = useParams();
@@ -290,6 +293,9 @@ const MovePage = ({
             title: `Type interactions with ${moveResult.formattedName}`,
             content: moveResult.typeCount > 0 && <>
               <EntityConnectionSearch
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
+                tierFilter={tierFilter}
                 genFilter={genFilter}
                 listRender={listRenderMoveType}
                 query={MOVE_TYPE_QUERY}

@@ -1,7 +1,7 @@
 import {
   gql,
 } from "@apollo/client";
-import { GenerationNum, IntroductionEdge, ItemIconDatum, ItemIconEdge, itemIconEdgeToItemIconDatum, ItemRequiresPokemonEdge, itemRequiresPokemonEdgeToRequiredPokemonIconData, NameEdge, PokemonIconDatum, PokemonIconEdge } from "../helpers";
+import { EnumTypeName, GenerationNum, IntroductionEdge, ItemIconDatum, ItemIconEdge, itemIconEdgeToItemIconDatum, ItemRequiresPokemonEdge, itemRequiresPokemonEdgeToRequiredPokemonIconData, NameEdge, PokemonIconDatum, PokemonIconEdge } from "../helpers";
 
 // Entity in search
 // #region
@@ -350,6 +350,22 @@ export const INTRODUCTION_QUERY = (queryName: EntityPageQueryName) => gql`
 export interface RemovedFromGameQueryVars {
   removedFromSwSh: false | null
   removedFromBDSP: false | null
+}
+
+export interface PokemonFilterVars {
+  types: EnumTypeName[]
+  maxHP: number
+  minHP: number
+  maxAttack: number
+  minAttack: number
+  maxDefense: number
+  minDefense: number
+  maxSpecialAttack: number
+  minSpecialAttack: number
+  maxSpecialDefense: number
+  minSpecialDefense: number
+  maxSpeed: number
+  minSpeed: number
 }
 
 // #endregion

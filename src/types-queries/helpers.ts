@@ -25,16 +25,78 @@ export const stringToGenNumber = (value: string | null): GenerationNum => {
 // Pokemon icons
 // #region
 
+export type BaseStatName = 'hp' | 'attack' | 'defense' | 'specialAttack' | 'specialDefense' | 'speed';
+
+export type FormattedBaseStatName = 'HP' | 'Attack' | 'Defense' | 'Special Attack' | 'Special Defense' | 'Speed';
+
+export const toBaseStatName: (baseStatName: FormattedBaseStatName) => BaseStatName = baseStateName => {
+  switch(baseStateName) {
+    case 'HP':
+      return 'hp';
+    case 'Attack':
+      return 'attack';
+    case 'Defense':
+      return 'defense';
+    case 'Special Attack':
+      return 'specialAttack';
+    case 'Special Defense':
+      return 'specialDefense';
+    case 'Speed':
+      return 'speed';
+    default:
+      throw Error();
+  }
+};
+
+export const toFormattedBaseStatName: (baseStatName: BaseStatName) => FormattedBaseStatName = baseStateName => {
+  switch(baseStateName) {
+    case 'hp':
+      return 'HP';
+    case 'attack':
+      return 'Attack';
+    case 'defense':
+      return 'Defense';
+    case 'specialAttack':
+      return 'Special Attack';
+    case 'specialDefense':
+      return 'Special Defense';
+    case 'speed':
+      return 'Speed';
+    default:
+      throw Error();
+  }
+}
+
+export type BaseStats = {
+  hp: number
+  attack: number
+  defense: number
+  specialAttack: number
+  specialDefense: number
+  speed: number
+}
+
 export type PokemonIconDatum = {
   formattedName: string
   name: string
   psID: string
+  typing: TypeName[]
+  baseStats: BaseStats
 }
 
 export const DUMMY_POKEMON_ICON_DATUM: PokemonIconDatum = {
   formattedName: '',
   name: '',
   psID: '',
+  typing: ['normal'],
+  baseStats: {
+    hp: 0,
+    attack: 0,
+    defense: 0,
+    specialAttack: 0,
+    specialDefense: 0,
+    speed: 0,
+  },
 };
 
 export const pokemonIconEdgeToPokemonIconDatum: (edge: PokemonIconEdge) => PokemonIconDatum = (edge) => {
@@ -42,6 +104,8 @@ export const pokemonIconEdgeToPokemonIconDatum: (edge: PokemonIconEdge) => Pokem
     formattedName: edge.node.formattedName,
     name: edge.node.name,
     psID: edge.node.pokemonShowdownID,
+    typing: edge.node.typeNames.map(toTypeName),
+    baseStats: edge.node.baseStats,
   };
 }
 
@@ -92,7 +156,23 @@ export const typeIconEdgeToTypeIconDatum: (edge: TypeIconEdge) => TypeIconDatum 
 
 export type TypeName = 'normal' | 'fighting' | 'flying' | 'poison' | 'ground' | 'rock' | 'bug' | 'ghost' | 'steel' | 'fire' | 'water' | 'grass' | 'electric' | 'psychic' | 'ice' | 'dragon' | 'dark' | 'fairy';
 
+export type EnumTypeName = 'NORMAL' | 'FIGHTING' | 'FLYING' | 'POISON' | 'GROUND' | 'ROCK' | 'BUG' | 'GHOST' | 'STEEL' | 'FIRE' | 'WATER' | 'GRASS' | 'ELECTRIC' | 'PSYCHIC' | 'ICE' | 'DRAGON' | 'DARK' | 'FAIRY';
+
+export type FormattedTypeName = 'Normal' | 'Fighting' | 'Flying' | 'Poison' | 'Ground' | 'Rock' | 'Bug' | 'Ghost' | 'Steel' | 'Fire' | 'Water' | 'Grass' | 'Electric' | 'Psychic' | 'Ice' | 'Dragon' | 'Dark' | 'Fairy';
+
 export const typeNameEdgeToTypeName: (edge: TypeNameEdge) => TypeName = edge => edge.node.name;
+
+export const toEnumTypeName: (typeName: TypeName | FormattedTypeName) => EnumTypeName = (typeName) => {
+  return (typeName.toUpperCase() as EnumTypeName);
+}
+
+export const toFormattedTypeName: (typeName: TypeName | EnumTypeName) => FormattedTypeName = (typeName) => {
+  return (typeName.charAt(0).toUpperCase() + typeName.slice(1).toLowerCase() as FormattedTypeName);
+}
+
+export const toTypeName: (enumTypeName: EnumTypeName | FormattedTypeName) => TypeName = (enumTypeName) => {
+  return (enumTypeName.toLowerCase() as TypeName);
+}
 
 // #endregion
 
@@ -206,6 +286,9 @@ export interface MoveIconEdge extends NameEdge {
   }
 }
 
+export interface PokemonTypeEdge {
+}
+
 // Pokemon edges which contain data for rendering Pokemon icons
 // pokemonShowdownID for using @pkmn/img
 export interface PokemonIconEdge extends NameEdge {
@@ -214,6 +297,8 @@ export interface PokemonIconEdge extends NameEdge {
     name: string
     formattedName: string
     pokemonShowdownID: string
+    typeNames: EnumTypeName[]
+    baseStats: BaseStats
   }
 }
 

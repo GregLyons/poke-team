@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Selection, SelectionAction } from "../../../hooks/planner-hooks";
 import { GenerationNum, ItemIconDatum, PokemonIconDatum } from "../../../types-queries/helpers";
-import { psIDToDoublesTier, TierFilter } from '../../../utils/smogonLogic';
+import { DoublesTier, psIDToDoublesTier, TierFilter } from '../../../utils/smogonLogic';
 import { psIDToSinglesTier as psIDToSinglesTier } from "../../../utils/smogonLogic";
 import { CartAction, GenFilter, TeamAction } from "../../../hooks/app-hooks";
 import PlannerPokemonIcon from "../PlannerPokemonIcon";
@@ -47,7 +47,11 @@ const PlannerPokemonIcons = ({
     <div className={`planner__${context}-row-icons`}>
       {icons.pokemonIconData.map(pokemonIconDatum => {
         const { psID, } = pokemonIconDatum;
-        const tier = icons.tierFilter.format === 'singles' ? psIDToSinglesTier(icons.genFilter.gen, pokemonIconDatum.psID) : psIDToDoublesTier(icons.genFilter.gen, pokemonIconDatum.psID);
+
+        // E.g. DUMMY_POKEMON_DATUM
+        if (!psID) return;
+
+        const tier = icons.tierFilter.format === 'singles' ? psIDToSinglesTier(icons.genFilter.gen, pokemonIconDatum.psID) : (psIDToDoublesTier(icons.genFilter.gen, pokemonIconDatum.psID)?.replace('LC', 'DLC').replace('NFE', 'DNFE') as DoublesTier);
 
         // Ignore duplicate Pokemon
         if(seenPokemon.hasOwnProperty(pokemonIconDatum.name)) return

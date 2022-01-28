@@ -1,14 +1,14 @@
 import {
   ChangeEvent, useState,
 } from "react";
-import { TierFilterAction } from "../../hooks/app-hooks";
+import { TierFilterAction } from "../../../hooks/app-hooks";
 import {
   DoublesTier,
   DOUBLES_TIERS,
   SinglesTier,
   SINGLES_TIERS,
   TierFilter,
-} from "../../utils/smogonLogic";
+} from "../../../utils/smogonLogic";
 
 type TierFilterFormProps = {
   dispatchTierFilter: React.Dispatch<TierFilterAction>
@@ -20,8 +20,6 @@ const TierFilterForm = ({
   dispatchTierFilter,
   tierFilter,
 }: TierFilterFormProps) => {
-  const [firstClickUsed, setFirstClickUsed] = useState(false);
-
   return (
     <div className="control-panel__tier-filter-wrapper">
       <form>

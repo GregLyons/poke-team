@@ -19,7 +19,7 @@ import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 
 export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<UsageMethodAbilityQuery>) => {
   if (!data || !data.usageMethodByName) return (<div>Data not found for the query 'usageMethodByName'.</div>);
-  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
   if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
@@ -131,7 +131,7 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
 
 export const listRenderUsageMethodItem = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<UsageMethodItemQuery>) => {
   if (!data || !data.usageMethodByName) return (<div>Data not found for the query 'usageMethodByName'.</div>);
-  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
   if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
@@ -220,7 +220,7 @@ export const listRenderUsageMethodItem = ({ data, dispatchCart, dispatchTeam, ge
 
 export const listRenderUsageMethodMove = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<UsageMethodMoveQuery>) => {
   if (!data || !data.usageMethodByName) return (<div>Data not found for the query 'usageMethodByName'.</div>);
-  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
   if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 

@@ -4,8 +4,10 @@ import {
 import { Generation } from '@pkmn/data';
 
 import {
+  BaseStats,
   DescriptionEdge,
   DescriptionsEdge,
+  EnumTypeName,
   GenerationNum,
   IntroductionEdge,
   PokemonIconDatum,
@@ -32,6 +34,7 @@ import {
   EntityConnectionVars,
   MainToAuxConnectionOnPage,
   RemovedFromGameQueryVars,
+  PokemonFilterVars,
 } from './helpers';
 
 // Ability in main search
@@ -59,12 +62,16 @@ export interface AbilitySearchVars extends EntitySearchVars, RemovedFromGameQuer
   gen: GenerationNum
   limit: number
   startsWith: string
+
   removedFromSwSh: false | null
   removedFromBDSP: false | null
 }
 
 export const ABILITY_SEARCH_QUERY = gql`
-  query AbilitySearchQuery($gen: Int! $limit: Int! $startsWith: String $removedFromBDSP: Boolean $removedFromSwSh: Boolean) {
+  query AbilitySearchQuery(
+    $gen: Int! $limit: Int! $startsWith: String
+    $removedFromBDSP: Boolean $removedFromSwSh: Boolean
+  ) {
     abilities(
       generation: $gen 
       filter: { startsWith: $startsWith } 
@@ -85,7 +92,7 @@ export const ABILITY_SEARCH_QUERY = gql`
       pokemon(filter: {
         formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
         removedFromSwSh: $removedFromSwSh,
-        removedFromBDSP: $removedFromBDSP
+        removedFromBDSP: $removedFromBDSP,
       }) {
         edges {
           node {
@@ -93,6 +100,17 @@ export const ABILITY_SEARCH_QUERY = gql`
             name
             formattedName
             pokemonShowdownID
+
+            typeNames
+
+            baseStats {
+              hp
+              attack
+              defense
+              specialAttack
+              specialDefense
+              speed
+            }
           }
         }
       }

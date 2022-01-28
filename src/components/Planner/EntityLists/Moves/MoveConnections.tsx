@@ -286,7 +286,7 @@ export const listRenderMoveStatus = ({ data, dispatchCart, dispatchTeam, genFilt
 
 export const listRenderMoveType = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<MoveTypeQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
-  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
+  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
   if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
 
@@ -305,8 +305,8 @@ export const listRenderMoveType = ({ data, dispatchCart, dispatchTeam, genFilter
         {requiresResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Move"
-            targetEntityClass="Status"
-            key={`${parent.id}_${result.id}_cause_status`}
+            targetEntityClass="Type"
+            key={`${parent.id}_${result.id}_require_type`}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -317,7 +317,7 @@ export const listRenderMoveType = ({ data, dispatchCart, dispatchTeam, genFilter
               dispatchTeam,
               genFilter,
               tierFilter,
-              cartNote: ``
+              cartNote: ``,
             }}
           />
         ))}

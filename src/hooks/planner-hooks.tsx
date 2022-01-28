@@ -110,7 +110,7 @@ export const useEntryExpand = (entryRef: React.RefObject<HTMLDivElement>) => {
 export const useSelection = (iconData: PokemonIconDatum[] | undefined): [Selection, React.Dispatch<SelectionAction>] => {
   const initialSelection = iconData
   ? iconData.reduce((acc: Selection, curr) => {
-    const { psID, name, formattedName, } = curr;
+    const { psID, name, formattedName, typing, baseStats, } = curr;
     if (acc[curr.psID]) return acc;
 
     return {
@@ -120,6 +120,8 @@ export const useSelection = (iconData: PokemonIconDatum[] | undefined): [Selecti
           psID,
           name,
           formattedName,
+          typing,
+          baseStats,
         },
         selected: false,
       }
@@ -135,6 +137,15 @@ export const useSelection = (iconData: PokemonIconDatum[] | undefined): [Selecti
               formattedName: '',
               psID: '',
               name: '',
+              typing: ['normal'],
+              baseStats: {
+                hp: -1,
+                attack: -1,
+                defense: -1,
+                specialAttack: -1,
+                specialDefense: -1,
+                speed: -1,
+              },
             },
             selected: false,
           }

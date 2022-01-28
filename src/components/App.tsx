@@ -24,7 +24,7 @@ import {
 } from '../utils/smogonLogic';
 
 import NavBar from './NavBar/NavBar';
-import GenFilterForm from './ControlPanel/GenFilterForm';
+import GenFilterForm from './ControlPanel/GenFilterForm/GenFilterForm';
 import TeamDisplay from './ControlPanel/PokemonTeam/TeamDisplay';
 
 import Analyzer from './Analyzer/Analyzer';
@@ -53,13 +53,14 @@ import UsageMethodMainPage from './Planner/EntityLists/UsageMethods/UsageMethodM
 import UsageMethodPage from './Planner/EntityLists/UsageMethods/UsageMethodPage';
 
 import { GenerationNum, ItemIconDatum, PokemonIconDatum, stringToGenNumber } from '../types-queries/helpers';
-import { cartReducer, DEFAULT_CART, DEFAULT_GEN_FILTER, DEFAULT_SINGLES_TIER_FILTER, GenFilter, GenFilterAction, genReducer, teamReducer, TierFilterAction, tierReducer } from '../hooks/app-hooks';
+import { cartReducer, DEFAULT_CART, DEFAULT_GEN_FILTER, DEFAULT_POKEMON_FILTER, DEFAULT_SINGLES_TIER_FILTER, GenFilter, GenFilterAction, genReducer, pokemonReducer, teamReducer, TierFilterAction, tierReducer } from '../hooks/app-hooks';
 import ControlPanel from './ControlPanel/ControlPanel';
 
 
 function App() {
   const [genFilter, dispatchGenFilter] = useReducer(genReducer, DEFAULT_GEN_FILTER);
-  const [tierFilter, dispatchTierFilter] = useReducer(tierReducer, DEFAULT_SINGLES_TIER_FILTER)
+  const [tierFilter, dispatchTierFilter] = useReducer(tierReducer, DEFAULT_SINGLES_TIER_FILTER);
+  const [pokemonFilter, dispatchPokemonFilter] = useReducer(pokemonReducer, DEFAULT_POKEMON_FILTER);
   const [cart, dispatchCart] = useReducer(cartReducer, DEFAULT_CART);
   const [team, dispatchTeam] = useReducer(teamReducer, []);
   
@@ -74,6 +75,8 @@ function App() {
           genFilter={genFilter}
           dispatchTierFilter={dispatchTierFilter}
           tierFilter={tierFilter}
+          dispatchPokemonFilter={dispatchPokemonFilter}
+          pokemonFilter={pokemonFilter}
           team={team}
         />
       </header>
@@ -173,6 +176,7 @@ function App() {
             dispatchCart={dispatchCart}
             dispatchTeam={dispatchTeam}
             genFilter={genFilter}
+            tierFilter={tierFilter}
           />} />
 
           {/* */}

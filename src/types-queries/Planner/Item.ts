@@ -5,6 +5,7 @@ import {
 import {
   DescriptionEdge,
   DescriptionsEdge,
+  EnumTypeName,
   GenerationNum,
   IntroductionEdge,
   ItemIconDatum,
@@ -67,12 +68,16 @@ export interface ItemSearchVars extends EntitySearchVars, RemovedFromGameQueryVa
   gen: GenerationNum
   limit: number
   startsWith: string
+
   removedFromSwSh: false | null
   removedFromBDSP: false | null
 }
 
 export const ITEM_SEARCH_QUERY = gql`
-  query ItemSearchQuery($gen: Int! $limit: Int! $startsWith: String $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
+  query ItemSearchQuery(
+    $gen: Int! $limit: Int! $startsWith: String
+    $removedFromBDSP: Boolean $removedFromSwSh: Boolean
+  ) {
     items(
       generation: $gen 
       filter: { startsWith: $startsWith } 
@@ -90,16 +95,11 @@ export const ITEM_SEARCH_QUERY = gql`
           }
         }
       }
-
-      introduced {
-        edges {
-          node {
-            number
-          }
-        }
-      }
       
-      requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+      requiresPokemon(filter: {
+        removedFromSwSh: $removedFromSwSh,
+        removedFromBDSP: $removedFromBDSP,
+      }) {
         edges {
           node {
             id
@@ -107,12 +107,15 @@ export const ITEM_SEARCH_QUERY = gql`
             formattedName
             pokemonShowdownID
 
-            introduced {
-              edges {
-                node {
-                  number
-                }
-              }
+            typeNames
+
+            baseStats {
+              hp
+              attack
+              defense
+              specialAttack
+              specialDefense
+              speed
             }
           }
         }

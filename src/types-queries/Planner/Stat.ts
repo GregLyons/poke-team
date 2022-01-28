@@ -259,6 +259,17 @@ export const STAT_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -444,6 +455,17 @@ export const STAT_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -566,6 +588,17 @@ export const STAT_MOVE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }

@@ -430,6 +430,17 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -462,6 +473,17 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -495,6 +517,17 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -527,6 +560,17 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -559,6 +603,17 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -591,6 +646,17 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -749,6 +815,17 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -776,6 +853,17 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -804,6 +892,17 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -831,6 +930,17 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -949,6 +1059,17 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -991,6 +1112,17 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -1032,6 +1164,17 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -1073,6 +1216,17 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -1353,6 +1507,17 @@ export const FIELDSTATE_TYPE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -1377,6 +1542,17 @@ export const FIELDSTATE_TYPE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
@@ -1401,6 +1577,17 @@ export const FIELDSTATE_TYPE_QUERY = gql`
                   name
                   formattedName
                   pokemonShowdownID
+
+                  typeNames 
+
+                  baseStats {
+                    hp
+                    attack
+                    defense
+                    specialAttack
+                    specialDefense
+                    speed
+                  }
                 }
               }
             }
