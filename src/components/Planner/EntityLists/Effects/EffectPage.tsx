@@ -10,9 +10,6 @@ import {
 } from '@apollo/client';
 
 import {
-  useEntityConnectionChangeHandler,
-} from '../helpers';
-import {
   EFFECT_PAGE_QUERY,
   EffectPageQuery,
   EffectPageQueryVars,
@@ -58,6 +55,7 @@ import EntityConnectionSearch from '../EntityConnectionSearch';
 import ConnectionAccordion from '../ConnectionAccordion';
 import { listRenderEffectAbility, listRenderEffectFieldState, listRenderEffectItem, listRenderEffectMove } from './EffectConnections';
 import AuxEntityDescription from '../AuxEntityDescription';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
 
 type EffectPageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -79,31 +77,31 @@ const EffectPage = ({
   // Connection queries
   // #region 
   
-  const [abilityQueryVars, handleChangeAbility] = useEntityConnectionChangeHandler<EffectAbilityQueryVars>({
+  const [abilityQueryVars, setAbilityQueryVars] = useRemovalConnectedSearchVars<EffectAbilityQueryVars>({
     gen: genFilter.gen,
     name: effectName,
     removedFromSwSh: removedFromSwSh(genFilter),
     removedFromBDSP: removedFromBDSP(genFilter),
-  });
+  }, genFilter);
 
-  const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<EffectFieldStateQueryVars>({
+  const [fieldStateQueryVars, setFieldStateQueryVars] = useGenConnectedSearchVars<EffectFieldStateQueryVars>({
     gen: genFilter.gen,
     name: effectName,
-  });
+  }, genFilter);
 
-  const [itemQueryVars, handleChangeItem] = useEntityConnectionChangeHandler<EffectItemQueryVars>({
-    gen: genFilter.gen,
-    name: effectName,
-    removedFromSwSh: removedFromSwSh(genFilter),
-    removedFromBDSP: removedFromBDSP(genFilter),
-  });
-
-  const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<EffectMoveQueryVars>({
+  const [itemQueryVars, setItemQueryVars] = useGenConnectedSearchVars<EffectItemQueryVars>({
     gen: genFilter.gen,
     name: effectName,
     removedFromSwSh: removedFromSwSh(genFilter),
     removedFromBDSP: removedFromBDSP(genFilter),
-  });
+  }, genFilter);
+
+  const [moveQueryVars, setMoveQueryVars] = useGenConnectedSearchVars<EffectMoveQueryVars>({
+    gen: genFilter.gen,
+    name: effectName,
+    removedFromSwSh: removedFromSwSh(genFilter),
+    removedFromBDSP: removedFromBDSP(genFilter),
+  }, genFilter);
 
   // #endregion
 
@@ -237,7 +235,6 @@ const EffectPage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeAbility}
                 listRender={listRenderEffectAbility}
                 query={EFFECT_ABILITY_QUERY}
                 queryVars={abilityQueryVars}
@@ -251,7 +248,6 @@ const EffectPage = ({
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
-                handleChange={handleChangeFieldState}
                 listRender={listRenderEffectFieldState}
                 query={EFFECT_FIELDSTATE_QUERY}
                 queryVars={fieldStateQueryVars}
@@ -266,7 +262,6 @@ const EffectPage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeItem}
                 listRender={listRenderEffectItem}
                 query={EFFECT_ITEM_QUERY}
                 queryVars={itemQueryVars}
@@ -281,7 +276,6 @@ const EffectPage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeMove}
                 listRender={listRenderEffectMove}
                 query={EFFECT_MOVE_QUERY}
                 queryVars={moveQueryVars}

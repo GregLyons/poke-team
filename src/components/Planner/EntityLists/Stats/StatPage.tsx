@@ -10,9 +10,6 @@ import {
 } from '@apollo/client';
 
 import {
-  useEntityConnectionChangeHandler,
-} from '../helpers';
-import {
   STAT_PAGE_QUERY,
   StatPageQuery,
   StatPageQueryVars,
@@ -58,6 +55,7 @@ import EntityConnectionSearch from '../EntityConnectionSearch';
 import ConnectionAccordion from '../ConnectionAccordion';
 import { listRenderStatAbility, listRenderStatFieldState, listRenderStatItem, listRenderStatMove } from './StatConnections';
 import AuxEntityDescription from '../AuxEntityDescription';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
 
 type StatPageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -79,31 +77,31 @@ const StatPage = ({
   // Connection queries
   // #region 
   
-  const [abilityQueryVars, handleChangeAbility] = useEntityConnectionChangeHandler<StatAbilityQueryVars>({
+  const [abilityQueryVars, setAbilityQueryVars] = useRemovalConnectedSearchVars<StatAbilityQueryVars>({
     gen: genFilter.gen,
     name: statName,
     removedFromSwSh: removedFromSwSh(genFilter),
     removedFromBDSP: removedFromBDSP(genFilter),
-  });
+  }, genFilter);
 
-  const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<StatFieldStateQueryVars>({
+  const [fieldStateQueryVars, setFieldStateQueryVars] = useGenConnectedSearchVars<StatFieldStateQueryVars>({
     gen: genFilter.gen,
     name: statName,
-  });
+  }, genFilter);
 
-  const [itemQueryVars, handleChangeItem] = useEntityConnectionChangeHandler<StatItemQueryVars>({
-    gen: genFilter.gen,
-    name: statName,
-    removedFromSwSh: removedFromSwSh(genFilter),
-    removedFromBDSP: removedFromBDSP(genFilter),
-  });
-
-  const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<StatMoveQueryVars>({
+  const [itemQueryVars, setItemQueryVars] = useRemovalConnectedSearchVars<StatItemQueryVars>({
     gen: genFilter.gen,
     name: statName,
     removedFromSwSh: removedFromSwSh(genFilter),
     removedFromBDSP: removedFromBDSP(genFilter),
-  });
+  }, genFilter);
+
+  const [moveQueryVars, setMoveQueryVars] = useRemovalConnectedSearchVars<StatMoveQueryVars>({
+    gen: genFilter.gen,
+    name: statName,
+    removedFromSwSh: removedFromSwSh(genFilter),
+    removedFromBDSP: removedFromBDSP(genFilter),
+  }, genFilter);
 
   // #endregion
 
@@ -237,7 +235,6 @@ const StatPage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeAbility}
                 listRender={listRenderStatAbility}
                 query={STAT_ABILITY_QUERY}
                 queryVars={abilityQueryVars}
@@ -251,7 +248,6 @@ const StatPage = ({
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
-                handleChange={handleChangeFieldState}
                 listRender={listRenderStatFieldState}
                 query={STAT_FIELDSTATE_QUERY}
                 queryVars={fieldStateQueryVars}
@@ -266,7 +262,6 @@ const StatPage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeItem}
                 listRender={listRenderStatItem}
                 query={STAT_ITEM_QUERY}
                 queryVars={itemQueryVars}
@@ -281,7 +276,6 @@ const StatPage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeMove}
                 listRender={listRenderStatMove}
                 query={STAT_MOVE_QUERY}
                 queryVars={moveQueryVars}

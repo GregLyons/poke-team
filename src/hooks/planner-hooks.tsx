@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import { PokemonIconDatum } from "../types-queries/helpers";
+import { EntityPageVars } from "../types-queries/Planner/helpers";
 import { GenFilter, removedFromBDSP, removedFromSwSh } from "./app-hooks";
 
 // Main searches
@@ -37,6 +38,21 @@ export function useRemovalConnectedSearchVars<SearchVars>(defaultSearchVars: Sea
   }, [genFilter]);
 
   return [queryVars, setQueryVars];
+}
+
+// #endregion
+
+// Entity pages
+// #region
+
+export function entityConnectionChangeHandler<QueryVars>(setQueryVars: React.Dispatch<React.SetStateAction<QueryVars>>): (x: QueryVars) => void {
+  return setQueryVars;
+}
+
+export function useEntityConnectionChangeHandler<QueryVars extends EntityPageVars>(defaultQueryVars: QueryVars): [QueryVars, (newQueryVars: QueryVars) => void] {
+  const [queryVars, setQueryVars] = useState<QueryVars>(defaultQueryVars);
+  
+  return [queryVars, entityConnectionChangeHandler<QueryVars>(setQueryVars)];
 }
 
 // #endregion

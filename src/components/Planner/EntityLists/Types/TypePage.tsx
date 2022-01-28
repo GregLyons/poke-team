@@ -10,9 +10,6 @@ import {
 } from '@apollo/client';
 
 import {
-  useEntityConnectionChangeHandler,
-} from '../helpers';
-import {
   TYPE_PAGE_QUERY,
   TypePageQuery,
   TypePageQueryVars,
@@ -63,6 +60,7 @@ import AuxEntityDescription from '../AuxEntityDescription';
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
 import ConnectionAccordion from '../ConnectionAccordion';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
 
 type TypePageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -84,31 +82,31 @@ const TypePage = ({
   // Connection queries
   // #region 
   
-  const [abilityQueryVars, handleChangeAbility] = useEntityConnectionChangeHandler<TypeAbilityQueryVars>({
+  const [abilityQueryVars, setAbilityQueryVars] = useRemovalConnectedSearchVars<TypeAbilityQueryVars>({
     gen: genFilter.gen,
     name: typeName,
     removedFromSwSh: removedFromSwSh(genFilter),
     removedFromBDSP: removedFromBDSP(genFilter),
-  });
+  }, genFilter);
 
-  const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<TypeFieldStateQueryVars>({
+  const [fieldStateQueryVars, setFieldStateQueryVars] = useGenConnectedSearchVars<TypeFieldStateQueryVars>({
     gen: genFilter.gen,
     name: typeName,
-  });
+  }, genFilter);
 
-  const [itemQueryVars, handleChangeItem] = useEntityConnectionChangeHandler<TypeItemQueryVars>({
-    gen: genFilter.gen,
-    name: typeName,
-    removedFromSwSh: removedFromSwSh(genFilter),
-    removedFromBDSP: removedFromBDSP(genFilter),
-  });
-
-  const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<TypeMoveQueryVars>({
+  const [itemQueryVars, setItemQueryVars] = useRemovalConnectedSearchVars<TypeItemQueryVars>({
     gen: genFilter.gen,
     name: typeName,
     removedFromSwSh: removedFromSwSh(genFilter),
     removedFromBDSP: removedFromBDSP(genFilter),
-  });
+  }, genFilter);
+
+  const [moveQueryVars, setMoveQueryVars] = useRemovalConnectedSearchVars<TypeMoveQueryVars>({
+    gen: genFilter.gen,
+    name: typeName,
+    removedFromSwSh: removedFromSwSh(genFilter),
+    removedFromBDSP: removedFromBDSP(genFilter),
+  }, genFilter);
 
   // #endregion
 
@@ -242,7 +240,6 @@ const TypePage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeAbility}
                 listRender={listRenderTypeAbility}
                 query={TYPE_ABILITY_QUERY}
                 queryVars={abilityQueryVars}
@@ -257,7 +254,6 @@ const TypePage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeFieldState}
                 listRender={listRenderTypeFieldState}
                 query={TYPE_FIELDSTATE_QUERY}
                 queryVars={fieldStateQueryVars}
@@ -272,7 +268,6 @@ const TypePage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeItem}
                 listRender={listRenderTypeItem}
                 query={TYPE_ITEM_QUERY}
                 queryVars={itemQueryVars}
@@ -287,7 +282,6 @@ const TypePage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeMove}
                 listRender={listRenderTypeMove}
                 query={TYPE_MOVE_QUERY}
                 queryVars={moveQueryVars}

@@ -9,6 +9,7 @@ import {
   GenFilter,
   TeamAction,
 } from "../../../hooks/app-hooks";
+import { EntityPageVars } from "../../../types-queries/Planner/helpers";
 
 // Rendering lists
 // #region
@@ -62,18 +63,6 @@ export class MissingTierFilterError extends Error {
     this.name='MissingTierFilterError';
   }
 }
-
-export function entityConnectionChangeHandler<QueryVars>(setQueryVars: React.Dispatch<React.SetStateAction<QueryVars>>): (x: QueryVars) => void {
-  return setQueryVars;
-}
-
-export function useEntityConnectionChangeHandler<QueryVars>(defaultQueryVars: QueryVars): [QueryVars, (newQueryVars: QueryVars) => void] {
-  const [queryVars, setQueryVars] = useState<QueryVars>(defaultQueryVars);
-  
-  return [queryVars, entityConnectionChangeHandler<QueryVars>(setQueryVars)];
-}
-
-// #endregion
 
 export type EntryIconData = {
   pokemonIconData: PokemonIconDatum[]

@@ -59,7 +59,6 @@ const PlannerPokemonIcons = ({
         if (tier && !icons.tierFilter['tiers'][tier]) return;
 
         hasIcon.current = true;
-        console.log(psID);
 
         return (
           <PlannerPokemonIcon

@@ -44,9 +44,6 @@ import {
 } from '../../../../utils/constants';
 import { GenerationNum } from '../../../../types-queries/helpers';
 import {
-  useEntityConnectionChangeHandler,
-} from '../helpers';
-import {
   listRenderAbilityEffect,
   listRenderAbilityFieldState,
   listRenderAbilityStat,
@@ -66,6 +63,7 @@ import {
 import EntityConnectionSearch from '../EntityConnectionSearch';
 import ConnectionAccordion from '../ConnectionAccordion';
 import MainEntityDescriptionTable from '../MainEntityDescriptionTable';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
 
 type AbilityPageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -85,37 +83,37 @@ const AbilityPage = ({
   // Connections
   // #region
 
-  const [effectQueryVars, handleChangeEffect] = useEntityConnectionChangeHandler<AbilityEffectQueryVars>({
+  const [effectQueryVars, handleChangeEffect] = useGenConnectedSearchVars<AbilityEffectQueryVars>({
     gen: genFilter.gen,
     name: abilityName,
-  });
+  }, genFilter);
 
-  const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<AbilityFieldStateQueryVars>({
+  const [fieldStateQueryVars, handleChangeFieldState] = useGenConnectedSearchVars<AbilityFieldStateQueryVars>({
     gen: genFilter.gen,
     name: abilityName,
-  });
+  }, genFilter);
 
-  const [statQueryVars, handleChangeStat] = useEntityConnectionChangeHandler<AbilityStatQueryVars>({
+  const [statQueryVars, handleChangeStat] = useGenConnectedSearchVars<AbilityStatQueryVars>({
     gen: genFilter.gen,
     name: abilityName,
-  });
+  }, genFilter);
 
-  const [statusQueryVars, handleChangeStatus] = useEntityConnectionChangeHandler<AbilityStatusQueryVars>({
+  const [statusQueryVars, handleChangeStatus] = useGenConnectedSearchVars<AbilityStatusQueryVars>({
     gen: genFilter.gen,
     name: abilityName,
-  });
+  }, genFilter);
 
-  const [typeQueryVars, handleChangeType] = useEntityConnectionChangeHandler<AbilityTypeQueryVars>({
+  const [typeQueryVars, handleChangeType] = useRemovalConnectedSearchVars<AbilityTypeQueryVars>({
     gen: genFilter.gen,
     name: abilityName,
     removedFromSwSh: removedFromSwSh(genFilter),
     removedFromBDSP: removedFromBDSP(genFilter),
-  });
+  }, genFilter);
 
-  const [usageMethodQueryVars, handleChangeUsageMethod] = useEntityConnectionChangeHandler<AbilityUsageMethodQueryVars>({
+  const [usageMethodQueryVars, handleChangeUsageMethod] = useGenConnectedSearchVars<AbilityUsageMethodQueryVars>({
     gen: genFilter.gen,
     name: abilityName,
-  });
+  }, genFilter);
 
   // #endregion
   
@@ -245,7 +243,6 @@ const AbilityPage = ({
             content: abilityResult.effectCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
-                handleChange={handleChangeEffect}
                 listRender={listRenderAbilityEffect}
                 query={ABILITY_EFFECT_QUERY}
                 queryVars={effectQueryVars}
@@ -257,7 +254,6 @@ const AbilityPage = ({
             content: abilityResult.fieldStateCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
-                handleChange={handleChangeFieldState}
                 listRender={listRenderAbilityFieldState}
                 query={ABILITY_FIELDSTATE_QUERY}
                 queryVars={fieldStateQueryVars}
@@ -269,7 +265,6 @@ const AbilityPage = ({
             content: abilityResult.modifiesStatCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
-                handleChange={handleChangeStat}
                 listRender={listRenderAbilityStat}
                 query={ABILITY_STAT_QUERY}
                 queryVars={statQueryVars}
@@ -281,7 +276,6 @@ const AbilityPage = ({
             content: abilityResult.statusCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
-                handleChange={handleChangeStatus}
                 listRender={listRenderAbilityStatus}
                 query={ABILITY_STATUS_QUERY}
                 queryVars={statusQueryVars}
@@ -293,7 +287,6 @@ const AbilityPage = ({
             content: abilityResult.typeCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
-                handleChange={handleChangeType}
                 listRender={listRenderAbilityType}
                 query={ABILITY_TYPE_QUERY}
                 queryVars={typeQueryVars}
@@ -305,7 +298,6 @@ const AbilityPage = ({
             content: abilityResult.usageMethodCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
-                handleChange={handleChangeUsageMethod}
                 listRender={listRenderAbilityUsageMethod}
                 query={ABILITY_USAGEMETHOD_QUERY}
                 queryVars={usageMethodQueryVars}

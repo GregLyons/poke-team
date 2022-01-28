@@ -28,7 +28,6 @@ interface EntityConnectionSearchProps<SearchQuery, SearchQueryVars> {
   dispatchTeam?: React.Dispatch<TeamAction>
   genFilter: GenFilter
   tierFilter?: TierFilter
-  handleChange: (newQueryVars: SearchQueryVars) => void,
   listRender: ({ data, dispatchCart, dispatchTeam }: ListRenderArgs<SearchQuery>) => JSX.Element,
   query: DocumentNode,
   queryVars: SearchQueryVars,
@@ -39,18 +38,10 @@ function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
   dispatchTeam,
   genFilter,
   tierFilter,
-  handleChange,
   listRender,
   query,
   queryVars,
 }: EntityConnectionSearchProps<SearchQuery, SearchQueryVars>): JSX.Element {
-  useEffect(() => {
-    handleChange({
-      ...queryVars,
-      gen: genFilter.gen,
-    })
-  }, [genFilter])
-
   const { data, loading, error } = useQuery<SearchQuery, SearchQueryVars>(
     query,
     {

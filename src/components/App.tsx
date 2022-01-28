@@ -16,7 +16,6 @@ import {
   NUMBER_OF_GENS,
 } from '../utils/constants';
 import {
-  DEFAULT_SINGLES_TIER_FILTER,
   DoublesTier,
   DOUBLES_TIERS,
   SinglesTier,
@@ -54,74 +53,15 @@ import UsageMethodMainPage from './Planner/EntityLists/UsageMethods/UsageMethodM
 import UsageMethodPage from './Planner/EntityLists/UsageMethods/UsageMethodPage';
 
 import { GenerationNum, ItemIconDatum, PokemonIconDatum, stringToGenNumber } from '../types-queries/helpers';
-import { cartReducer, DEFAULT_CART, DEFAULT_GEN_FILTER, genReducer, teamReducer } from '../hooks/app-hooks';
+import { cartReducer, DEFAULT_CART, DEFAULT_GEN_FILTER, DEFAULT_SINGLES_TIER_FILTER, GenFilter, GenFilterAction, genReducer, teamReducer, TierFilterAction, tierReducer } from '../hooks/app-hooks';
 import ControlPanel from './ControlPanel/ControlPanel';
 
 
 function App() {
   const [genFilter, dispatchGenFilter] = useReducer(genReducer, DEFAULT_GEN_FILTER);
-  const [tierFilter, setTierFilter] = useState<TierFilter>(DEFAULT_SINGLES_TIER_FILTER);
+  const [tierFilter, dispatchTierFilter] = useReducer(tierReducer, DEFAULT_SINGLES_TIER_FILTER)
   const [cart, dispatchCart] = useReducer(cartReducer, DEFAULT_CART);
   const [team, dispatchTeam] = useReducer(teamReducer, []);
-
-  // Tier filtering
-  // #region
-
-  const handleTierModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name = (e.target.name as 'singles' | 'doubles');
-    if (!name) return;
-    setTierFilter({
-      ...tierFilter,
-      format: name,
-    })
-  }
-
-  const handleTierFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name = (e.target.name as SinglesTier | DoublesTier);
-    if (!name) return;
-    if (tierFilter.selectionMode === 'exact') {
-      setTierFilter({
-        ...tierFilter,
-        tiers: {
-          ...tierFilter.tiers,
-          [name]: !tierFilter.tiers[name],
-        }
-      });
-      return;
-    }
-    else {
-      const idx = tierFilter.format === 'singles'
-        ? SINGLES_TIERS.findIndex((s: SinglesTier) => s === name)
-        : DOUBLES_TIERS.findIndex((s: DoublesTier) => s === name);
-      const lowerTierNames = tierFilter.format === 'singles'
-        ? SINGLES_TIERS.slice(idx)
-        : DOUBLES_TIERS.slice(idx);
-
-      const newFilters: {
-        [tierName in SinglesTier | DoublesTier]? : boolean 
-      } = {};
-      for (let lowerTierName of lowerTierNames) {
-        newFilters[lowerTierName] = !tierFilter.tiers[name];
-      }
-
-      setTierFilter({
-        ...tierFilter,
-        tiers: {
-          ...tierFilter.tiers,
-          ...newFilters,
-        }
-      });
-    }
-  }
-
-  const toggleSelectionMode = () => {
-    setTierFilter({
-      ...tierFilter,
-      selectionMode: tierFilter.selectionMode === 'exact' ? 'range' : 'exact',
-    })
-  }
-
-  // #endregion
   
   return (
     <div className="app">
@@ -132,10 +72,8 @@ function App() {
           dispatchTeam={dispatchTeam}
           dispatchGenFilter={dispatchGenFilter}
           genFilter={genFilter}
+          dispatchTierFilter={dispatchTierFilter}
           tierFilter={tierFilter}
-          handleTierModeChange={handleTierModeChange}
-          handleTierFilterChange={handleTierFilterChange}
-          toggleSelectionMode={toggleSelectionMode}
           team={team}
         />
       </header>

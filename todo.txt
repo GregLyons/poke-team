@@ -1,15 +1,7 @@
 missing/incorrect/additional data:
   missing item descriptions/Z-move descriptions
 
-  intimidate lowers attack by 1, not raises
-
-  sticky web lowers speed by 1, not raises
-
-  alcremie gmax is not cosmetic
-
   gloom doesn't learn absorb in gen 5 ARRRRGHGHHHH
-
-  gravity and terrains missing target class
 
   form flags
     mothim trash, mothim sandy cosmetic? or not at all?
@@ -18,7 +10,8 @@ missing/incorrect/additional data:
 
   only darmanitan galar zen has zen mode
 
-  oricorio present in bdsp??
+  eevee gmax present in bdsp?
+  mega pinsir present in swsh?
 
   items
     remove

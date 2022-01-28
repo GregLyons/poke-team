@@ -10,9 +10,6 @@ import {
 } from '@apollo/client';
 
 import {
-  useEntityConnectionChangeHandler,
-} from '../helpers';
-import {
   STATUS_PAGE_QUERY,
   StatusPageQuery,
   StatusPageQueryVars,
@@ -63,6 +60,7 @@ import {
   listRenderStatusMove
 } from './StatusConnections';
 import AuxEntityDescription from '../AuxEntityDescription';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
 
 type StatusPageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -84,31 +82,31 @@ const StatusPage = ({
   // Connection queries
   // #region 
   
-  const [abilityQueryVars, handleChangeAbility] = useEntityConnectionChangeHandler<StatusAbilityQueryVars>({
+  const [abilityQueryVars, setAbilityQueryVars] = useRemovalConnectedSearchVars<StatusAbilityQueryVars>({
     gen: genFilter.gen,
     name: statusName,
     removedFromSwSh: removedFromSwSh(genFilter),
     removedFromBDSP: removedFromBDSP(genFilter),
-  });
+  }, genFilter);
 
-  const [effectQueryVars, handleChangeEffect] = useEntityConnectionChangeHandler<StatusFieldStateQueryVars>({
+  const [effectQueryVars, setEffectQueryVars] = useGenConnectedSearchVars<StatusFieldStateQueryVars>({
     gen: genFilter.gen,
     name: statusName,
-  });
+  }, genFilter);
 
-  const [itemQueryVars, handleChangeItem] = useEntityConnectionChangeHandler<StatusItemQueryVars>({
-    gen: genFilter.gen,
-    name: statusName,
-    removedFromSwSh: removedFromSwSh(genFilter),
-    removedFromBDSP: removedFromBDSP(genFilter),
-  });
-
-  const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<StatusMoveQueryVars>({
+  const [itemQueryVars, setItemQueryVars] = useRemovalConnectedSearchVars<StatusItemQueryVars>({
     gen: genFilter.gen,
     name: statusName,
     removedFromSwSh: removedFromSwSh(genFilter),
     removedFromBDSP: removedFromBDSP(genFilter),
-  });
+  }, genFilter);
+
+  const [moveQueryVars, setMoveQueryVars] = useRemovalConnectedSearchVars<StatusMoveQueryVars>({
+    gen: genFilter.gen,
+    name: statusName,
+    removedFromSwSh: removedFromSwSh(genFilter),
+    removedFromBDSP: removedFromBDSP(genFilter),
+  }, genFilter);
 
   // #endregion
 
@@ -242,7 +240,6 @@ const StatusPage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeAbility}
                 listRender={listRenderStatusAbility}
                 query={STATUS_ABILITY_QUERY}
                 queryVars={abilityQueryVars}
@@ -256,7 +253,6 @@ const StatusPage = ({
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
-                handleChange={handleChangeEffect}
                 listRender={listRenderStatusFieldState}
                 query={STATUS_FIELDSTATE_QUERY}
                 queryVars={effectQueryVars}
@@ -271,7 +267,6 @@ const StatusPage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeItem}
                 listRender={listRenderStatusItem}
                 query={STATUS_ITEM_QUERY}
                 queryVars={itemQueryVars}
@@ -286,7 +281,6 @@ const StatusPage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeMove}
                 listRender={listRenderStatusMove}
                 query={STATUS_MOVE_QUERY}
                 queryVars={moveQueryVars}

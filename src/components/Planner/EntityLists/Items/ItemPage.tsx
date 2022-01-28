@@ -46,9 +46,6 @@ import {
   GenerationNum,
 } from '../../../../types-queries/helpers';
 import {
-  useEntityConnectionChangeHandler,
-} from '../helpers';
-import {
   listRenderItemEffect,
   listRenderItemFieldState,
   listRenderItemStat,
@@ -68,6 +65,7 @@ import {
 import EntityConnectionSearch from '../EntityConnectionSearch';
 import ConnectionAccordion from '../ConnectionAccordion';
 import MainEntityDescriptionTable from '../MainEntityDescriptionTable';
+import { useGenConnectedSearchVars } from '../../../../hooks/planner-hooks';
 
 type ItemPageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -87,35 +85,35 @@ const ItemPage = ({
   // Connections
   // #region
 
-  const [effectQueryVars, handleChangeEffect] = useEntityConnectionChangeHandler<ItemEffectQueryVars>({
+  const [effectQueryVars, setEffectQueryVars] = useGenConnectedSearchVars<ItemEffectQueryVars>({
     gen: genFilter.gen,
     name: itemName,
-  });
+  }, genFilter);
 
-  const [fieldStateQueryVars, handleChangeFieldState] = useEntityConnectionChangeHandler<ItemFieldStateQueryVars>({
+  const [fieldStateQueryVars, setFieldStateQueryVars] = useGenConnectedSearchVars<ItemFieldStateQueryVars>({
     gen: genFilter.gen,
     name: itemName,
-  });
+  }, genFilter);
 
-  const [statQueryVars, handleChangeStat] = useEntityConnectionChangeHandler<ItemStatQueryVars>({
+  const [statQueryVars, setStatQueryVars] = useGenConnectedSearchVars<ItemStatQueryVars>({
     gen: genFilter.gen,
     name: itemName,
-  });
+  }, genFilter);
 
-  const [statusQueryVars, handleChangeStatus] = useEntityConnectionChangeHandler<ItemStatusQueryVars>({
+  const [statusQueryVars, setStatusQueryVars] = useGenConnectedSearchVars<ItemStatusQueryVars>({
     gen: genFilter.gen,
     name: itemName,
-  });
+  }, genFilter);
 
-  const [typeQueryVars, handleChangeType] = useEntityConnectionChangeHandler<ItemTypeQueryVars>({
+  const [typeQueryVars, setTypeQueryVars] = useGenConnectedSearchVars<ItemTypeQueryVars>({
     gen: genFilter.gen,
     name: itemName,
-  });
+  }, genFilter);
 
-  const [usageMethodQueryVars, handleChangeUsageMethod] = useEntityConnectionChangeHandler<ItemUsageMethodQueryVars>({
+  const [usageMethodQueryVars, setUsageMethodQueryVars] = useGenConnectedSearchVars<ItemUsageMethodQueryVars>({
     gen: genFilter.gen,
     name: itemName,
-  });
+  }, genFilter);
 
   // #endregion
   
@@ -248,7 +246,6 @@ const ItemPage = ({
             content: itemResult.effectCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
-                handleChange={handleChangeEffect}
                 listRender={listRenderItemEffect}
                 query={ITEM_EFFECT_QUERY}
                 queryVars={effectQueryVars}
@@ -260,7 +257,6 @@ const ItemPage = ({
             content: itemResult.fieldStateCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
-                handleChange={handleChangeFieldState}
                 listRender={listRenderItemFieldState}
                 query={ITEM_FIELDSTATE_QUERY}
                 queryVars={fieldStateQueryVars}
@@ -272,7 +268,6 @@ const ItemPage = ({
             content: itemResult.modifiesStatCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
-                handleChange={handleChangeStat}
                 listRender={listRenderItemStat}
                 query={ITEM_STAT_QUERY}
                 queryVars={statQueryVars}
@@ -284,7 +279,6 @@ const ItemPage = ({
             content: itemResult.statusCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
-                handleChange={handleChangeStatus}
                 listRender={listRenderItemStatus}
                 query={ITEM_STATUS_QUERY}
                 queryVars={statusQueryVars}
@@ -296,7 +290,6 @@ const ItemPage = ({
             content: itemResult.typeCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
-                handleChange={handleChangeType}
                 listRender={listRenderItemType}
                 query={ITEM_TYPE_QUERY}
                 queryVars={typeQueryVars}
@@ -308,7 +301,6 @@ const ItemPage = ({
             content: itemResult.usageMethodCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
-                handleChange={handleChangeUsageMethod}
                 listRender={listRenderItemUsageMethod}
                 query={ITEM_USAGEMETHOD_QUERY}
                 queryVars={usageMethodQueryVars}

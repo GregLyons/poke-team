@@ -51,7 +51,7 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
   const { data, loading, error } = useQuery<SearchQuery, SearchQueryVars>(query, {
     variables: queryVars,
   });
-  console.log(queryVars);
+  
   const [searchBox, setSearchBox] = useState('');
 
   if (error) { return (<div>{error.message}</div>)}

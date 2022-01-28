@@ -10,9 +10,6 @@ import {
 } from '@apollo/client';
 
 import {
-  useEntityConnectionChangeHandler,
-} from '../helpers';
-import {
   FIELDSTATE_PAGE_QUERY,
   FieldStatePageQuery,
   FieldStatePageQueryVars,
@@ -75,6 +72,7 @@ import AuxEntityDescription from '../AuxEntityDescription';
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
 import ConnectionAccordion from '../ConnectionAccordion';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
 
 type FieldStatePageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -96,44 +94,44 @@ const FieldStatePage = ({
   // Connection queries
   // #region 
   
-  const [abilityQueryVars, handleChangeAbility] = useEntityConnectionChangeHandler<FieldStateAbilityQueryVars>({
+  const [abilityQueryVars, setAbilityQueryVars] = useGenConnectedSearchVars<FieldStateAbilityQueryVars>({
     gen: genFilter.gen,
     name: fieldStateName,
-  });
+  }, genFilter);
 
-  const [effectQueryVars, handleChangeEffect] = useEntityConnectionChangeHandler<FieldStateEffectQueryVars>({
+  const [effectQueryVars, setEffectQueryVars] = useGenConnectedSearchVars<FieldStateEffectQueryVars>({
     gen: genFilter.gen,
     name: fieldStateName,
-  });
+  }, genFilter);
 
-  const [itemQueryVars, handleChangeItem] = useEntityConnectionChangeHandler<FieldStateItemQueryVars>({
+  const [itemQueryVars, setItemQueryVars] = useGenConnectedSearchVars<FieldStateItemQueryVars>({
     gen: genFilter.gen,
     name: fieldStateName,
-  });
+  }, genFilter);
 
-  const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<FieldStateMoveQueryVars>({
+  const [moveQueryVars, setMoveQueryVars] = useRemovalConnectedSearchVars<FieldStateMoveQueryVars>({
     gen: genFilter.gen,
     name: fieldStateName,
     removedFromSwSh: removedFromSwSh(genFilter),
     removedFromBDSP: removedFromBDSP(genFilter),
-  });
+  }, genFilter);
 
-  const [statQueryVars, handleChangeStat] = useEntityConnectionChangeHandler<FieldStateStatQueryVars>({
+  const [statQueryVars, setStatQueryVars] = useGenConnectedSearchVars<FieldStateStatQueryVars>({
     gen: genFilter.gen,
     name: fieldStateName,
-  });
+  }, genFilter);
 
-  const [statusQueryVars, handleChangeStatus] = useEntityConnectionChangeHandler<FieldStateStatusQueryVars>({
+  const [statusQueryVars, setStatusQueryVars] = useGenConnectedSearchVars<FieldStateStatusQueryVars>({
     gen: genFilter.gen,
     name: fieldStateName,
-  });
+  }, genFilter);
 
-  const [typeQueryVars, handleChangeType] = useEntityConnectionChangeHandler<FieldStateTypeQueryVars>({
+  const [typeQueryVars, setTypeQueryVars] = useRemovalConnectedSearchVars<FieldStateTypeQueryVars>({
     gen: genFilter.gen,
     name: fieldStateName,
     removedFromSwSh: removedFromSwSh(genFilter),
     removedFromBDSP: removedFromBDSP(genFilter),
-  });
+  }, genFilter);
 
   // #endregion
 
@@ -267,7 +265,6 @@ const FieldStatePage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeAbility}
                 listRender={listRenderFieldStateAbility}
                 query={FIELDSTATE_ABILITY_QUERY}
                 queryVars={abilityQueryVars}
@@ -281,7 +278,6 @@ const FieldStatePage = ({
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
-                handleChange={handleChangeEffect}
                 listRender={listRenderFieldStateEffect}
                 query={FIELDSTATE_EFFECT_QUERY}
                 queryVars={effectQueryVars}
@@ -296,7 +292,6 @@ const FieldStatePage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeItem}
                 listRender={listRenderFieldStateItem}
                 query={FIELDSTATE_ITEM_QUERY}
                 queryVars={itemQueryVars}
@@ -311,7 +306,6 @@ const FieldStatePage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeMove}
                 listRender={listRenderFieldStateMove}
                 query={FIELDSTATE_MOVE_QUERY}
                 queryVars={moveQueryVars}
@@ -325,7 +319,6 @@ const FieldStatePage = ({
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
-                handleChange={handleChangeStat}
                 listRender={listRenderFieldStateStat}
                 query={FIELDSTATE_STAT_QUERY}
                 queryVars={statQueryVars}
@@ -339,7 +332,6 @@ const FieldStatePage = ({
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
-                handleChange={handleChangeStatus}
                 listRender={listRenderFieldStateStatus}
                 query={FIELDSTATE_STATUS_QUERY}
                 queryVars={statusQueryVars}
@@ -354,7 +346,6 @@ const FieldStatePage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeType}
                 listRender={listRenderFieldStateType}
                 query={FIELDSTATE_TYPE_QUERY}
                 queryVars={typeQueryVars}

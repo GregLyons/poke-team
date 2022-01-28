@@ -15,68 +15,16 @@ export type SinglesTier = 'AG' | 'Uber' | 'OU' | 'UUBL' | 'UU' | 'RUBL' | 'RU' |
 
 export const SINGLES_TIERS: SinglesTier[] = ['AG', 'Uber', 'OU', 'UUBL', 'UU', 'RUBL', 'RU', 'NUBL', 'NU', 'PUBL', 'PU', 'NFE', 'LC'];
 
+export type DoublesTier = 'DUber' | 'DOU' | 'DBL' | 'DUU' | 'DNFE' | 'DLC';
+
+export const DOUBLES_TIERS: DoublesTier[] = ['DUber', 'DOU', 'DBL', 'DUU', 'DNFE', 'DLC'];
+
 export type TierFilter = {
   format: 'singles' | 'doubles'
   selectionMode: 'exact' | 'range'
   tiers: {
     [tierName in SinglesTier | DoublesTier]: boolean
   }
-}
-
-export type DoublesTier = 'DUber' | 'DOU' | 'DBL' | 'DUU' | 'NFE' | 'LC';
-
-export const DOUBLES_TIERS: DoublesTier[] = ['DUber', 'DOU', 'DBL', 'DUU', 'NFE', 'LC'];
-
-export const DEFAULT_SINGLES_TIER_FILTER: TierFilter = {
-  format: 'singles',
-  selectionMode: 'exact',
-  tiers: {
-    // Singles tiers
-    AG: true,
-    Uber: true,
-    OU: true,
-    UUBL: true,
-    UU: true,
-    RUBL: true,
-    RU: true,
-    NUBL: true,
-    NU: true,
-    PUBL: true,
-    PU: true,
-    NFE: true,
-    LC: true,
-    // Doubles tiers
-    DUber: false,
-    DOU: false,
-    DBL: false,
-    DUU: false,
-  },
-};
-
-export const DEFAULT_DOUBLES_TIER_FILTER: TierFilter = {
-  format: 'doubles',
-  selectionMode: 'exact',
-  tiers: {
-    // Singles tiers
-    AG: false,
-    Uber: false,
-    OU: false,
-    UUBL: false,
-    UU: false,
-    RUBL: false,
-    RU: false,
-    NUBL: false,
-    NU: false,
-    PUBL: false,
-    PU: false,
-    NFE: false,
-    LC: false,
-    // Doubles tiers
-    DUber: true,
-    DOU: true,
-    DBL: true,
-    DUU: true,
-  },
 }
 
 // #endregion
@@ -88,5 +36,5 @@ export const psIDToSinglesTier = (gen: GenerationNum, psID: string) => {
 }
 
 export const psIDToDoublesTier = (gen: GenerationNum, psID: string) => {
-  return (gens.get(gen).species.get(psID)?.doublesTier.replace('(', '').replace(')', '') as DoublesTier);
+  return (gens.get(gen).species.get(psID)?.doublesTier.replace('(', '').replace(')', '').replace('DNFE', 'NFE').replace('DLC', 'LC') as DoublesTier);
 }

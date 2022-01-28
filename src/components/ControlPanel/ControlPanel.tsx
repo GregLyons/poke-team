@@ -1,6 +1,6 @@
 import './ControlPanel.css';
 
-import { CartAction, GenFilter, GenFilterAction, Team, TeamAction } from "../../hooks/app-hooks";
+import { CartAction, GenFilter, GenFilterAction, Team, TeamAction, TierFilterAction } from "../../hooks/app-hooks";
 import { GenerationNum } from "../../types-queries/helpers";
 import { Pokemon } from "../../types-queries/Planner/Pokemon";
 import { TierFilter } from "../../utils/smogonLogic";
@@ -16,10 +16,8 @@ type ControlPanelProps = {
   dispatchGenFilter: React.Dispatch<GenFilterAction>
   genFilter: GenFilter
   
+  dispatchTierFilter: React.Dispatch<TierFilterAction>
   tierFilter: TierFilter
-  handleTierModeChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  handleTierFilterChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  toggleSelectionMode: () => void
   
   team: Pokemon[]
 }
@@ -32,9 +30,8 @@ const ControlPanel = ({
   genFilter,
 
   tierFilter,
-  handleTierModeChange,
-  handleTierFilterChange,
-  toggleSelectionMode,
+  dispatchTierFilter,
+  
   team,
 }: ControlPanelProps) => {
   return (
@@ -45,9 +42,7 @@ const ControlPanel = ({
       />
       <TierFilterForm
         tierFilter={tierFilter}
-        handleTierModeChange={handleTierModeChange}
-        handleTierFilterChange={handleTierFilterChange}
-        toggleSelectionMode={toggleSelectionMode}
+        dispatchTierFilter={dispatchTierFilter}
       />
       <TeamDisplay
         dispatchCart={dispatchCart}

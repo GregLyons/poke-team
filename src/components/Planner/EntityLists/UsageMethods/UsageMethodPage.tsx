@@ -10,9 +10,6 @@ import {
 } from '@apollo/client';
 
 import {
-  useEntityConnectionChangeHandler,
-} from '../helpers';
-import {
   USAGEMETHOD_PAGE_QUERY,
   UsageMethodPageQuery,
   UsageMethodPageQueryVars,
@@ -59,6 +56,7 @@ import AuxEntityDescription from '../AuxEntityDescription';
 
 import EntityConnectionSearch from '../EntityConnectionSearch';
 import ConnectionAccordion from '../ConnectionAccordion';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
 
 type UsageMethodPageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -80,25 +78,25 @@ const UsageMethodPage = ({
   // Connection queries
   // #region 
   
-  const [abilityQueryVars, handleChangeAbility] = useEntityConnectionChangeHandler<UsageMethodAbilityQueryVars>({
+  const [abilityQueryVars, setAbilityQueryVars] = useRemovalConnectedSearchVars<UsageMethodAbilityQueryVars>({
     gen: genFilter.gen,
     name: usageMethodName,
     removedFromSwSh: removedFromSwSh(genFilter),
     removedFromBDSP: removedFromBDSP(genFilter),
-  });
-  const [itemQueryVars, handleChangeItem] = useEntityConnectionChangeHandler<UsageMethodItemQueryVars>({
+  }, genFilter);
+  const [itemQueryVars, setItemQueryVars] = useRemovalConnectedSearchVars<UsageMethodItemQueryVars>({
     gen: genFilter.gen,
     name: usageMethodName,
     removedFromSwSh: removedFromSwSh(genFilter),
     removedFromBDSP: removedFromBDSP(genFilter),
-  });
+  }, genFilter);
 
-  const [moveQueryVars, handleChangeMove] = useEntityConnectionChangeHandler<UsageMethodMoveQueryVars>({
+  const [moveQueryVars, setMoveQueryVars] = useRemovalConnectedSearchVars<UsageMethodMoveQueryVars>({
     gen: genFilter.gen,
     name: usageMethodName,
     removedFromSwSh: removedFromSwSh(genFilter),
     removedFromBDSP: removedFromBDSP(genFilter),
-  });
+  }, genFilter);
 
   // #endregion
 
@@ -232,7 +230,6 @@ const UsageMethodPage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeAbility}
                 listRender={listRenderUsageMethodAbility}
                 query={USAGEMETHOD_ABILITY_QUERY}
                 queryVars={abilityQueryVars}
@@ -247,7 +244,6 @@ const UsageMethodPage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeItem}
                 listRender={listRenderUsageMethodItem}
                 query={USAGEMETHOD_ITEM_QUERY}
                 queryVars={itemQueryVars}
@@ -262,7 +258,6 @@ const UsageMethodPage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
-                handleChange={handleChangeMove}
                 listRender={listRenderUsageMethodMove}
                 query={USAGEMETHOD_MOVE_QUERY}
                 queryVars={moveQueryVars}

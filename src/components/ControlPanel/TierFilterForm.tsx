@@ -1,84 +1,81 @@
 import {
-  ChangeEvent,
+  ChangeEvent, useState,
 } from "react";
+import { TierFilterAction } from "../../hooks/app-hooks";
 import {
+  DoublesTier,
   DOUBLES_TIERS,
+  SinglesTier,
   SINGLES_TIERS,
   TierFilter,
 } from "../../utils/smogonLogic";
 
 type TierFilterFormProps = {
+  dispatchTierFilter: React.Dispatch<TierFilterAction>
   tierFilter: TierFilter
-  handleTierModeChange: (e: ChangeEvent<HTMLInputElement>) => void
-  handleTierFilterChange: (e: ChangeEvent<HTMLInputElement>) => void
-  toggleSelectionMode: () => void
+
 }
 
 const TierFilterForm = ({
+  dispatchTierFilter,
   tierFilter,
-  handleTierModeChange,
-  handleTierFilterChange,
-  toggleSelectionMode,
 }: TierFilterFormProps) => {
+  const [firstClickUsed, setFirstClickUsed] = useState(false);
+
   return (
     <div className="control-panel__tier-filter-wrapper">
       <form>
-        <label>
-          Singles mode
-          <input 
-            name="singles"
-            type="checkbox"
-            checked={tierFilter.format === 'singles'}
-            onChange={handleTierModeChange}
-          />
+        <label htmlFor="Select whether you're playing 'Singles' or 'Doubles'.">
+          Format:
+          <select
+            name="format"
+            value={tierFilter.format === 'singles' ? 'singles' : 'doubles'}
+            onChange={(e) => {
+              dispatchTierFilter({
+                type: 'set_format',
+                payload: (e.target.value as 'singles' | 'doubles'),
+              });
+            }}
+          >
+            <option value="singles">Singles</option>
+            <option value="doubles">Doubles</option>
+          </select>
         </label>
-        {SINGLES_TIERS.map(tier => {
-          return (
-            <label key={tier}>
-              {tier}
-              <input
-                name={tier}
-                type="checkbox"
-                checked={tierFilter.tiers[tier]}
-                onChange={handleTierFilterChange}
-                disabled={tierFilter.format !== 'singles'}
-              />
-            </label>
-          )
-        })}
-        <br />
-        <label>
-          Doubles mode
-          <input 
-            name="doubles"
-            type="checkbox"
-            checked={tierFilter.format === 'doubles'}
-            onChange={handleTierModeChange}
-          />
-        </label>
-        {DOUBLES_TIERS.map(tier => {
-          return (
-            <label key={tier}>
-              {tier}
-              <input
-                name={tier}
-                type="checkbox"
-                checked={tierFilter.tiers[tier]}
-                onChange={handleTierFilterChange}
-                disabled={tierFilter.format !== 'doubles'}
-              />
-            </label>
-          )
-        })}
-        <br />
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            toggleSelectionMode();
-          }}
-        >
-          {tierFilter.selectionMode === 'exact' ? 'Change to range mode' : 'Change to exact mode'}
-        </button>
+        <label htmlFor="Select the tiers in the given format."></label>
+            Tiers:
+            <select
+              name="tiers"
+              onChange={(e) => {
+                console.log(e.target.value);
+                dispatchTierFilter({
+                  type: 'toggle_tier',
+                  payload: (e.target.value as SinglesTier | DoublesTier),
+                });
+              }}
+              multiple
+            >
+              {tierFilter.format === 'singles' 
+                ? SINGLES_TIERS.map(tier => {
+                  return (
+                    <option
+                      value={tier}
+                      selected={tierFilter.tiers[tier]}
+                    >
+                      {tier}
+                    </option>
+                  )
+                })
+                : DOUBLES_TIERS.map(tier => {
+                  return (
+                    <option
+                      value={tier}
+                      selected={tierFilter.tiers[tier]}
+                    >
+                      {tier}
+                    </option>
+                  )
+                })}
+            </select>
       </form>
     </div>
   )
