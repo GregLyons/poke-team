@@ -6,6 +6,7 @@ type DoubleSliderBaseProps = {
   min: number
   minValue: number
   onMinChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  
   max: number
   maxValue: number
   onMaxChange: (e: React.ChangeEvent<HTMLInputElement>) => void
