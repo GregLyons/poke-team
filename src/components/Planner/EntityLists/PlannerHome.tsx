@@ -8,6 +8,7 @@ import {
 import { 
   CartAction,
   GenFilter,
+  PokemonFilter,
   TeamAction,
 } from '../../../hooks/app-hooks';
 
@@ -16,6 +17,7 @@ type PlannerHomeProps = {
   dispatchTeam: React.Dispatch<TeamAction>
   genFilter: GenFilter
   tierFilter: TierFilter
+  pokemonFilter: PokemonFilter
 }
 
 const PlannerHome = ({ 
@@ -23,6 +25,7 @@ const PlannerHome = ({
   dispatchTeam,
   genFilter,
   tierFilter,
+  pokemonFilter,
 }: PlannerHomeProps) => (
   <div>
     This is the planner page.

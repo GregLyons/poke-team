@@ -426,6 +426,26 @@ export function pokemonReducer(state: PokemonFilter, action: PokemonFilterAction
   }
 }
 
+export const validatePokemon = (pokemon: PokemonIconDatum, pokemonFilter: PokemonFilter): boolean => {
+  // Typing check
+  let typingCheck = true;
+  pokemon.typing.map(typeName => {
+    // Type filter fails to include one of the types
+    if (!pokemonFilter.types[typeName]) typingCheck = false;
+  });
+  if (!typingCheck) return false;
+
+  // Base stat check
+  let baseStatCheck = true;
+  BASE_STAT_NAMES.map(baseStatName => {
+    // Previous baseStatCheck failed, or baseStat less than min
+    if (baseStatCheck && pokemon.baseStats[baseStatName] < pokemonFilter.minBaseStats[baseStatName]) baseStatCheck = false;
+    // Previous baseStatCheck failed, or baseStat greater than max
+    if (baseStatCheck && pokemon.baseStats[baseStatName] > pokemonFilter.maxBaseStats[baseStatName]) baseStatCheck = false;
+  })
+  return baseStatCheck;
+}
+
 // #endregion
 
 // Cart

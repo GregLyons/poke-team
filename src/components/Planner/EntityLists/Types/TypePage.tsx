@@ -46,6 +46,7 @@ import {
 import { 
   CartAction,
   GenFilter,
+  PokemonFilter,
   removedFromBDSP,
   removedFromSwSh,
   TeamAction,
@@ -67,6 +68,7 @@ type TypePageProps = {
   dispatchTeam: React.Dispatch<TeamAction>
   genFilter: GenFilter
   tierFilter: TierFilter
+  pokemonFilter: PokemonFilter
 }
 
 const TypePage = ({
@@ -74,6 +76,7 @@ const TypePage = ({
   dispatchTeam,
   genFilter,
   tierFilter,
+  pokemonFilter,
 }: TypePageProps) => {
   const params = useParams();
   
@@ -240,6 +243,7 @@ const TypePage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
                 listRender={listRenderTypeAbility}
                 query={TYPE_ABILITY_QUERY}
                 queryVars={abilityQueryVars}
@@ -268,6 +272,7 @@ const TypePage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
                 listRender={listRenderTypeItem}
                 query={TYPE_ITEM_QUERY}
                 queryVars={itemQueryVars}
@@ -282,6 +287,7 @@ const TypePage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
                 listRender={listRenderTypeMove}
                 query={TYPE_MOVE_QUERY}
                 queryVars={moveQueryVars}

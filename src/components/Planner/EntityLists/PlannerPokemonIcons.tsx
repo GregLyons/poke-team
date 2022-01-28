@@ -3,7 +3,7 @@ import { Selection, SelectionAction } from "../../../hooks/planner-hooks";
 import { GenerationNum, ItemIconDatum, PokemonIconDatum } from "../../../types-queries/helpers";
 import { DoublesTier, psIDToDoublesTier, TierFilter } from '../../../utils/smogonLogic';
 import { psIDToSinglesTier as psIDToSinglesTier } from "../../../utils/smogonLogic";
-import { CartAction, GenFilter, TeamAction } from "../../../hooks/app-hooks";
+import { CartAction, GenFilter, PokemonFilter, TeamAction, validatePokemon } from "../../../hooks/app-hooks";
 import PlannerPokemonIcon from "../PlannerPokemonIcon";
 import SelectionControls from "./SelectionControls";
 
@@ -20,6 +20,7 @@ type PlannerPokemonIconsProps = {
     dispatchTeam: React.Dispatch<TeamAction>
     genFilter: GenFilter
     tierFilter: TierFilter
+    pokemonFilter: PokemonFilter
     cartNote: string
   }
   handleAddToCart: () => void
@@ -61,6 +62,8 @@ const PlannerPokemonIcons = ({
         
         // If tier is not selected, return
         if (tier && !icons.tierFilter['tiers'][tier]) return;
+
+        if (!validatePokemon(pokemonIconDatum, icons.pokemonFilter)) return;
 
         hasIcon.current = true;
 

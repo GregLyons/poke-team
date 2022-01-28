@@ -43,6 +43,7 @@ import {
 import { 
   CartAction,
   GenFilter,
+  PokemonFilter,
   removedFromBDSP,
   removedFromSwSh,
   TeamAction,
@@ -63,6 +64,7 @@ type UsageMethodPageProps = {
   dispatchTeam: React.Dispatch<TeamAction>
   genFilter: GenFilter
   tierFilter: TierFilter
+  pokemonFilter: PokemonFilter
 }
 
 const UsageMethodPage = ({
@@ -70,6 +72,7 @@ const UsageMethodPage = ({
   dispatchTeam,
   genFilter,
   tierFilter,
+  pokemonFilter,
 }: UsageMethodPageProps) => {
   const params = useParams();
   

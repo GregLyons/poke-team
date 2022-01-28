@@ -6,6 +6,7 @@ import {
 import { 
   CartAction,
   GenFilter,
+  PokemonFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -16,6 +17,7 @@ type ItemMainProps = {
   dispatchTeam: React.Dispatch<TeamAction>
   genFilter: GenFilter
   tierFilter: TierFilter
+  pokemonFilter: PokemonFilter
 }
 
 const ItemMainPage = ({ 
@@ -23,6 +25,7 @@ const ItemMainPage = ({
   dispatchTeam,
   genFilter,
   tierFilter,
+  pokemonFilter,
 }: ItemMainProps) => {
   return (
     <ItemSearch 
@@ -30,6 +33,7 @@ const ItemMainPage = ({
       dispatchTeam={dispatchTeam}
       genFilter={genFilter}
       tierFilter={tierFilter}
+      pokemonFilter={pokemonFilter}
     />
   )
 }

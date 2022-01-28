@@ -8,6 +8,7 @@ import {
 import { 
   CartAction,
   GenFilter,
+  PokemonFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -18,6 +19,7 @@ type TypeMainPageProps = {
   dispatchTeam: React.Dispatch<TeamAction>
   genFilter: GenFilter
   tierFilter: TierFilter
+  pokemonFilter: PokemonFilter
 }
 
 const TypeMainPage = ({ 
@@ -25,6 +27,7 @@ const TypeMainPage = ({
   dispatchTeam,
   genFilter,
   tierFilter,
+  pokemonFilter,
 }: TypeMainPageProps) => {
   return (
     <TypeSearch
@@ -32,6 +35,7 @@ const TypeMainPage = ({
       dispatchTeam={dispatchTeam}
       genFilter={genFilter}
       tierFilter={tierFilter}
+      pokemonFilter={pokemonFilter}
     />
   )
 }

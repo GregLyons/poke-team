@@ -99,6 +99,7 @@ function App() {
           dispatchTeam={dispatchTeam}
           genFilter={genFilter}
           tierFilter={tierFilter}
+          pokemonFilter={pokemonFilter}
         />} >
         {/* */}
           <Route
@@ -109,6 +110,7 @@ function App() {
               dispatchTeam={dispatchTeam}
               genFilter={genFilter}
               tierFilter={tierFilter}
+              pokemonFilter={pokemonFilter}
             />}
           />
         </Route>
@@ -119,6 +121,7 @@ function App() {
           dispatchTeam={dispatchTeam}
           genFilter={genFilter}
           tierFilter={tierFilter}
+          pokemonFilter={pokemonFilter}
         />} >
           {/* */}
           <Route
@@ -128,6 +131,7 @@ function App() {
               dispatchTeam={dispatchTeam}
               genFilter={genFilter}
               tierFilter={tierFilter}
+              pokemonFilter={pokemonFilter}
             />}
           />
 
@@ -139,6 +143,7 @@ function App() {
               dispatchTeam={dispatchTeam}
               genFilter={genFilter}
               tierFilter={tierFilter}
+              pokemonFilter={pokemonFilter}
             />}
           />
           <Route path="abilities/:abilityId" element={<AbilityPage 
@@ -154,6 +159,7 @@ function App() {
               dispatchTeam={dispatchTeam}
               genFilter={genFilter}
               tierFilter={tierFilter}
+              pokemonFilter={pokemonFilter}
             />}
           />
           <Route path="items/:itemId" element={<ItemPage 
@@ -169,6 +175,7 @@ function App() {
               dispatchTeam={dispatchTeam}
               genFilter={genFilter}
               tierFilter={tierFilter}
+              pokemonFilter={pokemonFilter}
             />} 
           >
           </Route>
@@ -193,6 +200,7 @@ function App() {
             dispatchTeam={dispatchTeam}
             genFilter={genFilter}
             tierFilter={tierFilter}
+            pokemonFilter={pokemonFilter}
           />} />
 
           <Route 
@@ -202,6 +210,7 @@ function App() {
               dispatchTeam={dispatchTeam}
               genFilter={genFilter}
               tierFilter={tierFilter}
+              pokemonFilter={pokemonFilter}
             />}
           />
           <Route path="fieldStates/:fieldStateId" element={<FieldStatePage
@@ -209,6 +218,7 @@ function App() {
             dispatchTeam={dispatchTeam}
             genFilter={genFilter}
             tierFilter={tierFilter}
+            pokemonFilter={pokemonFilter}
           />} />
 
           <Route 
@@ -218,6 +228,7 @@ function App() {
               dispatchTeam={dispatchTeam}
               genFilter={genFilter}
               tierFilter={tierFilter}
+              pokemonFilter={pokemonFilter}
             />}
           />
           <Route path="stats/:statId" element={<StatPage
@@ -225,6 +236,7 @@ function App() {
             dispatchTeam={dispatchTeam}
             genFilter={genFilter}
             tierFilter={tierFilter}
+            pokemonFilter={pokemonFilter}
           />} />
 
           <Route 
@@ -234,6 +246,7 @@ function App() {
               dispatchTeam={dispatchTeam}
               genFilter={genFilter}
               tierFilter={tierFilter}
+              pokemonFilter={pokemonFilter}
             />}
           />
           <Route path="statuses/:statusId" element={<StatusPage
@@ -241,6 +254,7 @@ function App() {
             dispatchTeam={dispatchTeam}
             genFilter={genFilter}
             tierFilter={tierFilter}
+            pokemonFilter={pokemonFilter}
           />} />
 
           <Route 
@@ -250,6 +264,7 @@ function App() {
               dispatchTeam={dispatchTeam}
               genFilter={genFilter}
               tierFilter={tierFilter}
+              pokemonFilter={pokemonFilter}
             />}
           />
           <Route path="types/:typeId" element={<TypePage
@@ -257,6 +272,7 @@ function App() {
             dispatchTeam={dispatchTeam}
             genFilter={genFilter}
             tierFilter={tierFilter}
+            pokemonFilter={pokemonFilter}
           />} />
 
           <Route 
@@ -266,6 +282,7 @@ function App() {
               dispatchTeam={dispatchTeam}
               genFilter={genFilter}
               tierFilter={tierFilter}
+              pokemonFilter={pokemonFilter}
             />}
           />
           <Route path="usageMethods/:usageMethodId" element={<UsageMethodPage
@@ -273,6 +290,7 @@ function App() {
             dispatchTeam={dispatchTeam}
             genFilter={genFilter}
             tierFilter={tierFilter}
+            pokemonFilter={pokemonFilter}
           />} />
 
           {/* */}

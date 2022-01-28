@@ -9,6 +9,7 @@ import {
 import {
   CartAction,
   GenFilter,
+  PokemonFilter,
   TeamAction,
 } from "../../hooks/app-hooks";
 
@@ -20,6 +21,7 @@ type PlannerProps = {
   dispatchTeam: React.Dispatch<TeamAction>
   genFilter: GenFilter
   tierFilter: TierFilter
+  pokemonFilter: PokemonFilter
 }
 
 const Planner = ({
@@ -27,6 +29,7 @@ const Planner = ({
   dispatchTeam,
   genFilter,
   tierFilter,
+  pokemonFilter,
 }: PlannerProps) => {
   return (
     <div className="planner-container">

@@ -8,6 +8,7 @@ import {
 import { 
   CartAction,
   GenFilter,
+  PokemonFilter,
   TeamAction,
 } from "../../../../hooks/app-hooks";
 
@@ -18,6 +19,7 @@ type UsageMethodMainPageProps = {
   dispatchTeam: React.Dispatch<TeamAction>
   genFilter: GenFilter
   tierFilter: TierFilter
+  pokemonFilter: PokemonFilter
 }
 
 const UsageMethodMainPage = ({ 

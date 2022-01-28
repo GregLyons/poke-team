@@ -9,6 +9,7 @@ import {
   Cart,
   CartAction,
   GenFilter,
+  PokemonFilter,
   TeamAction,
 } from '../../hooks/app-hooks';
 
@@ -21,6 +22,7 @@ type BuilderHomeProps = {
   dispatchTeam: React.Dispatch<TeamAction>
   genFilter: GenFilter
   tierFilter: TierFilter
+  pokemonFilter: PokemonFilter
 }
 
 const BuilderHome = ({
@@ -29,6 +31,7 @@ const BuilderHome = ({
   dispatchTeam,
   genFilter,
   tierFilter,
+  pokemonFilter,
 }: BuilderHomeProps) => {
 
   return (
@@ -42,6 +45,7 @@ const BuilderHome = ({
         dispatchTeam={dispatchTeam}
         genFilter={genFilter}
         tierFilter={tierFilter}
+        pokemonFilter={pokemonFilter}
       />
     </div>
   );

@@ -19,6 +19,7 @@ import {
 import {
   CartAction,
   GenFilter,
+  PokemonFilter,
   TeamAction,
 } from '../../../hooks/app-hooks';
 import { TierFilter } from '../../../utils/smogonLogic';
@@ -28,6 +29,7 @@ interface EntityConnectionSearchProps<SearchQuery, SearchQueryVars> {
   dispatchTeam?: React.Dispatch<TeamAction>
   genFilter: GenFilter
   tierFilter?: TierFilter
+  pokemonFilter?: PokemonFilter
   listRender: ({ data, dispatchCart, dispatchTeam }: ListRenderArgs<SearchQuery>) => JSX.Element,
   query: DocumentNode,
   queryVars: SearchQueryVars,
@@ -38,6 +40,7 @@ function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
   dispatchTeam,
   genFilter,
   tierFilter,
+  pokemonFilter,
   listRender,
   query,
   queryVars,
@@ -57,7 +60,7 @@ function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
     <>
       {loading 
         ? <div>Loading...</div>
-        : data && listRender({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, })
+        : data && listRender({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, })
       }
     </>
   );

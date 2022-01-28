@@ -7,6 +7,7 @@ import { TierFilter } from '../../../utils/smogonLogic';
 import {
   CartAction,
   GenFilter,
+  PokemonFilter,
   TeamAction,
 } from "../../../hooks/app-hooks";
 import { EntityPageVars } from "../../../types-queries/Planner/helpers";
@@ -20,6 +21,7 @@ export type ListRenderArgs<SearchQuery> = {
   dispatchTeam?: React.Dispatch<TeamAction>
   genFilter: GenFilter
   tierFilter?: TierFilter
+  pokemonFilter?: PokemonFilter
 }
 
 export class MissingDispatchError extends Error {
@@ -64,12 +66,27 @@ export class MissingTierFilterError extends Error {
   }
 }
 
+export class MissingPokemonFilterError extends Error {
+  constructor(msg: string) {
+    super(msg);
+
+    Object.setPrototypeOf(this, MissingPokemonFilterError.prototype)
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, MissingPokemonFilterError);
+    }
+
+    this.name='MissingPokemonFilterError';
+  }
+}
+
 export type EntryIconData = {
   pokemonIconData: PokemonIconDatum[]
   itemIconDatum?: ItemIconDatum
   typeIconDatum?: TypeIconDatum
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
+  pokemonFilter: PokemonFilter
   genFilter: GenFilter
   tierFilter: TierFilter
   cartNote: string

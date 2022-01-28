@@ -15,16 +15,18 @@ import {
   ListRenderArgs,
   MissingDispatchError,
   MissingGenError,
+  MissingPokemonFilterError,
   MissingTierFilterError,
 } from "../helpers";
 
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 
-export const listRenderEffectAbility = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<EffectAbilityQuery>) => {
+export const listRenderEffectAbility = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<EffectAbilityQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
-  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
-  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntityConnectionSearch component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntityConnectionSearch component.');
+  if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed PokemonFilter to the EntityConnectionSearch component.');
 
   const parent = data.effectByName[0];
 
@@ -46,6 +48,7 @@ export const listRenderEffectAbility = ({ data, dispatchCart, dispatchTeam, genF
             pokemonIconData: result.pokemonIconData,
             genFilter,
             tierFilter: tierFilter,
+            pokemonFilter: pokemonFilter,
             cartNote: `'${result.formattedName}' has the effect '${parent.formattedName}'.`,
           }}
         />
@@ -54,7 +57,7 @@ export const listRenderEffectAbility = ({ data, dispatchCart, dispatchTeam, genF
   );
 }
 
-export const listRenderEffectFieldState = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<EffectFieldStateQuery>) => {
+export const listRenderEffectFieldState = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<EffectFieldStateQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
 
   const parent = data.effectByName[0];
@@ -77,11 +80,12 @@ export const listRenderEffectFieldState = ({ data, dispatchCart, dispatchTeam, g
   );
 }
 
-export const listRenderEffectItem = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<EffectItemQuery>) => {
+export const listRenderEffectItem = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<EffectItemQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
-  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
-  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntityConnectionSearch component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntityConnectionSearch component.');
+  if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed PokemonFilter to the EntityConnectionSearch component.');
 
   const parent = data.effectByName[0];
 
@@ -103,7 +107,8 @@ export const listRenderEffectItem = ({ data, dispatchCart, dispatchTeam, genFilt
             pokemonIconData: result.requiredPokemonIconData,
             itemIconDatum: result.itemIconDatum,
             genFilter,
-            tierFilter: tierFilter,
+            tierFilter,
+            pokemonFilter,
             cartNote: `'${result.formattedName}' has the effect '${parent.formattedName}'.`,
           }}
         />
@@ -112,11 +117,12 @@ export const listRenderEffectItem = ({ data, dispatchCart, dispatchTeam, genFilt
   );
 }
 
-export const listRenderEffectMove = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<EffectMoveQuery>) => {
+export const listRenderEffectMove = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<EffectMoveQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
-  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
-  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntityConnectionSearch component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntityConnectionSearch component.');
+  if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed PokemonFilter to the EntityConnectionSearch component.');
 
   const parent = data.effectByName[0];
 
@@ -138,6 +144,7 @@ export const listRenderEffectMove = ({ data, dispatchCart, dispatchTeam, genFilt
             pokemonIconData: result.pokemonIconData,
             genFilter,
             tierFilter: tierFilter,
+            pokemonFilter: pokemonFilter,
             cartNote: `'${result.formattedName}' has the effect '${parent.formattedName}'.`,
           }}
         />

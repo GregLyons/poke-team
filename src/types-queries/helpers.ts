@@ -68,12 +68,7 @@ export const toFormattedBaseStatName: (baseStatName: BaseStatName) => FormattedB
 }
 
 export type BaseStats = {
-  hp: number
-  attack: number
-  defense: number
-  specialAttack: number
-  specialDefense: number
-  speed: number
+  [baseStatName in BaseStatName]: number
 }
 
 export type PokemonIconDatum = {

@@ -17,12 +17,13 @@ import {
   GenerationNum,
 } from '../../../../types-queries/helpers';
 import {
-  ListRenderArgs, MissingDispatchError, MissingGenError, MissingTierFilterError,
+  ListRenderArgs, MissingDispatchError, MissingGenError, MissingPokemonFilterError, MissingTierFilterError,
 } from '../helpers';
 
 import { 
   CartAction,
   GenFilter,
+  PokemonFilter,
   removedFromBDSP,
   removedFromSwSh,
   TeamAction,
@@ -38,11 +39,12 @@ import {
 } from '../../../../utils/smogonLogic';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
 
-const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<ItemSearchQuery>) => {
+const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<ItemSearchQuery>) => {
   if (!data || !data.items) return (<div>Data not found for the query 'items'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntitySearchMain component.');
-  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the EntitySearchMain component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntitySearchMain component.');
+  if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed pokemonFilter to the EntitySearchMain component.');
   
   return (
     <>
@@ -70,6 +72,7 @@ const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }
                 dispatchTeam,
                 genFilter,
                 tierFilter,
+                pokemonFilter,
                 cartNote: `Pokemon who have '${item.formattedName}'.`
               }}
             />
@@ -85,6 +88,7 @@ type ItemSearchProps = {
   dispatchTeam: React.Dispatch<TeamAction>
   genFilter: GenFilter
   tierFilter: TierFilter
+  pokemonFilter: PokemonFilter
 }
 
 const ItemSearch = ({
@@ -92,6 +96,7 @@ const ItemSearch = ({
   dispatchTeam,
   genFilter,
   tierFilter,
+  pokemonFilter,
 }: ItemSearchProps) => {
   const [queryVars, setQueryVars] = useRemovalConnectedSearchVars<ItemSearchVars>(
     {
@@ -119,6 +124,7 @@ const ItemSearch = ({
         dispatchTeam={dispatchTeam}
         genFilter={genFilter}
         tierFilter={tierFilter}
+        pokemonFilter={pokemonFilter}
         handleSearchBoxChange={handleSearchBoxChange}
         listRender={listRender}
         query={ITEM_SEARCH_QUERY}

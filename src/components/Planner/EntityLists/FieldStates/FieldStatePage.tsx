@@ -55,6 +55,7 @@ import {
 import { 
   CartAction,
   GenFilter,
+  PokemonFilter,
   removedFromBDSP,
   removedFromSwSh,
   TeamAction,
@@ -79,6 +80,7 @@ type FieldStatePageProps = {
   dispatchTeam: React.Dispatch<TeamAction>
   genFilter: GenFilter
   tierFilter: TierFilter
+  pokemonFilter: PokemonFilter
 }
 
 const FieldStatePage = ({
@@ -86,6 +88,7 @@ const FieldStatePage = ({
   dispatchTeam,
   genFilter,
   tierFilter,
+  pokemonFilter,
 }: FieldStatePageProps) => {
   const params = useParams();
   
@@ -265,6 +268,7 @@ const FieldStatePage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
                 listRender={listRenderFieldStateAbility}
                 query={FIELDSTATE_ABILITY_QUERY}
                 queryVars={abilityQueryVars}
@@ -292,6 +296,7 @@ const FieldStatePage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
                 listRender={listRenderFieldStateItem}
                 query={FIELDSTATE_ITEM_QUERY}
                 queryVars={itemQueryVars}
@@ -306,6 +311,7 @@ const FieldStatePage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
                 listRender={listRenderFieldStateMove}
                 query={FIELDSTATE_MOVE_QUERY}
                 queryVars={moveQueryVars}
@@ -346,6 +352,7 @@ const FieldStatePage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
                 listRender={listRenderFieldStateType}
                 query={FIELDSTATE_TYPE_QUERY}
                 queryVars={typeQueryVars}

@@ -46,6 +46,7 @@ import {
 import { 
   CartAction,
   GenFilter,
+  PokemonFilter,
   removedFromBDSP,
   removedFromSwSh,
   TeamAction,
@@ -62,6 +63,7 @@ type StatPageProps = {
   dispatchTeam: React.Dispatch<TeamAction>
   genFilter: GenFilter
   tierFilter: TierFilter
+  pokemonFilter: PokemonFilter
 }
 
 const StatPage = ({
@@ -69,6 +71,7 @@ const StatPage = ({
   dispatchTeam,
   genFilter,
   tierFilter,
+  pokemonFilter,
 }: StatPageProps) => {
   const params = useParams();
   
@@ -235,6 +238,7 @@ const StatPage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
                 listRender={listRenderStatAbility}
                 query={STAT_ABILITY_QUERY}
                 queryVars={abilityQueryVars}
@@ -262,6 +266,7 @@ const StatPage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
                 listRender={listRenderStatItem}
                 query={STAT_ITEM_QUERY}
                 queryVars={itemQueryVars}
@@ -276,6 +281,7 @@ const StatPage = ({
                 dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
                 listRender={listRenderStatMove}
                 query={STAT_MOVE_QUERY}
                 queryVars={moveQueryVars}

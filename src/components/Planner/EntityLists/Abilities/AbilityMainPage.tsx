@@ -8,6 +8,7 @@ import {
 import { 
   CartAction,
   GenFilter,
+  PokemonFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -18,6 +19,7 @@ type AbilityMainPageProps = {
   dispatchTeam: React.Dispatch<TeamAction>
   genFilter: GenFilter
   tierFilter: TierFilter
+  pokemonFilter: PokemonFilter
 }
 
 const AbilityMainPage = ({ 
@@ -25,6 +27,7 @@ const AbilityMainPage = ({
   dispatchTeam,
   genFilter,
   tierFilter,
+  pokemonFilter,
 }: AbilityMainPageProps) => {
   return (
     <AbilitySearch
@@ -32,6 +35,7 @@ const AbilityMainPage = ({
       dispatchTeam={dispatchTeam}
       genFilter={genFilter}
       tierFilter={tierFilter}
+      pokemonFilter={pokemonFilter}
     />
   )
 }

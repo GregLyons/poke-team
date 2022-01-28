@@ -22,10 +22,10 @@ import { ENUMCASE_TO_TITLECASE } from "../../../../utils/constants";
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 
 import {
-  ListRenderArgs, MissingDispatchError, MissingGenError, MissingTierFilterError,
+  ListRenderArgs, MissingDispatchError, MissingGenError, MissingPokemonFilterError, MissingTierFilterError,
 } from "../helpers";
 
-export const listRenderMoveEffect = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<MoveEffectQuery>) => {
+export const listRenderMoveEffect = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<MoveEffectQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
   const parent = data.moveByName[0];
@@ -48,7 +48,7 @@ export const listRenderMoveEffect = ({ data, dispatchCart, dispatchTeam, genFilt
   )
 }
 
-export const listRenderMoveFieldState = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<MoveFieldStateQuery>) => {
+export const listRenderMoveFieldState = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<MoveFieldStateQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
   const parent = data.moveByName[0];
@@ -121,7 +121,7 @@ export const listRenderMoveFieldState = ({ data, dispatchCart, dispatchTeam, gen
   )
 }
 
-export const listRenderMoveStat = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<MoveStatQuery>) => {
+export const listRenderMoveStat = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<MoveStatQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
   const parent = data.moveByName[0];
@@ -238,7 +238,7 @@ export const listRenderMoveStat = ({ data, dispatchCart, dispatchTeam, genFilter
   );
 }
 
-export const listRenderMoveStatus = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<MoveStatusQuery>) => {
+export const listRenderMoveStatus = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<MoveStatusQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
   const parent = data.moveByName[0];
@@ -284,11 +284,12 @@ export const listRenderMoveStatus = ({ data, dispatchCart, dispatchTeam, genFilt
   );
 }
 
-export const listRenderMoveType = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<MoveTypeQuery>) => {
+export const listRenderMoveType = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<MoveTypeQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
-  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
-  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntityConnectionSearch component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntityConnectionSearch component.');
+  if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed PokemonFilter to the EntityConnectionSearch component.');
 
   const parent = data.moveByName[0];
 
@@ -317,6 +318,7 @@ export const listRenderMoveType = ({ data, dispatchCart, dispatchTeam, genFilter
               dispatchTeam,
               genFilter,
               tierFilter,
+              pokemonFilter,
               cartNote: ``,
             }}
           />
@@ -326,7 +328,7 @@ export const listRenderMoveType = ({ data, dispatchCart, dispatchTeam, genFilter
   );
 }
 
-export const listRenderMoveUsageMethod = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<MoveUsageMethodQuery>) => {
+export const listRenderMoveUsageMethod = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<MoveUsageMethodQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 
   const parent = data.moveByName[0];

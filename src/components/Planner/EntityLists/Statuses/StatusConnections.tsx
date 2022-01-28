@@ -15,16 +15,18 @@ import {
   ListRenderArgs,
   MissingDispatchError,
   MissingGenError,
+  MissingPokemonFilterError,
   MissingTierFilterError,
 } from "../helpers";
 
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 
-export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<StatusAbilityQuery>) => {
+export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<StatusAbilityQuery>) => {
   if (!data || !data.statusByName) return (<div>Data not found for the query 'statusByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
-  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
-  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntityConnectionSearch component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntityConnectionSearch component.');
+  if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed PokemonFilter to the EntityConnectionSearch component.');
 
   const parent = data.statusByName[0];
 
@@ -50,7 +52,8 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, genF
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
               genFilter,
-              tierFilter: tierFilter,
+              tierFilter,
+              pokemonFilter,
               cartNote: `'${result.formattedName}' causes '${parent.formattedName}'.`,
             }}
           />
@@ -75,7 +78,8 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, genF
               dispatchTeam: dispatchTeam,
               pokemonIconData: result.pokemonIconData,
               genFilter,
-              tierFilter: tierFilter,
+              tierFilter,
+              pokemonFilter,
               cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
             }}
           />
@@ -85,7 +89,7 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, genF
   );
 }
 
-export const listRenderStatusFieldState = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<StatusFieldStateQuery>) => {
+export const listRenderStatusFieldState = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<StatusFieldStateQuery>) => {
   if (!data || !data.statusByName) return (<div>Data not found for the query 'statusByName'.</div>);
 
   const parent = data.statusByName[0];
@@ -131,11 +135,12 @@ export const listRenderStatusFieldState = ({ data, dispatchCart, dispatchTeam, g
   );
 }
 
-export const listRenderStatusItem = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<StatusItemQuery>) => {
+export const listRenderStatusItem = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<StatusItemQuery>) => {
   if (!data || !data.statusByName) return (<div>Data not found for the query 'statusByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
-  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
-  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntityConnectionSearch component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntityConnectionSearch component.');
+  if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed PokemonFilter to the EntityConnectionSearch component.');
 
   const parent = data.statusByName[0];
 
@@ -162,7 +167,8 @@ export const listRenderStatusItem = ({ data, dispatchCart, dispatchTeam, genFilt
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
               genFilter,
-              tierFilter: tierFilter,
+              tierFilter,
+              pokemonFilter,
               cartNote: `'${result.formattedName}' causes '${parent.formattedName}'.`,
             }}
           />
@@ -188,7 +194,8 @@ export const listRenderStatusItem = ({ data, dispatchCart, dispatchTeam, genFilt
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
               genFilter,
-              tierFilter: tierFilter,
+              tierFilter,
+              pokemonFilter,
               cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
             }}
           />
@@ -198,11 +205,12 @@ export const listRenderStatusItem = ({ data, dispatchCart, dispatchTeam, genFilt
   );
 }
 
-export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<StatusMoveQuery>) => {
+export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<StatusMoveQuery>) => {
   if (!data || !data.statusByName) return (<div>Data not found for the query 'statusByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
-  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
-  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntityConnectionSearch component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntityConnectionSearch component.');
+  if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed PokemonFilter to the EntityConnectionSearch component.');
 
   const parent = data.statusByName[0];
 
@@ -229,7 +237,8 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, genFilt
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,
               genFilter,
-              tierFilter: tierFilter,
+              tierFilter,
+              pokemonFilter,
               cartNote: `'${result.formattedName}' causes '${parent.formattedName}'.`,
             }}
           />
@@ -255,7 +264,8 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, genFilt
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,
               genFilter,
-              tierFilter: tierFilter,
+              tierFilter,
+              pokemonFilter,
               cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
             }}
           />

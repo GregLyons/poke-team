@@ -1,4 +1,4 @@
-import { Cart, CartAction, GenFilter, TeamAction } from "../../../hooks/app-hooks";
+import { Cart, CartAction, GenFilter, PokemonFilter, TeamAction } from "../../../hooks/app-hooks";
 import { GenerationNum } from "../../../types-queries/helpers";
 import { TierFilter } from "../../../utils/smogonLogic";
 import CartViewAccordion from "./CartViewAccordion";
@@ -10,6 +10,7 @@ type CartViewProps = {
   dispatchTeam: React.Dispatch<TeamAction>
   genFilter: GenFilter
   tierFilter: TierFilter
+  pokemonFilter: PokemonFilter
 }
 
 const CartView = ({
@@ -18,6 +19,7 @@ const CartView = ({
   dispatchTeam,
   genFilter,
   tierFilter,
+  pokemonFilter,
 }: CartViewProps) => {
   return (
     <div className="builder__cart-view-wrapper">
@@ -48,6 +50,7 @@ const CartView = ({
                                     dispatchTeam={dispatchTeam}
                                     genFilter={genFilter}
                                     tierFilter={tierFilter}
+                                    pokemonFilter={pokemonFilter}
                                   />
                                 )
                               }

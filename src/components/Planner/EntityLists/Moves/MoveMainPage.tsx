@@ -8,6 +8,7 @@ import {
 import { 
   CartAction,
   GenFilter,
+  PokemonFilter,
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
@@ -18,6 +19,7 @@ type MoveMainProps = {
   dispatchTeam: React.Dispatch<TeamAction>
   genFilter: GenFilter
   tierFilter: TierFilter
+  pokemonFilter: PokemonFilter
 }
 
 const MoveMainPage = ({ 
@@ -25,6 +27,7 @@ const MoveMainPage = ({
   dispatchTeam,
   genFilter,
   tierFilter,
+  pokemonFilter,
 }: MoveMainProps) => {
   return (
     <MoveSearch 
@@ -32,6 +35,7 @@ const MoveMainPage = ({
       dispatchTeam={dispatchTeam}
       genFilter={genFilter}
       tierFilter={tierFilter}
+      pokemonFilter={pokemonFilter}
     />
   )
 }

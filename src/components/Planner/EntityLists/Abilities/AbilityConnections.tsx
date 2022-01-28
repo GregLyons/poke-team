@@ -13,14 +13,14 @@ import {
   AbilityUsageMethodResult,
 } from "../../../../types-queries/Planner/Ability";
 import {
-  ListRenderArgs, MissingDispatchError, MissingGenError, MissingTierFilterError,
+  ListRenderArgs, MissingDispatchError, MissingGenError, MissingPokemonFilterError, MissingTierFilterError,
 } from "../helpers";
 
 import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
 import { DUMMY_POKEMON_ICON_DATUM } from "../../../../types-queries/helpers";
 import { ENUMCASE_TO_TITLECASE } from "../../../../utils/constants";
 
-export const listRenderAbilityEffect = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<AbilityEffectQuery>) => {
+export const listRenderAbilityEffect = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<AbilityEffectQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
 
   const parent = data.abilityByName[0];
@@ -43,7 +43,7 @@ export const listRenderAbilityEffect = ({ data, dispatchCart, dispatchTeam, genF
   )
 }
 
-export const listRenderAbilityFieldState = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<AbilityFieldStateQuery>) => {
+export const listRenderAbilityFieldState = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<AbilityFieldStateQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
 
   const parent = data.abilityByName[0];
@@ -158,7 +158,7 @@ export const listRenderAbilityFieldState = ({ data, dispatchCart, dispatchTeam, 
   )
 }
 
-export const listRenderAbilityStat = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<AbilityStatQuery>) => {
+export const listRenderAbilityStat = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<AbilityStatQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
 
   const parent = data.abilityByName[0];
@@ -275,7 +275,7 @@ export const listRenderAbilityStat = ({ data, dispatchCart, dispatchTeam, genFil
   );
 }
 
-export const listRenderAbilityStatus = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<AbilityStatusQuery>) => {
+export const listRenderAbilityStatus = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<AbilityStatusQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
 
   const parent = data.abilityByName[0];
@@ -321,11 +321,12 @@ export const listRenderAbilityStatus = ({ data, dispatchCart, dispatchTeam, genF
   );
 }
 
-export const listRenderAbilityType = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<AbilityTypeQuery>) => {
+export const listRenderAbilityType = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<AbilityTypeQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
   if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
-  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed gen to the component.');
-  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the component.');
+  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntityConnectionSearch component.');
+  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntityConnectionSearch component.');
+  if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed PokemonFilter to the EntityConnectionSearch component.');
 
   const parent = data.abilityByName[0];
 
@@ -356,6 +357,7 @@ export const listRenderAbilityType = ({ data, dispatchCart, dispatchTeam, genFil
               dispatchTeam,
               genFilter,
               tierFilter,
+              pokemonFilter,
               cartNote: ``
             }}
           />
@@ -383,6 +385,7 @@ export const listRenderAbilityType = ({ data, dispatchCart, dispatchTeam, genFil
               dispatchTeam,
               genFilter,
               tierFilter,
+              pokemonFilter,
               cartNote: ``
             }}
           />
@@ -392,7 +395,7 @@ export const listRenderAbilityType = ({ data, dispatchCart, dispatchTeam, genFil
   );
 }
 
-export const listRenderAbilityUsageMethod = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, }: ListRenderArgs<AbilityUsageMethodQuery>) => {
+export const listRenderAbilityUsageMethod = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<AbilityUsageMethodQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);
 
   const parent = data.abilityByName[0];
