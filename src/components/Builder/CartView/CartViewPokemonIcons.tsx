@@ -7,7 +7,7 @@ import { CartAction, GenFilter, PokemonFilter, TeamAction, validatePokemon } fro
 import CartViewPokemonIcon from "./CartViewPokemonIcon";
 
 type CartViewPokemonIconProps = {
-  key: string
+  note: string
   pokemonIconData: PokemonIconDatum[]
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
@@ -17,7 +17,7 @@ type CartViewPokemonIconProps = {
 }
 
 const CartViewPokemonIcons = ({
-  key,
+  note,
   pokemonIconData,
   dispatchCart,
   dispatchTeam,
@@ -57,7 +57,7 @@ const CartViewPokemonIcons = ({
           <CartViewPokemonIcon
             dispatchCart={dispatchCart}
             dispatchTeam={dispatchTeam}
-            key={key + '_' + name + '_icon'}
+            key={note + '_' + name + '_icon'}
             pokemonIconDatum={pokemonIconDatum}
           />
         );

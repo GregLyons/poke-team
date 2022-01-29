@@ -3,6 +3,8 @@ missing/incorrect/additional data:
 
   gloom doesn't learn absorb in gen 5 ARRRRGHGHHHH
 
+  giratina altered vs origin
+
   form flags
     mothim trash, mothim sandy cosmetic? or not at all?
     genesect drives?
@@ -145,5 +147,7 @@ field state planner search sometimes have 'touppercase null' error
 
 removed from gen 8/swsh/bdsp filters
 
+
+messages for no icons in planner
 
 Fix queries:
