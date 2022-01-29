@@ -1,5 +1,4 @@
 import {
-  useEffect,
   useRef,
 } from "react";
 
@@ -7,34 +6,15 @@ import {
   selectionToPokemonIconData,
   useEntryExpand,
   useSelection,
-} from "../../../hooks/planner-hooks";
+} from "../../../../hooks/planner-hooks";
 
-import {
-  GenerationNum, ItemIconDatum,
-} from "../../../types-queries/helpers";
-import {
-  PokemonIconDatum,
-} from "../../../types-queries/helpers";
 import {
   EntityClass,
-} from "../../../utils/constants";
-import {
-  TierFilter,
-} from "../../../utils/smogonLogic";
-import {
-  psIDToSinglesTier,
-} from "../../../utils/smogonLogic";
-import { 
-  CartAction,
-  TeamAction,
-} from '../../../hooks/app-hooks';
+} from "../../../../utils/constants";
 
-import PlannerPokemonIcon from "../PlannerPokemonIcon";
 import EntryLink from "./EntryLink";
-import { EntryIconData } from "./helpers";
+import { EntryIconData } from "./../helpers";
 import PlannerPokemonIcons from "./PlannerPokemonIcons";
-import SelectionControls from "./SelectionControls";
-
 
 type ConnectionAccordionEntryProps = {
   parentEntityClass: EntityClass
@@ -122,7 +102,7 @@ const ConnectionAccordionEntry = ({
               : ``, 
             }
       }
-      className="planner__accordion-row"
+      className="planner-accordion__row"
       key={key}
     >
       
@@ -136,17 +116,17 @@ const ConnectionAccordionEntry = ({
       />
 
       <div 
-        className="planner__accordion-row-description"
+        className="planner-accordion__row-description"
       >
         {description}
       </div>
-      <div className="planner__accordion-row-data">
+      <div className="planner-accordion__row-data">
         {data && data.map(({key, value}) => (
           <>
-            <b className="planner__accordion-row-data-key">
+            <b className="planner-accordion__row-data-key">
               {key}
             </b>
-            <div className="planner__accordion-row-data-value">
+            <div className="planner-accordion__row-data-value">
               {value}
             </div>
           </>

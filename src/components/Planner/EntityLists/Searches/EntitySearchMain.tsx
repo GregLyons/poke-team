@@ -1,32 +1,24 @@
 import {
-  useEffect,
-  useRef,
   useState,
 } from 'react';
-import {
-  useSearchParams,
-} from 'react-router-dom';
 import {
   DocumentNode,
 } from 'graphql';
 import {
-  useLazyQuery, useQuery,
+  useQuery,
 } from '@apollo/client';
 
 import {
-  GenerationNum,
-} from '../../../types-queries/helpers';
-import {
   ListRenderArgs,
-} from './helpers';
+} from './../helpers';
 
 import {
   CartAction,
   GenFilter,
   PokemonFilter,
   TeamAction,
-} from '../../../hooks/app-hooks';
-import { TierFilter } from '../../../utils/smogonLogic';
+} from '../../../../hooks/app-hooks';
+import { TierFilter } from '../../../../utils/smogonLogic';
 
 interface EntitySearchMainProps<SearchQuery, SearchQueryVars> {
   dispatchCart?: React.Dispatch<CartAction>

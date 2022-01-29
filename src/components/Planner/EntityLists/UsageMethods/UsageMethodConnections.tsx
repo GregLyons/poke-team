@@ -16,7 +16,7 @@ import {
   MissingTierFilterError,
 } from "../helpers";
 
-import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
+import ConnectionAccordionEntry from "../Entries/ConnectionAccordionEntry";
 
 export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<UsageMethodAbilityQuery>) => {
   if (!data || !data.usageMethodByName) return (<div>Data not found for the query 'usageMethodByName'.</div>);
@@ -35,8 +35,8 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
   return (
     <>
       {activatesResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Activates ability</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Activates ability</h3>
         {activatesResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Usage method"
@@ -58,8 +58,8 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
         ))}
       </div>)}
       {boostedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Boosted by ability</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Boosted by ability</h3>
         {boostedByResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Usage method"
@@ -82,9 +82,9 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
         ))}
       </div>)}
       {preventedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Prevented by ability</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Prevented by ability</h3>
+        <p className="planner-accordion__clarification">
           Presence of the listed ability prevents moves of this usage method from being used.
         </p>
         {preventedByResults.map(result => (
@@ -108,8 +108,8 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
         ))}
       </div>)}
       {resistedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Resisted by ability</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Resisted by ability</h3>
         {resistedByResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Usage method"
@@ -151,8 +151,8 @@ export const listRenderUsageMethodItem = ({ data, dispatchCart, dispatchTeam, ge
   return (
     <>
       {activatesResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Activates item</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Activates item</h3>
         {activatesResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Usage method"
@@ -175,8 +175,8 @@ export const listRenderUsageMethodItem = ({ data, dispatchCart, dispatchTeam, ge
         ))}
       </div>)}
       {boostedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Boosted by item</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Boosted by item</h3>
         {boostedByResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Usage method"
@@ -200,8 +200,8 @@ export const listRenderUsageMethodItem = ({ data, dispatchCart, dispatchTeam, ge
         ))}
       </div>)}
       {resistedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Resisted by item</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Resisted by item</h3>
         {resistedByResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Usage method"
@@ -243,8 +243,8 @@ export const listRenderUsageMethodMove = ({ data, dispatchCart, dispatchTeam, ge
   return (
     <>
       {hadResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Possessed by move</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Possessed by move</h3>
         {hadResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Usage method"
@@ -267,9 +267,9 @@ export const listRenderUsageMethodMove = ({ data, dispatchCart, dispatchTeam, ge
         ))}
       </div>)}
       {preventedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Prevented by move</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Prevented by move</h3>
+        <p className="planner-accordion__clarification">
           The listed move can prevent other Pokemon from using moves of this usage method.
         </p>
         {preventedByResults.map(result => (

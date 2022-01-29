@@ -1,8 +1,4 @@
 import {
-  useEffect,
-  useState,
-} from 'react';
-import {
   Outlet,
 } from 'react-router-dom';
 
@@ -17,9 +13,6 @@ import {
 
   ABILITY_SEARCH_QUERY,
 } from '../../../../types-queries/Planner/Ability';
-import {
-  GenerationNum,
-} from '../../../../types-queries/helpers';
 
 import { 
   CartAction,
@@ -30,10 +23,10 @@ import {
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
-import EntitySearchMain from '../EntitySearchMain';
-import EntitySearchEntry from '../EntitySearchEntry';
+import EntitySearchMain from '../Searches/EntitySearchMain';
+import EntitySearchEntry from '../Entries/EntitySearchEntry';
 import { TierFilter } from '../../../../utils/smogonLogic';
-import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
+import { useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
 
 const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<AbilitySearchQuery>) => {
   if (!data || !data.abilities) return (<div>Data not found for the query 'abilities'.</div>);

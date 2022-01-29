@@ -19,7 +19,7 @@ import {
   MoveUsageMethodResult,
 } from "../../../../types-queries/Planner/Move";
 import { ENUMCASE_TO_TITLECASE } from "../../../../utils/constants";
-import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
+import ConnectionAccordionEntry from "../Entries/ConnectionAccordionEntry";
 
 import {
   ListRenderArgs, MissingDispatchError, MissingGenError, MissingPokemonFilterError, MissingTierFilterError,
@@ -61,8 +61,8 @@ export const listRenderMoveFieldState = ({ data, dispatchCart, dispatchTeam, gen
   return (
     <>
       {createsResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Creates field state</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Creates field state</h3>
         {createsResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Move"
@@ -76,8 +76,8 @@ export const listRenderMoveFieldState = ({ data, dispatchCart, dispatchTeam, gen
         ))}
       </div>)}
       {enhancedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Enhanced by field state</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Enhanced by field state</h3>
         {enhancedByResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Move"
@@ -90,8 +90,8 @@ export const listRenderMoveFieldState = ({ data, dispatchCart, dispatchTeam, gen
         ))}
       </div>)}
       {hinderedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Hindered by field state</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Hindered by field state</h3>
         {hinderedByResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Move"
@@ -104,8 +104,8 @@ export const listRenderMoveFieldState = ({ data, dispatchCart, dispatchTeam, gen
         ))}
       </div>)}
       {removesResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Removes field state</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Removes field state</h3>
         {removesResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Move"
@@ -135,8 +135,8 @@ export const listRenderMoveStat = ({ data, dispatchCart, dispatchTeam, genFilter
   return (
     <>
       {boostStageResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Boosts by stage</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Boosts by stage</h3>
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Move"
@@ -160,8 +160,8 @@ export const listRenderMoveStat = ({ data, dispatchCart, dispatchTeam, genFilter
         ))}
       </div>)}
       {boostMultiplierResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Boost by multiplier</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Boost by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Move"
@@ -185,8 +185,8 @@ export const listRenderMoveStat = ({ data, dispatchCart, dispatchTeam, genFilter
         ))}
       </div>)}
       {reduceStageResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Reduces by stage</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Reduces by stage</h3>
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Move"
@@ -210,8 +210,8 @@ export const listRenderMoveStat = ({ data, dispatchCart, dispatchTeam, genFilter
         ))}
       </div>)}
       {reduceMultiplierResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Reduces by multiplier</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Reduces by multiplier</h3>
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Move"
@@ -249,8 +249,8 @@ export const listRenderMoveStatus = ({ data, dispatchCart, dispatchTeam, genFilt
   return (
     <>
       {causesResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Causes status</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Causes status</h3>
         {causesResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Move"
@@ -264,9 +264,9 @@ export const listRenderMoveStatus = ({ data, dispatchCart, dispatchTeam, genFilt
         ))}
       </div>)}
       {resistsResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Resists status</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Resists status</h3>
+        <p className="planner-accordion__clarification">
           The move fully cures the status, prevents the status, or mitigates the status in some way.
         </p>
         {resistsResults.map(result => (
@@ -298,9 +298,9 @@ export const listRenderMoveType = ({ data, dispatchCart, dispatchTeam, genFilter
   return (
     <>
       {requiresResults.length > 0 && (
-      <div className="planner__accordion-subitem">
-        <h3 className="planner__accordion-subitem-header">Requires type</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem">
+        <h3 className="planner-accordion__subitem-header">Requires type</h3>
+        <p className="planner-accordion__clarification">
           This move requires another move of the listed type as its base move.
         </p>
         {requiresResults.map(result => (
@@ -339,8 +339,8 @@ export const listRenderMoveUsageMethod = ({ data, dispatchCart, dispatchTeam, ge
   return (
     <>
       {hasResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Has usage method</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Has usage method</h3>
         {hasResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Move"
@@ -353,9 +353,9 @@ export const listRenderMoveUsageMethod = ({ data, dispatchCart, dispatchTeam, ge
         ))}
       </div>)}
       {preventsResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Prevents usage method</h3>
-        <p className="planner__accordion-subitem-positive">
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Prevents usage method</h3>
+        <p className="planner-accordion__subitem-positive">
           This move can prevent other Pokemon from using moves of the listed usage method.
         </p>
         {preventsResults.map(result => (

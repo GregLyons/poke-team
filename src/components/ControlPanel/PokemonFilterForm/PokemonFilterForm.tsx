@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BASE_STAT_NAMES, GenFilter, PokemonFilter, PokemonFilterAction, TYPE_NAMES } from "../../../hooks/app-hooks";
 import { BaseStatName, toAbbreviatedBaseStatName, toFormattedBaseStatName, toFormattedTypeName, TypeName } from "../../../types-queries/helpers";
-import DoubleSlider from "../../Forms/DoubleSlider";
+import DoubleSlider from "../../Reusables/DoubleSlider";
 
 import '../ControlPanel.css';
 

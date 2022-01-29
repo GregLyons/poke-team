@@ -52,16 +52,17 @@ import {
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
-import EntityConnectionSearch from '../EntityConnectionSearch';
-import ConnectionAccordion from '../ConnectionAccordion';
+import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import {
   listRenderStatusAbility,
   listRenderStatusFieldState,
   listRenderStatusItem,
   listRenderStatusMove
 } from './StatusConnections';
-import AuxEntityDescription from '../AuxEntityDescription';
+import AuxEntityDescription from '../Pages/AuxEntityDescription';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
+import Accordion from '../../../Reusables/Accordion';
+import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 
 type StatusPageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -233,10 +234,13 @@ const StatusPage = ({
         description={statusResult.description}
       />
 
-      <ConnectionAccordion 
+      <Accordion
+        accordionContext='planner'
         accordionData={[
           {
-            title: `Ability interactions with ${statusResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Ability interactions with ${statusResult.formattedName}`}
+            />,
             content: statusResult.abilityCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -251,7 +255,9 @@ const StatusPage = ({
             </>,
           },
           {
-            title: `Field state interactions with ${statusResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Field state interactions with ${statusResult.formattedName}`}
+            />,
             content: statusResult.fieldStateCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -264,7 +270,9 @@ const StatusPage = ({
             </>,
           },
           {
-            title: `Item interactions with ${statusResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Item interactions with ${statusResult.formattedName}`}
+            />,
             content: statusResult.itemCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -279,7 +287,9 @@ const StatusPage = ({
             </>,
           },
           {
-            title: `Move interactions with ${statusResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Move interactions with ${statusResult.formattedName}`}
+            />,
             content: statusResult.moveCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}

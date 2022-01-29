@@ -63,11 +63,12 @@ import {
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
-import EntityConnectionSearch from '../EntityConnectionSearch';
-import ConnectionAccordion from '../ConnectionAccordion';
-import MainEntityDescriptionTable from '../MainEntityDescriptionTable';
+import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
+import MainEntityDescriptionTable from '../Pages/MainEntityDescriptionTable';
 import { useGenConnectedSearchVars } from '../../../../hooks/planner-hooks';
 import { TierFilter } from '../../../../utils/smogonLogic';
+import Accordion from '../../../Reusables/Accordion';
+import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 
 type ItemPageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -245,10 +246,13 @@ const ItemPage = ({
         descriptions={itemResult.descriptions}
       />
 
-      <ConnectionAccordion 
+      <Accordion
+        accordionContext='planner'
         accordionData={[
           {
-            title: `Effects of ${itemResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Effects of ${itemResult.formattedName}`}
+            />,
             content: itemResult.effectCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
@@ -259,7 +263,9 @@ const ItemPage = ({
             </>,
           },
           {
-            title: `Field state interactions with ${itemResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Field state interactions with ${itemResult.formattedName}`}
+            />,
             content: itemResult.fieldStateCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
@@ -270,7 +276,9 @@ const ItemPage = ({
             </>,
           },
           {
-            title: `Stat interactions with ${itemResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Stat interactions with ${itemResult.formattedName}`}
+            />,
             content: itemResult.modifiesStatCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
@@ -281,7 +289,9 @@ const ItemPage = ({
             </>,
           },
           {
-            title: `Status interactions with ${itemResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Status interactions with ${itemResult.formattedName}`}
+            />,
             content: itemResult.statusCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
@@ -292,7 +302,9 @@ const ItemPage = ({
             </>,
           },
           {
-            title: `Type interactions with ${itemResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Type interactions with ${itemResult.formattedName}`}
+            />,
             content: itemResult.typeCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -307,7 +319,9 @@ const ItemPage = ({
             </>,
           },
           {
-            title: `Usage method interactions with ${itemResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Usage method interactions with ${itemResult.formattedName}`}
+            />,
             content: itemResult.usageMethodCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}

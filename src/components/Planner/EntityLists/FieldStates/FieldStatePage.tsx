@@ -69,11 +69,12 @@ import {
   listRenderFieldStateStatus,
   listRenderFieldStateType,
 } from './FieldStateConnections';
-import AuxEntityDescription from '../AuxEntityDescription';
+import AuxEntityDescription from '../Pages/AuxEntityDescription';
 
-import EntityConnectionSearch from '../EntityConnectionSearch';
-import ConnectionAccordion from '../ConnectionAccordion';
+import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
+import Accordion from '../../../Reusables/Accordion';
+import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 
 type FieldStatePageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -258,10 +259,13 @@ const FieldStatePage = ({
         description={fieldStateResult.description}
       />
 
-      <ConnectionAccordion 
+      <Accordion 
+        accordionContext='planner'
         accordionData={[
           {
-            title: `Ability interactions with ${fieldStateResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Ability interactions with ${fieldStateResult.formattedName}`}
+            />,
             content: fieldStateResult.abilityCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -276,7 +280,9 @@ const FieldStatePage = ({
             </>,
           },
           {
-            title: `Effects of ${fieldStateResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Effects of ${fieldStateResult.formattedName}`}
+            />,
             content: fieldStateResult.effectCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -289,7 +295,9 @@ const FieldStatePage = ({
             </>,
           },
           {
-            title: `Item interactions with ${fieldStateResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Item interactions with ${fieldStateResult.formattedName}`}
+            />,
             content: fieldStateResult.itemCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -304,7 +312,9 @@ const FieldStatePage = ({
             </>,
           },
           {
-            title: `Move interactions with ${fieldStateResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Move interactions with ${fieldStateResult.formattedName}`}
+            />,
             content: fieldStateResult.moveCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -319,7 +329,9 @@ const FieldStatePage = ({
             </>,
           },
           {
-            title: `Stat interactions with ${fieldStateResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Stat interactions with ${fieldStateResult.formattedName}`}
+            />,
             content: fieldStateResult.modifiesStatCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -332,7 +344,9 @@ const FieldStatePage = ({
             </>,
           },
           {
-            title: `Status interactions with ${fieldStateResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Status interactions with ${fieldStateResult.formattedName}`}
+            />,
             content: fieldStateResult.statusCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -345,7 +359,9 @@ const FieldStatePage = ({
             </>,
           },
           {
-            title: `Type interactions with ${fieldStateResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Type interactions with ${fieldStateResult.formattedName}`}
+            />,
             content: fieldStateResult.typeCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}

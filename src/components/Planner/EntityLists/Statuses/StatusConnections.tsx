@@ -19,7 +19,7 @@ import {
   MissingTierFilterError,
 } from "../helpers";
 
-import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
+import ConnectionAccordionEntry from "../Entries/ConnectionAccordionEntry";
 
 export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<StatusAbilityQuery>) => {
   if (!data || !data.statusByName) return (<div>Data not found for the query 'statusByName'.</div>);
@@ -36,8 +36,8 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, genF
   return (
     <>
       {causedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Caused by ability</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Caused by ability</h3>
         {causedByResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Status"
@@ -60,9 +60,9 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, genF
         ))}
       </div>)}
       {resistedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Resisted by ability</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Resisted by ability</h3>
+        <p className="planner-accordion__clarification">
           Ability fully cures this status, prevents it, or mitigates it in some way.
         </p>
         {resistedByResults.map(result => (
@@ -100,8 +100,8 @@ export const listRenderStatusFieldState = ({ data, dispatchCart, dispatchTeam, g
   return (
     <>
       {causedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Caused by field state</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Caused by field state</h3>
         {causedByResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Status"
@@ -115,9 +115,9 @@ export const listRenderStatusFieldState = ({ data, dispatchCart, dispatchTeam, g
         ))}
       </div>)}
       {resistedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Resisted by field state</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Resisted by field state</h3>
+        <p className="planner-accordion__clarification">
           Field state fully cures this status, prevents it, or mitigates it in some way.
         </p>
         {resistedByResults.map(result => (
@@ -150,8 +150,8 @@ export const listRenderStatusItem = ({ data, dispatchCart, dispatchTeam, genFilt
   return (
     <>
       {causedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Caused by item</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Caused by item</h3>
         {causedByResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Status"
@@ -175,9 +175,9 @@ export const listRenderStatusItem = ({ data, dispatchCart, dispatchTeam, genFilt
         ))}
       </div>)}
       {resistedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Resisted by item</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Resisted by item</h3>
+        <p className="planner-accordion__clarification">
           Item fully cure this status, prevents it, or mitigates it in some way.
         </p>
         {resistedByResults.map(result => (
@@ -220,8 +220,8 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, genFilt
   return (
     <>
       {causedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Caused by move</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Caused by move</h3>
         {causedByResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Status"
@@ -245,9 +245,9 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, genFilt
         ))}
       </div>)}
       {resistedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Resisted by move</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Resisted by move</h3>
+        <p className="planner-accordion__clarification">
           Move fully cure this status, prevents it, or mitigates it in some way.
         </p>
         {resistedByResults.map(result => (

@@ -19,7 +19,7 @@ import {
   MissingTierFilterError,
 } from "../helpers";
 
-import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
+import ConnectionAccordionEntry from "../Entries/ConnectionAccordionEntry";
 
 export const listRenderEffectAbility = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<EffectAbilityQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);

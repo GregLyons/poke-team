@@ -53,11 +53,12 @@ import {
   listRenderUsageMethodItem,
   listRenderUsageMethodMove,
 } from './UsageMethodConnections';
-import AuxEntityDescription from '../AuxEntityDescription';
+import AuxEntityDescription from '../Pages/AuxEntityDescription';
 
-import EntityConnectionSearch from '../EntityConnectionSearch';
-import ConnectionAccordion from '../ConnectionAccordion';
+import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
+import Accordion from '../../../Reusables/Accordion';
+import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 
 type UsageMethodPageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -223,10 +224,13 @@ const UsageMethodPage = ({
         description={usageMethodResult.description}
       />
 
-      <ConnectionAccordion 
+      <Accordion 
+        accordionContext='planner'
         accordionData={[
           {
-            title: `Ability interactions with ${usageMethodResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Ability interactions with ${usageMethodResult.formattedName}`}
+            />,
             content: usageMethodResult.abilityCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -241,7 +245,9 @@ const UsageMethodPage = ({
             </>,
           },
           {
-            title: `Item interactions with ${usageMethodResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Item interactions with ${usageMethodResult.formattedName}`}
+            />,
             content: usageMethodResult.itemCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -256,7 +262,9 @@ const UsageMethodPage = ({
             </>,
           },
           {
-            title: `Move interactions with ${usageMethodResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Move interactions with ${usageMethodResult.formattedName}`}
+            />,
             content: usageMethodResult.moveCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}

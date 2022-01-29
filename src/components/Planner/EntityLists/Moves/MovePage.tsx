@@ -44,9 +44,6 @@ import {
   NUMBER_OF_GENS,
 } from '../../../../utils/constants';
 import {
-  GenerationNum,
-} from '../../../../types-queries/helpers';
-import {
   listRenderMoveEffect,
   listRenderMoveFieldState,
   listRenderMoveStat,
@@ -63,11 +60,12 @@ import {
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
-import EntityConnectionSearch from '../EntityConnectionSearch';
-import ConnectionAccordion from '../ConnectionAccordion';
-import MainEntityDescriptionTable from '../MainEntityDescriptionTable';
+import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
+import MainEntityDescriptionTable from '../Pages/MainEntityDescriptionTable';
 import { useGenConnectedSearchVars } from '../../../../hooks/planner-hooks';
 import { TierFilter } from '../../../../utils/smogonLogic';
+import Accordion from '../../../Reusables/Accordion';
+import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 
 type MovePageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -243,10 +241,13 @@ const MovePage = ({
         descriptions={moveResult.descriptions}
       />
 
-      <ConnectionAccordion
+      <Accordion
+        accordionContext='planner'
         accordionData={[
           {
-            title: `Effects of ${moveResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Effects of ${moveResult.formattedName}`}
+            />,
             content: moveResult.effectCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
@@ -257,7 +258,9 @@ const MovePage = ({
             </>,
           },
           {
-            title: `Field state interactions with ${moveResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Field state interactions with ${moveResult.formattedName}`}
+            />,
             content: moveResult.fieldStateCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
@@ -268,7 +271,9 @@ const MovePage = ({
             </>,
           },
           {
-            title: `Stat interactions with ${moveResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Stat interactions with ${moveResult.formattedName}`}
+            />,
             content: moveResult.modifiesStatCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
@@ -279,7 +284,9 @@ const MovePage = ({
             </>,
           },
           {
-            title: `Status interactions with ${moveResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Status interactions with ${moveResult.formattedName}`}
+            />,
             content: moveResult.statusCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
@@ -290,7 +297,9 @@ const MovePage = ({
             </>,
           },
           {
-            title: `Type interactions with ${moveResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Type interactions with ${moveResult.formattedName}`}
+            />,
             content: moveResult.typeCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -304,7 +313,9 @@ const MovePage = ({
             </>,
           },
           {
-            title: `Usage method interactions with ${moveResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Usage method interactions with ${moveResult.formattedName}`}
+            />,
             content: moveResult.usageMethodCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}

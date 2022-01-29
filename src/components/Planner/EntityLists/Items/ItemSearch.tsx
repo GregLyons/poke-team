@@ -1,7 +1,4 @@
 import {
-  useState,
-} from 'react';
-import {
   Outlet,
 } from 'react-router-dom';
 
@@ -13,9 +10,6 @@ import {
 
   ITEM_SEARCH_QUERY,
 } from '../../../../types-queries/Planner/Item';
-import {
-  GenerationNum,
-} from '../../../../types-queries/helpers';
 import {
   ListRenderArgs, MissingDispatchError, MissingGenError, MissingPokemonFilterError, MissingTierFilterError,
 } from '../helpers';
@@ -29,15 +23,15 @@ import {
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
-import EntitySearchMain from '../EntitySearchMain';
-import EntitySearchEntry from '../EntitySearchEntry';
+import EntitySearchMain from '../Searches/EntitySearchMain';
+import EntitySearchEntry from '../Entries/EntitySearchEntry';
 import {
   ENUMCASE_TO_TITLECASE,
 } from '../../../../utils/constants';
 import {
   TierFilter,
 } from '../../../../utils/smogonLogic';
-import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
+import { useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
 
 const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<ItemSearchQuery>) => {
   if (!data || !data.items) return (<div>Data not found for the query 'items'.</div>);

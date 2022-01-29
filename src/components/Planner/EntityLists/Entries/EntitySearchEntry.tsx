@@ -3,42 +3,20 @@ import {
   useRef,
 } from "react";
 import {
-  Link,
-} from "react-router-dom";
-import {
   selectionToPokemonIconData,
   useEntryExpand,
   useSelection,
-} from "../../../hooks/planner-hooks";
-import {
-  GenerationNum, ItemIconDatum,
-} from "../../../types-queries/helpers";
-import {
-  PokemonIconDatum,
-} from "../../../types-queries/helpers";
+} from "../../../../hooks/planner-hooks";
 import {
   EntityClass,
-  ENTITYCLASS_TO_PLANNERLINK,
-} from '../../../utils/constants';
-import {
-  TierFilter,
-} from '../../../utils/smogonLogic';
-import {
-  psIDToSinglesTier,
-} from "../../../utils/smogonLogic";
+} from '../../../../utils/constants';
 
 import { 
-  CartAction,
   GenFilter,
-  TeamAction,
-} from "../../../hooks/app-hooks";
-import PlannerItemIcon from "./PlannerItemIcon";
-
-import PlannerPokemonIcon from "../PlannerPokemonIcon";
+} from "../../../../hooks/app-hooks";
 import EntryLink from "./EntryLink";
-import { EntryIconData } from "./helpers";
-import PlannerPokemonIcons from "./PlannerPokemonIcons";
-import SelectionControls from "./SelectionControls";
+import { EntryIconData } from "../helpers";
+import PlannerPokemonIcons from "../Entries/PlannerPokemonIcons";
 
 type EntitySearchEntryProps = {
   genFilter?: GenFilter

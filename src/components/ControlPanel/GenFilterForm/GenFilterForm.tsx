@@ -6,7 +6,7 @@ import {
   GenerationNum, stringToGenNumber,
 } from "../../../types-queries/helpers";
 import { GenFilter, GenFilterAction } from "../../../hooks/app-hooks";
-import Dropdown from "../../Forms/Dropdown";
+import Dropdown from "../../Reusables/Dropdown";
 import { useState } from "react";
 
 type GenFilterFormProps = {

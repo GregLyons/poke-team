@@ -39,9 +39,6 @@ import {
 import {
   TierFilter,
 } from '../../../../utils/smogonLogic';
-import {
-  GenerationNum,
-} from '../../../../types-queries/helpers';
 
 import { 
   CartAction,
@@ -52,11 +49,12 @@ import {
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
-import EntityConnectionSearch from '../EntityConnectionSearch';
-import ConnectionAccordion from '../ConnectionAccordion';
+import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import { listRenderStatAbility, listRenderStatFieldState, listRenderStatItem, listRenderStatMove } from './StatConnections';
-import AuxEntityDescription from '../AuxEntityDescription';
+import AuxEntityDescription from '../Pages/AuxEntityDescription';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
+import Accordion from '../../../Reusables/Accordion';
+import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 
 type StatPageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -228,10 +226,13 @@ const StatPage = ({
         description={statResult.description}
       />
 
-      <ConnectionAccordion 
+      <Accordion 
+        accordionContext='planner'
         accordionData={[
           {
-            title: `Abilities with '${statResult.formattedName}'`,
+            title: <ConnectionAccordionTitle
+              titleText={`Abilities with '${statResult.formattedName}'`}
+            />,
             content: statResult.modifiedByAbilityCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -246,7 +247,9 @@ const StatPage = ({
             </>,
           },
           {
-            title: `Field states with '${statResult.formattedName}'`,
+            title: <ConnectionAccordionTitle
+              titleText={`Field states with '${statResult.formattedName}'`}
+            />,
             content: statResult.modifiedByFieldStateCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -259,7 +262,9 @@ const StatPage = ({
             </>,
           },
           {
-            title: `Items with '${statResult.formattedName}'`,
+            title: <ConnectionAccordionTitle
+              titleText={`Items with '${statResult.formattedName}'`}
+            />,
             content: statResult.modifiedByItemCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -274,7 +279,9 @@ const StatPage = ({
             </>,
           },
           {
-            title: `Moves with '${statResult.formattedName}'`,
+            title: <ConnectionAccordionTitle
+              titleText={`Moves with '${statResult.formattedName}'`}
+            />,
             content: statResult.modifiedByMoveCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}

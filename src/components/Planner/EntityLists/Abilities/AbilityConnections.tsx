@@ -16,7 +16,7 @@ import {
   ListRenderArgs, MissingDispatchError, MissingGenError, MissingPokemonFilterError, MissingTierFilterError,
 } from "../helpers";
 
-import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
+import ConnectionAccordionEntry from "../Entries/ConnectionAccordionEntry";
 import { DUMMY_POKEMON_ICON_DATUM } from "../../../../types-queries/helpers";
 import { ENUMCASE_TO_TITLECASE } from "../../../../utils/constants";
 
@@ -58,8 +58,8 @@ export const listRenderAbilityFieldState = ({ data, dispatchCart, dispatchTeam, 
   return (
     <>
       {activatedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Activated by field state</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Activated by field state</h3>
         {activatedByResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
@@ -72,8 +72,8 @@ export const listRenderAbilityFieldState = ({ data, dispatchCart, dispatchTeam, 
         ))}
       </div>)}
       {createsResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Creates field state</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Creates field state</h3>
         {createsResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
@@ -87,9 +87,9 @@ export const listRenderAbilityFieldState = ({ data, dispatchCart, dispatchTeam, 
         ))}
       </div>)}
       {ignoresResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Ignores field state</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Ignores field state</h3>
+        <p className="planner-accordion__clarification">
           Ability allows the owner to ignore the effects of the field state.
         </p>
         {ignoresResults.map(result => (
@@ -104,9 +104,9 @@ export const listRenderAbilityFieldState = ({ data, dispatchCart, dispatchTeam, 
         ))}
       </div>)}
       {preventsResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Prevents field state</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Prevents field state</h3>
+        <p className="planner-accordion__clarification">
           Prevents the field state from being set up while in play, but does not remove field states which are already present.
         </p>
         {preventsResults.map(result => (
@@ -121,9 +121,9 @@ export const listRenderAbilityFieldState = ({ data, dispatchCart, dispatchTeam, 
         ))}
       </div>)}
       {removesResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Removes field state</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Removes field state</h3>
+        <p className="planner-accordion__clarification">
           Ability removes the field state from the field entirely.
         </p>
         {removesResults.map(result => (
@@ -138,9 +138,9 @@ export const listRenderAbilityFieldState = ({ data, dispatchCart, dispatchTeam, 
         ))}
       </div>)}
       {suppressesResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Suppresses field state</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Suppresses field state</h3>
+        <p className="planner-accordion__clarification">
           Ability removes the effects of the field state while in play, but does not remove the field state entirely.
         </p>
         {suppressesResults.map(result => (
@@ -172,8 +172,8 @@ export const listRenderAbilityStat = ({ data, dispatchCart, dispatchTeam, genFil
   return (
     <>
       {boostStageResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Boosts by stage</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Boosts by stage</h3>
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
@@ -197,8 +197,8 @@ export const listRenderAbilityStat = ({ data, dispatchCart, dispatchTeam, genFil
         ))}
       </div>)}
       {boostMultiplierResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Boost by multiplier</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Boost by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
@@ -222,8 +222,8 @@ export const listRenderAbilityStat = ({ data, dispatchCart, dispatchTeam, genFil
         ))}
       </div>)}
       {reduceStageResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Reduces by stage</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Reduces by stage</h3>
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
@@ -247,8 +247,8 @@ export const listRenderAbilityStat = ({ data, dispatchCart, dispatchTeam, genFil
         ))}
       </div>)}
       {reduceMultiplierResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Reduces by multiplier</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Reduces by multiplier</h3>
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
@@ -286,8 +286,8 @@ export const listRenderAbilityStatus = ({ data, dispatchCart, dispatchTeam, genF
   return (
     <>
       {causesResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Causes status</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Causes status</h3>
         {causesResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
@@ -301,9 +301,9 @@ export const listRenderAbilityStatus = ({ data, dispatchCart, dispatchTeam, genF
         ))}
       </div>)}
       {resistsResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Resists status</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Resists status</h3>
+        <p className="planner-accordion__clarification">
           The ability fully cures the status, prevents the status, or mitigates the status in some way.
         </p>
         {resistsResults.map(result => (
@@ -336,9 +336,9 @@ export const listRenderAbilityType = ({ data, dispatchCart, dispatchTeam, genFil
   return (
     <>
       {boostsResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Boosts type</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Boosts type</h3>
+        <p className="planner-accordion__clarification">
           Ability boosts the power of moves of this type used by the Pokemon.
         </p> 
         {boostsResults.map(result => (
@@ -364,9 +364,9 @@ export const listRenderAbilityType = ({ data, dispatchCart, dispatchTeam, genFil
         ))}
       </div>)}
       {resistsResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Resists type</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Resists type</h3>
+        <p className="planner-accordion__clarification">
           Ability resists moves of this type used against the Pokemon.
         </p>
         {resistsResults.map(result => (
@@ -408,8 +408,8 @@ export const listRenderAbilityUsageMethod = ({ data, dispatchCart, dispatchTeam,
   return (
     <>
       {activatedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Activated by usage method</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Activated by usage method</h3>
         {activatedByResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
@@ -422,9 +422,9 @@ export const listRenderAbilityUsageMethod = ({ data, dispatchCart, dispatchTeam,
         ))}
       </div>)}
       {boostsResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Boosts usage method</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Boosts usage method</h3>
+        <p className="planner-accordion__clarification">
           Ability boosts the power of moves of this usage method used by the Pokemon.
         </p> 
         {boostsResults.map(result => (
@@ -440,9 +440,9 @@ export const listRenderAbilityUsageMethod = ({ data, dispatchCart, dispatchTeam,
         ))}
       </div>)}
       {preventsResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Prevents usage method</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Prevents usage method</h3>
+        <p className="planner-accordion__clarification">
           Prevents moves of the listed usage method from being used while this ability is present.
         </p>
         {preventsResults.map(result => (
@@ -457,9 +457,9 @@ export const listRenderAbilityUsageMethod = ({ data, dispatchCart, dispatchTeam,
         ))}
       </div>)}
       {resistsResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Resists usage method</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Resists usage method</h3>
+        <p className="planner-accordion__clarification">
           Ability resists moves of this usage method used against the Pokemon.
         </p>
         {resistsResults.map(result => (

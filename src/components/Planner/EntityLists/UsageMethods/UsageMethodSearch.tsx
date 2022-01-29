@@ -1,7 +1,4 @@
 import {
-  useState,
-} from 'react';
-import {
   Outlet,
 } from 'react-router-dom';
 
@@ -16,9 +13,6 @@ import {
 
   USAGEMETHOD_SEARCH_QUERY,
 } from '../../../../types-queries/Planner/UsageMethod';
-import {
-  GenerationNum,
-} from '../../../../types-queries/helpers';
 
 import { 
   CartAction,
@@ -26,8 +20,8 @@ import {
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
-import EntitySearchMain from '../EntitySearchMain';
-import EntitySearchEntry from '../EntitySearchEntry';
+import EntitySearchMain from '../Searches/EntitySearchMain';
+import EntitySearchEntry from '../Entries/EntitySearchEntry';
 import { useGenConnectedSearchVars } from '../../../../hooks/planner-hooks';
 
 const listRender = ({ data, }: ListRenderArgs<UsageMethodSearchQuery>) => {

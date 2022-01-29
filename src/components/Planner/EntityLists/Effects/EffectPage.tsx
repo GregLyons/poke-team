@@ -52,11 +52,12 @@ import {
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
-import EntityConnectionSearch from '../EntityConnectionSearch';
-import ConnectionAccordion from '../ConnectionAccordion';
+import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import { listRenderEffectAbility, listRenderEffectFieldState, listRenderEffectItem, listRenderEffectMove } from './EffectConnections';
-import AuxEntityDescription from '../AuxEntityDescription';
+import AuxEntityDescription from '../Pages/AuxEntityDescription';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
+import Accordion from '../../../Reusables/Accordion';
+import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 
 type EffectPageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -228,10 +229,13 @@ const EffectPage = ({
         description={effectResult.description}
       />
 
-      <ConnectionAccordion 
+      <Accordion 
+        accordionContext='planner'
         accordionData={[
           {
-            title: `Abilities with '${effectResult.formattedName}'`,
+            title: <ConnectionAccordionTitle
+              titleText={`Abilities with '${effectResult.formattedName}'`}
+            />,
             content: effectResult.abilityCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -246,7 +250,9 @@ const EffectPage = ({
             </>,
           },
           {
-            title: `Field states with '${effectResult.formattedName}'`,
+            title: <ConnectionAccordionTitle
+              titleText={`Field states with '${effectResult.formattedName}'`}
+            />,
             content: effectResult.fieldStateCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -259,7 +265,9 @@ const EffectPage = ({
             </>,
           },
           {
-            title: `Items with '${effectResult.formattedName}'`,
+            title: <ConnectionAccordionTitle
+              titleText={`Items with '${effectResult.formattedName}'`}
+            />,
             content: effectResult.itemCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -274,7 +282,9 @@ const EffectPage = ({
             </>,
           },
           {
-            title: `Moves with '${effectResult.formattedName}'`,
+            title: <ConnectionAccordionTitle
+              titleText={`Moves with '${effectResult.formattedName}'`}
+            />,
             content: effectResult.moveCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}

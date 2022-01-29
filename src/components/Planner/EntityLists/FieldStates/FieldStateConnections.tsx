@@ -31,7 +31,7 @@ import {
   DUMMY_POKEMON_ICON_DATUM,
 } from "../../../../types-queries/helpers";
 
-import ConnectionAccordionEntry from "../ConnectionAccordionEntry";
+import ConnectionAccordionEntry from "../Entries/ConnectionAccordionEntry";
 import { ENUMCASE_TO_TITLECASE } from "../../../../utils/constants";
 
 export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<FieldStateAbilityQuery>) => {
@@ -53,8 +53,8 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
   return (
     <>
       {activatesResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Activates ability</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Activates ability</h3>
         {activatesResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
@@ -76,8 +76,8 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         ))}
       </div>)}
       {createdByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Created by ability</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Created by ability</h3>
         {createdByResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
@@ -100,9 +100,9 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         ))}
       </div>)}
       {ignoredByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Ignored by ability</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Ignored by ability</h3>
+        <p className="planner-accordion__clarification">
           Effects of field state ignored by owner of the ability.
         </p>
         {ignoredByResults.map(result => (
@@ -126,9 +126,9 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         ))}
       </div>)}
       {preventedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Prevented by ability</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Prevented by ability</h3>
+        <p className="planner-accordion__clarification">
           Ability prevents the field state from being set up, but does not remove it if the field state is already present.
         </p>
         {preventedByResults.map(result => (
@@ -152,9 +152,9 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         ))}
       </div>)}
       {removedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Removed by ability</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Removed by ability</h3>
+        <p className="planner-accordion__clarification">
           Ability removes the field state entirely.
         </p>
         {removedByResults.map(result => (
@@ -178,9 +178,9 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
         ))}
       </div>)}
       {suppressedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Suppressed by ability</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Suppressed by ability</h3>
+        <p className="planner-accordion__clarification">
           Effects are suppressed while the ability is present, but the field state is not removed entirely.
         </p>
         {suppressedByResults.map(result => (
@@ -247,8 +247,8 @@ export const listRenderFieldStateItem = ({ data, dispatchCart, dispatchTeam, gen
   return (
     <>
       {activatesResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Activates item</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Activates item</h3>
         {activatesResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
@@ -271,9 +271,9 @@ export const listRenderFieldStateItem = ({ data, dispatchCart, dispatchTeam, gen
         ))}
       </div>)}
       {extendedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Extended by item</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Extended by item</h3>
+        <p className="planner-accordion__clarification">
           When the owner of the item creates this field state, the field state will last for a greater number of turns than usual.
         </p>
         {extendedByResults.map(result => (
@@ -299,9 +299,9 @@ export const listRenderFieldStateItem = ({ data, dispatchCart, dispatchTeam, gen
         ))}
       </div>)}
       {ignoredByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Ignored by item</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Ignored by item</h3>
+        <p className="planner-accordion__clarification">
           Item allows the owner to ignore the effects of the field state.
         </p>
         {ignoredByResults.map(result => (
@@ -326,9 +326,9 @@ export const listRenderFieldStateItem = ({ data, dispatchCart, dispatchTeam, gen
         ))}
       </div>)}
       {resistedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Resisted by item</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Resisted by item</h3>
+        <p className="planner-accordion__clarification">
           Effects of the field state on the owner of the item are weakened (e.g. less damage).
         </p>
         {resistedByResults.map(result => (
@@ -373,8 +373,8 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
   return (
     <>
       {createdByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Created by move</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Created by move</h3>
         {createdByResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
@@ -398,9 +398,9 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
         ))}
       </div>)}
       {enhancesResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Enhances move</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Enhances move</h3>
+        <p className="planner-accordion__clarification">
           Presence of the field state increases the effectiveness of the move in some way.
         </p>
         {enhancesResults.map(result => (
@@ -425,9 +425,9 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
         ))}
       </div>)}
       {hindersResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Hinders move</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Hinders move</h3>
+        <p className="planner-accordion__clarification">
           Presence of the field state reduces the effectiveness of the move in some way.
         </p>
         {hindersResults.map(result => (
@@ -452,8 +452,8 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, gen
         ))}
       </div>)}
       {removedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Removed by move</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Removed by move</h3>
         {removedByResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
@@ -493,8 +493,8 @@ export const listRenderFieldStateStat = ({ data, dispatchCart, dispatchTeam, gen
   return (
     <>
       {boostStageResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Boosts by stage</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Boosts by stage</h3>
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
@@ -518,8 +518,8 @@ export const listRenderFieldStateStat = ({ data, dispatchCart, dispatchTeam, gen
         ))}
       </div>)}
       {boostMultiplierResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Boost by multiplier</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Boost by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
@@ -543,8 +543,8 @@ export const listRenderFieldStateStat = ({ data, dispatchCart, dispatchTeam, gen
         ))}
       </div>)}
       {reduceStageResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Reduces by stage</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Reduces by stage</h3>
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
@@ -568,8 +568,8 @@ export const listRenderFieldStateStat = ({ data, dispatchCart, dispatchTeam, gen
         ))}
       </div>)}
       {reduceMultiplierResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Reduces by multiplier</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Reduces by multiplier</h3>
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
@@ -608,8 +608,8 @@ export const listRenderFieldStateStatus = ({ data, dispatchCart, dispatchTeam, g
   return (
     <>
       {causesResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Causes status</h3>
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Causes status</h3>
         {causesResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
@@ -623,9 +623,9 @@ export const listRenderFieldStateStatus = ({ data, dispatchCart, dispatchTeam, g
         ))}
       </div>)}
       {resistsResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Resists status</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Resists status</h3>
+        <p className="planner-accordion__clarification">
           Presence of the field state fully cures the status, prevents the status, or mitigates the status in some way.
         </p>
         {resistsResults.map(result => (
@@ -667,9 +667,9 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
   return (
     <>
       {boostsResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Boosts type</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Boosts type</h3>
+        <p className="planner-accordion__clarification">
           Presence of this field state boosts the power of moves of the listed type.
         </p>
         {boostsResults.map(result => (
@@ -695,9 +695,9 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
         ))}
       </div>)}
       {resistsResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Weakens type</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Weakens type</h3>
+        <p className="planner-accordion__clarification">
           Presence of this field state weakens the power of moves of the listed type.
         </p>
         {resistsResults.map(result => (
@@ -723,9 +723,9 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
         ))}
       </div>)}
       {resistanceResults.filter(result => result.multiplier !== undefined && result.multiplier > 1).length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Strong against type</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Strong against type</h3>
+        <p className="planner-accordion__clarification">
           Negative effects of the field state on Pokemon of the listed type are heightened (e.g. more damage).
         </p>
         {resistanceResults.filter(result => result.multiplier !== undefined && result.multiplier > 1).map(result => (
@@ -751,9 +751,9 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
         ))}
       </div>)}
       {weatherBallResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--positive">
-        <h3 className="planner__accordion-subitem-header">Weather Ball</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <h3 className="planner-accordion__subitem-header">Weather Ball</h3>
+        <p className="planner-accordion__clarification">
           Presence of this field state changes the type of Weather Ball to the listed type.
         </p>
         {weatherBallResults.map(result => (
@@ -778,9 +778,9 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
         ))}
       </div>)}
       {ignoredByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-          <h3 className="planner__accordion-subitem-header">Ignored by type</h3>
-          <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+          <h3 className="planner-accordion__subitem-header">Ignored by type</h3>
+          <p className="planner-accordion__clarification">
             Effects of field state ignored by Pokemon of the listed type.
           </p>
           {ignoredByResults.map(result => (
@@ -805,9 +805,9 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
           ))}
       </div>)}
       {removedByResults.length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Removed by type</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Removed by type</h3>
+        <p className="planner-accordion__clarification">
           Pokemon of the listed type remove this field state upon entry.
         </p>
         {removedByResults.map(result => (
@@ -832,9 +832,9 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, gen
         ))}
       </div>)}
       {resistanceResults.filter(result => result.multiplier !== undefined && result.multiplier < 1).length > 0 && (
-      <div className="planner__accordion-subitem planner__accordion-subitem--negative">
-        <h3 className="planner__accordion-subitem-header">Resisted by type</h3>
-        <p className="planner__accordion-clarification">
+      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <h3 className="planner-accordion__subitem-header">Resisted by type</h3>
+        <p className="planner-accordion__clarification">
           Negative effects of the field state on Pokemon of the listed type are mitigated (e.g. less damage).
         </p>
         {resistanceResults.filter(result => result.multiplier !== undefined && result.multiplier < 1).map(result => (

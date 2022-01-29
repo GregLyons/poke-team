@@ -57,11 +57,12 @@ import {
   listRenderTypeItem,
   listRenderTypeMove,
 } from './TypeConnections';
-import AuxEntityDescription from '../AuxEntityDescription';
+import AuxEntityDescription from '../Pages/AuxEntityDescription';
 
-import EntityConnectionSearch from '../EntityConnectionSearch';
-import ConnectionAccordion from '../ConnectionAccordion';
+import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
+import Accordion from '../../../Reusables/Accordion';
+import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 
 type TypePageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -233,10 +234,13 @@ const TypePage = ({
         description={typeResult.description}
       />
 
-      <ConnectionAccordion 
+      <Accordion 
+        accordionContext='planner'
         accordionData={[
           {
-            title: `Ability interactions with ${typeResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Ability interactions with ${typeResult.formattedName}`}
+            />,
             content: typeResult.abilityCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -251,7 +255,9 @@ const TypePage = ({
             </>,
           },
           {
-            title: `Field state interactions with ${typeResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Field state interactions with ${typeResult.formattedName}`}
+            />,
             content: typeResult.fieldStateCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -265,7 +271,9 @@ const TypePage = ({
             </>,
           },
           {
-            title: `Item interactions with ${typeResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Item interactions with ${typeResult.formattedName}`}
+            />,
             content: typeResult.itemCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -280,7 +288,9 @@ const TypePage = ({
             </>,
           },
           {
-            title: `Move interactions with ${typeResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Move interactions with ${typeResult.formattedName}`}
+            />,
             content: typeResult.moveCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}

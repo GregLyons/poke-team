@@ -9,7 +9,7 @@ import {
   SINGLES_TIERS,
   TierFilter,
 } from "../../../utils/smogonLogic";
-import DropdownMenu from "../../Forms/Dropdown";
+import DropdownMenu from "../../Reusables/Dropdown";
 
 type TierFilterFormProps = {
   dispatchTierFilter: React.Dispatch<TierFilterAction>

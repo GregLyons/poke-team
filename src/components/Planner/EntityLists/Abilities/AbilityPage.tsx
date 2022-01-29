@@ -61,11 +61,12 @@ import {
   TeamAction,
 } from '../../../../hooks/app-hooks';
 
-import EntityConnectionSearch from '../EntityConnectionSearch';
-import ConnectionAccordion from '../ConnectionAccordion';
-import MainEntityDescriptionTable from '../MainEntityDescriptionTable';
+import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
+import MainEntityDescriptionTable from '../Pages/MainEntityDescriptionTable';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../../hooks/planner-hooks';
 import { TierFilter } from '../../../../utils/smogonLogic';
+import Accordion from '../../../Reusables/Accordion';
+import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 
 type AbilityPageProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -242,10 +243,13 @@ const AbilityPage = ({
         descriptions={abilityResult.descriptions}
       />
 
-      <ConnectionAccordion 
+      <Accordion
+        accordionContext='planner'
         accordionData={[
           {
-            title: `Effects of ${abilityResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Effects of ${abilityResult.formattedName}`}
+            />,
             content: abilityResult.effectCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
@@ -256,7 +260,9 @@ const AbilityPage = ({
             </>,
           },
           {
-            title: `Field state interactions with ${abilityResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Field state interactions with ${abilityResult.formattedName}`}
+            />,
             content: abilityResult.fieldStateCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
@@ -267,7 +273,9 @@ const AbilityPage = ({
             </>,
           },
           {
-            title: `Stat interactions with ${abilityResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Stat interactions with ${abilityResult.formattedName}`}
+            />,
             content: abilityResult.modifiesStatCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
@@ -278,7 +286,9 @@ const AbilityPage = ({
             </>,
           },
           {
-            title: `Status interactions with ${abilityResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Status interactions with ${abilityResult.formattedName}`}
+            />,
             content: abilityResult.statusCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
@@ -289,7 +299,9 @@ const AbilityPage = ({
             </>,
           },
           {
-            title: `Type interactions with ${abilityResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Type interactions with ${abilityResult.formattedName}`}
+            />,
             content: abilityResult.typeCount > 0 && <>
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
@@ -304,7 +316,9 @@ const AbilityPage = ({
             </>,
           },
           {
-            title: `Usage method interactions with ${abilityResult.formattedName}`,
+            title: <ConnectionAccordionTitle
+              titleText={`Usage method interactions with ${abilityResult.formattedName}`}
+            />,
             content: abilityResult.usageMethodCount > 0 && <>
               <EntityConnectionSearch
                 genFilter={genFilter}
