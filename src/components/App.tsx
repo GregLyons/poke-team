@@ -150,6 +150,8 @@ function App() {
             dispatchCart={dispatchCart}
             dispatchTeam={dispatchTeam}
             genFilter={genFilter}
+            tierFilter={tierFilter}
+            pokemonFilter={pokemonFilter}
           />} />
 
           <Route 
@@ -166,6 +168,8 @@ function App() {
             dispatchCart={dispatchCart}
             dispatchTeam={dispatchTeam}
             genFilter={genFilter}
+            tierFilter={tierFilter}
+            pokemonFilter={pokemonFilter}
           />} />
 
           <Route 

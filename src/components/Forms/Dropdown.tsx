@@ -5,7 +5,7 @@ import './Forms.css';
 
 type Item<F> = {
   id: F
-  label: string
+  label: JSX.Element
   selected: boolean
 }
 

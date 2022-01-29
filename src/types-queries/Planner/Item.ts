@@ -734,8 +734,6 @@ export const ITEM_TYPE_QUERY = gql`
             id
             name
             formattedName
-
-            description
           }
         }
       }

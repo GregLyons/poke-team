@@ -57,6 +57,7 @@ import {
 import { 
   CartAction,
   GenFilter,
+  PokemonFilter,
   removedFromBDSP,
   removedFromSwSh,
   TeamAction,
@@ -66,17 +67,22 @@ import EntityConnectionSearch from '../EntityConnectionSearch';
 import ConnectionAccordion from '../ConnectionAccordion';
 import MainEntityDescriptionTable from '../MainEntityDescriptionTable';
 import { useGenConnectedSearchVars } from '../../../../hooks/planner-hooks';
+import { TierFilter } from '../../../../utils/smogonLogic';
 
 type ItemPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   genFilter: GenFilter
+  tierFilter: TierFilter
+  pokemonFilter: PokemonFilter
 }
 
 const ItemPage = ({ 
   dispatchCart,
   dispatchTeam,
   genFilter,
+  tierFilter,
+  pokemonFilter,
 }: ItemPageProps) => {
   const params = useParams();
   
@@ -289,7 +295,11 @@ const ItemPage = ({
             title: `Type interactions with ${itemResult.formattedName}`,
             content: itemResult.typeCount > 0 && <>
               <EntityConnectionSearch
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
+                tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
                 listRender={listRenderItemType}
                 query={ITEM_TYPE_QUERY}
                 queryVars={typeQueryVars}
