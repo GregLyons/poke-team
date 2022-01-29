@@ -1,13 +1,10 @@
 import {
-  GEN_ARRAY,
   NUMBER_OF_GENS,
 } from "../../../utils/constants";
 import {
-  GenerationNum, stringToGenNumber,
+  stringToGenNumber,
 } from "../../../types-queries/helpers";
-import { GenFilter, GenFilterAction } from "../../../hooks/app-hooks";
-import Dropdown from "../../Reusables/Dropdown";
-import { useState } from "react";
+import { GenFilter, GenFilterAction } from "../../../hooks/App/GenFilter";
 
 type GenFilterFormProps = {
   genFilter: GenFilter,

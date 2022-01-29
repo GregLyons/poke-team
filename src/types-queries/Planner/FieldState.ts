@@ -4,11 +4,9 @@ import {
 
 import {
   AbilityIconEdge,
-  DescriptionEdge,
   GenerationNum,
   IntroductionEdge,
   ItemIconDatum,
-  ItemRequiresPokemonEdge,
   itemIconEdgeToItemIconDatum,
   MoveIconEdge,
   PokemonIconDatum,
@@ -17,7 +15,6 @@ import {
   TypeIconEdge,
   TypeName, 
   TypeNameEdge,
-  typeNameEdgeToTypeName,
   TypeIconDatum,
   typeIconEdgeToTypeIconDatum,
 } from '../helpers';

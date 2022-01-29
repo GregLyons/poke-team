@@ -1,20 +1,15 @@
-import {
-  ChangeEvent, useState,
-} from "react";
-import { TierFilterAction } from "../../../hooks/app-hooks";
+import { TierFilter, TierFilterAction } from "../../../hooks/App/TierFilter";
 import {
   DoublesTier,
   DOUBLES_TIERS,
   SinglesTier,
   SINGLES_TIERS,
-  TierFilter,
 } from "../../../utils/smogonLogic";
 import DropdownMenu from "../../Reusables/Dropdown";
 
 type TierFilterFormProps = {
   dispatchTierFilter: React.Dispatch<TierFilterAction>
   tierFilter: TierFilter
-
 }
 
 const TierFilterForm = ({

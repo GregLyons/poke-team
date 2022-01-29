@@ -5,7 +5,6 @@ import {
 import {
   DescriptionEdge,
   DescriptionsEdge,
-  EnumTypeName,
   GenerationNum,
   IntroductionEdge,
   ItemIconDatum,

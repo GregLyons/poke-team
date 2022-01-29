@@ -1,6 +1,5 @@
 import {
   useReducer,
-  useState,
 } from 'react';
 import {
   Route,
@@ -8,52 +7,34 @@ import {
 } from 'react-router-dom';
 import './../styles/App.css';
 
-import {
-  Pokemon,
-} from '../types-queries/Planner/Pokemon';
-import {
-  EntityClass,
-  NUMBER_OF_GENS,
-} from '../utils/constants';
-import {
-  DoublesTier,
-  DOUBLES_TIERS,
-  SinglesTier,
-  SINGLES_TIERS,
-  TierFilter,
-} from '../utils/smogonLogic';
-
 import NavBar from './NavBar/NavBar';
-import GenFilterForm from './ControlPanel/GenFilterForm/GenFilterForm';
-import TeamDisplay from './ControlPanel/PokemonTeam/TeamDisplay';
 
 import Analyzer from './Analyzer/Analyzer';
 import Builder from './Builder/Builder';
 import BuilderHome from './Builder/BuilderHome';
 import Planner from './Planner/Planner';
-import PlannerHome from './Planner/EntityLists/PlannerHome';
+import PlannerHome from './Planner/PlannerHome';
 
-import AbilityMainPage from './Planner/EntityLists/Abilities/AbilityMainPage';
-import AbilityPage from './Planner/EntityLists/Abilities/AbilityPage';
-import EffectMainPage from './Planner/EntityLists/Effects/EffectMainPage';
-import EffectPage from './Planner/EntityLists/Effects/EffectPage';
-import FieldStatePage from './Planner/EntityLists/FieldStates/FieldStatePage';
-import FieldStateMainPage from './Planner/EntityLists/FieldStates/FieldStateMainPage';
-import ItemMainPage from './Planner/EntityLists/Items/ItemMainPage';
-import ItemPage from './Planner/EntityLists/Items/ItemPage';
-import MoveMainPage from './Planner/EntityLists/Moves/MoveMainPage';
-import MovePage from './Planner/EntityLists/Moves/MovePage';
-import StatMainPage from './Planner/EntityLists/Stats/StatMainPage';
-import StatPage from './Planner/EntityLists/Stats/StatPage';
-import StatusMainPage from './Planner/EntityLists/Statuses/StatusMainPage';
-import StatusPage from './Planner/EntityLists/Statuses/StatusPage';
-import TypeMainPage from './Planner/EntityLists/Types/TypeMainPage';
-import TypePage from './Planner/EntityLists/Types/TypePage';
-import UsageMethodMainPage from './Planner/EntityLists/UsageMethods/UsageMethodMainPage';
-import UsageMethodPage from './Planner/EntityLists/UsageMethods/UsageMethodPage';
+import AbilityMainPage from './Planner/Abilities/AbilityMainPage';
+import AbilityPage from './Planner/Abilities/AbilityPage';
+import EffectMainPage from './Planner/Effects/EffectMainPage';
+import EffectPage from './Planner/Effects/EffectPage';
+import FieldStatePage from './Planner/FieldStates/FieldStatePage';
+import FieldStateMainPage from './Planner/FieldStates/FieldStateMainPage';
+import ItemMainPage from './Planner/Items/ItemMainPage';
+import ItemPage from './Planner/Items/ItemPage';
+import MoveMainPage from './Planner/Moves/MoveMainPage';
+import MovePage from './Planner/Moves/MovePage';
+import StatMainPage from './Planner/Stats/StatMainPage';
+import StatPage from './Planner/Stats/StatPage';
+import StatusMainPage from './Planner/Statuses/StatusMainPage';
+import StatusPage from './Planner/Statuses/StatusPage';
+import TypeMainPage from './Planner/Types/TypeMainPage';
+import TypePage from './Planner/Types/TypePage';
+import UsageMethodMainPage from './Planner/UsageMethods/UsageMethodMainPage';
+import UsageMethodPage from './Planner/UsageMethods/UsageMethodPage';
 
-import { GenerationNum, ItemIconDatum, PokemonIconDatum, stringToGenNumber } from '../types-queries/helpers';
-import { cartReducer, DEFAULT_CART, DEFAULT_GEN_FILTER, DEFAULT_POKEMON_FILTER, DEFAULT_SINGLES_TIER_FILTER, GenFilter, GenFilterAction, genReducer, pokemonReducer, teamReducer, TierFilterAction, tierReducer } from '../hooks/app-hooks';
+import { cartReducer, DEFAULT_CART, DEFAULT_GEN_FILTER, DEFAULT_POKEMON_FILTER, DEFAULT_SINGLES_TIER_FILTER, genReducer, pokemonReducer, teamReducer, tierReducer } from '../hooks/App/app-hooks';
 import ControlPanel from './ControlPanel/ControlPanel';
 
 
@@ -86,20 +67,10 @@ function App() {
 
         {/* Routing for Analyzer */}
         <Route path="/analyzer" element={<Analyzer
-          dispatchCart={dispatchCart}
-          dispatchTeam={dispatchTeam}
-          genFilter={genFilter}
-          tierFilter={tierFilter}
         />} />
 
         {/* Routing for Builder */}
         <Route path="/builder" element={<Builder
-          cart={cart}
-          dispatchCart={dispatchCart}
-          dispatchTeam={dispatchTeam}
-          genFilter={genFilter}
-          tierFilter={tierFilter}
-          pokemonFilter={pokemonFilter}
         />} >
         {/* */}
           <Route
@@ -116,22 +87,12 @@ function App() {
         </Route>
 
         {/* Routing for Planner */}
-        <Route path="/planner" element={<Planner 
-          dispatchCart={dispatchCart}
-          dispatchTeam={dispatchTeam}
-          genFilter={genFilter}
-          tierFilter={tierFilter}
-          pokemonFilter={pokemonFilter}
+        <Route path="/planner" element={<Planner
         />} >
           {/* */}
           <Route
             index
             element={<PlannerHome
-              dispatchCart={dispatchCart}
-              dispatchTeam={dispatchTeam}
-              genFilter={genFilter}
-              tierFilter={tierFilter}
-              pokemonFilter={pokemonFilter}
             />}
           />
 

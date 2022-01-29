@@ -5,7 +5,6 @@ import {
 import {
   DescriptionEdge,
   DescriptionsEdge,
-  EnumTypeName,
   GenerationNum,
   IntroductionEdge,
   PokemonIconDatum,
@@ -34,7 +33,6 @@ import {
   EntityConnectionVars,
   MainToAuxConnectionOnPage,
   RemovedFromGameQueryVars,
-  PokemonFilterVars,
 } from './helpers';
 
 // Move in main search

@@ -4,7 +4,6 @@ import {
 
 import {
   AbilityIconEdge,
-  DescriptionEdge,
   GenerationNum,
   IntroductionEdge,
   MoveIconEdge,
@@ -14,9 +13,6 @@ import {
   TypeIconDatum,
   TypeIconEdge,
   typeIconEdgeToTypeIconDatum,
-  TypeName, 
-  TypeNameEdge,
-  typeNameEdgeToTypeName,
 } from '../helpers';
 import {
   EntitySearchQueryName,

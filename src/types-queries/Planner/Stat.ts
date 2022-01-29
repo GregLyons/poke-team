@@ -6,7 +6,6 @@ import {
   AbilityIconEdge,
   GenerationNum,
   IntroductionEdge,
-  ItemIconEdge,
   MoveIconEdge,
   PokemonIconDatum,
   PokemonIconEdge,
@@ -14,8 +13,6 @@ import {
   TypeIconDatum,
   TypeIconEdge,
   typeIconEdgeToTypeIconDatum,
-  TypeName, TypeNameEdge,
-  typeNameEdgeToTypeName,
 } from '../helpers';
 import {
   EntitySearchQueryName,

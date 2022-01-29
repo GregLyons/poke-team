@@ -4,10 +4,8 @@ import {
 import {
   getPokemonIcon,
 } from "../../../utils/sprites";
-import {
-  CartAction,
-  TeamAction,
-} from "../../../hooks/app-hooks";
+import { CartAction } from "../../../hooks/App/Cart";
+import { TeamAction } from "../../../hooks/App/Team";
 
 type CartViewPokemonIconProps = {
   dispatchCart: React.Dispatch<CartAction>

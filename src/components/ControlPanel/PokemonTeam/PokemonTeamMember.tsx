@@ -1,3 +1,4 @@
+import { TeamAction } from '../../../hooks/App/Team';
 import {
   GenerationNum,
 } from '../../../types-queries/helpers';
@@ -7,10 +8,6 @@ import {
 import {
   getPokemonSprite,
 } from '../../../utils/sprites';
-
-import {
-  TeamAction,
-} from '../../../hooks/app-hooks';
 
 // Converts keys from BaseStat object to formatted names.
 // const baseStatMap_fullName = new Map([

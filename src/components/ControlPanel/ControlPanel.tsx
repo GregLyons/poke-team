@@ -1,13 +1,15 @@
 import './ControlPanel.css';
 
-import { CartAction, GenFilter, GenFilterAction, PokemonFilter, PokemonFilterAction, Team, TeamAction, TierFilterAction } from "../../hooks/app-hooks";
-import { GenerationNum } from "../../types-queries/helpers";
 import { Pokemon } from "../../types-queries/Planner/Pokemon";
-import { TierFilter } from "../../utils/smogonLogic";
 import GenFilterForm from "./GenFilterForm/GenFilterForm";
 import TeamDisplay from "./PokemonTeam/TeamDisplay";
 import TierFilterForm from "./TierFilterForm/TierFilterForm";
 import PokemonFilterForm from './PokemonFilterForm/PokemonFilterForm';
+import { TierFilter, TierFilterAction } from '../../hooks/App/TierFilter';
+import { PokemonFilter, PokemonFilterAction } from '../../hooks/App/PokemonFilter';
+import { GenFilter, GenFilterAction } from '../../hooks/App/GenFilter';
+import { TeamAction } from '../../hooks/App/Team';
+import { CartAction } from '../../hooks/App/Cart';
 
 type ControlPanelProps = {
   dispatchCart: React.Dispatch<CartAction>

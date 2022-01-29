@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { PokemonFilterAction } from "../../hooks/app-hooks";
+import { useCallback, useEffect, useRef, } from "react";
 import './Forms.css';
 
 type DoubleSliderBaseProps = {

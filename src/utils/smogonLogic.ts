@@ -19,14 +19,6 @@ export type DoublesTier = 'DUber' | 'DOU' | 'DBL' | 'DUU' | 'DNFE' | 'DLC';
 
 export const DOUBLES_TIERS: DoublesTier[] = ['DUber', 'DOU', 'DBL', 'DUU', 'DNFE', 'DLC'];
 
-export type TierFilter = {
-  format: 'singles' | 'doubles'
-  selectionMode: 'exact' | 'range'
-  tiers: {
-    [tierName in SinglesTier | DoublesTier]: boolean
-  }
-}
-
 // #endregion
 
 const gens = new Generations(Dex);

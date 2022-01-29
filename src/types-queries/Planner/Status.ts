@@ -13,8 +13,7 @@ import {
   TypeIconDatum,
   TypeIconEdge,
   typeIconEdgeToTypeIconDatum,
-  TypeName, 
-  TypeNameEdge,
+  TypeName,
   typeNameEdgeToTypeName,
 } from '../helpers';
 import {

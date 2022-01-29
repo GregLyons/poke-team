@@ -1,7 +1,4 @@
 import {
-  GenerationNum,
-} from '../../types-queries/helpers';
-import {
   TierFilter,
 } from '../../utils/smogonLogic';
 
@@ -11,10 +8,9 @@ import {
   GenFilter,
   PokemonFilter,
   TeamAction,
-} from '../../hooks/app-hooks';
+} from '../../hooks/App/app-hooks';
 
 import CartView from './CartView/CartView';
-import PokemonSearch from './PokemonSearch';
 
 type BuilderHomeProps = {
   cart: Cart

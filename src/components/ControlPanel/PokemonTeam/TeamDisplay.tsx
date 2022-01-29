@@ -1,18 +1,6 @@
-import {
-  GenerationNum,
-} from '../../../types-queries/helpers';
-import {
-  Pokemon,
-} from '../../../types-queries/Planner/Pokemon';
-
-import {
-  CartAction,
-  GenFilter,
-  Team,
-  TeamAction,
-} from '../../../hooks/app-hooks';
-
-import TeamMember from './PokemonTeamMember';
+import { CartAction } from "../../../hooks/App/Cart";
+import { GenFilter } from "../../../hooks/App/GenFilter";
+import { Team, TeamAction } from "../../../hooks/App/Team";
 
 type TeamDisplayProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -22,10 +10,6 @@ type TeamDisplayProps = {
 }
 
 const TeamDisplay = ({
-  dispatchCart,
-  dispatchTeam,
-  genFilter,
-  team,
 }: TeamDisplayProps) => {
   return (
     <div className="control-panel__team-wrapper">

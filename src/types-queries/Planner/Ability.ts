@@ -1,13 +1,10 @@
 import {
   gql,
 } from '@apollo/client';
-import { Generation } from '@pkmn/data';
 
 import {
-  BaseStats,
   DescriptionEdge,
   DescriptionsEdge,
-  EnumTypeName,
   GenerationNum,
   IntroductionEdge,
   PokemonIconDatum,
@@ -34,7 +31,6 @@ import {
   EntityConnectionVars,
   MainToAuxConnectionOnPage,
   RemovedFromGameQueryVars,
-  PokemonFilterVars,
 } from './helpers';
 
 // Ability in main search

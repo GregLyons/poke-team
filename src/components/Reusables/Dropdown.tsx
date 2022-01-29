@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import FontAwesome from "react-fontawesome";
-import { GenerationNum } from "../../types-queries/helpers";
 import './Forms.css';
 
 type Item<F> = {

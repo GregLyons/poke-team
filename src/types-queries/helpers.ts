@@ -110,10 +110,12 @@ export type BaseStats = {
   [baseStatName in BaseStatName]: number
 }
 
+export type psID = string;
+
 export type PokemonIconDatum = {
   formattedName: string
   name: string
-  psID: string
+  psID: psID
   typing: TypeName[]
   baseStats: BaseStats
 }
