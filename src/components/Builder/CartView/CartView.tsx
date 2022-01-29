@@ -35,9 +35,10 @@ const CartView = ({
   });
 
   console.log(intersectMode);
-
+  console.log(cart[8].intersectionBoxes);
 
   const handleIntersectClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, box: Box) => {
+    console.log(box);
     if (!intersectMode.on) {
       // Load box to be intersected
       setIntersectMode({
@@ -111,21 +112,23 @@ const CartView = ({
       {cart[genFilter.gen].intersectionBoxes && Object.entries(cart[genFilter.gen].intersectionBoxes)
           .map(([note, pokemonIconData]) => {
             return (
-              <CartViewBox
-                note={note}
-                handleIntersectClick={handleIntersectClick}
-                pokemonIconData={pokemonIconData}
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
-                genFilter={genFilter}
-                tierFilter={tierFilter}
-                pokemonFilter={pokemonFilter}
-              />
+              <>
+                {note}
+                <CartViewBox
+                  note={note}
+                  handleIntersectClick={handleIntersectClick}
+                  pokemonIconData={pokemonIconData}
+                  dispatchCart={dispatchCart}
+                  dispatchTeam={dispatchTeam}
+                  genFilter={genFilter}
+                  tierFilter={tierFilter}
+                  pokemonFilter={pokemonFilter}
+                />
+              </>
             )
           })}
     </div>
   );
-  Object.entries(cart[genFilter.gen]?.intersectionBoxes || {})
 }
 
 export default CartView;

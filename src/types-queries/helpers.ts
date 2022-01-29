@@ -29,39 +29,78 @@ export type BaseStatName = 'hp' | 'attack' | 'defense' | 'specialAttack' | 'spec
 
 export type FormattedBaseStatName = 'HP' | 'Attack' | 'Defense' | 'Special Attack' | 'Special Defense' | 'Speed';
 
-export const toBaseStatName: (baseStatName: FormattedBaseStatName) => BaseStatName = baseStateName => {
+export type AbbreviatedBaseStatName = 'HP' | 'Atk' | 'Def' | 'SpA' | 'SpD' | 'Spe';
+
+export const toBaseStatName: (baseStatName: FormattedBaseStatName | AbbreviatedBaseStatName) => BaseStatName = baseStateName => {
   switch(baseStateName) {
+    case 'HP':
     case 'HP':
       return 'hp';
     case 'Attack':
+    case 'Atk':
       return 'attack';
     case 'Defense':
+    case 'Def':
       return 'defense';
     case 'Special Attack':
+    case 'SpA':
       return 'specialAttack';
     case 'Special Defense':
+    case 'SpD':
       return 'specialDefense';
     case 'Speed':
+    case 'Spe':
       return 'speed';
     default:
       throw Error();
   }
 };
 
-export const toFormattedBaseStatName: (baseStatName: BaseStatName) => FormattedBaseStatName = baseStateName => {
+export const toFormattedBaseStatName: (baseStatName: BaseStatName | AbbreviatedBaseStatName) => FormattedBaseStatName = baseStateName => {
   switch(baseStateName) {
+    case 'hp':
+    case 'HP':
+      return 'HP';
+    case 'attack':
+    case 'Atk':
+      return 'Attack';
+    case 'defense':
+    case 'Def':
+      return 'Defense';
+    case 'specialAttack':
+    case 'SpA':
+      return 'Special Attack';
+    case 'specialDefense':
+    case 'SpD':
+      return 'Special Defense';
+    case 'speed':
+    case 'Spe':
+      return 'Speed';
+    default:
+      throw Error();
+  }
+}
+
+export const toAbbreviatedBaseStatName: (baseStatName: BaseStatName | FormattedBaseStatName) => AbbreviatedBaseStatName = baseStatName => {
+  switch(baseStatName) {
+    case 'HP':
     case 'hp':
       return 'HP';
     case 'attack':
-      return 'Attack';
+    case 'Attack':
+      return 'Atk';
     case 'defense':
-      return 'Defense';
+    case 'Defense':
+      return 'Def';
     case 'specialAttack':
-      return 'Special Attack';
+    case 'Special Attack':
+      return 'SpA';
     case 'specialDefense':
-      return 'Special Defense';
+    case 'Special Defense':
+      return 'SpD';
     case 'speed':
-      return 'Speed';
+    case 'Speed':
+      return 'Spe';
     default:
       throw Error();
   }

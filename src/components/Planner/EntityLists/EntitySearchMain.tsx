@@ -55,7 +55,6 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
     variables: queryVars,
   });
   
-  console.log(pokemonFilter);
   const [searchBox, setSearchBox] = useState('');
 
   if (error) { return (<div>{error.message}</div>)}

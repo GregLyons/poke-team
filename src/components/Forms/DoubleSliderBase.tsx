@@ -24,6 +24,7 @@ const DoubleSliderBase = ({
   onMaxChange,
   sliderWidth,
 }: DoubleSliderBaseProps) => {
+
   const minValRef = useRef<HTMLInputElement>(null);
   const maxValRef = useRef<HTMLInputElement>(null);
   const rangeRef = useRef<HTMLDivElement>(null);

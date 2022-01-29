@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BASE_STAT_NAMES, GenFilter, PokemonFilter, PokemonFilterAction, TYPE_NAMES } from "../../../hooks/app-hooks";
-import { BaseStatName, toFormattedBaseStatName, toFormattedTypeName, TypeName } from "../../../types-queries/helpers";
+import { BaseStatName, toAbbreviatedBaseStatName, toFormattedBaseStatName, toFormattedTypeName, TypeName } from "../../../types-queries/helpers";
 import DoubleSlider from "../../Forms/DoubleSlider";
 
 import '../ControlPanel.css';
@@ -165,7 +165,7 @@ const PokemonFilterForm = ({
           <div className="base-stats__wrapper">
             {BASE_STAT_NAMES.map(baseStatName => (
               <div className="base-stats__stat-wrapper">
-                {toFormattedBaseStatName(baseStatName)}
+                {toAbbreviatedBaseStatName(baseStatName)}
                 <DoubleSlider
                   min={0}
                   minValue={pokemonFilter.minBaseStats[baseStatName]}
@@ -176,7 +176,7 @@ const PokemonFilterForm = ({
                   maxValue={pokemonFilter.maxBaseStats[baseStatName]}
                   onMaxChange={onMaxChange(baseStatName)}
                   onMaxBlur={onMaxBlur(baseStatName)}
-                  sliderWidth="150px"
+                  sliderWidth="clamp(100px, 7.5vw, 150px)"
                 />
               </div>
             ))}

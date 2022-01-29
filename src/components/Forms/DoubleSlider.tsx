@@ -33,7 +33,7 @@ const DoubleSlider = ({
   const [minNumber, setMinNumber] = useState(0);
   const [maxFocused, setMaxFocused] = useState(false);
   const [maxNumber, setMaxNumber] = useState(255);
-
+  
   return (
     <div className="double-slider__wrapper">
       <input

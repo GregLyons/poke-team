@@ -26,7 +26,6 @@ const CartViewAccordion = ({
 
   // Clicking on title element sets which accordion item is active
   const handleClick = (newIdx: number) => {
-    console.log(newIdx);
     setActiveElement(activeElement.map((d, idx) => {
       // Toggle element
       if (idx === newIdx) return !d;

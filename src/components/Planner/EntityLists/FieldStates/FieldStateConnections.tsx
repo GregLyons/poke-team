@@ -70,7 +70,7 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
               genFilter,
               tierFilter,
               pokemonFilter,
-              cartNote: `'${result.formattedName}' activates '${parent.formattedName}'.`,
+              cartNote: `'${result.formattedName}' activated by '${parent.formattedName}'.`,
             }}
           />
         ))}

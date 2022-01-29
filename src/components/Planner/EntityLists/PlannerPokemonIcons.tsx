@@ -46,6 +46,14 @@ const PlannerPokemonIcons = ({
 
   return (
     <div className={`planner__${context}-row-icons`}>
+      {/* Will only render anything for entries which could have icons. */}
+      {<SelectionControls
+        dispatchSelection={dispatchSelection}
+        handleAddToCart={handleAddToCart}
+        hasIcon={hasIcon}
+        icons={icons}
+      />}
+      <br />
       {icons.pokemonIconData.map(pokemonIconDatum => {
         const { psID, } = pokemonIconDatum;
 
@@ -78,14 +86,6 @@ const PlannerPokemonIcons = ({
           />
         );
       })}
-      <br />
-      {/* Will only render anything for entries which could have icons. */}
-      {<SelectionControls
-        dispatchSelection={dispatchSelection}
-        handleAddToCart={handleAddToCart}
-        hasIcon={hasIcon}
-        icons={icons}
-      />}
     </div>
   )
 }

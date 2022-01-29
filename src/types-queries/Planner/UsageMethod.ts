@@ -111,6 +111,7 @@ export interface UsageMethodPageResult extends AuxEntityPageResult {
   id: string
   name: string
   formattedName: string
+  description: string
 
   introduced: {
     edges: IntroductionEdge[]
@@ -140,9 +141,7 @@ export const USAGEMETHOD_PAGE_QUERY = gql`
       id
       name
       formattedName
-      
-      name
-      formattedName
+      description
 
       introduced {
         edges {
