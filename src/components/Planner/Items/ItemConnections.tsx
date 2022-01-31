@@ -62,6 +62,7 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
     <>
       {activatedByResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Activated by field state</h3>
         {activatedByResults.map(result => (
           <ConnectionAccordionEntry
@@ -76,6 +77,7 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
       </div>)}
       {extendsResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Extends field state</h3>
         <p className="planner-accordion__clarification">
           When the owner of this item creates the field state, the field state will last for a greater number of turns than usual.
@@ -94,6 +96,7 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
       </div>)}
       {ignoresResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Ignores field state</h3>
         <p className="planner-accordion__clarification">
           Item allows the owner to ignore the effects of the field state.
@@ -111,6 +114,7 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
       </div>)}
       {resistsResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Resists field state</h3>
         <p className="planner-accordion__clarification">
           Effects of the field state on the owner of the item are weakened (e.g. less damage).
@@ -145,6 +149,7 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
     <>
       {boostStageResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosts by stage</h3>
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
@@ -170,6 +175,7 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
       </div>)}
       {boostMultiplierResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boost by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
@@ -195,6 +201,7 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
       </div>)}
       {reduceStageResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by stage</h3>
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
@@ -220,6 +227,7 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
       </div>)}
       {reduceMultiplierResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by multiplier</h3>
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
@@ -259,6 +267,7 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
     <>
       {causesResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Causes status</h3>
         {causesResults.map(result => (
           <ConnectionAccordionEntry
@@ -274,6 +283,7 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
       </div>)}
       {resistsResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Resists status</h3>
         <p className="planner-accordion__clarification">
           The item fully cures the status, prevents the status, or mitigates the status in some way.
@@ -310,6 +320,7 @@ export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, genFilter
     <>
       {boostsResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosts type</h3>
         <p className="planner-accordion__clarification">
           Item boosts the power of moves of the listed type used by the owner.
@@ -338,6 +349,7 @@ export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, genFilter
       </div>)}
       {naturalGiftResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Natural gift</h3>
         <p className="planner-accordion__clarification">
           When the owner of this item uses Natural Gift, the move will be of the listed type.
@@ -366,6 +378,7 @@ export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, genFilter
       </div>)}
       {resistsResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Resists type</h3>
         <p className="planner-accordion__clarification">
           Item resists moves of the listed type used against the owner.
@@ -409,6 +422,7 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
     <>
       {activatedByResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Activated by usage method</h3>
         {activatedByResults.map(result => (
           <ConnectionAccordionEntry
@@ -423,6 +437,7 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
       </div>)}
       {boostsResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosts usage method</h3>
         <p className="planner-accordion__clarification">
           Item boosts the power of moves of this usage method used by the Pokemon.
@@ -441,6 +456,7 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
       </div>)}
       {resistsResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Resists usage method</h3>
         <p className="planner-accordion__clarification">
           Item resists moves of this usage method used against the Pokemon.

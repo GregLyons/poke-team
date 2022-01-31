@@ -216,8 +216,8 @@ const EffectPage = ({
   const effectResult = new EffectOnPage(data.effectByName[0]);
 
   return (
-    <div className="planner__page">
-      <h1 className="planner__page-header">{effectResult.formattedName}</h1>
+    <div className="planner-page">
+      <h1 className="planner-page__header">{effectResult.formattedName}</h1>
 
       <AuxEntityDescription
         description={effectResult.description}

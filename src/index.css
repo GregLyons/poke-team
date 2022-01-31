@@ -6,9 +6,10 @@
   line-height: 1.5;
 
   /* Darks */
-  --dark3: #141414;
-  --dark2: #343434;
   --dark1: #545454;
+  --dark2: #343434;
+  --dark2-components: 52, 52, 52;
+  --dark3: #141414;
   
   
   /* Lights */ 
@@ -16,7 +17,18 @@
   --light2: #dedede;
   --light3: #aaaaaa;
   
+  /* Blues */
+  --blue1: lightblue;
+  --blue3: #515158;
 
+  /* Greens */
+  --green1: #50C878;
+  --green1-components: 80, 200, 120;
+  --green3: #515851;
+
+  /* Reds */
+  --red1: #D10056;
+  --red3: #585151;
 }
 
 body {
@@ -28,7 +40,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   /* Page background */
-  background-color: var(--dark3);
+  
+  background-color: #c9ecc9;
 
   /* Main font color */
   color: var(--light1);

@@ -66,7 +66,7 @@ function DropdownMenu<E extends Item<F>, F>({
                 className="dropdown__option"
                 key={`${title}_${item.id}`}
                 style={{
-                  backgroundColor: item.selected ? 'lightblue' : '',
+                  backgroundColor: item.selected ? 'var(--blue1)' : '',
                 }}
               >
                 <span

@@ -208,8 +208,8 @@ const UsageMethodPage = ({
   const usageMethodResult = new UsageMethodOnPage(data.usageMethodByName[0]);
 
   return (
-    <div className="planner__page">
-      <h1 className="planner__page-header">{usageMethodResult.formattedName}</h1>
+    <div className="planner-page">
+      <h1 className="planner-page__header">{usageMethodResult.formattedName}</h1>
 
       <AuxEntityDescription
         description={usageMethodResult.description}

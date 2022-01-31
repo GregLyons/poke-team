@@ -6,7 +6,7 @@ const AuxEntityDescription = ({
   description,
 }: AuxEntityDescriptionProps) => {
   return (
-    <div className="planner__page-description">
+    <div className="planner-page__description">
       {description}
     </div>
   );

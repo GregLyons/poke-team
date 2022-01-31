@@ -37,6 +37,7 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, genF
     <>
       {causedByResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Caused by ability</h3>
         {causedByResults.map(result => (
           <ConnectionAccordionEntry
@@ -61,6 +62,7 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, genF
       </div>)}
       {resistedByResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Resisted by ability</h3>
         <p className="planner-accordion__clarification">
           Ability fully cures this status, prevents it, or mitigates it in some way.
@@ -101,6 +103,7 @@ export const listRenderStatusFieldState = ({ data, }: ListRenderArgs<StatusField
     <>
       {causedByResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Caused by field state</h3>
         {causedByResults.map(result => (
           <ConnectionAccordionEntry
@@ -116,6 +119,7 @@ export const listRenderStatusFieldState = ({ data, }: ListRenderArgs<StatusField
       </div>)}
       {resistedByResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Resisted by field state</h3>
         <p className="planner-accordion__clarification">
           Field state fully cures this status, prevents it, or mitigates it in some way.
@@ -151,6 +155,7 @@ export const listRenderStatusItem = ({ data, dispatchCart, dispatchTeam, genFilt
     <>
       {causedByResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Caused by item</h3>
         {causedByResults.map(result => (
           <ConnectionAccordionEntry
@@ -176,6 +181,7 @@ export const listRenderStatusItem = ({ data, dispatchCart, dispatchTeam, genFilt
       </div>)}
       {resistedByResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Resisted by item</h3>
         <p className="planner-accordion__clarification">
           Item fully cure this status, prevents it, or mitigates it in some way.
@@ -221,6 +227,7 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, genFilt
     <>
       {causedByResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Caused by move</h3>
         {causedByResults.map(result => (
           <ConnectionAccordionEntry
@@ -246,6 +253,7 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, genFilt
       </div>)}
       {resistedByResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Resisted by move</h3>
         <p className="planner-accordion__clarification">
           Move fully cure this status, prevents it, or mitigates it in some way.

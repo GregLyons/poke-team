@@ -115,11 +115,6 @@ const EntitySearchEntry = ({
         name={name}
         icons={icons}
       />
-      <div 
-        className="planner-search__entry-description"
-      >
-        {description}
-      </div>
       <div className="planner-search__entry-data">
         {data && data.map(({key, value}) => (
           <>
@@ -131,6 +126,11 @@ const EntitySearchEntry = ({
             </div>
           </>
         ))}
+      </div>
+      <div 
+        className="planner-search__entry-description"
+      >
+        {description}
       </div>
       {icons && <PlannerPokemonIcons
         context="search"

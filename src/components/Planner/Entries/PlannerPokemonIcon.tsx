@@ -49,8 +49,8 @@ const PlannerPokemonIcon = ({
           width: '40px',
           height: '30px',
           borderRadius: '40%',
-          backgroundColor: (!selected && hover) || (selected && !hover)
-            ? 'lightblue' 
+          backgroundColor: selected
+            ? 'var(--blue1)' 
             : '',
           transition: 'background-color 0.2s',
           opacity: '0.8',

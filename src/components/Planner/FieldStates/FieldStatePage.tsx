@@ -246,8 +246,8 @@ const FieldStatePage = ({
   const fieldStateResult = new FieldStateOnPage(data.fieldStateByName[0]);
 
   return (
-    <div className="planner__page">
-      <h1 className="planner__page-header">{fieldStateResult.formattedName}</h1>
+    <div className="planner-page">
+      <h1 className="planner-page__header">{fieldStateResult.formattedName}</h1>
 
       <AuxEntityDescription
         description={fieldStateResult.description}

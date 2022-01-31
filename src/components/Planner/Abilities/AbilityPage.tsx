@@ -231,8 +231,8 @@ const AbilityPage = ({
   const abilityResult = new AbilityOnPage(data.abilityByName[0]);
   
   return (
-    <div className="planner__page">
-      <h1 className="planner__page-header">{abilityResult.formattedName}</h1>
+    <div className="planner-page">
+      <h1 className="planner-page__header">{abilityResult.formattedName}</h1>
 
       <MainEntityDescriptionTable
         descriptions={abilityResult.descriptions}

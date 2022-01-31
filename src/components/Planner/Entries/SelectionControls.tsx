@@ -19,12 +19,27 @@ const SelectionControls = ({
       {hasIcon.current 
         // Entry has icons to render, so render cart controls
         ? (
-            <>
-              <button onClick={() => dispatchSelection({ type: 'remove_all' })}>De-select all</button>
+            <div className="planner__control-buttons">
+              <button
+                className="planner__control-button"
+                onClick={() => dispatchSelection({ type: 'remove_all' })}
+              >
+                DESELECT ALL
+              </button>
               {/* Placing 'Select all' next to 'Add to cart' to make 'Select all' -> 'Add to cart' easier. Place latter action to the right. */}
-              <button onClick={() => dispatchSelection({ type: 'add_all' })}>Select all</button>
-              <button onClick={() => handleAddToCart()}>Add to cart</button>
-            </>
+              <button
+                className="planner__control-button"
+                onClick={() => dispatchSelection({ type: 'add_all' })}
+              >
+                SELECT ALL
+              </button>
+              <button
+                className="planner__control-button"
+                onClick={() => handleAddToCart()}
+              >
+                SAVE TO BOX
+              </button>
+            </div>
           )
         : icons 
           // Entry has icon data

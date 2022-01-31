@@ -59,6 +59,7 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
     <>
       {activatedByResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Activated by field state</h3>
         {activatedByResults.map(result => (
           <ConnectionAccordionEntry
@@ -73,6 +74,7 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
       </div>)}
       {createsResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Creates field state</h3>
         {createsResults.map(result => (
           <ConnectionAccordionEntry
@@ -88,6 +90,7 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
       </div>)}
       {ignoresResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Ignores field state</h3>
         <p className="planner-accordion__clarification">
           Ability allows the owner to ignore the effects of the field state.
@@ -105,6 +108,7 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
       </div>)}
       {preventsResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Prevents field state</h3>
         <p className="planner-accordion__clarification">
           Prevents the field state from being set up while in play, but does not remove field states which are already present.
@@ -122,6 +126,7 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
       </div>)}
       {removesResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Removes field state</h3>
         <p className="planner-accordion__clarification">
           Ability removes the field state from the field entirely.
@@ -139,6 +144,7 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
       </div>)}
       {suppressesResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Suppresses field state</h3>
         <p className="planner-accordion__clarification">
           Ability removes the effects of the field state while in play, but does not remove the field state entirely.
@@ -173,6 +179,7 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
     <>
       {boostStageResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosts by stage</h3>
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
@@ -198,6 +205,7 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
       </div>)}
       {boostMultiplierResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boost by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
@@ -223,6 +231,7 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
       </div>)}
       {reduceStageResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by stage</h3>
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
@@ -248,6 +257,7 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
       </div>)}
       {reduceMultiplierResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by multiplier</h3>
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
@@ -287,6 +297,7 @@ export const listRenderAbilityStatus = ({ data, }: ListRenderArgs<AbilityStatusQ
     <>
       {causesResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Causes status</h3>
         {causesResults.map(result => (
           <ConnectionAccordionEntry
@@ -302,6 +313,7 @@ export const listRenderAbilityStatus = ({ data, }: ListRenderArgs<AbilityStatusQ
       </div>)}
       {resistsResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Resists status</h3>
         <p className="planner-accordion__clarification">
           The ability fully cures the status, prevents the status, or mitigates the status in some way.
@@ -337,6 +349,7 @@ export const listRenderAbilityType = ({ data, dispatchCart, dispatchTeam, genFil
     <>
       {boostsResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosts type</h3>
         <p className="planner-accordion__clarification">
           Ability boosts the power of moves of this type used by the Pokemon.
@@ -365,6 +378,7 @@ export const listRenderAbilityType = ({ data, dispatchCart, dispatchTeam, genFil
       </div>)}
       {resistsResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Resists type</h3>
         <p className="planner-accordion__clarification">
           Ability resists moves of this type used against the Pokemon.
@@ -409,6 +423,7 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
     <>
       {activatedByResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Activated by usage method</h3>
         {activatedByResults.map(result => (
           <ConnectionAccordionEntry
@@ -423,6 +438,7 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
       </div>)}
       {boostsResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosts usage method</h3>
         <p className="planner-accordion__clarification">
           Ability boosts the power of moves of this usage method used by the Pokemon.
@@ -441,6 +457,7 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
       </div>)}
       {preventsResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Prevents usage method</h3>
         <p className="planner-accordion__clarification">
           Prevents moves of the listed usage method from being used while this ability is present.
@@ -458,6 +475,7 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
       </div>)}
       {resistsResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Resists usage method</h3>
         <p className="planner-accordion__clarification">
           Ability resists moves of this usage method used against the Pokemon.

@@ -10,14 +10,14 @@ const MainEntityDescriptionTable = ({
   descriptions,
 }: MainEntityDescriptionsProps) => {
   return (
-    <div className='planner__page-descriptions-table'>
+    <div className='planner-page__descriptions-table'>
       {descriptions.map(({text, code}) => {
         return (
-          <div className='planner__page-description--main-entity'>
-            <div className='planner__page-description-code'>
+          <div className='planner-page__description--main-entity'>
+            <div className='planner-page__description-code'>
               {code}
             </div>
-            <div className='planner__page-description-text'>
+            <div className='planner-page__description-text'>
               {text}
             </div>
           </div>

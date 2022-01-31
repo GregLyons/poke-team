@@ -213,8 +213,8 @@ const StatPage = ({
   const statResult = new StatOnPage(data.statByName[0]);
 
   return (
-    <div className="planner__page">
-      <h1 className="planner__page-header">{statResult.formattedName}</h1>
+    <div className="planner-page">
+      <h1 className="planner-page__header">{statResult.formattedName}</h1>
 
       <AuxEntityDescription
         description={statResult.description}

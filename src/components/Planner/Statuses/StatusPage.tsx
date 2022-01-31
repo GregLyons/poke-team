@@ -221,8 +221,8 @@ const StatusPage = ({
   const statusResult = new StatusOnPage(data.statusByName[0]);
 
   return (
-    <div className="planner__page">
-      <h1 className="planner__page-header">{statusResult.formattedName}</h1>
+    <div className="planner-page">
+      <h1 className="planner-page__header">{statusResult.formattedName}</h1>
 
       <AuxEntityDescription
         description={statusResult.description}

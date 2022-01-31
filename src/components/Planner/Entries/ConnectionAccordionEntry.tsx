@@ -45,7 +45,7 @@ const ConnectionAccordionEntry = ({
   // Default height
   const entryHeight = "6rem";
   
-  const { hover, expand, expandListeners, } = useEntryExpand(entryRef);
+  const { hover, expand, expandListeners, originalScrollHeight, } = useEntryExpand(entryRef);
 
   // #endregion
 
@@ -86,7 +86,7 @@ const ConnectionAccordionEntry = ({
       style={
         expand 
           ? { 
-              height: `${entryRef.current?.scrollHeight}` || 0,
+              height: originalScrollHeight || 0,
               transition: entryRef.current 
                 ? `height ${entryRef.current.scrollHeight * 0.5}ms`
                 : ``,
@@ -101,7 +101,6 @@ const ConnectionAccordionEntry = ({
       className="planner-accordion__entry"
       key={key}
     >
-      
       <EntryLink
         hover={hover}
         parentEntityClass={parentEntityClass}
@@ -111,11 +110,6 @@ const ConnectionAccordionEntry = ({
         icons={icons}
       />
 
-      <div 
-        className="planner-accordion__entry-description"
-      >
-        {description}
-      </div>
       <div className="planner-accordion__entry-data">
         {data && data.map(({key, value}) => (
           <>
@@ -128,6 +122,13 @@ const ConnectionAccordionEntry = ({
           </>
         ))}
       </div>
+
+      <div 
+        className="planner-accordion__entry-description"
+      >
+        {description}
+      </div>
+
       {icons && <PlannerPokemonIcons
         context="accordion" 
         key={key}

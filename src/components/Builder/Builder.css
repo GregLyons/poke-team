@@ -140,7 +140,7 @@
 
 /* Needs to be after nth-of-type so that background overrides nth-of-type rule */
 .builder__pokemon-icon-wrapper:hover {
-  background-color: lightblue;
+  background-color: var(--blue1);
   cursor: pointer;
   font-weight: 500;
 }

@@ -229,8 +229,8 @@ const MovePage = ({
   const moveResult = new MoveOnPage(data.moveByName[0]);
   
   return (
-    <div className="planner__page">
-      <h1 className="planner__page-header">{moveResult.formattedName}</h1>
+    <div className="planner-page">
+      <h1 className="planner-page__header">{moveResult.formattedName}</h1>
 
       <MainEntityDescriptionTable
         descriptions={moveResult.descriptions}

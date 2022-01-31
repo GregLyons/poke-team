@@ -41,6 +41,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, genFil
     <>
       {boostStageResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosts by stage</h3>
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
@@ -75,6 +76,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, genFil
       </div>)}
       {boostMultiplierResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boost by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
@@ -109,6 +111,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, genFil
       </div>)}
       {reduceStageResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by stage</h3>
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
@@ -143,6 +146,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, genFil
       </div>)}
       {reduceMultiplierResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by multiplier</h3>
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
@@ -194,6 +198,7 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
     <>
       {boostStageResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosts by stage</h3>
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
@@ -219,6 +224,7 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
       </div>)}
       {boostMultiplierResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boost by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
@@ -244,6 +250,7 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
       </div>)}
       {reduceStageResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by stage</h3>
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
@@ -269,6 +276,7 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
       </div>)}
       {reduceMultiplierResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by multiplier</h3>
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
@@ -315,6 +323,7 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, genFilter
     <>
       {boostStageResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosts by stage</h3>
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
@@ -350,6 +359,7 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, genFilter
       </div>)}
       {boostMultiplierResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boost by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
@@ -385,6 +395,7 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, genFilter
       </div>)}
       {reduceStageResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by stage</h3>
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
@@ -420,6 +431,7 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, genFilter
       </div>)}
       {reduceMultiplierResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by multiplier</h3>
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
@@ -476,6 +488,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, genFilter
     <>
       {boostStageResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosts by stage</h3>
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
@@ -511,6 +524,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, genFilter
       </div>)}
       {boostMultiplierResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boost by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
@@ -546,6 +560,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, genFilter
       </div>)}
       {reduceStageResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by stage</h3>
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
@@ -581,6 +596,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, genFilter
       </div>)}
       {reduceMultiplierResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by multiplier</h3>
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry

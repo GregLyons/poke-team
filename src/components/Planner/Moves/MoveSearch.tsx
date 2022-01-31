@@ -53,6 +53,12 @@ const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, p
               description={move.description}
               data={[
                 {
+                  key: 'Power', value: move.power,
+                },
+                {
+                  key: 'PP', value: move.pp === 0 ? '--': move.pp,
+                },
+                {
                   key: 'Accuracy', value: move.accuracy === 0 ? '--' : move.accuracy,
                 },
                 {
@@ -60,12 +66,6 @@ const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, p
                 },
                 {
                   key: 'Contact', value: move.contact ? 'Yes' : 'No'
-                },
-                {
-                  key: 'Power', value: move.power,
-                },
-                {
-                  key: 'PP', value: move.pp === 0 ? '--': move.pp,
                 },
                 {
                   key: 'Priority', value: move.priority,

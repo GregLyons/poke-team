@@ -235,8 +235,8 @@ const ItemPage = ({
   const itemResult = new ItemOnPage(data.itemByName[0]);
   
   return (
-    <div className="planner__page">
-      <h1 className="planner__page-header">{itemResult.formattedName}</h1>
+    <div className="planner-page">
+      <h1 className="planner-page__header">{itemResult.formattedName}</h1>
 
       <MainEntityDescriptionTable
         descriptions={itemResult.descriptions}

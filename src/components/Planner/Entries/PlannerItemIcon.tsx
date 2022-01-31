@@ -42,7 +42,7 @@ const PlannerItemIcon = ({
           width: '24px',
           height: '24px',
           backgroundColor: hover
-            ? 'lightblue' 
+            ? 'var(--blue1)' 
             : '',
         }}
       />

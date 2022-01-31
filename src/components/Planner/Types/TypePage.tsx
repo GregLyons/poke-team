@@ -221,8 +221,8 @@ const TypePage = ({
   const typeResult = new TypeOnPage(data.typeByName[0]);
 
   return (
-    <div className="planner__page">
-      <h1 className="planner__page-header">{typeResult.formattedName}</h1>
+    <div className="planner-page">
+      <h1 className="planner-page__header">{typeResult.formattedName}</h1>
 
       <AuxEntityDescription
         description={typeResult.description}

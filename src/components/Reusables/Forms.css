@@ -35,7 +35,7 @@
 }
 
 .dropdown__option:hover {
-  background: lightblue;
+  background: var(--blue1);
   cursor: pointer;
 }
 
@@ -51,7 +51,7 @@
 }
 
 .dropdown__trigger:hover {
-  background: lightblue;
+  background: var(--blue1);
 }
 
 .dropdown__title {

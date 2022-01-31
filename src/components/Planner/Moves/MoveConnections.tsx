@@ -62,6 +62,7 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
     <>
       {createsResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Creates field state</h3>
         {createsResults.map(result => (
           <ConnectionAccordionEntry
@@ -77,6 +78,7 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
       </div>)}
       {enhancedByResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Enhanced by field state</h3>
         {enhancedByResults.map(result => (
           <ConnectionAccordionEntry
@@ -91,6 +93,7 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
       </div>)}
       {hinderedByResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Hindered by field state</h3>
         {hinderedByResults.map(result => (
           <ConnectionAccordionEntry
@@ -105,6 +108,7 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
       </div>)}
       {removesResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Removes field state</h3>
         {removesResults.map(result => (
           <ConnectionAccordionEntry
@@ -136,6 +140,7 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
     <>
       {boostStageResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosts by stage</h3>
         {boostStageResults.map(result => (
           <ConnectionAccordionEntry
@@ -161,6 +166,7 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
       </div>)}
       {boostMultiplierResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boost by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
@@ -186,6 +192,7 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
       </div>)}
       {reduceStageResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by stage</h3>
         {reduceStageResults.map(result => (
           <ConnectionAccordionEntry
@@ -211,6 +218,7 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
       </div>)}
       {reduceMultiplierResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by multiplier</h3>
         {reduceMultiplierResults.map(result => (
           <ConnectionAccordionEntry
@@ -250,6 +258,7 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
     <>
       {causesResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Causes status</h3>
         {causesResults.map(result => (
           <ConnectionAccordionEntry
@@ -265,6 +274,7 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
       </div>)}
       {resistsResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+        <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Resists status</h3>
         <p className="planner-accordion__clarification">
           The move fully cures the status, prevents the status, or mitigates the status in some way.
@@ -340,6 +350,7 @@ export const listRenderMoveUsageMethod = ({ data, }: ListRenderArgs<MoveUsageMet
     <>
       {hasResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Has usage method</h3>
         {hasResults.map(result => (
           <ConnectionAccordionEntry
@@ -354,6 +365,7 @@ export const listRenderMoveUsageMethod = ({ data, }: ListRenderArgs<MoveUsageMet
       </div>)}
       {preventsResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+        <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Prevents usage method</h3>
         <p className="planner-accordion__subitem-positive">
           This move can prevent other Pokemon from using moves of the listed usage method.
