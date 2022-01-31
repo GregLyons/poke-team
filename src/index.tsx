@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import {
   BrowserRouter,
 } from 'react-router-dom';
-import './styles/index.css';
+import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 import App from './components/App';

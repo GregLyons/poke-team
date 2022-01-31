@@ -14,12 +14,9 @@ import {
 import {
   GenerationNum,
 } from '../../types-queries/helpers';
-
-import {
-  CartAction,
-  TeamAction,
-} from '../../hooks/App/app-hooks';
-import { TierFilter } from '../../utils/smogonLogic';
+import { CartAction } from '../../hooks/App/Cart';
+import { TeamAction } from '../../hooks/App/Team';
+import { TierFilter } from '../../hooks/App/TierFilter';
 
 const POKEMON_SEARCH_QUERY = gql`
   query PokemonSearchQuery(

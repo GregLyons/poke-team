@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Box, Cart, CartAction, GenFilter, PokemonFilter, TeamAction } from "../../../hooks/App/app-hooks";
-import { GenerationNum, PokemonIconDatum } from "../../../types-queries/helpers";
-import { TierFilter } from "../../../utils/smogonLogic";
+import { Box, Cart, CartAction } from "../../../hooks/App/Cart";
+import { GenFilter } from "../../../hooks/App/GenFilter";
+import { PokemonFilter } from "../../../hooks/App/PokemonFilter";
+import { TeamAction } from "../../../hooks/App/Team";
+import { TierFilter } from "../../../hooks/App/TierFilter";
 import CartViewAccordion from "./CartViewAccordion";
 import CartViewBox from "./CartViewBox";
-import CartViewPokemonIcons from "./CartViewPokemonIcons";
 
 type CartViewProps = {
   cart: Cart

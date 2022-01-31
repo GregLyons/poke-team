@@ -5,7 +5,7 @@ import {
   Route,
   Routes,
 } from 'react-router-dom';
-import './../styles/App.css';
+import './App.css';
 
 import NavBar from './NavBar/NavBar';
 
@@ -34,8 +34,12 @@ import TypePage from './Planner/Types/TypePage';
 import UsageMethodMainPage from './Planner/UsageMethods/UsageMethodMainPage';
 import UsageMethodPage from './Planner/UsageMethods/UsageMethodPage';
 
-import { cartReducer, DEFAULT_CART, DEFAULT_GEN_FILTER, DEFAULT_POKEMON_FILTER, DEFAULT_SINGLES_TIER_FILTER, genReducer, pokemonReducer, teamReducer, tierReducer } from '../hooks/App/app-hooks';
 import ControlPanel from './ControlPanel/ControlPanel';
+import { DEFAULT_GEN_FILTER, genReducer } from '../hooks/App/GenFilter';
+import { DEFAULT_SINGLES_TIER_FILTER, tierReducer } from '../hooks/App/TierFilter';
+import { DEFAULT_POKEMON_FILTER, pokemonReducer } from '../hooks/App/PokemonFilter';
+import { cartReducer, DEFAULT_CART } from '../hooks/App/Cart';
+import { teamReducer } from '../hooks/App/Team';
 
 
 function App() {
