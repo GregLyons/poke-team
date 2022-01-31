@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
   
   Thus, for the in-line style, we set the expand-height equal to the *original* scroll height.
 
-
+  The one caveat is that we need to update the "original" scroll height when the window resizes, as this resize will shift the contents around, changing the necessary scroll height.
 */
 export const useEntryExpand = (entryRef: React.RefObject<HTMLDivElement>) => {
   const [originalScrollHeight, setOriginalScrollHeight] = useState<null|number>(null);
@@ -14,10 +14,10 @@ export const useEntryExpand = (entryRef: React.RefObject<HTMLDivElement>) => {
   const expandTimer = useRef<NodeJS.Timeout>();
   const contractTimer = useRef<NodeJS.Timeout>();
 
-  // Will only run once the entry is rendered
+  // Needs to run on window resize as well. 
   useEffect(() => {
     if (entryRef.current) setOriginalScrollHeight(entryRef.current.scrollHeight)
-  }, [entryRef, setOriginalScrollHeight]);
+  }, [entryRef, setOriginalScrollHeight, window.innerWidth, window.innerHeight]);
 
   // Set 'hover' immediately, set 'expand' after the user hovers for a certain amount of time
   function onMouseEnter() {

@@ -8,7 +8,7 @@ import { SelectionAction, Selection } from "../../../hooks/Planner/Selections";
 import { ItemIconDatum, PokemonIconDatum, psID } from "../../../types-queries/helpers";
 import { DoublesTier, psIDToDoublesTier, } from '../../../utils/smogonLogic';
 import { psIDToSinglesTier as psIDToSinglesTier } from "../../../utils/smogonLogic";
-import PlannerPokemonIcon from "../PlannerPokemonIcon";
+import PlannerPokemonIcon from "./PlannerPokemonIcon";
 import SelectionControls from "./SelectionControls";
 
 type PlannerPokemonIconsProps = {
@@ -49,7 +49,7 @@ const PlannerPokemonIcons = ({
   let seenPokemon: {[k: string]: boolean} = {};
 
   return (
-    <div className={`planner__${context}-row-icons`}>
+    <div className={`planner-${context}__entry-icons`}>
       {/* Will only render anything for entries which could have icons. */}
       {<SelectionControls
         dispatchSelection={dispatchSelection}
@@ -58,41 +58,43 @@ const PlannerPokemonIcons = ({
         icons={icons}
       />}
       <br />
-      {icons.pokemonIconData.map(pokemonIconDatum => {
-        const psID: psID = pokemonIconDatum.psID;
+      <div className={`planner__pokemon-icons-background`}>
+        {icons.pokemonIconData.map(pokemonIconDatum => {
+          const psID: psID = pokemonIconDatum.psID;
 
-        // E.g. DUMMY_POKEMON_DATUM
-        if (!psID) return;
+          // E.g. DUMMY_POKEMON_DATUM
+          if (!psID) return;
 
-        const tier = icons.tierFilter.format === 'singles' ? psIDToSinglesTier(icons.genFilter.gen, pokemonIconDatum.psID) : (psIDToDoublesTier(icons.genFilter.gen, pokemonIconDatum.psID)?.replace('LC', 'DLC').replace('NFE', 'DNFE') as DoublesTier);
+          const tier = icons.tierFilter.format === 'singles' ? psIDToSinglesTier(icons.genFilter.gen, pokemonIconDatum.psID) : (psIDToDoublesTier(icons.genFilter.gen, pokemonIconDatum.psID)?.replace('LC', 'DLC').replace('NFE', 'DNFE') as DoublesTier);
 
-        // Ignore duplicate Pokemon
-        if(seenPokemon.hasOwnProperty(pokemonIconDatum.name)) return
-      
-        // Add Pokemon to list of seen Pokemon
-        else seenPokemon[pokemonIconDatum.name] = true;
+          // Ignore duplicate Pokemon
+          if(seenPokemon.hasOwnProperty(pokemonIconDatum.name)) return
         
-        // If tier is not selected, return
-        if (tier && !icons.tierFilter['tiers'][tier]) return;
+          // Add Pokemon to list of seen Pokemon
+          else seenPokemon[pokemonIconDatum.name] = true;
+          
+          // If tier is not selected, return
+          if (tier && !icons.tierFilter['tiers'][tier]) return;
 
-        if (!validatePokemon(pokemonIconDatum, icons.pokemonFilter)) return;
+          if (!validatePokemon(pokemonIconDatum, icons.pokemonFilter)) return;
 
-        hasIcon.current = true;
+          hasIcon.current = true;
 
-        return (
-          <PlannerPokemonIcon
-            dispatchCart={icons.dispatchCart}
-            dispatchTeam={icons.dispatchTeam}
-            key={key + '_' + pokemonIconDatum.name + '_icon'}
-            pokemonIconDatum={pokemonIconDatum}
-            selected={selection.hasOwnProperty(psID) && (selection[psID] as {
-              nameData: PokemonIconDatum,
-              selected: boolean,
-            }).selected} 
-            toggleSelection={toggleSelection}
-          />
-        );
-      })}
+          return (
+            <PlannerPokemonIcon
+              dispatchCart={icons.dispatchCart}
+              dispatchTeam={icons.dispatchTeam}
+              key={key + '_' + pokemonIconDatum.name + '_icon'}
+              pokemonIconDatum={pokemonIconDatum}
+              selected={selection.hasOwnProperty(psID) && (selection[psID] as {
+                nameData: PokemonIconDatum,
+                selected: boolean,
+              }).selected} 
+              toggleSelection={toggleSelection}
+            />
+          );
+        })}
+      </div>
     </div>
   )
 }

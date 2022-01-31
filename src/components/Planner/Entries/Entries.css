@@ -1,0 +1,161 @@
+/* Entries */
+/* #region */
+
+.planner-search__entry:nth-of-type(even) {
+  /* border: 1px solid white; */
+  background-color: var(--dark2);
+}
+
+.planner-search__entry:nth-of-type(even) .planner__pokemon-icons-background {
+  /* border: 1px solid white; */
+  background-color: var(--dark1);
+}
+
+.planner-search__entry:nth-of-type(odd) {
+  /* border: 1px solid white; */
+  background-color: var(--dark1);
+  border-bottom: 0.5rem solid var(--dark1);
+}
+
+.planner-search__entry:nth-of-type(odd) .planner__pokemon-icons-background {
+  /* border: 1px solid white; */
+  background-color: var(--dark2);
+  border-bottom: 0.5rem solid var(--dark2);
+}
+
+/* #endregion */
+
+/* Pokemon icons */
+/* #region */
+
+.planner__pokemon-icons-background {
+  margin-right: 1rem;
+  border-radius: 1rem;
+  padding-bottom: 20px;
+  padding-right: 0.75rem;
+  padding-left: 1rem;
+}
+
+.planner__pokemon-icon-container {
+  position: relative;
+}
+
+/* */
+.planner__pokemon-icon-track {
+  position: absolute;
+  width: 57px;
+  height: 10px;
+  margin-top: 22px;
+  right: -0.25rem;
+  background-color: var(--light1);
+  border-radius: 5px;
+}
+
+/* Center  */
+.planner__pokemon-icon-background {
+  margin-left: 10px;
+  position: absolute;
+}
+
+.planner__pokemon-icon {
+  margin-left: 10px;
+  position: absolute;
+  background-image: url('../../../assets/icons/pokemonicons-sheet.png');
+  background-repeat: no-repeat;
+}
+
+.planner__pokemon-icon:hover {
+  filter: brightness(1.1);
+  transform: scale(1.2);
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+/* #endregion */
+
+/* Main search entries */
+/* #region */ 
+
+.planner-search__entry {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(12, 1fr);
+
+  width: 100%;
+}
+
+.planner-search__entry > * {
+  padding-left: var(--entry-cell-left-padding);
+}
+
+.planner-search__entry:nth-of-type(even) {
+  /* border: 1px solid white; */
+  background-color: var(--dark2);
+}
+
+.planner-search__entry:nth-of-type(odd) {
+  /* border: 1px solid white; */
+  background-color: var(--dark1);
+}
+
+/* Description */
+.planner-search__entry-description {
+  /* border: 1px solid white; */
+  grid-column: 2 / 5;
+}
+
+/* Data */
+.planner-search__entry-data {
+  /* border: 1px solid white; */
+  grid-column: 5 / 8;
+}
+
+/* Icons */ 
+.planner-search__entry-icons {
+  /* border: 1px solid white; */
+  grid-column: 8 / 13;
+}
+
+/* #endregion */
+
+/* Accordion entries */
+/* #region */
+
+.planner-accordion__entry {
+  /* For fade */
+  position: relative;
+
+  grid-column: 1 / 11;
+
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 2fr 3fr 4fr;
+
+  width: 100%;
+}
+
+.planner-accordion__item-icon {
+  grid-column: 1 / 2;
+}
+
+.planner-accordion__entry-description {
+  grid-column: 2 / 3;
+  padding-left: 0.5rem;
+}
+
+.planner-accordion__entry-data {
+  grid-column: 3 / 4;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.planner-accordion__entry-data-key {
+  grid-column: 2 / 3;
+}
+
+.planner-accordion__entry-data-value {
+  grid-column: 3 / 4;
+}
+
+/* #endregion */

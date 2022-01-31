@@ -4,6 +4,19 @@
 
   overflow-y: scroll;
   line-height: 1.5;
+
+  /* Darks */
+  --dark3: #141414;
+  --dark2: #343434;
+  --dark1: #545454;
+  
+  
+  /* Lights */ 
+  --light1: #ededed;
+  --light2: #dedede;
+  --light3: #aaaaaa;
+  
+
 }
 
 body {
@@ -13,6 +26,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Page background */
+  background-color: var(--dark3);
+
+  /* Main font color */
+  color: var(--light1);
 }
 
 a, a:visited, a:hover, a:active {

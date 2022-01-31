@@ -9,11 +9,15 @@
   width: 100%;
   height: 50px;
   
-  background-color: orange;
+  background-color: var(--dark2);
 }
 
 .nav-item {
-  border: 1px solid black;
+  list-style: none;
+}
+
+.nav-item:hover {
+  filter: brightness(2.0);
 }
 
 /* #endregion */

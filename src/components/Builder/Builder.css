@@ -13,7 +13,7 @@
 .builder__cart-view-wrapper {
   grid-column: 2 / 3;
   height: 1000px;
-  border: 1px solid black;
+  border: 1px solid white;
   overflow-y: auto;
 }
 

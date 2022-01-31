@@ -45,7 +45,7 @@ const ConnectionAccordionEntry = ({
   // Default height
   const entryHeight = "6rem";
   
-  const { hover, expand, expandListeners, originalScrollHeight } = useEntryExpand(entryRef);
+  const { hover, expand, expandListeners, } = useEntryExpand(entryRef);
 
   // #endregion
 
@@ -86,7 +86,7 @@ const ConnectionAccordionEntry = ({
       style={
         expand 
           ? { 
-              height: originalScrollHeight || 0,
+              height: `${entryRef.current?.scrollHeight}` || 0,
               transition: entryRef.current 
                 ? `height ${entryRef.current.scrollHeight * 0.5}ms`
                 : ``,
@@ -98,7 +98,7 @@ const ConnectionAccordionEntry = ({
               : ``, 
             }
       }
-      className="planner-accordion__row"
+      className="planner-accordion__entry"
       key={key}
     >
       
@@ -112,17 +112,17 @@ const ConnectionAccordionEntry = ({
       />
 
       <div 
-        className="planner-accordion__row-description"
+        className="planner-accordion__entry-description"
       >
         {description}
       </div>
-      <div className="planner-accordion__row-data">
+      <div className="planner-accordion__entry-data">
         {data && data.map(({key, value}) => (
           <>
-            <b className="planner-accordion__row-data-key">
+            <b className="planner-accordion__entry-data-key">
               {key}
             </b>
-            <div className="planner-accordion__row-data-value">
+            <div className="planner-accordion__entry-data-value">
               {value}
             </div>
           </>

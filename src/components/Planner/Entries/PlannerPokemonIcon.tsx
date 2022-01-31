@@ -1,14 +1,16 @@
 import {
   useState,
 } from "react";
-import { CartAction } from "../../hooks/App/Cart";
-import { TeamAction } from "../../hooks/App/Team";
+import { CartAction } from "../../../hooks/App/Cart";
+import { TeamAction } from "../../../hooks/App/Team";
 import {
   PokemonIconDatum,
-} from "../../types-queries/helpers";
+} from "../../../types-queries/helpers";
 import {
   getPokemonIcon,
-} from "../../utils/sprites";
+} from "../../../utils/sprites";
+
+import './Entries.css';
 
 type PlannerPokemonIconProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -34,20 +36,24 @@ const PlannerPokemonIcon = ({
   return (
     <div className="planner__pokemon-icon-container"
       style={{
-        width: '40px',
+        width: '50px',
         height: '30px',
         display: 'inline-block',
       }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-    >
+    > 
+      <div className="planner__pokemon-icon-track" />
       <div className="planner__pokemon-icon-background" 
         style={{
           width: '40px',
           height: '30px',
+          borderRadius: '40%',
           backgroundColor: (!selected && hover) || (selected && !hover)
             ? 'lightblue' 
             : '',
+          transition: 'background-color 0.2s',
+          opacity: '0.8',
         }}
       />
       <div

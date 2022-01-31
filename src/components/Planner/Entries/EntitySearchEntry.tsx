@@ -104,7 +104,7 @@ const EntitySearchEntry = ({
               : ``, 
             }
       }
-      className="planner__search-row"
+      className="planner-search__entry"
       key={key}
     >
       <EntryLink
@@ -116,17 +116,17 @@ const EntitySearchEntry = ({
         icons={icons}
       />
       <div 
-        className="planner__search-row-description"
+        className="planner-search__entry-description"
       >
         {description}
       </div>
-      <div className="planner__search-row-data">
+      <div className="planner-search__entry-data">
         {data && data.map(({key, value}) => (
           <>
-            <b className="planner__search-row-data-key">
+            <b className="planner-search__entry-data-key">
               {key}
             </b>
-            <div className="planner__search-row-data-value">
+            <div className="planner-search__entry-data-value">
               {value}
             </div>
           </>

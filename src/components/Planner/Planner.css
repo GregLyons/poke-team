@@ -16,7 +16,8 @@
   width: 100%;
   height: 50px;
   
-  background-color: yellow;
+  background-color: var(--dark2);
+  list-style: none;
 }
 
 .planner-nav-bar__main {
@@ -26,8 +27,6 @@
 
   width: 50%;
   height: 50px;
-  
-  background-color: lightblue;
 }
 
 .planner-nav-bar__secondary {
@@ -37,8 +36,6 @@
 
   width: 50%;
   height: 50px;
-  
-  background-color: lightgoldenrodyellow;
 }
 
 /* #endregion */
@@ -52,39 +49,6 @@
 }
 
 
-/* Main search rows */
-/* #region */ 
-
-.planner__search-row {
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: repeat(12, 1fr);
-
-  width: 100%;
-}
-
-.planner__search-row > * {
-  padding-left: var(--entry-cell-left-padding);
-}
-
-.planner__search-row:nth-of-type(odd) {
-  background-color: var(--odd-entry-color);
-}
-
-/* Description */
-.planner__search-row-description {
-  grid-column: 2 / 5;
-}
-
-/* Data */
-.planner__search-row-data {
-  grid-column: 5 / 8;
-}
-
-/* Icons */ 
-.planner__search-row-icons {
-  grid-column: 8 / 13;
-}
 
 /* #endregion */
 
@@ -103,7 +67,7 @@
 }
 
 .planner__page-header {
-  border: 1px solid black;
+  border: 1px solid white;
   grid-column: 1 / 13;
 }
 
@@ -112,12 +76,12 @@
 /* #region */
 
 .planner__page-descriptions-table {
-  border: 1px solid black;
+  border: 1px solid white;
   grid-column: 1 / 13;
 }
 
 .planner__page-description {
-  border: 1px solid black;
+  border: 1px solid white;
   grid-column: 1 / 13;
 }
 
@@ -127,7 +91,7 @@
 
 .planner__page-description--main-entity {
   grid-column: 1 / 13;
-  border: 1px solid black;
+  border: 1px solid white;
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 3fr;
@@ -136,13 +100,13 @@
 }
 
 .planner__page-description-code {
-  border: 1px solid black;
+  border: 1px solid white;
   
   grid-column: 1 / 2;
 }
 
 .planner__page-description-text {
-  border: 1px solid black;
+  border: 1px solid white;
 
   grid-column: 2 / 3;
 }
@@ -214,7 +178,7 @@
   margin-top: 0.5rem;
 }
 
-.planner-accordion__row:nth-of-type(odd) {
+.planner-accordion__entry:nth-of-type(odd) {
   background-color: var(--odd-entry-color);
 }
 
@@ -262,72 +226,12 @@
 
 /* Accordion entries */
 
-.planner-accordion__row {
-  /* For fade */
-  position: relative;
 
-  grid-column: 1 / 11;
-
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr 2fr 3fr 4fr;
-
-  width: 100%;
-}
-
-.planner-accordion__item-icon {
-  grid-column: 1 / 2;
-}
-
-.planner-accordion__row-description {
-  grid-column: 2 / 3;
-  padding-left: 0.5rem;
-}
-
-.planner-accordion__row-data {
-  grid-column: 3 / 4;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-
-.planner-accordion__row-data-key {
-  grid-column: 2 / 3;
-}
-
-.planner-accordion__row-data-value {
-  grid-column: 3 / 4;
-}
 
 /* #endregion */
 
 /* #endregion */
 
-/* Pokemon icons */
-/* #region */
-
-.planner__pokemon-icon-container {
-  position: relative;
-  margin-right: 1px;
-}
-
-.planner__pokemon-icon-background {
-  position: absolute;
-}
-
-.planner__pokemon-icon {
-  position: absolute;
-  background-image: url('../../assets/icons/pokemonicons-sheet.png');
-  background-repeat: no-repeat;
-}
-
-.planner__pokemon-icon:hover {
-  transform: scale(1.2);
-  cursor: pointer;
-  transition: transform 0.1s;
-}
-
-/* #endregion */
 
 /* Item icons */
 /* #region */
@@ -391,7 +295,7 @@
 /* #region */
 
 /* Entire row */
-.planner__search-row, .planner-accordion__row {
+.planner-search__entry, .planner-accordion__entry {
   padding-top: var(--entry-vertical-padding);
   padding-bottom: var(--entry-vertical-padding);
   transition: ease 0.25s;
@@ -399,7 +303,7 @@
   overflow: hidden;
 }
 
-.planner-accordion__row:hover, .planner__search-row:hover {
+.planner-accordion__entry:hover, .planner-search__entry:hover {
   /* Doesn't change actual width, as opposed to border-left */
   box-shadow: -1px 0 black;
 }
@@ -423,17 +327,17 @@
 }
 
 /* Data */
-.planner__search-row-data, .planner-accordion__row-data {
+.planner-search__entry-data, .planner-accordion__entry-data {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   height: fit-content;
 }
 
-.planner__search-row-data-key, .planner-accordion__row-data-key {
+.planner-search__entry-data-key, .planner-accordion__entry-data-key {
   grid-column: 2 / 3;
 }
 
-.planner__search-row-data-value, .planner-accordion__row-data-value {
+.planner-search__entry-data-value, .planner-accordion__entry-data-value {
   grid-column: 3 / 4;
 }
 
