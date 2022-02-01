@@ -41,7 +41,8 @@ body {
 
   /* Page background */
   
-  background-color: #c9ecc9;
+  /* background-color: #c9ecc9; */
+  background-color: var(--dark3);
 
   /* Main font color */
   color: var(--light1);

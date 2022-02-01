@@ -300,6 +300,7 @@
 
 .planner-accordion__subitem--positive > .planner-accordion__entry {
   box-shadow: 0 -1px 3px 1px var(--positive);
+  border-top: 0.25rem solid var(--dark3);
 }
 
 .planner-accordion__subitem-shadow--positive {
@@ -356,9 +357,9 @@
 
   width: 100%;
 
-  border-top: 0.25rem solid var(--dark3);
-
   background-color: var(--dark2);
+
+  border-radius: 5px;
 }
 
 .planner-accordion__entry .planner__pokemon-icons-background {
@@ -368,7 +369,6 @@
 .planner-accordion__item-icon {
   grid-column: 1 / 2;
 }
-
 
 .planner-accordion__entry-data {
   grid-column: 2 / 3;

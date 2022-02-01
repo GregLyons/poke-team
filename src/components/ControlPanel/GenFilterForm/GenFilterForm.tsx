@@ -2,9 +2,11 @@ import {
   NUMBER_OF_GENS,
 } from "../../../utils/constants";
 import {
+  GenerationNum,
   stringToGenNumber,
 } from "../../../types-queries/helpers";
 import { GenFilter, GenFilterAction } from "../../../hooks/App/GenFilter";
+import Slider from "../../Reusables/Slider";
 
 type GenFilterFormProps = {
   genFilter: GenFilter,
@@ -21,6 +23,20 @@ const GenFilterForm = ({
     });
   }
 
+  const onIncrement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    dispatchGenFilter({
+      type: 'set_gen',
+      payload: { gen: (Math.min(NUMBER_OF_GENS, genFilter.gen + 1) as GenerationNum) }
+    });
+  }
+
+  const onDecrement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    dispatchGenFilter({
+      type: 'set_gen',
+      payload: { gen: (Math.max(1, genFilter.gen - 1) as GenerationNum) }
+    });
+  }
+
   const handleSwShSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatchGenFilter({
       type: 'toggle_swsh'
@@ -33,17 +49,26 @@ const GenFilterForm = ({
     });
   }
 
+  console.log(genFilter.gen);
+
   return (
-    <div className="control-panel__gen-slider-wrapper">
+    <div className="control-panel__gen-slider-wrapper"
+      style={{
+        backgroundColor: "black"
+      }}
+    >
       <label htmlFor="select generation">
-        <input 
-          type="range"
-          value={genFilter.gen}
-          min="1"
+        <Slider
+          min={1}
           max={NUMBER_OF_GENS}
+          value={genFilter.gen}
           onChange={handleGenSelect}
+          onIncrement={onIncrement}
+          onDecrement={onDecrement}
+          onLeft={false}
+          sliderWidth={'150px'}
+          numericalWidth={1}
         />
-        {genFilter.gen}
       </label>
       <label htmlFor="select only moves and Pokemon in SwSh">
         <input
