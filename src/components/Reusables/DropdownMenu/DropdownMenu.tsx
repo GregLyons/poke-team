@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import FontAwesome from "react-fontawesome";
-import './Forms.css';
+import { useWindowSize } from "../../../hooks/useWindowSize";
+import './DropdownMenu.css';
 
 type Item<F> = {
   id: F
@@ -12,17 +13,23 @@ type DropdownMenuProps<E extends Item<F>, F> = {
   title: string
   items: E[]
   toggleSelect: (id: F) => void
-  columnWidth: number | string
+  dropdownWidth: number | string
+  itemWidth: number | string
 }
 
 function DropdownMenu<E extends Item<F>, F>({
   title,
   items,
   toggleSelect,
-  columnWidth,
+  dropdownWidth,
+  itemWidth,
 }: DropdownMenuProps<E, F>) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+
+  const [size, setSize] = useWindowSize();
+
+  const [triggerHeight, setTriggerHeight] = useState<null|number>(null);
 
   const [isActive, setIsActive] = useState(false);
   const onClick = (e: React.MouseEvent) => {
@@ -47,12 +54,17 @@ function DropdownMenu<E extends Item<F>, F>({
       window.removeEventListener('click', pageClickEvent)
     }
   }, [isActive]);
-  console.log(isActive && dropdownRef.current);
+
+  // Reset heights on window resize
+  useEffect(() => {
+    setTimeout(() => triggerRef.current && setTriggerHeight(triggerRef.current.scrollHeight));
+  }, [size, triggerRef, setTriggerHeight]);
+
   return (
     <div className="dropdown__wrapper"
       style={{
         position: 'relative',
-        width: '200px',
+        width: dropdownWidth,
       }}
     >
       <button
@@ -61,6 +73,10 @@ function DropdownMenu<E extends Item<F>, F>({
         className="dropdown__trigger"
         style={{
           width: 'inherit',
+          color: isActive 
+            ? 'var(--blue1)' 
+            : 'var(--light1)',
+          boxShadow: 'var(--control-shadow)'
         }}
       >
         <span className="dropdown__title">{title}</span>
@@ -72,15 +88,22 @@ function DropdownMenu<E extends Item<F>, F>({
         className="dropdown__content-wrapper"
         ref={dropdownRef}
         style={{
-          height: isActive && dropdownRef.current ? dropdownRef.current.scrollHeight : 0,
-          top: triggerRef.current ? triggerRef.current.scrollHeight + 'px' : '',
-          transition: !isActive ? '' : '0.5s ease',
+          height: isActive
+            ? 'auto'
+            : 0,
+          top: triggerHeight 
+            ? triggerHeight
+            : '',
+          boxShadow: isActive
+            ? `5px 15px 2px 2px rgba(0, 0, 0, 0.8),
+              var(--control-shadow)`
+            : ''
         }}
       >
         <ul 
           className="dropdown__options"
           style={{
-            gridTemplateColumns: `repeat(auto-fit, minmax(${columnWidth}, 1fr))`,
+            gridTemplateColumns: `repeat(auto-fit, minmax(${itemWidth}, 1fr))`,
           }}
         >
           {items.map(item => {

@@ -1,0 +1,16 @@
+
+/* #region */
+
+.base-stats__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.base-stats__stat-wrapper {
+  border: 1px solid white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* #endregion */

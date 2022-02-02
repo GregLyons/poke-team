@@ -4,7 +4,7 @@ import { BASE_STAT_NAMES, PokemonFilter, PokemonFilterAction, TYPE_NAMES } from 
 import { BaseStatName, toAbbreviatedBaseStatName, toFormattedTypeName, TypeName } from "../../../types-queries/helpers";
 import DoubleSlider from "../../Reusables/DoubleSlider/DoubleSlider";
 
-import '../ControlPanel.css';
+import './PokemonFilter.css';
 
 type PokemonFilterFormProps = {
   dispatchPokemonFilter: React.Dispatch<PokemonFilterAction>

@@ -8,13 +8,12 @@ import {
   SinglesTier,
   SINGLES_TIERS,
 } from "../../../utils/smogonLogic";
-import DropdownMenu from "../../Reusables/DropdownMenu";
+import DropdownMenu from "../../Reusables/DropdownMenu/DropdownMenu";
 import { GenFilter, GenFilterAction } from '../../../hooks/App/GenFilter';
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 type TierFilterFormProps = {
   genFilter: GenFilter
-  dispatchGenFilter: React.Dispatch<GenFilterAction>
 
   tierFilter: TierFilter
   dispatchTierFilter: React.Dispatch<TierFilterAction>
@@ -22,10 +21,52 @@ type TierFilterFormProps = {
 
 const TierFilterForm = ({
   genFilter,
-  dispatchGenFilter,
   tierFilter,
   dispatchTierFilter,
 }: TierFilterFormProps) => {
+  const singlesItems = useMemo(() =>
+    SINGLES_TIERS.map((singlesTier: SinglesTier) => {
+      return {
+        id: singlesTier,
+        label: (
+          <button
+            className={`
+            tier-filter__button
+            ${tierFilter.singlesTiers[singlesTier] 
+              ? 'tier-filter__button--active'
+              : ''
+            }
+            `}
+          >
+            {singlesTier}
+          </button>
+        ),
+        selected: tierFilter.singlesTiers[singlesTier]
+      }
+    }),
+  [tierFilter]);
+
+  const doublesItems = useMemo(() => 
+    DOUBLES_TIERS.map((doublesTier: DoublesTier) => {
+      return {
+        id: doublesTier,
+        label: (
+          <button
+            className={`
+            tier-filter__button
+            ${tierFilter.doublesTiers[doublesTier] 
+              ? 'tier-filter__button--active'
+              : ''
+            }
+            `}
+          >
+            {doublesTier}
+          </button>
+        ),
+        selected: tierFilter.doublesTiers[doublesTier]
+      }
+    }),
+  [tierFilter]);
 
   const handleTierSelect = (tier: SinglesTier | DoublesTier) => {
     dispatchTierFilter({
@@ -54,7 +95,6 @@ const TierFilterForm = ({
       });
     }
   }, [genFilter, dispatchTierFilter]);
-  console.log(tierFilter);
 
   return (
     <form className="tier-filter__wrapper">
@@ -95,62 +135,26 @@ const TierFilterForm = ({
           </button>
         </label>
       </div>
-      <label htmlFor="Tier select">
-        {tierFilter.format === 'singles'
-          ? <DropdownMenu 
-              title="SINGLES tiers"
-              items={
-                SINGLES_TIERS.map((singlesTier: SinglesTier) => {
-                  return {
-                    id: singlesTier,
-                    label: (
-                      <button
-                        className={`
-                        tier-filter__button
-                        ${tierFilter.singlesTiers[singlesTier] 
-                          ? 'tier-filter__button--active'
-                          : ''
-                        }
-                        `}
-                      >
-                        {singlesTier}
-                      </button>
-                    ),
-                    selected: tierFilter.singlesTiers[singlesTier]
-                  }
-                })
-              }
+      <div className="tier-filter__select">
+        <label htmlFor="Tier select">
+          {tierFilter.format === 'singles'
+            ? <DropdownMenu 
+                title={'SELECT TIERS'}
+                items={singlesItems}
+                toggleSelect={handleTierSelect}
+                dropdownWidth={'clamp(10vw, 20ch, 15%)'}
+                itemWidth={'5ch'}
+              />
+            : <DropdownMenu 
+              title={'SELECT TIERS'}
+              items={doublesItems}
               toggleSelect={handleTierSelect}
-              columnWidth={'5ch'}
+              dropdownWidth={'clamp(10vw, 20ch, 15%)'}
+              itemWidth={'6ch'}
             />
-          : <DropdownMenu 
-              title="DOUBLES tiers"
-              items={
-                DOUBLES_TIERS.map((doublesTier: DoublesTier) => {
-                  return {
-                    id: doublesTier,
-                    label: (
-                      <button
-                        className={`
-                        tier-filter__button
-                        ${tierFilter.doublesTiers[doublesTier] 
-                          ? 'tier-filter__button--active'
-                          : ''
-                        }
-                        `}
-                      >
-                        {doublesTier}
-                      </button>
-                    ),
-                    selected: tierFilter.doublesTiers[doublesTier]
-                  }
-                })
-              }
-              toggleSelect={handleTierSelect}
-              columnWidth={'6ch'}
-            />
-        }
-      </label>
+          }
+        </label>
+      </div>
       {/* <label htmlFor="Tier select">
         {(tierFilter.format === 'singles' ? SINGLES_TIERS : DOUBLES_TIERS).map((tier: SinglesTier | DoublesTier) => {
           if (isSinglesTier(tier)) {

@@ -4,6 +4,8 @@
   position: sticky;
 
   width: 100%;
+
+  background-color: var(--dark2);
   
   display: grid;
   grid-template-columns: 1fr 1fr 2fr;
@@ -40,22 +42,6 @@
 
 /* #endregion */
 
-/* Pokemon filter */
-/* #region */
-
-.base-stats__wrapper {
-  display: flex;
-  flex-direction: column;
-}
-
-.base-stats__stat-wrapper {
-  border: 1px solid white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* #endregion */
 
 /* Team display */
 /* #region */

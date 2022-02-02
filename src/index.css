@@ -7,9 +7,10 @@
 
   /* Darks */
   --dark1: #545454;
-  --dark2: #343434;
   --dark2-components: 52, 52, 52;
-  --dark3: #141414;
+  --dark2: rgb(var(--dark2-components));
+  --dark3-components: 20, 20, 20;
+  --dark3: rgb(var(--dark3-components));
   
   
   /* Lights */ 
@@ -22,8 +23,8 @@
   --blue3: #515158;
 
   /* Greens */
-  --green1: #50C878;
   --green1-components: 80, 200, 120;
+  --green1: rgb(var(--green1-components));
   --green3: #515851;
 
   /* Reds */
@@ -35,7 +36,8 @@
 
   /* Other stylings */
   --button-shadow: inset 0px -5px 1px 0 rgba(0, 0, 0, 0.2);
-  --control-shadow: inset 3px 3px rgba(0,0,0,0.2);
+  --control-shadow-inset: 3px 3px;
+  --control-shadow: inset var(--control-shadow-inset) rgba(0,0,0,0.2);
 }
 
 body {
