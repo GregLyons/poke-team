@@ -1,16 +1,20 @@
-import { DoublesTier, DOUBLES_TIERS, SinglesTier, SINGLES_TIERS } from "../../utils/smogonLogic";
+import { DoublesTier, DOUBLES_TIERS, isSinglesTier, SinglesTier, SINGLES_TIERS } from "../../utils/smogonLogic";
 
 export type TierFilter = {
   format: 'singles' | 'doubles'
-  tiers: {
-    [tierName in SinglesTier | DoublesTier]: boolean
+  wasDoubles: boolean
+  singlesTiers: {
+    [tierName in SinglesTier]: boolean
+  }
+  doublesTiers: {
+    [tierName in DoublesTier]: boolean
   }
 }
 
-export const DEFAULT_SINGLES_TIER_FILTER: TierFilter = {
+export const DEFAULT_TIER_FILTER: TierFilter = {
   format: 'singles',
-  tiers: {
-    // Singles tiers
+  wasDoubles: false,
+  singlesTiers: {
     AG: true,
     Uber: true,
     OU: true,
@@ -24,34 +28,8 @@ export const DEFAULT_SINGLES_TIER_FILTER: TierFilter = {
     PU: true,
     NFE: true,
     LC: true,
-    // Doubles tiers
-    DUber: false,
-    DOU: false,
-    DBL: false,
-    DUU: false,
-    DNFE: false,
-    DLC: false,
   },
-};
-
-export const DEFAULT_DOUBLES_TIER_FILTER: TierFilter = {
-  format: 'doubles',
-  tiers: {
-    // Singles tiers
-    AG: false,
-    Uber: false,
-    OU: false,
-    UUBL: false,
-    UU: false,
-    RUBL: false,
-    RU: false,
-    NUBL: false,
-    NU: false,
-    PUBL: false,
-    PU: false,
-    NFE: false,
-    LC: false,
-    // Doubles tiers
+  doublesTiers: {
     DUber: true,
     DOU: true,
     DBL: true,
@@ -59,7 +37,7 @@ export const DEFAULT_DOUBLES_TIER_FILTER: TierFilter = {
     DNFE: true,
     DLC: true,
   },
-}
+};
 
 export type TierFilterAction =
 | {
@@ -67,88 +45,59 @@ export type TierFilterAction =
     payload: SinglesTier | DoublesTier
   }
 | {
-    type: 'select_range_singles',
-    payload: {
-      edge1: SinglesTier,
-      edge2: SinglesTier,
-    }
-  }
-| {
-    type: 'select_range_doubles',
-    payload: {
-      edge1: DoublesTier,
-      edge2: DoublesTier,
-    }
-  }
-| {
     type: 'set_format',
     payload: 'singles' | 'doubles',
-  };
+  }
+| {
+    type: 'remember_doubles',
+  }
+| {
+    type: 'recall_doubles',
+  }
 
 export function tierReducer(state: TierFilter, action: TierFilterAction): TierFilter {
-  let idx1: number,
-      idx2: number,
-      start: number,
-      end: number,
-      newTierSelection: { [tier in SinglesTier | DoublesTier]: boolean };
-
   switch(action.type) {
     case 'toggle_tier':
-      return {
-        ...state,
-        tiers: {
-          ...state.tiers,
-          [action.payload]: !state.tiers[action.payload]
-        }
+      if (isSinglesTier(action.payload)) {
+        return {
+          ...state,
+          singlesTiers: {
+            ...state.singlesTiers,
+            [action.payload]: !state.singlesTiers[action.payload],
+          }
+        };
       }
-      
+      else {
+        return {
+          ...state,
+          doublesTiers: {
+            ...state.doublesTiers,
+            [action.payload]: !state.doublesTiers[action.payload],
+          }
+        };
+      }
+
     case 'set_format':
       return {
         ...state,
         format: action.payload,
-      }
-
-    case 'select_range_singles': 
-      idx1 = SINGLES_TIERS.indexOf(action.payload.edge1);
-      idx2 = SINGLES_TIERS.indexOf(action.payload.edge2);
-      start = Math.min(idx1, idx2);
-      end = Math.max(idx1, idx2);
-
-      newTierSelection = DEFAULT_SINGLES_TIER_FILTER.tiers;
-      SINGLES_TIERS.map((tier, idx) => {
-        if (idx < start || idx > end) newTierSelection[tier] = false;
-        else newTierSelection[tier] = true;
-        return;
-      })
+      };
       
+    case 'remember_doubles': 
       return {
         ...state,
-        tiers: {
-          ...state.tiers,
-          ...newTierSelection,
-        }
-      }
+        format: 'singles',
+        wasDoubles: state.format === 'doubles',
+      };
 
-    case 'select_range_doubles': 
-      idx1 = DOUBLES_TIERS.indexOf(action.payload.edge1);
-      idx2 = DOUBLES_TIERS.indexOf(action.payload.edge2);
-      start = Math.min(idx1, idx2);
-      end = Math.max(idx1, idx2);
-
-      newTierSelection = DEFAULT_DOUBLES_TIER_FILTER.tiers;
-      DOUBLES_TIERS.map((tier, idx) => {
-        if (idx < start || idx > end) newTierSelection[tier] = false;
-        else newTierSelection[tier] = true;
-        return;
-      })
-      
+    case 'recall_doubles':
       return {
         ...state,
-        tiers: {
-          ...state.tiers,
-          ...newTierSelection,
-        }
-      }
+        format: state.wasDoubles
+          ? 'doubles'
+          : state.format,
+      };
+    
     default:
       throw new Error();
   }

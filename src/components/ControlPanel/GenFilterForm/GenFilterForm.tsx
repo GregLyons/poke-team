@@ -52,8 +52,7 @@ const GenFilterForm = ({
   }
 
   return (
-    <div className="gen-filter__wrapper"
-    >
+    <form className="gen-filter__wrapper">
       <div className="gen-filter__slider">
         <div className="gen-filter__label">
           GEN
@@ -114,7 +113,7 @@ const GenFilterForm = ({
           </button>
         </label>
       </div>
-    </div>
+    </form>
   );
 };
 

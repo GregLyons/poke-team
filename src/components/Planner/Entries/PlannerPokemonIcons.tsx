@@ -6,7 +6,7 @@ import { TeamAction } from "../../../hooks/App/Team";
 import { TierFilter } from "../../../hooks/App/TierFilter";
 import { SelectionAction, Selection } from "../../../hooks/Planner/Selections";
 import { ItemIconDatum, PokemonIconDatum, psID } from "../../../types-queries/helpers";
-import { DoublesTier, psIDToDoublesTier, } from '../../../utils/smogonLogic';
+import { DoublesTier, isSinglesTier, psIDToDoublesTier, } from '../../../utils/smogonLogic';
 import { psIDToSinglesTier as psIDToSinglesTier } from "../../../utils/smogonLogic";
 import PlannerPokemonIcon from "./PlannerPokemonIcon";
 import SelectionControls from "./SelectionControls";
@@ -48,6 +48,9 @@ const PlannerPokemonIcons = ({
   // Since Pokemon can learn Moves in multiple ways, we need to worry about duplicates. The keys of this object are Pokemon names, and the value is always 'true'; we only care about the keys.
   let seenPokemon: {[k: string]: boolean} = {};
 
+  console.log(icons?.tierFilter);
+  console.log(icons?.tierFilter.format);
+
   return (
     <div className={`planner-${context}__entry-icons`}>
       {/* Will only render anything for entries which could have icons. */}
@@ -74,7 +77,17 @@ const PlannerPokemonIcons = ({
           else seenPokemon[pokemonIconDatum.name] = true;
           
           // If tier is not selected, return
-          if (tier && !icons.tierFilter['tiers'][tier]) return;
+          console.log(tier);
+          if (tier && 
+            (isSinglesTier(tier) 
+              && icons.tierFilter.format === 'singles' 
+              && !icons.tierFilter.singlesTiers[tier]
+            ) || (
+              !isSinglesTier(tier)
+              && icons.tierFilter.format === 'doubles'
+              && !icons.tierFilter.doublesTiers[tier]
+            )
+          ) return;
 
           if (!validatePokemon(pokemonIconDatum, icons.pokemonFilter)) return;
 

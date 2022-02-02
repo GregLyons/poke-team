@@ -36,7 +36,7 @@ import UsageMethodPage from './Planner/UsageMethods/UsageMethodPage';
 
 import ControlPanel from './ControlPanel/ControlPanel';
 import { DEFAULT_GEN_FILTER, genReducer } from '../hooks/App/GenFilter';
-import { DEFAULT_SINGLES_TIER_FILTER, tierReducer } from '../hooks/App/TierFilter';
+import { DEFAULT_TIER_FILTER, tierReducer } from '../hooks/App/TierFilter';
 import { DEFAULT_POKEMON_FILTER, pokemonReducer } from '../hooks/App/PokemonFilter';
 import { cartReducer, DEFAULT_CART } from '../hooks/App/Cart';
 import { teamReducer } from '../hooks/App/Team';
@@ -44,7 +44,7 @@ import { teamReducer } from '../hooks/App/Team';
 
 function App() {
   const [genFilter, dispatchGenFilter] = useReducer(genReducer, DEFAULT_GEN_FILTER);
-  const [tierFilter, dispatchTierFilter] = useReducer(tierReducer, DEFAULT_SINGLES_TIER_FILTER);
+  const [tierFilter, dispatchTierFilter] = useReducer(tierReducer, DEFAULT_TIER_FILTER);
   const [pokemonFilter, dispatchPokemonFilter] = useReducer(pokemonReducer, DEFAULT_POKEMON_FILTER);
   const [cart, dispatchCart] = useReducer(cartReducer, DEFAULT_CART);
   const [team, dispatchTeam] = useReducer(teamReducer, []);

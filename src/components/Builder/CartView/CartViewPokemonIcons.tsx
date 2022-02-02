@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { psIDToDoublesTier, psIDToSinglesTier as psIDToSinglesTier } from "../../../utils/smogonLogic";
+import { isSinglesTier, psIDToDoublesTier, psIDToSinglesTier as psIDToSinglesTier } from "../../../utils/smogonLogic";
 import { CartAction } from "../../../hooks/App/Cart";
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { PokemonFilter, validatePokemon } from "../../../hooks/App/PokemonFilter";
@@ -49,7 +49,16 @@ const CartViewPokemonIcons = ({
         else seenPokemon[name] = true;
         
         // If tier is not selected, return
-        if (tier && !tierFilter['tiers'][tier]) return;
+        if (tier && 
+          (isSinglesTier(tier) 
+            && tierFilter.format === 'singles' 
+            && !tierFilter.singlesTiers[tier]
+          ) || (
+            !isSinglesTier(tier)
+            && tierFilter.format === 'doubles'
+            && !tierFilter.doublesTiers[tier]
+          )
+        ) return;
 
         if (!validatePokemon(pokemonIconDatum, pokemonFilter)) return;
 

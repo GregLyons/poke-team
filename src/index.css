@@ -55,8 +55,19 @@ body {
   color: var(--light1);
 }
 
+/* Overwrite old link styles */
 a, a:visited, a:hover, a:active {
   color: inherit;
+}
+
+/* Remove default button styling */
+button {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	outline: inherit;
 }
 
 .app {
