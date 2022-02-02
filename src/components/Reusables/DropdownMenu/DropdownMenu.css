@@ -29,6 +29,7 @@
   overflow: hidden;
   width: inherit;
   background-color: var(--dark2);
+  z-index: 10;
 }
 
 .dropdown__options {

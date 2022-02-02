@@ -8,7 +8,7 @@ import {
 import { GenFilter, GenFilterAction } from "../../../hooks/App/GenFilter";
 import Slider from "../../Reusables/Slider/Slider";
 
-import './GenFilter.css';
+import './GenFilterForm.css';
 
 type GenFilterFormProps = {
   genFilter: GenFilter,
@@ -23,6 +23,11 @@ const GenFilterForm = ({
       type: 'set_gen',
       payload: { gen: stringToGenNumber(e.target.value), },
     });
+  }
+
+  const onBlur = (e: React.FocusEvent<HTMLInputElement, Element>) => {
+    const value = parseInt(e.target.value, 10);
+    if (!isNaN(value)) handleGenSelect(e);
   }
 
   const onIncrement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -65,6 +70,7 @@ const GenFilterForm = ({
             max={NUMBER_OF_GENS}
             value={genFilter.gen}
             onChange={handleGenSelect}
+            onBlur={onBlur}
             onIncrement={onIncrement}
             onDecrement={onDecrement}
             onLeft={false}

@@ -12,7 +12,7 @@ type Item<F> = {
 type DropdownMenuProps<E extends Item<F>, F> = {
   title: string
   items: E[]
-  toggleSelect: (id: F) => void
+  toggleSelect?: (id: F) => void
   dropdownWidth: number | string
   itemWidth: number | string
 }
@@ -113,7 +113,7 @@ function DropdownMenu<E extends Item<F>, F>({
                 key={`${title}_${item.id}`}
                 onClick={e => {
                   e.preventDefault();
-                  toggleSelect(item.id);
+                  toggleSelect && toggleSelect(item.id);
                 }}
               >
                 {item.label}

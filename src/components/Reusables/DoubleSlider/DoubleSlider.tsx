@@ -1,17 +1,23 @@
 import { useState } from "react";
 import DoubleSliderBase from "./DoubleSliderBase"
-import '../Forms.css';
+import './DoubleSlider.css';
+import NumericalInput from "../NumericalInput/NumericalInput";
 
 type DoubleSliderProps = {
   min: number
   minValue: number
   onMinChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   onMinBlur: (e: React.FocusEvent<HTMLInputElement, Element>) => void
+  onMinIncrement: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onMinDecrement: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+
 
   max: number
   maxValue: number
   onMaxChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   onMaxBlur: (e: React.FocusEvent<HTMLInputElement, Element>) => void
+  onMaxIncrement: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onMaxDecrement: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 
   sliderWidth?: number | string
 }
@@ -21,47 +27,64 @@ const DoubleSlider = ({
   minValue,
   onMinChange,
   onMinBlur,
-
+  onMinIncrement,
+  onMinDecrement,
+  
   max,
   maxValue,
   onMaxBlur,
   onMaxChange,
+  onMaxIncrement,
+  onMaxDecrement,
 
   sliderWidth = '200px',
 }: DoubleSliderProps) => {
   const [minFocused, setMinFocused] = useState(false);
-  const [minNumber, setMinNumber] = useState(0);
+  const [minNumber, setMinNumber] = useState(min);
   const [maxFocused, setMaxFocused] = useState(false);
   const [maxNumber, setMaxNumber] = useState(255);
+
+  // Update minNumber so that value is reflected in input
+  const onMinFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
+    const value = parseInt(e.target.value, 10);
+    if (isNaN(value)) setMinNumber(0);
+    else setMinNumber(value);
+    setMinFocused(true);
+  }
+
+  // Update maxNumber so that value is reflected in input
+  const onMaxFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
+    const value = parseInt(e.target.value, 10);
+    if (isNaN(value)) setMaxNumber(255);
+    else setMaxNumber(value);
+    setMaxFocused(true);
+  }
   
   return (
     <div className="double-slider__wrapper">
-      <input
-        className="double-slider__input double-slider__input--left"
-        type="number"
-        // If the user is focused on the input, the value is equal to whatever they are typing in. Only once focus is lost will minValue itself will update. 
+      <NumericalInput
+        min={min}
+        max={max}
         value={minFocused
           ? minNumber
           : minValue}
-        // Update minNumber so that value is reflected in input
+
         onChange={(e) => {
           const value = parseInt(e.target.value, 10);
           if (isNaN(value)) setMinNumber(0);
           else setMinNumber(value);
           setMinNumber(value);
         }}
-        // When user is not focused, the displayed number will be minValue. Once the user focuses, reset min number to equal minValue so that the displayed number does not change.
-        onFocus={(e) => {
-          const value = parseInt(e.target.value, 10);
-          if (isNaN(value)) setMinNumber(0);
-          else setMinNumber(value);
-          setMinFocused(true)
-        }}
+        onFocus={onMinFocus}
         // Update minValue
         onBlur={(e) => {
           setMinFocused(false);
           onMinBlur(e);
         }}
+        onIncrement={onMinIncrement}
+        onDecrement={onMinDecrement}
+
+        width={3}
       />
       <DoubleSliderBase 
         min={min}
@@ -72,32 +95,29 @@ const DoubleSlider = ({
         onMaxChange={onMaxChange}
         sliderWidth={sliderWidth}
       />
-      <input
-        className="double-slider__input double-slider__input--right"
-        type="number" 
-        // If the user is focused on the input, the value is equal to whatever they are typing in. Only once focus is lost will maxValue itself will update. 
+      <NumericalInput
+        min={min}
+        max={max}
         value={maxFocused
           ? maxNumber
           : maxValue}
-        // Update maxNumber so that value is reflected in input
+
         onChange={(e) => {
           const value = parseInt(e.target.value, 10);
           if (isNaN(value)) setMaxNumber(255);
           else setMaxNumber(value);
           setMaxNumber(value);
         }}
-        // When user is not focused, the displayed number will be maxValue. Once the user focuses, reset max number to equal maxValue so that the displayed number does not change.
-        onFocus={(e) => {
-          const value = parseInt(e.target.value, 10);
-          if (isNaN(value)) setMaxNumber(255);
-          else setMaxNumber(value);
-          setMaxFocused(true)
-        }}
-        // Update maxValue
+        onFocus={onMaxFocus}
         onBlur={(e) => {
           setMaxFocused(false);
           onMaxBlur(e);
         }}
+        onIncrement={onMaxIncrement}
+        onDecrement={onMaxDecrement}
+
+        onLeft={false}
+        width={3}
       />
     </div>
   )

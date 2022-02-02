@@ -1,36 +1,37 @@
-.tier-filter__wrapper {
-  grid-row: 1 / 2;
-  grid-column: 2 / 3;
+.pokemon-filter__wrapper {
 
   background-color: var(--dark1);
   box-shadow: var(--control-shadow);
   border-radius: 15px;
   
   width: 95%;
-  height: 90%;
+  height: 96%;
 
   justify-self: center;
   align-self: center;
 
   display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr 2fr;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr;
 }
 
-/* Buttons */
-/* #region */
-
-.tier-filter__buttons {
+.pokemon-filter__type-filter-wrapper {
   grid-row: 1 / 2;
   grid-column: 1 / 2;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
-.tier-filter__button {
+.pokemon-filter__stat-filter-wrapper {
+  grid-row: 2 / 3;
+  grid-column: 1 / 2;
+
+  position: relative;
+  overflow-y: scroll;
+}
+
+/* Type select */
+/* #region */
+
+.pokemon-filter__button {
   position: relative;
   font-family: var(--monospace);;
   padding: 0.25rem;
@@ -38,16 +39,16 @@
   transition: 0.2s ease-in;
 }
 
-.tier-filter__button--active {
+.pokemon-filter__button--active {
   color: var(--blue1);
 }
 
-.tier-filter__button:hover:enabled {
+.pokemon-filter__button:hover:enabled {
   cursor: pointer;
   box-shadow: var(--button-shadow);
 }
 
-.tier-filter__button:disabled {
+.pokemon-filter__button:disabled {
   color: var(--dark1);
 }
 
@@ -55,7 +56,7 @@
 /* #region */
 
 /* Set up triangle--invisible until hovered or active */
-.tier-filter__button:enabled::before {
+.pokemon-filter__button:enabled::before {
   content: "";
   position: absolute;
   left: -0.25rem;
@@ -70,35 +71,38 @@
 }
 
 /* Active: blue */
-.tier-filter__button--active:enabled::before {
+.pokemon-filter__button--active:enabled::before {
   border-left-color: var(--blue1);
   opacity: 1;
 }
 
 /* Inactive, hover: blue */
-.tier-filter__button:hover:enabled::before {
+.pokemon-filter__button:hover:enabled::before {
   border-left-color: var(--blue1);
   opacity: 1;
 }
 
 /* Active, hover: white */
-.tier-filter__button--active:hover:enabled::before {
+.pokemon-filter__button--active:hover:enabled::before {
   border-left-color: var(--light1);
   opacity: 1;
 }
 
 /* #endregion */
 
-/* #endregion */
 
-/* Tier select */
 /* #region */
 
-.tier-filter__select {
-  grid-row: 1 / 2;
-  grid-column: 2 / 3;
+.base-stats__wrapper {
+  display: flex;
+  flex-direction: column;
+}
 
-  align-self: center;
+.pokemon-filter__stat-wrapper {
+  border: 1px solid white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* #endregion */

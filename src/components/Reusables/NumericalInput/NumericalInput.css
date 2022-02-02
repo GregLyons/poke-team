@@ -1,0 +1,96 @@
+/* Remove default appearance */
+/* #region */
+
+.numerical-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.numerical-input,
+.numerical-input:focus {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+
+  border: none;
+  outline: none;
+  background: none;
+}
+
+/* #endregion */
+
+/* Text input */
+/* #region */
+
+.numerical-input__wrapper {
+  display: flex;
+}
+
+.numerical-input {
+  font-size: 1.25rem;
+  font-family: var(--monospace);
+
+  color: var(--blue1)
+}
+
+.numerical-input {
+  margin-left: 0.5rem;
+  margin-right: 0.25rem;
+
+  transition: 0.2s ease-in;
+}
+
+.numerical-input:focus,
+.numerical-input:hover {
+  box-shadow: var(--button-shadow);
+}
+
+/* #endregion */
+
+/* Increment/decrement arrows *?
+/* #region */
+
+.numerical-input__arrow-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.numerical-input__up-arrow {
+  position: absolute;
+  top: 3px;
+
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid var(--blue1);
+}
+
+.numerical-input__up-arrow:hover {
+  filter: brightness(1.2);
+}
+
+.numerical-input__down-arrow {
+  position: absolute;
+  bottom: 3px;
+
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--blue1);
+}
+
+.numerical-input__down-arrow:hover {
+  filter: brightness(1.2);
+}
+
+/* #endregion */

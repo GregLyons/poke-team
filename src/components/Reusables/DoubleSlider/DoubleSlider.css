@@ -1,0 +1,113 @@
+/* Double slider base */
+/* #region */
+
+.double-slider__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.double-slider {
+  position: relative;
+  width: inherit;
+}
+
+.double-slider__track,
+.double-slider__range {
+  position: absolute;
+}
+
+.double-slider__track,
+.double-slider__range {
+  border-radius: 3px;
+  height: 5px;
+}
+
+.double-slider__track {
+  background-color: #ced4da;
+  width: 100%;
+  z-index: 1;
+}
+
+.double-slider__range {
+  background-color: #9fe5e1;
+  z-index: 2;
+}
+
+/* Removing the default appearance */
+.double-slider__thumb,
+.double-slider__thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.double-slider__thumb {
+  pointer-events: none;
+  position: absolute;
+  height: 0;
+  width: inherit;
+  outline: none;
+}
+
+.double-slider__thumb--zindex-3 {
+  z-index: 3;
+}
+
+.double-slider__thumb--zindex-4 {
+  z-index: 4;
+}
+
+.double-slider__thumb--zindex-5 {
+  z-index: 5;
+}
+
+/* For Chrome browsers */
+.double-slider__thumb::-webkit-slider-thumb {
+  background-color: #f1f5f7;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 1px 1px #ced4da;
+  cursor: pointer;
+  height: 18px;
+  width: 18px;
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+}
+
+/* For Firefox browsers */
+.double-slider__thumb::-moz-range-thumb {
+  background-color: #f1f5f7;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 1px 1px #ced4da;
+  cursor: pointer;
+  height: 18px;
+  width: 18px;
+  margin-top: 4px;
+  pointer-events: all;
+  position: relative;
+}
+
+/* #endregion */
+
+/* Double slider */
+/* #region */
+
+.double-slider__wrapper {
+  display: flex;
+}
+
+.double-slider__input {
+  width: 3rem;
+}
+
+.double-slider__input--left {
+  margin-right: 0.5rem;
+}
+
+.double-slider__input--right {
+  margin-left: 0.5rem;
+}
+
+/* #endregion */

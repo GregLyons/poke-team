@@ -1,4 +1,4 @@
-import './TierFilter.css';
+import './TierFilterForm.css';
 
 import { TierFilter, TierFilterAction } from "../../../hooks/App/TierFilter";
 import {
@@ -142,14 +142,14 @@ const TierFilterForm = ({
                 title={'SELECT TIERS'}
                 items={singlesItems}
                 toggleSelect={handleTierSelect}
-                dropdownWidth={'clamp(10vw, 20ch, 15%)'}
+                dropdownWidth={'clamp(10vw, 35ch, 80%)'}
                 itemWidth={'5ch'}
               />
             : <DropdownMenu 
               title={'SELECT TIERS'}
               items={doublesItems}
               toggleSelect={handleTierSelect}
-              dropdownWidth={'clamp(10vw, 20ch, 15%)'}
+              dropdownWidth={'clamp(10vw, 35ch, 80%)'}
               itemWidth={'6ch'}
             />
           }
