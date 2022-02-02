@@ -1,13 +1,23 @@
 import { useEffect, useRef, useState } from "react";
+import { GenFilter } from "../App/GenFilter";
+import { PokemonFilter } from "../App/PokemonFilter";
+import { TierFilter } from "../App/TierFilter";
 
 /* 
   Once the entry expands to its scroll height, its scroll height then increases slightly. Thus, if we modify our selection, the component will re-render with the new, slightly increased scroll height, and the effect is that the height increases slightly whenever we click on a selection. 
   
   Thus, for the in-line style, we set the expand-height equal to the *original* scroll height.
 
-  The one caveat is that we need to update the "original" scroll height when the window resizes, as this resize will shift the contents around, changing the necessary scroll height.
+  The one caveat is that we need to also update the scroll height whenever one of the following changes:
+    - The window dimensions (shrinking the window leads to more rows, which should increase the scroll height)
+    - The various filters (gen, tier, Pokemon), as they change the number of icons present.
 */
-export const useEntryExpand = (entryRef: React.RefObject<HTMLDivElement>) => {
+export const useEntryExpand = (
+  entryRef: React.RefObject<HTMLDivElement>,
+  genFilter?: GenFilter,
+  tierFilter?: TierFilter,
+  pokemonFilter?: PokemonFilter
+) => {
   const [originalScrollHeight, setOriginalScrollHeight] = useState<null|number>(null);
   const [hover, setHover] = useState(false);
   const [expand, setExpand] = useState(false);
@@ -16,8 +26,8 @@ export const useEntryExpand = (entryRef: React.RefObject<HTMLDivElement>) => {
 
   // Needs to run on window resize as well. 
   useEffect(() => {
-    if (entryRef.current) setOriginalScrollHeight(entryRef.current.scrollHeight)
-  }, [entryRef, setOriginalScrollHeight, window.innerWidth, window.innerHeight]);
+    setTimeout(() => entryRef.current && setOriginalScrollHeight(entryRef.current.scrollHeight));
+  }, [entryRef, setOriginalScrollHeight, window.innerWidth, window.innerHeight, genFilter, tierFilter, pokemonFilter]);
 
   // Set 'hover' immediately, set 'expand' after the user hovers for a certain amount of time
   function onMouseEnter() {

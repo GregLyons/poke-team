@@ -8,15 +8,21 @@ import {
   SINGLES_TIERS,
 } from "../../../utils/smogonLogic";
 import DropdownMenu from "../../Reusables/Dropdown";
+import { GenFilter, GenFilterAction } from '../../../hooks/App/GenFilter';
 
 type TierFilterFormProps = {
-  dispatchTierFilter: React.Dispatch<TierFilterAction>
+  genFilter: GenFilter
+  dispatchGenFilter: React.Dispatch<GenFilterAction>
+
   tierFilter: TierFilter
+  dispatchTierFilter: React.Dispatch<TierFilterAction>
 }
 
 const TierFilterForm = ({
-  dispatchTierFilter,
+  genFilter,
+  dispatchGenFilter,
   tierFilter,
+  dispatchTierFilter,
 }: TierFilterFormProps) => {
 
   const toggleSelect = (tier: SinglesTier | DoublesTier) => {
@@ -24,28 +30,53 @@ const TierFilterForm = ({
       type: 'toggle_tier',
       payload: tier,
     });
-  }
+  };
+
+  const handleFormatSelect = (format: 'singles' | 'doubles') => {
+    dispatchTierFilter({
+      type: 'set_format',
+      payload: format,
+    })
+  };
 
   return (
     <div className="tier-filter__wrapper">
       <form>
-        <label htmlFor="Select whether you're playing 'Singles' or 'Doubles'.">
-          Format:
-          <select
-            name="format"
-            value={tierFilter.format === 'singles' ? 'singles' : 'doubles'}
-            onChange={(e) => {
-              dispatchTierFilter({
-                type: 'set_format',
-                payload: (e.target.value as 'singles' | 'doubles'),
-              });
-            }}
-          >
-            <option value="singles">Singles</option>
-            <option value="doubles">Doubles</option>
-          </select>
-        </label>
-        <label htmlFor="Select the tiers in the given format.">
+        <div className="tier-filter__buttons">
+          <label htmlFor="singles">
+            <button
+              className={`
+                tier-filter__button
+                ${tierFilter.format === 'singles' 
+                  ? 'tier-filter__button--active'
+                  : ''
+                }
+              `}
+              onClick={(e) => {
+                e.preventDefault();
+                handleFormatSelect('singles')
+              }}
+            >
+              SINGLES
+            </button>
+            <button
+              className={`
+                tier-filter__button
+                ${tierFilter.format === 'doubles' 
+                  ? 'tier-filter__button--active'
+                  : ''
+                }
+              `}
+              onClick={(e) => {
+                e.preventDefault();
+                handleFormatSelect('doubles')
+              }}
+            >
+              DOUBLES
+            </button>
+          </label>
+        </div>
+        {/* <label htmlFor="Select the tiers in the given format.">
           <DropdownMenu 
             title="Select tiers"
             items={tierFilter.format === 'singles'
@@ -88,41 +119,7 @@ const TierFilterForm = ({
               })}
             toggleSelect={toggleSelect}
           />
-          {/* Tiers:
-          <select
-            name="tiers"
-            onChange={(e) => {
-              console.log(e.target.value);
-              dispatchTierFilter({
-                type: 'toggle_tier',
-                payload: (e.target.value as SinglesTier | DoublesTier),
-              });
-            }}
-            multiple
-          >
-            {tierFilter.format === 'singles' 
-              ? SINGLES_TIERS.map(tier => {
-                return (
-                  <option
-                    value={tier}
-                    selected={tierFilter.tiers[tier]}
-                  >
-                    {tier}
-                  </option>
-                )
-              })
-              : DOUBLES_TIERS.map(tier => {
-                return (
-                  <option
-                    value={tier}
-                    selected={tierFilter.tiers[tier]}
-                  >
-                    {tier}
-                  </option>
-                )
-              })}
-          </select> */}
-        </label>
+        </label> */}
       </form>
     </div>
   )

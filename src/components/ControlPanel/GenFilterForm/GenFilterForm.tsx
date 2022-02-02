@@ -82,10 +82,10 @@ const GenFilterForm = ({
                 : 'Click to include Pokemon removed from SwSh.'
             }
             className={`
-            gen-filter__button 
-            ${genFilter.includeRemovedFromSwSh && genFilter.gen === 8 
-              ? ''
-              : 'gen-filter__button--active'}
+              gen-filter__button 
+              ${genFilter.includeRemovedFromSwSh && genFilter.gen === 8 
+                ? ''
+                : 'gen-filter__button--active'}
             `}
             onClick={handleSwShSelect}
             disabled={genFilter.gen !== 8}

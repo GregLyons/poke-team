@@ -45,7 +45,7 @@ const ConnectionAccordionEntry = ({
   // Default height
   const entryHeight = "6rem";
   
-  const { hover, expand, expandListeners, originalScrollHeight, } = useEntryExpand(entryRef);
+  const { hover, expand, expandListeners, originalScrollHeight, } = useEntryExpand(entryRef, icons?.genFilter, icons?.tierFilter, icons?.pokemonFilter);
 
   // #endregion
 

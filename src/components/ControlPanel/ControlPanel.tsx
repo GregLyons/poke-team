@@ -49,6 +49,8 @@ const ControlPanel = ({
         dispatchGenFilter={dispatchGenFilter}
       />
       <TierFilterForm
+        genFilter={genFilter}
+        dispatchGenFilter={dispatchGenFilter}
         tierFilter={tierFilter}
         dispatchTierFilter={dispatchTierFilter}
       />

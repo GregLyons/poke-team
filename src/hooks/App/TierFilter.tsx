@@ -2,7 +2,6 @@ import { DoublesTier, DOUBLES_TIERS, SinglesTier, SINGLES_TIERS } from "../../ut
 
 export type TierFilter = {
   format: 'singles' | 'doubles'
-  selectionMode: 'exact' | 'range'
   tiers: {
     [tierName in SinglesTier | DoublesTier]: boolean
   }
@@ -10,7 +9,6 @@ export type TierFilter = {
 
 export const DEFAULT_SINGLES_TIER_FILTER: TierFilter = {
   format: 'singles',
-  selectionMode: 'exact',
   tiers: {
     // Singles tiers
     AG: true,
@@ -38,7 +36,6 @@ export const DEFAULT_SINGLES_TIER_FILTER: TierFilter = {
 
 export const DEFAULT_DOUBLES_TIER_FILTER: TierFilter = {
   format: 'doubles',
-  selectionMode: 'exact',
   tiers: {
     // Singles tiers
     AG: false,
@@ -84,10 +81,6 @@ export type TierFilterAction =
     }
   }
 | {
-    type: 'set_selection_mode',
-    payload: 'exact' | 'range',
-  }
-| {
     type: 'set_format',
     payload: 'singles' | 'doubles',
   };
@@ -113,12 +106,6 @@ export function tierReducer(state: TierFilter, action: TierFilterAction): TierFi
       return {
         ...state,
         format: action.payload,
-      }
-
-    case 'set_selection_mode':
-      return {
-        ...state,
-        selectionMode: action.payload,
       }
 
     case 'select_range_singles': 
