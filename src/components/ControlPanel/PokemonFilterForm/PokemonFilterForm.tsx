@@ -2,7 +2,7 @@ import { useState } from "react";
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { BASE_STAT_NAMES, PokemonFilter, PokemonFilterAction, TYPE_NAMES } from "../../../hooks/App/PokemonFilter";
 import { BaseStatName, toAbbreviatedBaseStatName, toFormattedTypeName, TypeName } from "../../../types-queries/helpers";
-import DoubleSlider from "../../Reusables/DoubleSlider";
+import DoubleSlider from "../../Reusables/DoubleSlider/DoubleSlider";
 
 import '../ControlPanel.css';
 

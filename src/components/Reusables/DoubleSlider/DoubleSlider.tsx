@@ -1,6 +1,6 @@
 import { useState } from "react";
 import DoubleSliderBase from "./DoubleSliderBase"
-import './Forms.css';
+import '../Forms.css';
 
 type DoubleSliderProps = {
   min: number

@@ -47,7 +47,7 @@ import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import { listRenderStatAbility, listRenderStatFieldState, listRenderStatItem, listRenderStatMove } from './StatConnections';
 import AuxEntityDescription from '../Pages/AuxEntityDescription';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
-import Accordion from '../../Reusables/Accordion';
+import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 
 type StatPageProps = {

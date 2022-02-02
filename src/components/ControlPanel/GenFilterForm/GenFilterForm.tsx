@@ -6,7 +6,7 @@ import {
   stringToGenNumber,
 } from "../../../types-queries/helpers";
 import { GenFilter, GenFilterAction } from "../../../hooks/App/GenFilter";
-import Slider from "../../Reusables/Slider";
+import Slider from "../../Reusables/Slider/Slider";
 
 import './GenFilter.css';
 
@@ -39,13 +39,15 @@ const GenFilterForm = ({
     });
   }
 
-  const handleSwShSelect = () => {
+  const handleSwShSelect = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.preventDefault();
     dispatchGenFilter({
       type: 'toggle_swsh'
     });
   }
 
-  const handleBDSPSelect = () => {
+  const handleBDSPSelect = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.preventDefault();
     dispatchGenFilter({
       type: 'toggle_bdsp'
     });

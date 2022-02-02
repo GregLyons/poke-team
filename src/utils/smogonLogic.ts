@@ -20,7 +20,7 @@ export type DoublesTier = 'DUber' | 'DOU' | 'DBL' | 'DUU' | 'DNFE' | 'DLC';
 export const DOUBLES_TIERS: DoublesTier[] = ['DUber', 'DOU', 'DBL', 'DUU', 'DNFE', 'DLC'];
 
 export function isSinglesTier(tier: SinglesTier | DoublesTier): tier is SinglesTier {
-  return (tier as SinglesTier) !== undefined;
+  return ['AG', 'Uber', 'OU', 'UUBL', 'UU', 'RUBL', 'RU', 'NUBL', 'NU', 'PUBL', 'PU', 'NFE', 'LC'].includes(tier);
 }
 
 // #endregion

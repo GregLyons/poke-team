@@ -1,4 +1,4 @@
-import NumericalInput from "./NumericalInput";
+import NumericalInput from "../NumericalInput";
 import SliderBase from "./SliderBase";
 
 type SliderProps = {

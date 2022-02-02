@@ -48,9 +48,6 @@ const PlannerPokemonIcons = ({
   // Since Pokemon can learn Moves in multiple ways, we need to worry about duplicates. The keys of this object are Pokemon names, and the value is always 'true'; we only care about the keys.
   let seenPokemon: {[k: string]: boolean} = {};
 
-  console.log(icons?.tierFilter);
-  console.log(icons?.tierFilter.format);
-
   return (
     <div className={`planner-${context}__entry-icons`}>
       {/* Will only render anything for entries which could have icons. */}
@@ -77,7 +74,6 @@ const PlannerPokemonIcons = ({
           else seenPokemon[pokemonIconDatum.name] = true;
           
           // If tier is not selected, return
-          console.log(tier);
           if (tier && 
             (isSinglesTier(tier) 
               && icons.tierFilter.format === 'singles' 

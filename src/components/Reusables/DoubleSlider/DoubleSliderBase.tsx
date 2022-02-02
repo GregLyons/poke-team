@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, } from "react";
-import './Forms.css';
+import '../Forms.css';
 
 type DoubleSliderBaseProps = {
   min: number

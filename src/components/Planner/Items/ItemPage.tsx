@@ -63,7 +63,7 @@ import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import MainEntityDescriptionTable from '../Pages/MainEntityDescriptionTable';
 import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 import { TierFilter } from '../../../hooks/App/TierFilter';
-import Accordion from '../../Reusables/Accordion';
+import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 
 type ItemPageProps = {

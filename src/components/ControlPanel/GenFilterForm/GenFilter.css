@@ -45,15 +45,9 @@
 }
 
 .gen-filter__button {
-  /* Override old button styles */
-	background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	outline: inherit;
+  position: relative;
 
-  font-family: var(--monospace);;
+  font-family: var(--monospace);
 
   padding: 0.25rem;
 
@@ -64,11 +58,49 @@
   color: var(--blue1);
 }
 
+.gen-filter__button:disabled {
+  color: var(--dark1);
+}
+
 .gen-filter__button:hover:enabled {
   cursor: pointer;
   box-shadow: var(--button-shadow);
 }
 
-.gen-filter__button:disabled {
-  color: var(--dark1);
+/* Triangle logic */
+/* #region */
+
+/* Set up triangle--invisible until hovered or active */
+.gen-filter__button:enabled::before {
+  content: "";
+  position: absolute;
+  left: -0.25rem;
+  top: 0.6rem;
+  width: 0;
+  height: 0;
+  border-top: 0.25rem solid transparent;
+  border-bottom: 0.25rem solid transparent;
+  border-left: 0.25rem solid transparent;
+  transition: 0.1s ease-in;
+  opacity: 0;
 }
+
+/* Active: blue */
+.gen-filter__button--active:enabled::before {
+  border-left-color: var(--blue1);
+  opacity: 1;
+}
+
+/* Inactive, hover: blue */
+.gen-filter__button:hover:enabled::before {
+  border-left-color: var(--blue1);
+  opacity: 1;
+}
+
+/* Active, hover: white */
+.gen-filter__button--active:hover:enabled::before {
+  border-left-color: var(--light1);
+  opacity: 1;
+}
+
+/* #endregion */

@@ -54,7 +54,7 @@ import {
 
 import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import MainEntityDescriptionTable from '../Pages/MainEntityDescriptionTable';
-import Accordion from '../../Reusables/Accordion';
+import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 import { TeamAction } from '../../../hooks/App/Team';
 import { CartAction } from '../../../hooks/App/Cart';
