@@ -29,6 +29,13 @@
   /* Reds */
   --red1: #D10056;
   --red3: #585151;
+
+  /* Fonts */
+  --monospace: monospace;
+
+  /* Other stylings */
+  --button-shadow: inset 0px -5px 1px 0 rgba(0, 0, 0, 0.2);
+  --control-shadow: inset 3px 3px rgba(0,0,0,0.2);
 }
 
 body {

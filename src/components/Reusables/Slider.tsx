@@ -24,7 +24,7 @@ const Slider = ({
   onIncrement,
   onDecrement,
   onLeft = true,
-  sliderWidth = '200px',
+  sliderWidth = '150px',
   numericalWidth,
 }: SliderProps) => {
   return (

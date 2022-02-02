@@ -1,0 +1,14 @@
+.tier-filter__wrapper {
+  grid-row: 1 / 2;
+  grid-column: 2 / 3;
+
+  background-color: var(--dark1);
+  box-shadow: var(--control-shadow);
+  border-radius: 15px;
+  
+  width: 95%;
+  height: 90%;
+
+  justify-self: center;
+  align-self: center;
+}

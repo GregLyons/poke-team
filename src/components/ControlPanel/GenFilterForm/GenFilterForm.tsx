@@ -8,6 +8,8 @@ import {
 import { GenFilter, GenFilterAction } from "../../../hooks/App/GenFilter";
 import Slider from "../../Reusables/Slider";
 
+import './GenFilter.css';
+
 type GenFilterFormProps = {
   genFilter: GenFilter,
   dispatchGenFilter: React.Dispatch<GenFilterAction>
@@ -37,60 +39,81 @@ const GenFilterForm = ({
     });
   }
 
-  const handleSwShSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSwShSelect = () => {
     dispatchGenFilter({
       type: 'toggle_swsh'
     });
   }
 
-  const handleBDSPSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBDSPSelect = () => {
     dispatchGenFilter({
       type: 'toggle_bdsp'
     });
   }
 
-  console.log(genFilter.gen);
-
   return (
-    <div className="control-panel__gen-slider-wrapper"
-      style={{
-        backgroundColor: "black"
-      }}
+    <div className="gen-filter__wrapper"
     >
-      <label htmlFor="select generation">
-        <Slider
-          min={1}
-          max={NUMBER_OF_GENS}
-          value={genFilter.gen}
-          onChange={handleGenSelect}
-          onIncrement={onIncrement}
-          onDecrement={onDecrement}
-          onLeft={false}
-          sliderWidth={'150px'}
-          numericalWidth={1}
-        />
-      </label>
-      <label htmlFor="select only moves and Pokemon in SwSh">
-        <input
-          type="checkbox"
-          title={genFilter.gen !== 8 ? 'Irrelevant for other Gens' : 'Show only moves and Pokemon who are present in Sw/Sh in searches.'}
-          checked={!genFilter.includeRemovedFromSwSh}
-          onChange={handleSwShSelect}
-          disabled={genFilter.gen !== 8}
-        />
-        Sw/Sh only
-      </label>
-      <label htmlFor="select only moves and Pokemon in BDSP">
-        <input
-          type="checkbox"
-          title={genFilter.gen !== 8 ? 'Irrelevant for other Gens' : 'Show only moves and Pokemon who are present in BD/SP in searches.'}
-          checked={!genFilter.includeRemovedFromBDSP}
-          onChange={handleBDSPSelect}
-          disabled={genFilter.gen !== 8}
-        />
-        BD/SP only
-      </label>
-      
+      <div className="gen-filter__slider">
+        <div className="gen-filter__label">
+          GEN
+        </div>
+        <label htmlFor="select generation">
+          <Slider
+            min={1}
+            max={NUMBER_OF_GENS}
+            value={genFilter.gen}
+            onChange={handleGenSelect}
+            onIncrement={onIncrement}
+            onDecrement={onDecrement}
+            onLeft={false}
+            sliderWidth={"clamp(75px, 7.5vw, 150px"}
+            numericalWidth={1}
+          />
+        </label>
+      </div>
+      <div className="gen-filter__buttons">
+        <label htmlFor="select only moves and Pokemon in SwSh">
+          <button
+            title={genFilter.gen !== 8 
+              ? ''
+              : genFilter.includeRemovedFromSwSh 
+                ? 'Click to filter out Pokemon absent in SwSh.'
+                : 'Click to include Pokemon removed from SwSh.'
+            }
+            className={`
+            gen-filter__button 
+            ${genFilter.includeRemovedFromSwSh && genFilter.gen === 8 
+              ? ''
+              : 'gen-filter__button--active'}
+            `}
+            onClick={handleSwShSelect}
+            disabled={genFilter.gen !== 8}
+          >
+            Sw/Sh
+          </button>
+        </label>
+        <label htmlFor="select only moves and Pokemon in BDSP">
+          <button
+            title={genFilter.gen !== 8 
+              ? ''
+              : genFilter.includeRemovedFromBDSP 
+                ? 'Click to filter out Pokemon absent in BDSP.'
+                : 'Click to include Pokemon removed from BDSP.'
+            }
+            className={`
+            gen-filter__button 
+            ${genFilter.includeRemovedFromBDSP && genFilter.gen === 8 
+              ? ''
+              : 'gen-filter__button--active'}
+            `}
+            onClick={handleBDSPSelect}
+            disabled={genFilter.gen !== 8}
+          >
+            BD/SP
+          </button>
+        </label>
+      </div>
     </div>
   );
 };

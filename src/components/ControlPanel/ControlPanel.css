@@ -3,8 +3,6 @@
 .control-panel__wrapper {
   position: sticky;
 
-  border: 1px solid white;
-
   width: 100%;
   
   display: grid;
@@ -12,19 +10,7 @@
   grid-template-rows: 1fr 2fr;
 }
 
-.control-panel__gen-slider-wrapper {
-  border: 1px solid white;
 
-  grid-row: 1 / 2;
-  grid-column: 1 / 2;
-}
-
-.control-panel__tier-filter-wrapper {
-  border: 1px solid white;
-
-  grid-row: 1 / 2;
-  grid-column: 2 / 3;
-}
 
 .control-panel__pokemon-filter-wrapper {
   border: 1px solid white;

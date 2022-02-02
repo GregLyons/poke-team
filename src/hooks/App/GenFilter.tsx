@@ -47,10 +47,12 @@ export function genReducer(state: GenFilter, action: GenFilterAction) {
       return {
         ...state,
         includeRemovedFromSwSh: !state.includeRemovedFromSwSh,
+        includeRemovedFromBDSP: true,
       };
     case 'toggle_bdsp':
       return {
         ...state,
+        includeRemovedFromSwSh: true,
         includeRemovedFromBDSP: !state.includeRemovedFromBDSP,
       };
     default:

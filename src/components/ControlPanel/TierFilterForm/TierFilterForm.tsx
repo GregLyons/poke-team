@@ -1,3 +1,5 @@
+import './TierFilter.css';
+
 import { TierFilter, TierFilterAction } from "../../../hooks/App/TierFilter";
 import {
   DoublesTier,
@@ -25,7 +27,7 @@ const TierFilterForm = ({
   }
 
   return (
-    <div className="control-panel__tier-filter-wrapper">
+    <div className="tier-filter__wrapper">
       <form>
         <label htmlFor="Select whether you're playing 'Singles' or 'Doubles'.">
           Format:

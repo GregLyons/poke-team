@@ -90,7 +90,7 @@
 
 .numerical-input {
   font-size: 1.25rem;
-  font-family: monospace;
+  font-family: var(--monospace);;
   text-decoration: underline;
 
   color: var(--blue1)
@@ -109,12 +109,12 @@
 .numerical-input {
   margin-left: 0.5rem;
   margin-right: 0.25rem;
-  
+
   transition: 0.2s ease-in;
 }
 
 .numerical-input__wrapper:hover {
-  box-shadow: inset 0px -5px 1px 0 rgba(0,0,0,0.2);
+  box-shadow: var(--button-shadow);
 }
 
 /* #endregion */
@@ -203,20 +203,15 @@
 /* #region */
 
 .slider__wrapper {
+  grid-row: 1 / 3;
+  grid-column: 1 / 2;
   display: flex;
 
-  background-color: var(--dark1);
-  width: 60%;
+  width: 100%;
   height: 30px;
-
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
 
   justify-content: center;
   align-items: center;
-
-  box-shadow: inset 3px 3px rgba(0,0,0,0.2);
-  border-radius: 15px;
 }
 
 /* #endregion */
