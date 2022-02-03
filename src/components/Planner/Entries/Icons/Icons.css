@@ -26,28 +26,6 @@
   margin-left: 1rem;
 }
 
-.planner__control-button {
-  /* Override old button styles */
-	background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
-
-  font-family: var(--monospace);;
-
-  padding: 0.25rem;
-
-  transition: 0.2s ease-in;
-}
-
-.planner__control-button:hover {
-  color: var(--blue1);
-  box-shadow: var(--button-shadow);
-}
-
 /* #endregion */
 
 /* Icons */

@@ -11,6 +11,7 @@ import {
 import DropdownMenu from "../../Reusables/DropdownMenu/DropdownMenu";
 import { GenFilter, GenFilterAction } from '../../../hooks/App/GenFilter';
 import { useEffect, useMemo, useState } from 'react';
+import Button from '../../Reusables/Button/Button';
 
 type TierFilterFormProps = {
   genFilter: GenFilter
@@ -29,17 +30,17 @@ const TierFilterForm = ({
       return {
         id: singlesTier,
         label: (
-          <button
-            className={`
-            tier-filter__button
-            ${tierFilter.singlesTiers[singlesTier] 
-              ? 'tier-filter__button--active'
-              : ''
+          <Button
+            title={tierFilter.singlesTiers[singlesTier]
+              ? `Exclude Pokemon in ${singlesTier}.`
+              : `Include Pokemon in ${singlesTier}.`
             }
-            `}
-          >
-            {singlesTier}
-          </button>
+            active={tierFilter.singlesTiers[singlesTier]}
+            label={singlesTier}
+            onClick={e => e.preventDefault()}
+            disabled={false}
+            immediate={false}
+          />
         ),
         selected: tierFilter.singlesTiers[singlesTier]
       }
@@ -51,17 +52,17 @@ const TierFilterForm = ({
       return {
         id: doublesTier,
         label: (
-          <button
-            className={`
-            tier-filter__button
-            ${tierFilter.doublesTiers[doublesTier] 
-              ? 'tier-filter__button--active'
-              : ''
+          <Button
+            title={tierFilter.doublesTiers[doublesTier]
+              ? `Exclude Pokemon in ${doublesTier}.`
+              : `Include Pokemon in ${doublesTier}.`
             }
-            `}
-          >
-            {doublesTier}
-          </button>
+            active={tierFilter.doublesTiers[doublesTier]}
+            label={doublesTier}
+            onClick={e => e.preventDefault()}
+            disabled={false}
+            immediate={false}
+          />
         ),
         selected: tierFilter.doublesTiers[doublesTier]
       }
@@ -82,6 +83,7 @@ const TierFilterForm = ({
     })
   };
 
+  // TODO: Buggy; doesn't work a lot of the time
   // Remove doubles prior to Gen 3
   useEffect(() => {
     if (genFilter.gen < 3) {
@@ -100,39 +102,30 @@ const TierFilterForm = ({
     <form className="tier-filter__wrapper">
       <div className="tier-filter__buttons">
         <label htmlFor="singles">
-          <button
-            className={`
-              tier-filter__button
-              ${tierFilter.format === 'singles' 
-                ? 'tier-filter__button--active'
-                : ''
-              }
-            `}
+          <Button
+            title='Filter Pokemon based on their tier in Singles battles.'
+            active={tierFilter.format === 'singles'}
             onClick={(e) => {
               e.preventDefault();
-              handleFormatSelect('singles')
+              handleFormatSelect('singles');
             }}
-          >
-            SINGLES
-          </button>
+            label='SINGLES'
+            disabled={false}
+            immediate={false}
+          />
         </label>
         <label htmlFor="doubles">
-          <button
-            className={`
-              tier-filter__button
-              ${tierFilter.format === 'doubles' 
-                ? 'tier-filter__button--active'
-                : ''
-              }
-            `}
+          <Button
+            title='Filter Pokemon based on their tier in Doubles battles.'
+            active={tierFilter.format === 'doubles'}
             onClick={(e) => {
               e.preventDefault();
               handleFormatSelect('doubles')
             }}
+            label='DOUBLES'
             disabled={genFilter.gen < 3}
-          >
-            DOUBLES
-          </button>
+            immediate={false}
+          />
         </label>
       </div>
       <div className="tier-filter__select">
@@ -146,104 +139,15 @@ const TierFilterForm = ({
                 itemWidth={'5ch'}
               />
             : <DropdownMenu 
-              title={'SELECT TIERS'}
-              items={doublesItems}
-              toggleSelect={handleTierSelect}
-              dropdownWidth={'clamp(10vw, 35ch, 80%)'}
-              itemWidth={'6ch'}
-            />
+                title={'SELECT TIERS'}
+                items={doublesItems}
+                toggleSelect={handleTierSelect}
+                dropdownWidth={'clamp(10vw, 35ch, 80%)'}
+                itemWidth={'6ch'}
+              />
           }
         </label>
       </div>
-      {/* <label htmlFor="Tier select">
-        {(tierFilter.format === 'singles' ? SINGLES_TIERS : DOUBLES_TIERS).map((tier: SinglesTier | DoublesTier) => {
-          if (isSinglesTier(tier)) {
-            console.log(tier, 'is singles tier');
-            return (
-              <button
-                className={`
-                  tier-filter__button
-                  ${tierFilter.singlesTiers[tier]
-                    ? 'tier-filter__button--active'
-                    : ''
-                  }
-                `}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleTierSelect(tier)
-                }}
-                disabled={tierFilter.format !== 'singles'}
-              >
-                {tier}
-              </button>
-            );
-          }
-          else {
-            return (
-              <button
-                className={`
-                  tier-filter__button
-                  ${tierFilter.doublesTiers[tier]
-                    ? 'tier-filter__button--active'
-                    : ''
-                  }
-                `}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleTierSelect(tier)
-                }}
-                disabled={tierFilter.format !== 'doubles'}
-              >
-                {tier}
-              </button>
-            );
-          }
-        })}
-      </label> */}
-      {/* <label htmlFor="Select the tiers in the given format.">
-        <DropdownMenu 
-          title="Select tiers"
-          items={tierFilter.format === 'singles'
-            // Explicitly state type to help infer generics
-            ? SINGLES_TIERS.map((tier: SinglesTier | DoublesTier) => {
-                const selected = tierFilter.tiers[tier];
-                const label = (
-                  <label htmlFor={`Toggle ${tier}.`}>
-                    <input
-                      type="checkbox"
-                      checked={selected}
-                    />
-                    {tier}
-                  </label>
-                );
-
-                return {
-                  id: tier,
-                  label,
-                  selected,
-                }
-              })
-            : DOUBLES_TIERS.map(tier => {
-              const selected = tierFilter.tiers[tier];
-              const label = (
-                <label htmlFor={`Toggle ${tier}.`}>
-                  <input
-                    type="checkbox"
-                    checked={selected}
-                  />
-                  {tier}
-                </label>
-              );
-
-              return {
-                id: tier,
-                label,
-                selected,
-              }
-            })}
-          toggleSelect={toggleSelect}
-        />
-      </label> */}
     </form>
   )
 }

@@ -1,4 +1,5 @@
 import { SelectionAction } from "../../../../hooks/Planner/Selections";
+import Button from "../../../Reusables/Button/Button";
 import { EntryIconData } from "../../helpers";
 
 import './Icons.css';
@@ -22,25 +23,43 @@ const SelectionControls = ({
         // Entry has icons to render, so render cart controls
         ? (
             <div className="planner__control-buttons">
-              <button
-                className="planner__control-button"
-                onClick={() => dispatchSelection({ type: 'remove_all' })}
-              >
-                DESELECT ALL
-              </button>
+              <Button
+                title='De-select all Pokemon in this box.'
+                label='DESELECT ALL'
+
+                active={true}
+                onClick={e => {
+                  e.preventDefault();
+                  dispatchSelection({ type: 'remove_all' });
+                }}
+                disabled={false}
+                immediate={true}
+              />
               {/* Placing 'Select all' next to 'Add to cart' to make 'Select all' -> 'Add to cart' easier. Place latter action to the right. */}
-              <button
-                className="planner__control-button"
-                onClick={() => dispatchSelection({ type: 'add_all' })}
-              >
-                SELECT ALL
-              </button>
-              <button
-                className="planner__control-button"
-                onClick={() => handleAddToCart()}
-              >
-                SAVE TO BOX
-              </button>
+              <Button
+                title='Select all Pokemon in this box.'
+                label='SELECT ALL'
+
+                active={true}
+                onClick={e => {
+                  e.preventDefault();
+                  dispatchSelection({ type: 'add_all' });
+                }}
+                disabled={false}
+                immediate={true}
+              />
+              <Button
+                title='Save the selected Pokemon to a box.'
+                label='SAVE TO BOX'
+
+                active={true}
+                onClick={e => {
+                  e.preventDefault();
+                  handleAddToCart();
+                }}
+                disabled={false}
+                immediate={true}
+              />
             </div>
           )
         : icons 

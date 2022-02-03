@@ -2,6 +2,7 @@ import { useState } from "react";
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { BASE_STAT_NAMES, PokemonFilter, PokemonFilterAction, TYPE_NAMES } from "../../../hooks/App/PokemonFilter";
 import { BaseStatName, toAbbreviatedBaseStatName, toEnumTypeName, toFormattedTypeName, TypeName } from "../../../types-queries/helpers";
+import Button from "../../Reusables/Button/Button";
 import DoubleSlider from "../../Reusables/DoubleSlider/DoubleSlider";
 import DropdownMenu from "../../Reusables/DropdownMenu/DropdownMenu";
 
@@ -196,28 +197,19 @@ const PokemonFilterForm = ({
       <form className="type-filter__wrapper">
         <div className="type-filter__select-all-type">
           <label htmlFor="Select all types">
-            <button
-              className={`
-                type-filter__button
-                ${justClicked 
-                  ? 'type-filter__button--active'
-                  : ''
-                }
-              `}
-              style={{
-                boxShadow: justClicked ? 'none' : '',
-              }}
-              onClick={(e) => {
+            <Button
+              title={'Include all types.'}
+              label='SELECT ALL'
+              active={true}
+              onClick={e => {
                 e.preventDefault();
-                setJustClicked(true);
-                setTimeout(() => setJustClicked(false), 250);
                 dispatchPokemonFilter({
-                  type: 'select_all_types'
-                });
+                  type: 'select_all_types',
+                })
               }}
-            >
-              SELECT ALL
-            </button>
+              disabled={false}
+              immediate={true}
+            />
           </label>
         </div>
         <div className="type-filter__select-type">
@@ -228,17 +220,17 @@ const PokemonFilterForm = ({
                 return {
                   id: typeName,
                   label: (
-                    <button
-                      className={`
-                      type-filter__button
-                      ${pokemonFilter.types[typeName]
-                        ? 'type-filter__button--active'
-                        : ''
+                    <Button
+                      title={pokemonFilter.types[typeName]
+                        ? `Exclude ${toFormattedTypeName(typeName)}-type Pokemon.`
+                        : `Include ${toFormattedTypeName(typeName)}-type Pokemon.`
                       }
-                      `}
-                    >
-                      {toEnumTypeName(typeName)}
-                    </button>
+                      label={toEnumTypeName(typeName)}
+                      active={pokemonFilter.types[typeName]}
+                      onClick={e => e.preventDefault()}
+                      disabled={false}
+                      immediate={false}
+                    />
                   ),
                   selected: pokemonFilter.types[typeName]
                 }
@@ -255,25 +247,17 @@ const PokemonFilterForm = ({
       <form className="stat-filter__wrapper">
         <div className="stat-filter__reset">
           <label htmlFor="Select all types">
-            <button
-              className={`
-                stat-filter__button
-                ${justClicked 
-                  ? 'stat-filter__button--active'
-                  : ''
-                }
-              `}
-              style={{
-                boxShadow: justClicked ? 'none' : '',
-              }}
-              onClick={(e) => {
+            <Button
+              title={'Reset stat filters to defaults.'}
+              label='RESET'
+              active={true}
+              onClick={e => {
                 e.preventDefault();
-                setJustClicked(true);
-                setTimeout(() => setJustClicked(false), 250);
+                // FILL IN
               }}
-            >
-              RESET
-            </button>
+              disabled={false}
+              immediate={true}
+            />
           </label>
         </div>
         <div className="stat-filter__dropdown">

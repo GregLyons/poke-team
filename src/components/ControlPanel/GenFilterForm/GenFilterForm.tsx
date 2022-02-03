@@ -9,6 +9,7 @@ import { GenFilter, GenFilterAction } from "../../../hooks/App/GenFilter";
 import Slider from "../../Reusables/Slider/Slider";
 
 import './GenFilterForm.css';
+import Button from "../../Reusables/Button/Button";
 
 type GenFilterFormProps = {
   genFilter: GenFilter,
@@ -81,44 +82,34 @@ const GenFilterForm = ({
       </div>
       <div className="gen-filter__buttons">
         <label htmlFor="select only moves and Pokemon in SwSh">
-          <button
-            title={genFilter.gen !== 8 
+          <Button
+            title={genFilter.gen !== 8
               ? ''
               : genFilter.includeRemovedFromSwSh 
                 ? 'Click to filter out Pokemon absent in SwSh.'
                 : 'Click to include Pokemon removed from SwSh.'
             }
-            className={`
-              gen-filter__button 
-              ${genFilter.includeRemovedFromSwSh && genFilter.gen === 8 
-                ? ''
-                : 'gen-filter__button--active'}
-            `}
+            active={!genFilter.includeRemovedFromSwSh || genFilter.gen !== 8}
             onClick={handleSwShSelect}
             disabled={genFilter.gen !== 8}
-          >
-            Sw/Sh
-          </button>
+            label='Sw/Sh'
+            immediate={false}
+          />
         </label>
         <label htmlFor="select only moves and Pokemon in BDSP">
-          <button
+          <Button
             title={genFilter.gen !== 8 
               ? ''
               : genFilter.includeRemovedFromBDSP 
                 ? 'Click to filter out Pokemon absent in BDSP.'
                 : 'Click to include Pokemon removed from BDSP.'
             }
-            className={`
-            gen-filter__button 
-            ${genFilter.includeRemovedFromBDSP && genFilter.gen === 8 
-              ? ''
-              : 'gen-filter__button--active'}
-            `}
+            active={!genFilter.includeRemovedFromBDSP || genFilter.gen !== 8}
             onClick={handleBDSPSelect}
             disabled={genFilter.gen !== 8}
-          >
-            BD/SP
-          </button>
+            label='BD/SP'
+            immediate={false}
+          />
         </label>
       </div>
     </form>
