@@ -1,37 +1,31 @@
-.pokemon-filter__wrapper {
-
-  background-color: var(--dark1);
-  box-shadow: var(--control-shadow);
-  border-radius: 15px;
-  
-  width: 95%;
-  height: 96%;
-
-  justify-self: center;
-  align-self: center;
-
-  display: grid;
-  grid-template-rows: auto 1fr;
-  grid-template-columns: 1fr;
-}
-
-.pokemon-filter__type-filter-wrapper {
-  grid-row: 1 / 2;
-  grid-column: 1 / 2;
-}
-
-.pokemon-filter__stat-filter-wrapper {
-  grid-row: 2 / 3;
-  grid-column: 1 / 2;
-
-  position: relative;
-  overflow-y: scroll;
-}
-
 /* Type select */
 /* #region */
 
-.pokemon-filter__button {
+.type-filter__wrapper {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 4fr;
+}
+
+.type-filter__select-all-type {
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+
+  justify-self: center;
+  align-self: center;
+}
+
+.type-filter__select-type {
+  grid-row: 1 / 2;
+  grid-column: 2 / 3;
+
+  align-self: center;
+}
+
+/* Buttons */
+/* #region */
+
+.type-filter__button {
   position: relative;
   font-family: var(--monospace);;
   padding: 0.25rem;
@@ -39,16 +33,16 @@
   transition: 0.2s ease-in;
 }
 
-.pokemon-filter__button--active {
+.type-filter__button--active {
   color: var(--blue1);
 }
 
-.pokemon-filter__button:hover:enabled {
+.type-filter__button:hover:enabled {
   cursor: pointer;
   box-shadow: var(--button-shadow);
 }
 
-.pokemon-filter__button:disabled {
+.type-filter__button:disabled {
   color: var(--dark1);
 }
 
@@ -56,7 +50,7 @@
 /* #region */
 
 /* Set up triangle--invisible until hovered or active */
-.pokemon-filter__button:enabled::before {
+.type-filter__button:enabled::before {
   content: "";
   position: absolute;
   left: -0.25rem;
@@ -71,38 +65,62 @@
 }
 
 /* Active: blue */
-.pokemon-filter__button--active:enabled::before {
+.type-filter__button--active:enabled::before {
   border-left-color: var(--blue1);
   opacity: 1;
 }
 
 /* Inactive, hover: blue */
-.pokemon-filter__button:hover:enabled::before {
+.type-filter__button:hover:enabled::before {
   border-left-color: var(--blue1);
   opacity: 1;
 }
 
 /* Active, hover: white */
-.pokemon-filter__button--active:hover:enabled::before {
+.type-filter__button--active:hover:enabled::before {
   border-left-color: var(--light1);
   opacity: 1;
 }
 
 /* #endregion */
 
+/* #endregion */
 
+/* #endregion */
+
+/* Stat filter */
 /* #region */
 
-.base-stats__wrapper {
-  display: flex;
-  flex-direction: column;
+.stat-filter__wrapper {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: auto;
 }
 
-.pokemon-filter__stat-wrapper {
-  border: 1px solid white;
+.stat-filter__reset {
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+  
+  justify-self: center;
+  align-self: center;
+}
+
+.stat-filter__dropdown {
+  grid-row: 1 / 2;
+  grid-column: 2 / 3;
+  justify-self: flex-start;
+  align-self: center;
+}
+
+.stat-filter__base-stat-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+}
+
+.stat-filter__base-stat-name {
+  font-family: var(--monospace);
+  margin-right: 3rem;
 }
 
 /* #endregion */

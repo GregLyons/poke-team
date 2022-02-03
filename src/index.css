@@ -1,6 +1,6 @@
 /* Variable declarations */
 :root {
-  --app-width: 80vw;
+  --app-width: 85vw;
 
   overflow-y: scroll;
   line-height: 1.5;
@@ -23,6 +23,8 @@
   --blue3: #515158;
 
   /* Greens */
+  --green-bg-components: 201, 236, 201;
+  --green-bg: rgb(var(--green-bg-components));
   --green1-components: 80, 200, 120;
   --green1: rgb(var(--green1-components));
   --green3: #515851;
@@ -50,8 +52,8 @@ body {
 
   /* Page background */
   
-  /* background-color: #c9ecc9; */
-  background-color: var(--dark3);
+  background-color: var(--green-bg);
+  /* background-color: var(--dark3); */
 
   /* Main font color */
   color: var(--light1);

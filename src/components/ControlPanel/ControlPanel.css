@@ -5,46 +5,85 @@
 
   width: 100%;
 
-  background-color: var(--dark2);
+  background-color: var(--dark3);
   
   display: grid;
   grid-template-columns: 3fr 3fr 1fr 5fr;
-  grid-template-rows: 1fr 2fr;
+  grid-template-rows: 1fr 1fr;
+
+  gap: 1px;
+  background-color: var(--green-bg);
+
+  /* Makes dropdowns originating in this div go over other content, e.g. Pokemon icons */
+  z-index: 10;
 }
 
-.gen-filter__wrapper {
+.gen-filter__cell {
   grid-row: 1 / 2;
   grid-column: 1 / 2;
 }
 
-.tier-filter__wrapper {
+.tier-filter__cell {
   grid-row: 1 / 2;
   grid-column: 2 / 4;
 }
 
-.pokemon-filter__wrapper {
-  grid-row: 1 / 3;
+.type-filter__cell {
+  grid-row: 1 / 2;
   grid-column: 4 / 5;
 }
 
-.control-panel__team-wrapper {
+.stat-filter__cell {
+  grid-row: 2 / 3;
+  grid-column: 4 / 5;
+}
+
+.team__cell {
   grid-row: 2 / 3;
   grid-column: 1 / 3;
 }
 
-/* Gen slider */
-/* #region */
+.import-export__cell {
+  grid-row: 2 / 3;
+  grid-column: 3 / 4;
+}
 
+.gen-filter__cell,
+.tier-filter__cell,
+.type-filter__cell,
+.stat-filter__cell,
+.team__cell,
+.import-export__cell {
+  position: relative;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
+  padding: 1rem;
+  background-color: var(--dark2);
+  border-radius: 3px;
+  box-shadow: inset -1px -1px 3px 1px rgba(var(--green-bg-components),0.8);
+}
 
-/* #endregion */
+.gen-filter__wrapper,
+.tier-filter__wrapper,
+.type-filter__wrapper,
+.stat-filter__wrapper,
+.import-export__wrapper {
+  position: relative;
 
-/* Tier filter */
-/* #region */
+  width: 100%;
+  height: 100%;
 
-
-
-/* #endregion */
+  background-color: var(--dark1);
+  box-shadow: var(--control-shadow);
+  border-radius: 15px;
+  
+  justify-self: center;
+  align-self: center;
+  padding: 0.25rem;
+}
 
 
 /* Team display */

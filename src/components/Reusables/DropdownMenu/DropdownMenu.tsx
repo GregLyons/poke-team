@@ -13,16 +13,20 @@ type DropdownMenuProps<E extends Item<F>, F> = {
   title: string
   items: E[]
   toggleSelect?: (id: F) => void
+
   dropdownWidth: number | string
   itemWidth: number | string
+  dropLeft?: boolean
 }
 
 function DropdownMenu<E extends Item<F>, F>({
   title,
   items,
   toggleSelect,
+
   dropdownWidth,
   itemWidth,
+  dropLeft = false,
 }: DropdownMenuProps<E, F>) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -57,7 +61,8 @@ function DropdownMenu<E extends Item<F>, F>({
 
   // Reset heights on window resize
   useEffect(() => {
-    setTimeout(() => triggerRef.current && setTriggerHeight(triggerRef.current.scrollHeight));
+    setTimeout(() => triggerRef.current 
+      && setTriggerHeight(triggerRef.current.scrollHeight))
   }, [size, triggerRef, setTriggerHeight]);
 
   return (
@@ -76,7 +81,13 @@ function DropdownMenu<E extends Item<F>, F>({
           color: isActive 
             ? 'var(--blue1)' 
             : 'var(--light1)',
-          boxShadow: 'var(--control-shadow)'
+          boxShadow: isActive
+            ? 'inset 3px 3px 2px 0 rgba(var(--green-bg-components), 0.5)'
+            : 'var(--control-shadow)',
+          borderRadius: isActive 
+            ? 0
+            : '',
+          transition: 'border-radius 0.2s ease',
         }}
       >
         <span className="dropdown__title">{title}</span>
@@ -88,16 +99,21 @@ function DropdownMenu<E extends Item<F>, F>({
         className="dropdown__content-wrapper"
         ref={dropdownRef}
         style={{
+          width: dropdownWidth,
+          minWidth: `min-content`,
           height: isActive
             ? 'auto'
             : 0,
           top: triggerHeight 
             ? triggerHeight
             : '',
+          left: dropdownRef.current && triggerRef.current
+            ? -dropdownRef.current.scrollWidth + triggerRef.current.scrollWidth
+            : '',
           boxShadow: isActive
             ? `5px 15px 2px 2px rgba(0, 0, 0, 0.8),
-              var(--control-shadow)`
-            : ''
+              inset 3px 3px 4px 0 rgba(var(--green-bg-components), 0.5)`
+            : '',
         }}
       >
         <ul 

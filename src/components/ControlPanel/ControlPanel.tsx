@@ -44,26 +44,37 @@ const ControlPanel = ({
 }: ControlPanelProps) => {
   return (
     <div className="control-panel__wrapper">
-      <GenFilterForm
-        genFilter={genFilter}
-        dispatchGenFilter={dispatchGenFilter}
-      />
-      <TierFilterForm
-        genFilter={genFilter}
-        tierFilter={tierFilter}
-        dispatchTierFilter={dispatchTierFilter}
-      />
-      <TeamDisplay
-        dispatchCart={dispatchCart}
-        dispatchTeam={dispatchTeam}
-        genFilter={genFilter}
-        team={team}
-      />
-      <PokemonFilterForm
-        dispatchPokemonFilter={dispatchPokemonFilter}
-        pokemonFilter={pokemonFilter}
-        genFilter={genFilter}
-      />
+      <div className="gen-filter__cell">
+        <GenFilterForm
+          genFilter={genFilter}
+          dispatchGenFilter={dispatchGenFilter}
+        />
+      </div>
+      <div className="tier-filter__cell">
+        <TierFilterForm
+          genFilter={genFilter}
+          tierFilter={tierFilter}
+          dispatchTierFilter={dispatchTierFilter}
+        />
+      </div>
+      <div className="team__cell">
+        <TeamDisplay
+          dispatchCart={dispatchCart}
+          dispatchTeam={dispatchTeam}
+          genFilter={genFilter}
+          team={team}
+        />
+      </div>
+      <div className="import-export__cell">
+        <div className="import-export__wrapper"></div>
+      </div>
+      <>
+        <PokemonFilterForm
+          dispatchPokemonFilter={dispatchPokemonFilter}
+          pokemonFilter={pokemonFilter}
+          genFilter={genFilter}
+        />
+      </>
     </div>
   )
 }

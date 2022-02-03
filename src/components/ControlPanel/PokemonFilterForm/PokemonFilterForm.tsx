@@ -21,6 +21,8 @@ const PokemonFilterForm = ({
   // Types
   // #region
 
+  const [justClicked, setJustClicked] = useState(false);
+
   const handleTypeSelect = (type: TypeName) => {
     dispatchPokemonFilter({
       type: 'toggle_type',
@@ -34,6 +36,10 @@ const PokemonFilterForm = ({
   // #region
 
   // Don't update slider 
+
+  const handleStatSelect = (stat: BaseStatName) => {
+
+  };
 
   const onMinChange: (baseStatName: BaseStatName) => ((e: React.ChangeEvent<HTMLInputElement>) => void) = baseStat => {
     return (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -185,63 +191,138 @@ const PokemonFilterForm = ({
   // #endregion
 
   return (
-    <form className="pokemon-filter__wrapper">
-      <div className="pokemon-filter__type-filter-wrapper">
-        <label htmlFor="types">
-          <DropdownMenu
-            title={'FILTER BY TYPE'}
-            items={TYPE_NAMES.map((typeName: TypeName) => {
-              return {
-                id: typeName,
-                label: (
-                  <button
-                    className={`
-                    pokemon-filter__button
-                    ${pokemonFilter.types[typeName]
-                      ? 'pokemon-filter__button--active'
-                      : ''
-                    }
-                    `}
-                  >
-                    {toEnumTypeName(typeName)}
-                  </button>
-                ),
-                selected: pokemonFilter.types[typeName]
-              }
-            })}
-            toggleSelect={handleTypeSelect}
-            dropdownWidth={'clamp(20vw, 40ch, 30%)'}
-            itemWidth={'10ch'}
-          />
-        </label>
-      </div>
-      <div className="pokemon-filter__stat-filter-wrapper">
-        <label htmlFor="Filter out Pokemon depending on base stats.">
-          {BASE_STAT_NAMES.map(baseStatName => (
-            <div className="pokemon-filter__stat-wrapper">
-              {toAbbreviatedBaseStatName(baseStatName)}
-              <DoubleSlider
-                min={0}
-                minValue={pokemonFilter.minBaseStats[baseStatName]}
-                onMinChange={onMinChange(baseStatName)}
-                onMinBlur={onMinBlur(baseStatName)}
-                onMinIncrement={onMinIncrement(baseStatName)}
-                onMinDecrement={onMinDecrement(baseStatName)}
-
-                max={255}
-                maxValue={pokemonFilter.maxBaseStats[baseStatName]}
-                onMaxChange={onMaxChange(baseStatName)}
-                onMaxBlur={onMaxBlur(baseStatName)}
-                onMaxIncrement={onMaxIncrement(baseStatName)}
-                onMaxDecrement={onMaxDecrement(baseStatName)}
-
-                sliderWidth="clamp(100px, 7.5vw, 150px)"
-              />
-            </div>
-          ))}
-        </label>
-      </div>
-    </form>
+    <>
+    <div className="type-filter__cell">
+      <form className="type-filter__wrapper">
+        <div className="type-filter__select-all-type">
+          <label htmlFor="Select all types">
+            <button
+              className={`
+                type-filter__button
+                ${justClicked 
+                  ? 'type-filter__button--active'
+                  : ''
+                }
+              `}
+              style={{
+                boxShadow: justClicked ? 'none' : '',
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                setJustClicked(true);
+                setTimeout(() => setJustClicked(false), 250);
+                dispatchPokemonFilter({
+                  type: 'select_all_types'
+                });
+              }}
+            >
+              SELECT ALL
+            </button>
+          </label>
+        </div>
+        <div className="type-filter__select-type">
+          <label htmlFor="Type select">
+            <DropdownMenu
+              title={'FILTER BY TYPE'}
+              items={TYPE_NAMES.map((typeName: TypeName) => {
+                return {
+                  id: typeName,
+                  label: (
+                    <button
+                      className={`
+                      type-filter__button
+                      ${pokemonFilter.types[typeName]
+                        ? 'type-filter__button--active'
+                        : ''
+                      }
+                      `}
+                    >
+                      {toEnumTypeName(typeName)}
+                    </button>
+                  ),
+                  selected: pokemonFilter.types[typeName]
+                }
+              })}
+              toggleSelect={handleTypeSelect}
+              dropdownWidth={'clamp(20vw, 40ch, 30%)'}
+              itemWidth={'10ch'}
+            />
+          </label>
+        </div>
+      </form>
+    </div>
+    <div className="stat-filter__cell">
+      <form className="stat-filter__wrapper">
+        <div className="stat-filter__reset">
+          <label htmlFor="Select all types">
+            <button
+              className={`
+                stat-filter__button
+                ${justClicked 
+                  ? 'stat-filter__button--active'
+                  : ''
+                }
+              `}
+              style={{
+                boxShadow: justClicked ? 'none' : '',
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                setJustClicked(true);
+                setTimeout(() => setJustClicked(false), 250);
+              }}
+            >
+              RESET
+            </button>
+          </label>
+        </div>
+        <div className="stat-filter__dropdown">
+          <label htmlFor="Filter out Pokemon depending on base stats.">
+            <DropdownMenu
+              title="FILTER BY STAT"
+              items={BASE_STAT_NAMES.map(baseStatName => {
+                return {
+                  id: baseStatName,
+                  label: (
+                    <div 
+                      className="stat-filter__base-stat-wrapper"
+                    > 
+                      <div className="stat-filter__base-stat-name">
+                        {toAbbreviatedBaseStatName(baseStatName).length === 3
+                          ? toAbbreviatedBaseStatName(baseStatName)
+                          : <>{toAbbreviatedBaseStatName(baseStatName)}&nbsp;</>}
+                      </div>
+                      <DoubleSlider
+                        min={0}
+                        minValue={pokemonFilter.minBaseStats[baseStatName]}
+                        onMinChange={onMinChange(baseStatName)}
+                        onMinBlur={onMinBlur(baseStatName)}
+                        onMinIncrement={onMinIncrement(baseStatName)}
+                        onMinDecrement={onMinDecrement(baseStatName)}
+      
+                        max={255}
+                        maxValue={pokemonFilter.maxBaseStats[baseStatName]}
+                        onMaxChange={onMaxChange(baseStatName)}
+                        onMaxBlur={onMaxBlur(baseStatName)}
+                        onMaxIncrement={onMaxIncrement(baseStatName)}
+                        onMaxDecrement={onMaxDecrement(baseStatName)}
+      
+                        sliderWidth="clamp(75px, 7.5vw, 150px)"
+                      />
+                    </div>
+                  ),
+                  selected: true,
+                };
+              })}
+              toggleSelect={handleStatSelect}
+              dropdownWidth={'clamp(20vw, 40ch, 30%)'}
+              itemWidth={'100%'}
+            />
+          </label>
+        </div>
+      </form>
+    </div>
+    </>
   )
 }
 
