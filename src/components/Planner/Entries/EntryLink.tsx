@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { ItemIconDatum, } from "../../../types-queries/helpers";
 import { EntityClass, ENTITYCLASS_TO_PLANNERLINK, } from "../../../utils/constants";
 import { EntryIconData } from "../helpers";
 import PlannerItemIcon from "./Icons/PlannerItemIcon";
@@ -25,21 +24,21 @@ const EntryLink = ({
 }: EntryLinkProps) => {
   const linkRef = useRef<HTMLAnchorElement>(null);
 
-  const addItemToCart = (itemIconDatum: ItemIconDatum | undefined) => {
-    if (!itemIconDatum) return;
+  // const addItemToCart = (itemIconDatum: ItemIconDatum | undefined) => {
+  //   if (!itemIconDatum) return;
     
-    icons?.dispatchCart({
-      type: 'add_item',
-      payload: {
-        gen: icons.genFilter.gen,
-        item: itemIconDatum,
-        requiredPokemon: icons?.pokemonIconData,
-        parentEntityClass: parentEntityClass,
-        targetEntityClass: targetEntityClass,
-        note: icons.cartNote,
-      },
-    })
-  }
+  //   icons?.dispatchCart({
+  //     type: 'add_item',
+  //     payload: {
+  //       gen: icons.genFilter.gen,
+  //       item: itemIconDatum,
+  //       requiredPokemon: icons?.pokemonIconData,
+  //       parentEntityClass: parentEntityClass,
+  //       targetEntityClass: targetEntityClass,
+  //       note: icons.cartNote,
+  //     },
+  //   })
+  // }
 
   return (
     <div className="planner__entry-row-name-container">
@@ -66,11 +65,6 @@ const EntryLink = ({
               key={name}
               itemIconDatum={icons.itemIconDatum}
             />
-            <button
-              onClick={() => addItemToCart(icons.itemIconDatum)}
-            >
-              Add
-            </button>
           </>
         : icons?.typeIconDatum 
           ? <>

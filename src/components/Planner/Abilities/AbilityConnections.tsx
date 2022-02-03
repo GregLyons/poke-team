@@ -87,7 +87,7 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Turns', value: result.turns || 0}]}
+            data={[{key: 'TURN', title: 'Turns', value: result.turns || 0}]}
           />
         ))}
       </div>)}
@@ -194,13 +194,13 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
             description={result.description}
             data={[
               {
-                key: 'Stage', value: result.stage,
+                key: 'STAGE', title: 'Stage', value: result.stage,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -220,13 +220,13 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
             description={result.description}
             data={[
               {
-                key: 'Multiplier', value: result.multiplier,
+                key: 'MULT', title: 'Multiplier', value: result.multiplier,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -246,13 +246,13 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
             description={result.description}
             data={[
               {
-                key: 'Stage', value: result.stage,
+                key: 'STAGE', title: 'Stage', value: result.stage,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -272,13 +272,13 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
             description={result.description}
             data={[
               {
-                key: 'Multiplier', value: result.multiplier,
+                key: 'MULT', title: 'Multiplier', value: result.multiplier,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -310,7 +310,7 @@ export const listRenderAbilityStatus = ({ data, }: ListRenderArgs<AbilityStatusQ
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Chance', value: result.chance || 0}]}
+            data={[{key: '%', title: 'Chance', value: result.chance || 0}]}
           />
         ))}
       </div>)}
@@ -365,7 +365,7 @@ export const listRenderAbilityType = ({ data, dispatchCart, dispatchTeam, genFil
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
               pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
               typeIconDatum: result.typeIconDatum,
@@ -394,7 +394,7 @@ export const listRenderAbilityType = ({ data, dispatchCart, dispatchTeam, genFil
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
               pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
               typeIconDatum: result.typeIconDatum,
@@ -454,7 +454,7 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
           />
         ))}
       </div>)}
@@ -491,7 +491,7 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
           />
         ))}
       </div>)}

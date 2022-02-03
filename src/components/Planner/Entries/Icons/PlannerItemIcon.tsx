@@ -1,6 +1,3 @@
-import {
-  useState,
-} from "react";
 import { CartAction } from "../../../../hooks/App/Cart";
 import { TeamAction } from "../../../../hooks/App/Team";
 import {
@@ -27,8 +24,6 @@ const PlannerItemIcon = ({
 }: PlannerItemIconProps) => {
   const {left, top} = getItemIcon(itemIconDatum);
 
-  const [hover, setHover] = useState(false);
-
   return (
     <div className="planner__item-icon-container"
       style={{
@@ -36,21 +31,16 @@ const PlannerItemIcon = ({
         height: '24px',
         display: 'inline-block',
       }}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
     >
       <div className="planner__item-icon-background" 
         style={{
           width: '24px',
           height: '24px',
-          backgroundColor: hover
-            ? 'var(--blue1)' 
-            : '',
         }}
       />
       <div
         className="planner__item-icon"
-        title={`Icon for the Item ${itemIconDatum.formattedName}`}
+        title={`${itemIconDatum.formattedName}`}
         key={key}
         style={{
           width: '24px',

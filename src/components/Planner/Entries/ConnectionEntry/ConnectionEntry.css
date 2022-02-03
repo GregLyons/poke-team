@@ -11,7 +11,6 @@
   padding-left: 1rem;
   padding-right: 1rem;
 
-  --accordion-left-padding: 0.25rem;
   --accordion-left-shadow-size: 0.25rem;
 }
 
@@ -32,7 +31,7 @@
   justify-content: space-between;
   cursor: pointer;
 
-  padding-left: var(--accordion-left-padding);
+  padding-left: var(--entry-horizontal-padding);
 }
 
 .planner-accordion__title:hover {
@@ -65,20 +64,32 @@
   margin-top: 1rem;
 }
 
+/* #endregion */
+
 /* Subitems */
 /* #region */
 
 .planner-accordion__subitem {
   grid-column: 1 / 11;
 
-  background-color: var(--dark2);
-
+  /* Shadow is absolutely positioned */
   position: relative;
 
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
+  background-color: var(--dark2);
 }
 
+.planner-accordion__subitem-header {
+  padding-left: var(--entry-horizontal-padding);
+}
+
+.planner-accordion__clarification {
+  padding-left: var(--entry-horizontal-padding);
+}
+
+/* Left-hand shadow */
+/* #region */
+
+/* Blue for neutral entries */
 .planner-accordion__subitem-shadow {
   position: absolute;
   left: 0;
@@ -86,6 +97,14 @@
   width: var(--accordion-left-shadow-size);
   height: 100%;
   box-shadow: calc(-1 * var(--accordion-left-shadow-size)) 0 1px 0 var(--blue1);
+}
+
+.planner-accordion__subitem-shadow--positive,
+.planner-accordion__subitem-shadow--negative {
+  position: absolute;
+
+  width: calc(100% + var(--accordion-left-shadow-size));
+  height: 100%;
 }
 
 .planner-accordion__subitem-shadow--positive {
@@ -96,34 +115,14 @@
   box-shadow: calc(-1 * var(--accordion-left-shadow-size)) 0 1px 0 var(--red1);
 }
 
-.planner-accordion__subitem-header {
-  grid-column: 1 / 11;
-  padding-left: var(--accordion-left-padding);
-}
+/* #endregion */
 
-.planner-accordion__clarification {
-  grid-column: 1 / 11;
-  padding-left: var(--accordion-left-padding);
-}
+/* #endregion */
 
 /* Entries */
 /* #region */
 
-.planner-accordion__entry {
-  /* For fade */
-  position: relative;
-
-  grid-column: 1 / 11;
-
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr 2fr 3fr 4fr;
-
-  width: 100%;
-
-  background-color: var(--dark2);
-}
-
+/* Gives illusion of gap; background of subitem is same color as entry */
 .planner-accordion__entry:before {
   content: '';
   display: block;
@@ -136,7 +135,7 @@
   width: 100%;
 }
 
-/* Shadowing */
+/* Lower shadow */
 /* #region */
 
 .planner-accordion__entry:after,
@@ -170,36 +169,6 @@
   width: 100%;
 }
 
-.planner-accordion__subitem-shadow--positive,
-.planner-accordion__subitem-shadow--negative {
-  position: absolute;
-
-  width: calc(100% + var(--accordion-left-shadow-size));
-  height: 100%;
-}
-
 /* #endregion */
-
-/* #endregion */
-
-.planner-accordion__entry-data {
-  grid-column: 2 / 3;
-
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-
-.planner-accordion__entry-description {
-  grid-column: 3 / 4;
-  padding-right: 0.5rem;
-}
-
-.planner-accordion__entry-data-key {
-  grid-column: 2 / 3;
-}
-
-.planner-accordion__entry-data-value {
-  grid-column: 3 / 4;
-}
 
 /* #endregion */

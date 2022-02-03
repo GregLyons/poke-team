@@ -1,25 +1,39 @@
-/* Entries */
-/* #region */
+.planner-container {
+  --entry-vertical-padding: 0.5rem;
+  --entry-horizontal-padding: 0.25rem;
+}
 
 /* Entire row */
-.planner-search__entry, .planner-accordion__entry {
+.planner-search__entry,
+.planner-accordion__entry {
   position: relative;
+  
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 2fr 3fr 4fr;
+  
+  width: 100%;
+
+  overflow: hidden;
+  background-color: var(--dark2);
+  font-family: var(--monospace);
   padding-top: var(--entry-vertical-padding);
   padding-bottom: var(--entry-vertical-padding);
   transition: ease 0.25s;
-
-  overflow: hidden;
-
-  font-family: var(--monospace);
 }
 
 /* Name */
+.planner__entry-row-name-container {
+  /* Margin instead of padding to influence icons */
+  margin-left: calc(2 * var(--entry-horizontal-padding));
+  padding-right: var(--entry-horizontal-padding);
+}
+
 .planner__entry-row-name {
   grid-column: 1 / 2;
 
   display: inline-block;
 
-  padding-right: 0.5rem;
   font-weight: 500;
   text-decoration: none;
   transform-origin: top left;
@@ -32,21 +46,41 @@
 }
 
 /* Data */
-.planner-search__entry-data, .planner-accordion__entry-data {
+.planner-search__entry-data,
+.planner-accordion__entry-data {
+  grid-column: 2 / 3;
+
   display: grid;
   grid-template-columns: 1fr 2fr 2fr;
-  height: fit-content;
 
+  height: fit-content;
+  
+  padding-left: var(--entry-horizontal-padding);
+  padding-right: var(--entry-horizontal-padding);
   font-size: 0.9rem;
 }
 
-.planner-search__entry-data-key, .planner-accordion__entry-data-key {
+.planner-search__entry-data-key,
+.planner-accordion__entry-data-key {
   grid-column: 2 / 3;
+
   font-weight: 700;
 }
 
-.planner-search__entry-data-value, .planner-accordion__entry-data-value {
+.planner-search__entry-data-value,
+.planner-accordion__entry-data-value {
   grid-column: 3 / 4;
+}
+
+/* Description */
+/* #region */
+
+.planner-search__entry-description,
+.planner-accordion__entry-description {
+  grid-column: 3 / 4;
+
+  padding-left: var(--entry-horizontal-padding);
+  padding-right: var(--entry-horizontal-padding);
 }
 
 /* #endregion */

@@ -23,6 +23,7 @@ type EntitySearchEntryProps = {
   data?: {
     key: string
     value: string | number | boolean
+    title: string
   }[]
   icons?: EntryIconData
 }
@@ -118,9 +119,12 @@ const EntitySearchEntry = ({
         icons={icons}
       />
       <div className="planner-search__entry-data">
-        {data && data.map(({key, value}) => (
+        {data && data.map(({key, title, value}) => (
           <>
-            <b className="planner-search__entry-data-key">
+            <b
+              className="planner-search__entry-data-key"
+              title={title}
+            >
               {key}
             </b>
             <div className="planner-search__entry-data-value">

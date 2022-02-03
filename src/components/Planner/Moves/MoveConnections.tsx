@@ -75,7 +75,7 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Turns', value: result.turns || 0}]}
+            data={[{key: 'TURN', title: 'Turns', value: result.turns || 0}]}
           />
         ))}
       </div>)}
@@ -155,13 +155,13 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
             description={result.description}
             data={[
               {
-                key: 'Stage', value: result.stage,
+                key: 'STAGE', title: 'Stage', value: result.stage,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -181,13 +181,13 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
             description={result.description}
             data={[
               {
-                key: 'Multiplier', value: result.multiplier,
+                key: 'MULT', title: 'Multiplier', value: result.multiplier,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -207,13 +207,13 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
             description={result.description}
             data={[
               {
-                key: 'Stage', value: result.stage,
+                key: 'STAGE', title: 'Stage', value: result.stage,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -233,13 +233,13 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
             description={result.description}
             data={[
               {
-                key: 'Multiplier', value: result.multiplier,
+                key: 'MULT', title: 'Multiplier', value: result.multiplier,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -271,7 +271,7 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Chance', value: result.chance || 0}]}
+            data={[{key: '%', title: 'Chance', value: result.chance || 0}]}
           />
         ))}
       </div>)}

@@ -47,7 +47,7 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, genF
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Chance', value: result.chance || 0}]}
+            data={[{key: '%', title: 'Chance', value: result.chance || 0}]}
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
@@ -113,7 +113,7 @@ export const listRenderStatusFieldState = ({ data, }: ListRenderArgs<StatusField
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Chance', value: result.chance || 0}]}
+            data={[{key: '%', title: 'Chance', value: result.chance || 0}]}
           />
         ))}
       </div>)}
@@ -165,7 +165,7 @@ export const listRenderStatusItem = ({ data, dispatchCart, dispatchTeam, genFilt
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Chance', value: result.chance || 0}]}
+            data={[{key: '%', title: 'Chance', value: result.chance || 0}]}
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
@@ -237,7 +237,7 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, genFilt
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Chance', value: result.chance || 0}]}
+            data={[{key: '%', title: 'Chance', value: result.chance || 0}]}
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,

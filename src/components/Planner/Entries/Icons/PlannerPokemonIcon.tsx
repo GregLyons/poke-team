@@ -59,7 +59,7 @@ const PlannerPokemonIcon = ({
       <div
         onClick={(e) => toggleSelection(pokemonIconDatum.psID)}
         className="planner__pokemon-icon"
-        title={`Icon for the Pokemon ${pokemonIconDatum.formattedName}`}
+        title={`${pokemonIconDatum.formattedName}`}
         key={key}
         style={{
           width: '40px',

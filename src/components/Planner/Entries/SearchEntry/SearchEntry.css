@@ -1,25 +1,11 @@
+/* Spacing between search entries, and shape */
 .planner-search__entry {
   margin-top: 0.25rem;
   border-radius: 0.25rem;
 }
 
-.planner-search__entry {
-  /* border: 1px solid white; */
-  background-color: var(--dark2);
-}
-
-.planner-search__entry .planner__pokemon-icons-background {
-  /* border: 1px solid white; */
-  background-color: var(--dark1);
-}
-
-.planner-search__entry {
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: repeat(12, 1fr);
-
-  width: 100%;
-}
+/* Lower shadow */
+/* #region */
 
 .planner-search__entry:after {
   content: '';
@@ -35,29 +21,6 @@
 
 .planner-search__entry:hover:after {
   width: 100%;
-}
-
-.planner-search__entry > * {
-  padding-left: var(--entry-cell-left-padding);
-}
-
-/* Description */
-.planner-search__entry-description {
-  /* border: 1px solid white; */
-  grid-column: 5 / 8;
-  padding-right: 0.5rem;
-}
-
-/* Data */
-.planner-search__entry-data {
-  /* border: 1px solid white; */
-  grid-column: 2 / 5;
-}
-
-/* Icons */ 
-.planner-search__entry-icons {
-  /* border: 1px solid white; */
-  grid-column: 8 / 13;
 }
 
 /* #endregion */

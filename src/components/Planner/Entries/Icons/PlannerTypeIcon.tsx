@@ -2,7 +2,6 @@ import { CartAction } from "../../../../hooks/App/Cart";
 import { GenFilter } from "../../../../hooks/App/GenFilter";
 import { TeamAction } from "../../../../hooks/App/Team";
 import {
-  GenerationNum,
   TypeIconDatum,
 } from "../../../../types-queries/helpers";
 import {
@@ -26,6 +25,7 @@ const PlannerTypeIcon = ({
   typeIconData,
 }: PlannerTypeIconProps) => {
   const {left, top} = getTypeIcon(typeIconData.type.name, typeIconData.genFilter.gen);
+  const useGen5 = true || typeIconData.genFilter.gen < 6;
   
   return (
     <div className="planner__type-icon-container"
@@ -42,12 +42,19 @@ const PlannerTypeIcon = ({
         }}
       />
       <div
-        className={`planner__type-icon--${typeIconData.genFilter.gen < 6 ? 5 : 8}`}
-        title={`Icon for the Type ${typeIconData.type.formattedName}`}
+        className={`planner__type-icon--${useGen5 
+          ? 5
+          : 8}
+        `}
+        title={`${typeIconData.type.formattedName}`}
         key={key}
         style={{
-          width: typeIconData.genFilter.gen < 6 ? '32px' : '200px',
-          height: typeIconData.genFilter.gen < 6 ? '12px' : '44px',
+          width: useGen5 
+            ? '32px'
+            : '200px',
+          height: useGen5 
+            ? '12px'
+            : '44px',
           display: 'inline-block',
           backgroundPosition: `${left}px ${top}px`,
         }}

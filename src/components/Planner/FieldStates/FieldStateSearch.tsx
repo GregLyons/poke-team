@@ -32,15 +32,19 @@ const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
         const fieldState = new FieldStateInSearch(fieldStateSearchResult);
         
         // Build up field state data, leaving out certain default values
-        const fieldStateData: { key: string, value: string | number | boolean }[] = [{ key: 'Class', value: ENUMCASE_TO_TITLECASE(fieldState.fieldStateClass), }];
+        const fieldStateData: {
+          key: string, 
+          title: string,
+          value: string | number | boolean,
+        }[] = [{ key: 'CLASS', title: 'Field state class', value: ENUMCASE_TO_TITLECASE(fieldState.fieldStateClass), }];
         
-        if (fieldState.damagePercent > 0) fieldStateData.push({ key: 'Damage %', value: fieldState.damagePercent, });
+        if (fieldState.damagePercent > 0) fieldStateData.push({ key: '%HP', title: 'Percent of max HP in damage', value: fieldState.damagePercent + '%', });
 
-        fieldStateData.push({ key: 'Grounded', value: fieldState.grounded ? 'Yes' : 'No', })
+        fieldStateData.push({ key: 'GRND', title: 'Only affects grounded targets', value: fieldState.grounded ? 'Yes' : 'No', })
 
-        if (fieldState.maxLayers > 1) fieldStateData.push({ key: 'Max layers', value: fieldState.maxLayers, });
+        if (fieldState.maxLayers > 1) fieldStateData.push({ key: 'MAX', title: 'Max number of layers', value: fieldState.maxLayers, });
 
-        fieldStateData.push({ key: 'Target', value: ENUMCASE_TO_TITLECASE(fieldState.target), });
+        fieldStateData.push({ key: 'TAR', title: 'Target', value: ENUMCASE_TO_TITLECASE(fieldState.target), });
         
         return (
           <>

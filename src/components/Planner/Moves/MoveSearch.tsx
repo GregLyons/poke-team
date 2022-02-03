@@ -53,25 +53,25 @@ const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, p
               description={move.description}
               data={[
                 {
-                  key: 'Power', value: move.power,
+                  key: 'POW', title: 'Power', value: move.power,
                 },
                 {
-                  key: 'PP', value: move.pp === 0 ? '--': move.pp,
+                  key: 'PP', title: 'PP', value: move.pp === 0 ? '--': move.pp,
                 },
                 {
-                  key: 'Accuracy', value: move.accuracy === 0 ? '--' : move.accuracy,
+                  key: 'ACC', title: 'Accuracy', value: move.accuracy === 0 ? '--' : move.accuracy,
                 },
                 {
-                  key: 'Category', value: ENUMCASE_TO_TITLECASE(move.category),
+                  key: 'CAT', title: 'Damage category', value: ENUMCASE_TO_TITLECASE(move.category),
                 },
                 {
-                  key: 'Contact', value: move.contact ? 'Yes' : 'No'
+                  key: 'CON', title: 'Makes contact', value: move.contact ? 'Yes' : 'No'
                 },
                 {
-                  key: 'Priority', value: move.priority,
+                  key: 'PRI', title: 'Priority', value: move.priority,
                 },
                 {
-                  key: 'Target', value: ENUMCASE_TO_TITLECASE(move.target),
+                  key: 'TAR', title: 'Target', value: ENUMCASE_TO_TITLECASE(move.target).replace('adjacent', 'adj.'),
                 },
               ]}
               icons={{

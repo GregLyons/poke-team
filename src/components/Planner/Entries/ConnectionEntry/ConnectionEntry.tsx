@@ -23,7 +23,8 @@ type ConnectionAccordionEntryProps = {
   description: string
   data?: {
     key: string
-    value: string | number 
+    title: string
+    value: string | number
   }[]
   icons?: EntryIconData
 }
@@ -113,9 +114,12 @@ const ConnectionAccordionEntry = ({
       />
 
       <div className="planner-accordion__entry-data">
-        {data && data.map(({key, value}) => (
+        {data && data.map(({key, title, value}) => (
           <>
-            <b className="planner-accordion__entry-data-key">
+            <b 
+              className="planner-accordion__entry-data-key"
+              title={title}
+            >
               {key}
             </b>
             <div className="planner-accordion__entry-data-value">

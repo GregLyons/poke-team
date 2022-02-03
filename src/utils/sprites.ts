@@ -92,7 +92,8 @@ const TYPENAME_TO_TYPEICON_8 = new Map<TypeName, [number, number]>([
 
 export const getTypeIcon = (type: TypeName, gen: GenerationNum): { left: number, top: number } => {
   let left, top;
-  if (gen < 6) [left, top] = TYPENAME_TO_TYPEICON_5.get(type) || [0, 0];
+  // TODO: Decide whether to ever include gen 8 icons
+  if (true || gen < 6) [left, top] = TYPENAME_TO_TYPEICON_5.get(type) || [0, 0];
   else [left, top] = TYPENAME_TO_TYPEICON_8.get(type) || [0, 0];
   return { left, top, };
 }

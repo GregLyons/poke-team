@@ -43,7 +43,7 @@ const listRender = ({ data, }: ListRenderArgs<StatusSearchQuery>) => {
               description={status.description}
               data={[
                 {
-                  key: 'Volatile', value: status.volatile ? 'Yes' : 'No'
+                  key: 'VOL', title: 'Is a volatile status effect', value: status.volatile ? 'Yes' : 'No'
                 },
               ]}
             />

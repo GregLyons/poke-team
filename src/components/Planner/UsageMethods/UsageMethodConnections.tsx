@@ -70,7 +70,7 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multipler', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
@@ -122,7 +122,7 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multipler', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
@@ -191,7 +191,7 @@ export const listRenderUsageMethodItem = ({ data, dispatchCart, dispatchTeam, ge
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multipler', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
@@ -217,7 +217,7 @@ export const listRenderUsageMethodItem = ({ data, dispatchCart, dispatchTeam, ge
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multipler', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,

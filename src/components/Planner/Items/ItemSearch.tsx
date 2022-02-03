@@ -48,7 +48,7 @@ const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, p
               linkName={item.name}
               data={[
                 {
-                  key: 'Class', value: ENUMCASE_TO_TITLECASE(item.itemClass),
+                  key: 'CLASS', title: 'Item class', value: ENUMCASE_TO_TITLECASE(item.itemClass),
                 },
               ]}
               description={item.description}

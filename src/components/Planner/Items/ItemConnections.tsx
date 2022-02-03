@@ -93,7 +93,7 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Turns', value: result.turns || 0}]}
+            data={[{key: 'TURN', title: 'Turns', value: result.turns || 0}]}
           />
         ))}
       </div>)}
@@ -164,13 +164,13 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
             description={result.description}
             data={[
               {
-                key: 'Stage', value: result.stage,
+                key: 'STAGE', title: 'Stage', value: result.stage,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -190,13 +190,13 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
             description={result.description}
             data={[
               {
-                key: 'Multiplier', value: result.multiplier,
+                key: 'MULT', title: 'Multiplier', value: result.multiplier,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -216,13 +216,13 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
             description={result.description}
             data={[
               {
-                key: 'Stage', value: result.stage,
+                key: 'STAGE', title: 'Stage', value: result.stage,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -242,13 +242,13 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
             description={result.description}
             data={[
               {
-                key: 'Multiplier', value: result.multiplier,
+                key: 'MULT', title: 'Multiplier', value: result.multiplier,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -280,7 +280,7 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Chance', value: result.chance || 0}]}
+            data={[{key: '%', title: 'Chance', value: result.chance || 0}]}
           />
         ))}
       </div>)}
@@ -336,7 +336,7 @@ export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, genFilter
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
               pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
               typeIconDatum: result.typeIconDatum,
@@ -365,7 +365,7 @@ export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, genFilter
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Power', value: result.power || 1}]}
+            data={[{key: 'POW', title: 'Power', value: result.power || 1}]}
             icons={{
               pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
               typeIconDatum: result.typeIconDatum,
@@ -394,7 +394,7 @@ export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, genFilter
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
               pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
               typeIconDatum: result.typeIconDatum,
@@ -453,7 +453,7 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
           />
         ))}
       </div>)}
@@ -472,7 +472,7 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
-            data={[{key: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
           />
         ))}
       </div>)}

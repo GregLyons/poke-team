@@ -30,7 +30,7 @@ const CartViewPokemonIcon = ({
     >
       <div
         className="builder__pokemon-icon"
-        title={`Icon for the Pokemon ${pokemonIconDatum.formattedName}`}
+        title={`${pokemonIconDatum.formattedName}`}
         key={key}
         style={{
           width: '40px',

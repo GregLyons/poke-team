@@ -53,13 +53,13 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, genFil
             description={result.description}
             data={[
               {
-                key: 'Stage', value: result.stage,
+                key: 'STAGE', title: 'Stage', value: result.stage,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -88,13 +88,13 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, genFil
             description={result.description}
             data={[
               {
-                key: 'Multiplier', value: result.multiplier,
+                key: 'MULT', title: 'Multiplier', value: result.multiplier,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -123,13 +123,13 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, genFil
             description={result.description}
             data={[
               {
-                key: 'Stage', value: result.stage,
+                key: 'STAGE', title: 'Stage', value: result.stage,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -158,13 +158,13 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, genFil
             description={result.description}
             data={[
               {
-                key: 'Multiplier', value: result.multiplier,
+                key: 'MULT', title: 'Multiplier', value: result.multiplier,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -210,13 +210,13 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
             description={result.description}
             data={[
               {
-                key: 'Stage', value: result.stage,
+                key: 'STAGE', title: 'Stage', value: result.stage,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -236,13 +236,13 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
             description={result.description}
             data={[
               {
-                key: 'Multiplier', value: result.multiplier,
+                key: 'MULT', title: 'Multiplier', value: result.multiplier,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -262,13 +262,13 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
             description={result.description}
             data={[
               {
-                key: 'Stage', value: result.stage,
+                key: 'STAGE', title: 'Stage', value: result.stage,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -288,13 +288,13 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
             description={result.description}
             data={[
               {
-                key: 'Multiplier', value: result.multiplier,
+                key: 'MULT', title: 'Multiplier', value: result.multiplier,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
           />
@@ -335,13 +335,13 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, genFilter
             description={result.description}
             data={[
               {
-                key: 'Stage', value: result.stage,
+                key: 'STAGE', title: 'Stage', value: result.stage,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -371,13 +371,13 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, genFilter
             description={result.description}
             data={[
               {
-                key: 'Multiplier', value: result.multiplier,
+                key: 'MULT', title: 'Multiplier', value: result.multiplier,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -407,13 +407,13 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, genFilter
             description={result.description}
             data={[
               {
-                key: 'Stage', value: result.stage,
+                key: 'STAGE', title: 'Stage', value: result.stage,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -443,13 +443,13 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, genFilter
             description={result.description}
             data={[
               {
-                key: 'Multiplier', value: result.multiplier,
+                key: 'MULT', title: 'Multiplier', value: result.multiplier,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -500,13 +500,13 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, genFilter
             description={result.description}
             data={[
               {
-                key: 'Stage', value: result.stage,
+                key: 'STAGE', title: 'Stage', value: result.stage,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -536,13 +536,13 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, genFilter
             description={result.description}
             data={[
               {
-                key: 'Multiplier', value: result.multiplier,
+                key: 'MULT', title: 'Multiplier', value: result.multiplier,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -572,13 +572,13 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, genFilter
             description={result.description}
             data={[
               {
-                key: 'Stage', value: result.stage,
+                key: 'STAGE', title: 'Stage', value: result.stage,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{
@@ -608,13 +608,13 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, genFilter
             description={result.description}
             data={[
               {
-                key: 'Multiplier', value: result.multiplier,
+                key: 'MULT', title: 'Multiplier', value: result.multiplier,
               },
               {
-                key: 'Chance', value: result.chance,
+                key: '%', title: 'Chance', value: result.chance,
               },
               {
-                key: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
               },
             ]}
             icons={{

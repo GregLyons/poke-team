@@ -36,6 +36,8 @@
   margin-right: var(--entry-icons-right-margin);
   border-radius: 1rem;
 
+  background-color: var(--dark1);
+
   /* This keeps the icon track from overflowing--note that each element of the track has a larger width than its container. Due to the track's absolute positioning, it will ignore the padding that already exists for the pokemon-icons-background element in its parent entry. */
   padding-right: 20px;
   padding-left: 5px;
@@ -48,7 +50,6 @@
   right: -0.25rem;
 }
 
-/* */
 .planner__pokemon-icon-track {
   position: absolute;
   width: 60px;
@@ -85,14 +86,16 @@
   background-color: var(--dark1);
 }
 
-.planner-accordion__item-icon {
-  grid-column: 1 / 2;
-}
+/* #endregion */
 
 /* #endregion */
 
+/* Item icons */
+/* #region */
+
 .planner__item-icon-container {
   position: relative;
+  margin-left: var(--entry-horizontal-padding);
   margin-top: 1rem;
 }
 
@@ -106,12 +109,6 @@
   background-repeat: no-repeat;
 }
 
-.planner__item-icon:hover {
-  transform: scale(1.2);
-  cursor: pointer;
-  transition: transform 0.1s;
-}
-
 /* #endregion */
 
 /* Type icons */
@@ -119,8 +116,7 @@
 
 .planner__type-icon-container {
   position: relative;
-
-  padding-left: var(--accordion-left-padding);
+  margin-left: var(--entry-horizontal-padding);
   margin-top: 1rem;
 }
 
