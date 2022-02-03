@@ -32,21 +32,23 @@ export const useEntryExpand = (
   }, [entryRef, setOriginalScrollHeight, size, genFilter, tierFilter, pokemonFilter]);
 
   // Set 'hover' immediately, set 'expand' after the user hovers for a certain amount of time
+  // Time is connected to CSS variable --expand-time
   function onMouseEnter() {
     setHover(true);
     // Only expand if there is overflow in the element
-    if (entryRef.current && entryRef.current.offsetHeight < entryRef.current.scrollHeight) expandTimer.current = setTimeout(() => setExpand(true), 300);
+    if (entryRef.current && entryRef.current.offsetHeight < entryRef.current.scrollHeight) expandTimer.current = setTimeout(() => setExpand(true), 500);
     // Stop contract timer
     if (contractTimer.current) clearTimeout(contractTimer.current);
   }
 
   // Set 'hover' immediately, set 'expand' after the mouse has left for a certain amount of time
+  // Time is connected to CSS variable --expand-time
   function onMouseLeave() {
     setHover(false);
     // Stop expand timer
     if (expandTimer.current) clearTimeout(expandTimer.current);
     // If expanded, start contract timer
-    if (expand) contractTimer.current = setTimeout(() => setExpand(false), 300);
+    if (expand) contractTimer.current = setTimeout(() => setExpand(false), 500);
   }
 
   const expandListeners = { onMouseEnter, onMouseLeave, }

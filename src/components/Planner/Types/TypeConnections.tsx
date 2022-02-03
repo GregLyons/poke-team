@@ -19,7 +19,7 @@ import {
   MissingTierFilterError,
 } from "../helpers";
 
-import ConnectionAccordionEntry from "../Entries/ConnectionAccordionEntry";
+import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 
 export const listRenderTypeAbility = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<TypeAbilityQuery>) => {
   if (!data || !data.typeByName) return (<div>Data not found for the query 'typeByName'.</div>);

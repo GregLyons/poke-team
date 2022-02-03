@@ -31,7 +31,7 @@ import {
   DUMMY_POKEMON_ICON_DATUM,
 } from "../../../types-queries/helpers";
 
-import ConnectionAccordionEntry from "../Entries/ConnectionAccordionEntry";
+import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 import { ENUMCASE_TO_TITLECASE } from "../../../utils/constants";
 
 export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<FieldStateAbilityQuery>) => {
@@ -222,16 +222,19 @@ export const listRenderFieldStateEffect = ({ data, dispatchCart, dispatchTeam, g
   
   return (
     <>
-      {effectResults.map(result => (
-        <ConnectionAccordionEntry
-          parentEntityClass="Field state"
-          targetEntityClass="Effect"
-          key={`${parent.id}_${result.id}_effect`}
-          name={result.formattedName}
-          linkName={result.name}
-          description={result.description}
-        />
-      ))}
+      <div className="planner-accordion__subitem">
+        <div className="planner-accordion__subitem-shadow" />
+          {effectResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Field state"
+              targetEntityClass="Effect"
+              key={`${parent.id}_${result.id}_effect`}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+            />
+          ))}
+      </div>
     </>
   )
 }

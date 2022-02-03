@@ -19,27 +19,34 @@
   --light3: #aaaaaa;
   
   /* Blues */
-  --blue1: lightblue;
+  --blue1-components: 173, 216, 230;
+  --blue1: rgb(var(--blue1-components));
   --blue3: #515158;
 
   /* Greens */
-  --green-bg-components: 201, 236, 201;
+  --green-bg-components: 161, 201, 161;
   --green-bg: rgb(var(--green-bg-components));
-  --green1-components: 80, 200, 120;
+
+  --green1-components: 100, 220, 140;
   --green1: rgb(var(--green1-components));
   --green3: #515851;
 
   /* Reds */
-  --red1: #D10056;
+  --red1-components: 229, 50, 66;
+  --red1: rgb(var(--red1-components));
   --red3: #585151;
 
   /* Fonts */
   --monospace: monospace;
 
-  /* Other stylings */
+  /* Shadows */
   --button-shadow: inset 0px -5px 1px 0 rgba(0, 0, 0, 0.2);
+
   --control-shadow-inset: 3px 3px;
   --control-shadow: inset var(--control-shadow-inset) rgba(0,0,0,0.2);
+
+  --bg-shadow-inset: -1px -1px 3px 1px;
+  --bg-shadow: inset var(--bg-shadow-inset) rgba(var(--green-bg-components), 0.8);
 }
 
 body {

@@ -1,0 +1,205 @@
+/* Items */
+/* #region */
+
+.planner-page {
+  background-color: var(--dark2);
+}
+
+.planner-page .accordion {
+  background-color: rgba(var(--dark3-components), 0.7);
+  grid-column: 2 / 12;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  --accordion-left-padding: 0.25rem;
+  --accordion-left-shadow-size: 0.25rem;
+}
+
+.planner-accordion__item {
+  width: 100%;
+}
+
+/* #endregion */
+
+/* Titles */
+/* #region */
+
+.planner-accordion__title {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: pointer;
+
+  padding-left: var(--accordion-left-padding);
+}
+
+.planner-accordion__title:hover {
+  background-color: #3ab4cc;
+}
+
+/* #endregion */
+
+/* Content */
+/* #region */
+
+.planner-accordion__content-wrapper {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+
+  /* Makes it so box shadow isn't hidden */
+  margin-left: calc(-1 * var(--accordion-left-shadow-size));
+  padding-left: var(--accordion-left-shadow-size);
+
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+
+  overflow: hidden;
+}
+
+/* Spacing between subitems */
+.planner-accordion__content-wrapper > * + * {
+  margin-top: 1rem;
+}
+
+/* Subitems */
+/* #region */
+
+.planner-accordion__subitem {
+  grid-column: 1 / 11;
+
+  background-color: var(--dark2);
+
+  position: relative;
+
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+}
+
+.planner-accordion__subitem-shadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--accordion-left-shadow-size);
+  height: 100%;
+  box-shadow: calc(-1 * var(--accordion-left-shadow-size)) 0 1px 0 var(--blue1);
+}
+
+.planner-accordion__subitem-shadow--positive {
+  box-shadow: calc(-1 * var(--accordion-left-shadow-size)) 0 1px 0 var(--green1);
+}
+
+.planner-accordion__subitem-shadow--negative {
+  box-shadow: calc(-1 * var(--accordion-left-shadow-size)) 0 1px 0 var(--red1);
+}
+
+.planner-accordion__subitem-header {
+  grid-column: 1 / 11;
+  padding-left: var(--accordion-left-padding);
+}
+
+.planner-accordion__clarification {
+  grid-column: 1 / 11;
+  padding-left: var(--accordion-left-padding);
+}
+
+/* Entries */
+/* #region */
+
+.planner-accordion__entry {
+  /* For fade */
+  position: relative;
+
+  grid-column: 1 / 11;
+
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 2fr 3fr 4fr;
+
+  width: 100%;
+
+  background-color: var(--dark2);
+}
+
+.planner-accordion__entry:before {
+  content: '';
+  display: block;
+  position: absolute;
+  box-shadow: inset 0 0.25rem rgba(var(--dark3-components), 0.7);
+  
+  top: 0;
+  left: 0;
+  height: 0.25rem;
+  width: 100%;
+}
+
+/* Shadowing */
+/* #region */
+
+.planner-accordion__entry:after,
+.planner-accordion__subitem--positive > .planner-accordion__entry:after,
+.planner-accordion__subitem--negative > .planner-accordion__entry:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 3px;
+  left: 0;
+  bottom: 0;
+  transition: 0.5s ease;
+}
+
+.planner-accordion__entry:after {
+  box-shadow: inset var(--bg-shadow-inset) rgba(var(--blue1-components), 0.7);
+}
+
+.planner-accordion__subitem--positive > .planner-accordion__entry:after {
+  box-shadow: inset var(--bg-shadow-inset) rgba(var(--green1-components), 0.7);
+}
+
+.planner-accordion__subitem--negative > .planner-accordion__entry:after {
+  box-shadow: inset var(--bg-shadow-inset) rgba(var(--red1-components), 0.7);
+}
+
+.planner-accordion__entry:hover:after,
+.planner-accordion__subitem--positive > .planner-accordion__entry:hover:after,
+.planner-accordion__subitem--negative > .planner-accordion__entry:hover:after {
+  width: 100%;
+}
+
+.planner-accordion__subitem-shadow--positive,
+.planner-accordion__subitem-shadow--negative {
+  position: absolute;
+
+  width: calc(100% + var(--accordion-left-shadow-size));
+  height: 100%;
+}
+
+/* #endregion */
+
+/* #endregion */
+
+.planner-accordion__entry-data {
+  grid-column: 2 / 3;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.planner-accordion__entry-description {
+  grid-column: 3 / 4;
+  padding-right: 0.5rem;
+}
+
+.planner-accordion__entry-data-key {
+  grid-column: 2 / 3;
+}
+
+.planner-accordion__entry-data-value {
+  grid-column: 3 / 4;
+}
+
+/* #endregion */

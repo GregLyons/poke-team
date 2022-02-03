@@ -1,13 +1,15 @@
-import { CartAction } from "../../../hooks/App/Cart";
-import { GenFilter } from "../../../hooks/App/GenFilter";
-import { TeamAction } from "../../../hooks/App/Team";
+import { CartAction } from "../../../../hooks/App/Cart";
+import { GenFilter } from "../../../../hooks/App/GenFilter";
+import { TeamAction } from "../../../../hooks/App/Team";
 import {
   GenerationNum,
   TypeIconDatum,
-} from "../../../types-queries/helpers";
+} from "../../../../types-queries/helpers";
 import {
   getTypeIcon,
-} from "../../../utils/sprites";
+} from "../../../../utils/sprites";
+
+import './Icons.css';
 
 type PlannerTypeIconProps = {
   dispatchCart: React.Dispatch<CartAction>

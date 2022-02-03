@@ -24,7 +24,7 @@ import { GenFilter, removedFromBDSP, removedFromSwSh } from '../../../hooks/App/
 import { PokemonFilter } from '../../../hooks/App/PokemonFilter';
 
 import EntitySearchMain from '../Searches/EntitySearchMain';
-import EntitySearchEntry from '../Entries/EntitySearchEntry';
+import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import {
   ENUMCASE_TO_TITLECASE,
 } from '../../../utils/constants';

@@ -19,7 +19,7 @@ import { GenFilter } from "../../../hooks/App/GenFilter";
 import { TeamAction } from "../../../hooks/App/Team";
 
 import EntitySearchMain from '../Searches/EntitySearchMain';
-import EntitySearchEntry from '../Entries/EntitySearchEntry';
+import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 
 const listRender = ({ data, }: ListRenderArgs<StatSearchQuery>) => {

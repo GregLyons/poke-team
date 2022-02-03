@@ -20,7 +20,7 @@ import { GenFilter, removedFromBDSP, removedFromSwSh } from '../../../hooks/App/
 import { PokemonFilter } from '../../../hooks/App/PokemonFilter';
 
 import EntitySearchMain from '../Searches/EntitySearchMain';
-import EntitySearchEntry from '../Entries/EntitySearchEntry';
+import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { TierFilter } from '../../../hooks/App/TierFilter';
 import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 

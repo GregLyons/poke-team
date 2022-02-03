@@ -16,7 +16,7 @@ import {
   ListRenderArgs, MissingDispatchError, MissingGenError, MissingPokemonFilterError, MissingTierFilterError,
 } from "../helpers";
 
-import ConnectionAccordionEntry from "../Entries/ConnectionAccordionEntry";
+import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 import { DUMMY_POKEMON_ICON_DATUM } from "../../../types-queries/helpers";
 import { ENUMCASE_TO_TITLECASE } from "../../../utils/constants";
 
@@ -29,16 +29,19 @@ export const listRenderAbilityEffect = ({ data, }: ListRenderArgs<AbilityEffectQ
   
   return (
     <>
-      {effectResults.map(result => (
-        <ConnectionAccordionEntry
-          parentEntityClass="Ability"
-          targetEntityClass="Effect"
-          key={`${parent.id}_${result.id}_effect`}
-          name={result.formattedName}
-          linkName={result.name}
-          description={result.description}
-        />
-      ))}
+      <div className="planner-accordion__subitem">
+        <div className="planner-accordion__subitem-shadow" />
+        {effectResults.map(result => (
+          <ConnectionAccordionEntry
+            parentEntityClass="Ability"
+            targetEntityClass="Effect"
+            key={`${parent.id}_${result.id}_effect`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+          />
+        ))}
+      </div>
     </>
   )
 }

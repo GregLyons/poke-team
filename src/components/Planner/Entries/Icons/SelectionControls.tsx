@@ -1,5 +1,7 @@
-import { SelectionAction } from "../../../hooks/Planner/Selections";
-import { EntryIconData } from "../helpers";
+import { SelectionAction } from "../../../../hooks/Planner/Selections";
+import { EntryIconData } from "../../helpers";
+
+import './Icons.css';
 
 type SelectionControlsProps = {
   dispatchSelection: React.Dispatch<SelectionAction>

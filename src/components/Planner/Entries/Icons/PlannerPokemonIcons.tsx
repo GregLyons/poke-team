@@ -1,15 +1,17 @@
 import { useEffect, useRef } from "react";
-import { CartAction } from "../../../hooks/App/Cart";
-import { GenFilter } from "../../../hooks/App/GenFilter";
-import { PokemonFilter, validatePokemon } from "../../../hooks/App/PokemonFilter";
-import { TeamAction } from "../../../hooks/App/Team";
-import { TierFilter } from "../../../hooks/App/TierFilter";
-import { SelectionAction, Selection } from "../../../hooks/Planner/Selections";
-import { ItemIconDatum, PokemonIconDatum, psID } from "../../../types-queries/helpers";
-import { DoublesTier, isSinglesTier, psIDToDoublesTier, } from '../../../utils/smogonLogic';
-import { psIDToSinglesTier as psIDToSinglesTier } from "../../../utils/smogonLogic";
+import { CartAction } from "../../../../hooks/App/Cart";
+import { GenFilter } from "../../../../hooks/App/GenFilter";
+import { PokemonFilter, validatePokemon } from "../../../../hooks/App/PokemonFilter";
+import { TeamAction } from "../../../../hooks/App/Team";
+import { TierFilter } from "../../../../hooks/App/TierFilter";
+import { SelectionAction, Selection } from "../../../../hooks/Planner/Selections";
+import { ItemIconDatum, PokemonIconDatum, psID } from "../../../../types-queries/helpers";
+import { DoublesTier, isSinglesTier, psIDToDoublesTier, } from '../../../../utils/smogonLogic';
+import { psIDToSinglesTier as psIDToSinglesTier } from "../../../../utils/smogonLogic";
 import PlannerPokemonIcon from "./PlannerPokemonIcon";
 import SelectionControls from "./SelectionControls";
+
+import './Icons.css';
 
 type PlannerPokemonIconsProps = {
   context: 'search' | 'accordion'

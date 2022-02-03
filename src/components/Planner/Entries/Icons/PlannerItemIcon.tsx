@@ -1,14 +1,16 @@
 import {
   useState,
 } from "react";
-import { CartAction } from "../../../hooks/App/Cart";
-import { TeamAction } from "../../../hooks/App/Team";
+import { CartAction } from "../../../../hooks/App/Cart";
+import { TeamAction } from "../../../../hooks/App/Team";
 import {
   ItemIconDatum,
-} from "../../../types-queries/helpers";
+} from "../../../../types-queries/helpers";
 import {
   getItemIcon,
-} from "../../../utils/sprites";
+} from "../../../../utils/sprites";
+
+import './Icons.css';
 
 type PlannerItemIconProps = {
   dispatchCart: React.Dispatch<CartAction>

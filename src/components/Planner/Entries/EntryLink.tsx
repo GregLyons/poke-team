@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { ItemIconDatum, } from "../../../types-queries/helpers";
 import { EntityClass, ENTITYCLASS_TO_PLANNERLINK, } from "../../../utils/constants";
 import { EntryIconData } from "../helpers";
-import PlannerItemIcon from "./PlannerItemIcon";
-import PlannerTypeIcon from "./PlannerTypeIcon";
+import PlannerItemIcon from "./Icons/PlannerItemIcon";
+import PlannerTypeIcon from "./Icons/PlannerTypeIcon";
 
 type EntryLinkProps = {
   hover: boolean

@@ -63,7 +63,7 @@
   padding: 1rem;
   background-color: var(--dark2);
   border-radius: 3px;
-  box-shadow: inset -1px -1px 3px 1px rgba(var(--green-bg-components),0.8);
+  box-shadow: var(--bg-shadow);
 }
 
 .gen-filter__wrapper,

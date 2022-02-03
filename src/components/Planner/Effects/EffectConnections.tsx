@@ -19,7 +19,7 @@ import {
   MissingTierFilterError,
 } from "../helpers";
 
-import ConnectionAccordionEntry from "../Entries/ConnectionAccordionEntry";
+import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 
 export const listRenderEffectAbility = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<EffectAbilityQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
@@ -34,25 +34,28 @@ export const listRenderEffectAbility = ({ data, dispatchCart, dispatchTeam, genF
 
   return (
     <>
-      {abilityResults.map(result => (
-        <ConnectionAccordionEntry
-          parentEntityClass="Effect"
-          targetEntityClass="Ability"
-          key={`${parent.id}_${result.id}_ability`}
-          name={result.formattedName}
-          linkName={result.name}
-          description={result.description}
-          icons={{
-            dispatchCart: dispatchCart,
-            dispatchTeam: dispatchTeam,
-            pokemonIconData: result.pokemonIconData,
-            genFilter,
-            tierFilter: tierFilter,
-            pokemonFilter: pokemonFilter,
-            cartNote: `'${result.formattedName}' has the effect '${parent.formattedName}'.`,
-          }}
-        />
-      ))}
+      <div className="planner-accordion__subitem">
+        <div className="planner-accordion__subitem-shadow" />
+        {abilityResults.map(result => (
+          <ConnectionAccordionEntry
+            parentEntityClass="Effect"
+            targetEntityClass="Ability"
+            key={`${parent.id}_${result.id}_ability`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              pokemonIconData: result.pokemonIconData,
+              genFilter,
+              tierFilter: tierFilter,
+              pokemonFilter: pokemonFilter,
+              cartNote: `'${result.formattedName}' has the effect '${parent.formattedName}'.`,
+            }}
+          />
+        ))}
+      </div>
     </>
   );
 }
@@ -66,16 +69,19 @@ export const listRenderEffectFieldState = ({ data, dispatchCart, dispatchTeam, g
 
   return (
     <>
-      {fieldStateResults.map(result => (
-        <ConnectionAccordionEntry
-          parentEntityClass="Effect"
-          targetEntityClass="Field state"
-          key={`${parent.id}_${result.id}_fieldState`}
-          name={result.formattedName}
-          linkName={result.name}
-          description={result.description}
-        />
-      ))}
+      <div className="planner-accordion__subitem">
+        <div className="planner-accordion__subitem-shadow" />
+        {fieldStateResults.map(result => (
+          <ConnectionAccordionEntry
+            parentEntityClass="Effect"
+            targetEntityClass="Field state"
+            key={`${parent.id}_${result.id}_fieldState`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+          />
+        ))}
+      </div>
     </>
   );
 }
@@ -93,26 +99,29 @@ export const listRenderEffectItem = ({ data, dispatchCart, dispatchTeam, genFilt
 
   return (
     <>
-      {itemResults.map(result => (
-        <ConnectionAccordionEntry
-          parentEntityClass="Effect"
-          targetEntityClass="Item"
-          key={`${parent.id}_${result.id}_item`}
-          name={result.formattedName}
-          linkName={result.name}
-          description={result.description}
-          icons={{
-            dispatchCart: dispatchCart,
-            dispatchTeam: dispatchTeam,
-            pokemonIconData: result.requiredPokemonIconData,
-            itemIconDatum: result.itemIconDatum,
-            genFilter,
-            tierFilter,
-            pokemonFilter,
-            cartNote: `'${result.formattedName}' has the effect '${parent.formattedName}'.`,
-          }}
-        />
-      ))}
+      <div className="planner-accordion__subitem">
+        <div className="planner-accordion__subitem-shadow" />
+        {itemResults.map(result => (
+          <ConnectionAccordionEntry
+            parentEntityClass="Effect"
+            targetEntityClass="Item"
+            key={`${parent.id}_${result.id}_item`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              pokemonIconData: result.requiredPokemonIconData,
+              itemIconDatum: result.itemIconDatum,
+              genFilter,
+              tierFilter,
+              pokemonFilter,
+              cartNote: `'${result.formattedName}' has the effect '${parent.formattedName}'.`,
+            }}
+          />
+        ))}
+      </div>
     </>
   );
 }
@@ -130,25 +139,28 @@ export const listRenderEffectMove = ({ data, dispatchCart, dispatchTeam, genFilt
 
   return (
     <>
-      {moveResults.map(result => (
-        <ConnectionAccordionEntry
-          parentEntityClass="Effect"
-          targetEntityClass="Move"
-          key={`${parent.id}_${result.id}_move`}
-          name={result.formattedName}
-          linkName={result.name}
-          description={result.description}
-          icons={{
-            dispatchCart: dispatchCart,
-            dispatchTeam: dispatchTeam,
-            pokemonIconData: result.pokemonIconData,
-            genFilter,
-            tierFilter: tierFilter,
-            pokemonFilter: pokemonFilter,
-            cartNote: `'${result.formattedName}' has the effect '${parent.formattedName}'.`,
-          }}
-        />
-      ))}
+      <div className="planner-accordion__subitem">
+        <div className="planner-accordion__subitem-shadow" />
+        {moveResults.map(result => (
+          <ConnectionAccordionEntry
+            parentEntityClass="Effect"
+            targetEntityClass="Move"
+            key={`${parent.id}_${result.id}_move`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+            icons={{
+              dispatchCart: dispatchCart,
+              dispatchTeam: dispatchTeam,
+              pokemonIconData: result.pokemonIconData,
+              genFilter,
+              tierFilter: tierFilter,
+              pokemonFilter: pokemonFilter,
+              cartNote: `'${result.formattedName}' has the effect '${parent.formattedName}'.`,
+            }}
+          />
+        ))}
+      </div>
     </>
   );
 }

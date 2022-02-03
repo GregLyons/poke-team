@@ -1,39 +1,43 @@
-import { 
-  useEffect,
+import {
   useRef,
 } from "react";
-import { useEntryExpand } from "../../../hooks/Planner/Entries";
-import { selectionToPokemonIconData, useSelection } from "../../../hooks/Planner/Selections";
+
 import {
   EntityClass,
-} from '../../../utils/constants';
+} from "../../../../utils/constants";
 
-import EntryLink from "./EntryLink";
-import { EntryIconData } from "../helpers";
-import PlannerPokemonIcons from "../Entries/PlannerPokemonIcons";
+import EntryLink from "../EntryLink";
+import { EntryIconData } from "../../helpers";
+import PlannerPokemonIcons from "../Icons/PlannerPokemonIcons";
+import { useEntryExpand } from "../../../../hooks/Planner/Entries";
+import { selectionToPokemonIconData, useSelection, } from "../../../../hooks/Planner/Selections";
 
-type EntitySearchEntryProps = {
-  entityClass: EntityClass
+import './ConnectionEntry.css';
+
+type ConnectionAccordionEntryProps = {
+  parentEntityClass: EntityClass
+  targetEntityClass: EntityClass
   key: string
   name: string
   linkName: string
   description: string
   data?: {
     key: string
-    value: string | number | boolean
+    value: string | number 
   }[]
   icons?: EntryIconData
 }
 
-const EntitySearchEntry = ({
-  entityClass,
+const ConnectionAccordionEntry = ({
+  parentEntityClass,
+  targetEntityClass,
   key,
   name,
   linkName,
   description,
   data,
   icons,
-}: EntitySearchEntryProps) => {
+}: ConnectionAccordionEntryProps) => {
   // Changing scroll height 
   // #region
 
@@ -43,7 +47,7 @@ const EntitySearchEntry = ({
   // Default height
   const entryHeight = "6rem";
   
-  const { hover, expand, expandListeners, originalScrollHeight } = useEntryExpand(entryRef, icons?.genFilter, icons?.tierFilter, icons?.pokemonFilter);
+  const { hover, expand, expandListeners, originalScrollHeight, } = useEntryExpand(entryRef, icons?.genFilter, icons?.tierFilter, icons?.pokemonFilter);
 
   // #endregion
 
@@ -65,8 +69,8 @@ const EntitySearchEntry = ({
       type: 'add_pokemon',
       payload: {
         gen: icons.genFilter.gen,
-        parentEntityClass: entityClass,
-        targetEntityClass: 'Has',
+        parentEntityClass,
+        targetEntityClass,
         pokemon: selectionToPokemonIconData(selection),
         note: icons.cartNote,
       }
@@ -76,64 +80,59 @@ const EntitySearchEntry = ({
 
   // #endregion
 
-  // If there is no icon 
-  const hasIcon = useRef(false);
-  useEffect(() => {
-    hasIcon.current = false;
-  }, [icons?.tierFilter])
-
-  // Since Pokemon can learn Moves in multiple ways, we need to worry about duplicates. The keys of this object are Pokemon names, and the value is always 'true'; we only care about the keys.
-  let seenPokemon: {[k: string]: boolean} = {};
 
   return (
     <div 
-    ref={entryRef}
+      ref={entryRef}
       {...expandListeners}
       style={
-        expand
+        expand 
           ? { 
               height: originalScrollHeight || 0,
-              transitionDuration: entryRef.current 
-                ? `${entryRef.current.scrollHeight * 0.5}ms`
+              transition: entryRef.current 
+                ? `height ${entryRef.current.scrollHeight * 0.5}ms`
                 : ``,
             }
           : { 
               height: `${entryHeight}`,
-              transitionDuration: entryRef.current 
-              ? `${entryRef.current.scrollHeight * 0.5}ms`
+              transition: entryRef.current 
+              ? `height ${entryRef.current.scrollHeight * 0.5}ms`
               : ``, 
             }
       }
-      className="planner-search__entry"
+      className="planner-accordion__entry"
       key={key}
     >
       <EntryLink
         hover={hover}
-        parentEntityClass={entityClass}
-        targetEntityClass={'From search'}
+        parentEntityClass={parentEntityClass}
+        targetEntityClass={targetEntityClass}
         linkName={linkName}
         name={name}
         icons={icons}
       />
-      <div className="planner-search__entry-data">
+
+      <div className="planner-accordion__entry-data">
         {data && data.map(({key, value}) => (
           <>
-            <b className="planner-search__entry-data-key">
+            <b className="planner-accordion__entry-data-key">
               {key}
             </b>
-            <div className="planner-search__entry-data-value">
+            <div className="planner-accordion__entry-data-value">
               {value}
             </div>
           </>
         ))}
       </div>
+
       <div 
-        className="planner-search__entry-description"
+        className="planner-accordion__entry-description"
       >
         {description}
       </div>
+
       {icons && <PlannerPokemonIcons
-        context="search"
+        context="accordion" 
         key={key}
         selection={selection}
         dispatchSelection={dispatchSelection}
@@ -145,4 +144,4 @@ const EntitySearchEntry = ({
   )
 }
 
-export default EntitySearchEntry;
+export default ConnectionAccordionEntry;

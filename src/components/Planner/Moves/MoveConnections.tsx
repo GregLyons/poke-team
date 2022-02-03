@@ -19,7 +19,7 @@ import {
   MoveUsageMethodResult,
 } from "../../../types-queries/Planner/Move";
 import { ENUMCASE_TO_TITLECASE } from "../../../utils/constants";
-import ConnectionAccordionEntry from "../Entries/ConnectionAccordionEntry";
+import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 
 import {
   ListRenderArgs, MissingDispatchError, MissingGenError, MissingPokemonFilterError, MissingTierFilterError,
@@ -34,16 +34,19 @@ export const listRenderMoveEffect = ({ data, }: ListRenderArgs<MoveEffectQuery>)
 
   return (
     <>
-      {effectResults.map(result => (
-        <ConnectionAccordionEntry
-          parentEntityClass="Move"
-          targetEntityClass="Effect"
-          key={`${parent.id}_${result.id}_effect`}
-          name={result.formattedName}
-          linkName={result.name}
-          description={result.description}
-        />
-      ))}
+      <div className="planner-accordion__subitem">
+        <div className="planner-accordion__subitem-shadow" />
+        {effectResults.map(result => (
+          <ConnectionAccordionEntry
+            parentEntityClass="Move"
+            targetEntityClass="Effect"
+            key={`${parent.id}_${result.id}_effect`}
+            name={result.formattedName}
+            linkName={result.name}
+            description={result.description}
+          />
+        ))}
+      </div>
     </>
   )
 }

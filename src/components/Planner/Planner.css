@@ -137,58 +137,7 @@
 /* Item icons */
 /* #region */
 
-.planner__item-icon-container {
-  position: relative;
-  margin-top: 1rem;
-}
 
-.planner__item-icon-background {
-  position: absolute;
-}
-
-.planner__item-icon {
-  position: absolute;
-  background-image: url('../../assets/icons/itemicons-sheet.png');
-  background-repeat: no-repeat;
-}
-
-.planner__item-icon:hover {
-  transform: scale(1.2);
-  cursor: pointer;
-  transition: transform 0.1s;
-}
-
-/* #endregion */
-
-/* Type icons */
-/* #region */
-
-.planner__type-icon-container {
-  position: relative;
-
-  padding-left: var(--accordion-left-padding);
-  margin-top: 1rem;
-}
-
-.planner__type-icon-background {
-  position: absolute;
-}
-
-.planner__type-icon--5 {
-  position: absolute;
-  background-image: url('../../assets/icons/typeicons5-sheet.png');
-  background-repeat: no-repeat;
-  overflow: hidden;
-}
-
-.planner__type-icon--8 {
-  position: absolute;
-  zoom: 0.4;
-  -moz-transform:scale(0.4);
-  -moz-transform-origin: 0 0;
-  background-image: url('../../assets/icons/typeicons8-sheet.png');
-  background-repeat: no-repeat;
-}
 
 /* #endregion */
 
