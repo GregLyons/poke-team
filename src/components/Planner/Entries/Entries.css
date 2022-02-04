@@ -1,6 +1,7 @@
 .planner-container {
   --entry-vertical-padding: 0.5rem;
   --entry-horizontal-padding: 0.25rem;
+  --entry-top-margin: 0.25rem;
 }
 
 /* Entire row */
@@ -17,7 +18,6 @@
   overflow: hidden;
   background-color: var(--dark2);
   font-family: var(--monospace);
-  padding-top: var(--entry-vertical-padding);
   padding-bottom: var(--entry-vertical-padding);
   transition: ease 0.25s;
 }

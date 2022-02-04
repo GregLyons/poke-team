@@ -43,24 +43,21 @@ const CartViewPokemonIcons = ({
         const tier = tierFilter.format === 'singles' ? psIDToSinglesTier(genFilter.gen, psID) : psIDToDoublesTier(genFilter.gen, psID);
 
         // Ignore duplicate Pokemon
-        if(seenPokemon.hasOwnProperty(name)) return
-      
-        // Add Pokemon to list of seen Pokemon
-        else seenPokemon[name] = true;
+        if(seenPokemon.hasOwnProperty(pokemonIconDatum.name)) return
         
-        // If tier is not selected, return
-        if (tier && 
-          (isSinglesTier(tier) 
-            && tierFilter.format === 'singles' 
-            && !tierFilter.singlesTiers[tier]
-          ) || (
-            !isSinglesTier(tier)
-            && tierFilter.format === 'doubles'
-            && !tierFilter.doublesTiers[tier]
-          )
-        ) return;
+        // Add Pokemon to list of seen Pokemon
+        else seenPokemon[pokemonIconDatum.name] = true;
 
-        if (!validatePokemon(pokemonIconDatum, pokemonFilter)) return;
+        const { validated, reason } = validatePokemon({
+          pokemonIconDatum,
+          genFilter,
+          tierFilter,
+          pokemonFilter,
+        });
+
+        if (!validated) {
+          return;
+        }
 
         hasIcon.current = true;
 

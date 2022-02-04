@@ -1,4 +1,7 @@
 import { BaseStatName, BaseStats, PokemonIconDatum, TypeName } from "../../types-queries/helpers";
+import { DoublesTier, isSinglesTier, psIDToDoublesTier, psIDToSinglesTier } from "../../utils/smogonLogic";
+import { GenFilter } from "./GenFilter";
+import { TierFilter } from "./TierFilter";
 
 
 export const BASE_STAT_NAMES: BaseStatName[] = [
@@ -193,22 +196,95 @@ export function pokemonReducer(state: PokemonFilter, action: PokemonFilterAction
   }
 }
 
-export const validatePokemon = (pokemon: PokemonIconDatum, pokemonFilter: PokemonFilter): boolean => {
+// Validating Pokemon
+// #region 
+
+type validatePokemonProps = {
+  pokemonIconDatum: PokemonIconDatum
+  genFilter: GenFilter
+  pokemonFilter: PokemonFilter
+  tierFilter: TierFilter
+}
+
+export type ValidationFailureReason = 'tier' | 'type' | 'stat' | '' | null
+
+export const displayReason = (reason: ValidationFailureReason) => {
+  switch(reason) {
+    case 'tier':
+      return 'No Pokemon match the TIER criteria.';
+    case 'type':
+      return 'No Pokemon match the TYPE criteria.';
+    case 'stat':
+      return 'No Pokemon match the STAT criteria.';
+    case '':
+      return 'No Pokemon to show.';
+    default:
+      return '';
+  }
+}
+
+export const validatePokemon = ({
+  pokemonIconDatum,
+  genFilter,
+  pokemonFilter,
+  tierFilter,
+}: validatePokemonProps): { validated: boolean, reason: ValidationFailureReason} => {
+  // Tier check
+  // #region 
+
+  let tierCheck = true;
+
+  // Compute tier based on format and gen
+  const tier = tierFilter.format === 'singles'
+    ? psIDToSinglesTier(genFilter.gen, pokemonIconDatum.psID)
+    : (psIDToDoublesTier(genFilter.gen, pokemonIconDatum.psID)?.replace('LC', 'DLC').replace('NFE', 'DNFE') as DoublesTier);
+
+  // If condition is true, tier check fails
+  if (
+    // Untiered Pokemon are always excluded
+    tier !== undefined && (
+      // Singles mode
+      (
+        isSinglesTier(tier)
+        && tierFilter.format === 'singles'
+        && !tierFilter.singlesTiers[tier]
+      )
+      // Doubles mode
+      || (
+        !isSinglesTier(tier)
+        && tierFilter.format === 'doubles'
+        && !tierFilter.doublesTiers[tier]
+      )
+    )
+  ) return { validated: false, reason: 'tier', }
+
+  // #endregion
+
   // Typing check
+  // #region 
+
   let typingCheck = true;
-  pokemon.typing.map(typeName => {
+  pokemonIconDatum.typing.map(typeName => {
     // Type filter fails to include one of the types
     if (!pokemonFilter.types[typeName]) typingCheck = false;
   });
-  if (!typingCheck) return false;
+  if (!typingCheck) return { validated: false, reason: 'type', };
+
+  // #endregion 
 
   // Base stat check
+  // #region 
+
   let baseStatCheck = true;
   BASE_STAT_NAMES.map(baseStatName => {
     // Previous baseStatCheck failed, or baseStat less than min
-    if (baseStatCheck && pokemon.baseStats[baseStatName] < pokemonFilter.minBaseStats[baseStatName]) baseStatCheck = false;
+    if (baseStatCheck && pokemonIconDatum.baseStats[baseStatName] < pokemonFilter.minBaseStats[baseStatName]) baseStatCheck = false;
     // Previous baseStatCheck failed, or baseStat greater than max
-    if (baseStatCheck && pokemon.baseStats[baseStatName] > pokemonFilter.maxBaseStats[baseStatName]) baseStatCheck = false;
+    if (baseStatCheck && pokemonIconDatum.baseStats[baseStatName] > pokemonFilter.maxBaseStats[baseStatName]) baseStatCheck = false;
   })
-  return baseStatCheck;
+  return { validated: baseStatCheck, reason: baseStatCheck ? null : 'stat', }; 
+
+  // #endregion
 }
+
+// #endregion
