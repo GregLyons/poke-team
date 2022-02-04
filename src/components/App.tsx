@@ -39,7 +39,7 @@ import { DEFAULT_GEN_FILTER, genReducer } from '../hooks/App/GenFilter';
 import { DEFAULT_TIER_FILTER, tierReducer } from '../hooks/App/TierFilter';
 import { DEFAULT_POKEMON_FILTER, pokemonReducer } from '../hooks/App/PokemonFilter';
 import { cartReducer, DEFAULT_CART } from '../hooks/App/Cart';
-import { teamReducer } from '../hooks/App/Team';
+import { DEFAULT_TEAM, teamReducer } from '../hooks/App/Team';
 
 
 function App() {
@@ -47,7 +47,7 @@ function App() {
   const [tierFilter, dispatchTierFilter] = useReducer(tierReducer, DEFAULT_TIER_FILTER);
   const [pokemonFilter, dispatchPokemonFilter] = useReducer(pokemonReducer, DEFAULT_POKEMON_FILTER);
   const [cart, dispatchCart] = useReducer(cartReducer, DEFAULT_CART);
-  const [team, dispatchTeam] = useReducer(teamReducer, []);
+  const [team, dispatchTeam] = useReducer(teamReducer, DEFAULT_TEAM);
   
   return (
     <div className="app__wrapper">

@@ -6,7 +6,8 @@
   line-height: 1.5;
 
   /* Darks */
-  --dark1: #545454;
+  --dark1-components: 84, 84, 84;
+  --dark1: rgb(var(--dark1-components));
   --dark2-components: 52, 52, 52;
   --dark2: rgb(var(--dark2-components));
   --dark3-components: 20, 20, 20;

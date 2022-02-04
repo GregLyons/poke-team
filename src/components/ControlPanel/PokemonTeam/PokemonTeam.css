@@ -11,8 +11,178 @@
   height: 100%;
 }
 
+/* Team members */
+/* #region */
+
 .team-member__wrapper {
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr;
+  grid-template-rows: 2fr 30px 1fr;
+
+  position: relative;
+
+  overflow: hidden;
+
+  transition: 0.2s ease;
+}
+
+/* Replacing */
+/* #region */
+
+/* Overlay for replace mode */
+.team-member__wrapper--replace::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  cursor: pointer;
+
+  background-color: rgba(var(--blue1-components), 0.2);
+}
+.team-member__wrapper--replace:hover::after {
+  filter: brightness(1.1);
+}
+
+/* #endregion */
+
+/* Remove button */
+/* #region */
+
+.team-member__remove-wrapper {
+  grid-row: 1 / 2;
+  grid-column: 3 / 4;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  --remove-button-side: 12px;
+  --triangle-size-factor: calc(1 / 4);
 }
+
+.team-member__remove {
+  position: relative;
+  width: var(--remove-button-side);
+  height: var(--remove-button-side);
+  background: var(--red1);
+  border-radius: calc(0.25 * var(--remove-button-side));
+
+  transition: 0.2s ease;
+}
+.team-member__remove:hover {
+  transform: scale(1.2);
+  filter: brightness(1.1);
+  cursor: pointer;
+}
+
+/* Triangles */
+/* #region */ 
+
+.team-member__remove--top,
+.team-member__remove--left,
+.team-member__remove--bottom,
+.team-member__remove--right {
+  position: absolute;
+  width: 0;
+  height: 0;
+
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+.team-member__remove--top {
+  top: calc((1 - var(--triangle-size-factor)) * var(--remove-button-side));
+  left: calc((0.5 - var(--triangle-size-factor)) * var(--remove-button-side));
+
+  border-left: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid transparent;
+  border-right: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid transparent;
+
+  border-bottom: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid var(--dark1);
+}
+
+.team-member__remove--bottom {
+  bottom: calc((1 - var(--triangle-size-factor)) * var(--remove-button-side));
+  left: calc((0.5 - var(--triangle-size-factor)) * var(--remove-button-side));
+
+  border-left: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid transparent;
+  border-right: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid transparent;
+
+  border-top: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid var(--dark1);
+}
+
+.team-member__remove--left {
+  left: calc((1 - var(--triangle-size-factor)) * var(--remove-button-side));
+  top: calc((0.5 - var(--triangle-size-factor)) * var(--remove-button-side));
+
+  border-top: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid transparent;
+  border-bottom: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid transparent;
+
+  border-right: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid var(--dark1);
+}
+
+.team-member__remove--right {
+  right: calc((1 - var(--triangle-size-factor)) * var(--remove-button-side));
+  top: calc((0.5 - var(--triangle-size-factor)) * var(--remove-button-side));
+
+  border-top: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid transparent;
+  border-bottom: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid transparent;
+
+  border-left: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid var(--dark1);
+}
+
+/* Fade on return */
+/* #region */
+
+.team-member__return > div {
+  opacity: 0;
+}
+
+/* #endregion */
+
+/* #endregion */
+
+/* #endregion */
+
+/* Pokemon icon */
+/* #region */
+
+.team-member__pokemon-icon-container {
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
+  position: relative;
+}
+.team-member__track {
+  position: absolute;
+  width: 30px;
+  height: 15px;
+  margin-top: 20px;
+  left: 5px;
+  background-color: var(--light1);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+.team-member__pokemon-icon {
+  /* Centering  */
+  position: absolute;
+  background-image: url('../../../assets/icons/pokemonicons-sheet.png');
+  background-repeat: no-repeat;
+}
+
+.team-member__remove-timer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--light1);
+}
+
+/* #endregion */
+
+/* #endregion */

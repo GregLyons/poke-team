@@ -8,12 +8,11 @@ import PokemonFilterForm from './PokemonFilterForm/PokemonFilterForm';
 import { TierFilter, TierFilterAction } from '../../hooks/App/TierFilter';
 import { PokemonFilter, PokemonFilterAction } from '../../hooks/App/PokemonFilter';
 import { GenFilter, GenFilterAction } from '../../hooks/App/GenFilter';
-import { TeamAction } from '../../hooks/App/Team';
+import { Team, TeamAction } from '../../hooks/App/Team';
 import { CartAction } from '../../hooks/App/Cart';
 
 type ControlPanelProps = {
   dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
 
   dispatchGenFilter: React.Dispatch<GenFilterAction>
   genFilter: GenFilter
@@ -23,8 +22,9 @@ type ControlPanelProps = {
 
   dispatchPokemonFilter: React.Dispatch<PokemonFilterAction>
   pokemonFilter: PokemonFilter
-  
-  team: Pokemon[]
+
+  dispatchTeam: React.Dispatch<TeamAction>
+  team: Team
 }
 
 const ControlPanel = ({

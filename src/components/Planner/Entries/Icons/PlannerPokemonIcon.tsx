@@ -33,6 +33,23 @@ const PlannerPokemonIcon = ({
 
   const [hover, setHover] = useState(false);
 
+  const onClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.preventDefault();
+    toggleSelection(pokemonIconDatum.psID);
+    if (!selected) {
+      dispatchTeam({
+        type: 'toggle_replace_mode',
+        payload: pokemonIconDatum,
+      });
+    }
+    else {
+      dispatchTeam({
+        type: 'toggle_replace_mode',
+        payload: null,
+      })
+    }
+  }
+
   return (
     <div className="planner__pokemon-icon-container"
       style={{
@@ -57,7 +74,7 @@ const PlannerPokemonIcon = ({
         }}
       />
       <div
-        onClick={(e) => toggleSelection(pokemonIconDatum.psID)}
+        onClick={onClick}
         className="planner__pokemon-icon"
         title={`${pokemonIconDatum.formattedName}`}
         key={key}

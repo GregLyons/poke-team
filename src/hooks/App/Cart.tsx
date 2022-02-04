@@ -7,73 +7,49 @@ export type Box = {
   pokemon: PokemonIconDatum[]
 }
 
-export type Cart = {
-  [gen in GenerationNum]: {
-    pokemon: {
-      [parentEntityClass in EntityClass]?: {
-        [targetEntityClass in EntityClass | 'Has']?: {
-          // Key: Describes relationship between parent and target entity.
-          // Value: Pokemon from selection.
-          [note: string]: PokemonIconDatum[]
-        }
+export type CartInGen = {
+  pokemon: {
+    [parentEntityClass in EntityClass]?: {
+      [targetEntityClass in EntityClass | 'Has']?: {
+        // Key: Describes relationship between parent and target entity.
+        // Value: Pokemon from selection.
+        [note: string]: PokemonIconDatum[]
       }
     }
-    items: {
-      [parentEntityClass in EntityClass]?: {
-        [targetEntityClass in EntityClass | 'From search']?: {
-          // Key: Describes relationship between parent and target entity.
-          // Value: Pokemon required for item, or [].
-          [note: string]: PokemonIconDatum[]
-        }
-      } 
-    }
-    intersectionBoxes: {
-      [note: string]: PokemonIconDatum[]
-    }
   }
+  items: {
+    [parentEntityClass in EntityClass]?: {
+      [targetEntityClass in EntityClass | 'From search']?: {
+        // Key: Describes relationship between parent and target entity.
+        // Value: Pokemon required for item, or [].
+        [note: string]: PokemonIconDatum[]
+      }
+    } 
+  }
+  intersectionBoxes: {
+    [note: string]: PokemonIconDatum[]
+  }
+}
+
+export type Cart = {
+  [gen in GenerationNum]: CartInGen
 };
 
+const EMPTY_CART_IN_GEN = {
+  pokemon: {},
+  items: {},
+  intersectionBoxes: {},
+}
+
 export const DEFAULT_CART: Cart = {
-  1: {
-    pokemon: {},
-    items: {},
-    intersectionBoxes: {},
-  },
-  2: {
-    pokemon: {},
-    items: {},
-    intersectionBoxes: {},
-  },
-  3: {
-    pokemon: {},
-    items: {},
-    intersectionBoxes: {},
-  },
-  4: {
-    pokemon: {},
-    items: {},
-    intersectionBoxes: {},
-  },
-  5: {
-    pokemon: {},
-    items: {},
-    intersectionBoxes: {},
-  },
-  6: {
-    pokemon: {},
-    items: {},
-    intersectionBoxes: {},
-  },
-  7: {
-    pokemon: {},
-    items: {},
-    intersectionBoxes: {},
-  },
-  8: {
-    pokemon: {},
-    items: {},
-    intersectionBoxes: {},
-  },
+  1: EMPTY_CART_IN_GEN,
+  2: EMPTY_CART_IN_GEN,
+  3: EMPTY_CART_IN_GEN,
+  4: EMPTY_CART_IN_GEN,
+  5: EMPTY_CART_IN_GEN,
+  6: EMPTY_CART_IN_GEN,
+  7: EMPTY_CART_IN_GEN,
+  8: EMPTY_CART_IN_GEN,
 }
 
 export type CartAction =
@@ -115,7 +91,7 @@ const intersectPokemonIconData = (pokemonIconData1: PokemonIconDatum[], pokemonI
   return pokemonIconData1.filter(d => psIDs2.includes(d.psID));
 }
 
-export function cartReducer(state: Cart, action: CartAction) {
+export function cartReducer(state: Cart, action: CartAction): Cart {
   switch(action.type) {
     case 'add_pokemon':
       return {

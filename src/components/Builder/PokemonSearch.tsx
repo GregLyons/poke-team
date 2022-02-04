@@ -124,7 +124,7 @@ const PokemonSearch = ({
               key={pokemon.id}
               onClick={(e) => {
                 e.preventDefault();
-                dispatchTeam({ type: 'add', payload: new Pokemon(pokemon)});
+                // dispatchTeam({ type: 'add', payload: new Pokemon(pokemon)});
               }}
             >
               {pokemon.name}
