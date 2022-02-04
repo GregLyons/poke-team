@@ -1,20 +1,31 @@
+import { useState, } from "react";
+import { useInterval } from "usehooks-ts";
+
 type RemoveTimerProps = {
+  removing: boolean
   removeDuration: number
   startTime: number
 }
 
 const RemoveTimer = ({
+  removing,
   removeDuration,
   startTime,
 }: RemoveTimerProps) => {
-  let time = (new Date()).getTime();
-  setTimeout(() => time++);
+  const delay = 10;
+  const [time, setTime] = useState<number>(startTime);
+
+  useInterval(() => {
+    setTime(time + delay);
+  }, removing ? delay : null);
 
   return (
     <div
       className="team-member__remove-timer"
       style={{
-        width: `${100 - (time - startTime) / removeDuration * 100}%`
+        width: removing 
+          ? `${100 - (time - startTime) / removeDuration * 100}%`
+          : 0,
       }}
     />
   )

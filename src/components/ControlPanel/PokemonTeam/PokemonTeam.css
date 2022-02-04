@@ -93,7 +93,6 @@
   height: 0;
 
   opacity: 1;
-  transition: opacity 0.25s ease;
 }
 
 .team-member__remove--top {
@@ -165,7 +164,6 @@
   left: 5px;
   background-color: var(--light1);
   border-radius: 50%;
-  opacity: 0.5;
 }
 .team-member__pokemon-icon {
   /* Centering  */

@@ -56,7 +56,11 @@ const TeamMember = ({
         payload: position,
       });
     }
+
+    // No longer removing Pokemon
     setRemoving(false);
+
+    // Get rid of removal timer
     setStartTime(undefined);
   }
 
@@ -64,14 +68,22 @@ const TeamMember = ({
     e.preventDefault();
 
     // if (replacing) return;
-  
-    setRemoving(true);
+    
+    // Start removal timer
     setStartTime((new Date()).getTime());
+    
+    // Start removing Pokemon
+    setRemoving(true);
     removeTimer.current = setTimeout(removePokemon, removeDuration);
   }
 
-  const onReturnClick =(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const onReturnClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    if (startTime === undefined) return;
+
+    // No longer removing Pokemon
     setRemoving(false);
+    setStartTime(undefined);
+    // Clear remove timer
     if (removeTimer.current) clearTimeout(removeTimer.current);
   }
 

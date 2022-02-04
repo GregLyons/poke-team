@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import FontAwesome from "react-fontawesome";
-import { useWindowSize } from "../../../hooks/useWindowSize";
+import { useOnClickOutside, useWindowSize } from "usehooks-ts";
 import './DropdownMenu.css';
 
 type Item<F> = {
@@ -31,7 +31,7 @@ function DropdownMenu<E extends Item<F>, F>({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
-  const [size, setSize] = useWindowSize();
+  const { width: windowWidth, height: windowHeight } = useWindowSize();
 
   const [triggerHeight, setTriggerHeight] = useState<null|number>(null);
 
@@ -42,28 +42,17 @@ function DropdownMenu<E extends Item<F>, F>({
   }
 
   // Close dropdown when open and user clicks off dropdown
-  useEffect(() => {
-    const pageClickEvent: { (e: MouseEvent): void } = (e: MouseEvent) => {
-      e.preventDefault();
-      if (dropdownRef.current !== null && !dropdownRef.current.contains(e.target as Node)) {
-        setIsActive(!isActive);
-      }
-    };
+  const handleClickOutside = () => {
+    setIsActive(false);
+  }
+  useOnClickOutside(dropdownRef, handleClickOutside);
 
-    if (isActive) {
-      window.addEventListener('click', pageClickEvent)
-    }
-
-    return () => {
-      window.removeEventListener('click', pageClickEvent)
-    }
-  }, [isActive]);
 
   // Reset heights on window resize
   useEffect(() => {
     setTimeout(() => triggerRef.current 
       && setTriggerHeight(triggerRef.current.scrollHeight))
-  }, [size, triggerRef, setTriggerHeight]);
+  }, [windowWidth, windowHeight, triggerRef, setTriggerHeight]);
 
   return (
     <div className="dropdown__wrapper"

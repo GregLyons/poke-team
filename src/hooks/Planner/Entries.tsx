@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import { useWindowSize } from "usehooks-ts";
 import { GenFilter } from "../App/GenFilter";
 import { PokemonFilter } from "../App/PokemonFilter";
 import { TierFilter } from "../App/TierFilter";
-import { useWindowSize } from "../useWindowSize";
 
 /* 
   Once the entry expands to its scroll height, its scroll height then increases slightly. Thus, if we modify our selection, the component will re-render with the new, slightly increased scroll height, and the effect is that the height increases slightly whenever we click on a selection. 
@@ -20,7 +20,7 @@ export const useEntryExpand = (
   pokemonFilter?: PokemonFilter
 ) => {
   const [originalScrollHeight, setOriginalScrollHeight] = useState<null|number>(null);
-  const [size, setSize] = useWindowSize();
+  const { width: windowWidth, height: windowHeight } = useWindowSize();
   const [hover, setHover] = useState(false);
   const [expand, setExpand] = useState(false);
   const expandTimer = useRef<NodeJS.Timeout>();
@@ -29,7 +29,7 @@ export const useEntryExpand = (
   // Needs to run on window resize as well. 
   useEffect(() => {
     setTimeout(() => entryRef.current && setOriginalScrollHeight(entryRef.current.scrollHeight));
-  }, [entryRef, setOriginalScrollHeight, size, genFilter, tierFilter, pokemonFilter]);
+  }, [entryRef, setOriginalScrollHeight, windowWidth, windowHeight, genFilter, tierFilter, pokemonFilter]);
 
   // Set 'hover' immediately, set 'expand' after the user hovers for a certain amount of time
   // Time is connected to CSS variable --expand-time

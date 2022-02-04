@@ -21,13 +21,20 @@ const TeamMemberIcon = ({
 
   return (
     <div className="team-member__pokemon-icon-container">
-      {startTime && 
+      {startTime &&
         <RemoveTimer
+          removing={removing}
           removeDuration={removeDuration}
           startTime={startTime}
         />}
       <div 
-        className="team-member__track" 
+        className="team-member__track"
+        style={{
+          opacity: removing
+            ? 0
+            : 0.8,
+          transition: 'opacity ' + removeDuration + 'ms ease',
+        }}
       />
       <div
         className="team-member__pokemon-icon"
