@@ -135,6 +135,9 @@
   background-color: none;
   box-shadow: var(--bg-shadow);
   z-index: 1;
+  
+  /* TODO: Allows clicking on content below. For IE10 and below, need to implement JS fix */
+  pointer-events: none;
 }
 
 /* #endregion */

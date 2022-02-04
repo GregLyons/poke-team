@@ -50,236 +50,240 @@ function App() {
   const [team, dispatchTeam] = useReducer(teamReducer, []);
   
   return (
-    <div className="app">
-      <header>
-        <NavBar />
-        <ControlPanel 
-          dispatchCart={dispatchCart}
-          dispatchTeam={dispatchTeam}
-          dispatchGenFilter={dispatchGenFilter}
-          genFilter={genFilter}
-          dispatchTierFilter={dispatchTierFilter}
-          tierFilter={tierFilter}
-          dispatchPokemonFilter={dispatchPokemonFilter}
-          pokemonFilter={pokemonFilter}
-          team={team}
-        />
-      </header>
-      <Routes>
-        {/* Routing for Home */}
-        <Route path="/" element={<div>Yo</div>} />
-
-        {/* Routing for Analyzer */}
-        <Route path="/analyzer" element={<Analyzer
-        />} />
-
-        {/* Routing for Builder */}
-        <Route path="/builder" element={<Builder
-        />} >
-        {/* */}
-          <Route
-            index
-            element={<BuilderHome
-              cart={cart}
-              dispatchCart={dispatchCart}
-              dispatchTeam={dispatchTeam}
-              genFilter={genFilter}
-              tierFilter={tierFilter}
-              pokemonFilter={pokemonFilter}
-            />}
-          />
-        </Route>
-
-        {/* Routing for Planner */}
-        <Route path="/planner" element={<Planner
-        />} >
-          {/* */}
-          <Route
-            index
-            element={<PlannerHome
-            />}
-          />
-
-          {/* */}
-          <Route 
-            path='abilities' 
-            element={<AbilityMainPage
-              dispatchCart={dispatchCart}
-              dispatchTeam={dispatchTeam}
-              genFilter={genFilter}
-              tierFilter={tierFilter}
-              pokemonFilter={pokemonFilter}
-            />}
-          />
-          <Route path="abilities/:abilityId" element={<AbilityPage 
+    <div className="app__wrapper">
+      <div className="left-bg-panel" />
+      <div className="app">
+        <header>
+          <NavBar />
+          <ControlPanel 
             dispatchCart={dispatchCart}
             dispatchTeam={dispatchTeam}
+            dispatchGenFilter={dispatchGenFilter}
             genFilter={genFilter}
+            dispatchTierFilter={dispatchTierFilter}
             tierFilter={tierFilter}
+            dispatchPokemonFilter={dispatchPokemonFilter}
             pokemonFilter={pokemonFilter}
-          />} />
-
-          <Route 
-            path='items' 
-            element={<ItemMainPage
-              dispatchCart={dispatchCart}
-              dispatchTeam={dispatchTeam}
-              genFilter={genFilter}
-              tierFilter={tierFilter}
-              pokemonFilter={pokemonFilter}
-            />}
+            team={team}
           />
-          <Route path="items/:itemId" element={<ItemPage 
-            dispatchCart={dispatchCart}
-            dispatchTeam={dispatchTeam}
-            genFilter={genFilter}
-            tierFilter={tierFilter}
-            pokemonFilter={pokemonFilter}
+        </header>
+        <Routes>
+          {/* Routing for Home */}
+          <Route path="/" element={<div>Yo</div>} />
+
+          {/* Routing for Analyzer */}
+          <Route path="/analyzer" element={<Analyzer
           />} />
 
-          <Route 
-            path='moves' 
-            element={<MoveMainPage
-              dispatchCart={dispatchCart}
-              dispatchTeam={dispatchTeam}
-              genFilter={genFilter}
-              tierFilter={tierFilter}
-              pokemonFilter={pokemonFilter}
-            />} 
-          >
+          {/* Routing for Builder */}
+          <Route path="/builder" element={<Builder
+          />} >
+          {/* */}
+            <Route
+              index
+              element={<BuilderHome
+                cart={cart}
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
+                genFilter={genFilter}
+                tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
+              />}
+            />
           </Route>
-          <Route path="moves/:moveId" element={<MovePage 
-            dispatchCart={dispatchCart}
-            dispatchTeam={dispatchTeam}
-            genFilter={genFilter}
-            tierFilter={tierFilter}
-          />} />
 
-          {/* */}
-          <Route 
-            path='effects' 
-            element={<EffectMainPage
-              dispatchCart={dispatchCart}
-              dispatchTeam={dispatchTeam}
-              genFilter={genFilter}
-            />}
-          />
-          <Route path="effects/:effectId" element={<EffectPage
-            dispatchCart={dispatchCart}
-            dispatchTeam={dispatchTeam}
-            genFilter={genFilter}
-            tierFilter={tierFilter}
-            pokemonFilter={pokemonFilter}
-          />} />
+          {/* Routing for Planner */}
+          <Route path="/planner" element={<Planner
+          />} >
+            {/* */}
+            <Route
+              index
+              element={<PlannerHome
+              />}
+            />
 
-          <Route 
-            path='fieldStates' 
-            element={<FieldStateMainPage
+            {/* */}
+            <Route 
+              path='abilities' 
+              element={<AbilityMainPage
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
+                genFilter={genFilter}
+                tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
+              />}
+            />
+            <Route path="abilities/:abilityId" element={<AbilityPage 
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               genFilter={genFilter}
               tierFilter={tierFilter}
               pokemonFilter={pokemonFilter}
-            />}
-          />
-          <Route path="fieldStates/:fieldStateId" element={<FieldStatePage
-            dispatchCart={dispatchCart}
-            dispatchTeam={dispatchTeam}
-            genFilter={genFilter}
-            tierFilter={tierFilter}
-            pokemonFilter={pokemonFilter}
-          />} />
+            />} />
 
-          <Route 
-            path='stats' 
-            element={<StatMainPage
+            <Route 
+              path='items' 
+              element={<ItemMainPage
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
+                genFilter={genFilter}
+                tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
+              />}
+            />
+            <Route path="items/:itemId" element={<ItemPage 
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               genFilter={genFilter}
               tierFilter={tierFilter}
               pokemonFilter={pokemonFilter}
-            />}
-          />
-          <Route path="stats/:statId" element={<StatPage
-            dispatchCart={dispatchCart}
-            dispatchTeam={dispatchTeam}
-            genFilter={genFilter}
-            tierFilter={tierFilter}
-            pokemonFilter={pokemonFilter}
-          />} />
+            />} />
 
-          <Route 
-            path='statuses' 
-            element={<StatusMainPage
+            <Route 
+              path='moves' 
+              element={<MoveMainPage
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
+                genFilter={genFilter}
+                tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
+              />} 
+            >
+            </Route>
+            <Route path="moves/:moveId" element={<MovePage 
+              dispatchCart={dispatchCart}
+              dispatchTeam={dispatchTeam}
+              genFilter={genFilter}
+              tierFilter={tierFilter}
+            />} />
+
+            {/* */}
+            <Route 
+              path='effects' 
+              element={<EffectMainPage
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
+                genFilter={genFilter}
+              />}
+            />
+            <Route path="effects/:effectId" element={<EffectPage
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               genFilter={genFilter}
               tierFilter={tierFilter}
               pokemonFilter={pokemonFilter}
-            />}
-          />
-          <Route path="statuses/:statusId" element={<StatusPage
-            dispatchCart={dispatchCart}
-            dispatchTeam={dispatchTeam}
-            genFilter={genFilter}
-            tierFilter={tierFilter}
-            pokemonFilter={pokemonFilter}
-          />} />
+            />} />
 
-          <Route 
-            path='types' 
-            element={<TypeMainPage
+            <Route 
+              path='fieldStates' 
+              element={<FieldStateMainPage
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
+                genFilter={genFilter}
+                tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
+              />}
+            />
+            <Route path="fieldStates/:fieldStateId" element={<FieldStatePage
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               genFilter={genFilter}
               tierFilter={tierFilter}
               pokemonFilter={pokemonFilter}
-            />}
-          />
-          <Route path="types/:typeId" element={<TypePage
-            dispatchCart={dispatchCart}
-            dispatchTeam={dispatchTeam}
-            genFilter={genFilter}
-            tierFilter={tierFilter}
-            pokemonFilter={pokemonFilter}
-          />} />
+            />} />
 
-          <Route 
-            path='usageMethods' 
-            element={<UsageMethodMainPage
+            <Route 
+              path='stats' 
+              element={<StatMainPage
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
+                genFilter={genFilter}
+                tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
+              />}
+            />
+            <Route path="stats/:statId" element={<StatPage
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
               genFilter={genFilter}
               tierFilter={tierFilter}
               pokemonFilter={pokemonFilter}
-            />}
-          />
-          <Route path="usageMethods/:usageMethodId" element={<UsageMethodPage
-            dispatchCart={dispatchCart}
-            dispatchTeam={dispatchTeam}
-            genFilter={genFilter}
-            tierFilter={tierFilter}
-            pokemonFilter={pokemonFilter}
-          />} />
+            />} />
 
-          {/* */}
-          <Route
-            path='*'
-            element={
+            <Route 
+              path='statuses' 
+              element={<StatusMainPage
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
+                genFilter={genFilter}
+                tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
+              />}
+            />
+            <Route path="statuses/:statusId" element={<StatusPage
+              dispatchCart={dispatchCart}
+              dispatchTeam={dispatchTeam}
+              genFilter={genFilter}
+              tierFilter={tierFilter}
+              pokemonFilter={pokemonFilter}
+            />} />
+
+            <Route 
+              path='types' 
+              element={<TypeMainPage
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
+                genFilter={genFilter}
+                tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
+              />}
+            />
+            <Route path="types/:typeId" element={<TypePage
+              dispatchCart={dispatchCart}
+              dispatchTeam={dispatchTeam}
+              genFilter={genFilter}
+              tierFilter={tierFilter}
+              pokemonFilter={pokemonFilter}
+            />} />
+
+            <Route 
+              path='usageMethods' 
+              element={<UsageMethodMainPage
+                dispatchCart={dispatchCart}
+                dispatchTeam={dispatchTeam}
+                genFilter={genFilter}
+                tierFilter={tierFilter}
+                pokemonFilter={pokemonFilter}
+              />}
+            />
+            <Route path="usageMethods/:usageMethodId" element={<UsageMethodPage
+              dispatchCart={dispatchCart}
+              dispatchTeam={dispatchTeam}
+              genFilter={genFilter}
+              tierFilter={tierFilter}
+              pokemonFilter={pokemonFilter}
+            />} />
+
+            {/* */}
+            <Route
+              path='*'
+              element={
+                <main>
+                  Bad Planner link
+                </main>
+              }
+            />
+
+          {/* Bad link */}
+          <Route path="*" element={
               <main>
-                Bad Planner link
+                Bad link
               </main>
-            }
-          />
-
-        {/* Bad link */}
-        <Route path="*" element={
-            <main>
-              Bad link
-            </main>
-        } />
-        </Route>
-      </Routes>
+          } />
+          </Route>
+        </Routes>
+      </div>
+      <div className="right-bg-panel" />
     </div>
   );
 }

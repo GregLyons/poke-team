@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import AccordionItem from "./AccordionItem";
 
+import './Accordion.css';
+
 type AccordionProps = {
   accordionContext: string
   accordionData: {

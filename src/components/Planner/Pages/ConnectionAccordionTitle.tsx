@@ -1,4 +1,4 @@
-import FontAwesome from "react-fontawesome";
+import './Pages.css';
 
 type ConnectionAccordionTitleProps = {
   titleText: string
@@ -10,7 +10,7 @@ const ConnectionAccordionTitle = ({
   return (
     <>
       <div
-        className="planner-accordion__title-text"
+        className="planner-accordion__title"
       >
         {titleText}
       </div>

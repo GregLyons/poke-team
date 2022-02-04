@@ -1,6 +1,3 @@
-import {
-  Link,
-} from "react-router-dom";
 import LinkButton from "../Reusables/LinkButton/LinkButton";
 import './Planner.css';
 

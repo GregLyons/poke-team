@@ -42,7 +42,8 @@
 }
 
 .planner__entry-row-name:hover {
-  text-decoration: underline;
+  color: var(--blue1);
+  box-shadow: var(--button-shadow);
 }
 
 /* Data */

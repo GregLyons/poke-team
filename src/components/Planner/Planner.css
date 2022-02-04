@@ -19,12 +19,16 @@
   content: '';
   position: absolute;
   left: 0;
-  top: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
+  
   background-color: none;
   box-shadow: var(--bg-shadow);
   z-index: 1;
+
+  /* TODO: Allows clicking on content below. For IE10 and below, need to implement JS fix */
+  pointer-events: none;
 }
 
 .planner__nav-main-cell,
@@ -76,64 +80,7 @@
 
 /* #endregion */
 
-/* Entity pages */
-/* #region */
 
-.planner-page {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-}
-
-.planner-page__ > * + * {
-  margin-top: 0.5rem;
-}
-
-.planner-page__header {
-  border: 1px solid white;
-  grid-column: 1 / 13;
-}
-
-
-/* Descriptions */
-/* #region */
-
-.planner-page__descriptions-table {
-  border: 1px solid white;
-  grid-column: 1 / 13;
-}
-
-.planner-page__description {
-  border: 1px solid white;
-  grid-column: 1 / 13;
-}
-
-.planner-page__descriptions-table:nth-child(even) {
-  background-color: lightgray;
-}
-
-.planner-page__description--main-entity {
-  grid-column: 1 / 13;
-  border: 1px solid white;
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr 3fr;
-
-  width: 33.3%;
-}
-
-.planner-page__description-code {
-  border: 1px solid white;
-  
-  grid-column: 1 / 2;
-}
-
-.planner-page__description-text {
-  border: 1px solid white;
-
-  grid-column: 2 / 3;
-}
-
-/* #endregion */
 
 
 /* Connection accordions */

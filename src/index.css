@@ -81,10 +81,6 @@ button {
 	outline: inherit;
 }
 
-.app {
-  width: var(--app-width);
-  margin: auto;
-}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

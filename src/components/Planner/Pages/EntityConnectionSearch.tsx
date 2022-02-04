@@ -13,6 +13,9 @@ import { GenFilter } from "../../../hooks/App/GenFilter";
 import { PokemonFilter } from "../../../hooks/App/PokemonFilter";
 import { ListRenderArgs } from '../helpers';
 
+import './Pages.css';
+
+
 interface EntityConnectionSearchProps<SearchQuery, SearchQueryVars> {
   dispatchCart?: React.Dispatch<CartAction>
   dispatchTeam?: React.Dispatch<TeamAction>

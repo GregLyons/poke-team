@@ -6,7 +6,6 @@
 }
 
 .planner-page .accordion {
-  background-color: rgba(var(--dark3-components), 0.7);
   grid-column: 2 / 12;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -16,26 +15,6 @@
 
 .planner-accordion__item {
   width: 100%;
-}
-
-/* #endregion */
-
-/* Titles */
-/* #region */
-
-.planner-accordion__title {
-  width: 100%;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  cursor: pointer;
-
-  padding-left: var(--entry-horizontal-padding);
-}
-
-.planner-accordion__title:hover {
-  background-color: #3ab4cc;
 }
 
 /* #endregion */

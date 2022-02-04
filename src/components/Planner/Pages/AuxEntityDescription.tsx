@@ -1,3 +1,5 @@
+import './Pages.css';
+
 type AuxEntityDescriptionProps = {
   description: string
 }

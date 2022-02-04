@@ -1,0 +1,69 @@
+/* Entity pages */
+/* #region */
+
+.planner-page {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.planner-page__ > * + * {
+  margin-top: 0.5rem;
+}
+
+.planner-page__header {
+  border: 1px solid white;
+  grid-column: 1 / 13;
+}
+
+
+/* Descriptions */
+/* #region */
+
+.planner-page__descriptions-table {
+  border: 1px solid white;
+  grid-column: 1 / 13;
+}
+
+.planner-page__description {
+  border: 1px solid white;
+  grid-column: 1 / 13;
+}
+
+.planner-page__descriptions-table:nth-child(even) {
+  background-color: lightgray;
+}
+
+.planner-page__description--main-entity {
+  grid-column: 1 / 13;
+  border: 1px solid white;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 3fr;
+
+  width: 33.3%;
+}
+
+.planner-page__description-code {
+  border: 1px solid white;
+  
+  grid-column: 1 / 2;
+}
+
+.planner-page__description-text {
+  border: 1px solid white;
+
+  grid-column: 2 / 3;
+}
+
+/* #endregion */
+
+/* Accordion titles */
+/* #region */
+
+.planner-accordion__title {
+  font-size: 1.5rem; 
+  font-family: var(--monospace);
+  font-weight: 500;
+}
+
+/* #endregion */

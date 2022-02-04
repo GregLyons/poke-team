@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { CartAction } from "../../../hooks/App/Cart";
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { Team, TeamAction } from "../../../hooks/App/Team";
@@ -15,7 +16,9 @@ type PokemonTeamProps = {
 const PokemonTeam = ({
 }: PokemonTeamProps) => {
   return (
-    <div className="team__wrapper">
+    <div
+      className="team__wrapper"
+    >
       <div className="team-member__cell">
         <PokemonTeamMember
 

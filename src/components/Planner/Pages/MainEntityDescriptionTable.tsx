@@ -1,3 +1,6 @@
+import './Pages.css';
+
+
 import {
   VersionDependentDescription,
 } from "../../../types-queries/Planner/helpers";
