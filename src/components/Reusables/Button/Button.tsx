@@ -37,10 +37,9 @@ const Button = ({
         boxShadow: justClicked ? 'none' : '',
       }}
       onClick={e => {
-        e.preventDefault();
         setJustClicked(true);
         setTimeout(() => setJustClicked(false), 250);
-        onClick(e)
+        onClick(e);
       }}
       disabled={disabled}
     >

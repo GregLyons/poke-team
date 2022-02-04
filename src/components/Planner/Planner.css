@@ -1,34 +1,63 @@
 /* planner-nav-bar */
 /* #region */
 
-.planner-nav-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+.planner__nav-bar-wrapper {
+  position: relative;
+  box-shadow: var(--bg-shadow);
 
-  width: 100%;
-  height: 50px;
-  
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr;
+  justify-content: center;
+  align-items: center;
+
   background-color: var(--dark2);
+}
+
+/* Similar to technique for .team__wrapper in ControlPanel.css */
+.planner__nav-bar-wrapper::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: none;
+  box-shadow: var(--bg-shadow);
+  z-index: 1;
+}
+
+.planner__nav-main-cell,
+.planner__nav-secondary-cell {
+  grid-row: 1 / 2;
+
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1rem;
+
+  background-color: var(--dark2);
+}
+
+.planner__nav-main,
+.planner__nav-secondary {
+  grid-row: 1 / 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 0.5rem;
+  width: 100%;
+  
+  background-color: var(--dark1);
+  box-shadow: var(--control-shadow);
+}
+
+.planner__nav-item {
   list-style: none;
-}
-
-.planner-nav-bar__main {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-
-  width: 50%;
-  height: 50px;
-}
-
-.planner-nav-bar__secondary {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-
-  width: 50%;
-  height: 50px;
 }
 
 /* #endregion */

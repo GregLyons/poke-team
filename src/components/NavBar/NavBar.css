@@ -15,8 +15,8 @@
 
 .nav-bar {
   display: flex;
-  align-items: center;
   justify-content: space-evenly;
+  align-items: center;
   border-radius: 0.5rem;
 
   width: 100%;
@@ -28,10 +28,6 @@
 
 .nav-item {
   list-style: none;
-}
-
-.nav-item:hover {
-  filter: brightness(2.0);
 }
 
 /* #endregion */

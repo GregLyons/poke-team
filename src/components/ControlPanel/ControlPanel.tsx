@@ -2,7 +2,7 @@ import './ControlPanel.css';
 
 import { Pokemon } from "../../types-queries/Planner/Pokemon";
 import GenFilterForm from "./GenFilterForm/GenFilterForm";
-import TeamDisplay from "./PokemonTeam/TeamDisplay";
+import PokemonTeam from "./PokemonTeam/PokemonTeam";
 import TierFilterForm from "./TierFilterForm/TierFilterForm";
 import PokemonFilterForm from './PokemonFilterForm/PokemonFilterForm';
 import { TierFilter, TierFilterAction } from '../../hooks/App/TierFilter';
@@ -58,7 +58,7 @@ const ControlPanel = ({
         />
       </div>
       <div className="team__cell">
-        <TeamDisplay
+        <PokemonTeam
           dispatchCart={dispatchCart}
           dispatchTeam={dispatchTeam}
           genFilter={genFilter}

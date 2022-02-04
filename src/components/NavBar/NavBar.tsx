@@ -1,6 +1,4 @@
-import { 
-  Link,
-} from 'react-router-dom';
+import LinkButton from '../Reusables/LinkButton/LinkButton';
 
 import './NavBar.css';
 
@@ -9,16 +7,36 @@ const NavBar = () => {
     <div className="nav-bar__wrapper">
       <nav className="nav-bar">
         <li className="nav-item">
-          <Link to="/">Home</Link>
+          <LinkButton 
+            to="/"
+            title='Home'
+            label='Home'
+            end={true}
+          />
         </li>
         <li className="nav-item">
-          <Link to="/planner">Planner</Link>
+          <LinkButton 
+            to="/Planner"
+            title='Planner'
+            label='Planner'
+            end={false}
+          />
         </li>
         <li className="nav-item">
-          <Link to="/builder">Builder</Link>
+          <LinkButton 
+            to="/Builder"
+            title='Builder'
+            label='Builder'
+            end={false}
+          />
         </li>
         <li className="nav-item">
-          <Link to="/analyzer">Analyzer</Link>
+          <LinkButton 
+            to="/Analyzer"
+            title='Analyzer'
+            label='Analyzer'
+            end={false}
+          />
         </li>
       </nav>
     </div>
