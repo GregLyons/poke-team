@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { BGAction, BGManager } from "../../hooks/App/BGManager";
+import { BGAction, BGManager, toggleBGPulse } from "../../hooks/App/BGManager";
 
 type AnalyzerProps = {
   dispatchBGManager: React.Dispatch<BGAction>
@@ -16,6 +16,7 @@ const Analyzer = ({
       type: 'change',
       payload: 'red',
     });
+    toggleBGPulse(dispatchBGManager);
   }, []);
   return (
     <div>I'm the analyzer</div>

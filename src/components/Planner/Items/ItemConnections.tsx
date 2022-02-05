@@ -306,9 +306,9 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
   );
 }
 
-export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<ItemTypeQuery>) => {
+export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, dispatchBGManager, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<ItemTypeQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
-  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
+  if (!dispatchCart || !dispatchTeam || !dispatchBGManager) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
   if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntityConnectionSearch component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntityConnectionSearch component.');
   if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed PokemonFilter to the EntityConnectionSearch component.');
@@ -342,6 +342,7 @@ export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, genFilter
               typeIconDatum: result.typeIconDatum,
               dispatchCart,
               dispatchTeam,
+              dispatchBGManager,
               genFilter,
               tierFilter,
               pokemonFilter,
@@ -371,6 +372,7 @@ export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, genFilter
               typeIconDatum: result.typeIconDatum,
               dispatchCart,
               dispatchTeam,
+              dispatchBGManager,
               genFilter,
               tierFilter,
               pokemonFilter,
@@ -400,6 +402,7 @@ export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, genFilter
               typeIconDatum: result.typeIconDatum,
               dispatchCart,
               dispatchTeam,
+              dispatchBGManager,
               genFilter,
               tierFilter,
               pokemonFilter,

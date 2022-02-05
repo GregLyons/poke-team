@@ -5,7 +5,7 @@ import './Planner.css';
 import './Entries/Entries.css';
 
 import PlannerNavBar from './PlannerNavBar';
-import { BGAction, BGManager } from "../../hooks/App/BGManager";
+import { BGAction, BGManager, toggleBGPulse } from "../../hooks/App/BGManager";
 import { useEffect } from "react";
 
 type PlannerProps = {
@@ -23,6 +23,7 @@ const Planner = ({
       type: 'change',
       payload: 'blue',
     });
+    toggleBGPulse(dispatchBGManager);
   }, []);
   return (
     <div className="planner-container">

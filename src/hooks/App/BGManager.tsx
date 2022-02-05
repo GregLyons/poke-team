@@ -27,19 +27,24 @@ export const BG_BLUE: BGColor = {
 export type BGManager = {
   bgColor: BGColor
   classSuffix: BGClassSuffix
+  pulsing: boolean
 }
 
 export const DEFAULT_BACKGROUND: BGManager = {
   bgColor: BG_RED,
-  classSuffix: '--red'
+  classSuffix: '--red',
+  pulsing: false,
 }
 
 
 export type BGAction = 
 | {
-    type: 'change'
-    payload: 'red' | 'green' | 'blue'
-  };
+    type: 'change',
+    payload: 'red' | 'green' | 'blue',
+  }
+| {
+    type: 'toggle_pulse',
+  }
 
 export function bgReducer(state: BGManager, action: BGAction) {
   switch(action.type) {
@@ -66,15 +71,36 @@ export function bgReducer(state: BGManager, action: BGAction) {
         classSuffix: newClassSuffix,
       };
 
+    case 'toggle_pulse':
+      return {
+        ...state,
+        pulsing: !state.pulsing,
+      }
+
     default:
       throw new Error();
   }
 };
 
+export function toggleBGPulse(dispatchBGManager: React.Dispatch<BGAction>) {
+  dispatchBGManager({
+    type: 'toggle_pulse',
+  });
+  setTimeout(() => {
+    dispatchBGManager({
+      type: 'toggle_pulse',
+    });
+  }, 500);
+}
+
 export function classWithBG (className: string, bgManager: BGManager): string {
   return `
     ${className}
     bg${bgManager.classSuffix}
+    ${bgManager.pulsing
+      ? 'pulse' 
+      : ''
+    }
   `;
 }
 
@@ -82,6 +108,10 @@ export function classWithBGShadow (className: string, bgManager: BGManager): str
   return `
     ${className}
     bg-shadow${bgManager.classSuffix}
+    ${bgManager.pulsing
+      ? 'pulse' 
+      : ''
+    }
   `;
 }
 
@@ -89,5 +119,9 @@ export function classWithBGAfter (className: string, bgManager: BGManager): stri
   return `
     ${className}
     bg-after${bgManager.classSuffix}
+    ${bgManager.pulsing
+      ? 'pulse' 
+      : ''
+    }
   `;
 }

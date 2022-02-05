@@ -17,10 +17,12 @@ import { TeamAction } from "../../../hooks/App/Team";
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { PokemonFilter } from "../../../hooks/App/PokemonFilter";
 import { TierFilter } from '../../../hooks/App/TierFilter';
+import { BGAction } from '../../../hooks/App/BGManager';
 
 interface EntitySearchMainProps<SearchQuery, SearchQueryVars> {
   dispatchCart?: React.Dispatch<CartAction>
   dispatchTeam?: React.Dispatch<TeamAction>
+  dispatchBGManager?: React.Dispatch<BGAction>
   genFilter: GenFilter
   tierFilter?: TierFilter
   pokemonFilter?: PokemonFilter
@@ -33,6 +35,7 @@ interface EntitySearchMainProps<SearchQuery, SearchQueryVars> {
 function EntitySearchMain<SearchQuery, SearchQueryVars>({
   dispatchCart,
   dispatchTeam,
+  dispatchBGManager,
   genFilter,
   tierFilter,
   pokemonFilter,
@@ -64,7 +67,7 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
       </form>
       {loading 
         ? <div>Loading...</div>
-        : data && listRender({ data, dispatchCart, dispatchTeam, tierFilter, genFilter, pokemonFilter, })
+        : data && listRender({ data, dispatchCart, dispatchTeam, dispatchBGManager, tierFilter, genFilter, pokemonFilter, })
       }
     </>
   );

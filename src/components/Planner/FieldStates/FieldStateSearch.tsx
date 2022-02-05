@@ -66,12 +66,14 @@ const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
 type FieldStateSearchMainProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
+  dispatchBGManager: React.Dispatch<BGAction>
   genFilter: GenFilter
 }
 
 const FieldStateSearch = ({
   dispatchCart,
   dispatchTeam,
+  dispatchBGManager,
   genFilter,
 }: FieldStateSearchMainProps) => {
   const [queryVars, setQueryVars] = useGenConnectedSearchVars<FieldStateSearchVars>(

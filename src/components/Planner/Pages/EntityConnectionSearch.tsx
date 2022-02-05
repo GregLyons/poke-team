@@ -52,7 +52,7 @@ function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
     <>
       {loading 
         ? <div>Loading...</div>
-        : data && listRender({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, })
+        : data && listRender({ data, dispatchCart, dispatchTeam, dispatchBGManager, genFilter, tierFilter, pokemonFilter, })
       }
     </>
   );

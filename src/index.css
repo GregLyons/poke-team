@@ -20,7 +20,7 @@
   --light3: #aaaaaa;
   
   /* Blues */
-  --blue-bg-components: 0, 0, 255;
+  --blue-bg-components: 204, 204, 255;
   --blue-bg: rgb(var(--blue-bg-components));
 
   --blue1-components: 173, 216, 230;
@@ -36,7 +36,7 @@
   --green3: #515851;
 
   /* Reds */
-  --red-bg-components: 218, 44, 67;
+  --red-bg-components: 240, 128, 128;
   --red-bg: rgb(var(--red-bg-components));
 
   --red1-components: 229, 50, 66;
@@ -52,13 +52,22 @@
   --control-shadow-inset: 3px 3px;
   --control-shadow: inset var(--control-shadow-inset) rgba(0,0,0,0.2);
 
+
   --bg-shadow-inset: -1px -1px 3px 1px;
+  --bg-shadow-inset-pulse: -1px -1px 3px 3px;
+  
   --bg-shadow-red: inset var(--bg-shadow-inset) rgba(var(--red-bg-components), 0.8);
+  --bg-shadow-red-pulse: inset var(--bg-shadow-inset-pulse) rgba(var(--red-bg-components), 1);
+
   --bg-shadow-green: inset var(--bg-shadow-inset) rgba(var(--green-bg-components), 0.8);
+  --bg-shadow-green-pulse: inset var(--bg-shadow-inset-pulse) rgba(var(--green-bg-components), 1);
+
   --bg-shadow-blue: inset var(--bg-shadow-inset) rgba(var(--blue-bg-components), 0.8);
+  --bg-shadow-blue-pulse: inset var(--bg-shadow-inset-pulse) rgba(var(--blue-bg-components), 1);
 
   /* Transitions */
-  --bg-transition: 1s ease;
+  --transition-duration: 1s;
+  --bg-transition: var(--transition-duration) ease;
 }
 
 body {

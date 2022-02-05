@@ -27,9 +27,9 @@ import {
 import { TierFilter } from "../../../hooks/App/TierFilter";
 import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 
-const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<ItemSearchQuery>) => {
+const listRender = ({ data, dispatchCart, dispatchTeam, dispatchBGManager, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<ItemSearchQuery>) => {
   if (!data || !data.items) return (<div>Data not found for the query 'items'.</div>);
-  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
+  if (!dispatchCart || !dispatchTeam || !dispatchBGManager) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntitySearchMain component.');
   if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntitySearchMain component.');
   if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed pokemonFilter to the EntitySearchMain component.');
@@ -57,6 +57,7 @@ const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, p
                 itemIconDatum: item.itemIconDatum,
                 dispatchCart,
                 dispatchTeam,
+                dispatchBGManager,
                 genFilter,
                 tierFilter,
                 pokemonFilter,
@@ -81,6 +82,7 @@ type ItemSearchProps = {
 const ItemSearch = ({
   dispatchCart,
   dispatchTeam,
+  dispatchBGManager,
   genFilter,
   tierFilter,
   pokemonFilter,
@@ -109,10 +111,11 @@ const ItemSearch = ({
       <EntitySearchMain 
         dispatchCart={dispatchCart}
         dispatchTeam={dispatchTeam}
+        dispatchBGManager={dispatchBGManager}
         genFilter={genFilter}
         tierFilter={tierFilter}
         pokemonFilter={pokemonFilter}
-        handleSearchBoxChange={handleSearchBoxChange}
+        handleSearchBoxChange=={handleSearchBoxChange}
         listRender={listRender}
         query={ITEM_SEARCH_QUERY}
         queryVars={queryVars}

@@ -10,6 +10,7 @@ import PlannerPokemonIcon from "./PlannerPokemonIcon";
 import SelectionControls from "./SelectionControls";
 
 import './Icons.css';
+import { EntryIconData } from "../../helpers";
 
 type PlannerPokemonIconsProps = {
   context: 'search' | 'accordion'
@@ -17,16 +18,7 @@ type PlannerPokemonIconsProps = {
   selection: Selection
   dispatchSelection: React.Dispatch<SelectionAction>
   toggleSelection: (psID: string) => void
-  icons: {
-    pokemonIconData: PokemonIconDatum[]
-    itemIconDatum?: ItemIconDatum
-    dispatchCart: React.Dispatch<CartAction>
-    dispatchTeam: React.Dispatch<TeamAction>
-    genFilter: GenFilter
-    tierFilter: TierFilter
-    pokemonFilter: PokemonFilter
-    cartNote: string
-  }
+  icons: EntryIconData
   handleAddToCart: () => void
 }
 
@@ -58,6 +50,7 @@ const PlannerPokemonIcons = ({
         handleAddToCart={handleAddToCart}
         hasIcon={hasIcon}
         reason={reason}
+        dispatchBGManager={icons.dispatchBGManager}
       />}
       <br />
       <div className={`planner__pokemon-icons-background`}>

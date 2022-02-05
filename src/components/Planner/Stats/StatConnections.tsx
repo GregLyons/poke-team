@@ -22,9 +22,9 @@ import {
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 import { ENUMCASE_TO_TITLECASE } from "../../../utils/constants";
 
-export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<StatAbilityQuery>) => {
+export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, dispatchBGManager, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<StatAbilityQuery>) => {
   if (!data || !data.statByName) return (<div>Data not found for the query 'statByName'.</div>);
-  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
+  if (!dispatchCart || !dispatchTeam || !dispatchBGManager) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
   if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntityConnectionSearch component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntityConnectionSearch component.');
   if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed PokemonFilter to the EntityConnectionSearch component.');
@@ -65,6 +65,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, genFil
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
               tierFilter,
@@ -100,6 +101,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, genFil
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
               tierFilter,
@@ -135,6 +137,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, genFil
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
               tierFilter,
@@ -170,6 +173,7 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, genFil
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
               tierFilter,
@@ -304,9 +308,9 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
   );
 }
 
-export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<StatItemQuery>) => {
+export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, dispatchBGManager, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<StatItemQuery>) => {
   if (!data || !data.statByName) return (<div>Data not found for the query 'statByName'.</div>);
-  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
+  if (!dispatchCart || !dispatchTeam || !dispatchBGManager) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
   if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntityConnectionSearch component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntityConnectionSearch component.');
   if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed PokemonFilter to the EntityConnectionSearch component.');
@@ -469,9 +473,9 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, genFilter
   );
 }
 
-export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<StatMoveQuery>) => {
+export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, dispatchBGManager, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<StatMoveQuery>) => {
   if (!data || !data.statByName) return (<div>Data not found for the query 'statByName'.</div>);
-  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
+  if (!dispatchCart || !dispatchTeam || !dispatchBGManager) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
   if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntityConnectionSearch component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntityConnectionSearch component.');
   if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed PokemonFilter to the EntityConnectionSearch component.');
@@ -512,6 +516,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, genFilter
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,
               genFilter,
@@ -548,6 +553,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, genFilter
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,
               genFilter,
@@ -584,6 +590,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, genFilter
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,
               genFilter,
@@ -620,6 +627,7 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, genFilter
             icons={{
               dispatchCart: dispatchCart,
               dispatchTeam: dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,
               genFilter,

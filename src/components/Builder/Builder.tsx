@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import {
   Outlet,
 } from "react-router-dom";
-import { BGAction, BGManager } from "../../hooks/App/BGManager";
+import { BGAction, BGManager, toggleBGPulse } from "../../hooks/App/BGManager";
 
 import BuilderNavBar from './BuilderNavBar';
 
@@ -21,6 +21,7 @@ const Builder = ({
       type: 'change',
       payload: 'green',
     });
+    toggleBGPulse(dispatchBGManager);
   }, []);
   return (
     <div className="builder-container">

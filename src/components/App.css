@@ -25,7 +25,7 @@
 .left-bg-panel {
   grid-column: 1 / 2;
 }
-.right {
+.right-bg-panel {
   grid-column: 3 / 4;
 }
 
@@ -45,6 +45,10 @@
     rgba(var(--dark3-components), 1),
     rgba(var(--dark3-components), 1)
   );
+  transition: left var(--bg-transition);
+}
+.left-bg-panel.pulse::after {
+  left: -10px;
 }
 .right-bg-panel::after {
   background: linear-gradient(
@@ -54,6 +58,10 @@
     rgba(var(--dark3-components), 1),
     rgba(var(--dark3-components), 1)
   );
+  transition: left var(--bg-transition);
+}
+.right-bg-panel.pulse::after {
+  left: 10px;
 }
 
 /* #endregion */
@@ -81,8 +89,7 @@
 .bg--red.bg-shadow--red,
 .bg--green.bg-shadow--green,
 .bg--blue.bg-shadow--blue {
-  transition: var(--bg-transition);
-  transition-property: background-color, box-shadow;
+  transition: background-color var(--bg-transition), box-shadow var(--bg-transition);
 }
 
 /* Box shadow based on background color */
@@ -95,11 +102,20 @@
 .bg-shadow--red {
   box-shadow: var(--bg-shadow-red);
 }
+.bg-shadow--red.pulse {
+  box-shadow: var(--bg-shadow-red-pulse);
+}
 .bg-shadow--green {
   box-shadow: var(--bg-shadow-green);
 }
+.bg-shadow--green.pulse {
+  box-shadow: var(--bg-shadow-green-pulse);
+}
 .bg-shadow--blue {
   box-shadow: var(--bg-shadow-blue);
+}
+.bg-shadow--blue.pulse {
+  box-shadow: var(--bg-shadow-blue-pulse);
 }
 
 /* Side panel gradient */

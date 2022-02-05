@@ -23,10 +23,11 @@ import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { TierFilter } from '../../../hooks/App/TierFilter';
 import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
+import { BGAction } from '../../../hooks/App/BGManager';
 
-const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<AbilitySearchQuery>) => {
+const listRender = ({ data, dispatchCart, dispatchTeam, dispatchBGManager, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<AbilitySearchQuery>) => {
   if (!data || !data.abilities) return (<div>Data not found for the query 'abilities'.</div>);
-  if (!dispatchCart || !dispatchTeam) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
+  if (!dispatchCart || !dispatchTeam || !dispatchBGManager) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
   if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntitySearchMain component.');
   if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntitySearchMain component.');
   if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed pokemonFilter to the EntitySearchMain component.');
@@ -48,6 +49,7 @@ const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, p
                 pokemonIconData: ability.pokemonIconData,
                 dispatchCart,
                 dispatchTeam,
+                dispatchBGManager,
                 genFilter,
                 tierFilter,
                 pokemonFilter,
@@ -64,6 +66,7 @@ const listRender = ({ data, dispatchCart, dispatchTeam, genFilter, tierFilter, p
 type AbilitySearchMainProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
+  dispatchBGManager: React.Dispatch<BGAction>
   genFilter: GenFilter
   tierFilter: TierFilter
   pokemonFilter: PokemonFilter
@@ -72,6 +75,7 @@ type AbilitySearchMainProps = {
 const AbilitySearch = ({
   dispatchCart,
   dispatchTeam,
+  dispatchBGManager,
   genFilter,
   tierFilter,
   pokemonFilter,
@@ -99,6 +103,7 @@ const AbilitySearch = ({
       <EntitySearchMain
         dispatchCart={dispatchCart}
         dispatchTeam={dispatchTeam}
+        dispatchBGManager={dispatchBGManager}
         genFilter={genFilter}
         tierFilter={tierFilter}
         pokemonFilter={pokemonFilter}

@@ -2,6 +2,7 @@
 // Rendering lists
 // #region
 
+import { BGAction } from "../../hooks/App/BGManager";
 import { CartAction } from "../../hooks/App/Cart";
 import { GenFilter } from "../../hooks/App/GenFilter";
 import { PokemonFilter } from "../../hooks/App/PokemonFilter";
@@ -13,6 +14,7 @@ export type ListRenderArgs<SearchQuery> = {
   data: SearchQuery
   dispatchCart?: React.Dispatch<CartAction>
   dispatchTeam?: React.Dispatch<TeamAction>
+  dispatchBGManager?: React.Dispatch<BGAction>
   genFilter: GenFilter
   tierFilter?: TierFilter
   pokemonFilter?: PokemonFilter
@@ -84,4 +86,5 @@ export type EntryIconData = {
   genFilter: GenFilter
   tierFilter: TierFilter
   cartNote: string
+  dispatchBGManager: React.Dispatch<BGAction>
 }
