@@ -3,7 +3,6 @@
 
 .nav-bar__wrapper {
   position: relative;
-  box-shadow: var(--bg-shadow);
 
   display: flex;
   align-items: center;

@@ -40,6 +40,7 @@ import { DEFAULT_TIER_FILTER, tierReducer } from '../hooks/App/TierFilter';
 import { DEFAULT_POKEMON_FILTER, pokemonReducer } from '../hooks/App/PokemonFilter';
 import { cartReducer, DEFAULT_CART } from '../hooks/App/Cart';
 import { DEFAULT_TEAM, teamReducer } from '../hooks/App/Team';
+import { bgReducer, classWithBG, classWithBGShadow, DEFAULT_BACKGROUND } from '../hooks/App/BGManager';
 
 
 function App() {
@@ -48,13 +49,17 @@ function App() {
   const [pokemonFilter, dispatchPokemonFilter] = useReducer(pokemonReducer, DEFAULT_POKEMON_FILTER);
   const [cart, dispatchCart] = useReducer(cartReducer, DEFAULT_CART);
   const [team, dispatchTeam] = useReducer(teamReducer, DEFAULT_TEAM);
+  const [bgManager, dispatchBGManager] = useReducer(bgReducer, DEFAULT_BACKGROUND)
   
   return (
-    <div className="app__wrapper">
-      <div className="left-bg-panel" />
-      <div className="app">
+    <div className={classWithBG("app__wrapper", bgManager)}>
+      <div className={classWithBG("left-bg-panel", bgManager)} />
+      <div className={classWithBG(classWithBGShadow("app", bgManager), bgManager)}>
         <header>
-          <NavBar />
+          <NavBar 
+            bgManager={bgManager}
+            dispatchBGManager={dispatchBGManager}
+          />
           <ControlPanel 
             dispatchCart={dispatchCart}
             dispatchTeam={dispatchTeam}
@@ -63,6 +68,8 @@ function App() {
             dispatchTierFilter={dispatchTierFilter}
             tierFilter={tierFilter}
             dispatchPokemonFilter={dispatchPokemonFilter}
+            bgManager={bgManager}
+            dispatchBGManager={dispatchBGManager}
             pokemonFilter={pokemonFilter}
             team={team}
           />
@@ -73,10 +80,14 @@ function App() {
 
           {/* Routing for Analyzer */}
           <Route path="/analyzer" element={<Analyzer
+            bgManager={bgManager}
+            dispatchBGManager={dispatchBGManager}
           />} />
 
           {/* Routing for Builder */}
           <Route path="/builder" element={<Builder
+            bgManager={bgManager}
+            dispatchBGManager={dispatchBGManager}
           />} >
           {/* */}
             <Route
@@ -94,6 +105,8 @@ function App() {
 
           {/* Routing for Planner */}
           <Route path="/planner" element={<Planner
+            bgManager={bgManager}
+            dispatchBGManager={dispatchBGManager}
           />} >
             {/* */}
             <Route
@@ -283,7 +296,7 @@ function App() {
           </Route>
         </Routes>
       </div>
-      <div className="right-bg-panel" />
+      <div className={classWithBG("right-bg-panel", bgManager)} />
     </div>
   );
 }

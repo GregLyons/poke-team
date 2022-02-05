@@ -9,37 +9,103 @@
 
 .app {
   grid-column: 2 / 3;
-  box-shadow: var(--bg-shadow);
   padding-left: 0.1rem;
   padding-right: 0.1rem;
 }
 
+/* BG Panels */
+/* #region */
+
+.left-bg-panel,
+.right-bg-panel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
 .left-bg-panel {
   grid-column: 1 / 2;
+}
+.right {
+  grid-column: 3 / 4;
+}
 
+.left-bg-panel::after, .right-bg-panel::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-
+}
+.left-bg-panel::after {
   background: linear-gradient(
     to left,
-    rgba(var(--green-bg-components), 1),
-    rgba(var(--dark2-components), 0.7),
-    rgba(var(--dark2-components), 1),
+    rgba(var(--dark2-components), 0),
+    rgba(var(--dark2-components), 0.8),
+    rgba(var(--dark3-components), 1),
     rgba(var(--dark3-components), 1)
   );
 }
-
-.right-bg-panel {
-  grid-column: 3 / 4;
-
-  width: 100%;
-  height: 100%;
-
+.right-bg-panel::after {
   background: linear-gradient(
     to right,
-    rgba(var(--green-bg-components), 1),
-    rgba(var(--dark2-components), 0.7),
-    rgba(var(--dark2-components), 1),
+    rgba(var(--dark2-components), 0),
+    rgba(var(--dark2-components), 0.8),
+    rgba(var(--dark3-components), 1),
     rgba(var(--dark3-components), 1)
   );
 }
+
+/* #endregion */
+
+/* Background managing */
+/* #region */
+
+/* Background color */
+
+.bg--red,
+.bg--green,
+.bg--blue {
+  transition: background-color var(--bg-transition);
+}
+.bg--red {
+  background-color: var(--red-bg);
+}
+.bg--green {
+  background-color: var(--green-bg);
+}
+.bg--blue {
+  background-color: var(--blue-bg);
+}
+
+.bg--red.bg-shadow--red,
+.bg--green.bg-shadow--green,
+.bg--blue.bg-shadow--blue {
+  transition: var(--bg-transition);
+  transition-property: background-color, box-shadow;
+}
+
+/* Box shadow based on background color */
+.bg-shadow--red,
+.bg-shadow--green,
+.bg-shadow--blue {
+  border-radius: 3px;
+  transition: box-shadow var(--bg-transition);
+}
+.bg-shadow--red {
+  box-shadow: var(--bg-shadow-red);
+}
+.bg-shadow--green {
+  box-shadow: var(--bg-shadow-green);
+}
+.bg-shadow--blue {
+  box-shadow: var(--bg-shadow-blue);
+}
+
+/* Side panel gradient */
+/* #region */
+
+
+/* #endregion */
+
+/* #endregion */

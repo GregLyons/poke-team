@@ -4,23 +4,32 @@
   position: sticky;
 
   width: 100%;
-
-  background-color: var(--dark3);
   
   display: grid;
   grid-template-columns: 3fr 3fr 1fr 5fr;
   grid-template-rows: 1fr 1fr;
 
-  /* Glow between entries */
+  /* Gap between entries so shadow shows through */
   gap: 1px;
-  background-color: var(--green-bg);
-
-  /* Glow between control panel and nav bars */
-  border-top: 1px solid var(--green-bg);
-  border-bottom: 1px solid var(--green-bg);
+  transition: var(--bg-transition);
+  transition-property: border, background-color;
 
   /* Makes dropdowns originating in this div go over other content, e.g. Pokemon icons */
   z-index: 10;
+}
+
+/* Glow between control panel and nav bars */
+.control-panel__wrapper.bg--red {
+  border-top: 1px solid var(--red-bg);
+  border-bottom: 1px solid var(--red-bg);
+}
+.control-panel__wrapper.bg--green {
+  border-top: 1px solid var(--green-bg);
+  border-bottom: 1px solid var(--green-bg);
+}
+.control-panel__wrapper.bg--blue {
+  border-top: 1px solid var(--blue-bg);
+  border-bottom: 1px solid var(--blue-bg);
 }
 
 /* Arrangement */
@@ -74,8 +83,6 @@
 
   padding: 1rem;
   background-color: var(--dark2);
-  border-radius: 3px;
-  box-shadow: var(--bg-shadow);
 }
 
 .gen-filter__wrapper,

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BGManager, classWithBGShadow } from "../../../hooks/App/BGManager";
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { BASE_STAT_NAMES, PokemonFilter, PokemonFilterAction, TYPE_NAMES } from "../../../hooks/App/PokemonFilter";
 import { BaseStatName, toAbbreviatedBaseStatName, toEnumTypeName, toFormattedTypeName, TypeName } from "../../../types-queries/helpers";
@@ -12,12 +13,14 @@ type PokemonFilterFormProps = {
   dispatchPokemonFilter: React.Dispatch<PokemonFilterAction>
   pokemonFilter: PokemonFilter
   genFilter: GenFilter
+  bgManager: BGManager
 }
 
 const PokemonFilterForm = ({
   dispatchPokemonFilter,
   pokemonFilter,
   genFilter,
+  bgManager,
 }: PokemonFilterFormProps) => {
   // Types
   // #region
@@ -193,7 +196,7 @@ const PokemonFilterForm = ({
 
   return (
     <>
-    <div className="type-filter__cell">
+    <div className={classWithBGShadow("type-filter__cell", bgManager)}>
       <form className="type-filter__wrapper">
         <div className="type-filter__select-all-type">
           <label htmlFor="Select all types">
@@ -243,7 +246,7 @@ const PokemonFilterForm = ({
         </div>
       </form>
     </div>
-    <div className="stat-filter__cell">
+    <div className={classWithBGShadow("stat-filter__cell", bgManager)}>
       <form className="stat-filter__wrapper">
         <div className="stat-filter__reset">
           <label htmlFor="Select all types">

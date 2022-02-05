@@ -10,6 +10,7 @@ import { PokemonFilter, PokemonFilterAction } from '../../hooks/App/PokemonFilte
 import { GenFilter, GenFilterAction } from '../../hooks/App/GenFilter';
 import { Team, TeamAction } from '../../hooks/App/Team';
 import { CartAction } from '../../hooks/App/Cart';
+import { BGManager, BGAction, classWithBGShadow, classWithBG } from '../../hooks/App/BGManager';
 
 type ControlPanelProps = {
   dispatchCart: React.Dispatch<CartAction>
@@ -25,32 +26,38 @@ type ControlPanelProps = {
 
   dispatchTeam: React.Dispatch<TeamAction>
   team: Team
+
+  dispatchBGManager: React.Dispatch<BGAction>
+  bgManager: BGManager
 }
 
 const ControlPanel = ({
   dispatchCart,
-  dispatchTeam,
-
+  
   dispatchGenFilter,
   genFilter,
-
+  
   dispatchTierFilter,
   tierFilter,
-
+  
   dispatchPokemonFilter,
   pokemonFilter,
   
+  dispatchTeam,
   team,
+
+  dispatchBGManager,
+  bgManager,
 }: ControlPanelProps) => {
   return (
-    <div className="control-panel__wrapper">
-      <div className="gen-filter__cell">
+    <div className={classWithBG('control-panel__wrapper', bgManager)}>
+      <div className={classWithBGShadow("gen-filter__cell", bgManager)}>
         <GenFilterForm
           genFilter={genFilter}
           dispatchGenFilter={dispatchGenFilter}
         />
       </div>
-      <div className="tier-filter__cell">
+      <div className={classWithBGShadow("tier-filter__cell", bgManager)}>
         <TierFilterForm
           genFilter={genFilter}
           tierFilter={tierFilter}
@@ -65,7 +72,7 @@ const ControlPanel = ({
           team={team}
         />
       </div>
-      <div className="import-export__cell">
+      <div className={classWithBGShadow("import-export__cell", bgManager)}>
         <div className="import-export__wrapper"></div>
       </div>
       <>
@@ -73,6 +80,7 @@ const ControlPanel = ({
           dispatchPokemonFilter={dispatchPokemonFilter}
           pokemonFilter={pokemonFilter}
           genFilter={genFilter}
+          bgManager={bgManager}
         />
       </>
     </div>

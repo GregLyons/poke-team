@@ -1,10 +1,19 @@
+import { BGAction, BGManager, classWithBGShadow } from '../../hooks/App/BGManager';
 import LinkButton from '../Reusables/LinkButton/LinkButton';
 
 import './NavBar.css';
 
-const NavBar = () => {
+type NavBarProps = {
+  dispatchBGManager: React.Dispatch<BGAction>
+  bgManager: BGManager
+}
+
+const NavBar = ({
+  dispatchBGManager,
+  bgManager,
+}: NavBarProps) => {
   return (
-    <div className="nav-bar__wrapper">
+    <div className={classWithBGShadow("nav-bar__wrapper", bgManager)}>
       <nav className="nav-bar">
         <li className="nav-item">
           <LinkButton 
