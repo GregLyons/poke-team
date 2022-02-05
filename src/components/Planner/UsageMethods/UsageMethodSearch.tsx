@@ -47,16 +47,10 @@ const listRender = ({ data, }: ListRenderArgs<UsageMethodSearchQuery>) => {
 }
 
 type UsageMethodSearchMainProps = {
-  dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
-  dispatchBGManager: React.Dispatch<BGAction>
   genFilter: GenFilter
 }
 
 const UsageMethodSearch = ({
-  dispatchCart,
-  dispatchTeam,
-  dispatchBGManager,
   genFilter,
 }: UsageMethodSearchMainProps) => {
   const [queryVars, setQueryVars] = useGenConnectedSearchVars<UsageMethodSearchVars>(

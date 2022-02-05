@@ -6,10 +6,12 @@ import { PokemonFilter } from "../../../hooks/App/PokemonFilter";
 import { TeamAction } from "../../../hooks/App/Team";
 
 import TypeSearch from "./TypeSearch"
+import { BGAction } from "../../../hooks/App/BGManager";
 
 type TypeMainPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
+  dispatchBGManager: React.Dispatch<BGAction>
   genFilter: GenFilter
   tierFilter: TierFilter
   pokemonFilter: PokemonFilter
@@ -18,6 +20,7 @@ type TypeMainPageProps = {
 const TypeMainPage = ({ 
   dispatchCart,
   dispatchTeam,
+  dispatchBGManager,
   genFilter,
   tierFilter,
   pokemonFilter,
@@ -26,6 +29,7 @@ const TypeMainPage = ({
     <TypeSearch
       dispatchCart={dispatchCart}
       dispatchTeam={dispatchTeam}
+      dispatchBGManager={dispatchBGManager}
       genFilter={genFilter}
       tierFilter={tierFilter}
       pokemonFilter={pokemonFilter}

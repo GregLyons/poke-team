@@ -121,6 +121,7 @@ function App() {
               element={<AbilityMainPage
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
+                dispatchBGManager={dispatchBGManager}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
                 pokemonFilter={pokemonFilter}
@@ -129,6 +130,7 @@ function App() {
             <Route path="abilities/:abilityId" element={<AbilityPage 
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
+              dispatchBGManager={dispatchBGManager}
               genFilter={genFilter}
               tierFilter={tierFilter}
               pokemonFilter={pokemonFilter}
@@ -139,6 +141,7 @@ function App() {
               element={<ItemMainPage
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
+                dispatchBGManager={dispatchBGManager}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
                 pokemonFilter={pokemonFilter}
@@ -147,6 +150,7 @@ function App() {
             <Route path="items/:itemId" element={<ItemPage 
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
+              dispatchBGManager={dispatchBGManager}
               genFilter={genFilter}
               tierFilter={tierFilter}
               pokemonFilter={pokemonFilter}
@@ -157,6 +161,7 @@ function App() {
               element={<MoveMainPage
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
+                dispatchBGManager={dispatchBGManager}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
                 pokemonFilter={pokemonFilter}
@@ -166,6 +171,7 @@ function App() {
             <Route path="moves/:moveId" element={<MovePage 
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
+              dispatchBGManager={dispatchBGManager}
               genFilter={genFilter}
               tierFilter={tierFilter}
             />} />
@@ -174,14 +180,13 @@ function App() {
             <Route 
               path='effects' 
               element={<EffectMainPage
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
               />}
             />
             <Route path="effects/:effectId" element={<EffectPage
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
+              dispatchBGManager={dispatchBGManager}
               genFilter={genFilter}
               tierFilter={tierFilter}
               pokemonFilter={pokemonFilter}
@@ -190,16 +195,13 @@ function App() {
             <Route 
               path='fieldStates' 
               element={<FieldStateMainPage
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
-                tierFilter={tierFilter}
-                pokemonFilter={pokemonFilter}
               />}
             />
             <Route path="fieldStates/:fieldStateId" element={<FieldStatePage
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
+              dispatchBGManager={dispatchBGManager}
               genFilter={genFilter}
               tierFilter={tierFilter}
               pokemonFilter={pokemonFilter}
@@ -208,16 +210,13 @@ function App() {
             <Route 
               path='stats' 
               element={<StatMainPage
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
-                tierFilter={tierFilter}
-                pokemonFilter={pokemonFilter}
               />}
             />
             <Route path="stats/:statId" element={<StatPage
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
+              dispatchBGManager={dispatchBGManager}
               genFilter={genFilter}
               tierFilter={tierFilter}
               pokemonFilter={pokemonFilter}
@@ -226,16 +225,13 @@ function App() {
             <Route 
               path='statuses' 
               element={<StatusMainPage
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
-                tierFilter={tierFilter}
-                pokemonFilter={pokemonFilter}
               />}
             />
             <Route path="statuses/:statusId" element={<StatusPage
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
+              dispatchBGManager={dispatchBGManager}
               genFilter={genFilter}
               tierFilter={tierFilter}
               pokemonFilter={pokemonFilter}
@@ -246,6 +242,7 @@ function App() {
               element={<TypeMainPage
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
+                dispatchBGManager={dispatchBGManager}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
                 pokemonFilter={pokemonFilter}
@@ -254,6 +251,7 @@ function App() {
             <Route path="types/:typeId" element={<TypePage
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
+              dispatchBGManager={dispatchBGManager}
               genFilter={genFilter}
               tierFilter={tierFilter}
               pokemonFilter={pokemonFilter}
@@ -262,16 +260,13 @@ function App() {
             <Route 
               path='usageMethods' 
               element={<UsageMethodMainPage
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
                 genFilter={genFilter}
-                tierFilter={tierFilter}
-                pokemonFilter={pokemonFilter}
               />}
             />
             <Route path="usageMethods/:usageMethodId" element={<UsageMethodPage
               dispatchCart={dispatchCart}
               dispatchTeam={dispatchTeam}
+              dispatchBGManager={dispatchBGManager}
               genFilter={genFilter}
               tierFilter={tierFilter}
               pokemonFilter={pokemonFilter}

@@ -72,7 +72,6 @@ type PokemonSearchProps = {
 const PokemonSearch = ({
   dispatchCart,
   dispatchTeam,
-  dispatchBGManager,
   gen,
   tierFilter,
 }: PokemonSearchProps) => {

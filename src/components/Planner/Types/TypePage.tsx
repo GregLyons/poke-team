@@ -57,10 +57,12 @@ import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
+import { BGAction } from '../../../hooks/App/BGManager';
 
 type TypePageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
+  dispatchBGManager: React.Dispatch<BGAction>
   genFilter: GenFilter
   tierFilter: TierFilter
   pokemonFilter: PokemonFilter
@@ -69,6 +71,7 @@ type TypePageProps = {
 const TypePage = ({
   dispatchCart,
   dispatchTeam,
+  dispatchBGManager,
   genFilter,
   tierFilter,
   pokemonFilter,
@@ -239,6 +242,7 @@ const TypePage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
+                dispatchBGManager={dispatchBGManager}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
                 pokemonFilter={pokemonFilter}
@@ -256,6 +260,7 @@ const TypePage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
+                dispatchBGManager={dispatchBGManager}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
                 listRender={listRenderTypeFieldState}
@@ -272,6 +277,7 @@ const TypePage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
+                dispatchBGManager={dispatchBGManager}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
                 pokemonFilter={pokemonFilter}
@@ -289,6 +295,7 @@ const TypePage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
+                dispatchBGManager={dispatchBGManager}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
                 pokemonFilter={pokemonFilter}

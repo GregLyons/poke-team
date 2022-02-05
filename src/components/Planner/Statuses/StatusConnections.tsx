@@ -49,8 +49,8 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, disp
             description={result.description}
             data={[{key: '%', title: 'Chance', value: result.chance || 0}]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
@@ -77,8 +77,8 @@ export const listRenderStatusAbility = ({ data, dispatchCart, dispatchTeam, disp
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
@@ -169,8 +169,9 @@ export const listRenderStatusItem = ({ data, dispatchCart, dispatchTeam, dispatc
             description={result.description}
             data={[{key: '%', title: 'Chance', value: result.chance || 0}]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
               genFilter,
@@ -197,8 +198,9 @@ export const listRenderStatusItem = ({ data, dispatchCart, dispatchTeam, dispatc
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
               genFilter,
@@ -241,8 +243,8 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, dispatc
             description={result.description}
             data={[{key: '%', title: 'Chance', value: result.chance || 0}]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,
@@ -270,8 +272,8 @@ export const listRenderStatusMove = ({ data, dispatchCart, dispatchTeam, dispatc
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,

@@ -45,8 +45,8 @@ export const listRenderEffectAbility = ({ data, dispatchCart, dispatchTeam, disp
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
@@ -111,8 +111,8 @@ export const listRenderEffectItem = ({ data, dispatchCart, dispatchTeam, dispatc
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
@@ -152,8 +152,8 @@ export const listRenderEffectMove = ({ data, dispatchCart, dispatchTeam, dispatc
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,

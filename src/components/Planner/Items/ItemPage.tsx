@@ -65,10 +65,12 @@ import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 import { TierFilter } from '../../../hooks/App/TierFilter';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
+import { BGAction } from '../../../hooks/App/BGManager';
 
 type ItemPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
+  dispatchBGManager: React.Dispatch<BGAction>
   genFilter: GenFilter
   tierFilter: TierFilter
   pokemonFilter: PokemonFilter
@@ -77,6 +79,7 @@ type ItemPageProps = {
 const ItemPage = ({ 
   dispatchCart,
   dispatchTeam,
+  dispatchBGManager,
   genFilter,
   tierFilter,
   pokemonFilter,
@@ -305,6 +308,7 @@ const ItemPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
+                dispatchBGManager={dispatchBGManager}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
                 pokemonFilter={pokemonFilter}

@@ -22,6 +22,7 @@ import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { ENUMCASE_TO_TITLECASE } from '../../../utils/constants';
 import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
+import { BGAction } from '../../../hooks/App/BGManager';
 
 const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
   if (!data || !data.fieldStates) return (<div>Data not found for the query 'fieldStates'.</div>);
@@ -64,16 +65,10 @@ const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
 }
 
 type FieldStateSearchMainProps = {
-  dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
-  dispatchBGManager: React.Dispatch<BGAction>
   genFilter: GenFilter
 }
 
 const FieldStateSearch = ({
-  dispatchCart,
-  dispatchTeam,
-  dispatchBGManager,
   genFilter,
 }: FieldStateSearchMainProps) => {
   const [queryVars, setQueryVars] = useGenConnectedSearchVars<FieldStateSearchVars>(

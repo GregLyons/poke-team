@@ -62,10 +62,12 @@ import { GenFilter, removedFromBDSP, removedFromSwSh } from '../../../hooks/App/
 import { PokemonFilter } from '../../../hooks/App/PokemonFilter';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 import { TierFilter } from '../../../hooks/App/TierFilter';
+import { BGAction } from '../../../hooks/App/BGManager';
 
 type AbilityPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
+  dispatchBGManager: React.Dispatch<BGAction>
   genFilter: GenFilter
   tierFilter: TierFilter
   pokemonFilter: PokemonFilter
@@ -74,6 +76,7 @@ type AbilityPageProps = {
 const AbilityPage = ({ 
   dispatchCart,
   dispatchTeam,
+  dispatchBGManager,
   genFilter,
   tierFilter,
   pokemonFilter,
@@ -301,6 +304,7 @@ const AbilityPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
+                dispatchBGManager={dispatchBGManager}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
                 pokemonFilter={pokemonFilter}

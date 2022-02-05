@@ -50,10 +50,12 @@ import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
+import { BGAction } from '../../../hooks/App/BGManager';
 
 type UsageMethodPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
+  dispatchBGManager: React.Dispatch<BGAction>
   genFilter: GenFilter
   tierFilter: TierFilter
   pokemonFilter: PokemonFilter
@@ -62,6 +64,7 @@ type UsageMethodPageProps = {
 const UsageMethodPage = ({
   dispatchCart,
   dispatchTeam,
+  dispatchBGManager,
   genFilter,
   tierFilter,
   pokemonFilter,
@@ -226,6 +229,7 @@ const UsageMethodPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
+                dispatchBGManager={dispatchBGManager}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
                 pokemonFilter={pokemonFilter}
@@ -243,6 +247,7 @@ const UsageMethodPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
+                dispatchBGManager={dispatchBGManager}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
                 pokemonFilter={pokemonFilter}
@@ -260,6 +265,7 @@ const UsageMethodPage = ({
               <EntityConnectionSearch
                 dispatchCart={dispatchCart}
                 dispatchTeam={dispatchTeam}
+                dispatchBGManager={dispatchBGManager}
                 genFilter={genFilter}
                 tierFilter={tierFilter}
                 pokemonFilter={pokemonFilter}

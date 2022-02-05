@@ -61,10 +61,12 @@ import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 import { CartAction } from '../../../hooks/App/Cart';
 import { TeamAction } from '../../../hooks/App/Team';
 import { GenFilter, removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
+import { BGAction } from '../../../hooks/App/BGManager';
 
 type MovePageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
+  dispatchBGManager: React.Dispatch<BGAction>
   tierFilter: TierFilter
   genFilter: GenFilter
 }
@@ -72,6 +74,7 @@ type MovePageProps = {
 const MovePage = ({ 
   dispatchCart,
   dispatchTeam,
+  dispatchBGManager,
   tierFilter,
   genFilter,
 }: MovePageProps) => {

@@ -55,16 +55,10 @@ const listRender = ({ data, }: ListRenderArgs<StatusSearchQuery>) => {
 }
 
 type StatusSearchMainProps = {
-  dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
-  dispatchBGManager: React.Dispatch<BGAction>
   genFilter: GenFilter
 }
 
 const StatusSearch = ({
-  dispatchCart,
-  dispatchTeam,
-  dispatchBGManager,
   genFilter,
 }: StatusSearchMainProps) => {
   const [queryVars, setQueryVars] = useGenConnectedSearchVars<StatusSearchVars>(

@@ -47,16 +47,10 @@ const listRender = ({ data, }: ListRenderArgs<EffectSearchQuery>) => {
 }
 
 type EffectSearchMainProps = {
-  dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
-  dispatchBGManager: React.Dispatch<BGAction>
   genFilter: GenFilter
 }
 
 const EffectSearch = ({
-  dispatchCart,
-  dispatchTeam,
-  dispatchBGManager,
   genFilter,
 }: EffectSearchMainProps) => {
   const [queryVars, setQueryVars] = useGenConnectedSearchVars<EffectSearchVars>(

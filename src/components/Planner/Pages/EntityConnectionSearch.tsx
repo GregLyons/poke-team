@@ -14,11 +14,13 @@ import { PokemonFilter } from "../../../hooks/App/PokemonFilter";
 import { ListRenderArgs } from '../helpers';
 
 import './Pages.css';
+import { BGAction } from '../../../hooks/App/BGManager';
 
 
 interface EntityConnectionSearchProps<SearchQuery, SearchQueryVars> {
   dispatchCart?: React.Dispatch<CartAction>
   dispatchTeam?: React.Dispatch<TeamAction>
+  dispatchBGManager?: React.Dispatch<BGAction>
   genFilter: GenFilter
   tierFilter?: TierFilter
   pokemonFilter?: PokemonFilter
@@ -30,6 +32,7 @@ interface EntityConnectionSearchProps<SearchQuery, SearchQueryVars> {
 function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
   dispatchCart,
   dispatchTeam,
+  dispatchBGManager,
   genFilter,
   tierFilter,
   pokemonFilter,

@@ -10,26 +10,18 @@ import { TeamAction } from "../../../hooks/App/Team";
 
 import StatusSearch from "./StatusSearch"
 
-type FieldStateMainPageProps = {
-  dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
+type StatusMainPageProps = {
   genFilter: GenFilter
-  tierFilter: TierFilter
-  pokemonFilter: PokemonFilter
 }
 
-const FieldStateMainPage = ({ 
-  dispatchCart,
-  dispatchTeam,
+const StatusMainPage = ({
   genFilter,
-}: FieldStateMainPageProps) => {
+}: StatusMainPageProps) => {
   return (
     <StatusSearch
-      dispatchCart={dispatchCart}
-      dispatchTeam={dispatchTeam}
       genFilter={genFilter}
     />
   )
 }
 
-export default FieldStateMainPage;
+export default StatusMainPage;

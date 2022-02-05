@@ -47,8 +47,8 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
@@ -73,8 +73,8 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
             description={result.description}
             data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
@@ -101,8 +101,8 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
@@ -127,8 +127,8 @@ export const listRenderUsageMethodAbility = ({ data, dispatchCart, dispatchTeam,
             description={result.description}
             data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
@@ -171,8 +171,9 @@ export const listRenderUsageMethodItem = ({ data, dispatchCart, dispatchTeam, di
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
               genFilter,
@@ -197,8 +198,9 @@ export const listRenderUsageMethodItem = ({ data, dispatchCart, dispatchTeam, di
             description={result.description}
             data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
               genFilter,
@@ -223,8 +225,9 @@ export const listRenderUsageMethodItem = ({ data, dispatchCart, dispatchTeam, di
             description={result.description}
             data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
               genFilter,
@@ -266,8 +269,8 @@ export const listRenderUsageMethodMove = ({ data, dispatchCart, dispatchTeam, di
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,
@@ -295,8 +298,8 @@ export const listRenderUsageMethodMove = ({ data, dispatchCart, dispatchTeam, di
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,

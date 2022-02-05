@@ -9,24 +9,17 @@ import { PokemonFilter } from "../../../hooks/App/PokemonFilter";
 import { TeamAction } from "../../../hooks/App/Team";
 
 import StatSearch from "./StatSearch"
+import { BGManager } from "../../../hooks/App/BGManager";
 
 type StatMainPageProps = {
-  dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
   genFilter: GenFilter
-  tierFilter: TierFilter
-  pokemonFilter: PokemonFilter
 }
 
-const StatMainPage = ({ 
-  dispatchCart,
-  dispatchTeam,
+const StatMainPage = ({
   genFilter,
 }: StatMainPageProps) => {
   return (
     <StatSearch
-      dispatchCart={dispatchCart}
-      dispatchTeam={dispatchTeam}
       genFilter={genFilter}
     />
   )

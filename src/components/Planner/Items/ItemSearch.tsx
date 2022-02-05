@@ -26,6 +26,7 @@ import {
 } from '../../../utils/constants';
 import { TierFilter } from "../../../hooks/App/TierFilter";
 import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
+import { BGAction, BGManager } from '../../../hooks/App/BGManager';
 
 const listRender = ({ data, dispatchCart, dispatchTeam, dispatchBGManager, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<ItemSearchQuery>) => {
   if (!data || !data.items) return (<div>Data not found for the query 'items'.</div>);
@@ -74,6 +75,7 @@ const listRender = ({ data, dispatchCart, dispatchTeam, dispatchBGManager, genFi
 type ItemSearchProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
+  dispatchBGManager: React.Dispatch<BGAction>
   genFilter: GenFilter
   tierFilter: TierFilter
   pokemonFilter: PokemonFilter
@@ -115,7 +117,7 @@ const ItemSearch = ({
         genFilter={genFilter}
         tierFilter={tierFilter}
         pokemonFilter={pokemonFilter}
-        handleSearchBoxChange=={handleSearchBoxChange}
+        handleSearchBoxChange={handleSearchBoxChange}
         listRender={listRender}
         query={ITEM_SEARCH_QUERY}
         queryVars={queryVars}

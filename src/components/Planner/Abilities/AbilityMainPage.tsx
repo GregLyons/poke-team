@@ -1,3 +1,4 @@
+import { BGAction } from "../../../hooks/App/BGManager";
 import { CartAction } from "../../../hooks/App/Cart";
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { PokemonFilter } from "../../../hooks/App/PokemonFilter";
@@ -9,6 +10,7 @@ import AbilitySearch from "./AbilitySearch";
 type AbilityMainPageProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
+  dispatchBGManager: React.Dispatch<BGAction>
   genFilter: GenFilter
   tierFilter: TierFilter
   pokemonFilter: PokemonFilter
@@ -17,6 +19,7 @@ type AbilityMainPageProps = {
 const AbilityMainPage = ({ 
   dispatchCart,
   dispatchTeam,
+  dispatchBGManager,
   genFilter,
   tierFilter,
   pokemonFilter,
@@ -25,6 +28,7 @@ const AbilityMainPage = ({
     <AbilitySearch
       dispatchCart={dispatchCart}
       dispatchTeam={dispatchTeam}
+      dispatchBGManager={dispatchBGManager}
       genFilter={genFilter}
       tierFilter={tierFilter}
       pokemonFilter={pokemonFilter}

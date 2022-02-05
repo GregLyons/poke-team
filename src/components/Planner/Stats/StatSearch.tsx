@@ -21,6 +21,7 @@ import { TeamAction } from "../../../hooks/App/Team";
 import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
+import { BGAction } from '../../../hooks/App/BGManager';
 
 const listRender = ({ data, }: ListRenderArgs<StatSearchQuery>) => {
   if (!data || !data.stats) return (<div>Data not found for the query 'stats'.</div>);
@@ -47,16 +48,10 @@ const listRender = ({ data, }: ListRenderArgs<StatSearchQuery>) => {
 }
 
 type StatSearchMainProps = {
-  dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
-  dispatchBGManager: React.Dispatch<BGAction>
   genFilter: GenFilter
 }
 
 const StatSearch = ({
-  dispatchCart,
-  dispatchTeam,
-  dispatchBGManager,
   genFilter,
 }: StatSearchMainProps) => {
   const [queryVars, setQueryVars] = useGenConnectedSearchVars<StatSearchVars>(

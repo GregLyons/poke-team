@@ -63,8 +63,8 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, dispat
               },
             ]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
@@ -99,8 +99,8 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, dispat
               },
             ]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
@@ -135,8 +135,8 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, dispat
               },
             ]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
@@ -171,8 +171,8 @@ export const listRenderStatAbility = ({ data, dispatchCart, dispatchTeam, dispat
               },
             ]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
@@ -349,8 +349,9 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, dispatchB
               },
             ]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
               genFilter,
@@ -385,8 +386,9 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, dispatchB
               },
             ]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
               genFilter,
@@ -421,8 +423,9 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, dispatchB
               },
             ]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
               genFilter,
@@ -457,8 +460,9 @@ export const listRenderStatItem = ({ data, dispatchCart, dispatchTeam, dispatchB
               },
             ]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
               genFilter,
@@ -514,8 +518,8 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, dispatchB
               },
             ]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,
@@ -551,8 +555,8 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, dispatchB
               },
             ]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,
@@ -588,8 +592,8 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, dispatchB
               },
             ]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,
@@ -625,8 +629,8 @@ export const listRenderStatMove = ({ data, dispatchCart, dispatchTeam, dispatchB
               },
             ]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,

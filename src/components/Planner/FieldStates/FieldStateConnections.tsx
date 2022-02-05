@@ -65,8 +65,8 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
@@ -91,8 +91,8 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
             description={result.description}
             data={[{key: 'TURN', title: 'Turns', value: result.turns || 0}]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
@@ -119,8 +119,8 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
@@ -147,8 +147,8 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
@@ -175,8 +175,8 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
@@ -203,8 +203,8 @@ export const listRenderFieldStateAbility = ({ data, dispatchCart, dispatchTeam, 
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
@@ -274,8 +274,9 @@ export const listRenderFieldStateItem = ({ data, dispatchCart, dispatchTeam, dis
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
               genFilter,
@@ -303,8 +304,9 @@ export const listRenderFieldStateItem = ({ data, dispatchCart, dispatchTeam, dis
             description={result.description}
             data={[{key: 'TURN', title: 'Turns', value: result.turns || 0}]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
               genFilter,
@@ -331,8 +333,9 @@ export const listRenderFieldStateItem = ({ data, dispatchCart, dispatchTeam, dis
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
               genFilter,
@@ -359,8 +362,9 @@ export const listRenderFieldStateItem = ({ data, dispatchCart, dispatchTeam, dis
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
               genFilter,
@@ -405,8 +409,8 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, dis
             description={result.description}
             data={[{key: 'TURN', title: 'Turns', value: result.turns || 0}]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,
@@ -434,8 +438,8 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, dis
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,
@@ -463,8 +467,8 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, dis
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,
@@ -489,8 +493,8 @@ export const listRenderFieldStateMove = ({ data, dispatchCart, dispatchTeam, dis
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               typeIconDatum: result.typeIconDatum,
@@ -775,8 +779,9 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, dis
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
               typeIconDatum: result.typeIconDatum,
               genFilter,
@@ -833,8 +838,9 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, dis
               linkName={result.name}
               description={result.description}
               icons={{
-                dispatchCart: dispatchCart,
-                dispatchTeam: dispatchTeam,
+                dispatchCart,
+                dispatchTeam,
+                dispatchBGManager,
                 pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
                 typeIconDatum: result.typeIconDatum,
                 genFilter,
@@ -861,8 +867,9 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, dis
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
               typeIconDatum: result.typeIconDatum,
               genFilter,
@@ -889,8 +896,9 @@ export const listRenderFieldStateType = ({ data, dispatchCart, dispatchTeam, dis
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
               typeIconDatum: result.typeIconDatum,
               genFilter,

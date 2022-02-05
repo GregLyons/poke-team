@@ -49,8 +49,8 @@ export const listRenderTypeAbility = ({ data, dispatchCart, dispatchTeam, dispat
             description={result.description}
             data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
@@ -75,8 +75,8 @@ export const listRenderTypeAbility = ({ data, dispatchCart, dispatchTeam, dispat
             description={result.description}
             data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,
@@ -268,8 +268,9 @@ export const listRenderTypeItem = ({ data, dispatchCart, dispatchTeam, dispatchB
             description={result.description}
             data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
               genFilter,
@@ -297,8 +298,9 @@ export const listRenderTypeItem = ({ data, dispatchCart, dispatchTeam, dispatchB
             description={result.description}
             data={[{key: 'POW', title: 'Power', value: result.power || 0}]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
               genFilter,
@@ -323,8 +325,9 @@ export const listRenderTypeItem = ({ data, dispatchCart, dispatchTeam, dispatchB
             description={result.description}
             data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
+              dispatchBGManager,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
               genFilter,
@@ -367,8 +370,8 @@ export const listRenderTypeMove = ({ data, dispatchCart, dispatchTeam, dispatchB
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart: dispatchCart,
-              dispatchTeam: dispatchTeam,
+              dispatchCart,
+              dispatchTeam,
               dispatchBGManager,
               pokemonIconData: result.pokemonIconData,
               genFilter,

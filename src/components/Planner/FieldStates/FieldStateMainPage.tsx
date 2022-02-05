@@ -9,24 +9,17 @@ import { PokemonFilter } from "../../../hooks/App/PokemonFilter";
 import { TeamAction } from "../../../hooks/App/Team";
 
 import FieldStateSearch from "./FieldStateSearch"
+import { BGAction } from "../../../hooks/App/BGManager";
 
 type FieldStateMainPageProps = {
-  dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
   genFilter: GenFilter
-  tierFilter: TierFilter
-  pokemonFilter: PokemonFilter
 }
 
 const FieldStateMainPage = ({ 
-  dispatchCart,
-  dispatchTeam,
   genFilter,
 }: FieldStateMainPageProps) => {
   return (
     <FieldStateSearch
-      dispatchCart={dispatchCart}
-      dispatchTeam={dispatchTeam}
       genFilter={genFilter}
     />
   )

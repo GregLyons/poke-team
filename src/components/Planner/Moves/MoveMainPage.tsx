@@ -9,10 +9,12 @@ import { PokemonFilter } from "../../../hooks/App/PokemonFilter";
 import { TeamAction } from "../../../hooks/App/Team";
 
 import MoveSearch from "./MoveSearch";
+import { BGAction, BGManager } from "../../../hooks/App/BGManager";
 
 type MoveMainProps = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
+  dispatchBGManager: React.Dispatch<BGAction>
   genFilter: GenFilter
   tierFilter: TierFilter
   pokemonFilter: PokemonFilter
@@ -21,6 +23,7 @@ type MoveMainProps = {
 const MoveMainPage = ({ 
   dispatchCart,
   dispatchTeam,
+  dispatchBGManager,
   genFilter,
   tierFilter,
   pokemonFilter,
@@ -29,6 +32,7 @@ const MoveMainPage = ({
     <MoveSearch 
       dispatchCart={dispatchCart}
       dispatchTeam={dispatchTeam}
+      dispatchBGManager={dispatchBGManager}
       genFilter={genFilter}
       tierFilter={tierFilter}
       pokemonFilter={pokemonFilter}
