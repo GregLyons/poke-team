@@ -48,25 +48,25 @@ export const getItemIcon = (item: ItemIconDatum) => {
 // Get type sprites
 // #region
 
-
 const TYPENAME_TO_TYPEICON_5 = new Map<TypeName, [number, number]>([
-  ['fire', [-0, -0]],
-  ['flying', [-0, -12]],
-  ['ghost', [-32, -0]],
-  ['grass', [-32, -12]],
-  ['ground', [-0, -24]],
-  ['ice', [-32, -24]],
-  ['normal', [-0, -36]],
-  ['poison', [-32, -36]],
-  ['psychic', [-0, -48]],
-  ['rock', [-32, -48]],
-  ['steel', [-64, -0]],
-  ['water', [-64, -12]],
-  ['bug', [-64, -24]],
-  ['dark', [-64, -36]],
-  ['dragon', [-64, -48]],
-  ['electric', [-0, -60]],
-  ['fighting', [-32, -60]],
+  ['normal', [-0, -0]],
+  ['poison', [-0, -12]],
+  ['psychic', [-32, -0]],
+  ['rock', [-32, -12]],
+  ['steel', [-0, -24]],
+  ['water', [-32, -24]],
+  ['bug', [-0, -36]],
+  ['dark', [-32, -36]],
+  ['dragon', [-0, -48]],
+  ['electric', [-32, -48]],
+  ['fairy', [-64, -0]],
+  ['fighting', [-64, -12]],
+  ['fire', [-64, -24]],
+  ['flying', [-64, -36]],
+  ['ghost', [-64, -48]],
+  ['grass', [-0, -60]],
+  ['ground', [-32, -60]],
+  ['ice', [-64, -60]],
 ]);
 
 const TYPENAME_TO_TYPEICON_8 = new Map<TypeName, [number, number]>([

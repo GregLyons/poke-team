@@ -85,7 +85,7 @@ const TypeSearch = ({
     {
       gen: genFilter.gen,
       startsWith: '',
-      limit: 5,
+      limit: 20,
       removedFromSwSh: removedFromSwSh(genFilter),
       removedFromBDSP: removedFromBDSP(genFilter),
     },
