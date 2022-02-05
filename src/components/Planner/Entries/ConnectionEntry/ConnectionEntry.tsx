@@ -48,7 +48,7 @@ const ConnectionAccordionEntry = ({
   // Default height
   const entryHeight = "6rem";
   
-  const { hover, expand, expandListeners, originalScrollHeight, } = useEntryExpand(entryRef, icons?.genFilter, icons?.tierFilter, icons?.pokemonFilter);
+  const { hover, expand, expandListeners, originalScrollHeight, } = useEntryExpand(entryRef, icons?.filters);
 
   // #endregion
 
@@ -66,10 +66,10 @@ const ConnectionAccordionEntry = ({
 
   const handleAddToCart = () => {
     if (!icons) return;
-    icons.dispatchCart({
+    icons.dispatches.dispatchCart({
       type: 'add_pokemon',
       payload: {
-        gen: icons.genFilter.gen,
+        gen: icons.filters.genFilter.gen,
         parentEntityClass,
         targetEntityClass,
         pokemon: selectionToPokemonIconData(selection),

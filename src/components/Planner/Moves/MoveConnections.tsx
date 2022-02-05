@@ -22,7 +22,7 @@ import { ENUMCASE_TO_TITLECASE } from "../../../utils/constants";
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 
 import {
-  ListRenderArgs, MissingDispatchError, MissingGenError, MissingPokemonFilterError, MissingTierFilterError,
+  ListRenderArgs, ListRenderArgsIcons,
 } from "../helpers";
 
 export const listRenderMoveEffect = ({ data, }: ListRenderArgs<MoveEffectQuery>) => {
@@ -297,12 +297,8 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
   );
 }
 
-export const listRenderMoveType = ({ data, dispatchCart, dispatchTeam, dispatchBGManager, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<MoveTypeQuery>) => {
+export const listRenderMoveType = ({ data, dispatches, filters, }: ListRenderArgsIcons<MoveTypeQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
-  if (!dispatchCart || !dispatchTeam || !dispatchBGManager) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
-  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntityConnectionSearch component.');
-  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntityConnectionSearch component.');
-  if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed PokemonFilter to the EntityConnectionSearch component.');
 
   const parent = data.moveByName[0];
 
@@ -327,12 +323,8 @@ export const listRenderMoveType = ({ data, dispatchCart, dispatchTeam, dispatchB
             icons={{
               pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
               typeIconDatum: result.typeIconDatum,
-              dispatchCart,
-              dispatchTeam,
-              dispatchBGManager,
-              genFilter,
-              tierFilter,
-              pokemonFilter,
+              dispatches,
+              filters,
               cartNote: ``,
             }}
           />

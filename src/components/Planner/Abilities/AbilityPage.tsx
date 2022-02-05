@@ -63,23 +63,17 @@ import { PokemonFilter } from '../../../hooks/App/PokemonFilter';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 import { TierFilter } from '../../../hooks/App/TierFilter';
 import { BGAction } from '../../../hooks/App/BGManager';
+import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
+import { PokemonIconDispatches, PokemonIconFilters } from '../../App';
 
 type AbilityPageProps = {
-  dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
-  dispatchBGManager: React.Dispatch<BGAction>
-  genFilter: GenFilter
-  tierFilter: TierFilter
-  pokemonFilter: PokemonFilter
+  dispatches: PokemonIconDispatches
+  filters: PokemonIconFilters
 }
 
 const AbilityPage = ({ 
-  dispatchCart,
-  dispatchTeam,
-  dispatchBGManager,
-  genFilter,
-  tierFilter,
-  pokemonFilter,
+  dispatches,
+  filters,
 }: AbilityPageProps) => {
   const params = useParams();
   
@@ -89,36 +83,36 @@ const AbilityPage = ({
   // #region
 
   const [effectQueryVars, handleChangeEffect] = useGenConnectedSearchVars<AbilityEffectQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: abilityName,
-  }, genFilter);
+  }, filters.genFilter);
 
   const [fieldStateQueryVars, handleChangeFieldState] = useGenConnectedSearchVars<AbilityFieldStateQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: abilityName,
-  }, genFilter);
+  }, filters.genFilter);
 
   const [statQueryVars, handleChangeStat] = useGenConnectedSearchVars<AbilityStatQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: abilityName,
-  }, genFilter);
+  }, filters.genFilter);
 
   const [statusQueryVars, handleChangeStatus] = useGenConnectedSearchVars<AbilityStatusQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: abilityName,
-  }, genFilter);
+  }, filters.genFilter);
 
   const [typeQueryVars, handleChangeType] = useRemovalConnectedSearchVars<AbilityTypeQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: abilityName,
-    removedFromSwSh: removedFromSwSh(genFilter),
-    removedFromBDSP: removedFromBDSP(genFilter),
-  }, genFilter);
+    removedFromSwSh: removedFromSwSh(filters.genFilter),
+    removedFromBDSP: removedFromBDSP(filters.genFilter),
+  }, filters.genFilter);
 
   const [usageMethodQueryVars, handleChangeUsageMethod] = useGenConnectedSearchVars<AbilityUsageMethodQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: abilityName,
-  }, genFilter);
+  }, filters.genFilter);
 
   // #endregion
   
@@ -129,11 +123,11 @@ const AbilityPage = ({
     console.log('queried');
     executeSearch({
       variables: {
-        gen: genFilter.gen,
+        gen: filters.genFilter.gen,
         name: abilityName,
       }
     })
-  }, [genFilter, abilityName, executeSearch]);
+  }, [filters.genFilter, abilityName, executeSearch]);
     
   // Before actually getting the ability data, we need to check that it's present in the given generation
   // #region
@@ -179,9 +173,9 @@ const AbilityPage = ({
 
   const debutGen = data_introduced.abilityByName[0].introduced.edges[0].node.number;
 
-  if (debutGen > genFilter.gen) return (
+  if (debutGen > filters.genFilter.gen) return (
     <div>
-      {abilityName} doesn't exist in Generation {genFilter.gen}.
+      {abilityName} doesn't exist in Generation {filters.genFilter.gen}.
     </div>
   );
 
@@ -250,7 +244,7 @@ const AbilityPage = ({
             />,
             content: abilityResult.effectCount > 0 && <>
               <EntityConnectionSearch
-                genFilter={genFilter}
+                genFilter={filters.genFilter}
                 listRender={listRenderAbilityEffect}
                 query={ABILITY_EFFECT_QUERY}
                 queryVars={effectQueryVars}
@@ -263,7 +257,7 @@ const AbilityPage = ({
             />,
             content: abilityResult.fieldStateCount > 0 && <>
               <EntityConnectionSearch
-                genFilter={genFilter}
+                genFilter={filters.genFilter}
                 listRender={listRenderAbilityFieldState}
                 query={ABILITY_FIELDSTATE_QUERY}
                 queryVars={fieldStateQueryVars}
@@ -276,7 +270,7 @@ const AbilityPage = ({
             />,
             content: abilityResult.modifiesStatCount > 0 && <>
               <EntityConnectionSearch
-                genFilter={genFilter}
+                genFilter={filters.genFilter}
                 listRender={listRenderAbilityStat}
                 query={ABILITY_STAT_QUERY}
                 queryVars={statQueryVars}
@@ -289,7 +283,7 @@ const AbilityPage = ({
             />,
             content: abilityResult.statusCount > 0 && <>
               <EntityConnectionSearch
-                genFilter={genFilter}
+                genFilter={filters.genFilter}
                 listRender={listRenderAbilityStatus}
                 query={ABILITY_STATUS_QUERY}
                 queryVars={statusQueryVars}
@@ -301,13 +295,9 @@ const AbilityPage = ({
               titleText={`Type interactions with ${abilityResult.formattedName}`}
             />,
             content: abilityResult.typeCount > 0 && <>
-              <EntityConnectionSearch
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
-                dispatchBGManager={dispatchBGManager}
-                genFilter={genFilter}
-                tierFilter={tierFilter}
-                pokemonFilter={pokemonFilter}
+              <EntityConnectionSearchIcons
+                dispatches={dispatches}
+                filters={filters}
                 listRender={listRenderAbilityType}
                 query={ABILITY_TYPE_QUERY}
                 queryVars={typeQueryVars}
@@ -320,7 +310,7 @@ const AbilityPage = ({
             />,
             content: abilityResult.usageMethodCount > 0 && <>
               <EntityConnectionSearch
-                genFilter={genFilter}
+                genFilter={filters.genFilter}
                 listRender={listRenderAbilityUsageMethod}
                 query={ABILITY_USAGEMETHOD_QUERY}
                 queryVars={usageMethodQueryVars}

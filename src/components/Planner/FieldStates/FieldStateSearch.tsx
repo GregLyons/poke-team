@@ -14,15 +14,12 @@ import {
   FIELDSTATE_SEARCH_QUERY,
 } from '../../../types-queries/Planner/FieldState';
 
-import { CartAction } from "../../../hooks/App/Cart";
 import { GenFilter } from "../../../hooks/App/GenFilter";
-import { TeamAction } from "../../../hooks/App/Team";
 
 import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { ENUMCASE_TO_TITLECASE } from '../../../utils/constants';
 import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
-import { BGAction } from '../../../hooks/App/BGManager';
 
 const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
   if (!data || !data.fieldStates) return (<div>Data not found for the query 'fieldStates'.</div>);

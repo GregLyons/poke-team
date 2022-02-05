@@ -370,5 +370,4 @@ export interface PokemonFilterVars {
 
 // #endregion
 
-
 // #endregion

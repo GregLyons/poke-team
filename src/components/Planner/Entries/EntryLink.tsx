@@ -24,22 +24,6 @@ const EntryLink = ({
 }: EntryLinkProps) => {
   const linkRef = useRef<HTMLAnchorElement>(null);
 
-  // const addItemToCart = (itemIconDatum: ItemIconDatum | undefined) => {
-  //   if (!itemIconDatum) return;
-    
-  //   icons?.dispatchCart({
-  //     type: 'add_item',
-  //     payload: {
-  //       gen: icons.genFilter.gen,
-  //       item: itemIconDatum,
-  //       requiredPokemon: icons?.pokemonIconData,
-  //       parentEntityClass: parentEntityClass,
-  //       targetEntityClass: targetEntityClass,
-  //       note: icons.cartNote,
-  //     },
-  //   })
-  // }
-
   return (
     <div className="planner__entry-row-name-container">
       <Link
@@ -60,8 +44,7 @@ const EntryLink = ({
       {icons?.itemIconDatum
         ? <>
             <PlannerItemIcon
-              dispatchCart={icons.dispatchCart}
-              dispatchTeam={icons.dispatchTeam}
+              {...icons.dispatches}
               key={name}
               itemIconDatum={icons.itemIconDatum}
             />
@@ -69,12 +52,11 @@ const EntryLink = ({
         : icons?.typeIconDatum 
           ? <>
               <PlannerTypeIcon
-                dispatchCart={icons.dispatchCart}
-                dispatchTeam={icons.dispatchTeam}
+                {...icons.dispatches}
                 key={name}
                 typeIconData={{
                   type: icons.typeIconDatum,
-                  genFilter: icons.genFilter,
+                  genFilter: icons.filters.genFilter,
                 }}
               />
             </>

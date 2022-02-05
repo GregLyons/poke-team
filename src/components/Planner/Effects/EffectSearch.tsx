@@ -14,9 +14,7 @@ import {
   EFFECT_SEARCH_QUERY,
 } from '../../../types-queries/Planner/Effect';
 
-import { CartAction } from "../../../hooks/App/Cart";
 import { GenFilter } from "../../../hooks/App/GenFilter";
-import { TeamAction } from "../../../hooks/App/Team";
 
 import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';

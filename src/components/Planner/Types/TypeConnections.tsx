@@ -12,21 +12,13 @@ import {
   TypeMoveQuery,
 } from "../../../types-queries/Planner/Type";
 import {
-  ListRenderArgs,
-  MissingDispatchError,
-  MissingGenError,
-  MissingPokemonFilterError,
-  MissingTierFilterError,
+  ListRenderArgs, ListRenderArgsIcons,
 } from "../helpers";
 
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 
-export const listRenderTypeAbility = ({ data, dispatchCart, dispatchTeam, dispatchBGManager, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<TypeAbilityQuery>) => {
+export const listRenderTypeAbility = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeAbilityQuery>) => {
   if (!data || !data.typeByName) return (<div>Data not found for the query 'typeByName'.</div>);
-  if (!dispatchCart || !dispatchTeam || !dispatchBGManager) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
-  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntityConnectionSearch component.');
-  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntityConnectionSearch component.');
-  if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed PokemonFilter to the EntityConnectionSearch component.');
 
   const parent = data.typeByName[0];
 
@@ -49,13 +41,9 @@ export const listRenderTypeAbility = ({ data, dispatchCart, dispatchTeam, dispat
             description={result.description}
             data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
-              dispatchCart,
-              dispatchTeam,
-              dispatchBGManager,
+              dispatches,
               pokemonIconData: result.pokemonIconData,
-              genFilter,
-              tierFilter,
-              pokemonFilter,
+              filters,
               cartNote: `'${result.formattedName}' boosted by '${parent.formattedName}'.`,
             }}
           />
@@ -75,13 +63,9 @@ export const listRenderTypeAbility = ({ data, dispatchCart, dispatchTeam, dispat
             description={result.description}
             data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
-              dispatchCart,
-              dispatchTeam,
-              dispatchBGManager,
+              dispatches,
               pokemonIconData: result.pokemonIconData,
-              genFilter,
-              tierFilter,
-              pokemonFilter,
+              filters,
               cartNote: `'${result.formattedName}' resisted by by '${parent.formattedName}'.`,
             }}
           />
@@ -239,12 +223,8 @@ export const listRenderTypeFieldState = ({ data, }: ListRenderArgs<TypeFieldStat
   );
 }
 
-export const listRenderTypeItem = ({ data, dispatchCart, dispatchTeam, dispatchBGManager, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<TypeItemQuery>) => {
+export const listRenderTypeItem = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeItemQuery>) => {
   if (!data || !data.typeByName) return (<div>Data not found for the query 'typeByName'.</div>);
-  if (!dispatchCart || !dispatchTeam || !dispatchBGManager) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
-  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntityConnectionSearch component.');
-  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntityConnectionSearch component.');
-  if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed PokemonFilter to the EntityConnectionSearch component.');
 
   const parent = data.typeByName[0];
 
@@ -268,14 +248,10 @@ export const listRenderTypeItem = ({ data, dispatchCart, dispatchTeam, dispatchB
             description={result.description}
             data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
-              dispatchCart,
-              dispatchTeam,
-              dispatchBGManager,
+              dispatches,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
-              genFilter,
-              tierFilter,
-              pokemonFilter,
+              filters,
               cartNote: `'${result.formattedName}' boosts '${parent.formattedName}'.`,
             }}
           />
@@ -298,14 +274,10 @@ export const listRenderTypeItem = ({ data, dispatchCart, dispatchTeam, dispatchB
             description={result.description}
             data={[{key: 'POW', title: 'Power', value: result.power || 0}]}
             icons={{
-              dispatchCart,
-              dispatchTeam,
-              dispatchBGManager,
+              dispatches,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
-              genFilter,
-              tierFilter,
-              pokemonFilter,
+              filters,
               cartNote: `'${result.formattedName}' has Natural Gift type '${parent.formattedName}'.`,
             }}
           />
@@ -325,14 +297,10 @@ export const listRenderTypeItem = ({ data, dispatchCart, dispatchTeam, dispatchB
             description={result.description}
             data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
-              dispatchCart,
-              dispatchTeam,
-              dispatchBGManager,
+              dispatches,
               pokemonIconData: result.requiredPokemonIconData,
               itemIconDatum: result.itemIconDatum,
-              genFilter,
-              tierFilter,
-              pokemonFilter,
+              filters,
               cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
             }}
           />
@@ -342,12 +310,8 @@ export const listRenderTypeItem = ({ data, dispatchCart, dispatchTeam, dispatchB
   );
 }
 
-export const listRenderTypeMove = ({ data, dispatchCart, dispatchTeam, dispatchBGManager, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<TypeMoveQuery>) => {
+export const listRenderTypeMove = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeMoveQuery>) => {
   if (!data || !data.typeByName) return (<div>Data not found for the query 'typeByName'.</div>);
-  if (!dispatchCart || !dispatchTeam || !dispatchBGManager) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
-  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntityConnectionSearch component.');
-  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntityConnectionSearch component.');
-  if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed PokemonFilter to the EntityConnectionSearch component.');
 
   const parent = data.typeByName[0];
 
@@ -370,13 +334,9 @@ export const listRenderTypeMove = ({ data, dispatchCart, dispatchTeam, dispatchB
             linkName={result.name}
             description={result.description}
             icons={{
-              dispatchCart,
-              dispatchTeam,
-              dispatchBGManager,
+              dispatches,
               pokemonIconData: result.pokemonIconData,
-              genFilter,
-              tierFilter,
-              pokemonFilter,
+              filters,
               cartNote: `'${result.formattedName}' enabled by '${parent.formattedName}'.`,
             }}
           />

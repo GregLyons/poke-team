@@ -1,7 +1,4 @@
 import {
-  useState,
-} from 'react';
-import {
   Outlet,
 } from 'react-router-dom';
 
@@ -17,9 +14,7 @@ import {
   STATUS_SEARCH_QUERY,
 } from '../../../types-queries/Planner/Status';
 
-import { CartAction } from "../../../hooks/App/Cart";
 import { GenFilter } from "../../../hooks/App/GenFilter";
-import { TeamAction } from "../../../hooks/App/Team";
 
 import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';

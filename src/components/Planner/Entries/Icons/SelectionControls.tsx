@@ -1,5 +1,5 @@
-import { BGAction, BGManager, toggleBGPulse } from "../../../../hooks/App/BGManager";
-import { displayReason, ValidationFailureReason, } from "../../../../hooks/App/PokemonFilter";
+import { BGAction, toggleBGPulse } from "../../../../hooks/App/BGManager";
+import { ValidationFailureReason, } from "../../../../hooks/App/PokemonFilter";
 import { SelectionAction } from "../../../../hooks/Planner/Selections";
 import Button from "../../../Reusables/Button/Button";
 import './Icons.css';
@@ -55,6 +55,7 @@ const SelectionControls = ({
 
         active={true}
         onClick={e => {
+          // TODO: no pulse if no pokemon selected
           toggleBGPulse(dispatchBGManager);
           e.preventDefault();
           handleAddToCart();

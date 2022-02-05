@@ -4,25 +4,27 @@ import { GenFilter } from "../../../hooks/App/GenFilter";
 import { PokemonFilter } from "../../../hooks/App/PokemonFilter";
 import { TeamAction } from "../../../hooks/App/Team";
 import { TierFilter } from "../../../hooks/App/TierFilter";
+import { PokemonIconDispatches, PokemonIconFilters } from "../../App";
 import CartViewAccordion from "./CartViewAccordion";
 import CartViewBox from "./CartViewBox";
 
 type CartViewProps = {
   cart: Cart
-  dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
-  genFilter: GenFilter
-  tierFilter: TierFilter
-  pokemonFilter: PokemonFilter
+  dispatches: PokemonIconDispatches
+  filters: PokemonIconFilters
 }
 
 const CartView = ({
   cart,
-  dispatchCart,
-  dispatchTeam,
-  genFilter,
-  tierFilter,
-  pokemonFilter,
+  dispatches: {
+    dispatchCart,
+    dispatchTeam,
+  },
+  filters: {
+    genFilter,
+    tierFilter,
+    pokemonFilter,
+  }
 }: CartViewProps) => {
   const [intersectMode, setIntersectMode] = useState<{
     on: boolean

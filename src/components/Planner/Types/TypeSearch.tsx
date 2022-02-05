@@ -3,9 +3,6 @@ import {
 } from 'react-router-dom';
 
 import {
-  ListRenderArgs, MissingDispatchError, MissingGenError, MissingPokemonFilterError, MissingTierFilterError, 
-} from '../helpers';
-import {
   TypeSearchQuery,
   TypeSearchResult,
   TypeSearchVars,
@@ -14,23 +11,17 @@ import {
   TYPE_SEARCH_QUERY,
 } from '../../../types-queries/Planner/Type';
 
-import { TeamAction } from '../../../hooks/App/Team';
-import { CartAction } from '../../../hooks/App/Cart';
-import { GenFilter, removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
-import { PokemonFilter } from '../../../hooks/App/PokemonFilter';
+import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 
 import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
-import { TierFilter } from '../../../hooks/App/TierFilter';
 import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
-import { BGAction } from '../../../hooks/App/BGManager';
+import { ListRenderArgsIcons } from '../helpers';
+import { PokemonIconDispatches, PokemonIconFilters } from '../../App';
+import EntitySearchMainIcons from '../Searches/EntitySearchMainIcons';
 
-const listRender = ({ data, dispatchCart, dispatchTeam, dispatchBGManager, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<TypeSearchQuery>) => {
+const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeSearchQuery>) => {
   if (!data || !data.types) return (<div>Data not found for the query 'types'.</div>);
-  if (!dispatchCart || !dispatchTeam || !dispatchBGManager) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntitySearchMain component.');
-  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntitySearchMain component.');
-  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntitySearchMain component.');
-  if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed pokemonFilter to the EntitySearchMain component.');
   
   return (
     <>
@@ -48,12 +39,8 @@ const listRender = ({ data, dispatchCart, dispatchTeam, dispatchBGManager, genFi
               icons={{
                 pokemonIconData: type.pokemonIconData,
                 typeIconDatum: type.typeIconDatum,
-                dispatchCart,
-                dispatchTeam,
-                dispatchBGManager,
-                genFilter,
-                tierFilter,
-                pokemonFilter,
+                dispatches,
+                filters,
                 cartNote: `Pokemon with the Type '${type.formattedName}'.`
               }}
             />
@@ -65,31 +52,23 @@ const listRender = ({ data, dispatchCart, dispatchTeam, dispatchBGManager, genFi
 }
 
 type TypeSearchMainProps = {
-  dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
-  dispatchBGManager: React.Dispatch<BGAction>
-  genFilter: GenFilter
-  tierFilter: TierFilter
-  pokemonFilter: PokemonFilter
+  dispatches: PokemonIconDispatches
+  filters: PokemonIconFilters
 }
 
 const TypeSearch = ({
-  dispatchCart,
-  dispatchTeam,
-  dispatchBGManager,
-  genFilter,
-  tierFilter,
-  pokemonFilter,
+  dispatches,
+  filters,
 }: TypeSearchMainProps) => {
   const [queryVars, setQueryVars] = useRemovalConnectedSearchVars<TypeSearchVars>(
     {
-      gen: genFilter.gen,
+      gen: filters.genFilter.gen,
       startsWith: '',
       limit: 20,
-      removedFromSwSh: removedFromSwSh(genFilter),
-      removedFromBDSP: removedFromBDSP(genFilter),
+      removedFromSwSh: removedFromSwSh(filters.genFilter),
+      removedFromBDSP: removedFromBDSP(filters.genFilter),
     },
-    genFilter);
+    filters.genFilter);
 
   const handleSearchBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQueryVars({
@@ -100,13 +79,9 @@ const TypeSearch = ({
 
   return (
     <>
-      <EntitySearchMain
-        dispatchCart={dispatchCart}
-        dispatchTeam={dispatchTeam}
-        dispatchBGManager={dispatchBGManager}
-        genFilter={genFilter}
-        tierFilter={tierFilter}
-        pokemonFilter={pokemonFilter}
+      <EntitySearchMainIcons
+        dispatches={dispatches}
+        filters={filters}
         handleSearchBoxChange={handleSearchBoxChange}
         listRender={listRender}
         query={TYPE_SEARCH_QUERY}

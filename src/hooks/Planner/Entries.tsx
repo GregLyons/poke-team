@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useWindowSize } from "usehooks-ts";
+import { PokemonIconFilters } from "../../components/App";
 import { GenFilter } from "../App/GenFilter";
 import { PokemonFilter } from "../App/PokemonFilter";
 import { TierFilter } from "../App/TierFilter";
@@ -15,9 +16,7 @@ import { TierFilter } from "../App/TierFilter";
 */
 export const useEntryExpand = (
   entryRef: React.RefObject<HTMLDivElement>,
-  genFilter?: GenFilter,
-  tierFilter?: TierFilter,
-  pokemonFilter?: PokemonFilter
+  filters?: PokemonIconFilters
 ) => {
   const [originalScrollHeight, setOriginalScrollHeight] = useState<null|number>(null);
   const { width: windowWidth, height: windowHeight } = useWindowSize();
@@ -29,7 +28,7 @@ export const useEntryExpand = (
   // Needs to run on window resize as well. 
   useEffect(() => {
     setTimeout(() => entryRef.current && setOriginalScrollHeight(entryRef.current.scrollHeight));
-  }, [entryRef, setOriginalScrollHeight, windowWidth, windowHeight, genFilter, tierFilter, pokemonFilter]);
+  }, [entryRef, setOriginalScrollHeight, windowWidth, windowHeight, filters?.genFilter, filters?.pokemonFilter, filters?.tierFilter]);
 
   // Set 'hover' immediately, set 'expand' after the user hovers for a certain amount of time
   // Time is connected to CSS variable --expand-time

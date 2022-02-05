@@ -18,7 +18,7 @@ import {
   ItemUsageMethodQuery,
 } from "../../../types-queries/Planner/Item";
 import {
-  ListRenderArgs, MissingDispatchError, MissingGenError, MissingPokemonFilterError, MissingTierFilterError,
+  ListRenderArgs, ListRenderArgsIcons,
 } from "../helpers";
 
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
@@ -306,12 +306,8 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
   );
 }
 
-export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, dispatchBGManager, genFilter, tierFilter, pokemonFilter, }: ListRenderArgs<ItemTypeQuery>) => {
+export const listRenderItemType = ({ data, dispatches, filters, }: ListRenderArgsIcons<ItemTypeQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
-  if (!dispatchCart || !dispatchTeam || !dispatchBGManager) throw new MissingDispatchError('Missing dispatches. Check that you passed the appropriate dispatches to the EntityConnectionSearch component.');
-  if (!genFilter) throw new MissingGenError('Missing genFilter. Check that you passed genFilter to the EntityConnectionSearch component.');
-  if (!tierFilter) throw new MissingTierFilterError('Missing tierFilter. Check that you passed tierFilter to the EntityConnectionSearch component.');
-  if (!pokemonFilter) throw new MissingPokemonFilterError('Missing pokemonFilter. Check that you passed PokemonFilter to the EntityConnectionSearch component.');
 
   const parent = data.itemByName[0];
 
@@ -340,12 +336,8 @@ export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, dispatchB
             icons={{
               pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
               typeIconDatum: result.typeIconDatum,
-              dispatchCart,
-              dispatchTeam,
-              dispatchBGManager,
-              genFilter,
-              tierFilter,
-              pokemonFilter,
+              dispatches,
+              filters,
               cartNote: ``
             }}
           />
@@ -370,12 +362,8 @@ export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, dispatchB
             icons={{
               pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
               typeIconDatum: result.typeIconDatum,
-              dispatchCart,
-              dispatchTeam,
-              dispatchBGManager,
-              genFilter,
-              tierFilter,
-              pokemonFilter,
+              dispatches,
+              filters,
               cartNote: ``
             }}
           />
@@ -400,12 +388,8 @@ export const listRenderItemType = ({ data, dispatchCart, dispatchTeam, dispatchB
             icons={{
               pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
               typeIconDatum: result.typeIconDatum,
-              dispatchCart,
-              dispatchTeam,
-              dispatchBGManager,
-              genFilter,
-              tierFilter,
-              pokemonFilter,
+              dispatches,
+              filters,
               cartNote: ``
             }}
           />

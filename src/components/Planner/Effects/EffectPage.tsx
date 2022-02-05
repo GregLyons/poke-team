@@ -36,15 +36,8 @@ import {
 import {
   NUMBER_OF_GENS,
 } from '../../../utils/constants';
-import { TierFilter } from "../../../hooks/App/TierFilter";
-import {
-  GenerationNum,
-} from '../../../types-queries/helpers';
 
-import { TeamAction } from '../../../hooks/App/Team';
-import { CartAction } from '../../../hooks/App/Cart';
-import { GenFilter, removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
-import { PokemonFilter } from '../../../hooks/App/PokemonFilter';
+import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 
 import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import { listRenderEffectAbility, listRenderEffectFieldState, listRenderEffectItem, listRenderEffectMove } from './EffectConnections';
@@ -52,24 +45,17 @@ import AuxEntityDescription from '../Pages/AuxEntityDescription';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
-import { BGAction } from '../../../hooks/App/BGManager';
+import { PokemonIconDispatches, PokemonIconFilters } from '../../App';
+import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 
 type EffectPageProps = {
-  dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
-  dispatchBGManager: React.Dispatch<BGAction>
-  genFilter: GenFilter
-  tierFilter: TierFilter
-  pokemonFilter: PokemonFilter
+  dispatches: PokemonIconDispatches
+  filters: PokemonIconFilters
 }
 
 const EffectPage = ({
-  dispatchCart,
-  dispatchTeam,
-  dispatchBGManager,
-  genFilter,
-  tierFilter,
-  pokemonFilter,
+  dispatches,
+  filters,
 }: EffectPageProps) => {
   const params = useParams();
   
@@ -79,30 +65,30 @@ const EffectPage = ({
   // #region 
   
   const [abilityQueryVars, setAbilityQueryVars] = useRemovalConnectedSearchVars<EffectAbilityQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: effectName,
-    removedFromSwSh: removedFromSwSh(genFilter),
-    removedFromBDSP: removedFromBDSP(genFilter),
-  }, genFilter);
+    removedFromSwSh: removedFromSwSh(filters.genFilter),
+    removedFromBDSP: removedFromBDSP(filters.genFilter),
+  }, filters.genFilter);
 
   const [fieldStateQueryVars, setFieldStateQueryVars] = useGenConnectedSearchVars<EffectFieldStateQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: effectName,
-  }, genFilter);
+  }, filters.genFilter);
 
   const [itemQueryVars, setItemQueryVars] = useGenConnectedSearchVars<EffectItemQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: effectName,
-    removedFromSwSh: removedFromSwSh(genFilter),
-    removedFromBDSP: removedFromBDSP(genFilter),
-  }, genFilter);
+    removedFromSwSh: removedFromSwSh(filters.genFilter),
+    removedFromBDSP: removedFromBDSP(filters.genFilter),
+  }, filters.genFilter);
 
   const [moveQueryVars, setMoveQueryVars] = useGenConnectedSearchVars<EffectMoveQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: effectName,
-    removedFromSwSh: removedFromSwSh(genFilter),
-    removedFromBDSP: removedFromBDSP(genFilter),
-  }, genFilter);
+    removedFromSwSh: removedFromSwSh(filters.genFilter),
+    removedFromBDSP: removedFromBDSP(filters.genFilter),
+  }, filters.genFilter);
 
   // #endregion
 
@@ -111,13 +97,13 @@ const EffectPage = ({
   useEffect(() => {
     executeSearch({
       variables: {
-        gen: genFilter.gen,
+        gen: filters.genFilter.gen,
         name: effectName,
-        removedFromSwSh: removedFromSwSh(genFilter),
-        removedFromBDSP: removedFromBDSP(genFilter),
+        removedFromSwSh: removedFromSwSh(filters.genFilter),
+        removedFromBDSP: removedFromBDSP(filters.genFilter),
       }
     })
-  }, [genFilter, effectName, executeSearch]);
+  }, [filters.genFilter, effectName, executeSearch]);
       
   // Before actually getting the move data, we need to check that it's present in the given generation
   // #region
@@ -163,9 +149,9 @@ const EffectPage = ({
 
   const debutGen = data_introduced.effectByName[0].introduced.edges[0].node.number;
 
-  if (debutGen > genFilter.gen) return (
+  if (debutGen > filters.genFilter.gen) return (
     <div>
-      {effectName} doesn't exist in Generation {genFilter.gen}.
+      {effectName} doesn't exist in Generation {filters.genFilter.gen}.
     </div>
   );
 
@@ -234,13 +220,9 @@ const EffectPage = ({
               titleText={`Abilities with '${effectResult.formattedName}'`}
             />,
             content: effectResult.abilityCount > 0 && <>
-              <EntityConnectionSearch
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
-                dispatchBGManager={dispatchBGManager}
-                genFilter={genFilter}
-                tierFilter={tierFilter}
-                pokemonFilter={pokemonFilter}
+              <EntityConnectionSearchIcons
+                dispatches={dispatches}
+                filters={filters}
                 listRender={listRenderEffectAbility}
                 query={EFFECT_ABILITY_QUERY}
                 queryVars={abilityQueryVars}
@@ -253,10 +235,7 @@ const EffectPage = ({
             />,
             content: effectResult.fieldStateCount > 0 && <>
               <EntityConnectionSearch
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
-                dispatchBGManager={dispatchBGManager}
-                genFilter={genFilter}
+                genFilter={filters.genFilter}
                 listRender={listRenderEffectFieldState}
                 query={EFFECT_FIELDSTATE_QUERY}
                 queryVars={fieldStateQueryVars}
@@ -268,13 +247,9 @@ const EffectPage = ({
               titleText={`Items with '${effectResult.formattedName}'`}
             />,
             content: effectResult.itemCount > 0 && <>
-              <EntityConnectionSearch
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
-                dispatchBGManager={dispatchBGManager}
-                genFilter={genFilter}
-                tierFilter={tierFilter}
-                pokemonFilter={pokemonFilter}
+              <EntityConnectionSearchIcons
+                dispatches={dispatches}
+                filters={filters}
                 listRender={listRenderEffectItem}
                 query={EFFECT_ITEM_QUERY}
                 queryVars={itemQueryVars}
@@ -286,13 +261,9 @@ const EffectPage = ({
               titleText={`Moves with '${effectResult.formattedName}'`}
             />,
             content: effectResult.moveCount > 0 && <>
-              <EntityConnectionSearch
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
-                dispatchBGManager={dispatchBGManager}
-                genFilter={genFilter}
-                tierFilter={tierFilter}
-                pokemonFilter={pokemonFilter}
+              <EntityConnectionSearchIcons
+                dispatches={dispatches}
+                filters={filters}
                 listRender={listRenderEffectMove}
                 query={EFFECT_MOVE_QUERY}
                 queryVars={moveQueryVars}

@@ -55,28 +55,20 @@ import {
 import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import MainEntityDescriptionTable from '../Pages/MainEntityDescriptionTable';
 import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
-import { TierFilter } from '../../../hooks/App/TierFilter';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
-import { CartAction } from '../../../hooks/App/Cart';
-import { TeamAction } from '../../../hooks/App/Team';
-import { GenFilter, removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
-import { BGAction } from '../../../hooks/App/BGManager';
+import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
+import { PokemonIconDispatches, PokemonIconFilters } from '../../App';
+import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 
 type MovePageProps = {
-  dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
-  dispatchBGManager: React.Dispatch<BGAction>
-  tierFilter: TierFilter
-  genFilter: GenFilter
+  dispatches: PokemonIconDispatches
+  filters: PokemonIconFilters
 }
 
 const MovePage = ({ 
-  dispatchCart,
-  dispatchTeam,
-  dispatchBGManager,
-  tierFilter,
-  genFilter,
+  dispatches,
+  filters,
 }: MovePageProps) => {
   const params = useParams();
   
@@ -86,34 +78,34 @@ const MovePage = ({
   // #region
   
   const [effectQueryVars, setEffectQueryVars] = useGenConnectedSearchVars<MoveEffectQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: moveName,
-  }, genFilter);
+  }, filters.genFilter);
 
   const [fieldStateQueryVars, setFieldStateQueryVars] = useGenConnectedSearchVars<MoveFieldStateQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: moveName,
-  }, genFilter);
+  }, filters.genFilter);
 
   const [statQueryVars, setStatQueryVars] = useGenConnectedSearchVars<MoveStatQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: moveName,
-  }, genFilter);
+  }, filters.genFilter);
 
   const [statusQueryVars, setStatusQueryVars] = useGenConnectedSearchVars<MoveStatusQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: moveName,
-  }, genFilter);
+  }, filters.genFilter);
 
   const [typeQueryVars, setTypeQueryVars] = useGenConnectedSearchVars<MoveTypeQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: moveName,
-  }, genFilter);
+  }, filters.genFilter);
 
   const [usageMethodQueryVars, setUsageMethodQueryVars] = useGenConnectedSearchVars<MoveUsageMethodQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: moveName,
-  }, genFilter);
+  }, filters.genFilter);
 
   // #endregion
   
@@ -124,13 +116,13 @@ const MovePage = ({
     console.log('queried');
     executeSearch({
       variables: {
-        gen: genFilter.gen,
+        gen: filters.genFilter.gen,
         name: moveName,
-        removedFromSwSh: removedFromSwSh(genFilter),
-        removedFromBDSP: removedFromBDSP(genFilter),
+        removedFromSwSh: removedFromSwSh(filters.genFilter),
+        removedFromBDSP: removedFromBDSP(filters.genFilter),
       }
     })
-  }, [genFilter, moveName, executeSearch]);
+  }, [filters.genFilter, moveName, executeSearch]);
     
   // Before actually getting the move data, we need to check that it's present in the given generation
   // #region
@@ -176,9 +168,9 @@ const MovePage = ({
 
   const debutGen = data_introduced.moveByName[0].introduced.edges[0].node.number;
 
-  if (debutGen > genFilter.gen) return (
+  if (debutGen > filters.genFilter.gen) return (
     <div>
-      {moveName} doesn't exist in Generation {genFilter.gen}.
+      {moveName} doesn't exist in Generation {filters.genFilter.gen}.
     </div>
   );
 
@@ -248,7 +240,7 @@ const MovePage = ({
             />,
             content: moveResult.effectCount > 0 && <>
               <EntityConnectionSearch
-                genFilter={genFilter}
+                genFilter={filters.genFilter}
                 listRender={listRenderMoveEffect}
                 query={MOVE_EFFECT_QUERY}
                 queryVars={effectQueryVars}
@@ -261,7 +253,7 @@ const MovePage = ({
             />,
             content: moveResult.fieldStateCount > 0 && <>
               <EntityConnectionSearch
-                genFilter={genFilter}
+                genFilter={filters.genFilter}
                 listRender={listRenderMoveFieldState}
                 query={MOVE_FIELDSTATE_QUERY}
                 queryVars={fieldStateQueryVars}
@@ -274,7 +266,7 @@ const MovePage = ({
             />,
             content: moveResult.modifiesStatCount > 0 && <>
               <EntityConnectionSearch
-                genFilter={genFilter}
+                genFilter={filters.genFilter}
                 listRender={listRenderMoveStat}
                 query={MOVE_STAT_QUERY}
                 queryVars={statQueryVars}
@@ -287,7 +279,7 @@ const MovePage = ({
             />,
             content: moveResult.statusCount > 0 && <>
               <EntityConnectionSearch
-                genFilter={genFilter}
+                genFilter={filters.genFilter}
                 listRender={listRenderMoveStatus}
                 query={MOVE_STATUS_QUERY}
                 queryVars={statusQueryVars}
@@ -299,11 +291,9 @@ const MovePage = ({
               titleText={`Type interactions with ${moveResult.formattedName}`}
             />,
             content: moveResult.typeCount > 0 && <>
-              <EntityConnectionSearch
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
-                tierFilter={tierFilter}
-                genFilter={genFilter}
+              <EntityConnectionSearchIcons
+                dispatches={dispatches}
+                filters={filters}
                 listRender={listRenderMoveType}
                 query={MOVE_TYPE_QUERY}
                 queryVars={typeQueryVars}
@@ -316,7 +306,7 @@ const MovePage = ({
             />,
             content: moveResult.usageMethodCount > 0 && <>
               <EntityConnectionSearch
-                genFilter={genFilter}
+                genFilter={filters.genFilter}
                 listRender={listRenderMoveUsageMethod}
                 query={MOVE_USAGEMETHOD_QUERY}
                 queryVars={usageMethodQueryVars}

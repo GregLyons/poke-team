@@ -36,15 +36,7 @@ import {
 import {
   NUMBER_OF_GENS,
 } from '../../../utils/constants';
-import { TierFilter } from "../../../hooks/App/TierFilter";
-import {
-  GenerationNum,
-} from '../../../types-queries/helpers';
-
-import { TeamAction } from '../../../hooks/App/Team';
-import { CartAction } from '../../../hooks/App/Cart';
-import { GenFilter, removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
-import { PokemonFilter } from '../../../hooks/App/PokemonFilter';
+import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import {
   listRenderTypeAbility,
   listRenderTypeFieldState,
@@ -57,24 +49,17 @@ import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
-import { BGAction } from '../../../hooks/App/BGManager';
+import { PokemonIconDispatches, PokemonIconFilters } from '../../App';
+import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 
 type TypePageProps = {
-  dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
-  dispatchBGManager: React.Dispatch<BGAction>
-  genFilter: GenFilter
-  tierFilter: TierFilter
-  pokemonFilter: PokemonFilter
+  dispatches: PokemonIconDispatches
+  filters: PokemonIconFilters
 }
 
 const TypePage = ({
-  dispatchCart,
-  dispatchTeam,
-  dispatchBGManager,
-  genFilter,
-  tierFilter,
-  pokemonFilter,
+  dispatches,
+  filters,
 }: TypePageProps) => {
   const params = useParams();
   
@@ -84,30 +69,30 @@ const TypePage = ({
   // #region 
   
   const [abilityQueryVars, setAbilityQueryVars] = useRemovalConnectedSearchVars<TypeAbilityQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: typeName,
-    removedFromSwSh: removedFromSwSh(genFilter),
-    removedFromBDSP: removedFromBDSP(genFilter),
-  }, genFilter);
+    removedFromSwSh: removedFromSwSh(filters.genFilter),
+    removedFromBDSP: removedFromBDSP(filters.genFilter),
+  }, filters.genFilter);
 
   const [fieldStateQueryVars, setFieldStateQueryVars] = useGenConnectedSearchVars<TypeFieldStateQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: typeName,
-  }, genFilter);
+  }, filters.genFilter);
 
   const [itemQueryVars, setItemQueryVars] = useRemovalConnectedSearchVars<TypeItemQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: typeName,
-    removedFromSwSh: removedFromSwSh(genFilter),
-    removedFromBDSP: removedFromBDSP(genFilter),
-  }, genFilter);
+    removedFromSwSh: removedFromSwSh(filters.genFilter),
+    removedFromBDSP: removedFromBDSP(filters.genFilter),
+  }, filters.genFilter);
 
   const [moveQueryVars, setMoveQueryVars] = useRemovalConnectedSearchVars<TypeMoveQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: typeName,
-    removedFromSwSh: removedFromSwSh(genFilter),
-    removedFromBDSP: removedFromBDSP(genFilter),
-  }, genFilter);
+    removedFromSwSh: removedFromSwSh(filters.genFilter),
+    removedFromBDSP: removedFromBDSP(filters.genFilter),
+  }, filters.genFilter);
 
   // #endregion
 
@@ -116,13 +101,13 @@ const TypePage = ({
   useEffect(() => {
     executeSearch({
       variables: {
-        gen: genFilter.gen,
+        gen: filters.genFilter.gen,
         name: typeName,
-        removedFromSwSh: removedFromSwSh(genFilter),
-        removedFromBDSP: removedFromBDSP(genFilter),
+        removedFromSwSh: removedFromSwSh(filters.genFilter),
+        removedFromBDSP: removedFromBDSP(filters.genFilter),
       }
     })
-  }, [genFilter, typeName, executeSearch]);
+  }, [filters.genFilter, typeName, executeSearch]);
       
   // Before actually getting the move data, we need to check that it's present in the given generation
   // #region
@@ -168,9 +153,9 @@ const TypePage = ({
 
   const debutGen = data_introduced.typeByName[0].introduced.edges[0].node.number;
 
-  if (debutGen > genFilter.gen) return (
+  if (debutGen > filters.genFilter.gen) return (
     <div>
-      {typeName} doesn't exist in Generation {genFilter.gen}.
+      {typeName} doesn't exist in Generation {filters.genFilter.gen}.
     </div>
   );
 
@@ -239,13 +224,9 @@ const TypePage = ({
               titleText={`Ability interactions with ${typeResult.formattedName}`}
             />,
             content: typeResult.abilityCount > 0 && <>
-              <EntityConnectionSearch
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
-                dispatchBGManager={dispatchBGManager}
-                genFilter={genFilter}
-                tierFilter={tierFilter}
-                pokemonFilter={pokemonFilter}
+              <EntityConnectionSearchIcons
+                dispatches={dispatches}
+                filters={filters}
                 listRender={listRenderTypeAbility}
                 query={TYPE_ABILITY_QUERY}
                 queryVars={abilityQueryVars}
@@ -258,11 +239,7 @@ const TypePage = ({
             />,
             content: typeResult.fieldStateCount > 0 && <>
               <EntityConnectionSearch
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
-                dispatchBGManager={dispatchBGManager}
-                genFilter={genFilter}
-                tierFilter={tierFilter}
+                genFilter={filters.genFilter}
                 listRender={listRenderTypeFieldState}
                 query={TYPE_FIELDSTATE_QUERY}
                 queryVars={fieldStateQueryVars}
@@ -274,13 +251,9 @@ const TypePage = ({
               titleText={`Item interactions with ${typeResult.formattedName}`}
             />,
             content: typeResult.itemCount > 0 && <>
-              <EntityConnectionSearch
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
-                dispatchBGManager={dispatchBGManager}
-                genFilter={genFilter}
-                tierFilter={tierFilter}
-                pokemonFilter={pokemonFilter}
+              <EntityConnectionSearchIcons
+                dispatches={dispatches}
+                filters={filters}
                 listRender={listRenderTypeItem}
                 query={TYPE_ITEM_QUERY}
                 queryVars={itemQueryVars}
@@ -292,13 +265,9 @@ const TypePage = ({
               titleText={`Move interactions with ${typeResult.formattedName}`}
             />,
             content: typeResult.moveCount > 0 && <>
-              <EntityConnectionSearch
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
-                dispatchBGManager={dispatchBGManager}
-                genFilter={genFilter}
-                tierFilter={tierFilter}
-                pokemonFilter={pokemonFilter}
+              <EntityConnectionSearchIcons
+                dispatches={dispatches}
+                filters={filters}
                 listRender={listRenderTypeMove}
                 query={TYPE_MOVE_QUERY}
                 queryVars={moveQueryVars}

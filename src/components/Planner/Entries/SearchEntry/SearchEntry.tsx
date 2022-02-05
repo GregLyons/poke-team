@@ -46,7 +46,7 @@ const EntitySearchEntry = ({
   // Default height
   const entryHeight = "6rem";
   
-  const { hover, expand, expandListeners, originalScrollHeight } = useEntryExpand(entryRef, icons?.genFilter, icons?.tierFilter, icons?.pokemonFilter);
+  const { hover, expand, expandListeners, originalScrollHeight } = useEntryExpand(entryRef, icons?.filters);
 
   // #endregion
 
@@ -64,10 +64,10 @@ const EntitySearchEntry = ({
 
   const handleAddToCart = () => {
     if (!icons) return;
-    icons.dispatchCart({
+    icons.dispatches.dispatchCart({
       type: 'add_pokemon',
       payload: {
-        gen: icons.genFilter.gen,
+        gen: icons.filters.genFilter.gen,
         parentEntityClass: entityClass,
         targetEntityClass: 'Has',
         pokemon: selectionToPokemonIconData(selection),
@@ -83,7 +83,7 @@ const EntitySearchEntry = ({
   const hasIcon = useRef(false);
   useEffect(() => {
     hasIcon.current = false;
-  }, [icons?.tierFilter])
+  }, [icons?.filters.tierFilter])
 
   // Since Pokemon can learn Moves in multiple ways, we need to worry about duplicates. The keys of this object are Pokemon names, and the value is always 'true'; we only care about the keys.
   let seenPokemon: {[k: string]: boolean} = {};

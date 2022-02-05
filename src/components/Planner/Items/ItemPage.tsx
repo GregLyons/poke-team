@@ -43,9 +43,6 @@ import {
   NUMBER_OF_GENS,
 } from '../../../utils/constants';
 import {
-  GenerationNum,
-} from '../../../types-queries/helpers';
-import {
   listRenderItemEffect,
   listRenderItemFieldState,
   listRenderItemStat,
@@ -54,35 +51,24 @@ import {
   listRenderItemUsageMethod,
 } from './ItemConnections';
 
-import { TeamAction } from '../../../hooks/App/Team';
-import { CartAction } from '../../../hooks/App/Cart';
-import { GenFilter, removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
-import { PokemonFilter } from '../../../hooks/App/PokemonFilter';
+import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 
 import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import MainEntityDescriptionTable from '../Pages/MainEntityDescriptionTable';
 import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
-import { TierFilter } from '../../../hooks/App/TierFilter';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
-import { BGAction } from '../../../hooks/App/BGManager';
+import { PokemonIconDispatches, PokemonIconFilters } from '../../App';
+import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 
 type ItemPageProps = {
-  dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
-  dispatchBGManager: React.Dispatch<BGAction>
-  genFilter: GenFilter
-  tierFilter: TierFilter
-  pokemonFilter: PokemonFilter
+  dispatches: PokemonIconDispatches
+  filters: PokemonIconFilters
 }
 
 const ItemPage = ({ 
-  dispatchCart,
-  dispatchTeam,
-  dispatchBGManager,
-  genFilter,
-  tierFilter,
-  pokemonFilter,
+  dispatches,
+  filters,
 }: ItemPageProps) => {
   const params = useParams();
   
@@ -92,34 +78,34 @@ const ItemPage = ({
   // #region
 
   const [effectQueryVars, setEffectQueryVars] = useGenConnectedSearchVars<ItemEffectQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: itemName,
-  }, genFilter);
+  }, filters.genFilter);
 
   const [fieldStateQueryVars, setFieldStateQueryVars] = useGenConnectedSearchVars<ItemFieldStateQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: itemName,
-  }, genFilter);
+  }, filters.genFilter);
 
   const [statQueryVars, setStatQueryVars] = useGenConnectedSearchVars<ItemStatQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: itemName,
-  }, genFilter);
+  }, filters.genFilter);
 
   const [statusQueryVars, setStatusQueryVars] = useGenConnectedSearchVars<ItemStatusQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: itemName,
-  }, genFilter);
+  }, filters.genFilter);
 
   const [typeQueryVars, setTypeQueryVars] = useGenConnectedSearchVars<ItemTypeQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: itemName,
-  }, genFilter);
+  }, filters.genFilter);
 
   const [usageMethodQueryVars, setUsageMethodQueryVars] = useGenConnectedSearchVars<ItemUsageMethodQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: itemName,
-  }, genFilter);
+  }, filters.genFilter);
 
   // #endregion
   
@@ -130,13 +116,13 @@ const ItemPage = ({
     console.log('queried');
     executeSearch({
       variables: {
-        gen: genFilter.gen,
+        gen: filters.genFilter.gen,
         name: itemName,
-        removedFromSwSh: removedFromSwSh(genFilter),
-        removedFromBDSP: removedFromBDSP(genFilter),
+        removedFromSwSh: removedFromSwSh(filters.genFilter),
+        removedFromBDSP: removedFromBDSP(filters.genFilter),
       }
     })
-  }, [genFilter, itemName, executeSearch]);
+  }, [filters.genFilter, itemName, executeSearch]);
     
   // Before actually getting the item data, we need to check that it's present in the given generation
   // #region
@@ -182,9 +168,9 @@ const ItemPage = ({
 
   const debutGen = data_introduced.itemByName[0].introduced.edges[0].node.number;
 
-  if (debutGen > genFilter.gen) return (
+  if (debutGen > filters.genFilter.gen) return (
     <div>
-      {itemName} doesn't exist in Generation {genFilter.gen}.
+      {itemName} doesn't exist in Generation {filters.genFilter.gen}.
     </div>
   );
 
@@ -254,7 +240,7 @@ const ItemPage = ({
             />,
             content: itemResult.effectCount > 0 && <>
               <EntityConnectionSearch
-                genFilter={genFilter}
+                genFilter={filters.genFilter}
                 listRender={listRenderItemEffect}
                 query={ITEM_EFFECT_QUERY}
                 queryVars={effectQueryVars}
@@ -267,7 +253,7 @@ const ItemPage = ({
             />,
             content: itemResult.fieldStateCount > 0 && <>
               <EntityConnectionSearch
-                genFilter={genFilter}
+                genFilter={filters.genFilter}
                 listRender={listRenderItemFieldState}
                 query={ITEM_FIELDSTATE_QUERY}
                 queryVars={fieldStateQueryVars}
@@ -280,7 +266,7 @@ const ItemPage = ({
             />,
             content: itemResult.modifiesStatCount > 0 && <>
               <EntityConnectionSearch
-                genFilter={genFilter}
+                genFilter={filters.genFilter}
                 listRender={listRenderItemStat}
                 query={ITEM_STAT_QUERY}
                 queryVars={statQueryVars}
@@ -293,7 +279,7 @@ const ItemPage = ({
             />,
             content: itemResult.statusCount > 0 && <>
               <EntityConnectionSearch
-                genFilter={genFilter}
+                genFilter={filters.genFilter}
                 listRender={listRenderItemStatus}
                 query={ITEM_STATUS_QUERY}
                 queryVars={statusQueryVars}
@@ -305,13 +291,9 @@ const ItemPage = ({
               titleText={`Type interactions with ${itemResult.formattedName}`}
             />,
             content: itemResult.typeCount > 0 && <>
-              <EntityConnectionSearch
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
-                dispatchBGManager={dispatchBGManager}
-                genFilter={genFilter}
-                tierFilter={tierFilter}
-                pokemonFilter={pokemonFilter}
+              <EntityConnectionSearchIcons
+                dispatches={dispatches}
+                filters={filters}
                 listRender={listRenderItemType}
                 query={ITEM_TYPE_QUERY}
                 queryVars={typeQueryVars}
@@ -324,7 +306,7 @@ const ItemPage = ({
             />,
             content: itemResult.usageMethodCount > 0 && <>
               <EntityConnectionSearch
-                genFilter={genFilter}
+                genFilter={filters.genFilter}
                 listRender={listRenderItemUsageMethod}
                 query={ITEM_USAGEMETHOD_QUERY}
                 queryVars={usageMethodQueryVars}

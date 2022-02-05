@@ -5,37 +5,21 @@ import {
   useQuery,
 } from "@apollo/client";
 
-
-import { TierFilter } from '../../../hooks/App/TierFilter';
-import { CartAction } from "../../../hooks/App/Cart";
-import { TeamAction } from "../../../hooks/App/Team";
 import { GenFilter } from "../../../hooks/App/GenFilter";
-import { PokemonFilter } from "../../../hooks/App/PokemonFilter";
 import { ListRenderArgs } from '../helpers';
 
 import './Pages.css';
-import { BGAction } from '../../../hooks/App/BGManager';
 
 
 interface EntityConnectionSearchProps<SearchQuery, SearchQueryVars> {
-  dispatchCart?: React.Dispatch<CartAction>
-  dispatchTeam?: React.Dispatch<TeamAction>
-  dispatchBGManager?: React.Dispatch<BGAction>
   genFilter: GenFilter
-  tierFilter?: TierFilter
-  pokemonFilter?: PokemonFilter
-  listRender: ({ data, dispatchCart, dispatchTeam }: ListRenderArgs<SearchQuery>) => JSX.Element,
+  listRender: ({ data, genFilter, }: ListRenderArgs<SearchQuery>) => JSX.Element,
   query: DocumentNode,
   queryVars: SearchQueryVars,
 }
 
 function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
-  dispatchCart,
-  dispatchTeam,
-  dispatchBGManager,
   genFilter,
-  tierFilter,
-  pokemonFilter,
   listRender,
   query,
   queryVars,
@@ -55,7 +39,7 @@ function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
     <>
       {loading 
         ? <div>Loading...</div>
-        : data && listRender({ data, dispatchCart, dispatchTeam, dispatchBGManager, genFilter, tierFilter, pokemonFilter, })
+        : data && listRender({ data, genFilter, })
       }
     </>
   );

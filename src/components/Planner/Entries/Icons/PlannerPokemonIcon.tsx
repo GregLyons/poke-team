@@ -1,7 +1,6 @@
 import {
   useState,
 } from "react";
-import { CartAction } from "../../../../hooks/App/Cart";
 import { TeamAction } from "../../../../hooks/App/Team";
 import {
   PokemonIconDatum,
@@ -13,8 +12,9 @@ import {
 import './../Entries.css';
 
 type PlannerPokemonIconProps = {
-  dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
+  dispatches: {
+    dispatchTeam: React.Dispatch<TeamAction>
+  }
   key: string
   pokemonIconDatum: PokemonIconDatum
   selected: boolean
@@ -22,8 +22,9 @@ type PlannerPokemonIconProps = {
 }
 
 const PlannerPokemonIcon = ({
-  dispatchCart,
-  dispatchTeam,
+  dispatches: {
+    dispatchTeam,
+  },
   key,
   pokemonIconDatum,
   selected,

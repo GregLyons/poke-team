@@ -9,26 +9,28 @@ import {
 } from '@apollo/client';
 
 import {
-  ListRenderArgs,
+  ListRenderArgsIcons,
 } from './../helpers';
 
-import { GenFilter } from "../../../hooks/App/GenFilter";
+import { PokemonIconDispatches, PokemonIconFilters } from '../../App';
 
-interface EntitySearchMainProps<SearchQuery, SearchQueryVars> {
-  genFilter: GenFilter
+interface EntitySearchMainIconsProps<SearchQuery, SearchQueryVars> {
+  dispatches: PokemonIconDispatches
+  filters: PokemonIconFilters
   handleSearchBoxChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   query: DocumentNode
   queryVars: SearchQueryVars
-  listRender: ({ data, genFilter, }: ListRenderArgs<SearchQuery>) => JSX.Element
+  listRender: ({ data, dispatches, filters, }: ListRenderArgsIcons<SearchQuery>) => JSX.Element
 }
 
-function EntitySearchMain<SearchQuery, SearchQueryVars>({
-  genFilter,
+function EntitySearchMainIcons<SearchQuery, SearchQueryVars>({
+  dispatches,
+  filters,
   handleSearchBoxChange,
   listRender,
   query,
   queryVars,
-}: EntitySearchMainProps<SearchQuery, SearchQueryVars>): JSX.Element {
+}: EntitySearchMainIconsProps<SearchQuery, SearchQueryVars>): JSX.Element {
   const { data, loading, error } = useQuery<SearchQuery, SearchQueryVars>(query, {
     variables: queryVars,
   });
@@ -52,11 +54,11 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
       </form>
       {loading 
         ? <div>Loading...</div>
-        : data && listRender({ data, genFilter, })
+        : data && listRender({ data, dispatches, filters, })
       }
     </>
   );
 };
 
 
-export default EntitySearchMain;
+export default EntitySearchMainIcons;

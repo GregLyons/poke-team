@@ -1,11 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import { CartAction } from "../../../../hooks/App/Cart";
-import { GenFilter } from "../../../../hooks/App/GenFilter";
-import { displayReason, PokemonFilter, validatePokemon, ValidationFailureReason } from "../../../../hooks/App/PokemonFilter";
-import { TeamAction } from "../../../../hooks/App/Team";
-import { TierFilter } from "../../../../hooks/App/TierFilter";
+import { useEffect, useRef, } from "react";
+import { displayReason, validatePokemon, ValidationFailureReason } from "../../../../hooks/App/PokemonFilter";
 import { SelectionAction, Selection } from "../../../../hooks/Planner/Selections";
-import { ItemIconDatum, PokemonIconDatum, psID } from "../../../../types-queries/helpers";
+import { PokemonIconDatum, psID } from "../../../../types-queries/helpers";
 import PlannerPokemonIcon from "./PlannerPokemonIcon";
 import SelectionControls from "./SelectionControls";
 
@@ -37,7 +33,7 @@ const PlannerPokemonIcons = ({
   const hasIcon = useRef(false);
   useEffect(() => {
     hasIcon.current = false;
-  }, [icons?.tierFilter, icons?.pokemonFilter, icons?.genFilter]);
+  }, [icons.filters.tierFilter, icons.filters.pokemonFilter, icons.filters.genFilter]);
 
   // Since Pokemon can learn Moves in multiple ways, we need to worry about duplicates. The keys of this object are Pokemon names, and the value is always 'true'; we only care about the keys.
   let seenPokemon: {[k: string]: boolean} = {};
@@ -50,7 +46,7 @@ const PlannerPokemonIcons = ({
         handleAddToCart={handleAddToCart}
         hasIcon={hasIcon}
         reason={reason}
-        dispatchBGManager={icons.dispatchBGManager}
+        dispatchBGManager={icons.dispatches.dispatchBGManager}
       />}
       <br />
       <div className={`planner__pokemon-icons-background`}>
@@ -68,7 +64,7 @@ const PlannerPokemonIcons = ({
 
           const { validated, reason: reasonForFailure } = validatePokemon({
             pokemonIconDatum, 
-            ...icons,
+            ...icons.filters,
           });
 
           if (!validated) {
@@ -80,8 +76,7 @@ const PlannerPokemonIcons = ({
 
           return (
             <PlannerPokemonIcon
-              dispatchCart={icons.dispatchCart}
-              dispatchTeam={icons.dispatchTeam}
+              dispatches={icons.dispatches}
               key={key + '_' + pokemonIconDatum.name + '_icon'}
               pokemonIconDatum={pokemonIconDatum}
               selected={selection.hasOwnProperty(psID) && (selection[psID] as {

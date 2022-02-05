@@ -33,12 +33,7 @@ import {
 import {
   NUMBER_OF_GENS,
 } from '../../../utils/constants';
-import { TierFilter } from "../../../hooks/App/TierFilter";
-
-import { TeamAction } from '../../../hooks/App/Team';
-import { CartAction } from '../../../hooks/App/Cart';
-import { GenFilter, removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
-import { PokemonFilter } from '../../../hooks/App/PokemonFilter';
+import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import {
   listRenderUsageMethodAbility,
   listRenderUsageMethodItem,
@@ -46,28 +41,20 @@ import {
 } from './UsageMethodConnections';
 import AuxEntityDescription from '../Pages/AuxEntityDescription';
 
-import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
-import { BGAction } from '../../../hooks/App/BGManager';
+import { PokemonIconDispatches, PokemonIconFilters } from '../../App';
+import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 
 type UsageMethodPageProps = {
-  dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
-  dispatchBGManager: React.Dispatch<BGAction>
-  genFilter: GenFilter
-  tierFilter: TierFilter
-  pokemonFilter: PokemonFilter
+  dispatches: PokemonIconDispatches
+  filters: PokemonIconFilters
 }
 
 const UsageMethodPage = ({
-  dispatchCart,
-  dispatchTeam,
-  dispatchBGManager,
-  genFilter,
-  tierFilter,
-  pokemonFilter,
+  dispatches,
+  filters,
 }: UsageMethodPageProps) => {
   const params = useParams();
   
@@ -77,24 +64,24 @@ const UsageMethodPage = ({
   // #region 
   
   const [abilityQueryVars, setAbilityQueryVars] = useRemovalConnectedSearchVars<UsageMethodAbilityQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: usageMethodName,
-    removedFromSwSh: removedFromSwSh(genFilter),
-    removedFromBDSP: removedFromBDSP(genFilter),
-  }, genFilter);
+    removedFromSwSh: removedFromSwSh(filters.genFilter),
+    removedFromBDSP: removedFromBDSP(filters.genFilter),
+  }, filters.genFilter);
   const [itemQueryVars, setItemQueryVars] = useRemovalConnectedSearchVars<UsageMethodItemQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: usageMethodName,
-    removedFromSwSh: removedFromSwSh(genFilter),
-    removedFromBDSP: removedFromBDSP(genFilter),
-  }, genFilter);
+    removedFromSwSh: removedFromSwSh(filters.genFilter),
+    removedFromBDSP: removedFromBDSP(filters.genFilter),
+  }, filters.genFilter);
 
   const [moveQueryVars, setMoveQueryVars] = useRemovalConnectedSearchVars<UsageMethodMoveQueryVars>({
-    gen: genFilter.gen,
+    gen: filters.genFilter.gen,
     name: usageMethodName,
-    removedFromSwSh: removedFromSwSh(genFilter),
-    removedFromBDSP: removedFromBDSP(genFilter),
-  }, genFilter);
+    removedFromSwSh: removedFromSwSh(filters.genFilter),
+    removedFromBDSP: removedFromBDSP(filters.genFilter),
+  }, filters.genFilter);
 
   // #endregion
 
@@ -103,13 +90,13 @@ const UsageMethodPage = ({
   useEffect(() => {
     executeSearch({
       variables: {
-        gen: genFilter.gen,
+        gen: filters.genFilter.gen,
         name: usageMethodName,
-        removedFromSwSh: removedFromSwSh(genFilter),
-        removedFromBDSP: removedFromBDSP(genFilter),
+        removedFromSwSh: removedFromSwSh(filters.genFilter),
+        removedFromBDSP: removedFromBDSP(filters.genFilter),
       }
     })
-  }, [genFilter, usageMethodName, executeSearch]);
+  }, [filters.genFilter, usageMethodName, executeSearch]);
       
   // Before actually getting the move data, we need to check that it's present in the given generation
   // #region
@@ -155,9 +142,9 @@ const UsageMethodPage = ({
 
   const debutGen = data_introduced.usageMethodByName[0].introduced.edges[0].node.number;
 
-  if (debutGen > genFilter.gen) return (
+  if (debutGen > filters.genFilter.gen) return (
     <div>
-      {usageMethodName} doesn't exist in Generation {genFilter.gen}.
+      {usageMethodName} doesn't exist in Generation {filters.genFilter.gen}.
     </div>
   );
 
@@ -226,13 +213,9 @@ const UsageMethodPage = ({
               titleText={`Ability interactions with ${usageMethodResult.formattedName}`}
             />,
             content: usageMethodResult.abilityCount > 0 && <>
-              <EntityConnectionSearch
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
-                dispatchBGManager={dispatchBGManager}
-                genFilter={genFilter}
-                tierFilter={tierFilter}
-                pokemonFilter={pokemonFilter}
+              <EntityConnectionSearchIcons
+                dispatches={dispatches}
+                filters={filters}
                 listRender={listRenderUsageMethodAbility}
                 query={USAGEMETHOD_ABILITY_QUERY}
                 queryVars={abilityQueryVars}
@@ -244,13 +227,9 @@ const UsageMethodPage = ({
               titleText={`Item interactions with ${usageMethodResult.formattedName}`}
             />,
             content: usageMethodResult.itemCount > 0 && <>
-              <EntityConnectionSearch
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
-                dispatchBGManager={dispatchBGManager}
-                genFilter={genFilter}
-                tierFilter={tierFilter}
-                pokemonFilter={pokemonFilter}
+              <EntityConnectionSearchIcons
+                dispatches={dispatches}
+                filters={filters}
                 listRender={listRenderUsageMethodItem}
                 query={USAGEMETHOD_ITEM_QUERY}
                 queryVars={itemQueryVars}
@@ -262,13 +241,9 @@ const UsageMethodPage = ({
               titleText={`Move interactions with ${usageMethodResult.formattedName}`}
             />,
             content: usageMethodResult.moveCount > 0 && <>
-              <EntityConnectionSearch
-                dispatchCart={dispatchCart}
-                dispatchTeam={dispatchTeam}
-                dispatchBGManager={dispatchBGManager}
-                genFilter={genFilter}
-                tierFilter={tierFilter}
-                pokemonFilter={pokemonFilter}
+              <EntityConnectionSearchIcons
+                dispatches={dispatches}
+                filters={filters}
                 listRender={listRenderUsageMethodMove}
                 query={USAGEMETHOD_MOVE_QUERY}
                 queryVars={moveQueryVars}

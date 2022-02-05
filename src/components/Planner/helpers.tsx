@@ -1,23 +1,19 @@
+import { GenFilter } from "../../hooks/App/GenFilter";
+import { ItemIconDatum, PokemonIconDatum, TypeIconDatum } from "../../types-queries/helpers";
+import { PokemonIconDispatches, PokemonIconFilters } from "../App";
 
 // Rendering lists
 // #region
 
-import { BGAction } from "../../hooks/App/BGManager";
-import { CartAction } from "../../hooks/App/Cart";
-import { GenFilter } from "../../hooks/App/GenFilter";
-import { PokemonFilter } from "../../hooks/App/PokemonFilter";
-import { TeamAction } from "../../hooks/App/Team";
-import { TierFilter } from "../../hooks/App/TierFilter";
-import { ItemIconDatum, PokemonIconDatum, TypeIconDatum } from "../../types-queries/helpers";
+export type ListRenderArgsIcons<SearchQuery> = {
+  data: SearchQuery
+  dispatches: PokemonIconDispatches
+  filters: PokemonIconFilters
+}
 
 export type ListRenderArgs<SearchQuery> = {
   data: SearchQuery
-  dispatchCart?: React.Dispatch<CartAction>
-  dispatchTeam?: React.Dispatch<TeamAction>
-  dispatchBGManager?: React.Dispatch<BGAction>
   genFilter: GenFilter
-  tierFilter?: TierFilter
-  pokemonFilter?: PokemonFilter
 }
 
 export class MissingDispatchError extends Error {
@@ -80,11 +76,7 @@ export type EntryIconData = {
   pokemonIconData: PokemonIconDatum[]
   itemIconDatum?: ItemIconDatum
   typeIconDatum?: TypeIconDatum
-  dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
-  pokemonFilter: PokemonFilter
-  genFilter: GenFilter
-  tierFilter: TierFilter
+  dispatches: PokemonIconDispatches
+  filters: PokemonIconFilters
   cartNote: string
-  dispatchBGManager: React.Dispatch<BGAction>
 }
