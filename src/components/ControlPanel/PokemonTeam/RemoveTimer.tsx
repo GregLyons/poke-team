@@ -24,7 +24,7 @@ const RemoveTimer = ({
       className="team-member__remove-timer"
       style={{
         width: removing 
-          ? `${100 - (time - startTime) / removeDuration * 100}%`
+          ? `${70 - (time - startTime) / removeDuration * 100}%`
           : 0,
       }}
     />

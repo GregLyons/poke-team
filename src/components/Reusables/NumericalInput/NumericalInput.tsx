@@ -36,7 +36,15 @@ const NumericalInput = ({
     // If the user is focused on the input, the value is equal to whatever they are typing in. Only once focus is lost will value itself update. 
     
     // When user is not focused, the displayed number will be value. Once the user focuses, reset min number to equal value so that the displayed number does not change.
-    <div className="numerical-input__wrapper">
+    <div 
+      className={`
+        numerical-input__wrapper
+        ${onLeft
+          ? 'numerical-input__wrapper--left'
+          : 'numerical-input__wrapper--right'
+        }
+      `}
+    >
       {onLeft &&
         <div className="numerical-input__arrow-wrapper">
           <div

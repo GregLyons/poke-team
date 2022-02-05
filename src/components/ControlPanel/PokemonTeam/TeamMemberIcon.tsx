@@ -33,7 +33,9 @@ const TeamMemberIcon = ({
           opacity: removing
             ? 0
             : 0.8,
-          transition: 'opacity ' + removeDuration + 'ms ease',
+          transition: removing
+            ? 'opacity ' + removeDuration + 'ms ease'
+            : '',
         }}
       />
       <div
@@ -45,9 +47,11 @@ const TeamMemberIcon = ({
           display: 'inline-block',
           backgroundPosition: `${left}px ${top}px`,
           transform: removing 
-            ? 'scale(0)'
+            ? 'scale(0.05)'
             : 'scale(1)',
-          transition: 'transform ' + removeDuration + 'ms ease'
+          transition: removing
+            ? 'transform ' + removeDuration + 'ms ease'
+            : '',
             // : replaceDuration + 'ms ease-in-out',
         }}              
       />

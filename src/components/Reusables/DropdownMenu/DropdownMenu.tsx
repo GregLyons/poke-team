@@ -115,13 +115,17 @@ function DropdownMenu<E extends Item<F>, F>({
             return (
               <li
                 className="dropdown__option"
-                key={`${title}_${item.id}`}
-                onClick={e => {
-                  e.preventDefault();
-                  toggleSelect && toggleSelect(item.id);
-                }}
+                key={`dropdown_${title}_${item.id}`}
               >
-                {item.label}
+                {/* Match clicking range to content */}
+                <span
+                  onClick={e => {
+                    e.preventDefault();
+                    toggleSelect && toggleSelect(item.id);
+                  }}    
+                >
+                  {item.label}
+                </span>
               </li>
             )
           })}

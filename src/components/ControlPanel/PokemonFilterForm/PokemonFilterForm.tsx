@@ -199,7 +199,7 @@ const PokemonFilterForm = ({
           <label htmlFor="Select all types">
             <Button
               title={'Include all types.'}
-              label='SELECT ALL'
+              label='RESET'
               active={true}
               onClick={e => {
                 e.preventDefault();
@@ -253,7 +253,9 @@ const PokemonFilterForm = ({
               active={true}
               onClick={e => {
                 e.preventDefault();
-                // FILL IN
+                dispatchPokemonFilter({
+                  type: 'reset_stat_filter',
+                });
               }}
               disabled={false}
               immediate={true}

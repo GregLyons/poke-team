@@ -175,7 +175,7 @@
 .team-member__remove-timer {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 15%;
   width: 0;
   height: 2px;
   background-color: var(--light1);

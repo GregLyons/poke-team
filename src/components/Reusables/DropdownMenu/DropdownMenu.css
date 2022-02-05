@@ -48,6 +48,10 @@
   align-items: center;
 }
 
+.dropdown__options > * + * {
+  margin-top: 0.25rem;
+}
+
 .dropdown__option {
   width: 100%;
   height: 100%;

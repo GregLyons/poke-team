@@ -42,6 +42,24 @@ export type PokemonFilter = {
   maxBaseStats: BaseStats
 }
 
+const defaultMinBaseStats: BaseStats = {
+  hp: 0,
+  attack: 0,
+  defense: 0,
+  specialAttack: 0,
+  specialDefense: 0,
+  speed: 0,
+}
+
+const defaultMaxBaseStats: BaseStats = {
+  hp: 255,
+  attack: 255,
+  defense: 255,
+  specialAttack: 255,
+  specialDefense: 255,
+  speed: 255,
+};
+
 export const DEFAULT_POKEMON_FILTER: PokemonFilter = {
   types: {
     normal: true,
@@ -63,22 +81,8 @@ export const DEFAULT_POKEMON_FILTER: PokemonFilter = {
     dark: true,
     fairy: true,
   },
-  minBaseStats: {
-    hp: 0,
-    attack: 0,
-    defense: 0,
-    specialAttack: 0,
-    specialDefense: 0,
-    speed: 0,
-  },
-  maxBaseStats: {
-    hp: 255,
-    attack: 255,
-    defense: 255,
-    specialAttack: 255,
-    specialDefense: 255,
-    speed: 255,
-  },
+  minBaseStats: defaultMinBaseStats,
+  maxBaseStats: defaultMaxBaseStats,
 }
 
 export type PokemonFilterAction =
@@ -105,6 +109,9 @@ export type PokemonFilterAction =
       statName: 'hp' | 'attack' | 'defense' | 'specialAttack' | 'specialDefense' | 'speed',
       value: number
     },
+  }
+| {
+    type: 'reset_stat_filter',
   };
 
 export function pokemonReducer(state: PokemonFilter, action: PokemonFilterAction) {
@@ -190,6 +197,13 @@ export function pokemonReducer(state: PokemonFilter, action: PokemonFilterAction
           [action.payload.statName]: newMaxValue,
         },
       };
+
+    case 'reset_stat_filter':
+      return {
+        ...state,
+        minBaseStats: defaultMinBaseStats,
+        maxBaseStats: defaultMaxBaseStats,
+      }
 
     default:
       throw new Error();

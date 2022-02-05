@@ -11,8 +11,13 @@
   grid-template-columns: 3fr 3fr 1fr 5fr;
   grid-template-rows: 1fr 1fr;
 
+  /* Glow between entries */
   gap: 1px;
   background-color: var(--green-bg);
+
+  /* Glow between control panel and nav bars */
+  border-top: 1px solid var(--green-bg);
+  border-bottom: 1px solid var(--green-bg);
 
   /* Makes dropdowns originating in this div go over other content, e.g. Pokemon icons */
   z-index: 10;
