@@ -1,18 +1,20 @@
 import { useMemo } from "react";
-import { ParentEntityInCart } from "../../../hooks/App/Cart";
-import { PokemonIconDispatches, PokemonIconFilters } from "../../App";
-import Accordion from "../../Reusables/Accordion/Accordion";
-import BoxAccordion from "./Boxes/BoxAccordion";
+import { Cart, ParentEntityInCart } from "../../../../hooks/App/Cart";
+import { PokemonIconDispatches, PokemonIconFilters } from "../../../App";
+import Accordion from "../../../Reusables/Accordion/Accordion";
+import BoxAccordion from "./BoxAccordion/BoxAccordion";
 import TargetEntityAccordionTitle from "./TargetEntityAccordionTitle";
 
 
 type TargetEntityAccordionProps = {
+  cart: Cart
   parentEntityInCart: ParentEntityInCart,
   dispatches: PokemonIconDispatches,
   filters: PokemonIconFilters,
 }
 
 const TargetEntityAccordion = ({
+  cart,
   parentEntityInCart,
   dispatches,
   filters,
@@ -28,6 +30,7 @@ const TargetEntityAccordion = ({
           titleText={key}
         />,
         content: <BoxAccordion
+          cart={cart}
           targetEntityInCart={value}
           dispatches={dispatches}
           filters={filters}

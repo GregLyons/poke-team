@@ -1,11 +1,13 @@
 import { BGAction, toggleBGPulse } from "../../../../hooks/App/BGManager";
 import { ValidationFailureReason, } from "../../../../hooks/App/PokemonFilter";
-import { SelectionAction } from "../../../../hooks/Planner/Selections";
+import { Selection, SelectionAction } from "../../../../hooks/Planner/Selections";
+import { PokemonIconDatum } from "../../../../types-queries/helpers";
 import { PokemonIconDispatches } from "../../../App";
 import Button from "../../../Reusables/Button/Button";
 import './Icons.css';
 
 type SelectionControlsProps = {
+  selection: Selection
   dispatchSelection: React.Dispatch<SelectionAction>
   handleAddToCart: () => void,
   hasIcon: React.MutableRefObject<boolean>
@@ -15,6 +17,7 @@ type SelectionControlsProps = {
 }
 
 const SelectionControls = ({
+  selection,
   dispatchSelection,
   handleAddToCart,
   hasIcon,
@@ -60,9 +63,19 @@ const SelectionControls = ({
 
         active={true}
         onClick={e => {
-          // TODO: no pulse if no pokemon selected
-          toggleBGPulse(dispatches.dispatchBGManager);
           e.preventDefault();
+          
+          // Pulse if there are any Pokemon selected
+          let pulsed = false;
+          Object.entries(selection).map(([key, value]: [string, { nameData: PokemonIconDatum, selected: boolean, }]) => {
+            if (pulsed) return;
+            if (value.selected) {
+              pulsed = true;
+              toggleBGPulse(dispatches.dispatchBGManager);
+            }
+            return;
+          });
+          
           handleAddToCart();
         }}
         disabled={noPokemon}

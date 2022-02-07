@@ -48,6 +48,7 @@
 
   /* Shadows */
   --bg-shadow-gap: 1px;
+  --cell-padding: clamp(4px, 0.75rem, 2vw);
 
   --button-shadow: inset 0px -5px 1px 0 rgba(0, 0, 0, 0.2);
 

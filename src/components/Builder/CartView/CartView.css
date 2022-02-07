@@ -1,0 +1,42 @@
+.cart-view__wrapper {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 1fr;
+
+  /* Gap between entries so shadow shows through */
+  gap: var(--bg-shadow-gap);
+  transition: var(--bg-transition);
+  transition-property: border, background-color;
+}
+.cart-view__wrapper.bg--red {
+  border-top: 1px solid var(--red-bg);
+  border-bottom: 1px solid var(--red-bg);
+}
+.cart-view__wrapper.bg--green {
+  border-top: 1px solid var(--green-bg);
+  border-bottom: 1px solid var(--green-bg);
+}
+.cart-view__wrapper.bg--blue {
+  border-top: 1px solid var(--blue-bg);
+  border-bottom: 1px solid var(--blue-bg);
+}
+
+.cart-view-accordion__cell {
+  grid-column: 1 / 9;
+}
+.cart-view-terminal__cell {
+  grid-column: 9 / 13;
+}
+
+/* Border effects */
+.cart-view-accordion__cell,
+.cart-view-terminal__cell {
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: var(--cell-padding);
+  background-color: var(--dark2);
+}

@@ -23,19 +23,8 @@ const BuilderHome = ({
 }: BuilderHomeProps) => {
 
   return (
-    <div className={classWithBG("builder__wrapper", bgManager)}>
-      <div className={classWithBGShadow("team-view__cell", bgManager)}>
-        <TeamView
-          team={team}
-        />
-      </div>
-      <div className={classWithBGShadow("cart-view__cell", bgManager)}>
-        <CartView
-          cart={cart}
-          dispatches={dispatches}
-          filters={filters}
-        />
-      </div>
+    <div>
+      This is the Builder page
     </div>
   );
 }

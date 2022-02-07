@@ -27,7 +27,10 @@ const Planner = ({
   }, []);
   return (
     <div className="planner-container">
-      <PlannerNavBar />
+      <PlannerNavBar 
+        dispatchBGManager={dispatchBGManager}
+        bgManager={bgManager}
+      />
       <Outlet />
     </div>
   );

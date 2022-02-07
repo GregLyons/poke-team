@@ -42,6 +42,8 @@ import { DEFAULT_POKEMON_FILTER, PokemonFilter, pokemonReducer } from '../hooks/
 import { CartAction, cartReducer, DEFAULT_CART } from '../hooks/App/Cart';
 import { DEFAULT_TEAM, TeamAction, teamReducer } from '../hooks/App/Team';
 import { BGAction, bgReducer, classWithBG, classWithBGShadow, DEFAULT_BACKGROUND } from '../hooks/App/BGManager';
+import CartView from './Builder/CartView/CartView';
+import TeamView from './Builder/TeamView/TeamView';
 
 export type PokemonIconDispatches = {
   dispatchCart: React.Dispatch<CartAction>
@@ -126,6 +128,21 @@ function App() {
                 dispatches={dispatches}
                 filters={filters}
                 bgManager={bgManager}
+              />}
+            />
+            <Route
+              path='cart'
+              element={<CartView
+                bgManager={bgManager}
+                cart={cart}
+                dispatches={dispatches}
+                filters={filters}
+              />}
+            />
+            <Route
+              path='team'
+              element={<TeamView
+                team={team}
               />}
             />
           </Route>

@@ -8,7 +8,7 @@ const TargetEntityAccordionTitle = ({
   return (
     <>
       <div
-        className="cart-view-accordion__title"
+        className="target-entity-accordion__title"
       >
         {titleText}
       </div>

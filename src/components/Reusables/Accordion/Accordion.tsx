@@ -4,6 +4,7 @@ import AccordionItem from "./AccordionItem";
 import './Accordion.css';
 
 type AccordionProps = {
+  entireTitleClickable?: boolean
   accordionContext: string
   accordionData: {
     title: JSX.Element
@@ -12,6 +13,7 @@ type AccordionProps = {
 }
 
 const Accordion = ({
+  entireTitleClickable = true,
   accordionContext,
   accordionData,
 }: AccordionProps) => {
@@ -54,6 +56,7 @@ const Accordion = ({
     <div className="accordion">
       {accordionData.map(({title, content}, idx) => (
         content && <AccordionItem
+          entireTitleClickable={entireTitleClickable}
           title={title}
           content={content}
           

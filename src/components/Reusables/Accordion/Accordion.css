@@ -10,12 +10,12 @@
 
 .accordion__title-wrapper {
   display: grid;
-  grid-template-columns: 1fr 2rem;
+  grid-template-columns: 1fr clamp(5%, 5rem, 10%);
 
   box-shadow: var(--control-shadow);
   background-color: var(--dark2);
   border-radius: 1rem;
-  padding: 1rem;
+  padding: var(--cell-padding);
   margin-bottom: 1rem;
 
   transition: 0.5s ease;
@@ -23,6 +23,9 @@
 
 .accordion__title-wrapper:hover {
   filter: brightness(1.2);
+}
+
+.accordion__title-wrapper--clickable:hover {
   cursor: pointer;
   color: var(--blue1);
 }
@@ -37,7 +40,12 @@
   grid-column: 2 / 3;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+}
+
+.accordion__title-trigger-wrapper--clickable:hover {
+  cursor: pointer;
+  color: var(--blue1);
 }
 
 .accordion__content-wrapper {

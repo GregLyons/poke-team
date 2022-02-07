@@ -1,18 +1,21 @@
 import { useMemo } from "react";
-import { TargetEntityInCart } from "../../../../hooks/App/Cart";
-import { PokemonIconDispatches, PokemonIconFilters } from "../../../App";
-import Accordion from "../../../Reusables/Accordion/Accordion";
+import { Cart, TargetEntityInCart } from "../../../../../hooks/App/Cart";
+import { PokemonIconDispatches, PokemonIconFilters } from "../../../../App";
+import Accordion from "../../../../Reusables/Accordion/Accordion";
 import Box from "./Box";
 import BoxAccordionTitle from "./BoxAccordionTitle";
 
+import './BoxAccordion.css';
 
 type BoxAccordionProps = {
+  cart: Cart
   targetEntityInCart: TargetEntityInCart,
   dispatches: PokemonIconDispatches,
   filters: PokemonIconFilters,
 }
 
 const BoxAccordion = ({
+  cart,
   targetEntityInCart,
   dispatches,
   filters,
@@ -25,6 +28,8 @@ const BoxAccordion = ({
     return boxes.map(([key, value]) => {
       return {
         title: <BoxAccordionTitle
+          cart={cart}
+          dispatches={dispatches}
           titleText={key}
         />,
         content: <Box
@@ -39,6 +44,7 @@ const BoxAccordion = ({
 
   return (
     <Accordion
+      entireTitleClickable={false}
       accordionContext="boxes"
       accordionData={accordionData}
     />  

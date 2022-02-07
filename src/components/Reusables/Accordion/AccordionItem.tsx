@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import FontAwesome from "react-fontawesome";
 
 type AccordionItemProps = {
@@ -11,33 +11,54 @@ type AccordionItemProps = {
   idx: number
 
   accordionContext: string
+  entireTitleClickable: boolean
 }
 
 const AccordionItem = ({
   title,
   content,
-
+  
   active,
   opened,
   handleClick,
   idx,
-
+  
   accordionContext,
+  entireTitleClickable,
 }: AccordionItemProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className={`accordion__item ${accordionContext}-accordion__item`}>
       <div 
-        className={`accordion__title-wrapper ${accordionContext}-accordion__title-wrapper`}
-        onClick={() => {
-          handleClick(idx);
+        className={`
+          accordion__title-wrapper 
+          ${accordionContext}-accordion__title-wrapper
+          ${entireTitleClickable
+            ? 'accordion__title-wrapper--clickable'
+            : ''}
+        `}
+        onClick={(e) => {
+          e.preventDefault();
+          if (entireTitleClickable) handleClick(idx);
         }}
       >
         <div className={`accordion__title-element-wrapper ${accordionContext}-accordion__title-element-wrapper`}>
           {title}
         </div>
-        <div className={`accordion__title-trigger-wrapper ${accordionContext}-accordion__title-trigger-wrapper`}>
+        <div 
+          className={`
+            accordion__title-trigger-wrapper
+            ${accordionContext}-accordion__title-trigger-wrapper
+            ${!entireTitleClickable
+              ? 'accordion__title-trigger-wrapper--clickable'
+              : ''}
+          `}
+          onClick={(e) => {
+            e.preventDefault();
+            if (!entireTitleClickable) handleClick(idx);
+          }}
+        >
           {active 
             ? <FontAwesome name="angle-up" />
             : <FontAwesome name="angle-down" />

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
-import { validatePokemon, ValidationFailureReason } from "../../../../hooks/App/PokemonFilter";
-import { PokemonIconDatum } from "../../../../types-queries/helpers";
-import { PokemonIconDispatches, PokemonIconFilters } from "../../../App";
+import { validatePokemon, ValidationFailureReason } from "../../../../../hooks/App/PokemonFilter";
+import { PokemonIconDatum } from "../../../../../types-queries/helpers";
+import { PokemonIconDispatches, PokemonIconFilters } from "../../../../App";
 import BoxPokemonIcon from "./BoxPokemonIcon";
 
 type BoxProps = {

@@ -1,11 +1,36 @@
-import './Builder.css';
+import { BGAction, BGManager, classWithBG, classWithBGShadow } from '../../hooks/App/BGManager';
+import LinkButton from '../Reusables/LinkButton/LinkButton';
+import './../NavBar/NavBar.css';
 
-const BuilderNavBar = () => {
+type BuilderNavBarProps = {
+  dispatchBGManager: React.Dispatch<BGAction>
+  bgManager: BGManager
+}
+
+const BuilderNavBar = ({
+  dispatchBGManager,
+  bgManager,
+}: BuilderNavBarProps) => {
   return (
-    <div className="builder-nav-bar">
+    <div className={classWithBGShadow("nav-bar__wrapper", bgManager)}>
       {/* */}
-      <nav className="builder-nav-bar__main">
-        navbar
+      <nav className="nav-bar">
+        <li className="nav-item">
+          <LinkButton
+            to="team"
+            title="Team"
+            label="Team"
+            end={true}
+          />
+        </li>
+        <li className="nav-item">
+          <LinkButton
+            to="cart"
+            title="Cart"
+            label="Cart"
+            end={true}
+          />
+        </li>
       </nav>
     </div>
   )

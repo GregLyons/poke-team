@@ -9,7 +9,7 @@
   justify-content: center;
 
   background-color: var(--dark2);
-  padding: 1rem;
+  padding: var(--cell-padding);
 }
 
 .nav-bar {

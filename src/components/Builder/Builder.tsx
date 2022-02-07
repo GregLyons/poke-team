@@ -25,7 +25,10 @@ const Builder = ({
   }, []);
   return (
     <div className="builder-container">
-      <BuilderNavBar />
+      <BuilderNavBar 
+        dispatchBGManager={dispatchBGManager}
+        bgManager={bgManager}
+      />
       <Outlet />
     </div>
   );

@@ -1,6 +1,8 @@
 .app__wrapper {
   width: 100%;
-  height: 100vh;
+  overflow-x: hidden;
+  height: auto;
+  min-height: 100vh;
 
   display: grid;
   grid-template-columns: 1fr var(--app-width) 1fr;
@@ -45,10 +47,11 @@
     rgba(var(--dark3-components), 1),
     rgba(var(--dark3-components), 1)
   );
-  transition: left var(--bg-transition);
+  transition: left var(--bg-transition), opacity var(--bg-transition);
 }
 .left-bg-panel.pulse::after {
   left: -10px;
+  opacity: 0.7;
 }
 .right-bg-panel::after {
   background: linear-gradient(
@@ -58,10 +61,11 @@
     rgba(var(--dark3-components), 1),
     rgba(var(--dark3-components), 1)
   );
-  transition: left var(--bg-transition);
+  transition: left var(--bg-transition), opacity var(--bg-transition);
 }
 .right-bg-panel.pulse::after {
   left: 10px;
+  opacity: 0.7;
 }
 
 /* #endregion */

@@ -79,7 +79,7 @@
   justify-content: center;
   align-items: center;
 
-  padding: 1rem;
+  padding: var(--cell-padding);
   background-color: var(--dark2);
 }
 
@@ -117,7 +117,7 @@
   justify-content: center;
   align-items: center;
 
-  padding: 1rem;
+  padding: var(--cell-padding);
   background-color: var(--dark2);
   border-radius: 3px;
 }

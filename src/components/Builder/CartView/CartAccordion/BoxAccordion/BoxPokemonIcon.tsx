@@ -1,6 +1,6 @@
-import { TeamAction } from "../../../../hooks/App/Team";
-import { PokemonIconDatum } from "../../../../types-queries/helpers";
-import { getPokemonIcon } from "../../../../utils/sprites";
+import { TeamAction } from "../../../../../hooks/App/Team";
+import { PokemonIconDatum } from "../../../../../types-queries/helpers";
+import { getPokemonIcon } from "../../../../../utils/sprites";
 
 type BoxPokemonIconProps = {
   dispatches: {

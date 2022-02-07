@@ -42,6 +42,7 @@ const PlannerPokemonIcons = ({
     <div className={`planner-${context}__entry-icons`}>
       {/* Will only render anything for entries which could have icons. */}
       {<SelectionControls
+        selection={selection}
         dispatchSelection={dispatchSelection}
         dispatches={icons.dispatches}
         handleAddToCart={handleAddToCart}

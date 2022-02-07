@@ -1,9 +1,11 @@
 import { useMemo } from "react";
-import { Cart, } from "../../../hooks/App/Cart";
-import { PokemonIconDispatches, PokemonIconFilters } from "../../App";
-import Accordion from "../../Reusables/Accordion/Accordion";
+import { Cart, } from "../../../../hooks/App/Cart";
+import { PokemonIconDispatches, PokemonIconFilters } from "../../../App";
+import Accordion from "../../../Reusables/Accordion/Accordion";
 import ParentEntityAccordionTitle from "./ParentEntityAccordionTitle";
 import TargetEntityAccordion from "./TargetEntityAccordion";
+
+import './CartAccordion.css';
 
 type CartAccordionProps = {
   cart: Cart
@@ -27,6 +29,7 @@ const CartAccordion = ({
           titleText={key}
         />,
         content: <TargetEntityAccordion
+          cart={cart}
           parentEntityInCart={value}
           dispatches={dispatches}
           filters={filters}
@@ -35,10 +38,12 @@ const CartAccordion = ({
     })
   }, [cart, dispatches, filters]);
   return (
-    <Accordion
-      accordionContext="cart-view"
-      accordionData={accordionData}
-    />
+    <div className="cart-view-accordion__wrapper">
+      <Accordion
+        accordionContext="cart-view"
+        accordionData={accordionData}
+      />
+    </div>
   );
 }
 
