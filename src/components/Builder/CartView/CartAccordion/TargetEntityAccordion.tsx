@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { Cart, ParentEntityInCart } from "../../../../hooks/App/Cart";
+import { PokemonIconDatum } from "../../../../types-queries/helpers";
 import { PokemonIconDispatches, PokemonIconFilters } from "../../../App";
 import Accordion from "../../../Reusables/Accordion/Accordion";
 import BoxAccordion from "./BoxAccordion/BoxAccordion";
@@ -11,6 +12,9 @@ type TargetEntityAccordionProps = {
   parentEntityInCart: ParentEntityInCart,
   dispatches: PokemonIconDispatches,
   filters: PokemonIconFilters,
+
+  comboStart: string | undefined
+  toggleCombo: (key: string, value: PokemonIconDatum[]) => void
 }
 
 const TargetEntityAccordion = ({
@@ -18,6 +22,8 @@ const TargetEntityAccordion = ({
   parentEntityInCart,
   dispatches,
   filters,
+  comboStart,
+  toggleCombo,
 }: TargetEntityAccordionProps) => {
   const accordionData: {
     title: JSX.Element
@@ -31,13 +37,15 @@ const TargetEntityAccordion = ({
         />,
         content: <BoxAccordion
           cart={cart}
+          comboStart={comboStart}
+          toggleCombo={toggleCombo}
           targetEntityInCart={value}
           dispatches={dispatches}
           filters={filters}
         />
       }
     })
-  }, [parentEntityInCart, dispatches, filters]);
+  }, [cart, parentEntityInCart, dispatches, filters, comboStart, toggleCombo]);
 
   return (
     <Accordion

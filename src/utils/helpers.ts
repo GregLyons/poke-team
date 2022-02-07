@@ -57,3 +57,10 @@ export function removeDuplicatesFromSortedArray<E> (
       return acc.concat([curr]);
     }, [] as E[]));
 }
+
+export function omitKeys<E> (keys: string[], obj: { [key: string]: E }): { [key: string]: E } {
+  return Object.fromEntries(
+    Object.entries(obj)
+      .filter(([k, v]) => !keys.includes(k))
+  );
+}

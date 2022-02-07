@@ -1,4 +1,5 @@
-import { DUMMY_POKEMON_ICON_DATUM, PokemonIconDatum } from "../../types-queries/helpers";
+import { DUMMY_POKEMON_ICON_DATUM, GenerationNum, PokemonIconDatum } from "../../types-queries/helpers";
+import { omitKeys } from "../../utils/helpers";
 
 export const DEFAULT_TEAM: Team = {
   mode: 'default',
@@ -11,6 +12,7 @@ export const DEFAULT_TEAM: Team = {
     DUMMY_POKEMON_ICON_DATUM,
     DUMMY_POKEMON_ICON_DATUM,
   ],
+  pinnedBoxes: {}
 }
 
 export type TeamMode = 'default' | 'replace';
@@ -19,6 +21,11 @@ export type Team = {
   mode: TeamMode
   loadedPokemon: PokemonIconDatum | null
   members: PokemonIconDatum[]
+  pinnedBoxes: {
+    [gen in GenerationNum]?: {
+      [note: string]: PokemonIconDatum[]
+    }
+  }
 };
 
 export type TeamAction = 
@@ -33,6 +40,21 @@ export type TeamAction =
 | {
     type: 'remove',
     payload: number,
+  }
+| {
+    type: 'pin_box',
+    payload: {
+      gen: GenerationNum
+      note: string,
+      pokemon: PokemonIconDatum[]
+    }
+  }
+| {
+    type: 'unpin_box',
+    payload: {
+      gen: GenerationNum
+      note: string,
+    }
   }
 
 export function teamReducer(state: Team, action: TeamAction): Team {
@@ -71,6 +93,31 @@ export function teamReducer(state: Team, action: TeamAction): Team {
           return member;
         }),
       };
+
+    case 'pin_box':
+      return {
+        ...state,
+        pinnedBoxes: {
+          ...state.pinnedBoxes,
+          [action.payload.gen]: {
+            ...state.pinnedBoxes[action.payload.gen],
+            [action.payload.note]: [action.payload.pokemon],
+          }
+        }
+      };
+
+    case 'unpin_box':
+      if (!state.pinnedBoxes[action.payload.gen]) return state;
+      const newPinnedBoxesInGen = omitKeys([action.payload.note], state.pinnedBoxes[action.payload.gen] || {});
+      return {
+        ...state,
+        pinnedBoxes: {
+          ...state.pinnedBoxes,
+          [action.payload.gen]: {
+            newPinnedBoxesInGen,
+          }
+        }
+      }
 
     default:
       throw new Error();

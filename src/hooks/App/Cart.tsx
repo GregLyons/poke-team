@@ -26,6 +26,10 @@ export type CartInGen = {
   customBoxes: {
     [note: string]: PokemonIconDatum[]
   }
+  combination: {
+    note: string
+    pokemon: PokemonIconDatum[]
+  } | null
 }
 
 export type Cart = {
@@ -36,6 +40,7 @@ const EMPTY_CART_IN_GEN = {
   pokemon: {},
   items: {},
   customBoxes: {},
+  combination: null,
 }
 
 export const DEFAULT_CART: Cart = {
@@ -72,6 +77,13 @@ export type CartAction =
     }
   }
 | {
+    type: 'start_combo',
+    payload: {
+        gen: GenerationNum
+        box: Box,
+      }
+    }
+| {
     type: 'intersect',
     payload: {
       gen: GenerationNum,
@@ -87,7 +99,21 @@ export type CartAction =
       box2: Box,
     },
   }
-| { type: 'remove', };
+| {
+    type: 'delete', 
+    payload: {
+      gen: GenerationNum,
+      parentEntityClass: EntityClass,
+      targetEntityClass: EntityClass,
+      note: string,
+    }
+  }
+| {
+    type: 'combination_to_box',
+    payload: {
+      gen: GenerationNum,
+    }
+  };
 
 const intersectPokemonIconData = (pokemonIconData1: PokemonIconDatum[], pokemonIconData2: PokemonIconDatum[]): PokemonIconDatum[]  => {
   const psIDs2 = pokemonIconData2.map(d => d.psID).sort();
@@ -146,8 +172,25 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
         }
       }
 
-    case 'remove':
+    case 'delete':
       return state;
+
+    case 'start_combo':
+      if (state[action.payload.gen].combination?.note === action.payload.box.note) return {
+        ...state,
+        [action.payload.gen]: {
+          ...state[action.payload.gen],
+          combination: null,
+        }
+      };
+
+      return {
+        ...state,
+        [action.payload.gen]: {
+          ...state[action.payload.gen],
+          combination: action.payload.box,
+        }
+      };
 
     case 'intersect':
       const intersection = intersectPokemonIconData(action.payload.box1.pokemon, action.payload.box2.pokemon);
@@ -156,13 +199,11 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
         ...state,
         [action.payload.gen]: {
           ...state[action.payload.gen],
-          customBoxes: {
-            ...state[action.payload.gen].customBoxes,
-            [
-              '(' + action.payload.box1.note 
-              + ') AND (' 
-              + action.payload.box2.note + ')'
-            ]: intersection,
+          combination: {
+            note: '(' + action.payload.box1.note 
+                  + ') AND (' 
+                  + action.payload.box2.note + ')',
+            pokemon: intersection,
           }
         }
       }
@@ -173,14 +214,26 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
         ...state,
         [action.payload.gen]: {
           ...state[action.payload.gen],
+          combination: {
+            note: '(' + action.payload.box1.note 
+                  + ') OR (' 
+                  + action.payload.box2.note + ')',
+            pokemon: union,
+          }
+        }
+      }
+
+    case 'combination_to_box':
+      if (state[action.payload.gen].combination === null) return state;
+      return {
+        ...state,
+        [action.payload.gen]: {
+          ...state[action.payload.gen],
+          combination: null,
           customBoxes: {
             ...state[action.payload.gen].customBoxes,
-            [
-              '(' + action.payload.box1.note 
-              + ') OR (' 
-              + action.payload.box2.note + ')'
-            ]: union,
-          }
+            [state[action.payload.gen].combination?.note || '']: state[action.payload.gen].combination?.pokemon || [],
+          },
         }
       }
 
