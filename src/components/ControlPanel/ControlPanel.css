@@ -1,8 +1,6 @@
 /* ControlPanel */
 
 .control-panel__wrapper {
-  position: sticky;
-
   width: 100%;
   
   display: grid;
@@ -10,12 +8,12 @@
   grid-template-rows: 1fr 1fr;
 
   /* Gap between entries so shadow shows through */
-  gap: 1px;
+  gap: var(--bg-shadow-gap);
   transition: var(--bg-transition);
   transition-property: border, background-color;
 
   /* Makes dropdowns originating in this div go over other content, e.g. Pokemon icons */
-  z-index: 10;
+  /* z-index: 10; */
 }
 
 /* Glow between control panel and nav bars */

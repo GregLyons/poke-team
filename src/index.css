@@ -47,6 +47,8 @@
   --monospace: monospace;
 
   /* Shadows */
+  --bg-shadow-gap: 1px;
+
   --button-shadow: inset 0px -5px 1px 0 rgba(0, 0, 0, 0.2);
 
   --control-shadow-inset: 3px 3px;

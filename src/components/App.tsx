@@ -122,8 +122,10 @@ function App() {
               index
               element={<BuilderHome
                 cart={cart}
+                team={team}
                 dispatches={dispatches}
                 filters={filters}
+                bgManager={bgManager}
               />}
             />
           </Route>

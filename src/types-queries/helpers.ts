@@ -1,6 +1,7 @@
 import {
   NUMBER_OF_GENS,
 } from '../utils/constants';
+import { compareStrings, sortArray } from '../utils/helpers';
 
 // Generations
 // #region
@@ -120,6 +121,18 @@ export type PokemonIconDatum = {
   baseStats: BaseStats
 }
 
+export function equateTwoPokemonIconData (pid1: PokemonIconDatum, pid2: PokemonIconDatum): boolean {
+  return pid1.psID === pid2.psID;
+};
+
+export function compareTwoPokemonIconData (pid1: PokemonIconDatum, pid2: PokemonIconDatum): number {
+  return compareStrings(pid1.psID, pid2.psID);
+}
+
+export function sortPokemonIconData (pid: PokemonIconDatum[]): PokemonIconDatum[] {
+  return sortArray(pid, compareTwoPokemonIconData);
+}
+
 export const DUMMY_POKEMON_ICON_DATUM: PokemonIconDatum = {
   formattedName: '',
   name: '',
@@ -211,6 +224,31 @@ export const toTypeName: (enumTypeName: EnumTypeName | FormattedTypeName) => Typ
 }
 
 // #endregion
+
+// Usage methods
+// #region
+
+export type UsageMethodName = 'ball' | 'dance' | 'bite' | 'explosive' | 'powder' | 'pulse' | 'punch' | 'sound';
+
+export type EnumUsageMethodName = 'BALL' | 'DANCE' | 'BITE' | 'EXPLOSIVE' | 'POWDER' | 'PULSE' | 'PUNCH' | 'SOUND';
+
+export type FormattedUsageMethodName = 'Ball' | 'Dance' | 'Bite' | 'Explosive' | 'Powder' | 'Pulse' | 'Punch' | 'Sound';
+
+// export const typeNameEdgeToUsageMethodName: (edge: UsageMethodNameEdge) => UsageMethodName = edge => edge.node.name;
+
+export const toEnumUsageMethodName: (usageMethodName: UsageMethodName | FormattedUsageMethodName) => EnumUsageMethodName = (usageMethodName) => {
+  return (usageMethodName.toUpperCase() as EnumUsageMethodName);
+}
+
+export const toFormattedUsageMethodName: (usageMethodName: UsageMethodName | EnumUsageMethodName) => FormattedUsageMethodName = (usageMethodName) => {
+  return (usageMethodName.charAt(0).toUpperCase() + usageMethodName.slice(1).toLowerCase() as FormattedUsageMethodName);
+}
+
+export const toUsageMethodName: (enumUsageMethodName: EnumUsageMethodName | FormattedUsageMethodName) => UsageMethodName = (usageMethodName) => {
+  return (usageMethodName.toLowerCase() as UsageMethodName);
+}
+
+// #endregion 
 
 // Edges for queries
 // #region

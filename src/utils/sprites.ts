@@ -7,6 +7,7 @@ import {
   ItemIconDatum,
   PokemonIconDatum,
   TypeName,
+  UsageMethodName,
 } from '../types-queries/helpers.js';
 import {
   Pokemon,
@@ -95,6 +96,29 @@ export const getTypeIcon = (type: TypeName, gen: GenerationNum): { left: number,
   // TODO: Decide whether to ever include gen 8 icons
   if (true || gen < 6) [left, top] = TYPENAME_TO_TYPEICON_5.get(type) || [0, 0];
   else [left, top] = TYPENAME_TO_TYPEICON_8.get(type) || [0, 0];
+  return { left, top, };
+}
+
+// #endregion
+
+// Get usage method sprites
+// #region
+
+const USAGEMETHODNAME_TO_USAGEMETHODICON = new Map<UsageMethodName, [number, number]>([
+  ['ball', [-0, -0]],
+  ['bite', [-0, -12]],
+  ['dance', [-32, -0]],
+  ['explosive', [-32, -12]],
+  ['powder', [-0, -24]],
+  ['pulse', [-32, -24]],
+  ['punch', [-0, -36]],
+  ['sound', [-32, -36]],
+]);
+
+export const getUsageMethodIcon = (usageMethod: UsageMethodName): { left: number, top: number } => {
+  let left, top;
+  // TODO: Decide whether to ever include gen 8 icons
+  [left, top] = USAGEMETHODNAME_TO_USAGEMETHODICON.get(usageMethod) || [0, 0];
   return { left, top, };
 }
 

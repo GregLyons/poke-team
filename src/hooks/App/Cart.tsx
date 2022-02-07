@@ -1,5 +1,6 @@
-import { GenerationNum, ItemIconDatum, PokemonIconDatum, } from "../../types-queries/helpers";
+import { equateTwoPokemonIconData, GenerationNum, ItemIconDatum, PokemonIconDatum, sortPokemonIconData, } from "../../types-queries/helpers";
 import { EntityClass } from "../../utils/constants";
+import { binaryIncludes, compareStrings, removeDuplicatesFromSortedArray } from "../../utils/helpers";
 
 
 export type Box = {
@@ -26,7 +27,7 @@ export type CartInGen = {
       }
     } 
   }
-  intersectionBoxes: {
+  customBoxes: {
     [note: string]: PokemonIconDatum[]
   }
 }
@@ -38,7 +39,7 @@ export type Cart = {
 const EMPTY_CART_IN_GEN = {
   pokemon: {},
   items: {},
-  intersectionBoxes: {},
+  customBoxes: {},
 }
 
 export const DEFAULT_CART: Cart = {
@@ -82,13 +83,24 @@ export type CartAction =
       box2: Box,
     },
   }
+| {
+    type: 'unite',
+    payload: {
+      gen: GenerationNum,
+      box1: Box,
+      box2: Box,
+    },
+  }
 | { type: 'remove', };
 
 const intersectPokemonIconData = (pokemonIconData1: PokemonIconDatum[], pokemonIconData2: PokemonIconDatum[]): PokemonIconDatum[]  => {
   const psIDs2 = pokemonIconData2.map(d => d.psID).sort();
 
-  // Not doing intersection programatically, and max length shouldn't be greater than 2000, so doing naive intersection
-  return pokemonIconData1.filter(d => psIDs2.includes(d.psID));
+  return pokemonIconData1.filter(d => binaryIncludes(psIDs2, d.psID, compareStrings));
+};
+
+const unitePokemonIconData = (pokemonIconData1: PokemonIconDatum[], pokemonIconData2: PokemonIconDatum[]): PokemonIconDatum[]  => {
+  return removeDuplicatesFromSortedArray(sortPokemonIconData(pokemonIconData1.concat(pokemonIconData2)), equateTwoPokemonIconData);
 }
 
 export function cartReducer(state: Cart, action: CartAction): Cart {
@@ -143,15 +155,35 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
 
     case 'intersect':
       const intersection = intersectPokemonIconData(action.payload.box1.pokemon, action.payload.box2.pokemon);
-      if (intersection.length === 0) return state;
 
       return {
         ...state,
         [action.payload.gen]: {
           ...state[action.payload.gen],
-          intersectionBoxes: {
-            ...state[action.payload.gen].intersectionBoxes,
-            [action.payload.box1.note + ' AND ' + action.payload.box2.note]: intersection,
+          customBoxes: {
+            ...state[action.payload.gen].customBoxes,
+            [
+              '(' + action.payload.box1.note 
+              + ') AND (' 
+              + action.payload.box2.note + ')'
+            ]: intersection,
+          }
+        }
+      }
+
+    case 'unite':
+      const union = unitePokemonIconData(action.payload.box1.pokemon, action.payload.box2.pokemon);
+      return {
+        ...state,
+        [action.payload.gen]: {
+          ...state[action.payload.gen],
+          customBoxes: {
+            ...state[action.payload.gen].customBoxes,
+            [
+              '(' + action.payload.box1.note 
+              + ') OR (' 
+              + action.payload.box2.note + ')'
+            ]: union,
           }
         }
       }
