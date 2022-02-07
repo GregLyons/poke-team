@@ -8,24 +8,20 @@ export type Box = {
   pokemon: PokemonIconDatum[]
 }
 
+export type TargetEntityInCart = {
+  [note: string]: PokemonIconDatum[]
+}
+
+export type ParentEntityInCart = {
+  [targetEntityClass in EntityClass | 'Has' | 'From search']?: TargetEntityInCart
+}
+
 export type CartInGen = {
   pokemon: {
-    [parentEntityClass in EntityClass]?: {
-      [targetEntityClass in EntityClass | 'Has']?: {
-        // Key: Describes relationship between parent and target entity.
-        // Value: Pokemon from selection.
-        [note: string]: PokemonIconDatum[]
-      }
-    }
+    [parentEntityClass in EntityClass]?: ParentEntityInCart
   }
   items: {
-    [parentEntityClass in EntityClass]?: {
-      [targetEntityClass in EntityClass | 'From search']?: {
-        // Key: Describes relationship between parent and target entity.
-        // Value: Pokemon required for item, or [].
-        [note: string]: PokemonIconDatum[]
-      }
-    } 
+    [parentEntityClass in EntityClass]?: ParentEntityInCart
   }
   customBoxes: {
     [note: string]: PokemonIconDatum[]

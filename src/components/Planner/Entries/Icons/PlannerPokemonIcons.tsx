@@ -43,15 +43,15 @@ const PlannerPokemonIcons = ({
       {/* Will only render anything for entries which could have icons. */}
       {<SelectionControls
         dispatchSelection={dispatchSelection}
+        dispatches={icons.dispatches}
         handleAddToCart={handleAddToCart}
         hasIcon={hasIcon}
         reason={reason}
-        dispatchBGManager={icons.dispatches.dispatchBGManager}
       />}
       <br />
       <div className={`planner__pokemon-icons-background`}>
         {icons.pokemonIconData.map(pokemonIconDatum => {
-          const psID: psID = pokemonIconDatum.psID;
+          const psID = pokemonIconDatum.psID;
 
           // E.g. DUMMY_POKEMON_DATUM
           if (!psID) return;

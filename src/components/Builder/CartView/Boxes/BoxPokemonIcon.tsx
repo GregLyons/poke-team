@@ -1,53 +1,23 @@
-import {
-  useState,
-} from "react";
 import { TeamAction } from "../../../../hooks/App/Team";
-import {
-  PokemonIconDatum,
-} from "../../../../types-queries/helpers";
-import {
-  getPokemonIcon,
-} from "../../../../utils/sprites";
+import { PokemonIconDatum } from "../../../../types-queries/helpers";
+import { getPokemonIcon } from "../../../../utils/sprites";
 
-import './../Entries.css';
-
-type PlannerPokemonIconProps = {
+type BoxPokemonIconProps = {
   dispatches: {
     dispatchTeam: React.Dispatch<TeamAction>
   }
   key: string
   pokemonIconDatum: PokemonIconDatum
-  selected: boolean
-  toggleSelection: (psID: string) => void
 }
 
-const PlannerPokemonIcon = ({
+const BoxPokemonIcon = ({
   dispatches: {
     dispatchTeam,
   },
   key,
   pokemonIconDatum,
-  selected,
-  toggleSelection,
-}: PlannerPokemonIconProps) => {
+}: BoxPokemonIconProps) => {
   const {left, top} = getPokemonIcon(pokemonIconDatum);
-
-  const onClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    e.preventDefault();
-    toggleSelection(pokemonIconDatum.psID);
-    if (!selected) {
-      dispatchTeam({
-        type: 'toggle_replace_mode',
-        payload: pokemonIconDatum,
-      });
-    }
-    else {
-      dispatchTeam({
-        type: 'toggle_replace_mode',
-        payload: null,
-      });
-    }
-  }
 
   return (
     <div className="planner__pokemon-icon-container"
@@ -63,15 +33,11 @@ const PlannerPokemonIcon = ({
           width: '40px',
           height: '30px',
           borderRadius: '40%',
-          backgroundColor: selected
-            ? 'var(--blue1)' 
-            : '',
           transition: 'background-color 0.2s',
           opacity: '0.8',
         }}
       />
       <div
-        onClick={onClick}
         className="planner__pokemon-icon"
         title={`${pokemonIconDatum.formattedName}`}
         key={key}
@@ -83,7 +49,8 @@ const PlannerPokemonIcon = ({
         }}              
       />
     </div>
-  );
-};
+  )
 
-export default PlannerPokemonIcon;
+}
+
+export default BoxPokemonIcon;

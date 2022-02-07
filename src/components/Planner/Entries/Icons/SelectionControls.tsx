@@ -1,6 +1,7 @@
 import { BGAction, toggleBGPulse } from "../../../../hooks/App/BGManager";
 import { ValidationFailureReason, } from "../../../../hooks/App/PokemonFilter";
 import { SelectionAction } from "../../../../hooks/Planner/Selections";
+import { PokemonIconDispatches } from "../../../App";
 import Button from "../../../Reusables/Button/Button";
 import './Icons.css';
 
@@ -10,7 +11,7 @@ type SelectionControlsProps = {
   hasIcon: React.MutableRefObject<boolean>
   reason: React.MutableRefObject<ValidationFailureReason>
 
-  dispatchBGManager: React.Dispatch<BGAction>
+  dispatches: PokemonIconDispatches
 }
 
 const SelectionControls = ({
@@ -19,7 +20,7 @@ const SelectionControls = ({
   hasIcon,
   reason,
 
-  dispatchBGManager,
+  dispatches,
 }: SelectionControlsProps) => {
   const noPokemon = !hasIcon.current;
   return (
@@ -32,6 +33,10 @@ const SelectionControls = ({
         onClick={e => {
           e.preventDefault();
           dispatchSelection({ type: 'remove_all' });
+          dispatches.dispatchTeam({
+            type: 'toggle_replace_mode',
+            payload: null,
+          });
         }}
         disabled={noPokemon}
         immediate={true}
@@ -56,7 +61,7 @@ const SelectionControls = ({
         active={true}
         onClick={e => {
           // TODO: no pulse if no pokemon selected
-          toggleBGPulse(dispatchBGManager);
+          toggleBGPulse(dispatches.dispatchBGManager);
           e.preventDefault();
           handleAddToCart();
         }}

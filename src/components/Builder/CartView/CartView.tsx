@@ -1,5 +1,6 @@
 import { Cart } from "../../../hooks/App/Cart";
 import { PokemonIconDispatches, PokemonIconFilters } from "../../App";
+import CartAccordion from "./CartAccordion";
 
 type CartViewProps ={
   cart: Cart
@@ -14,7 +15,11 @@ const CartView = ({
 }: CartViewProps) => {
   return (
     <div className="cart-view__wrapper">
-      yo
+      <CartAccordion
+        cart={cart}
+        dispatches={dispatches}
+        filters={filters}
+      />
     </div>
   )
 }
