@@ -126,6 +126,25 @@ const executeCombination: (combination: Combination) => Box | null = combination
 // Manipulating combinations
 // #region 
 
+// If box's note is the same as one of the boxes in the combination, return the index, or -1 if it's the start; return -2 otherwise.
+export const isBoxInCombination: (combination: Combination, box: Box) => number = (combination, box) => {
+  if (combination === null) return -2;
+
+  const [start, rest] = combination;
+  if (start.note === box.note) return -1;
+  else {
+    const notes = rest.map(boxInCombo => boxInCombo.box.note);
+    let idx = -2;
+    for (let i = 0; i < notes.length; i++) {
+      if (notes[i] === box.note) {
+        idx = i;
+        break;
+      }
+    }
+    return idx;
+  }
+}
+
 const swapBoxWithStart: ([start, comboBox]: [Box, BoxInCombination]) => [Box, BoxInCombination] = ([start, comboBox]) => {
   return [comboBox.box, { operation: comboBox.operation, box: start }];
 }
@@ -225,6 +244,19 @@ const moveBoxDownOne: (combination: Combination, idx: number) => Combination = (
   }
 };
 
+// idx represents index in array in combination, so excludes start
+const switchOperationOfBox: (combination: Combination, idx: number) => Combination = (combination, idx) => {
+  if (combination === null) return null;
+  if (idx < 0 || idx >= combination[1].length) {
+    throw new Error('Index out of bounds!');
+  }
+  const [start, rest] = combination;
+  const newBox: BoxInCombination = rest[idx].operation === 'AND'
+    ? { operation: 'OR', box: rest[idx].box, }
+    : { operation: 'AND', box: rest[idx].box, };
+  return [start, [...rest.slice(idx), newBox, ...rest.slice(idx + 1)]];
+}
+
 // #endregion
 
 // #endregion
@@ -269,38 +301,31 @@ export type CartAction =
 // Combining boxes
 // #region
 | {
-    type: 'start_combo',
+    type: 'toggle_combo_start',
     payload: {
         gen: GenerationNum
         box: Box,
       }
     }
 | {
-    type: 'add_to_combo',
+    type: 'toggle_in_combo',
     payload: {
       gen: GenerationNum,
-      boxInCombination: BoxInCombination
-    },
-  }
-| {
-    type: 'remove_from_combo',
-    payload: {
-      gen: GenerationNum,
-      idx: number
+      boxWithOperation: BoxInCombination
     },
   }
 | {
     type: 'move_box_up_one',
     payload: {
-      gen: GenerationNum
-      idx: number
+      gen: GenerationNum,
+      boxInCombination: BoxInCombination
     }
   }
 | {
     type: 'move_box_down_one',
     payload: {
-      gen: GenerationNum
-      idx: number
+      gen: GenerationNum,
+      boxInCombination: BoxInCombination
     }
   }
 | {
@@ -312,8 +337,11 @@ export type CartAction =
 // #endregion
 
 export function cartReducer(state: Cart, action: CartAction): Cart {
+  let currentCombination: Combination;
+  let idx: number;
+
   switch(action.type) {
-    // Adding to/removing from cart
+    // Adding to/removing from cart; these operations stop combinations
     // #region
 
     case 'add_pokemon':
@@ -335,7 +363,8 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
                 [action.payload.note]: action.payload.pokemon,
               }
             }
-        }
+          },
+          combination: null
         }
       }
 
@@ -357,7 +386,8 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
                 [action.payload.note]: action.payload.requiredPokemon,
               }
             }
-          }
+          },
+          combination: null
         }
       }
 
@@ -369,41 +399,92 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
     // Combining boxes
     // #region
 
-    case 'start_combo':
-      return {
+    case 'toggle_combo_start':
+      currentCombination = state[action.payload.gen].combination;
+      
+      // Combo hasn't been started, 
+      if (currentCombination === null) return {
+          ...state,
+          [action.payload.gen]: {
+            ...state[action.payload.gen],
+            combination: startCombination(action.payload.box),
+          },
+        };
+      // Combo has been started, so end the combo
+      else return {
         ...state,
         [action.payload.gen]: {
           ...state[action.payload.gen],
-          combination: startCombination(action.payload.box),
-        },
-      };
+          combination: null,
+        }
+      }
+    
+    case 'toggle_in_combo':
+      currentCombination = state[action.payload.gen].combination;
+      const { boxWithOperation } = action.payload;
+      idx = isBoxInCombination(currentCombination, boxWithOperation.box);
 
-    case 'add_to_combo':
-      return {
-        ...state,
-        [action.payload.gen]: {
-          ...state[action.payload.gen],
-          combination: addBoxToEnd(state[action.payload.gen].combination, action.payload.boxInCombination),
-        },
-      };
+      // If box is not in combo, add it
+      if (idx === -2) {
+        return {
+          ...state,
+          [action.payload.gen]: {
+            ...state[action.payload.gen],
+            combination: addBoxToEnd(currentCombination, boxWithOperation),
+          },
+        };
+      }
+
+      // If box is at start, or if combination is null, do nothing; this shouldn't happen
+      else if (idx === -1 || currentCombination === null) return state;
+
+      // Box is already in combination
+      else {
+        const currentOperation = currentCombination[1][idx].operation;
+        const newOperation = boxWithOperation.operation;
+
+        // If currentOperation === newOperation, remove box
+        if (currentOperation === newOperation) {
+          return {
+            ...state,
+            [action.payload.gen]: {
+              ...state[action.payload.gen],
+              combination: removeFromCombination(currentCombination, idx),
+            },
+          };
+        }
+
+        // Else, switch operation of box
+        else {
+          return {
+            ...state,
+            [action.payload.gen]: {
+              ...state[action.payload.gen],
+              combination: switchOperationOfBox(currentCombination, idx),
+            },
+          };
+        }
+      }
 
     case 'move_box_down_one':
+      idx = isBoxInCombination(state[action.payload.gen].combination, action.payload.boxInCombination.box);
       return {
         ...state,
         [action.payload.gen]: {
           ...state[action.payload.gen],
-          combination: moveBoxDownOne(state[action.payload.gen].combination, action.payload.idx),
+          combination: moveBoxDownOne(state[action.payload.gen].combination, idx),
         },
       };
 
     case 'move_box_up_one':
-    return {
-      ...state,
-      [action.payload.gen]: {
-        ...state[action.payload.gen],
-        combination: moveBoxUpOne(state[action.payload.gen].combination, action.payload.idx),
-      },
-    };
+      idx = isBoxInCombination(state[action.payload.gen].combination, action.payload.boxInCombination.box);
+      return {
+        ...state,
+        [action.payload.gen]: {
+          ...state[action.payload.gen],
+          combination: moveBoxUpOne(state[action.payload.gen].combination, idx),
+        },
+      };
 
     case 'execute_combination':
       const newBox = executeCombination(state[action.payload.gen].combination);

@@ -1,10 +1,20 @@
+import { Cart } from '../../../../hooks/App/Cart';
+import { PokemonIconDispatches, PokemonIconFilters } from '../../../App';
+import { CartTerminalClickHandlers } from '../CartView';
 import './CartTerminal.css';
 
 type CartTerminalProps = {
+  cart: Cart
+  dispatches: PokemonIconDispatches
+  filters: PokemonIconFilters
+  clickHandlers: CartTerminalClickHandlers
 }
 
 const CartTerminal = ({
-
+  cart,
+  dispatches,
+  filters,
+  clickHandlers,
 }: CartTerminalProps) => {
   return (
     <div className="cart-view-terminal__wrapper">

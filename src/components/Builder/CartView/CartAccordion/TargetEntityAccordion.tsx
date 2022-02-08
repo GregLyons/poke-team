@@ -3,6 +3,7 @@ import { Cart, ParentEntityInCart } from "../../../../hooks/App/Cart";
 import { PokemonIconDatum } from "../../../../types-queries/helpers";
 import { PokemonIconDispatches, PokemonIconFilters } from "../../../App";
 import Accordion from "../../../Reusables/Accordion/Accordion";
+import { CartAccordionClickHandlers } from "../CartView";
 import BoxAccordion from "./BoxAccordion/BoxAccordion";
 import TargetEntityAccordionTitle from "./TargetEntityAccordionTitle";
 
@@ -13,8 +14,7 @@ type TargetEntityAccordionProps = {
   dispatches: PokemonIconDispatches,
   filters: PokemonIconFilters,
 
-  comboStart: string | undefined
-  toggleCombo: (key: string, value: PokemonIconDatum[]) => void
+  clickHandlers: CartAccordionClickHandlers
 }
 
 const TargetEntityAccordion = ({
@@ -22,8 +22,8 @@ const TargetEntityAccordion = ({
   parentEntityInCart,
   dispatches,
   filters,
-  comboStart,
-  toggleCombo,
+
+  clickHandlers,
 }: TargetEntityAccordionProps) => {
   const accordionData: {
     title: JSX.Element
@@ -37,15 +37,14 @@ const TargetEntityAccordion = ({
         />,
         content: <BoxAccordion
           cart={cart}
-          comboStart={comboStart}
-          toggleCombo={toggleCombo}
+          clickHandlers={clickHandlers}
           targetEntityInCart={value}
           dispatches={dispatches}
           filters={filters}
         />
       }
     })
-  }, [cart, parentEntityInCart, dispatches, filters, comboStart, toggleCombo]);
+  }, [cart, parentEntityInCart, dispatches, filters, clickHandlers]);
 
   return (
     <Accordion

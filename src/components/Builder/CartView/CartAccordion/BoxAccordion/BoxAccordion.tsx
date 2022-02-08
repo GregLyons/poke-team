@@ -7,6 +7,7 @@ import BoxAccordionTitle from "./BoxAccordionTitle";
 
 import './BoxAccordion.css';
 import { PokemonIconDatum } from "../../../../../types-queries/helpers";
+import { CartAccordionClickHandlers } from "../../CartView";
 
 type BoxAccordionProps = {
   cart: Cart
@@ -14,8 +15,7 @@ type BoxAccordionProps = {
   dispatches: PokemonIconDispatches,
   filters: PokemonIconFilters,
 
-  comboStart: string | undefined
-  toggleCombo: (key: string, value: PokemonIconDatum[]) => void
+  clickHandlers: CartAccordionClickHandlers
 }
 
 const BoxAccordion = ({
@@ -23,8 +23,8 @@ const BoxAccordion = ({
   targetEntityInCart,
   dispatches,
   filters,
-  comboStart,
-  toggleCombo,
+
+  clickHandlers,
 }: BoxAccordionProps) => {
 
   const accordionData: {
@@ -33,16 +33,11 @@ const BoxAccordion = ({
   }[] = useMemo(() => {
     const boxes = Object.entries(targetEntityInCart);
     return boxes.map(([key, value]) => {
-      const onComboClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        toggleCombo(key, value);
-      };
 
       return {
         title: <BoxAccordionTitle
           cart={cart}
-          onComboClick={onComboClick}
-          comboHasStarted={comboStart !== undefined}
-          startedCombo={comboStart !== undefined && comboStart === key}
+          clickHandlers={clickHandlers}
           filters={filters}
           dispatches={dispatches}
           titleText={key}

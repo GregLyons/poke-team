@@ -1,50 +1,36 @@
 import { useState } from "react";
 import { toggleBGPulse } from "../../../../../hooks/App/BGManager";
-import { Cart } from "../../../../../hooks/App/Cart";
+import { Box, Cart } from "../../../../../hooks/App/Cart";
 import { GenFilter } from "../../../../../hooks/App/GenFilter";
 import { PokemonIconDispatches, PokemonIconFilters } from "../../../../App";
 import Button from "../../../../Reusables/Button/Button";
+import { CartAccordionClickHandlers } from "../../CartView";
 
 type BoxAccordionTitleProps = {
   cart: Cart
+  box: Box
+
   dispatches: PokemonIconDispatches
   filters: {
     genFilter: GenFilter
   }
   titleText: string
-  comboHasStarted: boolean
-  startedCombo: boolean
-  onComboClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+
+  clickHandlers: CartAccordionClickHandlers
 }
 
 const BoxAccordionTitle = ({
   cart,
+  box,
+
   filters: {
     genFilter,
   },
   dispatches,
   titleText,
 
-  comboHasStarted,
-  startedCombo,
-  onComboClick,
+  clickHandlers,
 }: BoxAccordionTitleProps) => {
-  const [mode, setMode] = useState<'OR' | 'AND' | undefined>(undefined);
-
-  const toggleOr = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    e.preventDefault();
-    mode !== 'OR'
-      ? setMode('OR')
-      : setMode(undefined);
-  }
-
-  const toggleAnd = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    e.preventDefault();
-    mode !== 'AND'
-      ? setMode('AND')
-      : setMode(undefined);
-  }
-
   return (
     <>
       <div
@@ -83,9 +69,9 @@ const BoxAccordionTitle = ({
           title="Start combining this box with other boxes."
           label='COMBO'
 
-          active={startedCombo}
-          onClick={onComboClick}
-          disabled={comboHasStarted && !startedCombo}
+          active={}
+          onClick={e => clickHandlers.onComboClick(e, box)}
+          disabled={}
           immediate={false}
         /> 
         <Button
