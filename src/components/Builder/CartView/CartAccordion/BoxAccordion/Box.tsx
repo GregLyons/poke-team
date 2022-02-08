@@ -27,7 +27,7 @@ const Box = ({
   return (
     <div className={`box__icons-wrapper`}>
       <div className="box__icons-background">
-        {box.pokemon.map(pokemonIconDatum => {
+        {box && box.pokemon && box.pokemon.map(pokemonIconDatum => {
           const psID = pokemonIconDatum.psID;
           
           // E.g. DUMMY_POKEMON_DATUM

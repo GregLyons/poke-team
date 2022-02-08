@@ -1,5 +1,5 @@
 import { equateTwoPokemonIconData, GenerationNum, ItemIconDatum, PokemonIconDatum, sortPokemonIconData, } from "../../types-queries/helpers";
-import { EntityClass } from "../../utils/constants";
+import { EntityClass, NUMBER_OF_GENS } from "../../utils/constants";
 import { binaryIncludes, compareStrings, removeDuplicatesFromSortedArray } from "../../utils/helpers";
 
 // Cart setup
@@ -19,52 +19,58 @@ export type ParentEntityInCart = {
 
 export type CombinationRole = CombinationOperation | 'START' | undefined
 
-export interface Box {
-  note: string
-  pokemon: PokemonIconDatum[]
-  parentEntityClass: ParentEntityClass | 'Custom'
-  targetEntityClass: TargetEntityClass | null
-}
-
-export interface BoxFromPlanner extends Box {
-  note: string
-  pokemon: PokemonIconDatum[]
+export type BoxFromPlannerClassification = {
   parentEntityClass: ParentEntityClass
   targetEntityClass: TargetEntityClass
+}
+
+export type CustomBoxClassification = {
+  parentEntityClass: 'Custom'
+  targetEntityClass: null
+}
+
+export type BoxClassification = BoxFromPlannerClassification | CustomBoxClassification
+
+export type BoxFromPlanner = {
+  note: string
+  pokemon: PokemonIconDatum[]
+  classification: {
+    parentEntityClass: ParentEntityClass
+    targetEntityClass: TargetEntityClass
+  }
   roleInCombination: CombinationRole
 }
 
-export interface CustomBox extends Box {
+export type CustomBox = {
   note: string
   pokemon: PokemonIconDatum[]
-  parentEntityClass: 'Custom'
-  targetEntityClass: null
+  classification: {
+    parentEntityClass: 'Custom'
+    targetEntityClass: null
+  }
   roleInCombination: CombinationRole
 }
 
 export type BoxInCart = BoxFromPlanner | CustomBox
 
-export interface StartBox extends Box {
+export type StartBox = {
   note: string
   pokemon: PokemonIconDatum[]
-  parentEntityClass: ParentEntityClass | 'Custom'
-  targetEntityClass: TargetEntityClass | null
+  classification: BoxClassification
   roleInCombination: 'START'
 }
 
-export interface AndBox extends Box {
+export type AndBox = {
   note: string
   pokemon: PokemonIconDatum[]
-  parentEntityClass: ParentEntityClass | 'Custom'
-  targetEntityClass: TargetEntityClass | null
+  classification: BoxClassification
   roleInCombination: 'AND'
 }
 
-export interface OrBox extends Box {
+export type OrBox = {
   note: string
   pokemon: PokemonIconDatum[]
-  parentEntityClass: ParentEntityClass | 'Custom'
-  targetEntityClass: TargetEntityClass | null
+  classification: BoxClassification
   roleInCombination: 'OR'
 }
 
@@ -72,10 +78,10 @@ export type BoxInCombination = AndBox | OrBox;
 
 export type CartInGen = {
   pokemon: {
-    [parentEntityClass in EntityClass]?: ParentEntityInCart
+    [parentEntityClass in ParentEntityClass]?: ParentEntityInCart
   }
   items: {
-    [parentEntityClass in EntityClass]?: ParentEntityInCart
+    [parentEntityClass in ParentEntityClass]?: ParentEntityInCart
   }
   customBoxes: {
     [note: string]: BoxInCart
@@ -127,8 +133,10 @@ const intersectBoxes = (box1: StartBox | AndBox, box2: StartBox | AndBox): Start
   return {
     note: `${box1.note} AND ${box2.note}`,
     pokemon: intersectPokemonIconData(box1.pokemon, box2.pokemon),
-    parentEntityClass: 'Custom',
-    targetEntityClass: null,
+    classification: {
+      parentEntityClass: 'Custom',
+      targetEntityClass: null
+    },
     roleInCombination: 'START',
   };
 };
@@ -141,8 +149,10 @@ const uniteBoxes = (box1: StartBox | OrBox, box2: StartBox | OrBox): StartBox =>
   return {
     note: `${box1.note} OR ${box2.note}`,
     pokemon: unitePokemonIconData(box1.pokemon, box2.pokemon),
-    parentEntityClass: 'Custom',
-    targetEntityClass: null,
+    classification: {
+      parentEntityClass: 'Custom',
+      targetEntityClass: null
+    },
     roleInCombination: 'START',
   };
 };
@@ -172,16 +182,20 @@ const executeCombination: (combination: Combination) => BoxInCart | null = combi
     // Parentheses to group starting box
     note: '(' + start.note + ')',
     pokemon: start.pokemon,
-    parentEntityClass: 'Custom',
-    targetEntityClass: null,
+    classification: {
+      parentEntityClass: 'Custom',
+      targetEntityClass: null
+    },
     roleInCombination: 'START',
   });
 
   if (result.pokemon.length === 0) return null;
   else return {
     ...result,
-    parentEntityClass: 'Custom',
-    targetEntityClass: null,
+    classification: {
+      parentEntityClass: 'Custom',
+      targetEntityClass: null
+    },
     roleInCombination: undefined,
   };
 }
@@ -194,7 +208,7 @@ const executeCombination: (combination: Combination) => BoxInCart | null = combi
 /*
   If box's note is the same as one of the boxes in the combination, return the index, or -1 if it's the start; return -2 otherwise.
 */
-export const findBoxInCombination: (combination: Combination, box: Box) => number = (combination, box) => {
+export const findBoxInCombination: (combination: Combination, box: BoxInCombination | BoxInCart) => number = (combination, box) => {
   if (combination === null) return -2;
 
   const [start, rest] = combination;
@@ -468,21 +482,82 @@ type RoleChangePlanner = {
   pokemon: {
     [parentEntityClass in ParentEntityClass]?: {
       [targetEntityClass in TargetEntityClass]?: {
-        [note: string]: Box
+        [note: string]: BoxInCart
       }
     }
   }
 } | {
   customBoxes: {
-    [note: string]: Box
+    [note: string]: BoxInCart
   }
 }
 
-const changeRoleOfBox: (state: Cart, gen: GenerationNum, parentEntityClass: ParentEntityClass | 'Custom', targetEntityClass: TargetEntityClass | null, box: Box, newRole: CombinationRole) => RoleChangePlanner = (state, gen, parentEntityClass, targetEntityClass, box, newRole) => {
-  // Starting box is a box from the planner
+// export type CartInGen = {
+//   pokemon: {
+//     [parentEntityClass in EntityClass]?: ParentEntityInCart
+//   }
+//   items: {
+//     [parentEntityClass in EntityClass]?: ParentEntityInCart
+//   }
+//   customBoxes: {
+//     [note: string]: BoxInCart
+//   }
+//   combination: Combination
+// }
+
+// export type ParentEntityInCart = {
+//   [targetEntityClass in TargetEntityClass]?: TargetEntityInCart
+// }
+
+
+// Clear combination and set roles to undefined
+const setRoleToUndefinedCartInGen: (cartInGen: CartInGen) => void = cartInGen => {
+  Object.entries(cartInGen.pokemon).map(([key, value]) => {
+    setRoleToUndefinedParent(value);
+  });
+  cartInGen.combination = null;
+}
+
+const setRoleToUndefinedParent: (parentEntityInCart: ParentEntityInCart) => void = parentEntityInCart => {
+  Object.entries(parentEntityInCart).map(([key, value]) => {
+    setRoleToUndefinedTarget(value);
+  });
+};
+
+const setRoleToUndefinedTarget: (targetEntityInCart: TargetEntityInCart) => void = parentEntityInCart => {
+  Object.entries(parentEntityInCart).map(([key, value]) => {
+    value.roleInCombination = undefined;
+  });
+};
+
+const endCombo: (state: Cart) => Cart = (state) => {
+  let newState = state;
+
+  // Set role to undefined 
+  Object.entries(newState).map(([key, value]) => {
+    setRoleToUndefinedCartInGen(value);
+  });
+
+  return newState;
+};
+
+const changeRoleOfBox: (state: Cart, gen: GenerationNum, box: BoxInCart | BoxInCombination, newRole: CombinationRole) => RoleChangePlanner = (state, gen, box, newRole) => {
+  const [parentEntityClass, targetEntityClass]: [ParentEntityClass | 'Custom', TargetEntityClass | null] = [box.classification.parentEntityClass, box.classification.targetEntityClass]
+
+  // box is a box from the planner
   if (parentEntityClass !== 'Custom' && targetEntityClass !== null) {
+    const newBox: BoxInCart = {
+      note: box.note,
+      pokemon: box.pokemon,
+      classification: {
+        parentEntityClass,
+        targetEntityClass,
+      },
+      roleInCombination: newRole,
+    }
     const roleChangeChunk: RoleChangePlanner = {
       pokemon: {
+        ...state[gen].pokemon,
         // Overwriting parentEntityClass
         [parentEntityClass]: {
           // Overwriting targetEntityClass
@@ -491,10 +566,7 @@ const changeRoleOfBox: (state: Cart, gen: GenerationNum, parentEntityClass: Pare
             // Overwriting note
             ...state[gen].pokemon?.[parentEntityClass]?.[targetEntityClass],
             // Box now starts combination
-            [box.note]: {
-              ...box,
-              roleInCombination: newRole,
-            }
+            [box.note]: newBox,
           }
         },
       },
@@ -502,19 +574,34 @@ const changeRoleOfBox: (state: Cart, gen: GenerationNum, parentEntityClass: Pare
     return roleChangeChunk;
   }
 
-  // Starting box is a custom box
-  else {
-    const roleChangeChunk = {
+  // box is a custom box
+  else if (parentEntityClass === 'Custom' && targetEntityClass === null) {
+    const newBox: BoxInCart = {
+      note: box.note,
+      pokemon: box.pokemon,
+      classification: {
+        parentEntityClass,
+        targetEntityClass,
+      },
+      roleInCombination: newRole,
+    };
+
+    const roleChangeChunk: RoleChangePlanner = {
       customBoxes: {
         ...state[gen].customBoxes,
         // Box now starts combination
-        [box.note]: {
-          ...box,
-          roleInCombination: newRole,
-        },
+        [box.note]: newBox,
       },
     };
     return roleChangeChunk;
+  }
+
+  else {
+    return {
+      pokemon: {
+        ...state[gen].pokemon
+      },
+    };
   }
 }
 
@@ -543,13 +630,21 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
           pokemon: {
             // Overwriting parentEntityClass
             ...state[gen].pokemon,
-            [action.payload.parentEntityClass]: {
+            [parentEntityClass]: {
               // Overwriting targetEntityClass within parentEntityClass
-              ...state[gen].pokemon?.[action.payload.parentEntityClass],
-              [action.payload.targetEntityClass]: {
+              ...state[gen].pokemon?.[parentEntityClass],
+              [targetEntityClass]: {
                 // Overwriting note within targetEntityClass
-                ...state[gen].pokemon?.[action.payload.parentEntityClass]?.[action.payload.targetEntityClass],
-                [action.payload.note]: action.payload.pokemon,
+                ...state[gen].pokemon?.[parentEntityClass]?.[targetEntityClass],
+                [action.payload.note]: {
+                  note: action.payload.note,
+                  pokemon: action.payload.pokemon,
+                  classification: {
+                    parentEntityClass,
+                    targetEntityClass,
+                  },
+                  roleInCombination: undefined,
+                }
               }
             }
           },
@@ -597,39 +692,33 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
     // #region
 
     case 'toggle_combo_start':
-      parentEntityClass = action.payload.box.parentEntityClass;
-      targetEntityClass = action.payload.box.targetEntityClass;
+      parentEntityClass = action.payload.box.classification.parentEntityClass;
+      targetEntityClass = action.payload.box.classification.targetEntityClass;
       gen = action.payload.gen;
       currentCombination = state[gen].combination;
       
       // Combo hasn't been started, so action.payload.box will start combo
       if (currentCombination === null) {
+        console.log('Starting combo');
         return {
           ...state,
           [gen]: {
             ...state[gen],
             // Change role of box to 'START'
-            ...changeRoleOfBox(state, gen, parentEntityClass, targetEntityClass, action.payload.box, 'START'),
+            ...changeRoleOfBox(state, gen, action.payload.box, 'START'),
             combination: startCombination(action.payload.box),
           },
         };
       }
       // Combo has been started, so end the combo
       else {
-        return {
-          ...state,
-          [gen]: {
-            ...state[gen],
-            // Box no longer has a role
-            ...changeRoleOfBox(state, gen, parentEntityClass, targetEntityClass, action.payload.box, undefined),
-            combination: startCombination(action.payload.box),
-          },
-        };
+        console.log('Ending combo');
+        return endCombo(state);
       }
     
     case 'toggle_in_combo_from_cart':
-      parentEntityClass = action.payload.box.parentEntityClass;
-      targetEntityClass = action.payload.box.targetEntityClass;
+      parentEntityClass = action.payload.box.classification.parentEntityClass;
+      targetEntityClass = action.payload.box.classification.targetEntityClass;
       gen = action.payload.gen;
       currentCombination = state[gen].combination;
 
@@ -642,7 +731,7 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
           [gen]: {
             ...state[gen],
             // Change role of box to action.payload.operation
-            ...changeRoleOfBox(state, gen, parentEntityClass, targetEntityClass, action.payload.box, action.payload.operation),
+            ...changeRoleOfBox(state, gen, action.payload.box, action.payload.operation),
             combination: addBoxToEnd(currentCombination, { ...action.payload.box, roleInCombination: action.payload.operation, }),
           },
         };
@@ -666,7 +755,7 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
           [gen]: {
             ...state[gen],
             // Change role of box to newOperation
-            ...changeRoleOfBox(state, gen, parentEntityClass, targetEntityClass, action.payload.box, newOperation),
+            ...changeRoleOfBox(state, gen, action.payload.box, newOperation),
             combination: newOperation === undefined
               // If newOperation === undefined, we need to remove the box
               ? removeFromCombination(currentCombination, idx)
@@ -677,8 +766,8 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
       }
 
     case 'toggle_combo_role_from_combo':
-      parentEntityClass = action.payload.box.parentEntityClass;
-      targetEntityClass = action.payload.box.targetEntityClass;
+      parentEntityClass = action.payload.box.classification.parentEntityClass;
+      targetEntityClass = action.payload.box.classification.targetEntityClass;
       gen = action.payload.gen;
       currentCombination = state[gen].combination;
 
@@ -697,15 +786,15 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
         [gen]: {
           ...state[gen],
           // Change role of box to newOperation
-          ...changeRoleOfBox(state, gen, parentEntityClass, targetEntityClass, action.payload.box, newOperation),
+          ...changeRoleOfBox(state, gen, action.payload.box, newOperation),
           // Switch operation of Box
           combination: switchOperationOfBox(currentCombination, idx),
         },
       };
 
     case 'remove_from_combo':
-      parentEntityClass = action.payload.box.parentEntityClass;
-      targetEntityClass = action.payload.box.targetEntityClass;
+      parentEntityClass = action.payload.box.classification.parentEntityClass;
+      targetEntityClass = action.payload.box.classification.targetEntityClass;
       gen = action.payload.gen;
       currentCombination = state[gen].combination;
 
@@ -716,15 +805,15 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
         [gen]: {
           ...state[gen],
           // Box no longer has a role
-          ...changeRoleOfBox(state, gen, parentEntityClass, targetEntityClass, action.payload.box, undefined),
+          ...changeRoleOfBox(state, gen, action.payload.box, undefined),
           // Switch operation of Box
           combination: removeFromCombination(currentCombination, idx),
         },
       };
 
     case 'move_box_down_one':
-      parentEntityClass = action.payload.box.parentEntityClass;
-      targetEntityClass = action.payload.box.targetEntityClass;
+      parentEntityClass = action.payload.box.classification.parentEntityClass;
+      targetEntityClass = action.payload.box.classification.targetEntityClass;
       gen = action.payload.gen;
       currentCombination = state[gen].combination;
       idx = findBoxInCombination(state[gen].combination, action.payload.box);
@@ -738,8 +827,8 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
       };
 
     case 'move_box_up_one':
-      parentEntityClass = action.payload.box.parentEntityClass;
-      targetEntityClass = action.payload.box.targetEntityClass;
+      parentEntityClass = action.payload.box.classification.parentEntityClass;
+      targetEntityClass = action.payload.box.classification.targetEntityClass;
       gen = action.payload.gen;
       currentCombination = state[gen].combination;
       idx = findBoxInCombination(state[gen].combination, action.payload.box);
@@ -777,14 +866,7 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
       }
 
     case 'clear_combination':
-      gen = action.payload.gen;
-      return {
-        ...state,
-        [gen]: {
-          ...state[gen],
-          combination: null,
-        }
-      };
+      return endCombo(state);
 
     // #endregion
 

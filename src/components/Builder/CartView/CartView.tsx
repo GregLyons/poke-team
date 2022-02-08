@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import { BGManager, classWithBG, classWithBGShadow } from "../../../hooks/App/BGManager";
-import { Box, BoxInCart, BoxInCombination, Cart, ParentEntityClass, TargetEntityClass } from "../../../hooks/App/Cart";
-import { EntityClass } from "../../../utils/constants";
+import { BoxInCart, BoxInCombination, Cart, } from "../../../hooks/App/Cart";
 import { PokemonIconDispatches, PokemonIconFilters } from "../../App";
 import CartAccordion from "./CartAccordion/CartAccordion";
 import CartTerminal from "./CartTerminal/CartTerminal";
@@ -38,10 +37,16 @@ const CartView = ({
   dispatches,
   filters,
 }: CartViewProps) => {
-  
   const cartAccordionClickHandlers: CartAccordionClickHandlers = useMemo(() => {
     const onComboClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => {
       e.preventDefault();
+      console.log({
+        type: 'toggle_combo_start',
+        payload: {
+          gen: filters.genFilter.gen,
+          box,
+        }
+      });
       dispatches.dispatchCart({
         type: 'toggle_combo_start',
         payload: {
@@ -53,7 +58,7 @@ const CartView = ({
   
     const onAndClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => {
       e.preventDefault();
-      dispatches.dispatchCart({
+      console.log({
         type: 'toggle_in_combo_from_cart',
         payload: {
           gen: filters.genFilter.gen,
@@ -61,10 +66,26 @@ const CartView = ({
           operation: 'AND',
         }
       })
+      dispatches.dispatchCart({
+        type: 'toggle_in_combo_from_cart',
+        payload: {
+          gen: filters.genFilter.gen,
+          box,
+          operation: 'AND',
+        }
+      });
     };
   
     const onOrClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => {
       e.preventDefault();
+      console.log({
+        type: 'toggle_in_combo_from_cart',
+        payload: {
+          gen: filters.genFilter.gen,
+          box,
+          operation: 'OR',
+        }
+      })
       dispatches.dispatchCart({
         type: 'toggle_in_combo_from_cart',
         payload: {

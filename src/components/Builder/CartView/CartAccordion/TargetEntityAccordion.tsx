@@ -29,22 +29,21 @@ const TargetEntityAccordion = ({
     title: JSX.Element
     content: false | JSX.Element
   }[] = useMemo(() => {
-    const targetEntitiesInCart = Object.entries(parentEntityInCart);
-    return targetEntitiesInCart.map(([key, value]) => {
+    const targetEntitiesInCart = Object.entries(parentEntityInCart);return targetEntitiesInCart.map(([targetEntityClass, targetEntityInCart]) => {
       return {
         title: <TargetEntityAccordionTitle
-          titleText={key}
+          titleText={targetEntityClass}
         />,
         content: <BoxAccordion
           cart={cart}
           clickHandlers={clickHandlers}
-          targetEntityInCart={value}
+          targetEntityInCart={targetEntityInCart}
           dispatches={dispatches}
           filters={filters}
         />
       }
-    })
-  }, [cart, parentEntityInCart, dispatches, filters, clickHandlers]);
+    });
+  }, [cart, filters, clickHandlers, dispatches, ]);
 
   return (
     <Accordion

@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { toggleBGPulse } from "../../../../../hooks/App/BGManager";
-import { Box, BoxInCart, Cart } from "../../../../../hooks/App/Cart";
+import { BoxInCart, Cart } from "../../../../../hooks/App/Cart";
 import { GenFilter } from "../../../../../hooks/App/GenFilter";
-import { PokemonIconDispatches, PokemonIconFilters } from "../../../../App";
+import { PokemonIconDispatches, } from "../../../../App";
 import Button from "../../../../Reusables/Button/Button";
 import { CartAccordionClickHandlers, } from "../../CartView";
 
@@ -69,27 +68,30 @@ const BoxAccordionTitle = ({
           title="Start combining this box with other boxes."
           label='COMBO'
 
-          active={}
+          active={box.roleInCombination === 'START'}
           onClick={e => clickHandlers.onComboClick(e, box)}
-          disabled={}
+          // Disabled if combination has started and this box isn't starting it
+          disabled={cart[genFilter.gen].combination !== null && box.roleInCombination !== 'START'}
           immediate={false}
         /> 
         <Button
           title="Combine this box with other boxes using the 'AND' operation."
           label='AND'
 
-          active={mode === 'AND'}
-          onClick={toggleAnd}
-          disabled={cart[genFilter.gen].combination === null || startedCombo}
+          active={box.roleInCombination === 'AND'}
+          onClick={e => clickHandlers.onAndClick(e, box)}
+          // Disabled if combination hasn't started, or if this box is starting the combination
+          disabled={cart[genFilter.gen].combination === null || box.roleInCombination === 'START'}
           immediate={false}
         />
         <Button
           title="Combine this box with other boxes using the 'OR' operation."
           label='OR'
 
-          active={mode === 'OR'}
-          onClick={toggleOr}
-          disabled={cart[genFilter.gen].combination === null || startedCombo}
+          active={box.roleInCombination === 'OR'}
+          onClick={e => clickHandlers.onOrClick(e, box)}
+          // Disabled if combination hasn't started, or if this box is starting the combination
+          disabled={cart[genFilter.gen].combination === null || box.roleInCombination === 'START'}
           immediate={false}
         />
       </div>

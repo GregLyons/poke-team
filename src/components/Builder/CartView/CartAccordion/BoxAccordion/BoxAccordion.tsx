@@ -26,33 +26,31 @@ const BoxAccordion = ({
 
   clickHandlers,
 }: BoxAccordionProps) => {
-
   const accordionData: {
     title: JSX.Element
     content: false | JSX.Element
   }[] = useMemo(() => {
     const boxes = Object.entries(targetEntityInCart);
-    return boxes.map(([key, value]) => {
-
+    return boxes.map(([note, box]) => {
       return {
         title: <BoxAccordionTitle
           cart={cart}
-          box={value}
+          box={box}
           
           clickHandlers={clickHandlers}
           filters={filters}
           dispatches={dispatches}
-          titleText={key}
+          titleText={note}
         />,
         content: <Box
-          box={value}
+          box={box}
           dispatches={dispatches}
           filters={filters}
-          key={key}
+          key={note}
         />
       };
-    })
-  }, [cart, targetEntityInCart, dispatches, filters, clickHandlers]);
+    });
+  }, [cart, filters, clickHandlers, dispatches, ]);
 
   return (
     <Accordion
