@@ -37,20 +37,22 @@ const BoxAccordion = ({
       return {
         title: <BoxAccordionTitle
           cart={cart}
+          box={value}
+          
           clickHandlers={clickHandlers}
           filters={filters}
           dispatches={dispatches}
           titleText={key}
         />,
         content: <Box
-          pokemonIconData={value}
+          box={value}
           dispatches={dispatches}
           filters={filters}
           key={key}
         />
       };
     })
-  }, [cart, targetEntityInCart, dispatches, filters, comboStart, toggleCombo]);
+  }, [cart, targetEntityInCart, dispatches, filters, clickHandlers]);
 
   return (
     <Accordion

@@ -1,9 +1,9 @@
 import { useMemo } from "react";
-import { Cart, ParentEntityInCart } from "../../../../hooks/App/Cart";
+import { Cart, ParentEntityInCart, TargetEntityClass } from "../../../../hooks/App/Cart";
 import { PokemonIconDatum } from "../../../../types-queries/helpers";
 import { PokemonIconDispatches, PokemonIconFilters } from "../../../App";
 import Accordion from "../../../Reusables/Accordion/Accordion";
-import { CartAccordionClickHandlers } from "../CartView";
+import { CartAccordionClickHandlers, } from "../CartView";
 import BoxAccordion from "./BoxAccordion/BoxAccordion";
 import TargetEntityAccordionTitle from "./TargetEntityAccordionTitle";
 

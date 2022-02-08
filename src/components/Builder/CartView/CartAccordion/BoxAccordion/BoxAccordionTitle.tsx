@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { toggleBGPulse } from "../../../../../hooks/App/BGManager";
-import { Box, Cart } from "../../../../../hooks/App/Cart";
+import { Box, BoxInCart, Cart } from "../../../../../hooks/App/Cart";
 import { GenFilter } from "../../../../../hooks/App/GenFilter";
 import { PokemonIconDispatches, PokemonIconFilters } from "../../../../App";
 import Button from "../../../../Reusables/Button/Button";
-import { CartAccordionClickHandlers } from "../../CartView";
+import { CartAccordionClickHandlers, } from "../../CartView";
 
 type BoxAccordionTitleProps = {
   cart: Cart
-  box: Box
+  box: BoxInCart
 
   dispatches: PokemonIconDispatches
   filters: {

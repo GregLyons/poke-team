@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { BGManager, classWithBG, classWithBGShadow } from "../../../hooks/App/BGManager";
-import { Box, BoxInCombination, Cart } from "../../../hooks/App/Cart";
+import { Box, BoxInCart, BoxInCombination, Cart, ParentEntityClass, TargetEntityClass } from "../../../hooks/App/Cart";
+import { EntityClass } from "../../../utils/constants";
 import { PokemonIconDispatches, PokemonIconFilters } from "../../App";
 import CartAccordion from "./CartAccordion/CartAccordion";
 import CartTerminal from "./CartTerminal/CartTerminal";
@@ -14,10 +15,13 @@ type CartViewProps = {
   filters: PokemonIconFilters
 }
 
+// Type definitions for click handlers
+// #region
+
 export type CartAccordionClickHandlers = {
-  onComboClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, box: Box) => void
-  onAndClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, box: Box) => void
-  onOrClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, box: Box) => void
+  onComboClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => void
+  onAndClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => void
+  onOrClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => void
 }
 
 export type CartTerminalClickHandlers = {
@@ -25,6 +29,8 @@ export type CartTerminalClickHandlers = {
   onMoveUpClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, boxInCombination: BoxInCombination) => void
   onMoveDownClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, boxInCombination: BoxInCombination) => void
 }
+
+// #endregion
 
 const CartView = ({
   bgManager,
@@ -34,82 +40,74 @@ const CartView = ({
 }: CartViewProps) => {
   
   const cartAccordionClickHandlers: CartAccordionClickHandlers = useMemo(() => {
-    // Clicks in the CartAccordion
-    // #region
-
-    const onComboClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: Box) => {
+    const onComboClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => {
+      e.preventDefault();
       dispatches.dispatchCart({
         type: 'toggle_combo_start',
         payload: {
           gen: filters.genFilter.gen,
-          box: box,
+          box,
         }
       });
     };
   
-    const onAndClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: Box) => {
+    const onAndClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => {
+      e.preventDefault();
       dispatches.dispatchCart({
-        type: 'toggle_in_combo',
+        type: 'toggle_in_combo_from_cart',
         payload: {
           gen: filters.genFilter.gen,
-          boxWithOperation: {
-            operation: 'AND',
-            box,
-          }
+          box,
+          operation: 'AND',
         }
       })
     };
   
-    const onOrClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: Box) => {
+    const onOrClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => {
+      e.preventDefault();
       dispatches.dispatchCart({
-        type: 'toggle_in_combo',
+        type: 'toggle_in_combo_from_cart',
         payload: {
           gen: filters.genFilter.gen,
-          boxWithOperation: {
-            operation: 'OR',
-            box,
-          }
+          box,
+          operation: 'OR',
         }
       })
     };
-
-    // #endregion
 
     return { onComboClick, onAndClick, onOrClick, };
   }, [dispatches]);
 
   const cartTerminalClickHandlers: CartTerminalClickHandlers = useMemo(() => {
-    const onToggleOperationClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, boxInCombination: BoxInCombination) => {
+    const onToggleOperationClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCombination) => {
+      e.preventDefault();
       dispatches.dispatchCart({
-        type: 'toggle_in_combo',
+        type: 'toggle_combo_role_from_combo',
         payload: {
           gen: filters.genFilter.gen,
-          boxWithOperation: {
-            operation: boxInCombination.operation === 'AND'
-              ? 'OR' 
-              : 'AND',
-            box: boxInCombination.box,
-          }
-        }
-      })
-    };
-  
-    const onMoveUpClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, boxInCombination: BoxInCombination) => {
-      dispatches.dispatchCart({
-        type: 'move_box_up_one',
-        payload: {
-          gen: filters.genFilter.gen,
-          boxInCombination,
+          box,
         }
       });
     };
   
-    const onMoveDownClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, boxInCombination: BoxInCombination) => {
+    const onMoveUpClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCombination) => {
+      e.preventDefault();
+      dispatches.dispatchCart({
+        type: 'move_box_up_one',
+        payload: {
+          gen: filters.genFilter.gen,
+          box,
+        }
+      });
+    };
+  
+    const onMoveDownClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCombination) => {
+      e.preventDefault();
       dispatches.dispatchCart({
         type: 'move_box_down_one',
         payload: {
           gen: filters.genFilter.gen,
-          boxInCombination,
+          box,
         }
       });
     };
