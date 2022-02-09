@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
+import { Key, useMemo, useState } from "react";
 import { BGManager, classWithBG, classWithBGShadow } from "../../../hooks/App/BGManager";
-import { BoxInCart, BoxInCombination, Cart, StartBox, } from "../../../hooks/App/Cart";
+import { BoxInCart, BoxInCombination, Cart, CartInGen, ParentEntityClass, StartBox, TargetEntityClass, } from "../../../hooks/App/Cart";
 import { PokemonIconDispatches, PokemonIconFilters } from "../../App";
 import CartAccordion from "./CartAccordion/CartAccordion";
 import CartTerminal from "./CartTerminal/CartTerminal";

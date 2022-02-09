@@ -4,28 +4,30 @@ import AccordionItem from "./AccordionItem";
 import './Accordion.css';
 
 type AccordionProps = {
-  entireTitleClickable?: boolean
+  optionsInTitle?: boolean
   accordionContext: string
   accordionData: {
     title: JSX.Element
     content: false | JSX.Element
   }[]
-  initialActiveElements?: boolean[]
-  initialOpenedElements?: boolean[]
 }
 
 const Accordion = ({
-  entireTitleClickable = true,
+  optionsInTitle = false,
   accordionContext,
   accordionData,
-  initialActiveElements = accordionData.map(() => false),
-  initialOpenedElements = accordionData.map(() => false),
 }: AccordionProps) => {
   // Boolean array for which elements are currently open
-  const [activeElements, setActiveElements] = useState(initialActiveElements);
+  const [activeElements, setActiveElements] = useState(accordionData.map(() => false));
 
   // Element has been opened, so there's no need to re-render it since we have already loaded its contents
-  const [openedElements, setOpenedElements] = useState(initialOpenedElements);
+  const [openedElements, setOpenedElements] = useState(accordionData.map(() => false));
+
+  // New elements may be added or removed from accordionData. In this case, close all elements and resive activeElements/openedElements.
+  useEffect(() => {
+    if (activeElements.length !== accordionData.length) setActiveElements(accordionData.map(() => false));
+    if (openedElements.length !== accordionData.length) setOpenedElements(accordionData.map(() => false));
+  }, [accordionData]);
 
   // When accordion has one item, open that item if it hasn't been opened before.
   useEffect(() => {
@@ -41,15 +43,13 @@ const Accordion = ({
   }, [accordionData, setActiveElements, setOpenedElements, openedElements]);
 
   // Clicking on title element toggles whether the accordion item is active, and sets the item to 'opened'
-  const handleClick = (newIdx: number) => {
+  const handleOpenClick = (newIdx: number) => {
     // Toggle 'active' state for clicked element
     setActiveElements(activeElements.map((d, idx) => {
       // Toggle element
       if (idx === newIdx) return !d;
       else return d;
     }));
-
-    console.log(activeElements);
     
     // Turn on 'opened' state for clicked element
     setOpenedElements(openedElements.map((d, idx) => {
@@ -62,11 +62,11 @@ const Accordion = ({
     <div className="accordion">
       {accordionData.map(({title, content}, idx) => (
         content && <AccordionItem
-          entireTitleClickable={entireTitleClickable}
+          optionsInTitle={optionsInTitle}
           title={title}
           content={content}
           
-          handleClick={handleClick}
+          handleOpenClick={handleOpenClick}
           active={activeElements[idx]}
           opened={openedElements[idx]}
           idx={idx}

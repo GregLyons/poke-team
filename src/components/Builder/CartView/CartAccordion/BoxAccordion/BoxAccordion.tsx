@@ -31,7 +31,6 @@ const BoxAccordion = ({
     content: false | JSX.Element
   }[] = useMemo(() => {
     const boxes = Object.entries(targetEntityInCart);
-    console.log(boxes);
     return boxes.map(([note, box]) => {
       return {
         title: <BoxAccordionTitle
@@ -55,7 +54,7 @@ const BoxAccordion = ({
 
   return (
     <Accordion
-      entireTitleClickable={false}
+      optionsInTitle={true}
       accordionContext="boxes"
       accordionData={accordionData}
     />  

@@ -7,11 +7,11 @@ type AccordionItemProps = {
 
   active: boolean
   opened: boolean
-  handleClick: (newIdx: number) => void
+  handleOpenClick: (newIdx: number) => void
   idx: number
 
   accordionContext: string
-  entireTitleClickable: boolean
+  optionsInTitle: boolean
 }
 
 const AccordionItem = ({
@@ -20,11 +20,11 @@ const AccordionItem = ({
   
   active,
   opened,
-  handleClick,
+  handleOpenClick,
   idx,
   
   accordionContext,
-  entireTitleClickable,
+  optionsInTitle,
 }: AccordionItemProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -34,13 +34,13 @@ const AccordionItem = ({
         className={`
           accordion__title-wrapper 
           ${accordionContext}-accordion__title-wrapper
-          ${entireTitleClickable
+          ${!optionsInTitle
             ? 'accordion__title-wrapper--clickable'
             : ''}
         `}
         onClick={(e) => {
           e.preventDefault();
-          if (entireTitleClickable) handleClick(idx);
+          if (!optionsInTitle) handleOpenClick(idx);
         }}
       >
         <div className={`accordion__title-element-wrapper ${accordionContext}-accordion__title-element-wrapper`}>
@@ -50,13 +50,13 @@ const AccordionItem = ({
           className={`
             accordion__title-trigger-wrapper
             ${accordionContext}-accordion__title-trigger-wrapper
-            ${!entireTitleClickable
+            ${optionsInTitle
               ? 'accordion__title-trigger-wrapper--clickable'
               : ''}
           `}
           onClick={(e) => {
             e.preventDefault();
-            if (!entireTitleClickable) handleClick(idx);
+            if (optionsInTitle) handleOpenClick(idx);
           }}
         >
           {active 

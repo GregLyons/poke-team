@@ -719,7 +719,6 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
     // #region
 
     case 'toggle_combo_start':
-      console.log(action.payload);
       parentEntityClass = action.payload.box.classification.parentEntityClass;
       targetEntityClass = action.payload.box.classification.targetEntityClass;
       gen = action.payload.gen;
@@ -727,7 +726,6 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
 
       // Combo hasn't been started, so action.payload.box will start combo
       if (currentCombination === null) {
-        console.log(changeRoleOfBox(state, gen, action.payload.box, 'START'));
         return {
           ...state,
           [gen]: {

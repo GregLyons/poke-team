@@ -6,7 +6,7 @@ import TargetEntityAccordion from "./TargetEntityAccordion";
 
 import './CartAccordion.css';
 import { CartAccordionClickHandlers } from "../CartView";
-import { Key, useMemo } from "react";
+import { Key, useMemo, useState } from "react";
 import BoxAccordion from "./BoxAccordion/BoxAccordion";
 
 type CartAccordionProps = {
