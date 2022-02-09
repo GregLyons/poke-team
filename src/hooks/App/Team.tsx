@@ -61,7 +61,6 @@ export function teamReducer(state: Team, action: TeamAction): Team {
   switch(action.type) {
     // If action.payload is null or the same as state.loadedPokemon, turn replace mode off and remove state.loadedPokemon; otherwise, turn or keep replace mode on and overwrite state.loadedPokemon with action.payload.
     case 'toggle_replace_mode':
-      console.log(state);
       return {
         ...state,
         mode: action.payload === null || action.payload?.psID === state.loadedPokemon?.psID

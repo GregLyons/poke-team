@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { BGManager, classWithBG, classWithBGShadow } from "../../../hooks/App/BGManager";
-import { BoxInCart, BoxInCombination, Cart, } from "../../../hooks/App/Cart";
+import { BoxInCart, BoxInCombination, Cart, StartBox, } from "../../../hooks/App/Cart";
 import { PokemonIconDispatches, PokemonIconFilters } from "../../App";
 import CartAccordion from "./CartAccordion/CartAccordion";
 import CartTerminal from "./CartTerminal/CartTerminal";
@@ -26,7 +26,7 @@ export type CartAccordionClickHandlers = {
 export type CartTerminalClickHandlers = {
   onToggleOperationClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, boxInCombination: BoxInCombination) => void
   onMoveUpClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, boxInCombination: BoxInCombination) => void
-  onMoveDownClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, boxInCombination: BoxInCombination) => void
+  onMoveDownClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, boxInCombination: BoxInCombination | StartBox) => void
 }
 
 // #endregion
@@ -40,13 +40,6 @@ const CartView = ({
   const cartAccordionClickHandlers: CartAccordionClickHandlers = useMemo(() => {
     const onComboClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => {
       e.preventDefault();
-      console.log({
-        type: 'toggle_combo_start',
-        payload: {
-          gen: filters.genFilter.gen,
-          box,
-        }
-      });
       dispatches.dispatchCart({
         type: 'toggle_combo_start',
         payload: {
@@ -58,14 +51,6 @@ const CartView = ({
   
     const onAndClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => {
       e.preventDefault();
-      console.log({
-        type: 'toggle_in_combo_from_cart',
-        payload: {
-          gen: filters.genFilter.gen,
-          box,
-          operation: 'AND',
-        }
-      })
       dispatches.dispatchCart({
         type: 'toggle_in_combo_from_cart',
         payload: {
@@ -78,14 +63,6 @@ const CartView = ({
   
     const onOrClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => {
       e.preventDefault();
-      console.log({
-        type: 'toggle_in_combo_from_cart',
-        payload: {
-          gen: filters.genFilter.gen,
-          box,
-          operation: 'OR',
-        }
-      })
       dispatches.dispatchCart({
         type: 'toggle_in_combo_from_cart',
         payload: {
@@ -122,7 +99,7 @@ const CartView = ({
       });
     };
   
-    const onMoveDownClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCombination) => {
+    const onMoveDownClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: StartBox | BoxInCombination) => {
       e.preventDefault();
       dispatches.dispatchCart({
         type: 'move_box_down_one',

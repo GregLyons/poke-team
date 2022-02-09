@@ -208,7 +208,7 @@ const executeCombination: (combination: Combination) => BoxInCart | null = combi
 /*
   If box's note is the same as one of the boxes in the combination, return the index, or -1 if it's the start; return -2 otherwise.
 */
-export const findBoxInCombination: (combination: Combination, box: BoxInCombination | BoxInCart) => number = (combination, box) => {
+export const findBoxInCombination: (combination: Combination, box: StartBox | BoxInCombination | BoxInCart) => number = (combination, box) => {
   if (combination === null) return -2;
 
   const [start, rest] = combination;
@@ -276,11 +276,7 @@ const removeFromCombination: (combination: Combination, idx: number) => Combinat
   }
   // Removing middle box
   else {
-    const newStart: StartBox = {
-      ...combination[1][0],
-      roleInCombination: 'START',
-    }
-    return [newStart, combination[1].slice(0, idx).concat(combination[1].slice(idx + 1))];
+    return [combination[0], combination[1].slice(0, idx).concat(combination[1].slice(idx + 1))];
   }
 }
 
@@ -363,7 +359,8 @@ const switchOperationOfBox: (combination: Combination, idx: number) => Combinati
         ...rest[idx],
         roleInCombination: 'AND',
       };
-  return [start, [...rest.slice(idx), newBox, ...rest.slice(idx + 1)]];
+
+  return [start, [...rest.slice(0, idx), newBox, ...rest.slice(idx + 1)]];
 }
 
 // #endregion
@@ -432,14 +429,7 @@ export type CartAction =
     type: 'toggle_combo_role_from_combo',
     payload: {
       gen: GenerationNum,
-      box: BoxInCombination
-    },
-  }
-| {
-    type: 'remove_from_combo',
-    payload: {
-      gen: GenerationNum,
-      box: BoxInCombination
+      box: BoxInCombination | StartBox
     },
   }
 | {
@@ -460,7 +450,7 @@ export type CartAction =
     type: 'move_box_down_one',
     payload: {
       gen: GenerationNum,
-      box: BoxInCombination
+      box: BoxInCombination | StartBox
     }
   }
 | {
@@ -515,6 +505,9 @@ const setRoleToUndefinedCartInGen: (cartInGen: CartInGen) => void = cartInGen =>
   Object.entries(cartInGen.pokemon).map(([key, value]) => {
     setRoleToUndefinedParent(value);
   });
+  Object.entries(cartInGen.customBoxes).map(([key, value]) => {
+    value.roleInCombination = undefined;
+  });
   cartInGen.combination = null;
 }
 
@@ -531,7 +524,8 @@ const setRoleToUndefinedTarget: (targetEntityInCart: TargetEntityInCart) => void
 };
 
 const endCombo: (state: Cart) => Cart = (state) => {
-  let newState = state;
+  // A shallow copy suffices since we only wish to change roleInCombination
+  let newState = {...state};
 
   // Set role to undefined 
   Object.entries(newState).map(([key, value]) => {
@@ -541,8 +535,10 @@ const endCombo: (state: Cart) => Cart = (state) => {
   return newState;
 };
 
-const changeRoleOfBox: (state: Cart, gen: GenerationNum, box: BoxInCart | BoxInCombination, newRole: CombinationRole) => RoleChangePlanner = (state, gen, box, newRole) => {
-  const [parentEntityClass, targetEntityClass]: [ParentEntityClass | 'Custom', TargetEntityClass | null] = [box.classification.parentEntityClass, box.classification.targetEntityClass]
+// WARNING: DOES NOT WORK WHEN USED TWICE IN THE SAME OBJECT UNPACKING, AS THE RESULTS CAN OVERWRITE EACH OTHER
+const changeRoleOfBox: (state: Cart, gen: GenerationNum, box: BoxInCart | BoxInCombination | StartBox, newRole: CombinationRole) => RoleChangePlanner = (state, gen, box, newRole) => {
+  const [parentEntityClass, targetEntityClass]: [ParentEntityClass | 'Custom', TargetEntityClass | null] = [box.classification.parentEntityClass, box.classification.targetEntityClass];
+
 
   // box is a box from the planner
   if (parentEntityClass !== 'Custom' && targetEntityClass !== null) {
@@ -696,10 +692,9 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
       targetEntityClass = action.payload.box.classification.targetEntityClass;
       gen = action.payload.gen;
       currentCombination = state[gen].combination;
-      
+
       // Combo hasn't been started, so action.payload.box will start combo
       if (currentCombination === null) {
-        console.log('Starting combo');
         return {
           ...state,
           [gen]: {
@@ -712,7 +707,6 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
       }
       // Combo has been started, so end the combo
       else {
-        console.log('Ending combo');
         return endCombo(state);
       }
     
@@ -744,11 +738,11 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
       else {
         const currentOperation = currentCombination[1][idx].roleInCombination;
 
-        const newOperation = action.payload.box.roleInCombination === currentOperation 
+        const newOperation = action.payload.operation === currentOperation 
           // If new operation is same as current, then remove box from combination
           ? undefined
           // Else, newOperation is opposite of currentOperation
-          : action.payload.box.roleInCombination;
+          : action.payload.operation;
 
         return {
           ...state,
@@ -775,6 +769,7 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
       if (currentCombination === null) return state;
 
       idx = findBoxInCombination(currentCombination, action.payload.box);
+      console.log(idx);
 
       const currentOperation = currentCombination[1][idx].roleInCombination;
       const newOperation = currentOperation === 'AND'
@@ -817,14 +812,50 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
       gen = action.payload.gen;
       currentCombination = state[gen].combination;
       idx = findBoxInCombination(state[gen].combination, action.payload.box);
+      
+      // Shouldn't happen, but for type safety
+      if (!currentCombination) return state;
 
-      return {
-        ...state,
-        [gen]: {
-          ...state[gen],
-          combination: moveBoxDownOne(state[gen].combination, idx),
-        },
-      };
+      // No other items; shouldn't happen
+      if (currentCombination[1].length === 0) return state;
+
+      // Indicates payload is start, so need to do role changing
+      if (idx === -1) {
+        const stateWithCombinationChanged = {
+          ...state,
+          [gen]: {
+            ...state[gen],
+            combination: moveBoxDownOne(state[gen].combination, idx),
+          }
+        };
+
+        const stateWithStartRoleChanged = {
+          ...stateWithCombinationChanged,
+          [gen]: {
+            ...stateWithCombinationChanged[gen],
+            ...changeRoleOfBox(stateWithCombinationChanged, gen, action.payload.box, currentCombination[1][0].roleInCombination),
+          }
+        };
+
+        return {
+          ...stateWithStartRoleChanged,
+          [gen]: {
+            ...stateWithStartRoleChanged[gen],
+            ...changeRoleOfBox(stateWithStartRoleChanged, gen, currentCombination[1][0], 'START'),
+          }
+        }
+      }
+
+      // No need for role changing
+      else {
+        return {
+          ...state,
+          [gen]: {
+            ...state[gen],
+            combination: moveBoxDownOne(state[gen].combination, idx),
+          },
+        };
+      }
 
     case 'move_box_up_one':
       parentEntityClass = action.payload.box.classification.parentEntityClass;
@@ -832,14 +863,47 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
       gen = action.payload.gen;
       currentCombination = state[gen].combination;
       idx = findBoxInCombination(state[gen].combination, action.payload.box);
+      
+      // Shouldn't happen, but for type safety
+      if (!currentCombination) return state;
 
-      return {
-        ...state,
-        [gen]: {
-          ...state[gen],
-          combination: moveBoxUpOne(state[gen].combination, idx),
-        },
-      };
+      // Indicates payload is next to start, so need to change roles
+      if (idx === 0) {
+        const stateWithCombinationChanged = {
+          ...state,
+          [gen]: {
+            ...state[gen],
+            combination: moveBoxUpOne(state[gen].combination, idx),
+          }
+        };
+
+        const stateWithStartRoleChanged = {
+          ...stateWithCombinationChanged,
+          [gen]: {
+            ...stateWithCombinationChanged[gen],
+            ...changeRoleOfBox(stateWithCombinationChanged, gen, action.payload.box, 'START'),
+          }
+        }
+
+        return {
+          ...stateWithStartRoleChanged,
+          [gen]: {
+            ...stateWithStartRoleChanged[gen],
+            ...changeRoleOfBox(stateWithStartRoleChanged, gen, currentCombination[0], action.payload.box.roleInCombination),
+          }
+        }
+      }
+      
+      // No need for role changing
+      else {
+        return {
+          ...state,
+          [gen]: {
+            ...state[gen],
+            combination: moveBoxUpOne(state[gen].combination, idx),
+          },
+        };
+      }
 
     case 'execute_combination':
       gen = action.payload.gen;
