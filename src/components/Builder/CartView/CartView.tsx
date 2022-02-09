@@ -27,6 +27,7 @@ export type CartTerminalClickHandlers = {
   onToggleOperationClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, boxInCombination: BoxInCombination) => void
   onMoveUpClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, boxInCombination: BoxInCombination) => void
   onMoveDownClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, boxInCombination: BoxInCombination | StartBox) => void
+  onRemoveClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, boxInCombination: BoxInCombination | StartBox) => void
 }
 
 // #endregion
@@ -110,7 +111,18 @@ const CartView = ({
       });
     };
 
-    return { onToggleOperationClick, onMoveUpClick, onMoveDownClick, };
+    const onRemoveClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: StartBox | BoxInCombination) => {
+      e.preventDefault();
+      dispatches.dispatchCart({
+        type: 'remove_from_combo',
+        payload: {
+          gen: filters.genFilter.gen,
+          box,
+        }
+      })
+    };
+
+    return { onToggleOperationClick, onMoveUpClick, onMoveDownClick, onRemoveClick };
   }, [dispatches]);
 
   return (

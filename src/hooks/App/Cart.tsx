@@ -87,6 +87,7 @@ export type CartInGen = {
     [note: string]: BoxInCart
   }
   combination: Combination
+  zeroCombinationResult: boolean
 }
 
 export type Cart = {
@@ -98,6 +99,7 @@ const EMPTY_CART_IN_GEN = {
   items: {},
   customBoxes: {},
   combination: null,
+  zeroCombinationResult: false,
 }
 
 export const DEFAULT_CART: Cart = {
@@ -256,7 +258,7 @@ const removeFromCombination: (combination: Combination, idx: number) => Combinat
   
   // Out of bounds
   if (idx < -1 || idx >= combination[1].length) {
-    throw new Error('Index out of bounds!');
+    throw new RangeError('Index out of bounds!');
   }
 
   // Removing start
@@ -294,7 +296,7 @@ const moveBoxUpOne: (combination: Combination, idx: number) => Combination = (co
   
   // Out of bounds
   if (idx < 0 || idx >= combination[1].length) {
-    throw new Error('Index out of bounds!');
+    throw new RangeError('Index out of bounds!');
   }
 
   // We must perform a swap now
@@ -323,7 +325,7 @@ const moveBoxDownOne: (combination: Combination, idx: number) => Combination = (
   
   // Out of bounds
   if (idx < -1 || idx >= combination[1].length - 1) {
-    throw new Error('Index out of bounds!');
+    throw new RangeError('Index out of bounds!');
   }
 
   // We must perform a swap now
@@ -347,7 +349,7 @@ const moveBoxDownOne: (combination: Combination, idx: number) => Combination = (
 const switchOperationOfBox: (combination: Combination, idx: number) => Combination = (combination, idx) => {
   if (combination === null) return null;
   if (idx < 0 || idx >= combination[1].length) {
-    throw new Error('Index out of bounds!');
+    throw new RangeError('Index out of bounds!');
   }
   const [start, rest] = combination;
   const newBox: BoxInCombination = rest[idx].roleInCombination === 'AND'
@@ -436,7 +438,7 @@ export type CartAction =
     type: 'remove_from_combo',
     payload: {
       gen: GenerationNum,
-      box: BoxInCombination
+      box: StartBox | BoxInCombination
     },
   }
 | {
@@ -509,6 +511,7 @@ const setRoleToUndefinedCartInGen: (cartInGen: CartInGen) => void = cartInGen =>
     value.roleInCombination = undefined;
   });
   cartInGen.combination = null;
+  cartInGen.zeroCombinationResult = false;
 }
 
 const setRoleToUndefinedParent: (parentEntityInCart: ParentEntityInCart) => void = parentEntityInCart => {
@@ -607,7 +610,7 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
   let idx: number;
   let parentEntityClass: ParentEntityClass | 'Custom';
   let targetEntityClass: TargetEntityClass | null;
-
+  try {
   switch(action.type) {
     // Adding to/removing from cart; these operations stop combinations
     // #region
@@ -644,7 +647,8 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
               }
             }
           },
-          combination: null
+          combination: null,
+          zeroCombinationResult: false,
         }
       }
 
@@ -671,10 +675,12 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
               }
             }
           },
-          combination: null
+          combination: null,
+          zeroCombinationResult: false,
         }
       }
 
+    // TODO
     case 'delete':
       parentEntityClass = action.payload.parentEntityClass;
       targetEntityClass = action.payload.targetEntityClass;
@@ -702,6 +708,7 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
             // Change role of box to 'START'
             ...changeRoleOfBox(state, gen, action.payload.box, 'START'),
             combination: startCombination(action.payload.box),
+            zeroCombinationResult: false,
           },
         };
       }
@@ -727,6 +734,7 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
             // Change role of box to action.payload.operation
             ...changeRoleOfBox(state, gen, action.payload.box, action.payload.operation),
             combination: addBoxToEnd(currentCombination, { ...action.payload.box, roleInCombination: action.payload.operation, }),
+            zeroCombinationResult: false,
           },
         };
       }
@@ -755,6 +763,7 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
               ? removeFromCombination(currentCombination, idx)
               // Otherwise, we toggle its operation
               : switchOperationOfBox(currentCombination, idx),
+            zeroCombinationResult: false,
           },
         };
       }
@@ -769,7 +778,6 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
       if (currentCombination === null) return state;
 
       idx = findBoxInCombination(currentCombination, action.payload.box);
-      console.log(idx);
 
       const currentOperation = currentCombination[1][idx].roleInCombination;
       const newOperation = currentOperation === 'AND'
@@ -784,6 +792,7 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
           ...changeRoleOfBox(state, gen, action.payload.box, newOperation),
           // Switch operation of Box
           combination: switchOperationOfBox(currentCombination, idx),
+          zeroCombinationResult: false,
         },
       };
 
@@ -795,7 +804,7 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
 
       idx = findBoxInCombination(currentCombination, action.payload.box);
 
-      return {
+      const stateWithBoxRemoved = {
         ...state,
         [gen]: {
           ...state[gen],
@@ -803,8 +812,27 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
           ...changeRoleOfBox(state, gen, action.payload.box, undefined),
           // Switch operation of Box
           combination: removeFromCombination(currentCombination, idx),
+          zeroCombinationResult: false,
         },
       };
+
+      // Start box was removed, so need to use changeRoleOfBox
+      if (idx === -1) {
+        const newStart = stateWithBoxRemoved[gen].combination?.[0];
+        // Combo was ended, so do nothing more
+        if (!newStart) return endCombo(stateWithBoxRemoved);
+
+        // Combo is still going,
+        return {
+          ...stateWithBoxRemoved,
+          [gen]: {
+            ...stateWithBoxRemoved[gen],
+            // Assign new start
+            ...changeRoleOfBox(stateWithBoxRemoved, gen, newStart, 'START'),
+          },
+        }
+      }
+      else return stateWithBoxRemoved;
 
     case 'move_box_down_one':
       parentEntityClass = action.payload.box.classification.parentEntityClass;
@@ -842,6 +870,7 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
           [gen]: {
             ...stateWithStartRoleChanged[gen],
             ...changeRoleOfBox(stateWithStartRoleChanged, gen, currentCombination[1][0], 'START'),
+            zeroCombinationResult: false,
           }
         }
       }
@@ -853,6 +882,7 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
           [gen]: {
             ...state[gen],
             combination: moveBoxDownOne(state[gen].combination, idx),
+            zeroCombinationResult: false,
           },
         };
       }
@@ -890,6 +920,7 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
           [gen]: {
             ...stateWithStartRoleChanged[gen],
             ...changeRoleOfBox(stateWithStartRoleChanged, gen, currentCombination[0], action.payload.box.roleInCombination),
+            zeroCombinationResult: false,
           }
         }
       }
@@ -914,20 +945,24 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
         ...state,
         [gen]: {
           ...state[gen],
-          combination: null,
+          zeroCombinationResult: true,
         }
-      }
-      else return {
+      };
+      
+      // Insert newBox
+      const stateWithNewBox = {
         ...state,
         [gen]: {
           ...state[gen],
-          combination: null,
           customBoxes: {
             ...state[gen].customBoxes,
-            [newBox.note]: newBox.pokemon,
+            [newBox.note]: newBox,
           },
         },
-      }
+      };
+
+      // Clean-up combination and roles
+      return endCombo(stateWithNewBox);
 
     case 'clear_combination':
       return endCombo(state);
@@ -936,6 +971,13 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
 
     default:
       throw new Error();
+    }
+  }
+  catch (e) {
+    console.log(e);
+    // Index out of bounds
+    if (e instanceof RangeError) return state;
+    else throw new Error();
   }
 }
 
