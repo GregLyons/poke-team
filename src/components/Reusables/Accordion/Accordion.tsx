@@ -10,18 +10,22 @@ type AccordionProps = {
     title: JSX.Element
     content: false | JSX.Element
   }[]
+  initialActiveElements?: boolean[]
+  initialOpenedElements?: boolean[]
 }
 
 const Accordion = ({
   entireTitleClickable = true,
   accordionContext,
   accordionData,
+  initialActiveElements = accordionData.map(() => false),
+  initialOpenedElements = accordionData.map(() => false),
 }: AccordionProps) => {
   // Boolean array for which elements are currently open
-  const [activeElements, setActiveElements] = useState(accordionData.map(() => false));
+  const [activeElements, setActiveElements] = useState(initialActiveElements);
 
   // Element has been opened, so there's no need to re-render it since we have already loaded its contents
-  const [openedElements, setOpenedElements] = useState(accordionData.map(() => false));
+  const [openedElements, setOpenedElements] = useState(initialOpenedElements);
 
   // When accordion has one item, open that item if it hasn't been opened before.
   useEffect(() => {
@@ -44,6 +48,8 @@ const Accordion = ({
       if (idx === newIdx) return !d;
       else return d;
     }));
+
+    console.log(activeElements);
     
     // Turn on 'opened' state for clicked element
     setOpenedElements(openedElements.map((d, idx) => {

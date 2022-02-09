@@ -12,6 +12,7 @@ type PlannerPokemonIconsProps = {
   context: 'search' | 'accordion'
   key: string
   selection: Selection
+  expand: boolean
   dispatchSelection: React.Dispatch<SelectionAction>
   toggleSelection: (psID: string) => void
   icons: EntryIconData
@@ -27,6 +28,7 @@ const PlannerPokemonIcons = ({
   key,
   expandListeners,
   selection,
+  expand,
   dispatchSelection,
   toggleSelection,
   icons,
@@ -57,6 +59,10 @@ const PlannerPokemonIcons = ({
       <br />
       <div 
         onMouseEnter={expandListeners.onMouseEnter}
+        onMouseLeave={() => {
+          // If haven't expanded yet, then leaving will prevent the expand
+          if (!expand) expandListeners.onMouseLeave();
+        }}
         className={`planner__pokemon-icons-background`}
       >
         {icons.pokemonIconData.map(pokemonIconDatum => {

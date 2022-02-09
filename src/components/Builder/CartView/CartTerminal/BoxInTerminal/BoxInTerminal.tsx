@@ -1,19 +1,27 @@
-import { BoxInCombination, StartBox } from "../../../../hooks/App/Cart";
-import { CartTerminalClickHandlers } from "../CartView";
+import { BoxInCombination, } from "../../../../../hooks/App/Cart";
+import { CartTerminalClickHandlers } from "../../CartView";
 
 type BoxInTerminalProps = {
   box: BoxInCombination
   clickHandlers: CartTerminalClickHandlers
+  breaking: boolean
   last: boolean
 }
 
 const BoxInTerminal = ({
   box,
   clickHandlers,
+  breaking,
   last,
 }: BoxInTerminalProps) => {
   return (
-    <div className="cart-view-terminal__box-wrapper">
+    <div className={`
+      cart-view-terminal__box-wrapper
+      ${breaking 
+        ? 'cart-view-terminal__box-wrapper--breaking'
+        : ''
+      }
+    `}>
       <div className={`
         cart-view-terminal__box-role--${box.roleInCombination === 'AND' ? 'and' : 'or'}
         cart-view-terminal__box-role-toggleable

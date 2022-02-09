@@ -125,6 +125,10 @@ const ConnectionAccordionEntry = ({
 
       <div 
         onMouseEnter={expandListeners.onMouseEnter}
+        onMouseLeave={() => {
+          // If haven't expanded yet, then leaving will prevent the expand
+          if (!expand) expandListeners.onMouseLeave();
+        }}
         className="planner-accordion__entry-data"
       >
         {data && data.map(({key, title, value}) => (
@@ -144,6 +148,10 @@ const ConnectionAccordionEntry = ({
 
       <div
         onMouseEnter={expandListeners.onMouseEnter}
+        onMouseLeave={() => {
+          // If haven't expanded yet, then leaving will prevent the expand
+          if (!expand) expandListeners.onMouseLeave();
+        }}
         className="planner-accordion__entry-description"
       >
         {description}
@@ -153,6 +161,7 @@ const ConnectionAccordionEntry = ({
         context="accordion" 
         key={key}
         expandListeners={expandListeners}
+        expand={expand}
         selection={selection}
         dispatchSelection={dispatchSelection}
         toggleSelection={toggleSelection}

@@ -6,7 +6,8 @@ import TargetEntityAccordion from "./TargetEntityAccordion";
 
 import './CartAccordion.css';
 import { CartAccordionClickHandlers } from "../CartView";
-import { useMemo } from "react";
+import { Key, useMemo } from "react";
+import BoxAccordion from "./BoxAccordion/BoxAccordion";
 
 type CartAccordionProps = {
   cart: Cart
@@ -19,14 +20,15 @@ const CartAccordion = ({
   cart,
   dispatches,
   filters,
-  clickHandlers,
+  clickHandlers
 }: CartAccordionProps) => {
   const accordionData: {
     title: JSX.Element
     content: false | JSX.Element
   }[] = useMemo(() => {
     const parentEntitiesInCart = Object.entries(cart[filters.genFilter.gen].pokemon);
-    return parentEntitiesInCart.map(([parentEntityClass, value]) => {
+
+    const parentEntityData = parentEntitiesInCart.map(([parentEntityClass, value]) => {
       return {
         title: <ParentEntityAccordionTitle 
           titleText={parentEntityClass}
@@ -40,6 +42,21 @@ const CartAccordion = ({
         />
       }
     });
+
+    const customBoxAccordionData = {
+      title: <ParentEntityAccordionTitle
+        titleText={'Custom'}
+      />,
+      content: <BoxAccordion
+        cart={cart}
+        targetEntityInCart={cart[filters.genFilter.gen].customBoxes}
+        dispatches={dispatches}
+        filters={filters}
+        clickHandlers={clickHandlers}
+      />
+    };
+
+    return [...parentEntityData, customBoxAccordionData];
   }, [cart, filters, clickHandlers, dispatches, ]);
 
   return (

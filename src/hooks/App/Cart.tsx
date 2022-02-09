@@ -87,7 +87,7 @@ export type CartInGen = {
     [note: string]: BoxInCart
   }
   combination: Combination
-  zeroCombinationResult: boolean
+  zeroCombinationResult: false | BoxInCombination[]
 }
 
 export type Cart = {
@@ -99,7 +99,7 @@ const EMPTY_CART_IN_GEN = {
   items: {},
   customBoxes: {},
   combination: null,
-  zeroCombinationResult: false,
+  zeroCombinationResult: (false as false),
 }
 
 export const DEFAULT_CART: Cart = {
@@ -174,12 +174,21 @@ const combineTwoBoxes = (box1: StartBox, box2: BoxInCombination): StartBox => {
   Returns null if combination leads to empty set of Pokemon.
   Otherwise, returns resulting box from executing the combination.
 */ 
-const executeCombination: (combination: Combination) => BoxInCart | null = combination => {
+const executeCombination: (combination: Combination) => 
+    { zeroResult: false, combinedBoxes: BoxInCart } 
+  | { zeroResult: true, breakingBoxes: BoxInCombination[] } 
+  | null 
+= combination => {
   if (combination === null) return null;
   const [start, rest] = combination;
+  let breakingBoxes: BoxInCombination[] = [];
 
   const result: StartBox = rest.reduce((acc: StartBox, curr: BoxInCombination) => {
-    return combineTwoBoxes(acc, curr);
+    const result = combineTwoBoxes(acc, curr);
+    if (result.pokemon.length === 0) {
+      breakingBoxes = [curr, ...breakingBoxes];
+    }
+    return result;
   }, {
     // Parentheses to group starting box
     note: '(' + start.note + ')',
@@ -191,14 +200,17 @@ const executeCombination: (combination: Combination) => BoxInCart | null = combi
     roleInCombination: 'START',
   });
 
-  if (result.pokemon.length === 0) return null;
+  if (result.pokemon.length === 0) return { zeroResult: true, breakingBoxes };
   else return {
-    ...result,
-    classification: {
-      parentEntityClass: 'Custom',
-      targetEntityClass: null
-    },
-    roleInCombination: undefined,
+    zeroResult: false,
+    combinedBoxes: {
+      ...result,
+      classification: {
+        parentEntityClass: 'Custom',
+        targetEntityClass: null,
+      },
+      roleInCombination: undefined,
+    }
   };
 }
 
@@ -226,6 +238,19 @@ export const findBoxInCombination: (combination: Combination, box: StartBox | Bo
     }
     return idx;
   }
+}
+
+export const findBoxInArray: (arr: BoxInCombination[], box: BoxInCombination) => boolean = (arr, box) => {
+  const DUMMY_START_BOX: StartBox = {
+    note: '',
+    pokemon: [],
+    classification: {
+      parentEntityClass: 'Custom',
+      targetEntityClass: null
+    },
+    roleInCombination: 'START',
+  }
+  return findBoxInCombination([DUMMY_START_BOX, arr], box) !== -2;
 }
 
 const swapBoxWithStart: ([start, comboBox]: [StartBox, BoxInCombination]) => [StartBox, BoxInCombination] = ([start, comboBox]) => {
@@ -694,6 +719,7 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
     // #region
 
     case 'toggle_combo_start':
+      console.log(action.payload);
       parentEntityClass = action.payload.box.classification.parentEntityClass;
       targetEntityClass = action.payload.box.classification.targetEntityClass;
       gen = action.payload.gen;
@@ -701,6 +727,7 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
 
       // Combo hasn't been started, so action.payload.box will start combo
       if (currentCombination === null) {
+        console.log(changeRoleOfBox(state, gen, action.payload.box, 'START'));
         return {
           ...state,
           [gen]: {
@@ -938,17 +965,27 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
 
     case 'execute_combination':
       gen = action.payload.gen;
-      const newBox = executeCombination(state[gen].combination);
+      const result = executeCombination(state[gen].combination);
 
       // If result is null, don't clear original combination; give user option to manipulate combination still
-      if (newBox === null) return {
+      if (result === null) return {
         ...state,
         [gen]: {
           ...state[gen],
-          zeroCombinationResult: true,
+          zeroCombinationResult: false,
         }
       };
-      
+
+      // In this case, result is of type BoxInCombination[], 
+      if (result.zeroResult) {
+        return {
+          ...state,
+          [gen]: {
+            ...state[gen],
+            zeroCombinationResult: result.breakingBoxes,
+          }
+        }
+      }
       // Insert newBox
       const stateWithNewBox = {
         ...state,
@@ -956,8 +993,9 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
           ...state[gen],
           customBoxes: {
             ...state[gen].customBoxes,
-            [newBox.note]: newBox,
+            [result.combinedBoxes.note]: result.combinedBoxes,
           },
+          combination: null,
         },
       };
 

@@ -1,5 +1,5 @@
-import { StartBox } from "../../../../hooks/App/Cart";
-import { CartTerminalClickHandlers } from "../CartView";
+import { StartBox } from "../../../../../hooks/App/Cart";
+import { CartTerminalClickHandlers } from "../../CartView";
 
 type StartBoxInTerminalProps = {
   box: StartBox

@@ -130,6 +130,10 @@ const EntitySearchEntry = ({
       />
       <div
         onMouseEnter={expandListeners.onMouseEnter}
+        onMouseLeave={() => {
+          // If haven't expanded yet, then leaving will prevent the expand
+          if (!expand) expandListeners.onMouseLeave();
+        }}
         className="planner-search__entry-data"
       >
         {data && data.map(({key, title, value}) => (
@@ -148,6 +152,10 @@ const EntitySearchEntry = ({
       </div>
       <div 
         onMouseEnter={expandListeners.onMouseEnter}
+        onMouseLeave={() => {
+          // If haven't expanded yet, then leaving will prevent the expand
+          if (!expand) expandListeners.onMouseLeave();
+        }}
         className="planner-search__entry-description"
       >
         {description}
@@ -156,6 +164,7 @@ const EntitySearchEntry = ({
         context="search"
         key={key}
         expandListeners={expandListeners}
+        expand={expand}
         selection={selection}
         dispatchSelection={dispatchSelection}
         toggleSelection={toggleSelection}

@@ -29,7 +29,8 @@ const TargetEntityAccordion = ({
     title: JSX.Element
     content: false | JSX.Element
   }[] = useMemo(() => {
-    const targetEntitiesInCart = Object.entries(parentEntityInCart);return targetEntitiesInCart.map(([targetEntityClass, targetEntityInCart]) => {
+    const targetEntitiesInCart = Object.entries(parentEntityInCart);
+    return targetEntitiesInCart.map(([targetEntityClass, targetEntityInCart]) => {
       return {
         title: <TargetEntityAccordionTitle
           titleText={targetEntityClass}
