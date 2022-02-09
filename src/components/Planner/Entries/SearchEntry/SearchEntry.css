@@ -20,7 +20,7 @@
   transition: 0.5s ease;
 }
 
-.planner-search__entry:hover:after {
+.planner-search__entry--expand-hover:after {
   width: 100%;
 }
 

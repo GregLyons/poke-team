@@ -16,11 +16,16 @@ type PlannerPokemonIconsProps = {
   toggleSelection: (psID: string) => void
   icons: EntryIconData
   handleAddToCart: () => void
+  expandListeners: {
+    onMouseEnter: () => void
+    onMouseLeave: () => void
+  }
 }
 
 const PlannerPokemonIcons = ({
   context,
   key,
+  expandListeners,
   selection,
   dispatchSelection,
   toggleSelection,
@@ -50,7 +55,10 @@ const PlannerPokemonIcons = ({
         reason={reason}
       />}
       <br />
-      <div className={`planner__pokemon-icons-background`}>
+      <div 
+        onMouseEnter={expandListeners.onMouseEnter}
+        className={`planner__pokemon-icons-background`}
+      >
         {icons.pokemonIconData.map(pokemonIconDatum => {
           const psID = pokemonIconDatum.psID;
 

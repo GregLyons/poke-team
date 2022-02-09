@@ -48,7 +48,7 @@ const ConnectionAccordionEntry = ({
   // Default height
   const entryHeight = "6rem";
   
-  const { hover, expand, expandListeners, originalScrollHeight, } = useEntryExpand(entryRef, icons?.filters);
+  const { entryHover, expandHover, expand, hoverListeners, expandListeners, originalScrollHeight, } = useEntryExpand(entryRef, icons?.filters);
 
   // #endregion
 
@@ -83,9 +83,13 @@ const ConnectionAccordionEntry = ({
 
 
   return (
-    <div 
+    <div
       ref={entryRef}
-      {...expandListeners}
+      onMouseEnter={hoverListeners.onMouseEnter}
+      onMouseLeave={() => {
+        hoverListeners.onMouseLeave();
+        expandListeners.onMouseLeave();
+      }}
       style={
         expand 
           ? { 
@@ -101,11 +105,17 @@ const ConnectionAccordionEntry = ({
               : ``, 
             }
       }
-      className="planner-accordion__entry"
+      className={`
+        planner-accordion__entry
+        ${expandHover 
+          ? 'planner-accordion__entry--expand-hover' 
+          : ''
+        }
+      `}
       key={key}
     >
       <EntryLink
-        hover={hover}
+        hover={entryHover}
         parentEntityClass={parentEntityClass}
         targetEntityClass={targetEntityClass}
         linkName={linkName}
@@ -113,7 +123,10 @@ const ConnectionAccordionEntry = ({
         icons={icons}
       />
 
-      <div className="planner-accordion__entry-data">
+      <div 
+        onMouseEnter={expandListeners.onMouseEnter}
+        className="planner-accordion__entry-data"
+      >
         {data && data.map(({key, title, value}) => (
           <>
             <b 
@@ -129,7 +142,8 @@ const ConnectionAccordionEntry = ({
         ))}
       </div>
 
-      <div 
+      <div
+        onMouseEnter={expandListeners.onMouseEnter}
         className="planner-accordion__entry-description"
       >
         {description}
@@ -138,6 +152,7 @@ const ConnectionAccordionEntry = ({
       {icons && <PlannerPokemonIcons
         context="accordion" 
         key={key}
+        expandListeners={expandListeners}
         selection={selection}
         dispatchSelection={dispatchSelection}
         toggleSelection={toggleSelection}

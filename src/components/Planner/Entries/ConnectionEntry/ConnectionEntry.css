@@ -146,9 +146,9 @@
   box-shadow: inset var(--bg-shadow-inset) rgba(var(--red1-components), 0.7);
 }
 
-.planner-accordion__entry:hover:after,
-.planner-accordion__subitem--positive > .planner-accordion__entry:hover:after,
-.planner-accordion__subitem--negative > .planner-accordion__entry:hover:after {
+.planner-accordion__entry--expand-hover:after,
+.planner-accordion__subitem--positive > .planner-accordion__entry--expand-hover:after,
+.planner-accordion__subitem--negative > .planner-accordion__entry--expand-hover:after {
   width: 100%;
 }
 

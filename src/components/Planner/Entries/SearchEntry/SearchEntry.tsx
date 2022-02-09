@@ -46,7 +46,7 @@ const EntitySearchEntry = ({
   // Default height
   const entryHeight = "6rem";
   
-  const { hover, expand, expandListeners, originalScrollHeight } = useEntryExpand(entryRef, icons?.filters);
+  const { entryHover, expandHover, expand, hoverListeners, expandListeners, originalScrollHeight } = useEntryExpand(entryRef, icons?.filters);
 
   // #endregion
 
@@ -89,9 +89,13 @@ const EntitySearchEntry = ({
   let seenPokemon: {[k: string]: boolean} = {};
 
   return (
-    <div 
-    ref={entryRef}
-      {...expandListeners}
+    <div
+      ref={entryRef}
+      onMouseEnter={hoverListeners.onMouseEnter}
+      onMouseLeave={() => {
+        hoverListeners.onMouseLeave();
+        expandListeners.onMouseLeave();
+      }}
       style={
         expand
           ? { 
@@ -107,18 +111,27 @@ const EntitySearchEntry = ({
               : ``, 
             }
       }
-      className="planner-search__entry"
+      className={`
+        planner-search__entry
+        ${expandHover 
+          ? 'planner-search__entry--expand-hover' 
+          : ''
+        }
+      `}
       key={key}
     >
       <EntryLink
-        hover={hover}
+        hover={entryHover}
         parentEntityClass={entityClass}
         targetEntityClass={'From search'}
         linkName={linkName}
         name={name}
         icons={icons}
       />
-      <div className="planner-search__entry-data">
+      <div
+        onMouseEnter={expandListeners.onMouseEnter}
+        className="planner-search__entry-data"
+      >
         {data && data.map(({key, title, value}) => (
           <>
             <b
@@ -134,6 +147,7 @@ const EntitySearchEntry = ({
         ))}
       </div>
       <div 
+        onMouseEnter={expandListeners.onMouseEnter}
         className="planner-search__entry-description"
       >
         {description}
@@ -141,6 +155,7 @@ const EntitySearchEntry = ({
       {icons && <PlannerPokemonIcons
         context="search"
         key={key}
+        expandListeners={expandListeners}
         selection={selection}
         dispatchSelection={dispatchSelection}
         toggleSelection={toggleSelection}
