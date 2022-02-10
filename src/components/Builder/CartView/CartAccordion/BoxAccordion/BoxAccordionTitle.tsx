@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { toggleBGPulse } from "../../../../../hooks/App/BGManager";
 import { BoxInCart, Cart } from "../../../../../hooks/App/Cart";
 import { GenFilter } from "../../../../../hooks/App/GenFilter";
@@ -8,6 +9,7 @@ import { CartAccordionClickHandlers, } from "../../CartView";
 type BoxAccordionTitleProps = {
   cart: Cart
   box: BoxInCart
+  pinned: boolean
 
   dispatches: PokemonIconDispatches
   filters: {
@@ -21,6 +23,7 @@ type BoxAccordionTitleProps = {
 const BoxAccordionTitle = ({
   cart,
   box,
+  pinned: initialPinned,
 
   filters: {
     genFilter,
@@ -30,6 +33,8 @@ const BoxAccordionTitle = ({
 
   clickHandlers,
 }: BoxAccordionTitleProps) => {
+  const [pinned, setPinned] = useState(initialPinned);
+
   return (
     <>
       <div
@@ -50,19 +55,21 @@ const BoxAccordionTitle = ({
           immediate={false}
         />
         <Button
-          title='Pin this box for access in the Team page.'
-          label='PIN'
+          title={pinned
+            ? 'Un-pin this box from the Team page.'
+            : `Pin this box for access in the Team page.`
+          }
+          label="PIN"
 
-          active={true}
+          active={pinned}
           onClick={e => {
-            e.preventDefault();
-
-            toggleBGPulse(dispatches.dispatchBGManager);
-
-            // TODO: PIN
+            pinned 
+              ? clickHandlers.onUnpinClick(e, box)
+              : clickHandlers.onPinClick(e, box);
+            setPinned(!pinned);
           }}
           disabled={false}
-          immediate={true}
+          immediate={false}
         />
         <Button
           title="Start combining this box with other boxes."

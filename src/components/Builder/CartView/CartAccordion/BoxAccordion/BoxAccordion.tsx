@@ -8,9 +8,11 @@ import BoxAccordionTitle from "./BoxAccordionTitle";
 import './BoxAccordion.css';
 import { PokemonIconDatum } from "../../../../../types-queries/helpers";
 import { CartAccordionClickHandlers } from "../../CartView";
+import { Team } from "../../../../../hooks/App/Team";
 
 type BoxAccordionProps = {
   cart: Cart
+  team: Team
   targetEntityInCart: TargetEntityInCart,
   dispatches: PokemonIconDispatches,
   filters: PokemonIconFilters,
@@ -20,6 +22,7 @@ type BoxAccordionProps = {
 
 const BoxAccordion = ({
   cart,
+  team,
   targetEntityInCart,
   dispatches,
   filters,
@@ -36,6 +39,9 @@ const BoxAccordion = ({
         title: <BoxAccordionTitle
           cart={cart}
           box={box}
+          pinned={
+            Object.keys(team.pinnedBoxes?.[filters.genFilter.gen] || {}).includes(box.note)
+          }
           
           clickHandlers={clickHandlers}
           filters={filters}
@@ -50,7 +56,7 @@ const BoxAccordion = ({
         />
       };
     });
-  }, [cart, filters, clickHandlers, dispatches, targetEntityInCart, ]);
+  }, [cart, team, filters, clickHandlers, dispatches, targetEntityInCart, ]);
 
   return (
     <Accordion

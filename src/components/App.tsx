@@ -1,4 +1,5 @@
 import {
+  useEffect,
   useMemo,
   useReducer,
 } from 'react';
@@ -64,7 +65,7 @@ function App() {
   const [cart, dispatchCart] = useReducer(cartReducer, DEFAULT_CART);
   const [team, dispatchTeam] = useReducer(teamReducer, DEFAULT_TEAM);
   const [bgManager, dispatchBGManager] = useReducer(bgReducer, DEFAULT_BACKGROUND);
-
+  
   const dispatches: PokemonIconDispatches = useMemo(() => {
     return {
       dispatchCart,
@@ -135,6 +136,7 @@ function App() {
               element={<CartView
                 bgManager={bgManager}
                 cart={cart}
+                team={team}
                 dispatches={dispatches}
                 filters={filters}
               />}
@@ -142,6 +144,8 @@ function App() {
             <Route
               path='team'
               element={<TeamView
+                dispatches={dispatches}
+                filters={filters}
                 team={team}
               />}
             />

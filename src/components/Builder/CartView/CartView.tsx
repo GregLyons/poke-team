@@ -1,6 +1,7 @@
 import { Key, useMemo, useState } from "react";
-import { BGManager, classWithBG, classWithBGShadow } from "../../../hooks/App/BGManager";
+import { BGManager, classWithBG, classWithBGShadow, toggleBGPulse } from "../../../hooks/App/BGManager";
 import { BoxInCart, BoxInCombination, Cart, CartInGen, ParentEntityClass, StartBox, TargetEntityClass, } from "../../../hooks/App/Cart";
+import { Team } from "../../../hooks/App/Team";
 import { PokemonIconDispatches, PokemonIconFilters } from "../../App";
 import CartAccordion from "./CartAccordion/CartAccordion";
 import CartTerminal from "./CartTerminal/CartTerminal";
@@ -9,6 +10,7 @@ import './CartView.css';
 
 type CartViewProps = {
   bgManager: BGManager
+  team: Team
   cart: Cart
   dispatches: PokemonIconDispatches
   filters: PokemonIconFilters
@@ -18,6 +20,8 @@ type CartViewProps = {
 // #region
 
 export type CartAccordionClickHandlers = {
+  onPinClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => void
+  onUnpinClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => void
   onComboClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => void
   onAndClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => void
   onOrClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => void
@@ -35,10 +39,39 @@ export type CartTerminalClickHandlers = {
 const CartView = ({
   bgManager,
   cart,
+  team,
   dispatches,
   filters,
 }: CartViewProps) => {
   const cartAccordionClickHandlers: CartAccordionClickHandlers = useMemo(() => {
+    const onPinClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => {
+      e.preventDefault();
+      dispatches.dispatchTeam({
+        type: 'pin_box',
+        payload: {
+          gen: filters.genFilter.gen,
+          box,
+        }
+      });
+
+      // Pulse BG
+      toggleBGPulse(dispatches.dispatchBGManager);
+    };
+
+    const onUnpinClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => {
+      e.preventDefault();
+      dispatches.dispatchTeam({
+        type: 'unpin_box',
+        payload: {
+          gen: filters.genFilter.gen,
+          note: box.note,
+        }
+      });
+
+      // Pulse BG
+      toggleBGPulse(dispatches.dispatchBGManager);
+    };
+
     const onComboClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => {
       e.preventDefault();
       dispatches.dispatchCart({
@@ -74,8 +107,8 @@ const CartView = ({
       })
     };
 
-    return { onComboClick, onAndClick, onOrClick, };
-  }, [dispatches]);
+    return { onPinClick, onUnpinClick, onComboClick, onAndClick, onOrClick, };
+  }, [dispatches, filters, ]);
 
   const cartTerminalClickHandlers: CartTerminalClickHandlers = useMemo(() => {
     const onToggleOperationClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCombination) => {
@@ -123,13 +156,14 @@ const CartView = ({
     };
 
     return { onToggleOperationClick, onMoveUpClick, onMoveDownClick, onRemoveClick };
-  }, [dispatches]);
+  }, [dispatches, filters, ]);
 
   return (
     <div className={classWithBG("cart-view__wrapper", bgManager)}>
       <div className={classWithBGShadow("cart-view-accordion__cell", bgManager)}>
         <CartAccordion
           cart={cart}
+          team={team}
           dispatches={dispatches}
           filters={filters}
           clickHandlers={cartAccordionClickHandlers}

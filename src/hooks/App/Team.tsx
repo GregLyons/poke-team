@@ -1,5 +1,6 @@
 import { DUMMY_POKEMON_ICON_DATUM, GenerationNum, PokemonIconDatum } from "../../types-queries/helpers";
 import { omitKeys } from "../../utils/helpers";
+import { BoxInCart } from "./Cart";
 
 export const DEFAULT_TEAM: Team = {
   mode: 'default',
@@ -45,8 +46,7 @@ export type TeamAction =
     type: 'pin_box',
     payload: {
       gen: GenerationNum
-      note: string,
-      pokemon: PokemonIconDatum[]
+      box: BoxInCart
     }
   }
 | {
@@ -100,23 +100,17 @@ export function teamReducer(state: Team, action: TeamAction): Team {
           ...state.pinnedBoxes,
           [action.payload.gen]: {
             ...state.pinnedBoxes[action.payload.gen],
-            [action.payload.note]: [action.payload.pokemon],
+            [action.payload.box.note]: [action.payload.box.pokemon],
           }
         }
       };
 
     case 'unpin_box':
-      if (!state.pinnedBoxes[action.payload.gen]) return state;
-      const newPinnedBoxesInGen = omitKeys([action.payload.note], state.pinnedBoxes[action.payload.gen] || {});
-      return {
-        ...state,
-        pinnedBoxes: {
-          ...state.pinnedBoxes,
-          [action.payload.gen]: {
-            newPinnedBoxesInGen,
-          }
-        }
-      }
+      if (!state.pinnedBoxes[action.payload.gen] || !state.pinnedBoxes[action.payload.gen]?.[action.payload.note]) return state;
+
+      const newState = { ...state };
+      delete newState.pinnedBoxes[action.payload.gen]?.[action.payload.note];
+      return newState;
 
     default:
       throw new Error();

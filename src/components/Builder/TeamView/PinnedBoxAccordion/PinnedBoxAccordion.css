@@ -1,0 +1,32 @@
+.accordion__title-element-wrapper.pinned-boxes-accordion__title-element-wrapper {
+  display: grid;
+
+  grid-template-columns: 5fr 2fr;
+}
+
+.pinned-box-title__text {
+  grid-column: 1 / 2;
+  padding-left: 0.5rem;
+}
+
+.pinned-box-title__buttons {
+  grid-column: 2 / 3;
+
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  background-color: var(--dark1);
+  border-radius: 1rem;
+  box-shadow: var(--control-shadow);
+
+  padding-left: 1rem;
+  padding-right: 1rem;
+  text-align: right;
+
+  z-index: 1;
+}
+.pinned-box-title__buttons > * + * {
+  margin-left: clamp(10px, 1rem, 5vw);
+}
