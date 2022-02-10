@@ -36,6 +36,12 @@ const listRender = ({ data, }: ListRenderArgs<UsageMethodSearchQuery>) => {
               name={usageMethod.formattedName}
               linkName={usageMethod.name}
               description={usageMethod.description}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'usageMethod',
+                  iconDatum: usageMethod.iconDatum,
+                }
+              }}
             />
           </>
         );
@@ -55,7 +61,7 @@ const UsageMethodSearch = ({
     {
       gen: genFilter.gen,
       startsWith: '',
-      limit: 5,
+      limit: 100,
     },
     genFilter,
   );

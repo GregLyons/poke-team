@@ -143,7 +143,10 @@ export const listRenderUsageMethodItem = ({ data, dispatches, filters, }: ListRe
             icons={{
               dispatches,
               pokemonIconData: result.requiredPokemonIconData,
-              itemIconDatum: result.itemIconDatum,
+              linkIconDatum: {
+                iconClass: 'item',
+                iconDatum: result.itemIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' is activated by '${parent.formattedName}'.`,
             }}
@@ -166,7 +169,10 @@ export const listRenderUsageMethodItem = ({ data, dispatches, filters, }: ListRe
             icons={{
               dispatches,
               pokemonIconData: result.requiredPokemonIconData,
-              itemIconDatum: result.itemIconDatum,
+              linkIconDatum: {
+                iconClass: 'item',
+                iconDatum: result.itemIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' boosts '${parent.formattedName}'.`,
             }}
@@ -189,7 +195,10 @@ export const listRenderUsageMethodItem = ({ data, dispatches, filters, }: ListRe
             icons={{
               dispatches,
               pokemonIconData: result.requiredPokemonIconData,
-              itemIconDatum: result.itemIconDatum,
+              linkIconDatum: {
+                iconClass: 'item',
+                iconDatum: result.itemIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
             }}
@@ -225,7 +234,10 @@ export const listRenderUsageMethodMove = ({ data, dispatches, filters, }: ListRe
             icons={{
               dispatches,
               pokemonIconData: result.pokemonIconData,
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' has '${parent.formattedName}'.`,
             }}
@@ -250,7 +262,10 @@ export const listRenderUsageMethodMove = ({ data, dispatches, filters, }: ListRe
             icons={{
               dispatches,
               pokemonIconData: result.pokemonIconData,
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' prevents '${parent.formattedName}'.`,
             }}

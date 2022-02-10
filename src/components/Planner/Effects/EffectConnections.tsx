@@ -66,6 +66,12 @@ export const listRenderEffectFieldState = ({ data, }: ListRenderArgs<EffectField
             parentEntityClass="Effect"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -98,7 +104,10 @@ export const listRenderEffectItem = ({ data, dispatches, filters, }: ListRenderA
             icons={{
               dispatches,
               pokemonIconData: result.requiredPokemonIconData,
-              itemIconDatum: result.itemIconDatum,
+              linkIconDatum: {
+                iconClass: 'item',
+                iconDatum: result.itemIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' has the effect '${parent.formattedName}'.`,
             }}

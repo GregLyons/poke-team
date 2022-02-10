@@ -7,7 +7,6 @@ import {
   ItemIconDatum,
   PokemonIconDatum,
   TypeName,
-  UsageMethodName,
 } from '../types-queries/helpers.js';
 import {
   Pokemon,
@@ -49,7 +48,7 @@ export const getItemIcon = (item: ItemIconDatum) => {
 // Get type sprites
 // #region
 
-const TYPENAME_TO_TYPEICON_5 = new Map<TypeName, [number, number]>([
+const TYPENAME_TO_TYPEICON_5 = new Map<string, [number, number]>([
   ['normal', [-0, -0]],
   ['poison', [-0, -12]],
   ['psychic', [-32, -0]],
@@ -70,7 +69,7 @@ const TYPENAME_TO_TYPEICON_5 = new Map<TypeName, [number, number]>([
   ['ice', [-64, -60]],
 ]);
 
-const TYPENAME_TO_TYPEICON_8 = new Map<TypeName, [number, number]>([
+const TYPENAME_TO_TYPEICON_8 = new Map<string, [number, number]>([
   ['fighting', [-0, -0]],
   ['fire', [-0, -44]],
   ['flying', [-0, -88]],
@@ -91,11 +90,8 @@ const TYPENAME_TO_TYPEICON_8 = new Map<TypeName, [number, number]>([
   ['fairy', [-200, -352]],
 ]);
 
-export const getTypeIcon = (type: TypeName, gen: GenerationNum): { left: number, top: number } => {
-  let left, top;
-  // TODO: Decide whether to ever include gen 8 icons
-  if (true || gen < 6) [left, top] = TYPENAME_TO_TYPEICON_5.get(type) || [0, 0];
-  else [left, top] = TYPENAME_TO_TYPEICON_8.get(type) || [0, 0];
+export const getTypeIcon = (type: string): { left: number, top: number } => {
+  const [left, top] = TYPENAME_TO_TYPEICON_5.get(type) || [0, 0];
   return { left, top, };
 }
 
@@ -166,7 +162,7 @@ const STATNAME_TO_STATICON = new Map<string, [number, number]>([
   ['defense', [-0, -48]],
 ]);
 
-export const statIcon = (stat: string): { left: number, top: number } => {
+export const getStatIcon = (stat: string): { left: number, top: number } => {
   let left, top;
   // TODO: Decide whether to ever include gen 8 icons
   [left, top] = STATNAME_TO_STATICON.get(stat) || [0, 0];
@@ -223,7 +219,7 @@ const STATUSNAME_TO_STATUSICON = new Map<string, [number, number]>([
   ['rooted', [-128, -12]],
 ]);
 
-export const statusIcon = (status: string): { left: number, top: number } => {
+export const getStatusIcon = (status: string): { left: number, top: number } => {
   let left, top;
   // TODO: Decide whether to ever include gen 8 icons
   [left, top] = STATUSNAME_TO_STATUSICON.get(status) || [0, 0];
@@ -235,7 +231,7 @@ export const statusIcon = (status: string): { left: number, top: number } => {
 // Get usage method icons
 // #region
 
-const USAGEMETHODNAME_TO_USAGEMETHODICON = new Map<UsageMethodName, [number, number]>([
+const USAGEMETHODNAME_TO_USAGEMETHODICON = new Map<string, [number, number]>([
   ['ball', [-0, -0]],
   ['bite', [-0, -12]],
   ['dance', [-32, -0]],
@@ -246,7 +242,7 @@ const USAGEMETHODNAME_TO_USAGEMETHODICON = new Map<UsageMethodName, [number, num
   ['sound', [-32, -36]],
 ]);
 
-export const getUsageMethodIcon = (usageMethod: UsageMethodName): { left: number, top: number } => {
+export const getUsageMethodIcon = (usageMethod: string): { left: number, top: number } => {
   let left, top;
   // TODO: Decide whether to ever include gen 8 icons
   [left, top] = USAGEMETHODNAME_TO_USAGEMETHODICON.get(usageMethod) || [0, 0];

@@ -1,9 +1,10 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { EntityClass, ENTITYCLASS_TO_PLANNERLINK, } from "../../../utils/constants";
+import { PokemonIconDispatches, PokemonIconFilters } from "../../App";
 import { EntryIconData } from "../helpers";
 import PlannerItemIcon from "./Icons/PlannerItemIcon";
-import PlannerTypeIcon from "./Icons/PlannerTypeIcon";
+import PlannerIcon from "./Icons/PlannerIcon";
 
 type EntryLinkProps = {
   hover: boolean
@@ -12,6 +13,8 @@ type EntryLinkProps = {
   linkName: string
   name: string
   icons?: EntryIconData
+  dispatches?: PokemonIconDispatches
+  filters?: PokemonIconFilters
 }
 
 const EntryLink = ({
@@ -21,6 +24,8 @@ const EntryLink = ({
   linkName,
   name,
   icons,
+  dispatches,
+  filters,
 }: EntryLinkProps) => {
   const linkRef = useRef<HTMLAnchorElement>(null);
 
@@ -41,23 +46,19 @@ const EntryLink = ({
         </span>}
       </Link>
       <br />
-      {icons?.itemIconDatum
+      {icons?.linkIconDatum?.iconClass === 'item' && icons?.dispatches
         ? <>
             <PlannerItemIcon
-              {...icons.dispatches}
+              dispatches={icons.dispatches}
               key={name}
-              itemIconDatum={icons.itemIconDatum}
+              itemIconDatum={icons.linkIconDatum.iconDatum}
             />
           </>
-        : icons?.typeIconDatum 
+        : icons?.linkIconDatum
           ? <>
-              <PlannerTypeIcon
-                {...icons.dispatches}
+              <PlannerIcon
                 key={name}
-                typeIconData={{
-                  type: icons.typeIconDatum,
-                  genFilter: icons.filters.genFilter,
-                }}
+                linkIconDatum={icons.linkIconDatum}
               />
             </>
           : ''

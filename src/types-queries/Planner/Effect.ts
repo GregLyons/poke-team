@@ -38,6 +38,8 @@ import {
   AuxToItemConnectionEdge,
   AuxToItemConnectionOnPage,
   RemovedFromGameQueryVars,
+  AuxToIconConnectionEdge,
+  AuxToIconConnectionOnPage,
 } from './helpers';
 
 // Effect in main search
@@ -324,7 +326,7 @@ export type EffectFieldStateQuery = {
   }[]
 }
 
-export interface EffectFieldStateEdge extends AuxToAuxConnectionEdge {
+export interface EffectFieldStateEdge extends AuxToIconConnectionEdge, AuxToAuxConnectionEdge {
   node: {
     id: string
     name: string
@@ -360,7 +362,7 @@ export const EFFECT_FIELDSTATE_QUERY = gql`
   }
 `;
 
-export class EffectFieldStateResult extends AuxToAuxConnectionOnPage {
+export class EffectFieldStateResult extends AuxToIconConnectionOnPage {
   constructor(gqlEffectFieldState: EffectFieldStateEdge) {
     super(gqlEffectFieldState);
   }

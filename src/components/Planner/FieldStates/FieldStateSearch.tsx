@@ -53,6 +53,12 @@ const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
               linkName={fieldState.name}
               data={fieldStateData}
               description={fieldState.description}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'fieldState',
+                  iconDatum: fieldState.iconDatum,
+                }
+              }}
             />
           </>
         );
@@ -72,7 +78,7 @@ const FieldStateSearch = ({
     {
       gen: genFilter.gen,
       startsWith: '',
-      limit: 5,
+      limit: 100,
     },
     genFilter,
   );

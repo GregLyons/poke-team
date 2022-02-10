@@ -97,6 +97,12 @@ export const listRenderStatusFieldState = ({ data, }: ListRenderArgs<StatusField
           parentEntityClass="Status"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_cause_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -116,6 +122,12 @@ export const listRenderStatusFieldState = ({ data, }: ListRenderArgs<StatusField
           parentEntityClass="Status"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_resist_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -152,7 +164,10 @@ export const listRenderStatusItem = ({ data, dispatches, filters, }: ListRenderA
             icons={{
               dispatches,
               pokemonIconData: result.requiredPokemonIconData,
-              itemIconDatum: result.itemIconDatum,
+              linkIconDatum: {
+                iconClass: 'item',
+                iconDatum: result.itemIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' causes '${parent.formattedName}'.`,
             }}
@@ -177,7 +192,10 @@ export const listRenderStatusItem = ({ data, dispatches, filters, }: ListRenderA
             icons={{
               dispatches,
               pokemonIconData: result.requiredPokemonIconData,
-              itemIconDatum: result.itemIconDatum,
+              linkIconDatum: {
+                iconClass: 'item',
+                iconDatum: result.itemIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
             }}
@@ -214,7 +232,10 @@ export const listRenderStatusMove = ({ data, dispatches, filters, }: ListRenderA
             icons={{
               dispatches,
               pokemonIconData: result.pokemonIconData,
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' causes '${parent.formattedName}'.`,
             }}
@@ -239,7 +260,10 @@ export const listRenderStatusMove = ({ data, dispatches, filters, }: ListRenderA
             icons={{
               dispatches,
               pokemonIconData: result.pokemonIconData,
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
             }}

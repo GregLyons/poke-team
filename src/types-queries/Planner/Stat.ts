@@ -26,7 +26,7 @@ import {
 
   VersionDependentDescriptionEdge,
   AuxToMainConnectionEdge,
-  AuxEntityInSearch,
+  AuxEntityInSearchWithIcon,
   AuxEntitySearchResult,
   AuxEntityPageResult,
   AuxEntityOnPage,
@@ -35,6 +35,8 @@ import {
   AuxToAuxConnectionOnPage,
   AuxToItemConnectionOnPage,
   RemovedFromGameQueryVars,
+  AuxToIconConnectionEdge,
+  AuxToIconConnectionOnPage,
 } from './helpers';
 
 // Stat in main search
@@ -73,7 +75,7 @@ export const STAT_SEARCH_QUERY = gql`
   }
 `;
 
-export class StatInSearch extends AuxEntityInSearch {
+export class StatInSearch extends AuxEntityInSearchWithIcon {
   constructor(gqlStat: StatSearchResult) {
     super(gqlStat);
   }
@@ -318,7 +320,7 @@ export type StatFieldStateQuery = {
   }[]
 }
 
-export interface StatFieldStateEdge extends AuxToAuxConnectionEdge {
+export interface StatFieldStateEdge extends AuxToIconConnectionEdge, AuxToAuxConnectionEdge {
   node: {
     id: string
     name: string
@@ -362,7 +364,7 @@ export const STAT_FIELDSTATE_QUERY = gql`
   }
 `;
 
-export class StatFieldStateResult extends AuxToAuxConnectionOnPage {
+export class StatFieldStateResult extends AuxToIconConnectionOnPage {
   public stage: number
   public multiplier: number
   public chance: number

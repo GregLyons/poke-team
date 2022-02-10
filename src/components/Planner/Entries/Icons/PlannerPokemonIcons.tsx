@@ -40,7 +40,7 @@ const PlannerPokemonIcons = ({
   const hasIcon = useRef(false);
   useEffect(() => {
     hasIcon.current = false;
-  }, [icons.filters.tierFilter, icons.filters.pokemonFilter, icons.filters.genFilter]);
+  }, [icons?.filters]);
 
   // Since Pokemon can learn Moves in multiple ways, we need to worry about duplicates. The keys of this object are Pokemon names, and the value is always 'true'; we only care about the keys.
   let seenPokemon: {[k: string]: boolean} = {};
@@ -48,7 +48,7 @@ const PlannerPokemonIcons = ({
   return (
     <div className={`planner-${context}__entry-icons`}>
       {/* Will only render anything for entries which could have icons. */}
-      {<SelectionControls
+      {icons.dispatches && <SelectionControls
         selection={selection}
         dispatchSelection={dispatchSelection}
         dispatches={icons.dispatches}
@@ -65,10 +65,11 @@ const PlannerPokemonIcons = ({
         }}
         className={`planner__pokemon-icons-background`}
       >
-        {icons.pokemonIconData.map(pokemonIconDatum => {
+        {icons.pokemonIconData && icons.pokemonIconData.map(pokemonIconDatum => {
           const psID = pokemonIconDatum.psID;
 
           // E.g. DUMMY_POKEMON_DATUM
+          if (!icons.filters || !icons.dispatches) return;
           if (!psID) return;
 
           // Ignore duplicate Pokemon

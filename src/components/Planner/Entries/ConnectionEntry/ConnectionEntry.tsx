@@ -65,7 +65,7 @@ const ConnectionAccordionEntry = ({
   }
 
   const handleAddToCart = () => {
-    if (!icons) return;
+    if (!icons || !icons.dispatches || !icons.filters || !icons.cartNote) return;
     icons.dispatches.dispatchCart({
       type: 'add_pokemon',
       payload: {

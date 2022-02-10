@@ -38,7 +38,10 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeSear
               description={type.description}
               icons={{
                 pokemonIconData: type.pokemonIconData,
-                typeIconDatum: type.typeIconDatum,
+                linkIconDatum: {
+                  iconClass: 'type',
+                  iconDatum: type.typeIconDatum,
+                },
                 dispatches,
                 filters,
                 cartNote: `Pokemon with the Type '${type.formattedName}'.`

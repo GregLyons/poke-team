@@ -26,7 +26,7 @@ import {
 
   VersionDependentDescriptionEdge,
   AuxToMainConnectionEdge,
-  AuxEntityInSearch,
+  AuxEntityInSearchWithIcon,
   AuxEntitySearchResult,
   AuxEntityPageResult,
   AuxEntityOnPage,
@@ -80,7 +80,7 @@ export const USAGEMETHOD_SEARCH_QUERY = gql`
   }
 `;
 
-export class UsageMethodInSearch extends AuxEntityInSearch {
+export class UsageMethodInSearch extends AuxEntityInSearchWithIcon {
   constructor(gqlUsageMethod: UsageMethodSearchResult) {
     super(gqlUsageMethod);
   }

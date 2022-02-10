@@ -35,6 +35,8 @@ import {
   MainToAuxConnectionOnPage,
   VersionDependentDescriptionEdge,
   RemovedFromGameQueryVars,
+  MainToIconConnectionEdge,
+  MainToIconConnectionOnPage,
 } from './helpers';
 
 // Item in main search
@@ -413,7 +415,7 @@ export type ItemFieldStateQuery = {
   }[]
 }
 
-export interface ItemFieldStateEdge extends MainToAuxConnectionEdge, DescriptionEdge {
+export interface ItemFieldStateEdge extends MainToIconConnectionEdge, MainToAuxConnectionEdge, DescriptionEdge {
   node: {
     id: string
     name: string
@@ -481,7 +483,7 @@ export const ITEM_FIELDSTATE_QUERY = gql`
   }
 `;
 
-export class ItemFieldStateResult extends MainToAuxConnectionOnPage {
+export class ItemFieldStateResult extends MainToIconConnectionOnPage {
   public turns?: number
 
   constructor(gqlItemFieldState: ItemFieldStateEdge) {
@@ -508,7 +510,7 @@ export type ItemStatQuery = {
   }[]
 }
 
-export interface ItemStatEdge extends MainToAuxConnectionEdge, DescriptionEdge {
+export interface ItemStatEdge extends MainToIconConnectionEdge, MainToAuxConnectionEdge, DescriptionEdge {
   node: {
     id: string
     name: string
@@ -553,7 +555,7 @@ export const ITEM_STAT_QUERY = gql`
   }
 `;
 
-export class ItemStatResult extends MainToAuxConnectionOnPage {
+export class ItemStatResult extends MainToIconConnectionOnPage {
   public stage: number
   public multiplier: number
   public chance: number
@@ -590,7 +592,7 @@ export type ItemStatusQuery = {
   }[]
 }
 
-export interface ItemStatusEdge extends MainToAuxConnectionEdge, DescriptionEdge {
+export interface ItemStatusEdge extends MainToIconConnectionEdge, MainToAuxConnectionEdge, DescriptionEdge {
   node: {
     id: string
     name: string
@@ -644,7 +646,7 @@ export const ITEM_STATUS_QUERY = gql`
   }
 `;
 
-export class ItemStatusResult extends MainToAuxConnectionOnPage {
+export class ItemStatusResult extends MainToIconConnectionOnPage {
   public chance?: number
 
   constructor(gqlItemStatus: ItemStatusEdge) {
@@ -782,7 +784,7 @@ export type ItemUsageMethodQuery = {
   }[]
 }
 
-export interface ItemUsageMethodEdge extends MainToAuxConnectionEdge {
+export interface ItemUsageMethodEdge extends MainToIconConnectionEdge, MainToAuxConnectionEdge {
   node: {
     id: string
     name: string
@@ -840,7 +842,7 @@ export const ITEM_USAGEMETHOD_QUERY = gql`
   }
 `;
 
-export class ItemUsageMethodResult extends MainToAuxConnectionOnPage {
+export class ItemUsageMethodResult extends MainToIconConnectionOnPage {
   public multiplier?: number
 
   constructor(gqlItemUsageMethod: ItemUsageMethodEdge) {

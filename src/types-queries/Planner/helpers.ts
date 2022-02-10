@@ -1,7 +1,7 @@
 import {
   gql,
 } from "@apollo/client";
-import { EnumTypeName, GenerationNum, IntroductionEdge, ItemIconDatum, ItemIconEdge, itemIconEdgeToItemIconDatum, ItemRequiresPokemonEdge, itemRequiresPokemonEdgeToRequiredPokemonIconData, NameEdge, PokemonIconDatum, PokemonIconEdge } from "../helpers";
+import { EnumTypeName, GenerationNum, IconDatum, IconEdge, iconEdgeToIconDatum, IntroductionEdge, ItemIconDatum, ItemIconEdge, itemIconEdgeToItemIconDatum, ItemRequiresPokemonEdge, itemRequiresPokemonEdgeToRequiredPokemonIconData, NameEdge, PokemonIconDatum, PokemonIconEdge } from "../helpers";
 
 // Entity in search
 // #region
@@ -66,6 +66,18 @@ export abstract class AuxEntityInSearch {
     this.name = name;
     this.formattedName = formattedName;
     this.description = description || '';
+  }
+}
+
+export abstract class AuxEntityInSearchWithIcon extends AuxEntityInSearch {
+  public iconDatum: IconDatum
+
+  constructor(gqlEntity: AuxEntitySearchResult) {
+    super(gqlEntity);
+
+    const { name, formattedName } = gqlEntity;
+
+    this.iconDatum = { name, formattedName };
   }
 }
 
@@ -199,6 +211,15 @@ export interface MainToAuxConnectionEdge extends NameEdge {
   }
 }
 
+export interface MainToIconConnectionEdge extends MainToAuxConnectionEdge, IconEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+  }
+}
+
+
 export interface AuxToAuxConnectionEdge extends NameEdge {
   node: {
     id: string
@@ -206,6 +227,14 @@ export interface AuxToAuxConnectionEdge extends NameEdge {
     formattedName: string
 
     description?: string
+  }
+}
+
+export interface AuxToIconConnectionEdge extends AuxToAuxConnectionEdge, IconEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
   }
 }
 
@@ -306,6 +335,26 @@ export abstract class AuxToItemConnectionOnPage extends AuxToMainConnectionOnPag
     
     this.itemIconDatum = itemIconEdgeToItemIconDatum(gqlEdge);
     this.requiredPokemonIconData = itemRequiresPokemonEdgeToRequiredPokemonIconData(gqlEdge);
+  }
+}
+
+export abstract class MainToIconConnectionOnPage extends AuxToAuxConnectionOnPage {
+  public iconDatum: IconDatum 
+
+  constructor(gqlEdge: MainToIconConnectionEdge) {
+    super(gqlEdge);
+
+    this.iconDatum = iconEdgeToIconDatum(gqlEdge);
+  }
+}
+
+export abstract class AuxToIconConnectionOnPage extends AuxToAuxConnectionOnPage {
+  public iconDatum: IconDatum 
+
+  constructor(gqlEdge: AuxToIconConnectionEdge) {
+    super(gqlEdge);
+
+    this.iconDatum = iconEdgeToIconDatum(gqlEdge);
   }
 }
 

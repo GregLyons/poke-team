@@ -72,6 +72,12 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
           parentEntityClass="Item"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_activate_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -90,6 +96,12 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
           parentEntityClass="Item"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_extend_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -109,6 +121,12 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
           parentEntityClass="Item"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_ignore_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -127,6 +145,12 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
           parentEntityClass="Item"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_resist_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -159,6 +183,12 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
           parentEntityClass="Item"
             targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_boost_stage_stat`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'stat',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -185,6 +215,12 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
           parentEntityClass="Item"
             targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_boost_multiplier_stat`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'stat',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -211,6 +247,12 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
           parentEntityClass="Item"
             targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_reduce_stage_stat`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'stat',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -237,6 +279,12 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
           parentEntityClass="Item"
             targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_reduce_multiplier_stat`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'stat',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -277,6 +325,12 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
           parentEntityClass="Item"
             targetEntityClass="Status"
             key={`${parent.id}_${result.id}_cause_status`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'status',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -296,6 +350,12 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
           parentEntityClass="Item"
             targetEntityClass="Status"
             key={`${parent.id}_${result.id}_resist_status`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'status',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -335,7 +395,10 @@ export const listRenderItemType = ({ data, dispatches, filters, }: ListRenderArg
             data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
               pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               dispatches,
               filters,
               cartNote: ``
@@ -361,7 +424,10 @@ export const listRenderItemType = ({ data, dispatches, filters, }: ListRenderArg
             data={[{key: 'POW', title: 'Power', value: result.power || 1}]}
             icons={{
               pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               dispatches,
               filters,
               cartNote: ``
@@ -387,7 +453,10 @@ export const listRenderItemType = ({ data, dispatches, filters, }: ListRenderArg
             data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
               pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               dispatches,
               filters,
               cartNote: ``
@@ -419,6 +488,12 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
           parentEntityClass="Item"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_activate_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -437,6 +512,12 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
           parentEntityClass="Item"
             targetEntityClass="Usage method"
             key={`${parent.id}_${result.id}_boost_usageMethod`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'usageMethod',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -456,6 +537,12 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
           parentEntityClass="Item"
             targetEntityClass="Usage method"
             key={`${parent.id}_${result.id}_resist_usageMethod`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'usageMethod',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}

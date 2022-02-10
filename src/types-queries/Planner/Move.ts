@@ -33,6 +33,8 @@ import {
   EntityConnectionVars,
   MainToAuxConnectionOnPage,
   RemovedFromGameQueryVars,
+  MainToIconConnectionEdge,
+  MainToIconConnectionOnPage,
 } from './helpers';
 
 // Move in main search
@@ -533,7 +535,7 @@ export type MoveFieldStateQuery = {
   }[]
 }
 
-export interface MoveFieldStateEdge extends MainToAuxConnectionEdge, DescriptionEdge {
+export interface MoveFieldStateEdge extends MainToIconConnectionEdge, MainToAuxConnectionEdge, DescriptionEdge {
   node: {
     id: string
     name: string
@@ -601,7 +603,7 @@ export const MOVE_FIELDSTATE_QUERY = gql`
   }
 `;
 
-export class MoveFieldStateResult extends MainToAuxConnectionOnPage {
+export class MoveFieldStateResult extends MainToIconConnectionOnPage {
   public turns?: number
 
   constructor(gqlMoveFieldState: MoveFieldStateEdge) {
@@ -628,7 +630,7 @@ export type MoveStatQuery = {
   }[]
 }
 
-export interface MoveStatEdge extends MainToAuxConnectionEdge, DescriptionEdge {
+export interface MoveStatEdge extends MainToIconConnectionEdge, MainToAuxConnectionEdge, DescriptionEdge {
   node: {
     id: string
     name: string
@@ -673,7 +675,7 @@ export const MOVE_STAT_QUERY = gql`
   }
 `;
 
-export class MoveStatResult extends MainToAuxConnectionOnPage {
+export class MoveStatResult extends MainToIconConnectionOnPage {
   public stage: number
   public multiplier: number
   public chance: number
@@ -710,7 +712,7 @@ export type MoveStatusQuery = {
   }[]
 }
 
-export interface MoveStatusEdge extends MainToAuxConnectionEdge, DescriptionEdge {
+export interface MoveStatusEdge extends MainToIconConnectionEdge, MainToAuxConnectionEdge, DescriptionEdge {
   node: {
     id: string
     name: string
@@ -760,7 +762,7 @@ export const MOVE_STATUS_QUERY = gql`
   }
 `;
 
-export class MoveStatusResult extends MainToAuxConnectionOnPage {
+export class MoveStatusResult extends MainToIconConnectionOnPage {
   public chance?: number
 
   constructor(gqlMoveStatus: MoveStatusEdge) {
@@ -850,7 +852,7 @@ export type MoveUsageMethodQuery = {
   }[]
 }
 
-export interface MoveUsageMethodEdge extends MainToAuxConnectionEdge {
+export interface MoveUsageMethodEdge extends MainToIconConnectionEdge, MainToAuxConnectionEdge {
   node: {
     id: string
     name: string
@@ -895,7 +897,7 @@ export const MOVE_USAGEMETHOD_QUERY = gql`
   }
 `;
 
-export class MoveUsageMethodResult extends MainToAuxConnectionOnPage {
+export class MoveUsageMethodResult extends MainToIconConnectionOnPage {
   constructor(gqlUsageMethod: MoveUsageMethodEdge) {
     super(gqlUsageMethod);
   }

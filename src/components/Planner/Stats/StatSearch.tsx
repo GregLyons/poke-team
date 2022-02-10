@@ -36,6 +36,12 @@ const listRender = ({ data, }: ListRenderArgs<StatSearchQuery>) => {
               name={stat.formattedName}
               linkName={stat.name}
               description={stat.description}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'stat',
+                  iconDatum: stat.iconDatum,
+                },
+              }}
             />
           </>
         );
@@ -55,7 +61,7 @@ const StatSearch = ({
     {
       gen: genFilter.gen,
       startsWith: '',
-      limit: 5,
+      limit: 100,
     },
     genFilter,
   );

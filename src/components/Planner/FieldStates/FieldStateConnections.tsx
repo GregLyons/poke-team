@@ -238,7 +238,10 @@ export const listRenderFieldStateItem = ({ data, dispatches, filters, }: ListRen
             icons={{
               dispatches,
               pokemonIconData: result.requiredPokemonIconData,
-              itemIconDatum: result.itemIconDatum,
+              linkIconDatum: {
+                iconClass: 'item',
+                iconDatum: result.itemIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' is activated by '${parent.formattedName}'.`,
             }}
@@ -264,7 +267,10 @@ export const listRenderFieldStateItem = ({ data, dispatches, filters, }: ListRen
             icons={{
               dispatches,
               pokemonIconData: result.requiredPokemonIconData,
-              itemIconDatum: result.itemIconDatum,
+              linkIconDatum: {
+                iconClass: 'item',
+                iconDatum: result.itemIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' extends '${parent.formattedName}'.`,
             }}
@@ -289,7 +295,10 @@ export const listRenderFieldStateItem = ({ data, dispatches, filters, }: ListRen
             icons={{
               dispatches,
               pokemonIconData: result.requiredPokemonIconData,
-              itemIconDatum: result.itemIconDatum,
+              linkIconDatum: {
+                iconClass: 'item',
+                iconDatum: result.itemIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' ignores '${parent.formattedName}'.`,
             }}
@@ -314,7 +323,10 @@ export const listRenderFieldStateItem = ({ data, dispatches, filters, }: ListRen
             icons={{
               dispatches,
               pokemonIconData: result.requiredPokemonIconData,
-              itemIconDatum: result.itemIconDatum,
+              linkIconDatum: {
+                iconClass: 'item',
+                iconDatum: result.itemIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
             }}
@@ -353,7 +365,10 @@ export const listRenderFieldStateMove = ({ data, dispatches, filters, }: ListRen
             icons={{
               dispatches,
               pokemonIconData: result.pokemonIconData,
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' creates '${parent.formattedName}'.`,
             }}
@@ -378,7 +393,10 @@ export const listRenderFieldStateMove = ({ data, dispatches, filters, }: ListRen
             icons={{
               dispatches,
               pokemonIconData: result.pokemonIconData,
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' enhances '${parent.formattedName}'.`,
             }}
@@ -403,7 +421,10 @@ export const listRenderFieldStateMove = ({ data, dispatches, filters, }: ListRen
             icons={{
               dispatches,
               pokemonIconData: result.pokemonIconData,
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' hinders '${parent.formattedName}'.`,
             }}
@@ -425,7 +446,10 @@ export const listRenderFieldStateMove = ({ data, dispatches, filters, }: ListRen
             icons={{
               dispatches,
               pokemonIconData: result.pokemonIconData,
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' removes '${parent.formattedName}'.`,
             }}
@@ -458,6 +482,12 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
           parentEntityClass="Field state"
             targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_boost_stage_stat`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'stat',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -484,6 +514,12 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
           parentEntityClass="Field state"
             targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_boost_multiplier_stat`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'stat',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -510,6 +546,12 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
           parentEntityClass="Field state"
             targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_reduce_stage_stat`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'stat',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -536,6 +578,12 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
           parentEntityClass="Field state"
             targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_reduce_multiplier_stat`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'stat',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -577,6 +625,12 @@ export const listRenderFieldStateStatus = ({ data, }: ListRenderArgs<FieldStateS
           parentEntityClass="Field state"
             targetEntityClass="Status"
             key={`${parent.id}_${result.id}_cause_status`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'status',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -596,6 +650,12 @@ export const listRenderFieldStateStatus = ({ data, }: ListRenderArgs<FieldStateS
           parentEntityClass="Field state"
             targetEntityClass="Status"
             key={`${parent.id}_${result.id}_resist_status`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'status',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -643,7 +703,10 @@ export const listRenderFieldStateType = ({ data, dispatches, filters, }: ListRen
             data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
               pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               dispatches,
               filters,
               cartNote: ``
@@ -669,7 +732,10 @@ export const listRenderFieldStateType = ({ data, dispatches, filters, }: ListRen
             data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
             icons={{
               pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               dispatches,
               filters,
               cartNote: ``
@@ -695,7 +761,10 @@ export const listRenderFieldStateType = ({ data, dispatches, filters, }: ListRen
             icons={{
               dispatches,
               pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' strong against '${parent.formattedName}'.`,
             }}
@@ -720,7 +789,10 @@ export const listRenderFieldStateType = ({ data, dispatches, filters, }: ListRen
             description={result.description}
             icons={{
               pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               dispatches,
               filters,
               cartNote: ``
@@ -746,7 +818,10 @@ export const listRenderFieldStateType = ({ data, dispatches, filters, }: ListRen
               icons={{
                 dispatches,
                 pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
-                typeIconDatum: result.typeIconDatum,
+                linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
                 filters,
                 cartNote: `'${result.formattedName}' ignored by '${parent.formattedName}'.`,
               }}
@@ -771,7 +846,10 @@ export const listRenderFieldStateType = ({ data, dispatches, filters, }: ListRen
             icons={{
               dispatches,
               pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' removed by '${parent.formattedName}'.`,
             }}
@@ -796,7 +874,10 @@ export const listRenderFieldStateType = ({ data, dispatches, filters, }: ListRen
             icons={{
               dispatches,
               pokemonIconData: result.pokemonIconData || [DUMMY_POKEMON_ICON_DATUM],
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' resisted by '${parent.formattedName}'.`,
             }}

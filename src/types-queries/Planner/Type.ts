@@ -35,6 +35,8 @@ import {
   AuxToItemConnectionEdge,
   AuxToItemConnectionOnPage,
   RemovedFromGameQueryVars,
+  AuxToIconConnectionEdge,
+  AuxToIconConnectionOnPage,
 } from './helpers';
 
 // Type in main search
@@ -591,7 +593,7 @@ export type TypeFieldStateQuery = {
   }[]
 }
 
-export interface TypeFieldStateEdge extends AuxToAuxConnectionEdge {
+export interface TypeFieldStateEdge extends AuxToIconConnectionEdge, AuxToAuxConnectionEdge {
   node: {
     id: string
     name: string
@@ -687,7 +689,7 @@ export const TYPE_FIELDSTATE_QUERY = gql`
   }
 `;
 
-export class TypeFieldStateResult extends AuxToAuxConnectionOnPage {
+export class TypeFieldStateResult extends AuxToIconConnectionOnPage {
   public multiplier?: number
 
   constructor(gqlTypeFieldState: TypeFieldStateEdge) {

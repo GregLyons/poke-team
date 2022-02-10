@@ -64,7 +64,10 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<MoveSear
               ]}
               icons={{
                 pokemonIconData: move.pokemonIconData,
-                typeIconDatum: move.typeIconDatum,
+                linkIconDatum: {
+                  iconClass: 'type',
+                  iconDatum: move.typeIconDatum,
+                },
                 dispatches,
                 filters,
                 cartNote: `Pokemon who learn '${move.formattedName}'.`

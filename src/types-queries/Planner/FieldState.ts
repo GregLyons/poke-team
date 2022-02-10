@@ -40,6 +40,9 @@ import {
   AuxToItemConnectionOnPage,
   AuxToItemConnectionEdge,
   RemovedFromGameQueryVars,
+  AuxToIconConnectionEdge,
+  AuxToIconConnectionOnPage,
+  AuxEntityInSearchWithIcon,
 } from './helpers';
 
 // FieldState in main search
@@ -90,7 +93,7 @@ export const FIELDSTATE_SEARCH_QUERY = gql`
   }
 `;
 
-export class FieldStateInSearch extends AuxEntityInSearch {
+export class FieldStateInSearch extends AuxEntityInSearchWithIcon {
   public damagePercent: number
   public fieldStateClass: string
   public grounded: boolean
@@ -1267,7 +1270,7 @@ export type FieldStateStatQuery = {
   }[]
 }
 
-export interface FieldStateStatEdge extends AuxToAuxConnectionEdge {
+export interface FieldStateStatEdge extends AuxToIconConnectionEdge, AuxToAuxConnectionEdge {
   node: {
     id: string
     name: string
@@ -1312,7 +1315,7 @@ export const FIELDSTATE_STAT_QUERY = gql`
   }
 `;
 
-export class FieldStateStatResult extends AuxToAuxConnectionOnPage {
+export class FieldStateStatResult extends AuxToIconConnectionOnPage {
   public stage: number
   public multiplier: number
   public chance: number
@@ -1349,7 +1352,7 @@ export type FieldStateStatusQuery = {
   }[]
 }
 
-export interface FieldStateStatusEdge extends AuxToAuxConnectionEdge {
+export interface FieldStateStatusEdge extends AuxToIconConnectionEdge, AuxToAuxConnectionEdge {
   node: {
     id: string
     name: string
@@ -1403,7 +1406,7 @@ export const FIELDSTATE_STATUS_QUERY = gql`
   }
 `;
 
-export class FieldStateStatusResult extends AuxToAuxConnectionOnPage {
+export class FieldStateStatusResult extends AuxToIconConnectionOnPage {
   public chance?: number
 
   constructor(gqlFieldStateStatus: FieldStateStatusEdge) {

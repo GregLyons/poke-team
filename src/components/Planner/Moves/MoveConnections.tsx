@@ -72,6 +72,12 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
           parentEntityClass="Move"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_create_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -88,6 +94,12 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
           parentEntityClass="Move"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_enhance_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -103,6 +115,12 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
           parentEntityClass="Move"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_hinder_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -118,6 +136,12 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
           parentEntityClass="Move"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_remove_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -150,6 +174,12 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
           parentEntityClass="Move"
             targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_boost_stage_stat`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'stat',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -176,6 +206,12 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
           parentEntityClass="Move"
             targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_boost_multiplier_stat`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'stat',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -202,6 +238,12 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
           parentEntityClass="Move"
             targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_reduce_stage_stat`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'stat',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -228,6 +270,12 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
           parentEntityClass="Move"
             targetEntityClass="Stat"
             key={`${parent.id}_${result.id}_reduce_multiplier_stat`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'stat',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -268,6 +316,12 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
           parentEntityClass="Move"
             targetEntityClass="Status"
             key={`${parent.id}_${result.id}_cause_status`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'status',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -287,6 +341,12 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
           parentEntityClass="Move"
             targetEntityClass="Status"
             key={`${parent.id}_${result.id}_resist_status`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'status',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -322,7 +382,10 @@ export const listRenderMoveType = ({ data, dispatches, filters, }: ListRenderArg
             description={result.description}
             icons={{
               pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               dispatches,
               filters,
               cartNote: ``,
@@ -353,6 +416,12 @@ export const listRenderMoveUsageMethod = ({ data, }: ListRenderArgs<MoveUsageMet
           parentEntityClass="Move"
             targetEntityClass="Usage method"
             key={`${parent.id}_${result.id}_has_usageMethod`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'usageMethod',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -371,6 +440,12 @@ export const listRenderMoveUsageMethod = ({ data, }: ListRenderArgs<MoveUsageMet
           parentEntityClass="Move"
             targetEntityClass="Usage method"
             key={`${parent.id}_${result.id}_prevent_usageMethod`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'usageMethod',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}

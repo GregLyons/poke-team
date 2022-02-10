@@ -1,24 +1,21 @@
-import { CartAction } from "../../../../hooks/App/Cart";
-import { TeamAction } from "../../../../hooks/App/Team";
 import {
   ItemIconDatum,
 } from "../../../../types-queries/helpers";
 import {
   getItemIcon,
 } from "../../../../utils/sprites";
+import { PokemonIconDispatches } from "../../../App";
 
 import './Icons.css';
 
 type PlannerItemIconProps = {
-  dispatchCart: React.Dispatch<CartAction>
-  dispatchTeam: React.Dispatch<TeamAction>
+  dispatches: PokemonIconDispatches
   key: string
   itemIconDatum: ItemIconDatum
 }
 
 const PlannerItemIcon = ({
-  dispatchCart,
-  dispatchTeam,
+  dispatches,
   key,
   itemIconDatum,
 }: PlannerItemIconProps) => {

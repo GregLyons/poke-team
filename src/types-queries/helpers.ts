@@ -200,6 +200,23 @@ export const typeIconEdgeToTypeIconDatum: (edge: TypeIconEdge) => TypeIconDatum 
 
 // #endregion
 
+// Other icons 
+// #region
+
+export type IconDatum = {
+  name: string
+  formattedName: string
+};
+
+export const iconEdgeToIconDatum: (edge: IconEdge) => IconDatum = (edge) => {
+  return {
+    name: edge.node.name,
+    formattedName: edge.node.formattedName,
+  };
+}
+
+// #endregion
+
 // Elemental types
 // #region
 
@@ -225,30 +242,30 @@ export const toTypeName: (enumTypeName: EnumTypeName | FormattedTypeName) => Typ
 
 // #endregion
 
-// Usage methods
-// #region
+// // Usage methods
+// // #region
 
-export type UsageMethodName = 'ball' | 'dance' | 'bite' | 'explosive' | 'powder' | 'pulse' | 'punch' | 'sound';
+// export type UsageMethodName = 'ball' | 'dance' | 'bite' | 'explosive' | 'powder' | 'pulse' | 'punch' | 'sound';
 
-export type EnumUsageMethodName = 'BALL' | 'DANCE' | 'BITE' | 'EXPLOSIVE' | 'POWDER' | 'PULSE' | 'PUNCH' | 'SOUND';
+// export type EnumUsageMethodName = 'BALL' | 'DANCE' | 'BITE' | 'EXPLOSIVE' | 'POWDER' | 'PULSE' | 'PUNCH' | 'SOUND';
 
-export type FormattedUsageMethodName = 'Ball' | 'Dance' | 'Bite' | 'Explosive' | 'Powder' | 'Pulse' | 'Punch' | 'Sound';
+// export type FormattedUsageMethodName = 'Ball' | 'Dance' | 'Bite' | 'Explosive' | 'Powder' | 'Pulse' | 'Punch' | 'Sound';
 
-// export const typeNameEdgeToUsageMethodName: (edge: UsageMethodNameEdge) => UsageMethodName = edge => edge.node.name;
+// // export const typeNameEdgeToUsageMethodName: (edge: UsageMethodNameEdge) => UsageMethodName = edge => edge.node.name;
 
-export const toEnumUsageMethodName: (usageMethodName: UsageMethodName | FormattedUsageMethodName) => EnumUsageMethodName = (usageMethodName) => {
-  return (usageMethodName.toUpperCase() as EnumUsageMethodName);
-}
+// export const toEnumUsageMethodName: (usageMethodName: UsageMethodName | FormattedUsageMethodName) => EnumUsageMethodName = (usageMethodName) => {
+//   return (usageMethodName.toUpperCase() as EnumUsageMethodName);
+// }
 
-export const toFormattedUsageMethodName: (usageMethodName: UsageMethodName | EnumUsageMethodName) => FormattedUsageMethodName = (usageMethodName) => {
-  return (usageMethodName.charAt(0).toUpperCase() + usageMethodName.slice(1).toLowerCase() as FormattedUsageMethodName);
-}
+// export const toFormattedUsageMethodName: (usageMethodName: UsageMethodName | EnumUsageMethodName) => FormattedUsageMethodName = (usageMethodName) => {
+//   return (usageMethodName.charAt(0).toUpperCase() + usageMethodName.slice(1).toLowerCase() as FormattedUsageMethodName);
+// }
 
-export const toUsageMethodName: (enumUsageMethodName: EnumUsageMethodName | FormattedUsageMethodName) => UsageMethodName = (usageMethodName) => {
-  return (usageMethodName.toLowerCase() as UsageMethodName);
-}
+// export const toUsageMethodName: (enumUsageMethodName: EnumUsageMethodName | FormattedUsageMethodName) => UsageMethodName = (usageMethodName) => {
+//   return (usageMethodName.toLowerCase() as UsageMethodName);
+// }
 
-// #endregion 
+// // #endregion 
 
 // Edges for queries
 // #region
@@ -389,6 +406,14 @@ export interface TypeIconEdge extends NameEdge {
     }
   }
 }
+
+export interface IconEdge extends NameEdge {
+  node: {
+    id: string
+    name: string
+    formattedName: string
+  }
+};
 
 // #endregion
 

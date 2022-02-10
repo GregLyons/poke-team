@@ -28,7 +28,7 @@ import {
 
   VersionDependentDescriptionEdge,
   AuxToMainConnectionEdge,
-  AuxEntityInSearch,
+  AuxEntityInSearchWithIcon,
   AuxEntitySearchResult,
   AuxEntityPageResult,
   AuxEntityOnPage,
@@ -38,6 +38,8 @@ import {
   AuxToItemConnectionEdge,
   AuxToItemConnectionOnPage,
   RemovedFromGameQueryVars,
+  AuxToIconConnectionEdge,
+  AuxToIconConnectionOnPage,
 } from './helpers';
 
 // Status in main search
@@ -78,7 +80,7 @@ export const STATUS_SEARCH_QUERY = gql`
   }
 `;
 
-export class StatusInSearch extends AuxEntityInSearch {
+export class StatusInSearch extends AuxEntityInSearchWithIcon {
   public volatile: boolean;
 
   constructor(gqlStatus: StatusSearchResult) {
@@ -396,7 +398,7 @@ export type StatusFieldStateQuery = {
   }[]
 }
 
-export interface StatusFieldStateEdge extends AuxToAuxConnectionEdge {
+export interface StatusFieldStateEdge extends AuxToIconConnectionEdge, AuxToAuxConnectionEdge {
   node: {
     id: string
     name: string
@@ -445,7 +447,7 @@ export const STATUS_FIELDSTATE_QUERY = gql`
   }
 `;
 
-export class StatusFieldStateResult extends AuxToAuxConnectionOnPage {
+export class StatusFieldStateResult extends AuxToIconConnectionOnPage {
   public chance?: number
 
   constructor(gqlStatusFieldState: StatusFieldStateEdge) {

@@ -63,7 +63,7 @@ const EntitySearchEntry = ({
   }
 
   const handleAddToCart = () => {
-    if (!icons) return;
+    if (!icons || !icons.dispatches || !icons.filters || !icons.cartNote) return;
     icons.dispatches.dispatchCart({
       type: 'add_pokemon',
       payload: {
@@ -83,7 +83,7 @@ const EntitySearchEntry = ({
   const hasIcon = useRef(false);
   useEffect(() => {
     hasIcon.current = false;
-  }, [icons?.filters.tierFilter])
+  }, [icons?.filters]);
 
   // Since Pokemon can learn Moves in multiple ways, we need to worry about duplicates. The keys of this object are Pokemon names, and the value is always 'true'; we only care about the keys.
   let seenPokemon: {[k: string]: boolean} = {};

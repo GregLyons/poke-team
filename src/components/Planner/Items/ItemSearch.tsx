@@ -45,7 +45,10 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<ItemSear
               description={item.description}
               icons={{
                 pokemonIconData: item.requiredPokemonIconData,
-                itemIconDatum: item.itemIconDatum,
+                linkIconDatum: {
+                  iconClass: 'item',
+                  iconDatum: item.itemIconDatum,
+                },
                 dispatches,
                 filters,
                 cartNote: `Pokemon who have '${item.formattedName}'.`

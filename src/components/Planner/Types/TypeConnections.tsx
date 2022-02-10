@@ -101,6 +101,12 @@ export const listRenderTypeFieldState = ({ data, }: ListRenderArgs<TypeFieldStat
           parentEntityClass="Type"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_boost_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -120,6 +126,12 @@ export const listRenderTypeFieldState = ({ data, }: ListRenderArgs<TypeFieldStat
           parentEntityClass="Type"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_resist_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -157,6 +169,12 @@ export const listRenderTypeFieldState = ({ data, }: ListRenderArgs<TypeFieldStat
           parentEntityClass="Type"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_remove_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -175,6 +193,12 @@ export const listRenderTypeFieldState = ({ data, }: ListRenderArgs<TypeFieldStat
           parentEntityClass="Type"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_weather_ball_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -193,6 +217,12 @@ export const listRenderTypeFieldState = ({ data, }: ListRenderArgs<TypeFieldStat
             parentEntityClass="Type"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_resist_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -212,6 +242,12 @@ export const listRenderTypeFieldState = ({ data, }: ListRenderArgs<TypeFieldStat
           parentEntityClass="Type"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_resist_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -250,7 +286,10 @@ export const listRenderTypeItem = ({ data, dispatches, filters, }: ListRenderArg
             icons={{
               dispatches,
               pokemonIconData: result.requiredPokemonIconData,
-              itemIconDatum: result.itemIconDatum,
+              linkIconDatum: {
+                iconClass: 'item',
+                iconDatum: result.itemIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' boosts '${parent.formattedName}'.`,
             }}
@@ -276,7 +315,10 @@ export const listRenderTypeItem = ({ data, dispatches, filters, }: ListRenderArg
             icons={{
               dispatches,
               pokemonIconData: result.requiredPokemonIconData,
-              itemIconDatum: result.itemIconDatum,
+              linkIconDatum: {
+                iconClass: 'item',
+                iconDatum: result.itemIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' has Natural Gift type '${parent.formattedName}'.`,
             }}
@@ -299,7 +341,10 @@ export const listRenderTypeItem = ({ data, dispatches, filters, }: ListRenderArg
             icons={{
               dispatches,
               pokemonIconData: result.requiredPokemonIconData,
-              itemIconDatum: result.itemIconDatum,
+              linkIconDatum: {
+                iconClass: 'item',
+                iconDatum: result.itemIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
             }}

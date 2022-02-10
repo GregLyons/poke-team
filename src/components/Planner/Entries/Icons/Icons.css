@@ -124,33 +124,43 @@
 
 /* #endregion */
 
-/* Type icons */
+/* Link icons cons */
 /* #region */
 
-.planner__type-icon-container {
+.planner__icon-container {
   position: relative;
   margin-left: var(--entry-horizontal-padding);
   margin-top: 1rem;
 }
 
-.planner__type-icon-background {
+.planner__icon-background {
   position: absolute;
 }
 
-.planner__type-icon--5 {
+.planner__fieldState-icon,
+.planner__stat-icon,
+.planner__status-icon,
+.planner__type-icon,
+.planner__usageMethod-icon {
   position: absolute;
-  background-image: url('../../../../assets/icons/typeicons5-sheet.png');
   background-repeat: no-repeat;
   overflow: hidden;
 }
 
-.planner__type-icon--8 {
-  position: absolute;
-  zoom: 0.4;
-  -moz-transform:scale(0.4);
-  -moz-transform-origin: 0 0;
-  background-image: url('../../../../assets/icons/typeicons8-sheet.png');
-  background-repeat: no-repeat;
+.planner__fieldState-icon {
+  background-image: url('../../../../assets/icons/fieldstateicons-sheet.png');
+}
+.planner__stat-icon {
+  background-image: url('../../../../assets/icons/staticons-sheet.png');
+}
+.planner__status-icon {
+  background-image: url('../../../../assets/icons/statusicons-sheet.png');
+}
+.planner__type-icon {
+  background-image: url('../../../../assets/icons/typeicons5-sheet.png');
+}
+.planner__usageMethod-icon {
+  background-image: url('../../../../assets/icons/usagemethodicons-sheet.png');
 }
 
 /* #endregion */

@@ -31,6 +31,8 @@ import {
   EntityConnectionVars,
   MainToAuxConnectionOnPage,
   RemovedFromGameQueryVars,
+  MainToIconConnectionEdge,
+  MainToIconConnectionOnPage,
 } from './helpers';
 
 // Ability in main search
@@ -409,7 +411,7 @@ export type AbilityFieldStateQuery = {
   }[]
 }
 
-export interface AbilityFieldStateEdge extends MainToAuxConnectionEdge {
+export interface AbilityFieldStateEdge extends MainToIconConnectionEdge, MainToAuxConnectionEdge {
   node: {
     id: string
     name: string
@@ -497,7 +499,7 @@ export const ABILITY_FIELDSTATE_QUERY = gql`
   }
 `;
 
-export class AbilityFieldStateResult extends MainToAuxConnectionOnPage {
+export class AbilityFieldStateResult extends MainToIconConnectionOnPage {
   public turns?: number
 
   constructor(gqlAbilityFieldState: AbilityFieldStateEdge) {
@@ -524,7 +526,7 @@ export type AbilityStatQuery = {
   }[]
 }
 
-export interface AbilityStatEdge extends MainToAuxConnectionEdge, DescriptionEdge {
+export interface AbilityStatEdge extends MainToIconConnectionEdge, MainToAuxConnectionEdge, DescriptionEdge {
   node: {
     id: string
     name: string
@@ -569,7 +571,7 @@ export const ABILITY_STAT_QUERY = gql`
   }
 `;
 
-export class AbilityStatResult extends MainToAuxConnectionOnPage {
+export class AbilityStatResult extends MainToIconConnectionOnPage {
   public stage: number
   public multiplier: number
   public chance: number
@@ -606,7 +608,7 @@ export type AbilityStatusQuery = {
   }[]
 }
 
-export interface AbilityStatusEdge extends MainToAuxConnectionEdge, DescriptionEdge {
+export interface AbilityStatusEdge extends MainToIconConnectionEdge, MainToAuxConnectionEdge, DescriptionEdge {
   node: {
     id: string
     name: string
@@ -658,7 +660,7 @@ export const ABILITY_STATUS_QUERY = gql`
   }
 `;
 
-export class AbilityStatusResult extends MainToAuxConnectionOnPage {
+export class AbilityStatusResult extends MainToIconConnectionOnPage {
   public chance?: number
 
   constructor(gqlAbilityStatus: AbilityStatusEdge) {
@@ -781,7 +783,7 @@ export type AbilityUsageMethodQuery = {
   }[]
 }
 
-export interface AbilityUsageMethodEdge extends MainToAuxConnectionEdge {
+export interface AbilityUsageMethodEdge extends MainToIconConnectionEdge, MainToAuxConnectionEdge {
   node: {
     id: string
     name: string
@@ -849,7 +851,7 @@ export const ABILITY_USAGEMETHOD_QUERY = gql`
   }
 `;
 
-export class AbilityUsageMethodResult extends MainToAuxConnectionOnPage {
+export class AbilityUsageMethodResult extends MainToIconConnectionOnPage {
   public multiplier?: number
 
   constructor(gqlAbilityUsageMethod: AbilityUsageMethodEdge) {

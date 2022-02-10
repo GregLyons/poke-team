@@ -185,6 +185,12 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
           parentEntityClass="Stat"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_boost_stage_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -211,6 +217,12 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
           parentEntityClass="Stat"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_boost_multiplier_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -237,6 +249,12 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
           parentEntityClass="Stat"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_reduce_stage_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -263,6 +281,12 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
           parentEntityClass="Stat"
             targetEntityClass="Field state"
             key={`${parent.id}_${result.id}_reduce_multiplier_fieldState`}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'fieldState',
+                iconDatum: result.iconDatum,
+              }
+            }}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -323,7 +347,10 @@ export const listRenderStatItem = ({ data, dispatches, filters, }: ListRenderArg
             icons={{
               dispatches,
               pokemonIconData: result.requiredPokemonIconData,
-              itemIconDatum: result.itemIconDatum,
+              linkIconDatum: {
+                iconClass: 'item',
+                iconDatum: result.itemIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' raises '${parent.formattedName}'.`,
             }}
@@ -356,7 +383,10 @@ export const listRenderStatItem = ({ data, dispatches, filters, }: ListRenderArg
             icons={{
               dispatches,
               pokemonIconData: result.requiredPokemonIconData,
-              itemIconDatum: result.itemIconDatum,
+              linkIconDatum: {
+                iconClass: 'item',
+                iconDatum: result.itemIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' boosts '${parent.formattedName}'.`,
             }}
@@ -389,7 +419,10 @@ export const listRenderStatItem = ({ data, dispatches, filters, }: ListRenderArg
             icons={{
               dispatches,
               pokemonIconData: result.requiredPokemonIconData,
-              itemIconDatum: result.itemIconDatum,
+              linkIconDatum: {
+                iconClass: 'item',
+                iconDatum: result.itemIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' lowers '${parent.formattedName}'.`,
             }}
@@ -422,7 +455,10 @@ export const listRenderStatItem = ({ data, dispatches, filters, }: ListRenderArg
             icons={{
               dispatches,
               pokemonIconData: result.requiredPokemonIconData,
-              itemIconDatum: result.itemIconDatum,
+              linkIconDatum: {
+                iconClass: 'item',
+                iconDatum: result.itemIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' reduces '${parent.formattedName}'.`,
             }}
@@ -472,7 +508,10 @@ export const listRenderStatMove = ({ data, dispatches, filters, }: ListRenderArg
             icons={{
               dispatches,
               pokemonIconData: result.pokemonIconData,
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' boosts '${parent.formattedName}'.`,
             }}
@@ -505,7 +544,10 @@ export const listRenderStatMove = ({ data, dispatches, filters, }: ListRenderArg
             icons={{
               dispatches,
               pokemonIconData: result.pokemonIconData,
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' boosts '${parent.formattedName}'.`,
             }}
@@ -538,7 +580,10 @@ export const listRenderStatMove = ({ data, dispatches, filters, }: ListRenderArg
             icons={{
               dispatches,
               pokemonIconData: result.pokemonIconData,
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' reduces '${parent.formattedName}'.`,
             }}
@@ -571,7 +616,10 @@ export const listRenderStatMove = ({ data, dispatches, filters, }: ListRenderArg
             icons={{
               dispatches,
               pokemonIconData: result.pokemonIconData,
-              typeIconDatum: result.typeIconDatum,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: result.typeIconDatum
+              },
               filters,
               cartNote: `'${result.formattedName}' reduces '${parent.formattedName}'.`,
             }}

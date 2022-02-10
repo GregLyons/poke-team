@@ -36,6 +36,12 @@ const listRender = ({ data, }: ListRenderArgs<StatusSearchQuery>) => {
               name={status.formattedName}
               linkName={status.name}
               description={status.description}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'status',
+                  iconDatum: status.iconDatum,
+                }
+              }}
               data={[
                 {
                   key: 'VOL', title: 'Is a volatile status effect', value: status.volatile ? 'Yes' : 'No'
@@ -60,7 +66,7 @@ const StatusSearch = ({
     {
       gen: genFilter.gen,
       startsWith: '',
-      limit: 5,
+      limit: 100,
     },
     genFilter,
   );
