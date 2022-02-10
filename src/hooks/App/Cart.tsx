@@ -87,6 +87,7 @@ export type CartInGen = {
     [note: string]: BoxInCart
   }
   combination: Combination
+  combinationResult: BoxInCart | null
   zeroCombinationResult: false | BoxInCombination[]
 }
 
@@ -99,6 +100,7 @@ const EMPTY_CART_IN_GEN = {
   items: {},
   customBoxes: {},
   combination: null,
+  combinationResult: null,
   zeroCombinationResult: (false as false),
 }
 
@@ -175,7 +177,7 @@ const combineTwoBoxes = (box1: StartBox, box2: BoxInCombination): StartBox => {
   Otherwise, returns resulting box from executing the combination.
 */ 
 const executeCombination: (combination: Combination) => 
-    { zeroResult: false, combinedBoxes: BoxInCart } 
+    { zeroResult: false, combinationResult: BoxInCart } 
   | { zeroResult: true, breakingBoxes: BoxInCombination[] } 
   | null 
 = combination => {
@@ -203,7 +205,7 @@ const executeCombination: (combination: Combination) =>
   if (result.pokemon.length === 0) return { zeroResult: true, breakingBoxes };
   else return {
     zeroResult: false,
-    combinedBoxes: {
+    combinationResult: {
       ...result,
       classification: {
         parentEntityClass: 'Custom',
@@ -487,6 +489,13 @@ export type CartAction =
     }
   }
 | {
+    type: 'add_combination_result',
+    payload: {
+      gen: GenerationNum,
+      note: string,
+    }
+  }
+| {
     type: 'clear_combination',
     payload: {
       gen: GenerationNum,
@@ -535,8 +544,11 @@ const setRoleToUndefinedCartInGen: (cartInGen: CartInGen) => void = cartInGen =>
   Object.entries(cartInGen.customBoxes).map(([key, value]) => {
     value.roleInCombination = undefined;
   });
+
+  // Clean up combination fields
   cartInGen.combination = null;
   cartInGen.zeroCombinationResult = false;
+  cartInGen.combinationResult = null;
 }
 
 const setRoleToUndefinedParent: (parentEntityInCart: ParentEntityInCart) => void = parentEntityInCart => {
@@ -963,6 +975,7 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
 
     case 'execute_combination':
       gen = action.payload.gen;
+      console.log(state[gen].combination);
       const result = executeCombination(state[gen].combination);
 
       // If result is null, don't clear original combination; give user option to manipulate combination still
@@ -984,21 +997,38 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
           }
         }
       }
-      // Insert newBox
+      // Store combinationResult, but don't add to custom boxes yet
       const stateWithNewBox = {
+        ...state,
+        [gen]: {
+          ...state[gen],
+          combinationResult: result.combinationResult,
+        },
+      };
+
+      // Clean-up combination and roles
+      return stateWithNewBox;
+
+    case 'add_combination_result':
+      gen = action.payload.gen;
+      console.log(state[gen].combinationResult);
+      console.log(action.payload);
+
+      // Shouldn't happen
+      if (!state[gen].combinationResult) return endCombo(state);
+      return endCombo({
         ...state,
         [gen]: {
           ...state[gen],
           customBoxes: {
             ...state[gen].customBoxes,
-            [result.combinedBoxes.note]: result.combinedBoxes,
+            [action.payload.note]: {
+              ...state[gen].combinationResult,
+              note: [action.payload.note],
+            },
           },
-          combination: null,
-        },
-      };
-
-      // Clean-up combination and roles
-      return endCombo(stateWithNewBox);
+        }
+      });
 
     case 'clear_combination':
       return endCombo(state);

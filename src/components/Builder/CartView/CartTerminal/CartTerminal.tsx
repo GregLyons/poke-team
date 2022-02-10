@@ -6,7 +6,7 @@ import './CartTerminal.css';
 import './BoxInTerminal/BoxInTerminal.css';
 import CartTerminalControls from './CartTerminalControls/CartTerminalControls';
 import StartBoxInTerminal from './BoxInTerminal/StartBoxInTerminal';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 type CartTerminalProps = {
   cart: Cart
@@ -17,6 +17,7 @@ type CartTerminalProps = {
 
 export type CartTerminalControlClickHandlers = {
   onExecute: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onSubmit: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onTerminate: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 }
 
@@ -26,11 +27,32 @@ const CartTerminal = ({
   filters,
   clickHandlers,
 }: CartTerminalProps) => {
-  const [terminalMessage, setTerminalMessage] = useState('Start a combination');
+  const defaultMessage = 'Start a combination'
+  const [terminalMessage, setTerminalMessage] = useState(defaultMessage);
+
+  const [newName, setNewName] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewName(e.target.value);
+  }
 
   useEffect(() => {
-    if (cart[filters.genFilter.gen].zeroCombinationResult) setTerminalMessage('No results; remove a red box');
+    if (cart[filters.genFilter.gen].zeroCombinationResult) {
+      setSubmitting(false);
+
+      // Blur input
+      if (inputRef.current) inputRef.current.blur();
+
+      setTerminalMessage('No results; remove a red box');
+    }
   }, [cart, filters]);
+
+  // Focus on input when submitting
+  useEffect(() => {
+    if (submitting && inputRef.current) inputRef.current.focus();
+  }, [submitting]);
 
   const controlClickHandlers: CartTerminalControlClickHandlers = useMemo(() => {
     const onExecute = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -41,6 +63,29 @@ const CartTerminal = ({
           gen: filters.genFilter.gen,
         },
       });
+
+      if (cart[filters.genFilter.gen].combination) {
+        setSubmitting(true);
+        setTerminalMessage('SUBMIT name for new box');
+        setNewName('');
+      }
+    }
+
+    const onSubmit = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      e.preventDefault();
+      console.log('Newname is ', newName)
+      if (newName) {
+        dispatches.dispatchCart({
+          type: 'add_combination_result',
+          payload: {
+            gen: filters.genFilter.gen,
+            note: newName,
+          },
+        });
+        setTerminalMessage(defaultMessage);
+        setSubmitting(false);
+      };
+      setNewName('');
     }
   
     const onTerminate = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -51,12 +96,14 @@ const CartTerminal = ({
           gen: filters.genFilter.gen,
         },
       });
+      setSubmitting(false);
+      setNewName('');
       setTerminalMessage('Combination cleared');
-      setTimeout(() => setTerminalMessage('Start a combination'), 2000);
+      setTimeout(() => setTerminalMessage(defaultMessage), 2000);
     }
 
-    return { onExecute, onTerminate };
-  }, [dispatches, filters]);
+    return { onExecute, onSubmit, onTerminate };
+  }, [cart, dispatches, filters, newName, setNewName, submitting, setSubmitting, terminalMessage, setTerminalMessage, defaultMessage, ]);
 
   const currentCombination = cart[filters.genFilter.gen].combination;
   return (
@@ -83,8 +130,12 @@ const CartTerminal = ({
         )}
       </div>
       <CartTerminalControls
+        onNameChange={onNameChange}
+        newName={newName}
+        inputRef={inputRef}
         clickHandlers={controlClickHandlers}
         terminalMessage={terminalMessage}
+        submitting={submitting}
       />
     </div>
   );

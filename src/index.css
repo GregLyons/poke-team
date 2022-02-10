@@ -25,6 +25,8 @@
 
   --blue1-components: 173, 216, 230;
   --blue1: rgb(var(--blue1-components));
+  --blue2-components: 103, 191, 219;
+  --blue2: rgb(var(--blue2-components));
   --blue3: #515158;
 
   /* Greens */
@@ -33,6 +35,8 @@
 
   --green1-components: 100, 220, 140;
   --green1: rgb(var(--green1-components));
+  --green2-components: 62, 176, 100;
+  --green2: rgb(var(--green1-components));
   --green3: #515851;
 
   /* Reds */
@@ -41,6 +45,8 @@
 
   --red1-components: 229, 50, 66;
   --red1: rgb(var(--red1-components));
+  --red2-components: 220, 20, 38;
+  --red2: rgb(var(--red1-components));
   --red3: #585151;
 
   /* Fonts */
@@ -104,6 +110,20 @@ button {
 	outline: inherit;
 }
 
+/* Remove default text input styling */
+input[text] {
+  background: none;
+  border: none;
+  outline: none;
+}
+
+input:focus {
+  background: none;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  outline: none;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
