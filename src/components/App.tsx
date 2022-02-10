@@ -144,6 +144,7 @@ function App() {
             <Route
               path='team'
               element={<TeamView
+                bgManager={bgManager}
                 dispatches={dispatches}
                 filters={filters}
                 team={team}

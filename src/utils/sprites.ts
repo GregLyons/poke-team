@@ -101,7 +101,138 @@ export const getTypeIcon = (type: TypeName, gen: GenerationNum): { left: number,
 
 // #endregion
 
-// Get usage method sprites
+// Get field state icons
+// #region
+
+const FIELDSTATENAME_TO_FIELDSTATEICON = new Map<string, [number, number]>([
+  ['toxic_spikes', [-0, -0]],
+  ['trick_room', [-0, -12]],
+  ['vine_lash', [-32, -0]],
+  ['volcalith', [-32, -12]],
+  ['wildfire', [-0, -24]],
+  ['wonder_room', [-32, -24]],
+  ['aurora_veil', [-0, -36]],
+  ['cannonade', [-32, -36]],
+  ['clear_skies', [-0, -48]],
+  ['electric_terrain', [-32, -48]],
+  ['extremely_harsh_sunlight', [-64, -0]],
+  ['fog', [-64, -12]],
+  ['grassy_terrain', [-64, -24]],
+  ['gravity', [-64, -36]],
+  ['hail', [-64, -48]],
+  ['harsh_sunlight', [-0, -60]],
+  ['heavy_rain', [-32, -60]],
+  ['light_screen', [-64, -60]],
+  ['magic_room', [-0, -72]],
+  ['mist', [-32, -72]],
+  ['misty_terrain', [-64, -72]],
+  ['psychic_terrain', [-0, -84]],
+  ['rain', [-32, -84]],
+  ['rainbow', [-64, -84]],
+  ['reflect', [-96, -0]],
+  ['safeguard', [-96, -12]],
+  ['sandstorm', [-96, -24]],
+  ['sea_of_fire', [-96, -36]],
+  ['sharp_steel', [-96, -48]],
+  ['spikes', [-96, -60]],
+  ['stealth_rock', [-96, -72]],
+  ['sticky_web', [-96, -84]],
+  ['strong_winds', [-0, -96]],
+  ['swamp', [-32, -96]],
+  ['tailwind', [-64, -96]],
+]);
+
+export const getFieldStateIcon = (fieldState: string): { left: number, top: number } => {
+  let left, top;
+  // TODO: Decide whether to ever include gen 8 icons
+  [left, top] = FIELDSTATENAME_TO_FIELDSTATEICON.get(fieldState) || [0, 0];
+  return { left, top, };
+}
+
+// #endregion
+
+// Get stat icons
+// #region
+
+const STATNAME_TO_STATICON = new Map<string, [number, number]>([
+  ['evasion', [-0, -0]],
+  ['secondary_effect_chance', [-0, -12]],
+  ['special_attack', [-32, -0]],
+  ['special_defense', [-32, -12]],
+  ['speed', [-0, -24]],
+  ['accuracy', [-32, -24]],
+  ['attack', [-0, -36]],
+  ['critical_hit_ratio', [-32, -36]],
+  ['defense', [-0, -48]],
+]);
+
+export const statIcon = (stat: string): { left: number, top: number } => {
+  let left, top;
+  // TODO: Decide whether to ever include gen 8 icons
+  [left, top] = STATNAME_TO_STATICON.get(stat) || [0, 0];
+  return { left, top, };
+}
+
+// #endregion
+
+// Get status icons
+// #region
+
+const STATUSNAME_TO_STATUSICON = new Map<string, [number, number]>([
+  ['semi_invulnerable_turn', [-0, -0]],
+  ['sleep', [-0, -12]],
+  ['substitute', [-32, -0]],
+  ['taking_aim', [-32, -12]],
+  ['taunt', [-0, -24]],
+  ['telekinesis', [-32, -24]],
+  ['thrashing', [-0, -36]],
+  ['torment', [-32, -36]],
+  ['transformed', [-0, -48]],
+  ['trapped', [-32, -48]],
+  ['type_change', [-64, -0]],
+  ['aqua_ring', [-64, -12]],
+  ['bound', [-64, -24]],
+  ['bad_poison', [-64, -36]],
+  ['bracing', [-64, -48]],
+  ['burn', [-0, -60]],
+  ['center_of_attention', [-32, -60]],
+  ['charging_turn', [-64, -60]],
+  ['confusion', [-0, -72]],
+  ['curse', [-32, -72]],
+  ['defense_curl', [-64, -72]],
+  ['disable', [-0, -84]],
+  ['drowsy', [-32, -84]],
+  ['embargo', [-64, -84]],
+  ['encore', [-96, -0]],
+  ['flinch', [-96, -12]],
+  ['freeze', [-96, -24]],
+  ['heal_block', [-96, -36]],
+  ['identified', [-96, -48]],
+  ['infatuation', [-96, -60]],
+  ['leech_seed', [-96, -72]],
+  ['magic_coat', [-96, -84]],
+  ['magnetic_levitation', [-0, -96]],
+  ['mimic', [-32, -96]],
+  ['minimize', [-64, -96]],
+  ['nightmare', [-96, -96]],
+  ['paralysis', [-0, -108]],
+  ['perish_song', [-32, -108]],
+  ['poison', [-64, -108]],
+  ['protection', [-96, -108]],
+  ['recharging', [-128, -0]],
+  ['rooted', [-128, -12]],
+]);
+
+export const statusIcon = (status: string): { left: number, top: number } => {
+  let left, top;
+  // TODO: Decide whether to ever include gen 8 icons
+  [left, top] = STATUSNAME_TO_STATUSICON.get(status) || [0, 0];
+  return { left, top, };
+}
+
+// #endregion
+
+// Get usage method icons
 // #region
 
 const USAGEMETHODNAME_TO_USAGEMETHODICON = new Map<UsageMethodName, [number, number]>([

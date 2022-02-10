@@ -1,9 +1,13 @@
 import { useEffect, useMemo } from "react";
+import { BGManager, classWithBG, classWithBGShadow, toggleBGPulse } from "../../../hooks/App/BGManager";
 import { Team } from "../../../hooks/App/Team";
 import { PokemonIconDispatches, PokemonIconFilters } from "../../App";
 import PinnedBoxAccordion from "./PinnedBoxAccordion/PinnedBoxAccordion";
 
-type TeamViewProps ={
+import './TeamView.css';
+
+type TeamViewProps = {
+  bgManager: BGManager
   dispatches: PokemonIconDispatches
   filters: PokemonIconFilters
   team: Team
@@ -14,6 +18,7 @@ export type PinnedBoxClickHandlers = {
 }
 
 const TeamView = ({
+  bgManager,
   dispatches,
   filters,
   team,
@@ -28,20 +33,26 @@ const TeamView = ({
           note,
         }
       });
-    }
+
+      toggleBGPulse(dispatches.dispatchBGManager);
+    };
 
     return { onUnpinClick, };
   }, [dispatches, filters, team]);
 
   return (
-    <div className="team-view__wrapper">
-      yo
-      <PinnedBoxAccordion
-        clickHandlers={pinnedBoxClickHandlers}
-        dispatches={dispatches}
-        filters={filters}
-        team={team}
-      />
+    <div className={classWithBG("team-view__wrapper", bgManager)}>
+      <div className={classWithBGShadow("team-view-edit__cell", bgManager)}>
+
+      </div>
+      <div className={classWithBGShadow("team-view-pinned-boxes__cell", bgManager)}>
+        <PinnedBoxAccordion
+          clickHandlers={pinnedBoxClickHandlers}
+          dispatches={dispatches}
+          filters={filters}
+          team={team}
+        />
+      </div>
     </div>
   )
 }

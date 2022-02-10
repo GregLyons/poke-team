@@ -1,3 +1,18 @@
+.team-view-accordion__wrapper {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--dark1);
+  box-shadow: var(--control-shadow);
+  border-radius: 15px;
+  
+  justify-self: center;
+  align-self: center;
+  padding: 0.25rem;
+}
+
 .accordion__title-element-wrapper.pinned-boxes-accordion__title-element-wrapper {
   display: grid;
 

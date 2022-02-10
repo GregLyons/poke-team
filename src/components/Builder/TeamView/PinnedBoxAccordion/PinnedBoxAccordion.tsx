@@ -44,11 +44,13 @@ const PinnedBoxAccordion = ({
     })
   }, [dispatches, filters, team, ])
   return (
-    <Accordion
-      accordionContext="pinned-boxes"
-      accordionData={accordionData}
-      optionsInTitle={true}
-    />
+    <div className="team-view-accordion__wrapper">
+      <Accordion
+        accordionContext="pinned-boxes"
+        accordionData={accordionData}
+        optionsInTitle={true}
+      />
+    </div>
   )
 };
 
