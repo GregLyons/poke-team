@@ -53,7 +53,6 @@ import {
 } from './AbilityConnections';
 
 import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
-import MainEntityDescriptionTable from '../Pages/MainEntityDescriptionTable';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 import { TeamAction } from '../../../hooks/App/Team';
@@ -228,98 +227,95 @@ const AbilityPage = ({
   const abilityResult = new AbilityOnPage(data.abilityByName[0]);
   
   return (
-    <div className="planner-page">
-      <h1 className="planner-page__header">{abilityResult.formattedName}</h1>
-
-      <MainEntityDescriptionTable
-        descriptions={abilityResult.descriptions}
-      />
-
-      <Accordion
-        accordionContext='planner'
-        accordionData={[
-          {
-            title: <ConnectionAccordionTitle
-              titleText={`Effects of ${abilityResult.formattedName}`}
-            />,
-            content: abilityResult.effectCount > 0 && <>
-              <EntityConnectionSearch
-                genFilter={filters.genFilter}
-                listRender={listRenderAbilityEffect}
-                query={ABILITY_EFFECT_QUERY}
-                queryVars={effectQueryVars}
-              />
-            </>,
-          },
-          {
-            title: <ConnectionAccordionTitle
-              titleText={`Field state interactions with ${abilityResult.formattedName}`}
-            />,
-            content: abilityResult.fieldStateCount > 0 && <>
-              <EntityConnectionSearch
-                genFilter={filters.genFilter}
-                listRender={listRenderAbilityFieldState}
-                query={ABILITY_FIELDSTATE_QUERY}
-                queryVars={fieldStateQueryVars}
-              />
-            </>,
-          },
-          {
-            title: <ConnectionAccordionTitle
-              titleText={`Stat interactions with ${abilityResult.formattedName}`}
-            />,
-            content: abilityResult.modifiesStatCount > 0 && <>
-              <EntityConnectionSearch
-                genFilter={filters.genFilter}
-                listRender={listRenderAbilityStat}
-                query={ABILITY_STAT_QUERY}
-                queryVars={statQueryVars}
-              />
-            </>,
-          },
-          {
-            title: <ConnectionAccordionTitle
-              titleText={`Status interactions with ${abilityResult.formattedName}`}
-            />,
-            content: abilityResult.statusCount > 0 && <>
-              <EntityConnectionSearch
-                genFilter={filters.genFilter}
-                listRender={listRenderAbilityStatus}
-                query={ABILITY_STATUS_QUERY}
-                queryVars={statusQueryVars}
-              />
-            </>,
-          },
-          {
-            title: <ConnectionAccordionTitle
-              titleText={`Type interactions with ${abilityResult.formattedName}`}
-            />,
-            content: abilityResult.typeCount > 0 && <>
-              <EntityConnectionSearchIcons
-                dispatches={dispatches}
-                filters={filters}
-                listRender={listRenderAbilityType}
-                query={ABILITY_TYPE_QUERY}
-                queryVars={typeQueryVars}
-              />
-            </>,
-          },
-          {
-            title: <ConnectionAccordionTitle
-              titleText={`Usage method interactions with ${abilityResult.formattedName}`}
-            />,
-            content: abilityResult.usageMethodCount > 0 && <>
-              <EntityConnectionSearch
-                genFilter={filters.genFilter}
-                listRender={listRenderAbilityUsageMethod}
-                query={ABILITY_USAGEMETHOD_QUERY}
-                queryVars={usageMethodQueryVars}
-              />
-            </>,
-          },
-        ]} 
-      />
-      <Outlet />
+    <div className="planner-page__wrapper">
+      <div className="planner-page__padder">
+        <h1 className="planner-page__header">{abilityResult.formattedName}</h1>
+        <Accordion
+          accordionContext='planner'
+          accordionData={[
+            {
+              title: <ConnectionAccordionTitle
+                titleText={`Effects of ${abilityResult.formattedName}`}
+              />,
+              content: abilityResult.effectCount > 0 && <>
+                <EntityConnectionSearch
+                  genFilter={filters.genFilter}
+                  listRender={listRenderAbilityEffect}
+                  query={ABILITY_EFFECT_QUERY}
+                  queryVars={effectQueryVars}
+                />
+              </>,
+            },
+            {
+              title: <ConnectionAccordionTitle
+                titleText={`Field state interactions with ${abilityResult.formattedName}`}
+              />,
+              content: abilityResult.fieldStateCount > 0 && <>
+                <EntityConnectionSearch
+                  genFilter={filters.genFilter}
+                  listRender={listRenderAbilityFieldState}
+                  query={ABILITY_FIELDSTATE_QUERY}
+                  queryVars={fieldStateQueryVars}
+                />
+              </>,
+            },
+            {
+              title: <ConnectionAccordionTitle
+                titleText={`Stat interactions with ${abilityResult.formattedName}`}
+              />,
+              content: abilityResult.modifiesStatCount > 0 && <>
+                <EntityConnectionSearch
+                  genFilter={filters.genFilter}
+                  listRender={listRenderAbilityStat}
+                  query={ABILITY_STAT_QUERY}
+                  queryVars={statQueryVars}
+                />
+              </>,
+            },
+            {
+              title: <ConnectionAccordionTitle
+                titleText={`Status interactions with ${abilityResult.formattedName}`}
+              />,
+              content: abilityResult.statusCount > 0 && <>
+                <EntityConnectionSearch
+                  genFilter={filters.genFilter}
+                  listRender={listRenderAbilityStatus}
+                  query={ABILITY_STATUS_QUERY}
+                  queryVars={statusQueryVars}
+                />
+              </>,
+            },
+            {
+              title: <ConnectionAccordionTitle
+                titleText={`Type interactions with ${abilityResult.formattedName}`}
+              />,
+              content: abilityResult.typeCount > 0 && <>
+                <EntityConnectionSearchIcons
+                  dispatches={dispatches}
+                  filters={filters}
+                  listRender={listRenderAbilityType}
+                  query={ABILITY_TYPE_QUERY}
+                  queryVars={typeQueryVars}
+                />
+              </>,
+            },
+            {
+              title: <ConnectionAccordionTitle
+                titleText={`Usage method interactions with ${abilityResult.formattedName}`}
+              />,
+              content: abilityResult.usageMethodCount > 0 && <>
+                <EntityConnectionSearch
+                  genFilter={filters.genFilter}
+                  listRender={listRenderAbilityUsageMethod}
+                  query={ABILITY_USAGEMETHOD_QUERY}
+                  queryVars={usageMethodQueryVars}
+                />
+              </>,
+            },
+          ]} 
+        />
+        <Outlet />
+      </div>
     </div>
   );
 }

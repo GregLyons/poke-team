@@ -9,6 +9,7 @@ import { BGAction, BGManager, classWithBGShadow, toggleBGPulse } from "../../hoo
 import { useEffect } from "react";
 import { useWindowSize } from "usehooks-ts";
 
+
 type PlannerProps = {
   dispatchBGManager: React.Dispatch<BGAction>
   bgManager: BGManager
@@ -43,7 +44,16 @@ const Planner = ({
         dispatchBGManager={dispatchBGManager}
         bgManager={bgManager}
       />
-      <Outlet />
+      <div
+        className="content-wrapper"
+        style={{
+          height: headerRef.current
+            ? `calc(${windowSize.height}px - ${headerRef.current.scrollHeight}px - var(--nav-bar-height))`
+            : ''
+        }}
+      >
+        <Outlet />
+      </div>
     </div>
   );
 }

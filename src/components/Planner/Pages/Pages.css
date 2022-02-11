@@ -1,19 +1,24 @@
 /* Entity pages */
 /* #region */
 
-.planner-page {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
+.planner-page__wrapper {
+
+  position: relative;
+  height: 100%;
+
+  padding: 0rem 1rem 0rem 1rem;
 }
 
-
-.planner-page__ > * + * {
-  margin-top: 0.5rem;
+.planner-page__padder {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  position: relative;
+  overflow: hidden;
+  height: calc(100% - 2.5rem);
 }
 
 .planner-page__header {
-  border: 1px solid white;
-  grid-column: 1 / 13;
+  grid-row: 1 / 2;
 }
 
 
@@ -62,8 +67,9 @@
 /* #region */
 
 .planner-accordion__title {
-  font-size: 1.5rem; 
   font-family: var(--monospace);
+  font-size: 1.5rem; 
+  ;
   font-weight: 500;
 }
 

@@ -41,7 +41,6 @@ import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 
 import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import { listRenderEffectAbility, listRenderEffectFieldState, listRenderEffectItem, listRenderEffectMove } from './EffectConnections';
-import AuxEntityDescription from '../Pages/AuxEntityDescription';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
@@ -205,74 +204,71 @@ const EffectPage = ({
   const effectResult = new EffectOnPage(data.effectByName[0]);
 
   return (
-    <div className="planner-page">
-      <h1 className="planner-page__header">{effectResult.formattedName}</h1>
-
-      <AuxEntityDescription
-        description={effectResult.description}
-      />
-
-      <Accordion 
-        accordionContext='planner'
-        accordionData={[
-          {
-            title: <ConnectionAccordionTitle
-              titleText={`Abilities with '${effectResult.formattedName}'`}
-            />,
-            content: effectResult.abilityCount > 0 && <>
-              <EntityConnectionSearchIcons
-                dispatches={dispatches}
-                filters={filters}
-                listRender={listRenderEffectAbility}
-                query={EFFECT_ABILITY_QUERY}
-                queryVars={abilityQueryVars}
-              />
-            </>,
-          },
-          {
-            title: <ConnectionAccordionTitle
-              titleText={`Field states with '${effectResult.formattedName}'`}
-            />,
-            content: effectResult.fieldStateCount > 0 && <>
-              <EntityConnectionSearch
-                genFilter={filters.genFilter}
-                listRender={listRenderEffectFieldState}
-                query={EFFECT_FIELDSTATE_QUERY}
-                queryVars={fieldStateQueryVars}
-              />
-            </>,
-          },
-          {
-            title: <ConnectionAccordionTitle
-              titleText={`Items with '${effectResult.formattedName}'`}
-            />,
-            content: effectResult.itemCount > 0 && <>
-              <EntityConnectionSearchIcons
-                dispatches={dispatches}
-                filters={filters}
-                listRender={listRenderEffectItem}
-                query={EFFECT_ITEM_QUERY}
-                queryVars={itemQueryVars}
-              />
-            </>,
-          },
-          {
-            title: <ConnectionAccordionTitle
-              titleText={`Moves with '${effectResult.formattedName}'`}
-            />,
-            content: effectResult.moveCount > 0 && <>
-              <EntityConnectionSearchIcons
-                dispatches={dispatches}
-                filters={filters}
-                listRender={listRenderEffectMove}
-                query={EFFECT_MOVE_QUERY}
-                queryVars={moveQueryVars}
-              />
-            </>,
-          },
-        ]}
-      />
-      <Outlet />
+    <div className="planner-page__wrapper">
+      <div className="planner-page__padder">
+        <h1 className="planner-page__header">{effectResult.formattedName}</h1>
+        <Accordion 
+          accordionContext='planner'
+          accordionData={[
+            {
+              title: <ConnectionAccordionTitle
+                titleText={`Abilities with '${effectResult.formattedName}'`}
+              />,
+              content: effectResult.abilityCount > 0 && <>
+                <EntityConnectionSearchIcons
+                  dispatches={dispatches}
+                  filters={filters}
+                  listRender={listRenderEffectAbility}
+                  query={EFFECT_ABILITY_QUERY}
+                  queryVars={abilityQueryVars}
+                />
+              </>,
+            },
+            {
+              title: <ConnectionAccordionTitle
+                titleText={`Field states with '${effectResult.formattedName}'`}
+              />,
+              content: effectResult.fieldStateCount > 0 && <>
+                <EntityConnectionSearch
+                  genFilter={filters.genFilter}
+                  listRender={listRenderEffectFieldState}
+                  query={EFFECT_FIELDSTATE_QUERY}
+                  queryVars={fieldStateQueryVars}
+                />
+              </>,
+            },
+            {
+              title: <ConnectionAccordionTitle
+                titleText={`Items with '${effectResult.formattedName}'`}
+              />,
+              content: effectResult.itemCount > 0 && <>
+                <EntityConnectionSearchIcons
+                  dispatches={dispatches}
+                  filters={filters}
+                  listRender={listRenderEffectItem}
+                  query={EFFECT_ITEM_QUERY}
+                  queryVars={itemQueryVars}
+                />
+              </>,
+            },
+            {
+              title: <ConnectionAccordionTitle
+                titleText={`Moves with '${effectResult.formattedName}'`}
+              />,
+              content: effectResult.moveCount > 0 && <>
+                <EntityConnectionSearchIcons
+                  dispatches={dispatches}
+                  filters={filters}
+                  listRender={listRenderEffectMove}
+                  query={EFFECT_MOVE_QUERY}
+                  queryVars={moveQueryVars}
+                />
+              </>,
+            },
+          ]}
+        />
+        <Outlet />  
+      </div>
     </div>
   );
 }

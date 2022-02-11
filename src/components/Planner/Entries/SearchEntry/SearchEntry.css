@@ -1,8 +1,11 @@
 /* Spacing between search entries, and shape */
-.planner-search__entry {
+.planner-search__results > * + * {
   margin-top: var(--entry-top-margin);
-  border-radius: 0.25rem;
+}
+
+.planner-search__entry {
   padding-top: var(--entry-vertical-padding);
+  box-shadow: 0 1px 1px 0px rgba(var(--dark1-components), 1);
 }
 
 /* Lower shadow */

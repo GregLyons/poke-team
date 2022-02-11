@@ -40,23 +40,29 @@ function EntitySearchMainIcons<SearchQuery, SearchQueryVars>({
   if (error) { return (<div>{error.message}</div>)}
 
   return (
-    <>
-      <form>
-        Search
-        <input
-          type="text"
-          value={searchBox}
-          onChange={(e) => {
-            setSearchBox(e.target.value);
-            handleSearchBoxChange?.(e);
-          }}
-        />
-      </form>
-      {loading 
-        ? <div>Loading...</div>
-        : data && listRender({ data, dispatches, filters, })
-      }
-    </>
+    <div
+      className="planner-search__wrapper"
+    >
+      <div className="planner-search__padder">
+        <form>
+          Search
+          <input
+            type="text"
+            value={searchBox}
+            onChange={(e) => {
+              setSearchBox(e.target.value);
+              handleSearchBoxChange?.(e);
+            }}
+          />
+        </form>
+        <div className="planner-search__results">
+          {loading 
+            ? <div>Loading...</div>
+            : data && listRender({ data, dispatches, filters, })
+          }
+        </div>
+      </div>
+    </div>
   );
 };
 

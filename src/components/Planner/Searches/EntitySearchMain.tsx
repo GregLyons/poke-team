@@ -13,6 +13,7 @@ import {
 } from './../helpers';
 
 import { GenFilter } from "../../../hooks/App/GenFilter";
+import './Searches.css';
 
 interface EntitySearchMainProps<SearchQuery, SearchQueryVars> {
   genFilter: GenFilter
@@ -38,23 +39,29 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
   if (error) { return (<div>{error.message}</div>)}
 
   return (
-    <>
-      <form>
-        Search
-        <input
-          type="text"
-          value={searchBox}
-          onChange={(e) => {
-            setSearchBox(e.target.value);
-            handleSearchBoxChange?.(e);
-          }}
-        />
-      </form>
-      {loading 
-        ? <div>Loading...</div>
-        : data && listRender({ data, genFilter, })
-      }
-    </>
+    <div
+      className="planner-search__wrapper"
+    >
+      <div className="planner-search__padder">
+        <form>
+          Search
+          <input
+            type="text"
+            value={searchBox}
+            onChange={(e) => {
+              setSearchBox(e.target.value);
+              handleSearchBoxChange?.(e);
+            }}
+          />
+        </form>
+        <div className="planner-search__results">
+          {loading 
+            ? <div>Loading...</div>
+            : data && listRender({ data, genFilter, })
+          }
+        </div>
+      </div>
+    </div>
   );
 };
 

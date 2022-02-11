@@ -43,7 +43,6 @@ import {
   listRenderTypeItem,
   listRenderTypeMove,
 } from './TypeConnections';
-import AuxEntityDescription from '../Pages/AuxEntityDescription';
 
 import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
@@ -209,74 +208,71 @@ const TypePage = ({
   const typeResult = new TypeOnPage(data.typeByName[0]);
 
   return (
-    <div className="planner-page">
-      <h1 className="planner-page__header">{typeResult.formattedName}</h1>
-
-      <AuxEntityDescription
-        description={typeResult.description}
-      />
-
-      <Accordion 
-        accordionContext='planner'
-        accordionData={[
-          {
-            title: <ConnectionAccordionTitle
-              titleText={`Ability interactions with ${typeResult.formattedName}`}
-            />,
-            content: typeResult.abilityCount > 0 && <>
-              <EntityConnectionSearchIcons
-                dispatches={dispatches}
-                filters={filters}
-                listRender={listRenderTypeAbility}
-                query={TYPE_ABILITY_QUERY}
-                queryVars={abilityQueryVars}
-              />
-            </>,
-          },
-          {
-            title: <ConnectionAccordionTitle
-              titleText={`Field state interactions with ${typeResult.formattedName}`}
-            />,
-            content: typeResult.fieldStateCount > 0 && <>
-              <EntityConnectionSearch
-                genFilter={filters.genFilter}
-                listRender={listRenderTypeFieldState}
-                query={TYPE_FIELDSTATE_QUERY}
-                queryVars={fieldStateQueryVars}
-              />
-            </>,
-          },
-          {
-            title: <ConnectionAccordionTitle
-              titleText={`Item interactions with ${typeResult.formattedName}`}
-            />,
-            content: typeResult.itemCount > 0 && <>
-              <EntityConnectionSearchIcons
-                dispatches={dispatches}
-                filters={filters}
-                listRender={listRenderTypeItem}
-                query={TYPE_ITEM_QUERY}
-                queryVars={itemQueryVars}
-              />
-            </>,
-          },
-          {
-            title: <ConnectionAccordionTitle
-              titleText={`Move interactions with ${typeResult.formattedName}`}
-            />,
-            content: typeResult.moveCount > 0 && <>
-              <EntityConnectionSearchIcons
-                dispatches={dispatches}
-                filters={filters}
-                listRender={listRenderTypeMove}
-                query={TYPE_MOVE_QUERY}
-                queryVars={moveQueryVars}
-              />
-            </>,
-          },
-        ]}
-      />
-      <Outlet />
+    <div className="planner-page__wrapper">
+      <div className="planner-page__padder">
+        <h1 className="planner-page__header">{typeResult.formattedName}</h1>
+        <Accordion 
+          accordionContext='planner'
+          accordionData={[
+            {
+              title: <ConnectionAccordionTitle
+                titleText={`Ability interactions with ${typeResult.formattedName}`}
+              />,
+              content: typeResult.abilityCount > 0 && <>
+                <EntityConnectionSearchIcons
+                  dispatches={dispatches}
+                  filters={filters}
+                  listRender={listRenderTypeAbility}
+                  query={TYPE_ABILITY_QUERY}
+                  queryVars={abilityQueryVars}
+                />
+              </>,
+            },
+            {
+              title: <ConnectionAccordionTitle
+                titleText={`Field state interactions with ${typeResult.formattedName}`}
+              />,
+              content: typeResult.fieldStateCount > 0 && <>
+                <EntityConnectionSearch
+                  genFilter={filters.genFilter}
+                  listRender={listRenderTypeFieldState}
+                  query={TYPE_FIELDSTATE_QUERY}
+                  queryVars={fieldStateQueryVars}
+                />
+              </>,
+            },
+            {
+              title: <ConnectionAccordionTitle
+                titleText={`Item interactions with ${typeResult.formattedName}`}
+              />,
+              content: typeResult.itemCount > 0 && <>
+                <EntityConnectionSearchIcons
+                  dispatches={dispatches}
+                  filters={filters}
+                  listRender={listRenderTypeItem}
+                  query={TYPE_ITEM_QUERY}
+                  queryVars={itemQueryVars}
+                />
+              </>,
+            },
+            {
+              title: <ConnectionAccordionTitle
+                titleText={`Move interactions with ${typeResult.formattedName}`}
+              />,
+              content: typeResult.moveCount > 0 && <>
+                <EntityConnectionSearchIcons
+                  dispatches={dispatches}
+                  filters={filters}
+                  listRender={listRenderTypeMove}
+                  query={TYPE_MOVE_QUERY}
+                  queryVars={moveQueryVars}
+                />
+              </>,
+            },
+          ]}
+        />
+        <Outlet />
+      </div>
     </div>
   );
 }

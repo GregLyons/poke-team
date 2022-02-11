@@ -1,12 +1,16 @@
 /* Items */
 /* #region */
 
-.planner-page .accordion {
-  grid-column: 2 / 12;
+.planner-page__padder > .accordion {
+  position: relative;
+  grid-row: 2 / 3;
   padding-left: 1rem;
   padding-right: 1rem;
+  overflow-y: scroll;
+  border-radius: 0;
 
   --accordion-left-shadow-size: 0.25rem;
+  font-family: var(--monospace);
 }
 
 .planner-accordion__item {

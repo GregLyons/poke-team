@@ -136,7 +136,7 @@ const TierFilterForm = ({
                 items={singlesItems}
                 toggleSelect={handleTierSelect}
                 dropdownWidth={'clamp(10vw, 35ch, 80%)'}
-                itemWidth={'5ch'}
+                itemWidth={'6ch'}
               />
             : <DropdownMenu 
                 title={'SELECT TIERS'}

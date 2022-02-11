@@ -2,8 +2,10 @@
 :root {
   --app-width: 85vw;
 
-  overflow-y: scroll;
+  font-family: var(--monospace);
+  overflow: hidden;
   line-height: 1.5;
+  font-size: 14px;
 
   /* Darks */
   --dark1-components: 84, 84, 84;
@@ -15,9 +17,12 @@
   
   
   /* Lights */ 
-  --light1: #ededed;
-  --light2: #dedede;
-  --light3: #aaaaaa;
+  --light1-components: 237, 237, 237;
+  --light1: rgb(var(--light1-components));
+  --light2-components: 222, 222, 222;
+  --light2: rgb(var(--light2-components));
+  --light3-components: 170, 170, 170;
+  --light3: rgb(var(--light3-components));
   
   /* Blues */
   --blue-bg-components: 204, 204, 255;
@@ -77,6 +82,10 @@
   /* Transitions */
   --transition-duration: 1s;
   --bg-transition: var(--transition-duration) ease;
+
+
+  /* heights */
+  --nav-bar-height: 1.5rem;
 }
 
 body {
@@ -130,23 +139,43 @@ code {
     monospace;
 }
 
+h1 {
+  margin-block-start: 0.33rem;
+  margin-block-end: 0.33rem;
+}
+
 /* Scrollbars */
 /* #region */
-/* 
+
+/* Firefox */
+/* #region */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--light1) none;
+}
+
+/* #endregion */
+
+/* Chrome, Edge, Safari */
+/* #region */
+
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: rgba(var(--light3-components), 0.5);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: rgba(var(--light1-components), 0.9);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
-} */
+  background: rgba(var(--light2-components), 0.9);
+}
+
+/* #endregion */
 
 /* #endregion */

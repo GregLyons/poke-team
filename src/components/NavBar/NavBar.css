@@ -8,6 +8,8 @@
   align-items: center;
   justify-content: center;
 
+  height: var(--nav-bar-height);
+
   background-color: var(--dark2);
   padding: var(--cell-padding);
   grid-row: 1 / 2;
@@ -22,6 +24,8 @@
 
   width: 100%;
   height: 100%;
+
+  padding-top: 0.2rem;
   
   background-color: var(--dark1);
   box-shadow: var(--control-shadow);

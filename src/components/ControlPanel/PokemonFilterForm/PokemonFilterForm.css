@@ -52,6 +52,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-top: 0.25rem;
 }
 
 .stat-filter__base-stat-name {

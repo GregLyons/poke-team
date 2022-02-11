@@ -39,7 +39,6 @@ import {
   listRenderUsageMethodItem,
   listRenderUsageMethodMove,
 } from './UsageMethodConnections';
-import AuxEntityDescription from '../Pages/AuxEntityDescription';
 
 import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 import Accordion from '../../Reusables/Accordion/Accordion';
@@ -198,61 +197,58 @@ const UsageMethodPage = ({
   const usageMethodResult = new UsageMethodOnPage(data.usageMethodByName[0]);
 
   return (
-    <div className="planner-page">
-      <h1 className="planner-page__header">{usageMethodResult.formattedName}</h1>
-
-      <AuxEntityDescription
-        description={usageMethodResult.description}
-      />
-
-      <Accordion 
-        accordionContext='planner'
-        accordionData={[
-          {
-            title: <ConnectionAccordionTitle
-              titleText={`Ability interactions with ${usageMethodResult.formattedName}`}
-            />,
-            content: usageMethodResult.abilityCount > 0 && <>
-              <EntityConnectionSearchIcons
-                dispatches={dispatches}
-                filters={filters}
-                listRender={listRenderUsageMethodAbility}
-                query={USAGEMETHOD_ABILITY_QUERY}
-                queryVars={abilityQueryVars}
-              />
-            </>,
-          },
-          {
-            title: <ConnectionAccordionTitle
-              titleText={`Item interactions with ${usageMethodResult.formattedName}`}
-            />,
-            content: usageMethodResult.itemCount > 0 && <>
-              <EntityConnectionSearchIcons
-                dispatches={dispatches}
-                filters={filters}
-                listRender={listRenderUsageMethodItem}
-                query={USAGEMETHOD_ITEM_QUERY}
-                queryVars={itemQueryVars}
-              />
-            </>,
-          },
-          {
-            title: <ConnectionAccordionTitle
-              titleText={`Move interactions with ${usageMethodResult.formattedName}`}
-            />,
-            content: usageMethodResult.moveCount > 0 && <>
-              <EntityConnectionSearchIcons
-                dispatches={dispatches}
-                filters={filters}
-                listRender={listRenderUsageMethodMove}
-                query={USAGEMETHOD_MOVE_QUERY}
-                queryVars={moveQueryVars}
-              />
-            </>,
-          },
-        ]}
-      />
-      <Outlet />
+    <div className="planner-page__wrapper">
+      <div className="planner-page__padder">
+        <h1 className="planner-page__header">{usageMethodResult.formattedName}</h1>
+        <Accordion 
+          accordionContext='planner'
+          accordionData={[
+            {
+              title: <ConnectionAccordionTitle
+                titleText={`Ability interactions with ${usageMethodResult.formattedName}`}
+              />,
+              content: usageMethodResult.abilityCount > 0 && <>
+                <EntityConnectionSearchIcons
+                  dispatches={dispatches}
+                  filters={filters}
+                  listRender={listRenderUsageMethodAbility}
+                  query={USAGEMETHOD_ABILITY_QUERY}
+                  queryVars={abilityQueryVars}
+                />
+              </>,
+            },
+            {
+              title: <ConnectionAccordionTitle
+                titleText={`Item interactions with ${usageMethodResult.formattedName}`}
+              />,
+              content: usageMethodResult.itemCount > 0 && <>
+                <EntityConnectionSearchIcons
+                  dispatches={dispatches}
+                  filters={filters}
+                  listRender={listRenderUsageMethodItem}
+                  query={USAGEMETHOD_ITEM_QUERY}
+                  queryVars={itemQueryVars}
+                />
+              </>,
+            },
+            {
+              title: <ConnectionAccordionTitle
+                titleText={`Move interactions with ${usageMethodResult.formattedName}`}
+              />,
+              content: usageMethodResult.moveCount > 0 && <>
+                <EntityConnectionSearchIcons
+                  dispatches={dispatches}
+                  filters={filters}
+                  listRender={listRenderUsageMethodMove}
+                  query={USAGEMETHOD_MOVE_QUERY}
+                  queryVars={moveQueryVars}
+                />
+              </>,
+            },
+          ]}
+        />
+        <Outlet />
+      </div>
     </div>
   );
 }

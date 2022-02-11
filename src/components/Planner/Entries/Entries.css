@@ -38,7 +38,6 @@
   text-decoration: none;
   transform-origin: top left;
 
-  font-size: 0.9rem;
 }
 
 .planner__entry-row-name:hover {
@@ -58,7 +57,6 @@
   
   padding-left: var(--entry-horizontal-padding);
   padding-right: var(--entry-horizontal-padding);
-  font-size: 0.9rem;
 }
 
 .planner-search__entry-data-key,
