@@ -10,6 +10,8 @@
 
   background-color: var(--dark2);
   padding: var(--cell-padding);
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
 }
 
 .nav-bar {

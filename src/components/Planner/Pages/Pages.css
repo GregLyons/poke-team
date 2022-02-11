@@ -6,6 +6,7 @@
   grid-template-columns: repeat(12, 1fr);
 }
 
+
 .planner-page__ > * + * {
   margin-top: 0.5rem;
 }

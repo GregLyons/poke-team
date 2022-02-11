@@ -3,6 +3,7 @@ import { BGManager, classWithBG, classWithBGShadow, toggleBGPulse } from "../../
 import { Team } from "../../../hooks/App/Team";
 import { PokemonIconDispatches, PokemonIconFilters } from "../../App";
 import PinnedBoxAccordion from "./PinnedBoxAccordion/PinnedBoxAccordion";
+import TeamBuilder from "./TeamBuilder/TeamBuilder";
 
 import './TeamView.css';
 
@@ -42,10 +43,12 @@ const TeamView = ({
 
   return (
     <div className={classWithBG("team-view__wrapper", bgManager)}>
-      <div className={classWithBGShadow("team-view-edit__cell", bgManager)}>
-
+      <div className={classWithBGShadow("team-builder__cell", bgManager)}>
+        <TeamBuilder
+        
+        />
       </div>
-      <div className={classWithBGShadow("team-view-pinned-boxes__cell", bgManager)}>
+      <div className={classWithBGShadow("pinned-boxes__cell", bgManager)}>
         <PinnedBoxAccordion
           clickHandlers={pinnedBoxClickHandlers}
           dispatches={dispatches}

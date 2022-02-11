@@ -21,16 +21,16 @@
   border-bottom: 1px solid var(--blue-bg);
 }
 
-.team-view-edit__cell {
+.team-builder__cell {
   grid-column: 1 / 9;
 }
-.team-view-pinned-boxes__cell {
+.pinned-boxes__cell {
   grid-column: 9 / 13;
 }
 
 /* Border effects */
-.team-view-edit__cell,
-.team-view-pinned-boxes__cell {
+.team-builder__cell,
+.pinned-boxes__cell {
   position: relative;
 
   display: flex;

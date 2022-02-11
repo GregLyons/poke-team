@@ -39,6 +39,13 @@ export const useEntryExpand = (
   }, [entryRef, setOriginalScrollHeight, windowWidth, windowHeight, filters?.genFilter, filters?.pokemonFilter, filters?.tierFilter]);
 
   function onMouseEnterEntry() {
+    // Clear contract timer upon entering entry; the purpose of this is so that if the user accidentally exits an expanded entry, the entry won't close on them if they reenter the entry in time. 
+    if (contractTimer.current) {
+      // Clear contractTimer to stop contracting
+      clearTimeout(contractTimer.current);
+      // Keeps expand progress bar alive, assuming already expanded
+      if (expand) setExpandHover(true);
+    }
     setEntryHover(true);
   }
 

@@ -1,10 +1,6 @@
 /* Items */
 /* #region */
 
-.planner-page {
-  background-color: var(--dark2);
-}
-
 .planner-page .accordion {
   grid-column: 2 / 12;
   padding-left: 1rem;

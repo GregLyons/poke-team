@@ -2,6 +2,7 @@ import {
   useEffect,
   useMemo,
   useReducer,
+  useRef,
 } from 'react';
 import {
   Route,
@@ -65,6 +66,8 @@ function App() {
   const [cart, dispatchCart] = useReducer(cartReducer, DEFAULT_CART);
   const [team, dispatchTeam] = useReducer(teamReducer, DEFAULT_TEAM);
   const [bgManager, dispatchBGManager] = useReducer(bgReducer, DEFAULT_BACKGROUND);
+
+  const headerRef = useRef<HTMLElement>(null);
   
   const dispatches: PokemonIconDispatches = useMemo(() => {
     return {
@@ -86,7 +89,9 @@ function App() {
     <div className={classWithBG("app__wrapper", bgManager)}>
       <div className={classWithBG("left-bg-panel", bgManager)} />
       <div className={classWithBG(classWithBGShadow("app", bgManager), bgManager)}>
-        <header>
+        <header
+          ref={headerRef}
+        >
           <NavBar 
             bgManager={bgManager}
             dispatchBGManager={dispatchBGManager}
@@ -111,12 +116,14 @@ function App() {
 
           {/* Routing for Analyzer */}
           <Route path="/analyzer" element={<Analyzer
+            headerRef={headerRef}
             bgManager={bgManager}
             dispatchBGManager={dispatchBGManager}
           />} />
 
           {/* Routing for Builder */}
           <Route path="/builder" element={<Builder
+            headerRef={headerRef}
             bgManager={bgManager}
             dispatchBGManager={dispatchBGManager}
           />} >
@@ -154,6 +161,7 @@ function App() {
 
           {/* Routing for Planner */}
           <Route path="/planner" element={<Planner
+            headerRef={headerRef}
             bgManager={bgManager}
             dispatchBGManager={dispatchBGManager}
           />} >

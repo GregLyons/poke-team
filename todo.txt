@@ -13,3 +13,5 @@ ice resists hail
 messages for item icons in planner
 
 proofread cart notes
+
+useEntryExpand: leave expanded entry and return before contract timer

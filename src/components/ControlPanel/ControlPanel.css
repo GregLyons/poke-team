@@ -107,7 +107,6 @@
 /* #region */
 
 .team__cell {
-  border-radius: 3px;
   box-shadow: var(--bg-shadow);
 }
 
@@ -119,7 +118,6 @@
 
   padding: var(--cell-padding);
   background-color: var(--dark2);
-  border-radius: 3px;
 }
 
 .team__wrapper {
@@ -130,7 +128,6 @@
   grid-template-rows: 1fr;
   
   background-color: var(--dark2);
-  border-radius: 3px;
   box-shadow: var(--bg-shadow);
 }
 

@@ -63,7 +63,7 @@
 
 
   --bg-shadow-inset: -1px -1px 3px 1px;
-  --bg-shadow-inset-pulse: -1px -1px 3px 3px;
+  --bg-shadow-inset-pulse: -1px -1px 3px 2px;
   
   --bg-shadow-red: inset var(--bg-shadow-inset) rgba(var(--red-bg-components), 0.8);
   --bg-shadow-red-pulse: inset var(--bg-shadow-inset-pulse) rgba(var(--red-bg-components), 1);
@@ -129,3 +129,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Scrollbars */
+/* #region */
+/* 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+} */
+
+/* #endregion */

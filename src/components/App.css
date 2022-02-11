@@ -1,6 +1,7 @@
 .app__wrapper {
   width: 100%;
   overflow-x: hidden;
+  /* overflow-y: hidden; */
   height: auto;
   min-height: 100vh;
 
@@ -50,8 +51,8 @@
   transition: left var(--bg-transition), opacity var(--bg-transition);
 }
 .left-bg-panel.pulse::after {
-  left: -10px;
-  opacity: 0.7;
+  left: -5px;
+  opacity: 0.95;
 }
 .right-bg-panel::after {
   background: linear-gradient(
@@ -64,8 +65,8 @@
   transition: left var(--bg-transition), opacity var(--bg-transition);
 }
 .right-bg-panel.pulse::after {
-  left: 10px;
-  opacity: 0.7;
+  left: 5px;
+  opacity: 0.95;
 }
 
 /* #endregion */
@@ -100,7 +101,6 @@
 .bg-shadow--red,
 .bg-shadow--green,
 .bg-shadow--blue {
-  border-radius: 3px;
   transition: box-shadow var(--bg-transition);
 }
 .bg-shadow--red {
@@ -122,10 +122,22 @@
   box-shadow: var(--bg-shadow-blue-pulse);
 }
 
-/* Side panel gradient */
-/* #region */
-
-
 /* #endregion */
 
-/* #endregion */
+/* App part containers */
+.planner-container,
+.builder-container,
+.analyzer-container {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr;
+
+  background-color: rgba(var(--dark3-components), 0.8);
+}
+
+.planner-container > .nav-bar__wrapper, 
+.builder-container > .nav-bar__wrapper, 
+.analyzer-container > .nav-bar__wrapper {
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+}
