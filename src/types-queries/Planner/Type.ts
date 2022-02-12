@@ -359,7 +359,6 @@ export class TypeOnPage extends AuxEntityOnPage {
   public boostedByItemCount: number
   public enablesMoveCount: number
   public ignoresFieldStateCount: number
-  public moveCount: number
   public naturalGiftCount: number
   public removesFieldStateCount: number
   public resistedByAbilityCount: number
@@ -367,10 +366,11 @@ export class TypeOnPage extends AuxEntityOnPage {
   public resistedByItemCount: number
   public resistsFieldStateCount: number
   public weatherBallCount: number
-
+  
   public abilityCount: number
   public fieldStateCount: number
   public itemCount: number
+  public moveInteractionCount: number
 
   constructor(gqlType: TypePageResult) {
     super(gqlType);
@@ -385,7 +385,7 @@ export class TypeOnPage extends AuxEntityOnPage {
     this.boostedByItemCount = gqlType.boostedByItem.count;
     this.enablesMoveCount = gqlType.enablesMove.count;
     this.ignoresFieldStateCount = gqlType.ignoresFieldState.count;
-    this.moveCount = gqlType.moves.count;
+    this.moveInteractionCount = gqlType.moves.count;
     this.naturalGiftCount = gqlType.naturalGift.count;
     this.removesFieldStateCount = gqlType.removesFieldState.count;
     this.resistedByAbilityCount = gqlType.resistedByAbility.count;
@@ -397,7 +397,7 @@ export class TypeOnPage extends AuxEntityOnPage {
     this.abilityCount = this.boostedByAbilityCount + this.resistedByAbilityCount;
     this.fieldStateCount = this.boostedByFieldStateCount + this.ignoresFieldStateCount + this.removesFieldStateCount + this.weakenedByFieldStateCount + this.resistsFieldStateCount + this.weatherBallCount;
     this.itemCount = this.boostedByItemCount + this.naturalGiftCount + this.resistedByItemCount;
-    this.moveCount = this.enablesMoveCount + this.moveCount;
+    this.moveInteractionCount = this.enablesMoveCount;
   }
 }
 

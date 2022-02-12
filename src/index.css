@@ -59,12 +59,13 @@
 
   /* Shadows */
   --bg-shadow-gap: 1px;
-  --cell-padding: clamp(4px, 0.75rem, 2vw);
+  --cell-padding: clamp(4px, 0.8rem, 2vw);
 
   --button-shadow: inset 0px -5px 1px 0 rgba(0, 0, 0, 0.2);
 
   --control-shadow-inset: 3px 3px;
   --control-shadow: inset var(--control-shadow-inset) rgba(0,0,0,0.2);
+  --control-padding: 3px;
 
 
   --bg-shadow-inset: -1px -1px 3px 1px;
@@ -82,10 +83,6 @@
   /* Transitions */
   --transition-duration: 1s;
   --bg-transition: var(--transition-duration) ease;
-
-
-  /* heights */
-  --nav-bar-height: 1.5rem;
 }
 
 body {

@@ -1,7 +1,7 @@
 .accordion {
-  padding: 0.5rem;
+  position: relative;
+  padding: 0.75rem;
   background-color: rgba(var(--dark3-components), 0.7);
-  border-radius: 1rem;
 }
 
 .accordion__item {
@@ -13,6 +13,7 @@
   grid-template-columns: 1fr clamp(5%, 5rem, 10%);
 
   box-shadow: var(--control-shadow);
+  padding-top: var(--control-padding);
   background-color: var(--dark2);
   border-radius: 1rem;
   padding: var(--cell-padding);

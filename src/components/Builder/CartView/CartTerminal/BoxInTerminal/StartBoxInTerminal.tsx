@@ -50,7 +50,11 @@ const StartBoxInTerminal = ({
           onClick={e => clickHandlers.onRemoveClick(e, box)}
         />
       </div>
-      <div className="cart-view-terminal__box-note">{box.note}</div>
+      <div className="cart-view-terminal__box-note">
+        <span>
+          {box.note}
+        </span>
+      </div>
     </div>
   )
 }

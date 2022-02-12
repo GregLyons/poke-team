@@ -64,7 +64,7 @@ const AbilitySearch = ({
     {
       gen: filters.genFilter.gen,
       startsWith: '',
-      limit: 5,
+      limit: 10,
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
     },

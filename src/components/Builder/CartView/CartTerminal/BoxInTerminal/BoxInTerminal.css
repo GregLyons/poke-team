@@ -19,6 +19,7 @@
 .cart-view-terminal__box-note {
   background-color: var(--dark2);
   box-shadow: var(--control-shadow);
+  padding-top: var(--control-padding);
   padding: 3px 5px 3px 5px;
   font-size: 0.8rem;
 }
@@ -126,6 +127,16 @@
 .cart-view-terminal__box-note {
   grid-row: 2 / 3;
   grid-column: 1 / 5;
+}
+
+.cart-view-terminal__box-note > span {
+  display: block;
+  margin-top: 3px;
+  margin-right: 2rem;
+  
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* #endregion */

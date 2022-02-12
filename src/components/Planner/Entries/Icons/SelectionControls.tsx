@@ -27,7 +27,7 @@ const SelectionControls = ({
 }: SelectionControlsProps) => {
   const noPokemon = !hasIcon.current;
   return (
-    <div className="planner__control-buttons">
+    <>
       <Button
         title='De-select all Pokemon in this box.'
         label='DESELECT ALL'
@@ -81,7 +81,7 @@ const SelectionControls = ({
         disabled={noPokemon}
         immediate={true}
       />
-    </div>
+    </>
   );
 }
 

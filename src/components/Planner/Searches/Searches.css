@@ -7,11 +7,11 @@
 }
 
 .planner-search__padder {
-  height: calc(100% - 5rem);
   position: relative;
+  height: calc(100% - 4rem);
 }
 
 .planner-search__results {
- height: 100%;
- overflow-y: scroll;
+  height: 100%;
+  overflow-y: scroll;
 }

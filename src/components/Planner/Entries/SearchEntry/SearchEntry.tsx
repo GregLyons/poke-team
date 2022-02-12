@@ -44,7 +44,7 @@ const EntitySearchEntry = ({
   const entryRef = useRef<HTMLDivElement>(null);
 
   // Default height
-  const entryHeight = "6rem";
+  const entryHeight = "7rem";
   
   const { entryHover, expandHover, expand, hoverListeners, expandListeners, originalScrollHeight } = useEntryExpand(entryRef, icons?.filters);
 

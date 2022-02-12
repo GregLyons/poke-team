@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import {
   Outlet,
 } from "react-router-dom";
@@ -12,6 +12,7 @@ import { BGAction, BGManager, toggleBGPulse } from "../../hooks/App/BGManager";
 import BuilderNavBar from './BuilderNavBar';
 
 import './Builder.css';
+import { useContainerHeight } from "../../hooks/App/ContainerHeight";
 
 type BuilderProps = {
   dispatchBGManager: React.Dispatch<BGAction>
@@ -24,7 +25,8 @@ const Builder = ({
   bgManager,
   dispatchBGManager,
 }: BuilderProps) => {
-  const windowSize = useWindowSize();
+  const navBarRef = useRef<HTMLDivElement>(null);
+  const [containerHeight, contentHeight] = useContainerHeight(headerRef, navBarRef);
 
   // Change background to green
   useEffect(() => {
@@ -39,16 +41,26 @@ const Builder = ({
     <div 
       className="builder-container"
       style={{
-        height: headerRef.current 
-          ? `calc(${windowSize.height}px - ${headerRef.current.scrollHeight}px)`
-          : '',
+        height: containerHeight,
       }}
-    >
-      <BuilderNavBar 
-        dispatchBGManager={dispatchBGManager}
-        bgManager={bgManager}
-      />
-      <Outlet />
+    > 
+      <div
+        ref={navBarRef}
+        className="nav-bar__ref-container"
+      >
+        <BuilderNavBar 
+          dispatchBGManager={dispatchBGManager}
+          bgManager={bgManager}
+        />
+      </div>
+      <div 
+        className="content-wrapper"
+        style={{
+          height: contentHeight,
+        }}
+      >
+        <Outlet />
+      </div>
     </div>
   );
 }

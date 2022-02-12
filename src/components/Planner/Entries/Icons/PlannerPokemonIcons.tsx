@@ -7,6 +7,7 @@ import SelectionControls from "./SelectionControls";
 
 import './Icons.css';
 import { EntryIconData } from "../../helpers";
+import Button from "../../../Reusables/Button/Button";
 
 type PlannerPokemonIconsProps = {
   context: 'search' | 'accordion'
@@ -47,15 +48,30 @@ const PlannerPokemonIcons = ({
 
   return (
     <div className={`planner-${context}__entry-icons`}>
-      {/* Will only render anything for entries which could have icons. */}
-      {icons.dispatches && <SelectionControls
-        selection={selection}
-        dispatchSelection={dispatchSelection}
-        dispatches={icons.dispatches}
-        handleAddToCart={handleAddToCart}
-        hasIcon={hasIcon}
-        reason={reason}
-      />}
+      <div className="planner__control-buttons">
+        {/* Will only render anything for entries which could have icons. */}
+        {icons.dispatches 
+          ? <SelectionControls
+              selection={selection}
+              dispatchSelection={dispatchSelection}
+              dispatches={icons.dispatches}
+              handleAddToCart={handleAddToCart}
+              hasIcon={hasIcon}
+              reason={reason}
+            />
+          : <div>
+              No Pokemon to show.
+              <Button
+                title=''
+                label='A'
+                active={false}
+                onClick={() => null}
+                disabled={true}
+                immediate={false}
+              />
+            </div>
+        }
+      </div>
       <br />
       <div 
         onMouseEnter={expandListeners.onMouseEnter}
@@ -103,7 +119,7 @@ const PlannerPokemonIcons = ({
             />
           );
         })}
-        {!hasIcon.current && <div className="planner__pokemon-icons-reason">
+        {!hasIcon.current && displayReason(reason.current).length > 0 && <div className="planner__pokemon-icons-reason">
           {displayReason(reason.current)}
         </div>}
       </div>

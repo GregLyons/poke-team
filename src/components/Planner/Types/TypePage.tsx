@@ -259,7 +259,7 @@ const TypePage = ({
               title: <ConnectionAccordionTitle
                 titleText={`Move interactions with ${typeResult.formattedName}`}
               />,
-              content: typeResult.moveCount > 0 && <>
+              content: typeResult.moveInteractionCount > 0 && <>
                 <EntityConnectionSearchIcons
                   dispatches={dispatches}
                   filters={filters}

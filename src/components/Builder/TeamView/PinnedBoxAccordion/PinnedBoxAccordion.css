@@ -6,6 +6,7 @@
 
   background-color: var(--dark1);
   box-shadow: var(--control-shadow);
+  padding-top: var(--control-padding);
   border-radius: 15px;
   
   justify-self: center;
@@ -35,6 +36,7 @@
   background-color: var(--dark1);
   border-radius: 1rem;
   box-shadow: var(--control-shadow);
+  padding-top: var(--control-padding);
 
   padding-left: 1rem;
   padding-right: 1rem;

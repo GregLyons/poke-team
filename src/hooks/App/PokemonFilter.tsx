@@ -231,7 +231,7 @@ export const displayReason = (reason: ValidationFailureReason) => {
     case 'stat':
       return 'No Pokemon match the STAT criteria.';
     case '':
-      return 'No Pokemon to show.';
+      return '';
     default:
       return '';
   }

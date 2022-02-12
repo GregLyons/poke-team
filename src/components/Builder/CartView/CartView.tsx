@@ -159,8 +159,8 @@ const CartView = ({
   }, [dispatches, filters, ]);
 
   return (
-    <div className={classWithBG("cart-view__wrapper", bgManager)}>
-      <div className={classWithBGShadow("cart-view-accordion__cell", bgManager)}>
+    <div className={"cart-view__wrapper"}>
+      <div className={"cart-view-accordion__cell"}>
         <CartAccordion
           cart={cart}
           team={team}
@@ -169,7 +169,7 @@ const CartView = ({
           clickHandlers={cartAccordionClickHandlers}
         />
       </div>
-      <div className={classWithBGShadow("cart-view-terminal__cell", bgManager)}>
+      <div className={"cart-view-terminal__cell"}>
         <CartTerminal
           cart={cart}
           dispatches={dispatches}

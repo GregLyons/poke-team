@@ -6,8 +6,9 @@ import './Entries/Entries.css';
 
 import PlannerNavBar from './PlannerNavBar';
 import { BGAction, BGManager, classWithBGShadow, toggleBGPulse } from "../../hooks/App/BGManager";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useWindowSize } from "usehooks-ts";
+import { useContainerHeight } from "../../hooks/App/ContainerHeight";
 
 
 type PlannerProps = {
@@ -21,8 +22,9 @@ const Planner = ({
   bgManager,
   dispatchBGManager,
 }: PlannerProps) => {
-  const windowSize = useWindowSize();
-
+  const navBarRef = useRef<HTMLDivElement>(null);
+  const [containerHeight, contentHeight] = useContainerHeight(headerRef, navBarRef);
+  
   // Change background to blue
   useEffect(() => {
     dispatchBGManager({
@@ -35,21 +37,22 @@ const Planner = ({
     <div 
       className={classWithBGShadow("planner-container", bgManager)}
       style={{
-        height: headerRef.current 
-          ? `calc(${windowSize.height}px - ${headerRef.current.scrollHeight}px)`
-          : '',
+        height: containerHeight,
       }}
     >
-      <PlannerNavBar 
-        dispatchBGManager={dispatchBGManager}
-        bgManager={bgManager}
-      />
+      <div 
+        className="nav-bar__ref-container"
+        ref={navBarRef}
+      >
+        <PlannerNavBar 
+          dispatchBGManager={dispatchBGManager}
+          bgManager={bgManager}
+        />
+      </div>
       <div
         className="content-wrapper"
         style={{
-          height: headerRef.current
-            ? `calc(${windowSize.height}px - ${headerRef.current.scrollHeight}px - var(--nav-bar-height))`
-            : ''
+          height: contentHeight,
         }}
       >
         <Outlet />

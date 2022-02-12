@@ -55,7 +55,7 @@ const EffectSearch = ({
     {
       gen: genFilter.gen,
       startsWith: '',
-      limit: 5,
+      limit: 100,
     },
     genFilter,
   );

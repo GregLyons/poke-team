@@ -35,7 +35,15 @@ const PinnedBoxAccordion = ({
           titleText={note}
         />,
         content: <PinnedBox
-          pokemon={pokemon}
+          box={{
+            note,
+            pokemon,
+            classification: {
+              parentEntityClass: 'Custom',
+              targetEntityClass: null,
+            },
+            roleInCombination: undefined,
+          }}
           dispatches={dispatches}
           filters={filters}
           key={note}
