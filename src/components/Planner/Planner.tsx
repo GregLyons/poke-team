@@ -8,22 +8,23 @@ import PlannerNavBar from './PlannerNavBar';
 import { BGAction, BGManager, classWithBGShadow, toggleBGPulse } from "../../hooks/App/BGManager";
 import { useEffect, useRef } from "react";
 import { useWindowSize } from "usehooks-ts";
-import { useContainerHeight } from "../../hooks/App/ContainerHeight";
+import { useContainerSize } from "../../hooks/App/ContainerSize";
 
 
 type PlannerProps = {
   dispatchBGManager: React.Dispatch<BGAction>
   bgManager: BGManager
   headerRef: React.RefObject<HTMLElement>
+  navBarRef: React.RefObject<HTMLDivElement>
 }
 
 const Planner = ({
-  headerRef,
   bgManager,
   dispatchBGManager,
+  headerRef,
+  navBarRef,
 }: PlannerProps) => {
-  const navBarRef = useRef<HTMLDivElement>(null);
-  const [containerHeight, contentHeight] = useContainerHeight(headerRef, navBarRef);
+  const [containerWidth, containerHeight, contentHeight] = useContainerSize(headerRef, navBarRef);
   
   // Change background to blue
   useEffect(() => {
@@ -38,11 +39,11 @@ const Planner = ({
       className={classWithBGShadow("planner-container", bgManager)}
       style={{
         height: containerHeight,
+        width: containerWidth,
       }}
     >
       <div 
         className="nav-bar__ref-container"
-        ref={navBarRef}
       >
         <PlannerNavBar 
           dispatchBGManager={dispatchBGManager}
@@ -53,6 +54,7 @@ const Planner = ({
         className="content-wrapper"
         style={{
           height: contentHeight,
+          width: containerWidth,
         }}
       >
         <Outlet />

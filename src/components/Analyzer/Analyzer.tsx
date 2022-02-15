@@ -8,12 +8,14 @@ type AnalyzerProps = {
   dispatchBGManager: React.Dispatch<BGAction>
   bgManager: BGManager
   headerRef: React.RefObject<HTMLElement>
+  navBarRef: React.RefObject<HTMLDivElement>
 }
 
 const Analyzer = ({
   headerRef,
   bgManager,
   dispatchBGManager,
+  navBarRef,
 }: AnalyzerProps) => {
   const windowSize = useWindowSize();
 

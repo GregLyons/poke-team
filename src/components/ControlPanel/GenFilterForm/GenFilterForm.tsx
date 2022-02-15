@@ -61,10 +61,10 @@ const GenFilterForm = ({
 
   return (
     <form className="gen-filter__wrapper">
+      <div className="gen-filter__label">
+        GEN
+      </div>
       <div className="gen-filter__slider">
-        <div className="gen-filter__label">
-          GEN
-        </div>
         <label htmlFor="select generation">
           <Slider
             min={1}
@@ -75,7 +75,7 @@ const GenFilterForm = ({
             onIncrement={onIncrement}
             onDecrement={onDecrement}
             onLeft={false}
-            sliderWidth={"clamp(75px, 7.5vw, 150px"}
+            sliderWidth={"clamp(75px, 10vw, 200px"}
             numericalWidth={1}
           />
         </label>

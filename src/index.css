@@ -1,6 +1,8 @@
 /* Variable declarations */
 :root {
   --app-width: 85vw;
+  --control-panel-height: 20vh;
+  --nav-bar-height: clamp(1.5rem, 32px, 3vh);
 
   font-family: var(--monospace);
   overflow: hidden;

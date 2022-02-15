@@ -1,11 +1,15 @@
 .app__wrapper {
-  width: 100%;
-  /* overflow-y: hidden; */
-  height: auto;
+  width: 100vw;
   min-height: 100vh;
+  /* overflow-y: hidden; */
+  overflow-y: hidden;
+  height: auto;
 
   display: grid;
-  grid-template-columns: 1fr var(--app-width) 1fr;
+  grid-template-columns: 
+    1fr
+    var(--app-width)
+    1fr;
   grid-template-rows: 1fr;
 }
 
@@ -13,6 +17,7 @@
   grid-column: 2 / 3;
   padding-left: 0.1rem;
   padding-right: 0.1rem;
+  overflow-x: scroll;
 }
 
 /* BG Panels */
@@ -47,10 +52,11 @@
     rgba(var(--dark3-components), 1),
     rgba(var(--dark3-components), 1)
   );
-  transition: left var(--bg-transition), opacity var(--bg-transition);
+  transition: left var(--bg-transition), opacity var(--bg-transition), width var(--bg-transition);
 }
 .left-bg-panel.pulse::after {
   left: -5px;
+  width: calc(100% - 5px);
   opacity: 0.95;
 }
 .right-bg-panel::after {
@@ -61,10 +67,11 @@
     rgba(var(--dark3-components), 1),
     rgba(var(--dark3-components), 1)
   );
-  transition: left var(--bg-transition), opacity var(--bg-transition);
+  transition: left var(--bg-transition), opacity var(--bg-transition), width var(--bg-transition);
 }
 .right-bg-panel.pulse::after {
   left: 5px;
+  width: calc(100% - 5px);
   opacity: 0.95;
 }
 

@@ -69,6 +69,7 @@ function App() {
   const [bgManager, dispatchBGManager] = useReducer(bgReducer, DEFAULT_BACKGROUND);
 
   const headerRef = useRef<HTMLElement>(null);
+  const navBarRef = useRef<HTMLDivElement>(null);
   
   const dispatches: Dispatches = useMemo(() => {
     return {
@@ -93,7 +94,9 @@ function App() {
         <header
           ref={headerRef}
         >
-          <NavBar 
+          <NavBar
+            headerRef={headerRef}
+            navBarRef={navBarRef}
             bgManager={bgManager}
             dispatchBGManager={dispatchBGManager}
           />
@@ -118,6 +121,7 @@ function App() {
           {/* Routing for Analyzer */}
           <Route path="/analyzer" element={<Analyzer
             headerRef={headerRef}
+            navBarRef={navBarRef}
             bgManager={bgManager}
             dispatchBGManager={dispatchBGManager}
           />} />
@@ -125,6 +129,7 @@ function App() {
           {/* Routing for Builder */}
           <Route path="/builder" element={<Builder
             headerRef={headerRef}
+            navBarRef={navBarRef}
             bgManager={bgManager}
             dispatchBGManager={dispatchBGManager}
           />} >
@@ -172,6 +177,7 @@ function App() {
           {/* Routing for Planner */}
           <Route path="/planner" element={<Planner
             headerRef={headerRef}
+            navBarRef={navBarRef}
             bgManager={bgManager}
             dispatchBGManager={dispatchBGManager}
           />} >

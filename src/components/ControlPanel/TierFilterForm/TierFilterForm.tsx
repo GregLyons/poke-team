@@ -132,17 +132,17 @@ const TierFilterForm = ({
         <label htmlFor="Tier select">
           {tierFilter.format === 'singles'
             ? <DropdownMenu 
-                title={'SELECT TIERS'}
+                title={'TIER FILTER'}
                 items={singlesItems}
                 toggleSelect={handleTierSelect}
-                dropdownWidth={'clamp(10vw, 35ch, 80%)'}
+                dropdownWidth={'clamp(5vw, 50ch, 80%)'}
                 itemWidth={'6ch'}
               />
             : <DropdownMenu 
-                title={'SELECT TIERS'}
+                title={'TIER FILTER'}
                 items={doublesItems}
                 toggleSelect={handleTierSelect}
-                dropdownWidth={'clamp(10vw, 35ch, 80%)'}
+                dropdownWidth={'clamp(5vw, 50ch, 80%)'}
                 itemWidth={'6ch'}
               />
           }

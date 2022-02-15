@@ -12,21 +12,22 @@ import { BGAction, BGManager, toggleBGPulse } from "../../hooks/App/BGManager";
 import BuilderNavBar from './BuilderNavBar';
 
 import './Builder.css';
-import { useContainerHeight } from "../../hooks/App/ContainerHeight";
+import { useContainerSize } from "../../hooks/App/ContainerSize";
 
 type BuilderProps = {
   dispatchBGManager: React.Dispatch<BGAction>
   bgManager: BGManager
   headerRef: React.RefObject<HTMLElement>
+  navBarRef: React.RefObject<HTMLDivElement>
 }
 
 const Builder = ({
-  headerRef,
-  bgManager,
   dispatchBGManager,
+  bgManager,
+  headerRef,
+  navBarRef,
 }: BuilderProps) => {
-  const navBarRef = useRef<HTMLDivElement>(null);
-  const [containerHeight, contentHeight] = useContainerHeight(headerRef, navBarRef);
+  const [containerWidth, containerHeight, contentHeight] = useContainerSize(headerRef, navBarRef);
 
   // Change background to green
   useEffect(() => {
@@ -42,10 +43,10 @@ const Builder = ({
       className="builder-container"
       style={{
         height: containerHeight,
+        width: containerWidth,
       }}
     > 
       <div
-        ref={navBarRef}
         className="nav-bar__ref-container"
       >
         <BuilderNavBar 
@@ -57,6 +58,7 @@ const Builder = ({
         className="content-wrapper"
         style={{
           height: contentHeight,
+          width: containerWidth,
         }}
       >
         <Outlet />

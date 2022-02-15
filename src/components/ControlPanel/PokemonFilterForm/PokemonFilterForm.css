@@ -4,10 +4,10 @@
 .type-filter__wrapper {
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1fr 2fr;
 }
 
-.type-filter__select-all-type {
+.type-filter__button {
   grid-row: 1 / 2;
   grid-column: 1 / 2;
 
@@ -15,11 +15,14 @@
   align-self: center;
 }
 
-.type-filter__select-type {
+.type-filter__select {
   grid-row: 1 / 2;
   grid-column: 2 / 3;
 
+  justify-self: flex-start;
   align-self: center;
+  
+  width: 100%;
 }
 
 /* #endregion */
@@ -29,11 +32,11 @@
 
 .stat-filter__wrapper {
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1fr 2fr;
   grid-template-rows: auto;
 }
 
-.stat-filter__reset {
+.stat-filter__button {
   grid-row: 1 / 2;
   grid-column: 1 / 2;
   
@@ -41,11 +44,14 @@
   align-self: center;
 }
 
-.stat-filter__dropdown {
+.stat-filter__select {
   grid-row: 1 / 2;
   grid-column: 2 / 3;
+  
   justify-self: flex-start;
   align-self: center;
+
+  width: 100%;
 }
 
 .stat-filter__base-stat-wrapper {

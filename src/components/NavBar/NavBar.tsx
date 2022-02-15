@@ -1,4 +1,6 @@
+import { useRef } from 'react';
 import { BGAction, BGManager, classWithBGShadow } from '../../hooks/App/BGManager';
+import { useContainerSize } from '../../hooks/App/ContainerSize';
 import LinkButton from '../Reusables/LinkButton/LinkButton';
 
 import './NavBar.css';
@@ -6,14 +8,21 @@ import './NavBar.css';
 type NavBarProps = {
   dispatchBGManager: React.Dispatch<BGAction>
   bgManager: BGManager
+  headerRef: React.RefObject<HTMLElement>
+  navBarRef: React.RefObject<HTMLDivElement>
 }
 
 const NavBar = ({
   dispatchBGManager,
   bgManager,
+  headerRef,
+  navBarRef,
 }: NavBarProps) => {
   return (
-    <div className={classWithBGShadow("nav-bar__wrapper", bgManager)}>
+    <div 
+      ref={navBarRef}
+      className={classWithBGShadow("nav-bar__wrapper", bgManager)}
+    >
       <nav className="nav-bar">
         <li className="nav-item">
           <LinkButton 

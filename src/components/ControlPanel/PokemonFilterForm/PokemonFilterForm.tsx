@@ -198,7 +198,7 @@ const PokemonFilterForm = ({
     <>
     <div className={classWithBGShadow("type-filter__cell", bgManager)}>
       <form className="type-filter__wrapper">
-        <div className="type-filter__select-all-type">
+        <div className="type-filter__button">
           <label htmlFor="Select all types">
             <Button
               title={'Include all types.'}
@@ -215,10 +215,10 @@ const PokemonFilterForm = ({
             />
           </label>
         </div>
-        <div className="type-filter__select-type">
+        <div className="type-filter__select">
           <label htmlFor="Type select">
             <DropdownMenu
-              title={'FILTER BY TYPE'}
+              title={'TYPE FILTER'}
               items={TYPE_NAMES.map((typeName: TypeName) => {
                 return {
                   id: typeName,
@@ -239,7 +239,7 @@ const PokemonFilterForm = ({
                 }
               })}
               toggleSelect={handleTypeSelect}
-              dropdownWidth={'clamp(20vw, 40ch, 30%)'}
+              dropdownWidth={'clamp(5vw, 50ch, 80%)'}
               itemWidth={'10ch'}
             />
           </label>
@@ -248,8 +248,8 @@ const PokemonFilterForm = ({
     </div>
     <div className={classWithBGShadow("stat-filter__cell", bgManager)}>
       <form className="stat-filter__wrapper">
-        <div className="stat-filter__reset">
-          <label htmlFor="Select all types">
+        <div className="stat-filter__button">
+          <label htmlFor="Reset stats">
             <Button
               title={'Reset stat filters to defaults.'}
               label='RESET'
@@ -265,10 +265,10 @@ const PokemonFilterForm = ({
             />
           </label>
         </div>
-        <div className="stat-filter__dropdown">
+        <div className="stat-filter__select">
           <label htmlFor="Filter out Pokemon depending on base stats.">
             <DropdownMenu
-              title="FILTER BY STAT"
+              title="STAT FILTER"
               items={BASE_STAT_NAMES.map(baseStatName => {
                 return {
                   id: baseStatName,
@@ -304,7 +304,7 @@ const PokemonFilterForm = ({
                 };
               })}
               toggleSelect={handleStatSelect}
-              dropdownWidth={'clamp(20vw, 40ch, 30%)'}
+              dropdownWidth={'clamp(5vw, 50ch, 80%)'}
               itemWidth={'100%'}
             />
           </label>

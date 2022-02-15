@@ -1,10 +1,11 @@
 /* ControlPanel */
 
 .control-panel__wrapper {
+  min-width: fit-content;
   width: 100%;
   
   display: grid;
-  grid-template-columns: 3fr 3fr 1fr 5fr;
+  grid-template-columns: 4fr 2fr 2fr 4fr;
   grid-template-rows: 1fr 1fr;
 
   /* Gap between entries so shadow shows through */
@@ -79,6 +80,8 @@
   justify-content: center;
   align-items: center;
 
+  min-width: fit-content;
+
   padding: var(--cell-padding);
   background-color: var(--dark2);
 }
@@ -109,6 +112,7 @@
 
 .team__cell {
   box-shadow: var(--bg-shadow);
+  min-width: fit-content;
 }
 
 .team-member__cell {

@@ -50,8 +50,9 @@ function DropdownMenu<E extends Item<F>, F>({
 
   // Reset heights on window resize
   useEffect(() => {
-    setTimeout(() => triggerRef.current 
-      && setTriggerHeight(triggerRef.current.scrollHeight))
+    setTimeout(() => {
+      triggerRef.current && setTriggerHeight(triggerRef.current.scrollHeight);
+    });
   }, [windowWidth, windowHeight, triggerRef, setTriggerHeight]);
 
   return (
