@@ -277,6 +277,7 @@ export const EFFECT_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -436,6 +437,7 @@ export const EFFECT_ITEM_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -553,6 +555,7 @@ export const EFFECT_MOVE_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 

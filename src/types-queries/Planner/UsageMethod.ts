@@ -304,6 +304,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -347,6 +348,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -391,6 +393,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -434,6 +437,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -545,6 +549,7 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -584,6 +589,7 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -624,6 +630,7 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -750,6 +757,7 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -805,6 +813,7 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 

@@ -137,6 +137,7 @@ export const MOVE_SEARCH_QUERY = gql`
             id
             name
             formattedName
+            speciesName
             pokemonShowdownID
 
             typeNames

@@ -106,6 +106,7 @@ export const ITEM_SEARCH_QUERY = gql`
             id
             name
             formattedName
+            speciesName
             pokemonShowdownID
 
             typeNames

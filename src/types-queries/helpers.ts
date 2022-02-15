@@ -107,7 +107,7 @@ export const toAbbreviatedBaseStatName: (baseStatName: BaseStatName | FormattedB
   }
 }
 
-export type BaseStats = {
+export type StatTable = {
   [baseStatName in BaseStatName]: number
 }
 
@@ -116,9 +116,10 @@ export type psID = string;
 export type PokemonIconDatum = {
   formattedName: string
   name: string
+  speciesName: string
   psID: psID
   typing: TypeName[]
-  baseStats: BaseStats
+  baseStats: StatTable
 }
 
 export function equateTwoPokemonIconData (pid1: PokemonIconDatum, pid2: PokemonIconDatum): boolean {
@@ -136,6 +137,7 @@ export function sortPokemonIconData (pid: PokemonIconDatum[]): PokemonIconDatum[
 export const DUMMY_POKEMON_ICON_DATUM: PokemonIconDatum = {
   formattedName: '',
   name: '',
+  speciesName: '',
   psID: '',
   typing: ['normal'],
   baseStats: {
@@ -152,6 +154,7 @@ export const pokemonIconEdgeToPokemonIconDatum: (edge: PokemonIconEdge) => Pokem
   return {
     formattedName: edge.node.formattedName,
     name: edge.node.name,
+    speciesName: edge.node.name,
     psID: edge.node.pokemonShowdownID,
     typing: edge.node.typeNames.map(toTypeName),
     baseStats: edge.node.baseStats,
@@ -322,6 +325,10 @@ export interface IntroductionEdge extends Edge {
   }
 };
 
+export const introductionEdgeToGen = (edge: IntroductionEdge) => {
+  return edge.node.number;
+}
+
 // Icon edges
 // #region
 
@@ -389,7 +396,7 @@ export interface PokemonIconEdge extends NameEdge {
     formattedName: string
     pokemonShowdownID: string
     typeNames: EnumTypeName[]
-    baseStats: BaseStats
+    baseStats: StatTable
   }
 }
 

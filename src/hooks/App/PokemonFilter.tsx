@@ -1,4 +1,4 @@
-import { BaseStatName, BaseStats, PokemonIconDatum, TypeName } from "../../types-queries/helpers";
+import { BaseStatName, StatTable, PokemonIconDatum, TypeName } from "../../types-queries/helpers";
 import { DoublesTier, isSinglesTier, psIDToDoublesTier, psIDToSinglesTier } from "../../utils/smogonLogic";
 import { GenFilter } from "./GenFilter";
 import { TierFilter } from "./TierFilter";
@@ -38,11 +38,11 @@ export type PokemonFilter = {
   types: {
     [typeName in TypeName]: boolean
   }
-  minBaseStats: BaseStats
-  maxBaseStats: BaseStats
+  minBaseStats: StatTable
+  maxBaseStats: StatTable
 }
 
-const defaultMinBaseStats: BaseStats = {
+const defaultMinBaseStats: StatTable = {
   hp: 0,
   attack: 0,
   defense: 0,
@@ -51,7 +51,7 @@ const defaultMinBaseStats: BaseStats = {
   speed: 0,
 }
 
-const defaultMaxBaseStats: BaseStats = {
+const defaultMaxBaseStats: StatTable = {
   hp: 255,
   attack: 255,
   defense: 255,

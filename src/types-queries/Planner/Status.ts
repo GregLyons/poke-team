@@ -299,6 +299,7 @@ export const STATUS_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -343,6 +344,7 @@ export const STATUS_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -529,6 +531,7 @@ export const STATUS_ITEM_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -569,6 +572,7 @@ export const STATUS_ITEM_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -691,6 +695,7 @@ export const STATUS_MOVE_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -745,6 +750,7 @@ export const STATUS_MOVE_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 

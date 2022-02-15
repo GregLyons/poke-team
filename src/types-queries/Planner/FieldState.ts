@@ -429,6 +429,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -472,6 +473,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -516,6 +518,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -559,6 +562,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -602,6 +606,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -645,6 +650,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -814,6 +820,7 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -852,6 +859,7 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -891,6 +899,7 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -929,6 +938,7 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -1058,6 +1068,7 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -1111,6 +1122,7 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -1163,6 +1175,7 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -1215,6 +1228,7 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -1506,6 +1520,7 @@ export const FIELDSTATE_TYPE_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -1541,6 +1556,7 @@ export const FIELDSTATE_TYPE_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -1576,6 +1592,7 @@ export const FIELDSTATE_TYPE_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 

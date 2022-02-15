@@ -17,3 +17,5 @@ proofread cart notes
 useEntryExpand: leave expanded entry and return before contract timer
 
 custom boxes not showing themselves being pinned
+
+add psids for abilities, moves, items

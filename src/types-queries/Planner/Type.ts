@@ -137,6 +137,7 @@ export const TYPE_SEARCH_QUERY = gql`
             id
             name
             formattedName
+            speciesName
             pokemonShowdownID
 
             typeNames
@@ -480,6 +481,7 @@ export const TYPE_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -524,6 +526,7 @@ export const TYPE_ABILITY_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -776,6 +779,7 @@ export const TYPE_ITEM_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -816,6 +820,7 @@ export const TYPE_ITEM_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -856,6 +861,7 @@ export const TYPE_ITEM_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -984,6 +990,7 @@ export const TYPE_MOVE_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 
@@ -1040,6 +1047,7 @@ export const TYPE_MOVE_QUERY = gql`
                   id
                   name
                   formattedName
+                  speciesName
                   pokemonShowdownID
 
                   typeNames 

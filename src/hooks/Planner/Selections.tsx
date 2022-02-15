@@ -4,7 +4,7 @@ import { PokemonIconDatum, psID } from "../../types-queries/helpers";
 export const useSelection = (iconData: PokemonIconDatum[] | undefined): [Selection, React.Dispatch<SelectionAction>] => {
   const initialSelection = iconData
   ? iconData.reduce((acc: Selection, curr) => {
-    const { psID, name, formattedName, typing, baseStats, } = curr;
+    const { psID, name, formattedName, speciesName, typing, baseStats, } = curr;
     if (acc[curr.psID]) return acc;
 
     return {
@@ -14,6 +14,7 @@ export const useSelection = (iconData: PokemonIconDatum[] | undefined): [Selecti
           psID,
           name,
           formattedName,
+          speciesName,
           typing,
           baseStats,
         },
@@ -31,6 +32,7 @@ export const useSelection = (iconData: PokemonIconDatum[] | undefined): [Selecti
               formattedName: '',
               psID: '',
               name: '',
+              speciesName: '',
               typing: ['normal'],
               baseStats: {
                 hp: -1,
