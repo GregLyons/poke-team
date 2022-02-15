@@ -1,4 +1,4 @@
-import { TypeName } from "../../../types-queries/helpers";
+import { toFormattedTypeName, TypeName } from "../../../types-queries/helpers";
 import { getTypeIcon } from "../../../utils/sprites";
 
 import './Icons.css';
@@ -14,6 +14,7 @@ const TypeIcon = ({
 
   return (
     <div className="type-icon"
+      title={toFormattedTypeName(typeName)}
       style={{
         width: '32px',
         height: '12px',

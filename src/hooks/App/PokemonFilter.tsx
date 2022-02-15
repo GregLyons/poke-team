@@ -1,5 +1,5 @@
 import { BaseStatName, StatTable, PokemonIconDatum, TypeName } from "../../types-queries/helpers";
-import { DoublesTier, isSinglesTier, psIDToDoublesTier, psIDToSinglesTier } from "../../utils/smogonLogic";
+import { DoublesTier, getTier, isSinglesTier, psIDToDoublesTier, psIDToSinglesTier } from "../../utils/smogonLogic";
 import { GenFilter } from "./GenFilter";
 import { TierFilter } from "./TierFilter";
 
@@ -247,9 +247,7 @@ export const validatePokemon = ({
   // #region 
 
   // Compute tier based on format and gen
-  const tier = tierFilter.format === 'singles'
-    ? psIDToSinglesTier(genFilter.gen, pokemonIconDatum.psID)
-    : (psIDToDoublesTier(genFilter.gen, pokemonIconDatum.psID)?.replace('LC', 'DLC').replace('NFE', 'DNFE') as DoublesTier);
+  const tier = getTier(genFilter.gen, tierFilter.format, pokemonIconDatum.psID);
 
   // If condition is true, tier check fails
   if (

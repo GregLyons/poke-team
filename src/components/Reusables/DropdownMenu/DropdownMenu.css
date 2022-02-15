@@ -5,15 +5,14 @@
 }
 
 .dropdown__trigger {
-  background: var(--dark2);
-  cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
+  background: var(--dark2);
+  cursor: pointer;
   padding: 0.25rem 0.5rem;
   border: none;
-  vertical-align: middle;
-
   border-radius: 5px;
 }
 
@@ -22,8 +21,12 @@
 }
 
 .dropdown__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  font-family: monospace;
   font-weight: 500;
-  vertical-align: middle;
 }
 
 .dropdown__content-wrapper {

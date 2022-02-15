@@ -1,3 +1,7 @@
 .type-icon {
   background-image: url('../../../assets/icons/typeicons5-sheet.png');
 }
+
+.pokemon-icon {
+  background-image: url('../../../assets/icons/pokemonicons-sheet.png')
+}

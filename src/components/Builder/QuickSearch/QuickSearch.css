@@ -1,35 +1,137 @@
+.quick-search__wrapper {
+  position: relative;
+
+  padding: 2rem;
+
+  height: 100%;
+}
+
+.quick-search__padder {
+  position: relative;
+  height: calc(100% - 8rem);
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.quick-search__padder > form {
+  align-self: flex-start;
+}
+
+
+.quick-search__results {
+  position: relative;
+
+  height: 100%;
+  width: 90%;
+}
+
+.quick-search__entries-wrapper {
+  position: relative;
+  overflow-y: scroll;
+
+  height: 100%;
+  width: 100%;
+}
+.quick-search__entries-wrapper > * + * {
+  margin-top: 0.5rem;
+}
+
 .quick-search__entry,
 .quick-search__legend {
   position: relative;
 
-  font-family: var(--monospace);
-
-  width: 50%;
-
   display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr 1fr 1fr;
+  gap: clamp(3px, 1rem, 5vw);
+  grid-template-rows: minmax(auto, 1fr);
+  grid-template-columns: 60px minmax(20ch, min-content) 90px 8ch 30ch minmax(20ch, min-content);
+
+  align-items: center;
+
+  width: auto;
+
+  padding: 0.5rem 1rem 0.5rem 0.5rem;
+  font-family: var(--monospace);
 }
+
 .quick-search__entry {
-  margin-top: 0.5rem;
+  background-color: var(--dark2);
+  box-shadow: 0px 1px var(--dark1);
+}
+
+.quick-search__icon {
+  grid-column: 1 / 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  width: 50px;
+  height: 30px;
+
+  border-radius: 50%;
+  background-color: var(--dark1);
+  box-shadow: var(--control-shadow);
 }
 
 .quick-search__name {
-  grid-column: 1 / 2;
-}
-
-.quick-search__typing {
   grid-column: 2 / 3;
 }
 
-.quick-search__stats {
+.quick-search__typing {
   grid-column: 3 / 4;
+}
+.quick-search__typing > * + * {
+  margin-left: 3px;
+}
+
+.quick-search__tier {
+  grid-column: 4 / 5;
+}
+
+.quick-search__stats {
+  grid-column: 5 / 6;
 
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: repeat(6, 1fr);
+
 }
 
 .quick-search__stat {
   text-align: right;
+}
+
+.bad {
+  color: var(--red1);
+}
+
+.ok {
+  color: orange;
+}
+
+.decent {
+  color: yellow;
+}
+
+.good {
+  color: var(--green1);
+}
+
+.great {
+  color: var(--blue1);
+}
+
+.quick-search__save-wrapper {
+  grid-column: 6 / 7;
+
+  display: flex;
+  justify-content: flex-end;
+}
+
+.quick-search__save-wrapper > .quick-search__save {
+  background-color: var(--dark1);
+  box-shadow: var(--control-shadow);
+  border-radius: 0.5rem;
+  padding: 0 1rem 0 1rem;
 }

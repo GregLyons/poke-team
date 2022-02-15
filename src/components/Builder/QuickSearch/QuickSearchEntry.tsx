@@ -1,17 +1,27 @@
 import { BaseStatName, PokemonIconDatum } from "../../../types-queries/helpers";
+import { DoublesTier, SinglesTier } from "../../../utils/smogonLogic";
+import Button from "../../Reusables/Button/Button";
+import PokemonIcon from "../Icons/PokemonIcon";
 import TypeIcon from "../Icons/TypeIcon";
 
 type QuickSearchEntryProps = {
   pokemon: PokemonIconDatum
+  tier: SinglesTier | DoublesTier
 }
 
 const QuickSearchEntry = ({
   pokemon,
+  tier,
 }: QuickSearchEntryProps) => {
   return (
     <div
       className="quick-search__entry"
     >
+      <div className="quick-search__icon">
+        <PokemonIcon
+          pokemonIconDatum={pokemon}
+        />
+      </div>
       <div className="quick-search__name">
         {pokemon.formattedName}
       </div>
@@ -23,18 +33,51 @@ const QuickSearchEntry = ({
           />
         ))}
       </div>
+      <div className="quick-search__tier">
+        {tier}
+      </div>
       <div className="quick-search__stats">
-        {Object.entries(pokemon.baseStats).map(([key, value]: [string, number | string]) => {
-          if (value === 'BaseStats') return;
+        {Object.entries(pokemon.baseStats).map(([key, value]: [string, number]) => {
+          if (key === '__typename') return;
+          
+          let rating: 'bad' | 'ok' | 'decent' | 'good' | 'great';
+          if (value <= 50) {
+            rating = 'bad';
+          } else if (value <= 80) {
+            rating = 'ok';
+          } else if (value <= 105) {
+            rating = 'decent';
+          } else if (value <= 140) {
+            rating = 'good';
+          } else {
+            rating = 'great';
+          }
+
           return (
             <div
               key={pokemon.psID + key}
-              className="quick-search__stat"
+              className={`
+                quick-search__stat
+                ${rating}
+              `}
             >
               {value}
             </div>
           )
         })}
+      </div>
+      <div className="quick-search__save-wrapper">
+        <div className="quick-search__save">
+          <Button
+            label="SAVE"
+            title="Save Pokemon to box for teambuilding."
+
+            onClick={e => e.preventDefault()}
+            active={true}
+            disabled={false}
+            immediate={true}
+          />
+        </div>
       </div>
     </div>
   )

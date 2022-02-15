@@ -73,7 +73,7 @@ const PlannerPokemonIcon = ({
       <div
         onClick={onClick}
         className="planner__pokemon-icon"
-        title={`${pokemonIconDatum.formattedName}`}
+        title={pokemonIconDatum.formattedName}
         key={key}
         style={{
           width: '40px',
