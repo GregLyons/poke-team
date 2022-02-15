@@ -77,7 +77,7 @@ const FieldStateSearch = ({
   const [queryVars, setQueryVars] = useGenConnectedSearchVars<FieldStateSearchVars>(
     {
       gen: genFilter.gen,
-      startsWith: '',
+      contains: '',
       limit: 100,
     },
     genFilter,
@@ -86,7 +86,7 @@ const FieldStateSearch = ({
   const handleSearchBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQueryVars({
       ...queryVars,
-      startsWith: e.target.value,
+      contains: e.target.value,
     });
   }
 

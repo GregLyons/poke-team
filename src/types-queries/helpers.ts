@@ -118,6 +118,10 @@ export type PokemonIconDatum = {
   name: string
   speciesName: string
   psID: psID
+
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
+
   typing: TypeName[]
   baseStats: StatTable
 }
@@ -139,6 +143,8 @@ export const DUMMY_POKEMON_ICON_DATUM: PokemonIconDatum = {
   name: '',
   speciesName: '',
   psID: '',
+  removedFromSwSh: false,
+  removedFromBDSP: false,
   typing: ['normal'],
   baseStats: {
     hp: 0,
@@ -150,15 +156,16 @@ export const DUMMY_POKEMON_ICON_DATUM: PokemonIconDatum = {
   },
 };
 
-export const pokemonIconEdgeToPokemonIconDatum: (edge: PokemonIconEdge) => PokemonIconDatum = (edge) => {
+export const pokemonIconNodeToPokemonIconDatum: (node: PokemonIconNode) => PokemonIconDatum = (node) => {
   return {
-    formattedName: edge.node.formattedName,
-    name: edge.node.name,
-    speciesName: edge.node.name,
-    psID: edge.node.pokemonShowdownID,
-    typing: edge.node.typeNames.map(toTypeName),
-    baseStats: edge.node.baseStats,
-  };
+    ...node,
+    psID: node.pokemonShowdownID,
+    typing: node.typeNames.map(toTypeName),
+  }
+}
+
+export const pokemonIconEdgeToPokemonIconDatum: (edge: PokemonIconEdge) => PokemonIconDatum = (edge) => {
+  return pokemonIconNodeToPokemonIconDatum(edge.node);
 }
 
 // #endregion
@@ -389,15 +396,22 @@ export interface PokemonTypeEdge {
 
 // Pokemon edges which contain data for rendering Pokemon icons
 // pokemonShowdownID for using @pkmn/img
+export interface PokemonIconNode {
+  id: string
+  name: string
+  formattedName: string
+  speciesName: string
+  pokemonShowdownID: string
+
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
+
+  typeNames: EnumTypeName[]
+  baseStats: StatTable
+}
+
 export interface PokemonIconEdge extends NameEdge {
-  node: {
-    id: string
-    name: string
-    formattedName: string
-    pokemonShowdownID: string
-    typeNames: EnumTypeName[]
-    baseStats: StatTable
-  }
+  node: PokemonIconNode
 }
 
 // Type edges which contain data for rendering both Type icons and Pokemon icons

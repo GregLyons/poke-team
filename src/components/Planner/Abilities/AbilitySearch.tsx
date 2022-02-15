@@ -63,7 +63,7 @@ const AbilitySearch = ({
   const [queryVars, setQueryVars] = useRemovalConnectedSearchVars<AbilitySearchVars>(
     {
       gen: filters.genFilter.gen,
-      startsWith: '',
+      contains: '',
       limit: 10,
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
@@ -74,7 +74,7 @@ const AbilitySearch = ({
   const handleSearchBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQueryVars({
       ...queryVars,
-      startsWith: e.target.value,
+      contains: e.target.value,
     });
   }
 

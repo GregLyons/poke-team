@@ -1,3 +1,4 @@
+import { gql } from "@apollo/client"
 import { PokemonSet } from "@pkmn/data"
 import { StatsTable } from "@pkmn/data"
 import { BaseStatName, GenerationNum, IntroductionEdge, introductionEdgeToGen, PokemonIconDatum, StatTable, TypeName } from "../helpers"
@@ -6,27 +7,70 @@ import { MemberAbility } from "./MemberAbility"
 import { enablesItemEdgeToMemberItem, MemberItem, requiresItemEdgeToMemberItem } from "./MemberItem"
 import { MemberMove } from "./MemberMove"
 
-
-export type GQLMemberSearchResult = {
+export type PokemonMemberQueryResult = {
   id: string
-  name: string
-  formattedName: string
-  speciesName: string
-  psID: string
-
-  typeNames: TypeName[]
-  baseStats: StatTable
+  class: string
+  forms: PokemonFormEdge[]
 
   introduced: IntroductionEdge[]
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
 
   enablesItem: EnablesItemEdge[]
   requiresItem: RequiresItemEdge[]
 
-  class: string
-  forms: PokemonFormEdge[]
 }
+
+export const POKEMONICON_TO_MEMBER_QUERY = gql`
+  query PokemonIconToMemberQuery($gen: Int! $names: [String!]!) {
+    pokemonName(generation: $gen names: $names) {
+      id
+      class
+      forms {
+        id
+        edges {
+          node {
+            id
+            name
+            formattedName
+            speciesName
+            pokemonShowdownID
+          }
+          class
+        }
+      }
+
+      introduced {
+        edges {
+          node {
+            number
+          }
+        }
+      }
+
+      enablesItem {
+        id
+        edges {
+          node {
+            id
+            name
+            formattedName
+            pokemonShowdownID
+          }
+        }
+      }
+      requiresItem {
+        id
+        edges {
+          node {
+            id
+            name
+            formattedName
+            pokemonShowdownID
+          }
+        }
+      }
+    }
+  }
+`;
 
 export const DefaultEVSpread: StatTable = {
   hp: 0,
@@ -108,11 +152,15 @@ export class Member {
   public formClass: string
   public forms: PokemonFormDatum[]
 
-  constructor(gqlMember: GQLMemberSearchResult, gen: GenerationNum) {
+  constructor(gqlMember: PokemonMemberQueryResult, pokemonIconDatum: PokemonIconDatum, gen: GenerationNum) {
+    const {
+      name, formattedName, psID, speciesName,
+      typing, baseStats, 
+      removedFromSwSh, removedFromBDSP,
+    } = pokemonIconDatum;
     const { 
-      id, name, formattedName, psID, speciesName,
-      typeNames, baseStats, 
-      introduced, removedFromSwSh, removedFromBDSP,
+      id,
+      introduced, 
       enablesItem, requiresItem,
       class: formClass, forms,
     } = gqlMember;
@@ -123,7 +171,7 @@ export class Member {
     this.psID = psID;
     this.speciesName = speciesName;
 
-    this.typing = typeNames;
+    this.typing = typing;
     this.baseStats = baseStats;
 
     this.introduced = introductionEdgeToGen(introduced[0]);

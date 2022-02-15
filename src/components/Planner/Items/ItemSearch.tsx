@@ -73,7 +73,7 @@ const ItemSearch = ({
   const [queryVars, setQueryVars] = useRemovalConnectedSearchVars<ItemSearchVars>(
     {
       gen: filters.genFilter.gen,
-      startsWith: '',
+      contains: '',
       limit: 10,
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
@@ -84,7 +84,7 @@ const ItemSearch = ({
   const handleSearchBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQueryVars({
       ...queryVars,
-      startsWith: e.target.value,
+      contains: e.target.value,
     });
   }
 

@@ -68,7 +68,7 @@ export interface ItemSearchResult extends MainEntitySearchResult {
 export interface ItemSearchVars extends EntitySearchVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   limit: number
-  startsWith: string
+  contains: string
 
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -76,12 +76,12 @@ export interface ItemSearchVars extends EntitySearchVars, RemovedFromGameQueryVa
 
 export const ITEM_SEARCH_QUERY = gql`
   query ItemSearchQuery(
-    $gen: Int! $limit: Int! $startsWith: String
+    $gen: Int! $limit: Int! $contains: String
     $removedFromBDSP: Boolean $removedFromSwSh: Boolean
   ) {
     items(
       generation: $gen 
-      filter: { startsWith: $startsWith } 
+      filter: { contains: $contains } 
       pagination: { limit: $limit }
     ) {
       id
@@ -108,6 +108,9 @@ export const ITEM_SEARCH_QUERY = gql`
             formattedName
             speciesName
             pokemonShowdownID
+
+            removedFromSwSh
+            removedFromBDSP
 
             typeNames
 

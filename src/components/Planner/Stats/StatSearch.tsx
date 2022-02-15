@@ -60,7 +60,7 @@ const StatSearch = ({
   const [queryVars, setQueryVars] = useGenConnectedSearchVars<StatSearchVars>(
     {
       gen: genFilter.gen,
-      startsWith: '',
+      contains: '',
       limit: 100,
     },
     genFilter,
@@ -69,7 +69,7 @@ const StatSearch = ({
   const handleSearchBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQueryVars({
       ...queryVars,
-      startsWith: e.target.value,
+      contains: e.target.value,
     });
   }
 

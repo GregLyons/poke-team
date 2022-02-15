@@ -66,7 +66,7 @@ const TypeSearch = ({
   const [queryVars, setQueryVars] = useRemovalConnectedSearchVars<TypeSearchVars>(
     {
       gen: filters.genFilter.gen,
-      startsWith: '',
+      contains: '',
       limit: 20,
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
@@ -76,7 +76,7 @@ const TypeSearch = ({
   const handleSearchBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQueryVars({
       ...queryVars,
-      startsWith: e.target.value,
+      contains: e.target.value,
     });
   }
 

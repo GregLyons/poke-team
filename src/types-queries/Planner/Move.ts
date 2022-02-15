@@ -73,7 +73,7 @@ export interface MoveSearchResult extends MainEntitySearchResult {
 export interface MoveSearchVars extends EntitySearchVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   limit: number
-  startsWith: string
+  contains: string
 
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -81,12 +81,12 @@ export interface MoveSearchVars extends EntitySearchVars, RemovedFromGameQueryVa
 
 export const MOVE_SEARCH_QUERY = gql`
   query MoveSearchQuery(
-    $gen: Int! $limit: Int! $startsWith: String
+    $gen: Int! $limit: Int! $contains: String
     $removedFromBDSP: Boolean $removedFromSwSh: Boolean
   ) {
     moves(
       generation: $gen 
-      filter: { startsWith: $startsWith, removedFromSwSh: $removedFromSwSh removedFromBDSP: $removedFromBDSP } 
+      filter: { contains: $contains, removedFromSwSh: $removedFromSwSh removedFromBDSP: $removedFromBDSP } 
       pagination: { limit: $limit }
     ) {
       id
@@ -139,6 +139,9 @@ export const MOVE_SEARCH_QUERY = gql`
             formattedName
             speciesName
             pokemonShowdownID
+
+            removedFromSwSh
+            removedFromBDSP
 
             typeNames
 

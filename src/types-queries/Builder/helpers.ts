@@ -5,7 +5,7 @@ export interface EnablesItemEdge extends NameEdge {
     id: string
     name: string
     formattedName: string
-    psID: string
+    pokemonShowdownID: string
   }
 };
 
@@ -15,7 +15,7 @@ export interface RequiresItemEdge extends NameEdge {
     name: string
     formattedName: string
     speciesName: string
-    psID: string
+    pokemonShowdownID: string
   }
 };
 
@@ -25,7 +25,7 @@ export interface PokemonFormEdge extends NameEdge {
     name: string
     formattedName: string
     speciesName: string
-    psID: string
+    pokemonShowdownID: string
   }
   class: string
 }
@@ -43,6 +43,7 @@ export type PokemonFormDatum = {
 export const pokemonFormEdgeToFormDatum: (edge: PokemonFormEdge) => PokemonFormDatum = edge => {
   return {
     ...edge.node,
+    psID: edge.node.pokemonShowdownID,
     formClass: edge.class,
   };
 }

@@ -31,6 +31,14 @@ const BuilderNavBar = ({
             end={true}
           />
         </li>
+        <li className="nav-item">
+          <LinkButton
+            to="quickSearch"
+            title="Quick Search"
+            label="Quick Search"
+            end={true}
+          />
+        </li>
       </nav>
     </div>
   )

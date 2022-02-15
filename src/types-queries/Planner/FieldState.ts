@@ -68,14 +68,14 @@ export interface FieldStateSearchResult extends AuxEntitySearchResult {
 export interface FieldStateSearchVars extends EntitySearchVars {
   gen: GenerationNum
   limit: number
-  startsWith: string
+  contains: string
 }
 
 export const FIELDSTATE_SEARCH_QUERY = gql`
-  query FieldStateSearchQuery($gen: Int! $limit: Int! $startsWith: String) {
+  query FieldStateSearchQuery($gen: Int! $limit: Int! $contains: String) {
     fieldStates(
       generation: $gen
-      filter: { startsWith: $startsWith }
+      filter: { contains: $contains }
       pagination: { limit: $limit }
     ) {
       id
@@ -432,6 +432,9 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -475,6 +478,9 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 
@@ -521,6 +527,9 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -564,6 +573,9 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 
@@ -609,6 +621,9 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -652,6 +667,9 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 
@@ -823,6 +841,9 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -861,6 +882,9 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 
@@ -902,6 +926,9 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -940,6 +967,9 @@ export const FIELDSTATE_ITEM_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 
@@ -1071,6 +1101,9 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -1125,6 +1158,9 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -1178,6 +1214,9 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -1230,6 +1269,9 @@ export const FIELDSTATE_MOVE_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 
@@ -1523,6 +1565,9 @@ export const FIELDSTATE_TYPE_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -1559,6 +1604,9 @@ export const FIELDSTATE_TYPE_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -1594,6 +1642,9 @@ export const FIELDSTATE_TYPE_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 

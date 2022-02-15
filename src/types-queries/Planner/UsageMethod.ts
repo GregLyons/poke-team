@@ -62,14 +62,14 @@ export interface UsageMethodMatchupEdge {
 export interface UsageMethodSearchVars extends EntitySearchVars {
   gen: GenerationNum
   limit: number
-  startsWith: string
+  contains: string
 }
 
 export const USAGEMETHOD_SEARCH_QUERY = gql`
-  query UsageMethodSearchQuery($gen: Int! $limit: Int! $startsWith: String) {
+  query UsageMethodSearchQuery($gen: Int! $limit: Int! $contains: String) {
     usageMethods(
       generation: $gen
-      filter: { startsWith: $startsWith }
+      filter: { contains: $contains }
       pagination: { limit: $limit }
     ) {
       id
@@ -307,6 +307,9 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -350,6 +353,9 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 
@@ -396,6 +402,9 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -439,6 +448,9 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 
@@ -552,6 +564,9 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -591,6 +606,9 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 
@@ -632,6 +650,9 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 
@@ -760,6 +781,9 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -815,6 +839,9 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 

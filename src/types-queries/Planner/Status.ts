@@ -60,14 +60,14 @@ export interface StatusSearchResult extends AuxEntitySearchResult {
 export interface StatusSearchVars extends EntitySearchVars {
   gen: GenerationNum
   limit: number
-  startsWith: string
+  contains: string
 }
 
 export const STATUS_SEARCH_QUERY = gql`
-  query StatusSearchQuery($gen: Int! $limit: Int! $startsWith: String) {
+  query StatusSearchQuery($gen: Int! $limit: Int! $contains: String) {
     statuses(
       generation: $gen
-      filter: { startsWith: $startsWith }
+      filter: { contains: $contains }
       pagination: { limit: $limit }
     ) {
       id
@@ -302,6 +302,9 @@ export const STATUS_ABILITY_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -346,6 +349,9 @@ export const STATUS_ABILITY_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 
@@ -534,6 +540,9 @@ export const STATUS_ITEM_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -574,6 +583,9 @@ export const STATUS_ITEM_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 
@@ -698,6 +710,9 @@ export const STATUS_MOVE_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -752,6 +767,9 @@ export const STATUS_MOVE_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 

@@ -92,7 +92,7 @@ const MoveSearch = ({
   const [queryVars, setQueryVars] = useRemovalConnectedSearchVars<MoveSearchVars>(
     {
       gen: filters.genFilter.gen,
-      startsWith: '',
+      contains: '',
       limit: 10,
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
@@ -103,7 +103,7 @@ const MoveSearch = ({
   const handleSearchBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQueryVars({
       ...queryVars,
-      startsWith: e.target.value,
+      contains: e.target.value,
     });
   }
 

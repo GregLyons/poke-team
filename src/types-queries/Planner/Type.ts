@@ -81,16 +81,16 @@ export interface TypeMatchupEdge {
 export interface TypeSearchVars extends EntitySearchVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   limit: number
-  startsWith: string
+  contains: string
   removedFromSwSh: false | null
   removedFromBDSP: false | null
 }
 
 export const TYPE_SEARCH_QUERY = gql`
-  query TypeSearchQuery($gen: Int! $limit: Int! $startsWith: String $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
+  query TypeSearchQuery($gen: Int! $limit: Int! $contains: String $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
     types(
       generation: $gen
-      filter: { startsWith: $startsWith }
+      filter: { contains: $contains }
       pagination: { limit: $limit }
     ) {
       id
@@ -139,6 +139,9 @@ export const TYPE_SEARCH_QUERY = gql`
             formattedName
             speciesName
             pokemonShowdownID
+
+            removedFromSwSh
+            removedFromBDSP
 
             typeNames
 
@@ -484,6 +487,9 @@ export const TYPE_ABILITY_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -528,6 +534,9 @@ export const TYPE_ABILITY_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 
@@ -782,6 +791,9 @@ export const TYPE_ITEM_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -823,6 +835,9 @@ export const TYPE_ITEM_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -863,6 +878,9 @@ export const TYPE_ITEM_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 
@@ -993,6 +1011,9 @@ export const TYPE_MOVE_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -1049,6 +1070,9 @@ export const TYPE_MOVE_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 

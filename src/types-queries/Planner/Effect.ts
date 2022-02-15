@@ -69,14 +69,14 @@ export interface EffectSearchResult extends AuxEntitySearchResult {
 export interface EffectSearchVars extends EntitySearchVars {
   gen: GenerationNum
   limit: number
-  startsWith: string
+  contains: string
 }
 
 export const EFFECT_SEARCH_QUERY = gql`
-  query EffectSearchQuery($gen: Int! $limit: Int! $startsWith: String) {
+  query EffectSearchQuery($gen: Int! $limit: Int! $contains: String) {
     effects(
       generation: $gen
-      filter: { startsWith: $startsWith }
+      filter: { contains: $contains }
       pagination: { limit: $limit }
     ) {
       id
@@ -280,6 +280,9 @@ export const EFFECT_ABILITY_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -440,6 +443,9 @@ export const EFFECT_ITEM_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -557,6 +563,9 @@ export const EFFECT_MOVE_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 

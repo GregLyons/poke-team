@@ -56,14 +56,14 @@ export interface StatSearchResult extends AuxEntitySearchResult {
 export interface StatSearchVars extends EntitySearchVars {
   gen: GenerationNum
   limit: number
-  startsWith: string
+  contains: string
 }
 
 export const STAT_SEARCH_QUERY = gql`
-  query StatSearchQuery($gen: Int! $limit: Int! $startsWith: String) {
+  query StatSearchQuery($gen: Int! $limit: Int! $contains: String) {
     stats(
       generation: $gen
-      filter: { startsWith: $startsWith }
+      filter: { contains: $contains }
       pagination: { limit: $limit }
     ) {
       id
@@ -259,6 +259,9 @@ export const STAT_ABILITY_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 
@@ -457,6 +460,9 @@ export const STAT_ITEM_QUERY = gql`
                   speciesName
                   pokemonShowdownID
 
+                  removedFromSwSh
+                  removedFromBDSP
+
                   typeNames 
 
                   baseStats {
@@ -590,6 +596,9 @@ export const STAT_MOVE_QUERY = gql`
                   formattedName
                   speciesName
                   pokemonShowdownID
+
+                  removedFromSwSh
+                  removedFromBDSP
 
                   typeNames 
 

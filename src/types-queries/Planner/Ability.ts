@@ -59,7 +59,7 @@ export interface AbilitySearchResult extends MainEntitySearchResult {
 export interface AbilitySearchVars extends EntitySearchVars, RemovedFromGameQueryVars {
   gen: GenerationNum
   limit: number
-  startsWith: string
+  contains: string
 
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -67,12 +67,12 @@ export interface AbilitySearchVars extends EntitySearchVars, RemovedFromGameQuer
 
 export const ABILITY_SEARCH_QUERY = gql`
   query AbilitySearchQuery(
-    $gen: Int! $limit: Int! $startsWith: String
+    $gen: Int! $limit: Int! $contains: String
     $removedFromBDSP: Boolean $removedFromSwSh: Boolean
   ) {
     abilities(
       generation: $gen 
-      filter: { startsWith: $startsWith } 
+      filter: { contains: $contains } 
       pagination: { limit: $limit }
     ) {
       id
@@ -99,6 +99,9 @@ export const ABILITY_SEARCH_QUERY = gql`
             formattedName
             speciesName
             pokemonShowdownID
+
+            removedFromSwSh
+            removedFromBDSP
 
             typeNames
 

@@ -27,7 +27,7 @@ export interface AuxEntitySearchResult {
 export interface EntitySearchVars {
   gen: GenerationNum
   limit: number
-  startsWith: string
+  contains: string
 }
 
 export abstract class MainEntityInSearch {

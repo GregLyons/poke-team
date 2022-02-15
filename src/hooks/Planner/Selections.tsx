@@ -1,10 +1,10 @@
 import { useReducer } from "react";
-import { PokemonIconDatum, psID } from "../../types-queries/helpers";
+import { DUMMY_POKEMON_ICON_DATUM, PokemonIconDatum, psID } from "../../types-queries/helpers";
 
 export const useSelection = (iconData: PokemonIconDatum[] | undefined): [Selection, React.Dispatch<SelectionAction>] => {
   const initialSelection = iconData
   ? iconData.reduce((acc: Selection, curr) => {
-    const { psID, name, formattedName, speciesName, typing, baseStats, } = curr;
+    const { psID, name, formattedName, speciesName, typing, baseStats, removedFromSwSh, removedFromBDSP, } = curr;
     if (acc[curr.psID]) return acc;
 
     return {
@@ -17,6 +17,8 @@ export const useSelection = (iconData: PokemonIconDatum[] | undefined): [Selecti
           speciesName,
           typing,
           baseStats,
+          removedFromSwSh,
+          removedFromBDSP,
         },
         selected: false,
       }
@@ -29,19 +31,7 @@ export const useSelection = (iconData: PokemonIconDatum[] | undefined): [Selecti
       : {
           dummy: {
             nameData: { 
-              formattedName: '',
-              psID: '',
-              name: '',
-              speciesName: '',
-              typing: ['normal'],
-              baseStats: {
-                hp: -1,
-                attack: -1,
-                defense: -1,
-                specialAttack: -1,
-                specialDefense: -1,
-                speed: -1,
-              },
+              ...DUMMY_POKEMON_ICON_DATUM
             },
             selected: false,
           }

@@ -8,14 +8,11 @@ import {
   PokemonIconDatum,
   TypeName,
 } from '../types-queries/helpers.js';
-import {
-  Pokemon,
-} from '../types-queries/Planner/Pokemon.js';
 
 // Get Pokemon sprites
 //#region 
 
-export const getPokemonSprite = (pokemon: Pokemon | PokemonIconDatum, gen: GenerationNum = 8) => {
+export const getPokemonSprite = (pokemon: PokemonIconDatum, gen: GenerationNum = 8) => {
   let {url} = Sprites.getPokemon(pokemon.name.replace('_', ''), {gen: gen});
 
   // if (gen < pokemon.introduced) {
