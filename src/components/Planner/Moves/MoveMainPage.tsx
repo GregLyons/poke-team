@@ -1,9 +1,9 @@
 import MoveSearch from "./MoveSearch";
-import { PokemonIconDispatches, PokemonIconFilters } from "../../App";
+import { Dispatches, Filters } from "../../App";
 
 type MoveMainProps = {
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
 }
 
 const MoveMainPage = ({ 

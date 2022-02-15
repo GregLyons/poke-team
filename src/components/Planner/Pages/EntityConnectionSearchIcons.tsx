@@ -8,12 +8,12 @@ import {
 import { ListRenderArgsIcons } from '../helpers';
 
 import './Pages.css';
-import { PokemonIconDispatches, PokemonIconFilters } from '../../App';
+import { Dispatches, Filters } from '../../App';
 
 
 interface EntityConnectionSearchIconsProps<SearchQuery, SearchQueryVars> {
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
   listRender: ({data, dispatches, filters, }: ListRenderArgsIcons<SearchQuery>) => JSX.Element
   query: DocumentNode,
   queryVars: SearchQueryVars,

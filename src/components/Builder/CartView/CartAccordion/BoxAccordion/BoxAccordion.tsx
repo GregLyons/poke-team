@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Cart, TargetEntityInCart } from "../../../../../hooks/App/Cart";
-import { PokemonIconDispatches, PokemonIconFilters } from "../../../../App";
+import { Dispatches, Filters } from "../../../../App";
 import Accordion from "../../../../Reusables/Accordion/Accordion";
 import Box from "./Box";
 import BoxAccordionTitle from "./BoxAccordionTitle";
@@ -14,8 +14,8 @@ type BoxAccordionProps = {
   cart: Cart
   team: Team
   targetEntityInCart: TargetEntityInCart,
-  dispatches: PokemonIconDispatches,
-  filters: PokemonIconFilters,
+  dispatches: Dispatches,
+  filters: Filters,
 
   clickHandlers: CartAccordionClickHandlers
 }

@@ -17,7 +17,7 @@ import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 import { ListRenderArgsIcons } from '../helpers';
-import { PokemonIconDispatches, PokemonIconFilters } from '../../App';
+import { Dispatches, Filters } from '../../App';
 import EntitySearchMainIcons from '../Searches/EntitySearchMainIcons';
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeSearchQuery>) => {
@@ -55,8 +55,8 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeSear
 }
 
 type TypeSearchMainProps = {
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
 }
 
 const TypeSearch = ({

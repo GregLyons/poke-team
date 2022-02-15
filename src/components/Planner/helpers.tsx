@@ -1,14 +1,14 @@
 import { GenFilter } from "../../hooks/App/GenFilter";
 import { IconDatum, ItemIconDatum, PokemonIconDatum, TypeIconDatum } from "../../types-queries/helpers";
-import { PokemonIconDispatches, PokemonIconFilters } from "../App";
+import { Dispatches, Filters } from "../App";
 
 // Rendering lists
 // #region
 
 export type ListRenderArgsIcons<SearchQuery> = {
   data: SearchQuery
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
 }
 
 export type ListRenderArgs<SearchQuery> = {
@@ -75,8 +75,8 @@ export class MissingPokemonFilterError extends Error {
 export type EntryIconData = {
   pokemonIconData?: PokemonIconDatum[]
   linkIconDatum?: LinkIconDatum
-  dispatches?: PokemonIconDispatches
-  filters?: PokemonIconFilters
+  dispatches?: Dispatches
+  filters?: Filters
   cartNote?: string
 }
 

@@ -8,11 +8,11 @@ import { TeamAction } from "../../../hooks/App/Team";
 
 import ItemSearch from "./ItemSearch";
 import { BGAction, BGManager } from "../../../hooks/App/BGManager";
-import { PokemonIconDispatches, PokemonIconFilters } from "../../App";
+import { Dispatches, Filters } from "../../App";
 
 type ItemMainProps = {
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
 }
 
 const ItemMainPage = ({ 

@@ -4,12 +4,12 @@ import {
 import {
   getItemIcon,
 } from "../../../../utils/sprites";
-import { PokemonIconDispatches } from "../../../App";
+import { Dispatches } from "../../../App";
 
 import './Icons.css';
 
 type PlannerItemIconProps = {
-  dispatches: PokemonIconDispatches
+  dispatches: Dispatches
   key: string
   itemIconDatum: ItemIconDatum
 }

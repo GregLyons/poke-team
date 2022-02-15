@@ -246,8 +246,6 @@ export const validatePokemon = ({
   // Tier check
   // #region 
 
-  let tierCheck = true;
-
   // Compute tier based on format and gen
   const tier = tierFilter.format === 'singles'
     ? psIDToSinglesTier(genFilter.gen, pokemonIconDatum.psID)
@@ -256,7 +254,7 @@ export const validatePokemon = ({
   // If condition is true, tier check fails
   if (
     // Untiered Pokemon are always excluded
-    tier !== undefined && (
+    tier === undefined || (
       // Singles mode
       (
         isSinglesTier(tier)

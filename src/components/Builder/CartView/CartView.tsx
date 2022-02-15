@@ -2,7 +2,7 @@ import { Key, useMemo, useState } from "react";
 import { BGManager, classWithBG, classWithBGShadow, toggleBGPulse } from "../../../hooks/App/BGManager";
 import { BoxInCart, BoxInCombination, Cart, CartInGen, ParentEntityClass, StartBox, TargetEntityClass, } from "../../../hooks/App/Cart";
 import { Team } from "../../../hooks/App/Team";
-import { PokemonIconDispatches, PokemonIconFilters } from "../../App";
+import { Dispatches, Filters } from "../../App";
 import CartAccordion from "./CartAccordion/CartAccordion";
 import CartTerminal from "./CartTerminal/CartTerminal";
 
@@ -12,8 +12,8 @@ type CartViewProps = {
   bgManager: BGManager
   team: Team
   cart: Cart
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
 }
 
 // Type definitions for click handlers

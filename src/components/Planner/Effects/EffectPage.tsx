@@ -44,12 +44,12 @@ import { listRenderEffectAbility, listRenderEffectFieldState, listRenderEffectIt
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
-import { PokemonIconDispatches, PokemonIconFilters } from '../../App';
+import { Dispatches, Filters } from '../../App';
 import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 
 type EffectPageProps = {
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
 }
 
 const EffectPage = ({

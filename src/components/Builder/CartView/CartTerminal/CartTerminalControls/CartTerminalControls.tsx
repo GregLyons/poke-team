@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { PokemonIconDispatches, PokemonIconFilters } from '../../../../App';
+import { Dispatches, Filters } from '../../../../App';
 import { CartTerminalControlClickHandlers } from '../CartTerminal';
 import './CartTerminalControls.css';
 

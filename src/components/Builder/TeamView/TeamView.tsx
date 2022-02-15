@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
 import { BGManager, classWithBG, classWithBGShadow, toggleBGPulse } from "../../../hooks/App/BGManager";
 import { Team } from "../../../hooks/App/Team";
-import { PokemonIconDispatches, PokemonIconFilters } from "../../App";
+import { Dispatches, Filters } from "../../App";
 import PinnedBoxAccordion from "./PinnedBoxAccordion/PinnedBoxAccordion";
 import TeamBuilder from "./TeamBuilder/TeamBuilder";
 
@@ -9,8 +9,8 @@ import './TeamView.css';
 
 type TeamViewProps = {
   bgManager: BGManager
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
   team: Team
 }
 

@@ -1,10 +1,10 @@
-import { PokemonIconDispatches, PokemonIconFilters } from "../../App";
+import { Dispatches, Filters } from "../../App";
 
 import AbilitySearch from "./AbilitySearch";
 
 type AbilityMainPageProps = {
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
 }
 
 const AbilityMainPage = ({ 

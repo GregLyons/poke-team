@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Team } from "../../../../hooks/App/Team";
-import { PokemonIconDispatches, PokemonIconFilters } from "../../../App";
+import { Dispatches, Filters } from "../../../App";
 import Accordion from "../../../Reusables/Accordion/Accordion";
 import { PinnedBoxClickHandlers } from "../TeamView";
 import PinnedBox from "./PinnedBox";
@@ -10,8 +10,8 @@ import './PinnedBoxAccordion.css';
 
 type PinnedBoxAccordion = {
   clickHandlers: PinnedBoxClickHandlers
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
   team: Team
 }
 

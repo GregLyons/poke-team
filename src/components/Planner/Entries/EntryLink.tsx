@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { EntityClass, ENTITYCLASS_TO_PLANNERLINK, } from "../../../utils/constants";
-import { PokemonIconDispatches, PokemonIconFilters } from "../../App";
+import { Dispatches, Filters } from "../../App";
 import { EntryIconData } from "../helpers";
 import PlannerItemIcon from "./Icons/PlannerItemIcon";
 import PlannerIcon from "./Icons/PlannerIcon";
@@ -13,8 +13,8 @@ type EntryLinkProps = {
   linkName: string
   name: string
   icons?: EntryIconData
-  dispatches?: PokemonIconDispatches
-  filters?: PokemonIconFilters
+  dispatches?: Dispatches
+  filters?: Filters
 }
 
 const EntryLink = ({

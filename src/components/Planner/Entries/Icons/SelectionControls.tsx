@@ -2,7 +2,7 @@ import { BGAction, toggleBGPulse } from "../../../../hooks/App/BGManager";
 import { ValidationFailureReason, } from "../../../../hooks/App/PokemonFilter";
 import { Selection, SelectionAction } from "../../../../hooks/Planner/Selections";
 import { PokemonIconDatum } from "../../../../types-queries/helpers";
-import { PokemonIconDispatches } from "../../../App";
+import { Dispatches } from "../../../App";
 import Button from "../../../Reusables/Button/Button";
 import './Icons.css';
 
@@ -13,7 +13,7 @@ type SelectionControlsProps = {
   hasIcon: React.MutableRefObject<boolean>
   reason: React.MutableRefObject<ValidationFailureReason>
 
-  dispatches: PokemonIconDispatches
+  dispatches: Dispatches
 }
 
 const SelectionControls = ({

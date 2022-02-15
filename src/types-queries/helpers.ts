@@ -114,6 +114,7 @@ export type StatTable = {
 export type psID = string;
 
 export type PokemonIconDatum = {
+  id: string
   formattedName: string
   name: string
   speciesName: string
@@ -139,6 +140,7 @@ export function sortPokemonIconData (pid: PokemonIconDatum[]): PokemonIconDatum[
 }
 
 export const DUMMY_POKEMON_ICON_DATUM: PokemonIconDatum = {
+  id: '',
   formattedName: '',
   name: '',
   speciesName: '',

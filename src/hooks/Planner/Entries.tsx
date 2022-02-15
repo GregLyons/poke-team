@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useWindowSize } from "usehooks-ts";
-import { PokemonIconFilters } from "../../components/App";
+import { Filters } from "../../components/App";
 
 /*
   Functionality for entries in the planner expanding on hover. We distinguish between 'entryHover' and 'expandHover'. 'entryHover' refers to when the user hovers over anywhere in the entry. This will, e.g. cause entry name to expand. On the other hand, 'expandHover' refers to when the user hovers over specified areas of the entry (e.g. Pokemon icons, data column), which will cause the entry to expand to accomodate any overflowing content.
@@ -23,7 +23,7 @@ import { PokemonIconFilters } from "../../components/App";
 */
 export const useEntryExpand = (
   entryRef: React.RefObject<HTMLDivElement>,
-  filters?: PokemonIconFilters
+  filters?: Filters
 ) => {
   const [originalScrollHeight, setOriginalScrollHeight] = useState<null|number>(null);
   const { width: windowWidth, height: windowHeight } = useWindowSize();

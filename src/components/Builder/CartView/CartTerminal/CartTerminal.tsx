@@ -1,5 +1,5 @@
 import { BoxInCombination, Cart, findBoxInArray, } from '../../../../hooks/App/Cart';
-import { PokemonIconDispatches, PokemonIconFilters } from '../../../App';
+import { Dispatches, Filters } from '../../../App';
 import { CartTerminalClickHandlers } from '../CartView';
 import BoxInTerminal from './BoxInTerminal/BoxInTerminal';
 import './CartTerminal.css';
@@ -10,8 +10,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 
 type CartTerminalProps = {
   cart: Cart
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
   clickHandlers: CartTerminalClickHandlers
 }
 

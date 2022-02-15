@@ -29,11 +29,32 @@ export interface PokemonQuickSearchVars {
 
   removedFromSwSh: false | null
   removedFromBDSP: false | null
+
+  // maxHP: number
+  // minHP: number
+  // maxAttack: number
+  // minAttack: number
+  // maxDefense: number
+  // minDefense: number
+  // maxSpecialAttack: number
+  // minSpecialAttack: number
+  // maxSpecialDefense: number
+  // minSpecialDefense: number
+  // maxSpeed: number
+  // minSpeed: number
 }
 
 export const POKEMON_QUICKSEARCH_QUERY = gql`
-  query PokemonSearchQuery($gen: Int! $contains: String!
-  $removedFromBDSP: Boolean $removedFromSwSh: Boolean) {
+  query PokemonSearchQuery(
+    $gen: Int! $contains: String!
+    $removedFromBDSP: Boolean $removedFromSwSh: Boolean
+    # $maxHP: Int $minHP: Int
+    # $maxAttack: Int $minAttack: Int
+    # $maxDefense: Int $minDefense: Int
+    # $maxSpecialAttack: Int $minSpecialAttack: Int
+    # $maxSpecialDefense: Int $minSpecialDefense: Int
+    # $maxSpeed: Int $minSpeed: Int
+  ) {
     pokemon(
       generation: $gen,
       filter: {
@@ -41,6 +62,18 @@ export const POKEMON_QUICKSEARCH_QUERY = gql`
         contains: $contains, 
         removedFromSwSh: $removedFromSwSh,
         removedFromBDSP: $removedFromBDSP,
+        # maxHP: $maxHP,
+        # minHP: $minHP,
+        # maxAttack: $maxAttack,
+        # minAttack: $minAttack,
+        # maxDefense: $maxDefense
+        # minDefense: $minDefense
+        # maxSpecialAttack: $maxSpecialAttack,
+        # minSpecialAttack: $minSpecialAttack,
+        # maxSpecialDefense: $maxSpecialDefense,
+        # minSpecialDefense: $minSpecialDefense,
+        # maxSpeed: $maxSpeed,
+        # minSpeed: $minSpeed,
       }
     ) {
       id

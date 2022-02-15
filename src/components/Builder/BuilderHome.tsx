@@ -2,15 +2,15 @@
 import { BGManager, classWithBG, classWithBGShadow } from '../../hooks/App/BGManager';
 import { Cart, } from '../../hooks/App/Cart';
 import { Team } from '../../hooks/App/Team';
-import { PokemonIconDispatches, PokemonIconFilters } from '../App';
+import { Dispatches, Filters } from '../App';
 import CartView from './CartView/CartView';
 import TeamView from './TeamView/TeamView';
 
 type BuilderHomeProps = {
   cart: Cart
   team: Team
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
   bgManager: BGManager
 }
 

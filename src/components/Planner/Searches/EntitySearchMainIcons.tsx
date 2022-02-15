@@ -12,11 +12,11 @@ import {
   ListRenderArgsIcons,
 } from './../helpers';
 
-import { PokemonIconDispatches, PokemonIconFilters } from '../../App';
+import { Dispatches, Filters } from '../../App';
 
 interface EntitySearchMainIconsProps<SearchQuery, SearchQueryVars> {
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
   handleSearchBoxChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   query: DocumentNode
   queryVars: SearchQueryVars
@@ -37,7 +37,7 @@ function EntitySearchMainIcons<SearchQuery, SearchQueryVars>({
   
   const [searchBox, setSearchBox] = useState('');
 
-  if (error) { return (<div>{error.message}</div>)}
+  if (error) { return (<div>{error.message}</div>); }
 
   return (
     <div

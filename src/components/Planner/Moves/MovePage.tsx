@@ -57,12 +57,12 @@ import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
-import { PokemonIconDispatches, PokemonIconFilters } from '../../App';
+import { Dispatches, Filters } from '../../App';
 import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 
 type MovePageProps = {
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
 }
 
 const MovePage = ({ 

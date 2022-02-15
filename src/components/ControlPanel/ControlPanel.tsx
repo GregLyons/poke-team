@@ -1,6 +1,5 @@
 import './ControlPanel.css';
 
-import { Pokemon } from "../../types-queries/Planner/Pokemon";
 import GenFilterForm from "./GenFilterForm/GenFilterForm";
 import PokemonTeam from "./PokemonTeam/PokemonTeam";
 import TierFilterForm from "./TierFilterForm/TierFilterForm";

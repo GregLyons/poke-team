@@ -28,6 +28,7 @@ export const DEFAULT_TIER_FILTER: TierFilter = {
     PU: true,
     NFE: true,
     LC: true,
+    None: true,
   },
   doublesTiers: {
     DUber: true,
@@ -36,6 +37,7 @@ export const DEFAULT_TIER_FILTER: TierFilter = {
     DUU: true,
     DNFE: true,
     DLC: true,
+    DNone: true,
   },
 };
 

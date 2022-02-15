@@ -19,7 +19,7 @@ import {
 } from '../../../utils/constants';
 import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 import { ListRenderArgsIcons } from '../helpers';
-import { PokemonIconDispatches, PokemonIconFilters } from '../../App';
+import { Dispatches, Filters } from '../../App';
 import EntitySearchMainIcons from '../Searches/EntitySearchMainIcons';
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<ItemSearchQuery>) => {
@@ -62,8 +62,8 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<ItemSear
 }
 
 type ItemSearchProps = {
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
 }
 
 const ItemSearch = ({

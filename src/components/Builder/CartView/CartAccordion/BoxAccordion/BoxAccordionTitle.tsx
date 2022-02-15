@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toggleBGPulse } from "../../../../../hooks/App/BGManager";
 import { BoxInCart, Cart } from "../../../../../hooks/App/Cart";
 import { GenFilter } from "../../../../../hooks/App/GenFilter";
-import { PokemonIconDispatches, } from "../../../../App";
+import { Dispatches, } from "../../../../App";
 import Button from "../../../../Reusables/Button/Button";
 import { CartAccordionClickHandlers, } from "../../CartView";
 
@@ -11,7 +11,7 @@ type BoxAccordionTitleProps = {
   box: BoxInCart
   pinned: boolean
 
-  dispatches: PokemonIconDispatches
+  dispatches: Dispatches
   filters: {
     genFilter: GenFilter
   }

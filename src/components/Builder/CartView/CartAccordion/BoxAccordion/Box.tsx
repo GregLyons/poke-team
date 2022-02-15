@@ -2,13 +2,13 @@ import { useEffect, useRef } from "react";
 import { BoxInCart } from "../../../../../hooks/App/Cart";
 import { validatePokemon, ValidationFailureReason } from "../../../../../hooks/App/PokemonFilter";
 import { PokemonIconDatum } from "../../../../../types-queries/helpers";
-import { PokemonIconDispatches, PokemonIconFilters } from "../../../../App";
+import { Dispatches, Filters } from "../../../../App";
 import BoxPokemonIcon from "./BoxPokemonIcon";
 
 type BoxProps = {
   box: BoxInCart
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
   key: string
 }
 

@@ -1,9 +1,9 @@
 import TypeSearch from "./TypeSearch"
-import { PokemonIconDispatches, PokemonIconFilters } from "../../App";
+import { Dispatches, Filters } from "../../App";
 
 type TypeMainPageProps = {
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
 }
 
 const TypeMainPage = ({ 

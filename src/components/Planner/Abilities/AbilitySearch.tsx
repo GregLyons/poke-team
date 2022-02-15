@@ -19,7 +19,7 @@ import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import EntitySearchMainIcons from '../Searches/EntitySearchMainIcons';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
-import { PokemonIconDispatches, PokemonIconFilters } from '../../App';
+import { Dispatches, Filters } from '../../App';
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<AbilitySearchQuery>) => {
   if (!data || !data.abilities) return (<div>Data not found for the query 'abilities'.</div>);
@@ -52,8 +52,8 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<AbilityS
 }
 
 type AbilitySearchMainProps = {
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
 }
 
 const AbilitySearch = ({

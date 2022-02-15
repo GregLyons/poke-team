@@ -63,11 +63,11 @@ import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../
 import { TierFilter } from '../../../hooks/App/TierFilter';
 import { BGAction } from '../../../hooks/App/BGManager';
 import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
-import { PokemonIconDispatches, PokemonIconFilters } from '../../App';
+import { Dispatches, Filters } from '../../App';
 
 type AbilityPageProps = {
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
 }
 
 const AbilityPage = ({ 

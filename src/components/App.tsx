@@ -46,14 +46,15 @@ import { DEFAULT_TEAM, TeamAction, teamReducer } from '../hooks/App/Team';
 import { BGAction, bgReducer, classWithBG, classWithBGShadow, DEFAULT_BACKGROUND } from '../hooks/App/BGManager';
 import CartView from './Builder/CartView/CartView';
 import TeamView from './Builder/TeamView/TeamView';
+import QuickSearch from './Builder/QuickSearch/QuickSearch';
 
-export type PokemonIconDispatches = {
+export type Dispatches = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchTeam: React.Dispatch<TeamAction>
   dispatchBGManager: React.Dispatch<BGAction>
 }
 
-export type PokemonIconFilters = {
+export type Filters = {
   genFilter: GenFilter
   tierFilter: TierFilter
   pokemonFilter: PokemonFilter
@@ -69,7 +70,7 @@ function App() {
 
   const headerRef = useRef<HTMLElement>(null);
   
-  const dispatches: PokemonIconDispatches = useMemo(() => {
+  const dispatches: Dispatches = useMemo(() => {
     return {
       dispatchCart,
       dispatchTeam,
@@ -77,7 +78,7 @@ function App() {
     }
   }, [dispatchCart, dispatchTeam, dispatchBGManager]);
 
-  const filters: PokemonIconFilters = useMemo(() => {
+  const filters: Filters = useMemo(() => {
     return {
       genFilter,
       tierFilter,
@@ -151,6 +152,15 @@ function App() {
             <Route
               path='team'
               element={<TeamView
+                bgManager={bgManager}
+                dispatches={dispatches}
+                filters={filters}
+                team={team}
+              />}
+            />
+            <Route
+              path='quickSearch'
+              element={<QuickSearch
                 bgManager={bgManager}
                 dispatches={dispatches}
                 filters={filters}

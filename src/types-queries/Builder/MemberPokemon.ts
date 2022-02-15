@@ -7,7 +7,7 @@ import { MemberAbility } from "./MemberAbility"
 import { enablesItemEdgeToMemberItem, MemberItem, requiresItemEdgeToMemberItem } from "./MemberItem"
 import { MemberMove } from "./MemberMove"
 
-export type PokemonMemberQueryResult = {
+export type MemberPokemonQueryResult = {
   id: string
   class: string
   forms: PokemonFormEdge[]
@@ -119,7 +119,7 @@ export const formattedNatureNameToNatureName = (formattedNatureName: FormattedNa
   return (formattedNatureName.toLowerCase() as NatureName);
 }
 
-export class Member {
+export class MemberPokemon {
   public id: string
   public name: string
   public formattedName: string
@@ -152,7 +152,7 @@ export class Member {
   public formClass: string
   public forms: PokemonFormDatum[]
 
-  constructor(gqlMember: PokemonMemberQueryResult, pokemonIconDatum: PokemonIconDatum, gen: GenerationNum) {
+  constructor(gqlMember: MemberPokemonQueryResult, pokemonIconDatum: PokemonIconDatum, gen: GenerationNum) {
     const {
       name, formattedName, psID, speciesName,
       typing, baseStats, 

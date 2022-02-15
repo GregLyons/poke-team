@@ -1,5 +1,5 @@
 import { Cart, } from "../../../../hooks/App/Cart";
-import { PokemonIconDispatches, PokemonIconFilters } from "../../../App";
+import { Dispatches, Filters } from "../../../App";
 import Accordion from "../../../Reusables/Accordion/Accordion";
 import ParentEntityAccordionTitle from "./ParentEntityAccordionTitle";
 import TargetEntityAccordion from "./TargetEntityAccordion";
@@ -13,8 +13,8 @@ import { Team } from "../../../../hooks/App/Team";
 type CartAccordionProps = {
   cart: Cart
   team: Team
-  dispatches: PokemonIconDispatches
-  filters: PokemonIconFilters
+  dispatches: Dispatches
+  filters: Filters
   clickHandlers: CartAccordionClickHandlers
 }
 
