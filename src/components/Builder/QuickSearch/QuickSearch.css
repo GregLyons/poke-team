@@ -48,11 +48,11 @@
 .quick-search__entry,
 .quick-search__legend {
   display: grid;
-  gap: clamp(3px, 1rem, 5vw);
-  grid-template-rows: minmax(auto, 1fr);
-  grid-template-columns: 8ch 60px minmax(20ch, min-content) 90px 5ch 40ch 1fr;
+  grid-template-rows: 1fr;
+  grid-template-columns: 10ch 60px minmax(20ch, min-content) 90px 8ch 50ch 1fr;
 
   align-items: center;
+  gap: 0 24px;
 
   min-width: fit-content;
   width: auto;
@@ -75,6 +75,13 @@
 
   background-color: var(--dark2);
   box-shadow: 0px 1px var(--dark1);
+}
+
+.quick-search__icon,
+.quick-search__name,
+.quick-search__tier,
+.quick-search__stat {
+  position: relative;
 }
 
 .quick-search__icon {
@@ -112,12 +119,15 @@
 
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: repeat(7, 1fr);
-
+  grid-template-columns: repeat(7, 3ch);
+  gap: 48px;
 }
 
 .quick-search__stat {
   text-align: right;
+}
+.quick-search__legend > .quick-search__stats > .quick-search__stat {
+  text-align: left;
 }
 
 .bad {
@@ -149,10 +159,17 @@
   justify-content: center;
   align-items: center;
 
+  margin-left: 0.5rem;
+
   width: fit-content;
 
   background-color: var(--dark1);
   box-shadow: var(--control-shadow);
   border-radius: 0.5rem;
   padding: 0 1rem 0 1rem;
+}
+
+.quick-search__legend > div > span:hover,
+.quick-search__legend > .quick-search__stats > .quick-search__stat:hover {
+  cursor: pointer;
 }
