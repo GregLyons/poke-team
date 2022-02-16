@@ -44,7 +44,7 @@
   display: grid;
   gap: clamp(3px, 1rem, 5vw);
   grid-template-rows: minmax(auto, 1fr);
-  grid-template-columns: 60px minmax(20ch, min-content) 90px 8ch 30ch minmax(20ch, min-content);
+  grid-template-columns: 60px minmax(20ch, min-content) 90px 8ch 36ch minmax(20ch, min-content);
 
   align-items: center;
 
@@ -94,7 +94,7 @@
 
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
 
 }
 

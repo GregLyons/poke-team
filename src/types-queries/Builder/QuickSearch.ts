@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { EnumTypeName, GenerationNum, NameEdge, PokemonIconDatum, PokemonIconNode, pokemonIconNodeToPokemonIconDatum, StatTable, TypeName } from "../helpers";
+import { EnumTypeName, GenerationNum, NameEdge, PokemonColumnName, PokemonIconDatum, PokemonIconNode, pokemonIconNodeToPokemonIconDatum, SortByEnum, StatTable, StatTableWithBST, TypeName } from "../helpers";
 
 export type PokemonQuickSearchQuery = {
   pokemon: PokemonQuickSearchResult[]
@@ -12,7 +12,7 @@ export interface PokemonQuickSearchResult extends PokemonIconNode {
   speciesName: string
   pokemonShowdownID: string
   typeNames: EnumTypeName[]
-  baseStats: StatTable
+  baseStats: StatTableWithBST
 }
 
 export interface PokemonAbilityEdge extends NameEdge {
@@ -93,6 +93,7 @@ export const POKEMON_QUICKSEARCH_QUERY = gql`
         specialAttack
         specialDefense
         speed
+        baseStatTotal
       }
     }
   }
@@ -100,8 +101,10 @@ export const POKEMON_QUICKSEARCH_QUERY = gql`
  
 export class QuickSearchPokemon {
   public pokemonIconDatum: PokemonIconDatum
+  public baseStatTotal: number
 
   constructor(gqlPokemon: PokemonQuickSearchResult) {
     this.pokemonIconDatum = pokemonIconNodeToPokemonIconDatum(gqlPokemon);
+    this.baseStatTotal = gqlPokemon.baseStats.baseStatTotal;
   }
 }

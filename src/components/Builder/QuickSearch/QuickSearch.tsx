@@ -6,6 +6,7 @@ import { validatePokemon } from '../../../hooks/App/PokemonFilter';
 import { Team } from '../../../hooks/App/Team';
 import { useFilterConnectedSearchVars } from '../../../hooks/Builder/Searches';
 import { PokemonQuickSearchQuery, PokemonQuickSearchResult, PokemonQuickSearchVars, POKEMON_QUICKSEARCH_QUERY, QuickSearchPokemon } from '../../../types-queries/Builder/QuickSearch';
+import { PokemonColumnName, PokemonPaginationInput, SortByEnum } from '../../../types-queries/helpers';
 import { Dispatches, Filters } from '../../App';
 import './QuickSearch.css';
 import QuickSearchEntries from './QuickSearchEntries';
@@ -24,6 +25,11 @@ const QuickSearch = ({
   filters,
   team,
 }: QuickSearchProps) => {
+  const [pagination, setPagination] = useState<PokemonPaginationInput>({
+    orderBy: 'psID',
+    sortBy: 'ASC',
+  });
+
   const [queryVars, setQueryVars] = useFilterConnectedSearchVars<PokemonQuickSearchVars>(
     {
       gen: filters.genFilter.gen,
@@ -39,6 +45,26 @@ const QuickSearch = ({
   });
 
   const [searchBox, setSearchBox] = useState('');
+
+  const onPaginationChangeClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, orderBy: PokemonColumnName) => {
+    e.preventDefault();
+
+    // Reversing sortBy direction
+    if (orderBy === pagination.orderBy) {
+      setPagination({
+        ...pagination,
+        sortBy: pagination.sortBy === 'ASC'
+          ? 'DESC'
+          : 'ASC',
+      })
+    }
+    else {
+      setPagination({
+        orderBy,
+        sortBy: 'ASC',
+      });
+    }
+  }
 
   if (error) { return (<div>{error.message}</div>); }
 
@@ -64,22 +90,66 @@ const QuickSearch = ({
           <div 
             className="quick-search__legend"
           >
-            <div className="quick-search__name">
+            <div 
+              className="quick-search__name"
+              onClick={e => onPaginationChangeClick(e, 'psID')}
+            >
               Name
             </div>
-            <div className="quick-search__typing">
+            <div
+              className="quick-search__typing"
+            >
               Typing
             </div>
-            <div className="quick-search__tier">
+            <div
+              className="quick-search__tier"
+              onClick={e => onPaginationChangeClick(e, 'tier')}
+            >
               Tier
             </div>
             <div className="quick-search__stats">
-              <div className="quick-search__stat">HP&nbsp;</div>
-              <div className="quick-search__stat">Atk</div>
-              <div className="quick-search__stat">Def</div>
-              <div className="quick-search__stat">SpA</div>
-              <div className="quick-search__stat">Def</div>
-              <div className="quick-search__stat">SpD</div>
+              <div
+                className="quick-search__stat"
+                onClick={e => onPaginationChangeClick(e, 'hp')}
+              >
+                HP&nbsp;
+              </div>
+              <div
+                className="quick-search__stat"
+                onClick={e => onPaginationChangeClick(e, 'attack')}
+              >
+                Atk
+              </div>
+              <div
+                className="quick-search__stat"
+                onClick={e => onPaginationChangeClick(e, 'defense')}
+              >
+                Def
+              </div>
+              <div
+                className="quick-search__stat"
+                onClick={e => onPaginationChangeClick(e, 'specialAttack')}
+              >
+                SpA
+              </div>
+              <div
+                className="quick-search__stat"
+                onClick={e => onPaginationChangeClick(e, 'specialDefense')}
+              >
+                SpD
+              </div>
+              <div
+                className="quick-search__stat"
+                onClick={e => onPaginationChangeClick(e, 'speed')}
+              >
+                Spe
+              </div>
+              <div
+                className="quick-search__stat"
+                onClick={e => onPaginationChangeClick(e, 'baseStatTotal')}
+              >
+                BST
+              </div>
             </div>
             <div className="quick-search__save-wrapper">
             </div>
@@ -90,6 +160,7 @@ const QuickSearch = ({
               data={data}
               filters={filters}
               dispatches={dispatches}
+              pagination={pagination}
             />
           }
         </div>

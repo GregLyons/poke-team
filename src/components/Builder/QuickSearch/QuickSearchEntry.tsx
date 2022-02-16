@@ -6,11 +6,13 @@ import TypeIcon from "../Icons/TypeIcon";
 
 type QuickSearchEntryProps = {
   pokemon: PokemonIconDatum
+  baseStatTotal: number
   tier: SinglesTier | DoublesTier
 }
 
 const QuickSearchEntry = ({
   pokemon,
+  baseStatTotal,
   tier,
 }: QuickSearchEntryProps) => {
   return (
@@ -37,20 +39,34 @@ const QuickSearchEntry = ({
         {tier}
       </div>
       <div className="quick-search__stats">
-        {Object.entries(pokemon.baseStats).map(([key, value]: [string, number]) => {
+        {Object.entries({ ...pokemon.baseStats, baseStatTotal }).map(([key, value]: [string, number]) => {
           if (key === '__typename') return;
           
           let rating: 'bad' | 'ok' | 'decent' | 'good' | 'great';
-          if (value <= 50) {
-            rating = 'bad';
-          } else if (value <= 80) {
-            rating = 'ok';
-          } else if (value <= 105) {
-            rating = 'decent';
-          } else if (value <= 140) {
-            rating = 'good';
-          } else {
-            rating = 'great';
+          if (key !== 'baseStatTotal')
+            if (value <= 50) {
+              rating = 'bad';
+            } else if (value <= 80) {
+              rating = 'ok';
+            } else if (value <= 105) {
+              rating = 'decent';
+            } else if (value <= 140) {
+              rating = 'good';
+            } else {
+              rating = 'great';
+            }
+          else {
+            if (value <= 300) {
+              rating = 'bad';
+            } else if (value <= 400) {
+              rating = 'ok';
+            } else if (value <= 500) {
+              rating = 'decent';
+            } else if (value <= 600) {
+              rating = 'good';
+            } else {
+              rating = 'great';
+            }
           }
 
           return (

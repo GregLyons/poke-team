@@ -24,6 +24,15 @@ export function isSinglesTier(tier: SinglesTier | DoublesTier): tier is SinglesT
   return ['AG', 'Uber', 'OU', 'UUBL', 'UU', 'RUBL', 'RU', 'NUBL', 'NU', 'PUBL', 'PU', 'NFE', 'LC', 'None'].includes(tier);
 }
 
+export const TIER_ORDERING: (SinglesTier | DoublesTier)[] = ['AG', 'Uber', 'OU', 'UUBL', 'UU', 'RUBL', 'RU', 'NUBL', 'NU', 'PUBL', 'PU', 'NFE', 'LC', 'None', 'DUber', 'DOU', 'DBL', 'DUU', 'DNFE', 'DLC', 'DNone'];
+
+export const compareTiers: (tier1: SinglesTier | DoublesTier, tier2: SinglesTier | DoublesTier) => number = (tier1, tier2) => { 
+  const [idx1, idx2] = [TIER_ORDERING.indexOf(tier1), TIER_ORDERING.indexOf(tier2)];
+  if (idx1 > idx2) return 1;
+  else if (idx1 === idx2) return 0;
+  return -1;
+}
+
 // #endregion
 
 const gens = new Generations(Dex);

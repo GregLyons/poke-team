@@ -3,6 +3,30 @@ import {
 } from '../utils/constants';
 import { compareStrings, sortArray } from '../utils/helpers';
 
+// Types for paginating queries
+// #region
+
+export type SortByEnum = 'ASC' | 'DESC';
+
+export interface PaginationInput {
+  orderBy: string,
+  sortBy: SortByEnum,
+}
+
+// Pokemon pagination
+// #region
+
+export type PokemonColumnName = 'psID' | 'speciesName' | 'hp' | 'attack' | 'defense' | 'specialAttack' | 'specialDefense' | 'speed' | 'baseStatTotal' | 'tier';
+
+export interface PokemonPaginationInput extends PaginationInput {
+  orderBy: PokemonColumnName
+  sortBy: SortByEnum
+}
+
+// #endregion
+
+// #endregion
+
 // Generations
 // #region
 
@@ -109,6 +133,10 @@ export const toAbbreviatedBaseStatName: (baseStatName: BaseStatName | FormattedB
 
 export type StatTable = {
   [baseStatName in BaseStatName]: number
+}
+
+export type StatTableWithBST = {
+  [baseStatName in BaseStatName | 'baseStatTotal']: number
 }
 
 export type psID = string;
