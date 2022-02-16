@@ -19,6 +19,19 @@ const QuickSearchEntry = ({
     <div
       className="quick-search__entry"
     >
+      <div className="quick-search__save-wrapper">
+        <div className="quick-search__save">
+          <Button
+            label="SAVE"
+            title="Save Pokemon to box for teambuilding."
+
+            onClick={e => e.preventDefault()}
+            active={true}
+            disabled={false}
+            immediate={true}
+          />
+        </div>
+      </div>
       <div className="quick-search__icon">
         <PokemonIcon
           pokemonIconDatum={pokemon}
@@ -81,19 +94,6 @@ const QuickSearchEntry = ({
             </div>
           )
         })}
-      </div>
-      <div className="quick-search__save-wrapper">
-        <div className="quick-search__save">
-          <Button
-            label="SAVE"
-            title="Save Pokemon to box for teambuilding."
-
-            onClick={e => e.preventDefault()}
-            active={true}
-            disabled={false}
-            immediate={true}
-          />
-        </div>
       </div>
     </div>
   )

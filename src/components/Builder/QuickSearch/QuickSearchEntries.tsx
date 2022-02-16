@@ -61,6 +61,7 @@ const QuickSearchEntries = ({
   const [sorted, setSorted] = useState(false);
 
   // Original entries, which depend only on the data coming in
+  // Also add a dependence on filters.tierFilter.format to display proper tier
   // We perform our initial sort here rather than letting it be handled in the definition of entries 
   const originalEntries: QuickSearchPokemonEntry[] | undefined = useMemo(() => {
     return data && data?.pokemon.map((pokemonSearchResult: PokemonQuickSearchResult) => {
@@ -73,7 +74,7 @@ const QuickSearchEntries = ({
         tier,
       };
     }).sort(sortPokemonByKey(pagination));
-  }, [data]);
+  }, [data, filters.tierFilter.format]);
 
   // Entries to be rendered, which should be sorted and filtered according to orderByKey and filters, respectively
   // If we were to perform our initial sort here, then the unsorted array shows for a brief moment before being sorted

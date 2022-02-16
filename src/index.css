@@ -23,7 +23,7 @@
   --light1: rgb(var(--light1-components));
   --light2-components: 222, 222, 222;
   --light2: rgb(var(--light2-components));
-  --light3-components: 170, 170, 170;
+  --light3-components: 140, 140, 140;
   --light3: rgb(var(--light3-components));
   
   /* Blues */
@@ -165,15 +165,15 @@ h1 {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(var(--light3-components), 0.5);
+  background: var(--light3);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(var(--light1-components), 0.9);
+  background: var(--light1);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(var(--light2-components), 0.9);
+  background: var(--light2);
 }
 
 /* #endregion */
