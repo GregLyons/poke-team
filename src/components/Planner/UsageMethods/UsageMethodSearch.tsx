@@ -57,10 +57,11 @@ type UsageMethodSearchMainProps = {
 const UsageMethodSearch = ({
   genFilter,
 }: UsageMethodSearchMainProps) => {
-  const [queryVars, setQueryVars] = useGenConnectedSearchVars<UsageMethodSearchVars>(
+  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useGenConnectedSearchVars<UsageMethodSearchVars>(
     {
       gen: genFilter.gen,
       contains: '',
+      startsWith: '',
       limit: 100,
     },
     genFilter,
@@ -76,9 +77,12 @@ const UsageMethodSearch = ({
 
   return (
     <>
-      <EntitySearchMain
+       <EntitySearchMain
         genFilter={genFilter}
-        handleSearchBoxChange={handleSearchBoxChange}
+        searchTerm={searchTerm}
+        handleSearchTermChange={handleSearchTermChange}
+        searchMode={searchMode}
+        handleSearchModeChange={handleSearchModeChange}
         listRender={listRender}
         query={USAGEMETHOD_SEARCH_QUERY}
         queryVars={queryVars}

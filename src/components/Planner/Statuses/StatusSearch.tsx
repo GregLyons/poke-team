@@ -62,10 +62,11 @@ type StatusSearchMainProps = {
 const StatusSearch = ({
   genFilter,
 }: StatusSearchMainProps) => {
-  const [queryVars, setQueryVars] = useGenConnectedSearchVars<StatusSearchVars>(
+  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useGenConnectedSearchVars<StatusSearchVars>(
     {
       gen: genFilter.gen,
       contains: '',
+      startsWith: '',
       limit: 100,
     },
     genFilter,
@@ -81,9 +82,12 @@ const StatusSearch = ({
 
   return (
     <>
-      <EntitySearchMain
+       <EntitySearchMain
         genFilter={genFilter}
-        handleSearchBoxChange={handleSearchBoxChange}
+        searchTerm={searchTerm}
+        handleSearchTermChange={handleSearchTermChange}
+        searchMode={searchMode}
+        handleSearchModeChange={handleSearchModeChange}
         listRender={listRender}
         query={STATUS_SEARCH_QUERY}
         queryVars={queryVars}

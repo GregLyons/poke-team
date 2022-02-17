@@ -63,13 +63,14 @@ export interface UsageMethodSearchVars extends EntitySearchVars {
   gen: GenerationNum
   limit: number
   contains: string
+  startsWith: string
 }
 
 export const USAGEMETHOD_SEARCH_QUERY = gql`
-  query UsageMethodSearchQuery($gen: Int! $limit: Int! $contains: String) {
+  query UsageMethodSearchQuery($gen: Int! $limit: Int! $contains: String $startsWith: String) {
     usageMethods(
       generation: $gen
-      filter: { contains: $contains }
+      filter: { contains: $contains, startsWith: $startsWith }
       pagination: { limit: $limit }
     ) {
       id

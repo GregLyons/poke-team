@@ -89,10 +89,11 @@ const MoveSearch = ({
   dispatches,
   filters,
 }: MoveSearchProps) => {
-  const [queryVars, setQueryVars] = useRemovalConnectedSearchVars<MoveSearchVars>(
+  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useRemovalConnectedSearchVars<MoveSearchVars>(
     {
       gen: filters.genFilter.gen,
       contains: '',
+      startsWith: '',
       limit: 10,
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
@@ -112,7 +113,10 @@ const MoveSearch = ({
       <EntitySearchMainIcons
         dispatches={dispatches}
         filters={filters}
-        handleSearchBoxChange={handleSearchBoxChange}
+        searchTerm={searchTerm}
+        handleSearchTermChange={handleSearchTermChange}
+        searchMode={searchMode}
+        handleSearchModeChange={handleSearchModeChange}
         listRender={listRender}
         query={MOVE_SEARCH_QUERY}
         queryVars={queryVars}

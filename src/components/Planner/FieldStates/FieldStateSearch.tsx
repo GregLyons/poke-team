@@ -74,10 +74,11 @@ type FieldStateSearchMainProps = {
 const FieldStateSearch = ({
   genFilter,
 }: FieldStateSearchMainProps) => {
-  const [queryVars, setQueryVars] = useGenConnectedSearchVars<FieldStateSearchVars>(
+  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useGenConnectedSearchVars<FieldStateSearchVars>(
     {
       gen: genFilter.gen,
       contains: '',
+      startsWith: '',
       limit: 100,
     },
     genFilter,
@@ -93,9 +94,12 @@ const FieldStateSearch = ({
 
   return (
     <>
-      <EntitySearchMain
+       <EntitySearchMain
         genFilter={genFilter}
-        handleSearchBoxChange={handleSearchBoxChange}
+        searchTerm={searchTerm}
+        handleSearchTermChange={handleSearchTermChange}
+        searchMode={searchMode}
+        handleSearchModeChange={handleSearchModeChange}
         listRender={listRender}
         query={FIELDSTATE_SEARCH_QUERY}
         queryVars={queryVars}

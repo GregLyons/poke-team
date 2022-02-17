@@ -51,10 +51,11 @@ type EffectSearchMainProps = {
 const EffectSearch = ({
   genFilter,
 }: EffectSearchMainProps) => {
-  const [queryVars, setQueryVars] = useGenConnectedSearchVars<EffectSearchVars>(
+  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useGenConnectedSearchVars<EffectSearchVars>(
     {
       gen: genFilter.gen,
       contains: '',
+      startsWith: '',
       limit: 100,
     },
     genFilter,
@@ -72,7 +73,10 @@ const EffectSearch = ({
     <>
       <EntitySearchMain
         genFilter={genFilter}
-        handleSearchBoxChange={handleSearchBoxChange}
+        searchTerm={searchTerm}
+        handleSearchTermChange={handleSearchTermChange}
+        searchMode={searchMode}
+        handleSearchModeChange={handleSearchModeChange}
         listRender={listRender}
         query={EFFECT_SEARCH_QUERY}
         queryVars={queryVars}

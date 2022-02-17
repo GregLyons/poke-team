@@ -70,10 +70,11 @@ const ItemSearch = ({
   dispatches,
   filters,
 }: ItemSearchProps) => {
-  const [queryVars, setQueryVars] = useRemovalConnectedSearchVars<ItemSearchVars>(
+  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useRemovalConnectedSearchVars<ItemSearchVars>(
     {
       gen: filters.genFilter.gen,
       contains: '',
+      startsWith: '',
       limit: 10,
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
@@ -94,7 +95,10 @@ const ItemSearch = ({
       <EntitySearchMainIcons
         dispatches={dispatches}
         filters={filters}
-        handleSearchBoxChange={handleSearchBoxChange}
+        searchTerm={searchTerm}
+        handleSearchTermChange={handleSearchTermChange}
+        searchMode={searchMode}
+        handleSearchModeChange={handleSearchModeChange}
         listRender={listRender}
         query={ITEM_SEARCH_QUERY}
         queryVars={queryVars}

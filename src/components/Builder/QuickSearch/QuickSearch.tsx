@@ -8,6 +8,7 @@ import { useFilterConnectedSearchVars } from '../../../hooks/Builder/Searches';
 import { PokemonQuickSearchQuery, PokemonQuickSearchResult, PokemonQuickSearchVars, POKEMON_QUICKSEARCH_QUERY, QuickSearchPokemon } from '../../../types-queries/Builder/QuickSearch';
 import { PokemonColumnName, PokemonPaginationInput, SortByEnum } from '../../../types-queries/helpers';
 import { Dispatches, Filters } from '../../App';
+import SearchBar from '../../Reusables/SearchBar/SearchBar';
 import SortSwitch from '../../Reusables/SortSwitch/SortSwitch';
 import './QuickSearch.css';
 import QuickSearchEntries from './QuickSearchEntries';
@@ -34,6 +35,7 @@ const QuickSearch = ({
   const [queryVars, setQueryVars] = useFilterConnectedSearchVars<PokemonQuickSearchVars>(
     {
       gen: filters.genFilter.gen,
+      startsWith: '',
       contains: '',
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
@@ -45,7 +47,6 @@ const QuickSearch = ({
     variables: queryVars,
   });
 
-  const [searchBox, setSearchBox] = useState('');
 
   const onPaginationChangeClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, orderBy: PokemonColumnName) => {
     e.preventDefault();
@@ -67,6 +68,29 @@ const QuickSearch = ({
     }
   }
 
+  const [searchBox, setSearchBox] = useState('');
+  const [searchMode, setSearchMode] = useState<'STARTS' | 'CONTAINS'>('STARTS');
+
+  const onSearchBarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    setSearchBox(e.target.value);
+    setQueryVars({
+      ...queryVars,
+      contains: e.target.value,
+    });
+  }
+
+  const onModeChange = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, mode: 'STARTS' | 'CONTAINS') => {
+    e.preventDefault();
+
+    setSearchMode(mode);
+    setQueryVars({
+      ...queryVars,
+
+    })
+  }
+
   if (error) { return (<div>{error.message}</div>); }
 
   return (
@@ -76,15 +100,11 @@ const QuickSearch = ({
       <div className="quick-search__padder">
         <form>
           Search
-          <input type="text" 
-            value={searchBox}
-            onChange={(e) => {
-              setSearchBox(e.target.value);
-              setQueryVars({
-                ...queryVars,
-                contains: e.target.value,
-              })
-            }}
+          <SearchBar
+            searchTerm={searchBox}
+            handleSearchTermChange={onSearchBarChange}
+            searchMode={searchMode}
+            handleSearchModeChange={onModeChange}
           />
         </form>
         <div className="quick-search__results">

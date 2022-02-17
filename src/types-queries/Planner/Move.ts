@@ -74,6 +74,7 @@ export interface MoveSearchVars extends EntitySearchVars, RemovedFromGameQueryVa
   gen: GenerationNum
   limit: number
   contains: string
+  startsWith: string
 
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -81,12 +82,12 @@ export interface MoveSearchVars extends EntitySearchVars, RemovedFromGameQueryVa
 
 export const MOVE_SEARCH_QUERY = gql`
   query MoveSearchQuery(
-    $gen: Int! $limit: Int! $contains: String
+    $gen: Int! $limit: Int! $contains: String $startsWith: String
     $removedFromBDSP: Boolean $removedFromSwSh: Boolean
   ) {
     moves(
       generation: $gen 
-      filter: { contains: $contains, removedFromSwSh: $removedFromSwSh removedFromBDSP: $removedFromBDSP } 
+      filter: { contains: $contains, startsWith: $startsWith, removedFromSwSh: $removedFromSwSh removedFromBDSP: $removedFromBDSP } 
       pagination: { limit: $limit }
     ) {
       id

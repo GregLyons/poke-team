@@ -60,6 +60,7 @@ export interface AbilitySearchVars extends EntitySearchVars, RemovedFromGameQuer
   gen: GenerationNum
   limit: number
   contains: string
+  startsWith: string
 
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -67,12 +68,12 @@ export interface AbilitySearchVars extends EntitySearchVars, RemovedFromGameQuer
 
 export const ABILITY_SEARCH_QUERY = gql`
   query AbilitySearchQuery(
-    $gen: Int! $limit: Int! $contains: String
+    $gen: Int! $limit: Int! $contains: String $startsWith: String
     $removedFromBDSP: Boolean $removedFromSwSh: Boolean
   ) {
     abilities(
       generation: $gen 
-      filter: { contains: $contains } 
+      filter: { contains: $contains, startsWith: $startsWith } 
       pagination: { limit: $limit }
     ) {
       id

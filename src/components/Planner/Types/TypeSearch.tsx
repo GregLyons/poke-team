@@ -63,10 +63,11 @@ const TypeSearch = ({
   dispatches,
   filters,
 }: TypeSearchMainProps) => {
-  const [queryVars, setQueryVars] = useRemovalConnectedSearchVars<TypeSearchVars>(
+  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useRemovalConnectedSearchVars<TypeSearchVars>(
     {
       gen: filters.genFilter.gen,
       contains: '',
+      startsWith: '',
       limit: 20,
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
@@ -85,7 +86,10 @@ const TypeSearch = ({
       <EntitySearchMainIcons
         dispatches={dispatches}
         filters={filters}
-        handleSearchBoxChange={handleSearchBoxChange}
+        searchTerm={searchTerm}
+        handleSearchTermChange={handleSearchTermChange}
+        searchMode={searchMode}
+        handleSearchModeChange={handleSearchModeChange}
         listRender={listRender}
         query={TYPE_SEARCH_QUERY}
         queryVars={queryVars}

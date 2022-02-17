@@ -70,13 +70,14 @@ export interface EffectSearchVars extends EntitySearchVars {
   gen: GenerationNum
   limit: number
   contains: string
+  startsWith: string
 }
 
 export const EFFECT_SEARCH_QUERY = gql`
-  query EffectSearchQuery($gen: Int! $limit: Int! $contains: String) {
+  query EffectSearchQuery($gen: Int! $limit: Int! $contains: String $startsWith: String) {
     effects(
       generation: $gen
-      filter: { contains: $contains }
+      filter: { contains: $contains, startsWith: $startsWith }
       pagination: { limit: $limit }
     ) {
       id

@@ -69,13 +69,14 @@ export interface FieldStateSearchVars extends EntitySearchVars {
   gen: GenerationNum
   limit: number
   contains: string
+  startsWith: string
 }
 
 export const FIELDSTATE_SEARCH_QUERY = gql`
-  query FieldStateSearchQuery($gen: Int! $limit: Int! $contains: String) {
+  query FieldStateSearchQuery($gen: Int! $limit: Int! $contains: String $startsWith: String) {
     fieldStates(
       generation: $gen
-      filter: { contains: $contains }
+      filter: { contains: $contains, startsWith: $startsWith }
       pagination: { limit: $limit }
     ) {
       id

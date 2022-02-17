@@ -26,6 +26,7 @@ export interface PokemonAbilityEdge extends NameEdge {
 export interface PokemonQuickSearchVars {
   gen: GenerationNum
   contains: string
+  startsWith: string
 
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -46,7 +47,7 @@ export interface PokemonQuickSearchVars {
 
 export const POKEMON_QUICKSEARCH_QUERY = gql`
   query PokemonSearchQuery(
-    $gen: Int! $contains: String!
+    $gen: Int! $contains: String $startsWith: String!
     $removedFromBDSP: Boolean $removedFromSwSh: Boolean
     # $maxHP: Int $minHP: Int
     # $maxAttack: Int $minAttack: Int
@@ -59,7 +60,7 @@ export const POKEMON_QUICKSEARCH_QUERY = gql`
       generation: $gen,
       filter: {
         formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
-        contains: $contains, 
+        contains: $contains, startsWith: $startsWith, 
         removedFromSwSh: $removedFromSwSh,
         removedFromBDSP: $removedFromBDSP,
         # maxHP: $maxHP,

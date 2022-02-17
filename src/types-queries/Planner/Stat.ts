@@ -57,13 +57,14 @@ export interface StatSearchVars extends EntitySearchVars {
   gen: GenerationNum
   limit: number
   contains: string
+  startsWith: string
 }
 
 export const STAT_SEARCH_QUERY = gql`
-  query StatSearchQuery($gen: Int! $limit: Int! $contains: String) {
+  query StatSearchQuery($gen: Int! $limit: Int! $contains: String $startsWith: String) {
     stats(
       generation: $gen
-      filter: { contains: $contains }
+      filter: { contains: $contains, startsWith: $startsWith }
       pagination: { limit: $limit }
     ) {
       id

@@ -82,15 +82,16 @@ export interface TypeSearchVars extends EntitySearchVars, RemovedFromGameQueryVa
   gen: GenerationNum
   limit: number
   contains: string
+  startsWith: string
   removedFromSwSh: false | null
   removedFromBDSP: false | null
 }
 
 export const TYPE_SEARCH_QUERY = gql`
-  query TypeSearchQuery($gen: Int! $limit: Int! $contains: String $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
+  query TypeSearchQuery($gen: Int! $limit: Int! $contains: String $startsWith: String $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
     types(
       generation: $gen
-      filter: { contains: $contains }
+      filter: { contains: $contains, startsWith: $startsWith }
       pagination: { limit: $limit }
     ) {
       id

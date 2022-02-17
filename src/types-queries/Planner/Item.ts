@@ -69,6 +69,7 @@ export interface ItemSearchVars extends EntitySearchVars, RemovedFromGameQueryVa
   gen: GenerationNum
   limit: number
   contains: string
+  startsWith: string
 
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -76,12 +77,12 @@ export interface ItemSearchVars extends EntitySearchVars, RemovedFromGameQueryVa
 
 export const ITEM_SEARCH_QUERY = gql`
   query ItemSearchQuery(
-    $gen: Int! $limit: Int! $contains: String
+    $gen: Int! $limit: Int! $contains: String $startsWith: String
     $removedFromBDSP: Boolean $removedFromSwSh: Boolean
   ) {
     items(
       generation: $gen 
-      filter: { contains: $contains } 
+      filter: { contains: $contains, startsWith: $startsWith } 
       pagination: { limit: $limit }
     ) {
       id

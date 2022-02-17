@@ -60,10 +60,11 @@ const AbilitySearch = ({
   dispatches,
   filters,
 }: AbilitySearchMainProps) => {
-  const [queryVars, setQueryVars] = useRemovalConnectedSearchVars<AbilitySearchVars>(
+  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useRemovalConnectedSearchVars<AbilitySearchVars>(
     {
       gen: filters.genFilter.gen,
       contains: '',
+      startsWith: '',
       limit: 10,
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
@@ -83,7 +84,10 @@ const AbilitySearch = ({
       <EntitySearchMainIcons
         dispatches={dispatches}
         filters={filters}
-        handleSearchBoxChange={handleSearchBoxChange}
+        searchTerm={searchTerm}
+        handleSearchTermChange={handleSearchTermChange}
+        searchMode={searchMode}
+        handleSearchModeChange={handleSearchModeChange}
         listRender={listRender}
         query={ABILITY_SEARCH_QUERY}
         queryVars={queryVars}

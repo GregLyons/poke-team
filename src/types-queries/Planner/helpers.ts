@@ -28,6 +28,7 @@ export interface EntitySearchVars {
   gen: GenerationNum
   limit: number
   contains: string
+  startsWith: string
 }
 
 export abstract class MainEntityInSearch {

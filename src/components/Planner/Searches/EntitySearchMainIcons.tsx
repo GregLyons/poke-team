@@ -13,11 +13,15 @@ import {
 } from './../helpers';
 
 import { Dispatches, Filters } from '../../App';
+import SearchBar from '../../Reusables/SearchBar/SearchBar';
 
 interface EntitySearchMainIconsProps<SearchQuery, SearchQueryVars> {
   dispatches: Dispatches
   filters: Filters
-  handleSearchBoxChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  searchTerm: string
+  handleSearchTermChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  searchMode: 'STARTS' | 'CONTAINS'
+  handleSearchModeChange: (e: React.MouseEvent<HTMLElement, MouseEvent>, mode: 'STARTS' | 'CONTAINS') => void
   query: DocumentNode
   queryVars: SearchQueryVars
   listRender: ({ data, dispatches, filters, }: ListRenderArgsIcons<SearchQuery>) => JSX.Element
@@ -26,7 +30,10 @@ interface EntitySearchMainIconsProps<SearchQuery, SearchQueryVars> {
 function EntitySearchMainIcons<SearchQuery, SearchQueryVars>({
   dispatches,
   filters,
-  handleSearchBoxChange,
+  searchTerm,
+  handleSearchTermChange,
+  searchMode,
+  handleSearchModeChange,
   listRender,
   query,
   queryVars,
@@ -35,8 +42,6 @@ function EntitySearchMainIcons<SearchQuery, SearchQueryVars>({
     variables: queryVars,
   });
   
-  const [searchBox, setSearchBox] = useState('');
-
   if (error) { return (<div>{error.message}</div>); }
 
   return (
@@ -45,14 +50,11 @@ function EntitySearchMainIcons<SearchQuery, SearchQueryVars>({
     >
       <div className="planner-search__padder">
         <form>
-          Search
-          <input
-            type="text"
-            value={searchBox}
-            onChange={(e) => {
-              setSearchBox(e.target.value);
-              handleSearchBoxChange?.(e);
-            }}
+          <SearchBar
+            searchTerm={searchTerm}
+            handleSearchTermChange={handleSearchTermChange}
+            searchMode={searchMode}
+            handleSearchModeChange={handleSearchModeChange}
           />
         </form>
         <div className="planner-search__results">
