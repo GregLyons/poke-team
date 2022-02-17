@@ -7,7 +7,7 @@ import SimpleBar from "simplebar-react";
 import 'simplebar/dist/simplebar.min.css';
 
 import { useWindowSize } from "usehooks-ts";
-import { BGAction, BGManager, toggleBGPulse } from "../../hooks/App/BGManager";
+import { BGAction, BGManager, classWithBGShadow, toggleBGPulse } from "../../hooks/App/BGManager";
 
 import BuilderNavBar from './BuilderNavBar';
 
@@ -55,10 +55,10 @@ const Builder = ({
         />
       </div>
       <div 
-        className="content-wrapper"
+        className={classWithBGShadow("content-wrapper", bgManager)}
         style={{
           height: contentHeight,
-          width: containerWidth,
+          width: 'auto',
         }}
       >
         <Outlet />

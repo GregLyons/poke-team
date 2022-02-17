@@ -1,7 +1,6 @@
 .accordion {
   position: relative;
   padding: 0.75rem;
-  background-color: rgba(var(--dark3-components), 0.7);
 }
 
 .accordion__item {

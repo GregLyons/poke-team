@@ -50,11 +50,11 @@ const Planner = ({
           bgManager={bgManager}
         />
       </div>
-      <div
-        className="content-wrapper"
+      <div 
+        className={classWithBGShadow("content-wrapper", bgManager)}
         style={{
           height: contentHeight,
-          width: containerWidth,
+          width: 'auto',
         }}
       >
         <Outlet />

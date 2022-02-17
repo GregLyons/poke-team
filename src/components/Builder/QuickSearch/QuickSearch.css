@@ -6,18 +6,6 @@
   height: 100%;
 }
 
-.quick-search__padder {
-  position: relative;
-  height: calc(100% - 4rem);
-  
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.quick-search__padder > form {
-  align-self: flex-start;
-}
-
 .quick-search__results {
   margin-top: 1rem;
 

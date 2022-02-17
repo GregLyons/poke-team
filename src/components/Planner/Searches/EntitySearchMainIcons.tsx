@@ -48,21 +48,19 @@ function EntitySearchMainIcons<SearchQuery, SearchQueryVars>({
     <div
       className="planner-search__wrapper"
     >
-      <div className="planner-search__padder">
-        <form>
-          <SearchBar
-            searchTerm={searchTerm}
-            handleSearchTermChange={handleSearchTermChange}
-            searchMode={searchMode}
-            handleSearchModeChange={handleSearchModeChange}
-          />
-        </form>
-        <div className="planner-search__results">
-          {loading 
-            ? <div>Loading...</div>
-            : data && listRender({ data, dispatches, filters, })
-          }
-        </div>
+      <form>
+        <SearchBar
+          searchTerm={searchTerm}
+          handleSearchTermChange={handleSearchTermChange}
+          searchMode={searchMode}
+          handleSearchModeChange={handleSearchModeChange}
+        />
+      </form>
+      <div className="planner-search__results">
+        {loading 
+          ? <div>Loading...</div>
+          : data && listRender({ data, dispatches, filters, })
+        }
       </div>
     </div>
   );

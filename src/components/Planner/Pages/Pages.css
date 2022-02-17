@@ -2,23 +2,28 @@
 /* #region */
 
 .planner-page__wrapper {
-
   position: relative;
   height: 100%;
-
-  padding: 0rem 1rem 0rem 1rem;
+  padding-bottom: 4rem;
 }
 
-.planner-page__padder {
-  display: grid;
-  grid-template-rows: auto 1fr;
+.planner-page__accordion-wrapper {
   position: relative;
-  overflow: hidden;
-  height: calc(100% - 2.5rem);
+  height: calc(100% - 1rem);
+  overflow-y: scroll;
+  background-color: rgba(var(--dark3-components), 0.5);
 }
 
-.planner-page__header {
-  grid-row: 1 / 2;
+.planner-page__accordion-wrapper > .accordion {
+  position: relative;
+  height: 100%;
+  
+  border-radius: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  --accordion-left-shadow-size: 0.25rem;
+  font-family: var(--monospace);
 }
 
 

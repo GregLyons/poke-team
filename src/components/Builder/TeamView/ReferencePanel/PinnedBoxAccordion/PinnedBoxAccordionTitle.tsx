@@ -1,5 +1,5 @@
-import Button from "../../../Reusables/Button/Button";
-import { PinnedBoxClickHandlers } from "../TeamView";
+import Button from "../../../../Reusables/Button/Button";
+import { PinnedBoxClickHandlers } from "../../TeamView";
 
 type PinnedBoxAccordionTitleProps = {
   titleText: string

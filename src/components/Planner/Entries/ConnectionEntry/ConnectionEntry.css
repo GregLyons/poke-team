@@ -1,18 +1,6 @@
 /* Items */
 /* #region */
 
-.planner-page__padder > .accordion {
-  position: relative;
-  grid-row: 2 / 3;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  overflow-y: scroll;
-  border-radius: 0;
-
-  --accordion-left-shadow-size: 0.25rem;
-  font-family: var(--monospace);
-}
-
 .planner-accordion__item {
   width: 100%;
 }
@@ -101,8 +89,8 @@
 /* Entries */
 /* #region */
 
-/* Gives illusion of gap; background of subitem is same color as entry */
-.planner-accordion__entry:before {
+/* Gives illusion of gap; background of subitem is same color as entry. Don't put above first entry/second child */
+.planner-accordion__entry:not(:nth-child(2))::before {
   content: '';
   display: block;
   position: absolute;
@@ -122,9 +110,9 @@
 /* Lower shadow */
 /* #region */
 
-.planner-accordion__entry:after,
-.planner-accordion__subitem--positive > .planner-accordion__entry:after,
-.planner-accordion__subitem--negative > .planner-accordion__entry:after {
+.planner-accordion__entry::after,
+.planner-accordion__subitem--positive > .planner-accordion__entry::after,
+.planner-accordion__subitem--negative > .planner-accordion__entry::after {
   content: '';
   display: block;
   position: absolute;
@@ -135,21 +123,21 @@
   transition: 0.5s ease;
 }
 
-.planner-accordion__entry:after {
+.planner-accordion__entry::after {
   box-shadow: inset var(--bg-shadow-inset) rgba(var(--blue1-components), 0.7);
 }
 
-.planner-accordion__subitem--positive > .planner-accordion__entry:after {
+.planner-accordion__subitem--positive > .planner-accordion__entry::after {
   box-shadow: inset var(--bg-shadow-inset) rgba(var(--green1-components), 0.7);
 }
 
-.planner-accordion__subitem--negative > .planner-accordion__entry:after {
+.planner-accordion__subitem--negative > .planner-accordion__entry::after {
   box-shadow: inset var(--bg-shadow-inset) rgba(var(--red1-components), 0.7);
 }
 
-.planner-accordion__entry--expand-hover:after,
-.planner-accordion__subitem--positive > .planner-accordion__entry--expand-hover:after,
-.planner-accordion__subitem--negative > .planner-accordion__entry--expand-hover:after {
+.planner-accordion__entry--expand-hover::after,
+.planner-accordion__subitem--positive > .planner-accordion__entry--expand-hover::after,
+.planner-accordion__subitem--negative > .planner-accordion__entry--expand-hover::after {
   width: 100%;
 }
 

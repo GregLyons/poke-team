@@ -16,44 +16,68 @@ const MemberDetails = ({
     <div className="member-details__wrapper">
       <div className="member-details__name-wrapper">
         <div className="member-details__nickname">
-          Nickname
+          <div className="member-details__header">
+            Nickname
+          </div>
         </div>
         <div className="member-details__icon">
-          Icon
+          <div className="member-details__header">
+            Icon
+          </div>
         </div>
         <div className="member-details__name">
-          Name
+          <div className="member-details__header">
+            Name
+          </div>
         </div>
       </div>
       <div className="member-details__main-wrapper">
         <div className="member-details__moves">
-          Move
+          <div className="member-details__header">
+            Move
+          </div>
         </div>
         <div className="member-details__ability">
-          Ability
+          <div className="member-details__header">
+            Ability
+          </div>
         </div>
         <div className="member-details__item">
-          Item
+          <div className="member-details__header">
+            Item
+          </div>
         </div>
         <div className="member-details__stats">
-          Stats
+          <div className="member-details__header">
+            Stats
+          </div>
         </div>
       </div>
       <div className="member-details__extra-wrapper">
         <div className="member-details__level">
-          <span>Level</span>
+          <div className="member-details__header">
+            Level
+          </div>
         </div>
         <div className="member-details__gender">
-          <span>Gender</span>
+          <div className="member-details__header">
+            Gender
+          </div>
         </div>
         <div className="member-details__shiny">
-          <span>Shiny</span>
+          <div className="member-details__header">
+            Shiny
+          </div>
         </div>
         <div className="member-details__happiness">
-          <span>Happiness</span>
+          <div className="member-details__header">
+            Happiness
+          </div>
         </div>
         <div className="member-details__cosmetic">
-          <span>Cosmetic</span>
+          <div className="member-details__header">
+            Cosmetic
+          </div>
         </div>
       </div>
     </div>

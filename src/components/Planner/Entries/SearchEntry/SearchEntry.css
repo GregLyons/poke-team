@@ -11,7 +11,7 @@
 /* Lower shadow */
 /* #region */
 
-.planner-search__entry:after {
+.planner-search__entry::after {
   content: '';
   display: block;
   position: absolute;
@@ -23,7 +23,7 @@
   transition: 0.5s ease;
 }
 
-.planner-search__entry--expand-hover:after {
+.planner-search__entry--expand-hover::after {
   width: 100%;
 }
 

@@ -198,8 +198,8 @@ const UsageMethodPage = ({
 
   return (
     <div className="planner-page__wrapper">
-      <div className="planner-page__padder">
-        <h1 className="planner-page__header">{usageMethodResult.formattedName}</h1>
+      <h1 className="planner-page__header">{usageMethodResult.formattedName}</h1>
+      <div className="planner-page__accordion-wrapper">
         <Accordion 
           accordionContext='planner'
           accordionData={[
@@ -247,8 +247,8 @@ const UsageMethodPage = ({
             },
           ]}
         />
-        <Outlet />
       </div>
+      <Outlet />
     </div>
   );
 }

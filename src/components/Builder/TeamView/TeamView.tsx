@@ -2,7 +2,8 @@ import { useEffect, useMemo } from "react";
 import { BGManager, classWithBG, classWithBGShadow, toggleBGPulse } from "../../../hooks/App/BGManager";
 import { Team } from "../../../hooks/App/Team";
 import { Dispatches, Filters } from "../../App";
-import PinnedBoxAccordion from "./PinnedBoxAccordion/PinnedBoxAccordion";
+import PinnedBoxAccordion from "./ReferencePanel/PinnedBoxAccordion/PinnedBoxAccordion";
+import ReferencePanel from "./ReferencePanel/ReferencePanel";
 import TeamBuilder from "./TeamBuilder/TeamBuilder";
 
 import './TeamView.css';
@@ -42,22 +43,18 @@ const TeamView = ({
   }, [dispatches, filters, team]);
 
   return (
-    <div className={classWithBG("team-view__wrapper", bgManager)}>
-      <div className={classWithBGShadow("team-builder__cell", bgManager)}>
-        <TeamBuilder
-          dispatches={dispatches}
-          filters={filters}
-          team={team}
-        />
-      </div>
-      <div className={classWithBGShadow("pinned-boxes__cell", bgManager)}>
-        <PinnedBoxAccordion
-          clickHandlers={pinnedBoxClickHandlers}
-          dispatches={dispatches}
-          filters={filters}
-          team={team}
-        />
-      </div>
+    <div className="team-view__wrapper">
+      <TeamBuilder
+        dispatches={dispatches}
+        filters={filters}
+        team={team}
+      />
+      <ReferencePanel
+        clickHandlers={pinnedBoxClickHandlers}
+        dispatches={dispatches}
+        filters={filters}
+        team={team}
+      />
     </div>
   )
 }

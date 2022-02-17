@@ -49,15 +49,15 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
     <div
       className="planner-search__wrapper"
     >
-      <div className="planner-search__padder">
-        <form>
-          <SearchBar
-            searchTerm={searchTerm}
-            handleSearchTermChange={handleSearchTermChange}
-            searchMode={searchMode}
-            handleSearchModeChange={handleSearchModeChange}
-          />
-        </form>
+      <form>
+        <SearchBar
+          searchTerm={searchTerm}
+          handleSearchTermChange={handleSearchTermChange}
+          searchMode={searchMode}
+          handleSearchModeChange={handleSearchModeChange}
+        />
+      </form>
+      <div className="planner-search__results-padder">
         <div className="planner-search__results">
           {loading 
             ? <div>Loading...</div>

@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { useWindowSize } from "usehooks-ts";
-import { BGAction, BGManager, toggleBGPulse } from "../../hooks/App/BGManager";
+import { BGAction, BGManager, classWithBGShadow, toggleBGPulse } from "../../hooks/App/BGManager";
+import { useContainerSize } from "../../hooks/App/ContainerSize";
 import AnalyzerNavBar from "./AnalyzerNavBar";
 
 type AnalyzerProps = {
@@ -17,7 +18,7 @@ const Analyzer = ({
   dispatchBGManager,
   navBarRef,
 }: AnalyzerProps) => {
-  const windowSize = useWindowSize();
+  const [containerWidth, containerHeight, contentHeight] = useContainerSize(headerRef, navBarRef);
 
   // Change background to red
   useEffect(() => {
@@ -31,16 +32,27 @@ const Analyzer = ({
     <div 
       className="analyzer-container"
       style={{
-        height: headerRef.current 
-          ? `calc(${windowSize.height}px - ${headerRef.current.scrollHeight}px)`
-          : '',
+        height: containerHeight,
+        width: containerWidth,
       }}
     >
-      <AnalyzerNavBar
-        dispatchBGManager={dispatchBGManager}
-        bgManager={bgManager}
-      />
-      <Outlet />
+      <div
+        className="nav-bar__ref-container"
+      >
+        <AnalyzerNavBar
+          dispatchBGManager={dispatchBGManager}
+          bgManager={bgManager}
+        />
+      </div>
+      <div 
+        className={classWithBGShadow("content-wrapper", bgManager)}
+        style={{
+          height: contentHeight,
+          width: 'auto',
+        }}
+      >
+        <Outlet />
+      </div>
     </div>
   );
 }

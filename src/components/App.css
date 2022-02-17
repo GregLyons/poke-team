@@ -139,8 +139,6 @@
   grid-template-columns: 1fr;
 
   position: relative;
-
-  background-color: rgba(var(--dark3-components), 0.9);
 }
 
 .planner-container > .nav-bar__wrapper, 
@@ -155,4 +153,8 @@
   grid-column: 1 / 2;
 
   position: relative;
+  box-sizing: border-box;
+
+  padding: var(--content-padding);
+  background-color: rgba(var(--dark3-components), 0.9);
 }
