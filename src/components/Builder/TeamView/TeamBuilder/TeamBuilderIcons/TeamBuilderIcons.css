@@ -1,0 +1,15 @@
+.team-builder__icons-wrapper {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+/* Individual icons */
+/* #region */
+
+.team-builder__icon-wrapper {
+  border: 1px solid white;
+}
+
+/* #endregion */

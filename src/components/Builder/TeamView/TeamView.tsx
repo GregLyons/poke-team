@@ -45,7 +45,9 @@ const TeamView = ({
     <div className={classWithBG("team-view__wrapper", bgManager)}>
       <div className={classWithBGShadow("team-builder__cell", bgManager)}>
         <TeamBuilder
-        
+          dispatches={dispatches}
+          filters={filters}
+          team={team}
         />
       </div>
       <div className={classWithBGShadow("pinned-boxes__cell", bgManager)}>
