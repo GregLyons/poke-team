@@ -25,7 +25,7 @@ const PinnedBoxAccordion = ({
     title: JSX.Element
     content: false | JSX.Element
   }[] = useMemo(() => {
-    const pinnedBoxesInGen = team.pinnedBoxes?.[filters.genFilter.gen];
+    const pinnedBoxesInGen = team[filters.genFilter.gen].savedPokemon.pinnedBoxes;
     const boxes = Object.entries(pinnedBoxesInGen || []);
     return boxes.map(([note, pokemon]) => {
       console.log(note);
@@ -38,11 +38,6 @@ const PinnedBoxAccordion = ({
           box={{
             note,
             pokemon,
-            classification: {
-              parentEntityClass: 'Custom',
-              targetEntityClass: null,
-            },
-            roleInCombination: undefined,
           }}
           dispatches={dispatches}
           filters={filters}

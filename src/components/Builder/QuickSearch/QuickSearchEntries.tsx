@@ -24,7 +24,7 @@ type QuickSearchPokemonEntry = {
   tier: SinglesTier | DoublesTier
 }
 
-type QuickSearchPokemonEntryKey = 'psID' | 'speciesName' | 'hp' | 'attack' | 'defense' | 'specialAttack' | 'specialDefense' | 'speed' | 'baseStatTotal' | 'tier';
+type QuickSearchPokemonEntryKey = 'psID' | 'hp' | 'attack' | 'defense' | 'specialAttack' | 'specialDefense' | 'speed' | 'baseStatTotal' | 'tier';
 
 const sortHelper: (el1: number | string, el2: number | string) => number = (el1, el2) => {
   if (el1 > el2) return 1;
@@ -38,7 +38,6 @@ const sortPokemonByKey: (pagination: PokemonPaginationInput) => ((qspe1: QuickSe
   return (qspe1: QuickSearchPokemonEntry, qspe2: QuickSearchPokemonEntry) => {
     switch(orderBy) {
       case 'psID':
-      case 'speciesName':
         return sign * sortHelper(qspe1.pokemonIconDatum[orderBy], qspe2.pokemonIconDatum[orderBy]);
       case 'tier':
         return sign * compareTiers(qspe1.tier, qspe2.tier);

@@ -26,28 +26,6 @@
   transition: 0.2s ease;
 }
 
-/* Replacing */
-/* #region */
-
-/* Overlay for replace mode */
-.team-member__wrapper--replace::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  cursor: pointer;
-
-  background-color: rgba(var(--blue1-components), 0.2);
-}
-.team-member__wrapper--replace:hover::after {
-  filter: brightness(1.1);
-}
-
-/* #endregion */
-
 /* Remove button */
 /* #region */
 

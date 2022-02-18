@@ -256,10 +256,8 @@ export const STAT_ABILITY_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP
@@ -456,10 +454,8 @@ export const STAT_ITEM_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP
@@ -593,10 +589,8 @@ export const STAT_MOVE_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP

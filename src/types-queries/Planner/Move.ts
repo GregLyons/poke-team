@@ -136,10 +136,8 @@ export const MOVE_SEARCH_QUERY = gql`
         edges {
           node {
             id
-            name
             formattedName
-            speciesName
-            pokemonShowdownID
+            psID
 
             removedFromSwSh
             removedFromBDSP

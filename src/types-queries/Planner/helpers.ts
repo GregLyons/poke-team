@@ -87,7 +87,7 @@ export abstract class AuxEntityInSearchWithIcon extends AuxEntityInSearch {
 // Entity page
 // #region
 
-export type EntityPageQueryName = 'abilityByName' | 'effectByName' | 'fieldStateByName' | 'itemByName' | 'moveByName' | 'pokemonByName' | 'statByName' | 'statusByName' | 'typeByName' | 'usageMethodByName';
+export type EntityPageQueryName = 'abilityByName' | 'effectByName' | 'fieldStateByName' | 'itemByName' | 'moveByName' | 'pokemonByPSID' | 'statByName' | 'statusByName' | 'typeByName' | 'usageMethodByName';
 
 export type VersionDependentDescriptionEdgeWithCode = {
   node: {

@@ -428,10 +428,8 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP
@@ -475,10 +473,8 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP
@@ -523,10 +519,8 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP
@@ -570,10 +564,8 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP
@@ -617,10 +609,8 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP
@@ -664,10 +654,8 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP
@@ -837,10 +825,8 @@ export const FIELDSTATE_ITEM_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP
@@ -879,10 +865,8 @@ export const FIELDSTATE_ITEM_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP
@@ -922,10 +906,8 @@ export const FIELDSTATE_ITEM_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP
@@ -964,10 +946,8 @@ export const FIELDSTATE_ITEM_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP
@@ -1097,10 +1077,8 @@ export const FIELDSTATE_MOVE_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP
@@ -1154,10 +1132,8 @@ export const FIELDSTATE_MOVE_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP
@@ -1210,10 +1186,8 @@ export const FIELDSTATE_MOVE_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP
@@ -1266,10 +1240,8 @@ export const FIELDSTATE_MOVE_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP
@@ -1561,10 +1533,8 @@ export const FIELDSTATE_TYPE_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP
@@ -1600,10 +1570,8 @@ export const FIELDSTATE_TYPE_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP
@@ -1639,10 +1607,8 @@ export const FIELDSTATE_TYPE_QUERY = gql`
               edges {
                 node {
                   id
-                  name
                   formattedName
-                  speciesName
-                  pokemonShowdownID
+                  psID
 
                   removedFromSwSh
                   removedFromBDSP

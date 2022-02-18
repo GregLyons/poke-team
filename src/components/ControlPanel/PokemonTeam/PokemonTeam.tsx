@@ -16,12 +16,13 @@ type PokemonTeamProps = {
 const PokemonTeam = ({
   team,
   dispatchTeam,
+  genFilter,
 }: PokemonTeamProps) => {
   return (
     <div
       className="team__wrapper"
     >
-      {team.members.map((member, idx) => {
+      {team[genFilter.gen].members.map((member, idx) => {
         return (
           <div 
             key={`team-member-${idx}`}

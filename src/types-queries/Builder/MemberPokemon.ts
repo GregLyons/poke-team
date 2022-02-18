@@ -7,32 +7,41 @@ import { MemberAbility } from "./MemberAbility"
 import { enablesItemEdgeToMemberItem, MemberItem, requiresItemEdgeToMemberItem } from "./MemberItem"
 import { MemberMove } from "./MemberMove"
 
+export type MemberPokemonQuery = {
+  pokemonByPSID: MemberPokemonQueryResult
+}
+
 export type MemberPokemonQueryResult = {
   id: string
-  class: string
+  name: string
+  speciesName: string
+
+  formClass: string
   forms: PokemonFormEdge[]
 
   introduced: IntroductionEdge[]
 
   enablesItem: EnablesItemEdge[]
   requiresItem: RequiresItemEdge[]
-
 }
 
 export const POKEMONICON_TO_MEMBER_QUERY = gql`
-  query PokemonIconToMemberQuery($gen: Int! $names: [String!]!) {
-    pokemonName(generation: $gen names: $names) {
+  query PokemonIconToMemberQuery($gen: Int! $psID: String!) {
+    pokemonByPSID(generation: $gen psID: $psID) {
       id
-      class
+      name
+      speciesName
+      
+      formClass
       forms {
         id
         edges {
           node {
             id
             name
-            formattedName
             speciesName
-            pokemonShowdownID
+            formattedName
+            psID
           }
           class
         }
@@ -53,7 +62,7 @@ export const POKEMONICON_TO_MEMBER_QUERY = gql`
             id
             name
             formattedName
-            pokemonShowdownID
+            psID
           }
         }
       }
@@ -64,7 +73,7 @@ export const POKEMONICON_TO_MEMBER_QUERY = gql`
             id
             name
             formattedName
-            pokemonShowdownID
+            psID
           }
         }
       }
@@ -133,7 +142,7 @@ export class MemberPokemon {
   public removedFromSwSh: boolean
   public removedFromBDSP: boolean
 
-  public moveset: MemberMove[]
+  public moveset: (MemberMove | null)[]
   public ability?: MemberAbility
   public item?: MemberItem
 
@@ -154,15 +163,15 @@ export class MemberPokemon {
 
   constructor(gqlMember: MemberPokemonQueryResult, pokemonIconDatum: PokemonIconDatum, gen: GenerationNum) {
     const {
-      name, formattedName, psID, speciesName,
+      formattedName, psID,
       typing, baseStats, 
       removedFromSwSh, removedFromBDSP,
     } = pokemonIconDatum;
     const { 
-      id,
+      id, name, speciesName,
       introduced, 
       enablesItem, requiresItem,
-      class: formClass, forms,
+      formClass, forms,
     } = gqlMember;
 
     this.id = id;
@@ -179,15 +188,15 @@ export class MemberPokemon {
     this.removedFromSwSh = removedFromSwSh;
     this.removedFromBDSP = removedFromBDSP;
 
-    this.moveset = [];
+    this.moveset = [null, null, null, null];
     this.evs = DefaultEVSpread;
     this.ivs = DefaultIVSpread;
     this.nature = 'serious';
     this.level = 100;
     this.happiness = 255;
 
-    this.enablesItem = enablesItem.map(enablesItemEdgeToMemberItem);
-    this.requiresItem = requiresItem.map(requiresItemEdgeToMemberItem);
+    this.enablesItem = enablesItem.map(edge => enablesItemEdgeToMemberItem(edge, gen));
+    this.requiresItem = requiresItem.map(edge => requiresItemEdgeToMemberItem(edge, gen));
 
     this.formClass = formClass;
     this.forms = forms.map(pokemonFormEdgeToFormDatum);
@@ -271,7 +280,7 @@ export class MemberPokemon {
       species: this.speciesName,
       item: this.item?.psID || '',
       ability: this?.ability?.psID || '',
-      moves: this.moveset.map(move => move.psID),
+      moves: this.moveset.map(move => move?.psID || ''),
       nature: this.nature,
       gender: this.gender || '',
       evs: statTableToPSStatsTable(this.evs),

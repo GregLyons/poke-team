@@ -48,7 +48,7 @@ const Box = ({
           return (
             <BoxPokemonIcon
               dispatches={dispatches}
-              key={key + '_' + pokemonIconDatum.name + '_icon'}
+              key={key + '_' + pokemonIconDatum.psID + '_icon'}
               pokemonIconDatum={pokemonIconDatum}
             />
           )

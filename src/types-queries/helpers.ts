@@ -16,7 +16,7 @@ export interface PaginationInput {
 // Pokemon pagination
 // #region
 
-export type PokemonColumnName = 'psID' | 'speciesName' | 'hp' | 'attack' | 'defense' | 'specialAttack' | 'specialDefense' | 'speed' | 'baseStatTotal' | 'tier';
+export type PokemonColumnName = 'psID' | 'hp' | 'attack' | 'defense' | 'specialAttack' | 'specialDefense' | 'speed' | 'baseStatTotal' | 'tier';
 
 export interface PokemonPaginationInput extends PaginationInput {
   orderBy: PokemonColumnName
@@ -144,8 +144,6 @@ export type psID = string;
 export type PokemonIconDatum = {
   id: string
   formattedName: string
-  name: string
-  speciesName: string
   psID: psID
 
   removedFromSwSh: boolean
@@ -170,8 +168,6 @@ export function sortPokemonIconData (pid: PokemonIconDatum[]): PokemonIconDatum[
 export const DUMMY_POKEMON_ICON_DATUM: PokemonIconDatum = {
   id: '',
   formattedName: '',
-  name: '',
-  speciesName: '',
   psID: '',
   removedFromSwSh: false,
   removedFromBDSP: false,
@@ -189,7 +185,7 @@ export const DUMMY_POKEMON_ICON_DATUM: PokemonIconDatum = {
 export const pokemonIconNodeToPokemonIconDatum: (node: PokemonIconNode) => PokemonIconDatum = (node) => {
   return {
     ...node,
-    psID: node.pokemonShowdownID,
+    psID: node.psID,
     typing: node.typeNames.map(toTypeName),
   }
 }
@@ -425,13 +421,13 @@ export interface PokemonTypeEdge {
 }
 
 // Pokemon edges which contain data for rendering Pokemon icons
-// pokemonShowdownID for using @pkmn/img
+// psID for using @pkmn/img
 export interface PokemonIconNode {
   id: string
   name: string
   formattedName: string
   speciesName: string
-  pokemonShowdownID: string
+  psID: string
 
   removedFromSwSh: boolean
   removedFromBDSP: boolean

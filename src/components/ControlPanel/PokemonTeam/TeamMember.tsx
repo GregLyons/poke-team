@@ -1,12 +1,13 @@
 import { useRef, useState } from "react";
-import { Team, TeamAction, TeamMode } from "../../../hooks/App/Team";
+import { Team, TeamAction, } from "../../../hooks/App/Team";
+import { MemberPokemon } from "../../../types-queries/Builder/MemberPokemon";
 import { PokemonIconDatum } from "../../../types-queries/helpers";
 import RemoveIcon from "./RemoveIcon";
 import TeamMemberIcon from "./TeamMemberIcon";
 
 type TeamMemberProps = {
   position: number
-  member: PokemonIconDatum
+  member: MemberPokemon | null
   dispatchTeam: React.Dispatch<TeamAction>
   team: Team
 }
@@ -25,37 +26,14 @@ const TeamMember = ({
   const removeDuration = 1500;
   // const replaceDuration = 1000;
 
-  const onReplaceClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    e.preventDefault();
-
-    if (removing || team.mode !== 'replace') return;
-
-    // We're replacing existing Pokemon
-    // if (member.psID && member.psID !== team.loadedPokemon?.psID) {
-    //   setReplacing(true);
-    //   setTimeout(() => {
-    //     setReplacing(false);
-    //   }, replaceDuration);
-    // }
-
-    if (team.mode === 'replace' && team.loadedPokemon !== null) {
-      dispatchTeam({
-        type: 'replace',
-        payload: position,
-      });
-    }
-  }
-
   /* Removing Pokemon */
   /* #region */
 
   function removePokemon() {
-    if (team.mode === 'default') {
-      dispatchTeam({
-        type: 'remove',
-        payload: position,
-      });
-    }
+    // dispatchTeam({
+    //   type: 'remove',
+    //   payload: position,
+    // });
 
     // No longer removing Pokemon
     setRemoving(false);
@@ -93,14 +71,9 @@ const TeamMember = ({
     <div
       className={`
         team-member__wrapper
-        ${team.mode === 'replace'
-          ? 'team-member__wrapper--replace'
-          : ''
-        }
       `}
-      onClick={onReplaceClick}
     >
-      {member.psID && (
+      {/* {member.psID && (
         <>
           <TeamMemberIcon
             pokemonIconDatum={member}
@@ -116,7 +89,7 @@ const TeamMember = ({
               : onRemoveClick}
           />
         </>
-      )}
+      )} */}
     </div>
   );
 }

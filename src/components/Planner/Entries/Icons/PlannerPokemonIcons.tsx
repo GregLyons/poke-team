@@ -89,10 +89,10 @@ const PlannerPokemonIcons = ({
           if (!psID) return;
 
           // Ignore duplicate Pokemon
-          if(seenPokemon.hasOwnProperty(pokemonIconDatum.name)) return
+          if(seenPokemon.hasOwnProperty(pokemonIconDatum.psID)) return
         
           // Add Pokemon to list of seen Pokemon
-          else seenPokemon[pokemonIconDatum.name] = true;
+          else seenPokemon[pokemonIconDatum.psID] = true;
 
           const { validated, reason: reasonForFailure } = validatePokemon({
             pokemonIconDatum, 
@@ -109,7 +109,7 @@ const PlannerPokemonIcons = ({
           return (
             <PlannerPokemonIcon
               dispatches={icons.dispatches}
-              key={key + '_' + pokemonIconDatum.name + '_icon'}
+              key={key + '_' + pokemonIconDatum.psID + '_icon'}
               pokemonIconDatum={pokemonIconDatum}
               selected={selection.hasOwnProperty(psID) && (selection[psID] as {
                 nameData: PokemonIconDatum,

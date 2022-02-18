@@ -1,52 +1,50 @@
+import { MemberPokemon } from "../../types-queries/Builder/MemberPokemon";
 import { DUMMY_POKEMON_ICON_DATUM, GenerationNum, PokemonIconDatum } from "../../types-queries/helpers";
 import { omitKeys } from "../../utils/helpers";
 import { BoxInCart } from "./Cart";
 
-export const DEFAULT_TEAM: Team = {
-  mode: 'default',
-  loadedPokemon: null,
-  members: [
-    DUMMY_POKEMON_ICON_DATUM,
-    DUMMY_POKEMON_ICON_DATUM,
-    DUMMY_POKEMON_ICON_DATUM,
-    DUMMY_POKEMON_ICON_DATUM,
-    DUMMY_POKEMON_ICON_DATUM,
-    DUMMY_POKEMON_ICON_DATUM,
-  ],
-  pinnedBoxes: {}
-}
-
-export type TeamMode = 'default' | 'replace';
-
-export type Team = {
-  mode: TeamMode
-  loadedPokemon: PokemonIconDatum | null
-  members: PokemonIconDatum[]
-  pinnedBoxes: {
-    [gen in GenerationNum]?: {
+export type TeamInGen = {
+  savedPokemon: {
+    pinnedBoxes: {
       [note: string]: PokemonIconDatum[]
     }
+    quickSearch: PokemonIconDatum[]
   }
-};
+  members: (MemberPokemon | null)[]
+  selectedMember: MemberPokemon | null
+}
+
+export type Team = {
+  [gen in GenerationNum]: TeamInGen
+}
+
+const EMPTY_TEAM_IN_GEN: TeamInGen = {
+  savedPokemon: {
+    pinnedBoxes: {},
+    quickSearch: [],
+  },
+  members: [null, null, null, null, null, null],
+  selectedMember: null,
+}
+
+export const DEFAULT_TEAM: Team = {
+  1: EMPTY_TEAM_IN_GEN,
+  2: EMPTY_TEAM_IN_GEN,
+  3: EMPTY_TEAM_IN_GEN,
+  4: EMPTY_TEAM_IN_GEN,
+  5: EMPTY_TEAM_IN_GEN,
+  6: EMPTY_TEAM_IN_GEN,
+  7: EMPTY_TEAM_IN_GEN,
+  8: EMPTY_TEAM_IN_GEN,
+}
 
 export type TeamAction = 
-| { 
-    type: 'toggle_replace_mode',
-    payload: PokemonIconDatum | null,
-  }
-| { 
-    type: 'replace',
-    payload: number, 
-  }
-| {
-    type: 'remove',
-    payload: number,
-  }
 | {
     type: 'pin_box',
     payload: {
       gen: GenerationNum
-      box: BoxInCart
+      pokemon: PokemonIconDatum[]
+      note: string
     }
   }
 | {
@@ -58,58 +56,32 @@ export type TeamAction =
   }
 
 export function teamReducer(state: Team, action: TeamAction): Team {
+  let gen: GenerationNum
+  let idx: number
   switch(action.type) {
-    // If action.payload is null or the same as state.loadedPokemon, turn replace mode off and remove state.loadedPokemon; otherwise, turn or keep replace mode on and overwrite state.loadedPokemon with action.payload.
-    case 'toggle_replace_mode':
-      return {
-        ...state,
-        mode: action.payload === null || action.payload?.psID === state.loadedPokemon?.psID
-          ? 'default'
-          : 'replace',
-        loadedPokemon: action.payload?.psID !== state.loadedPokemon?.psID
-          ? action.payload
-          : null,
-      };
-
-    case 'replace':
-      // If not in replace mode, do nothing, otherwise overwrite member in slot action.payload with state.loadedPokemon.
-      if (state.mode !== 'replace') return state;
-      return {
-        ...state,
-        loadedPokemon: null,
-        mode: 'default',
-        members: state.members.map((member: PokemonIconDatum, idx: number) => {
-          if (idx === action.payload && state.loadedPokemon) return state.loadedPokemon;
-          return member;
-        })
-      };
-
-    case 'remove':
-      return {
-        ...state,
-        members: state.members.map((member: PokemonIconDatum, idx: number) => {
-          if (idx === action.payload) return DUMMY_POKEMON_ICON_DATUM;
-          return member;
-        }),
-      };
-
     case 'pin_box':
+      gen = action.payload.gen; 
+
       return {
         ...state,
-        pinnedBoxes: {
-          ...state.pinnedBoxes,
-          [action.payload.gen]: {
-            ...state.pinnedBoxes[action.payload.gen],
-            [action.payload.box.note]: [action.payload.box.pokemon],
-          }
+        [gen]: {
+          ...state[gen],
+          savedPokemon: {
+            pinnedBoxes: {
+              ...state[gen].savedPokemon.pinnedBoxes,
+              [action.payload.note]: [action.payload.pokemon],
+            }
+          },
         }
       };
 
     case 'unpin_box':
-      if (!state.pinnedBoxes[action.payload.gen] || !state.pinnedBoxes[action.payload.gen]?.[action.payload.note]) return state;
+      gen = action.payload.gen; 
+
+      if (!state[gen].savedPokemon.pinnedBoxes || !state[gen].savedPokemon.pinnedBoxes?.[action.payload.note]) return state;
 
       const newState = { ...state };
-      delete newState.pinnedBoxes[action.payload.gen]?.[action.payload.note];
+      delete newState[gen].savedPokemon.pinnedBoxes?.[action.payload.note];
       return newState;
 
     default:

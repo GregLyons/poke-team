@@ -35,18 +35,6 @@ const PlannerPokemonIcon = ({
   const onClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
     toggleSelection(pokemonIconDatum.psID);
-    if (!selected) {
-      dispatchTeam({
-        type: 'toggle_replace_mode',
-        payload: pokemonIconDatum,
-      });
-    }
-    else {
-      dispatchTeam({
-        type: 'toggle_replace_mode',
-        payload: null,
-      });
-    }
   }
 
   return (

@@ -6,7 +6,10 @@ import { Dispatches, Filters } from "../../../../App";
 import BoxPokemonIcon from "../../../CartView/CartAccordion/BoxAccordion/BoxPokemonIcon";
 
 type PinnedBoxProps = {
-  box: BoxInCart
+  box: {
+    note: string
+    pokemon: PokemonIconDatum[]
+  }
   dispatches: Dispatches
   filters: Filters
   key: string
@@ -48,7 +51,7 @@ const PinnedBox = ({
           return (
             <BoxPokemonIcon
               dispatches={dispatches}
-              key={key + '_' + pokemonIconDatum.name + '_icon'}
+              key={key + '_' + pokemonIconDatum.psID + '_icon'}
               pokemonIconDatum={pokemonIconDatum}
             />
           )

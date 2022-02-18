@@ -10,7 +10,7 @@ export interface PokemonQuickSearchResult extends PokemonIconNode {
   name: string
   formattedName: string
   speciesName: string
-  pokemonShowdownID: string
+  psID: string
   typeNames: EnumTypeName[]
   baseStats: StatTableWithBST
 }
@@ -81,7 +81,7 @@ export const POKEMON_QUICKSEARCH_QUERY = gql`
       name
       formattedName
       speciesName
-      pokemonShowdownID
+      psID
 
       removedFromSwSh
       removedFromBDSP

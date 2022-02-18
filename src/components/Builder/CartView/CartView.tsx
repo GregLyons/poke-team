@@ -50,7 +50,8 @@ const CartView = ({
         type: 'pin_box',
         payload: {
           gen: filters.genFilter.gen,
-          box,
+          note: box.note,
+          pokemon: box.pokemon,
         }
       });
 

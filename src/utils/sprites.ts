@@ -12,20 +12,20 @@ import {
 // Get Pokemon sprites
 //#region 
 
-export const getPokemonSprite = (pokemon: PokemonIconDatum, gen: GenerationNum = 8) => {
-  let {url} = Sprites.getPokemon(pokemon.name.replace('_', ''), {gen: gen});
+// export const getPokemonSprite = (pokemon: PokemonIconDatum, gen: GenerationNum = 8) => {
+//   let {url} = Sprites.getPokemon(pokemon.name.replace('_', ''), {gen: gen});
 
-  // if (gen < pokemon.introduced) {
-  //   return Sprites.getPokemon(pokemon.name.replace('_', ''), {gen: pokemon.introduced})
-  // }
+//   // if (gen < pokemon.introduced) {
+//   //   return Sprites.getPokemon(pokemon.name.replace('_', ''), {gen: pokemon.introduced})
+//   // }
 
-  // If the pokemon.name is incompatible, use the speciesName instead.
-  if (url.includes('0.png')) {
-    return Sprites.getPokemon(pokemon.psID.replace('_', ''), {gen: gen});
-  } else {
-    return Sprites.getPokemon(pokemon.name.replace('_', ''), {gen: gen});
-  }
-}
+//   // If the pokemon.name is incompatible, use the speciesName instead.
+//   if (url.includes('0.png')) {
+//     return Sprites.getPokemon(pokemon.psID.replace('_', ''), {gen: gen});
+//   } else {
+//     return Sprites.getPokemon(pokemon.name.replace('_', ''), {gen: gen});
+//   }
+// }
 
 export const getPokemonIcon = (pokemon: PokemonIconDatum) => {
   return Icons.getPokemon(pokemon.psID);

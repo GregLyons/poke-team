@@ -95,7 +95,7 @@ export type Cart = {
   [gen in GenerationNum]: CartInGen
 };
 
-const EMPTY_CART_IN_GEN = {
+const EMPTY_CART_IN_GEN: CartInGen = {
   pokemon: {},
   items: {},
   customBoxes: {},

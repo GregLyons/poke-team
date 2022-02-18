@@ -4,7 +4,7 @@ import { DUMMY_POKEMON_ICON_DATUM, PokemonIconDatum, psID } from "../../types-qu
 export const useSelection = (iconData: PokemonIconDatum[] | undefined): [Selection, React.Dispatch<SelectionAction>] => {
   const initialSelection = iconData
   ? iconData.reduce((acc: Selection, curr) => {
-    const { id, psID, name, formattedName, speciesName, typing, baseStats, removedFromSwSh, removedFromBDSP, } = curr;
+    const { id, psID, formattedName, typing, baseStats, removedFromSwSh, removedFromBDSP, } = curr;
     if (acc[curr.psID]) return acc;
 
     return {
@@ -13,9 +13,7 @@ export const useSelection = (iconData: PokemonIconDatum[] | undefined): [Selecti
         nameData: {
           id,
           psID,
-          name,
           formattedName,
-          speciesName,
           typing,
           baseStats,
           removedFromSwSh,

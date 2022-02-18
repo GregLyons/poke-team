@@ -36,10 +36,6 @@ const SelectionControls = ({
         onClick={e => {
           e.preventDefault();
           dispatchSelection({ type: 'remove_all' });
-          dispatches.dispatchTeam({
-            type: 'toggle_replace_mode',
-            payload: null,
-          });
         }}
         disabled={noPokemon}
         immediate={true}
