@@ -25,7 +25,7 @@ const listRender = ({ data, }: ListRenderArgs<UsageMethodSearchQuery>) => {
   
   return (
     <>
-      {data.usageMethods.map((usageMethodSearchResult: UsageMethodSearchResult) => {
+      {data.usageMethods.edges.map((usageMethodSearchResult: UsageMethodSearchResult) => {
         const usageMethod = new UsageMethodInSearch(usageMethodSearchResult);
         
         return (

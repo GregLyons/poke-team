@@ -25,7 +25,7 @@ const listRender = ({ data, }: ListRenderArgs<StatSearchQuery>) => {
   
   return (
     <>
-      {data.stats.map((statSearchResult: StatSearchResult) => {
+      {data.stats.edges.map((statSearchResult: StatSearchResult) => {
         const stat = new StatInSearch(statSearchResult);
 
         return (

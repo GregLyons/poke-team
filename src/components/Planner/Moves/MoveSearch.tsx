@@ -28,7 +28,7 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<MoveSear
   
   return (
     <>
-      {data.moves.map((moveSearchResult: MoveSearchResult) => {
+      {data.moves.edges.map((moveSearchResult: MoveSearchResult) => {
         const move = new MoveInSearch(moveSearchResult);
 
         return (

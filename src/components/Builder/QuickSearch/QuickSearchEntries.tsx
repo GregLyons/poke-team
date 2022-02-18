@@ -63,7 +63,7 @@ const QuickSearchEntries = ({
   // Also add a dependence on filters.tierFilter.format to display proper tier
   // We perform our initial sort here rather than letting it be handled in the definition of entries 
   const originalEntries: QuickSearchPokemonEntry[] | undefined = useMemo(() => {
-    return data && data?.pokemon.map((pokemonSearchResult: PokemonQuickSearchResult) => {
+    return data && data?.pokemon.edges.map((pokemonSearchResult: PokemonQuickSearchResult) => {
       const { pokemonIconDatum, baseStatTotal } = (new QuickSearchPokemon(pokemonSearchResult));
       const tier = getTier(filters.genFilter.gen, filters.tierFilter.format, pokemonIconDatum.psID);
 

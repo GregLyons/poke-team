@@ -25,7 +25,7 @@ const listRender = ({ data, }: ListRenderArgs<EffectSearchQuery>) => {
   
   return (
     <>
-      {data.effects.map((effectSearchResult: EffectSearchResult) => {
+      {data.effects.edges.map((effectSearchResult: EffectSearchResult) => {
         const effect = new EffectInSearch(effectSearchResult);
 
         return (

@@ -39,20 +39,26 @@ import {
 // #region
 
 export type AbilitySearchQuery = {
-  [searchQueryName in EntitySearchQueryName]?: AbilitySearchResult[]
+  [searchQueryName in EntitySearchQueryName]?: {
+    id: string
+    
+    edges: AbilitySearchResult[]
+  }
 }
 
 
 export interface AbilitySearchResult extends MainEntitySearchResult {
-  id: string
-  name: string
-  formattedName: string
-  descriptions: {
-    edges: DescriptionsEdge[]
-  }
-
-  pokemon: {
-    edges: PokemonIconEdge[]
+  node: {
+    id: string
+    name: string
+    formattedName: string
+    descriptions: {
+      edges: DescriptionsEdge[]
+    }
+  
+    pokemon: {
+      edges: PokemonIconEdge[]
+    }
   }
 }
 
@@ -73,44 +79,48 @@ export const ABILITY_SEARCH_QUERY = gql`
   ) {
     abilities(
       generation: $gen 
-      filter: { contains: $contains, startsWith: $startsWith } 
-      pagination: { limit: $limit }
+      filter: { contains: $contains, startsWith: $startsWith }
     ) {
       id
-      name
-      formattedName
+      edges(pagination: { limit: $limit }) {
+        node {
+          id
+          name
+          formattedName
 
-      descriptions {
-        edges(pagination: {limit: 1}) {
-          node {
-            text
+          descriptions {
+            edges(pagination: {limit: 1}) {
+              node {
+                text
+              }
+            }
           }
-        }
-      }
 
-      pokemon(filter: {
-        formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
-        removedFromSwSh: $removedFromSwSh,
-        removedFromBDSP: $removedFromBDSP,
-      }) {
-        edges {
-          node {
-            id
-            formattedName
-            psID
+          pokemon(filter: {
+            formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+            removedFromSwSh: $removedFromSwSh,
+            removedFromBDSP: $removedFromBDSP,
+          }) {
+            edges {
+              node {
+                id
+                formattedName
+                psID
 
-            removedFromSwSh
-            removedFromBDSP
+                removedFromSwSh
+                removedFromBDSP
 
-            typeNames
+                typeNames
 
-            baseStats {
-              hp
-              attack
-              defense
-              specialAttack
-              specialDefense
-              speed
+                baseStats {
+                  hp
+                  attack
+                  defense
+                  specialAttack
+                  specialDefense
+                  speed
+                }
+              }
             }
           }
         }
@@ -125,7 +135,7 @@ export class AbilityInSearch extends MainEntityInSearch {
   constructor(gqlAbility: AbilitySearchResult) {
     super(gqlAbility);
 
-    this.pokemonIconData = gqlAbility.pokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
+    this.pokemonIconData = gqlAbility.node.pokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
   }
 }
 

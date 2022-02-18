@@ -9,19 +9,23 @@ import { EnumTypeName, GenerationNum, IconDatum, IconEdge, iconEdgeToIconDatum, 
 export type EntitySearchQueryName = 'abilities' | 'effects' | 'fieldStates' | 'items' | 'moves' | 'pokemon' | 'stats' | 'statuses' | 'types' | 'usageMethods';
 
 export interface MainEntitySearchResult {
-  id: string
-  name: string
-  formattedName: string
-  descriptions: {
-    edges: VersionDependentDescriptionEdge[]
+  node: {
+    id: string
+    name: string
+    formattedName: string
+    descriptions: {
+      edges: VersionDependentDescriptionEdge[]
+    }
   }
 }
 
 export interface AuxEntitySearchResult {
-  id: string
-  name: string
-  formattedName: string
-  description?: string
+  node: {
+    id: string
+    name: string
+    formattedName: string
+    description?: string
+  }
 }
 
 export interface EntitySearchVars {
@@ -38,15 +42,15 @@ export abstract class MainEntityInSearch {
   public description: string
 
   constructor(gqlEntity: MainEntitySearchResult) {
-    const { id, name, formattedName } = gqlEntity;
+    const { id, name, formattedName } = gqlEntity.node;
 
     this.id = id;
     this.name = name;
     this.formattedName = formattedName;
 
     // TODO: Bulbapedia doesn't list all items, so there will be missing descriptions
-    if (gqlEntity.descriptions.edges.length > 0) {
-      this.description = gqlEntity.descriptions.edges[0].node.text;
+    if (gqlEntity.node.descriptions.edges.length > 0) {
+      this.description = gqlEntity.node.descriptions.edges[0].node.text;
     }
     else {
       this.description = 'Placeholder description.';
@@ -61,7 +65,7 @@ export abstract class AuxEntityInSearch {
   public description: string
 
   constructor(gqlEntity: AuxEntitySearchResult) {
-    const { id, name, formattedName, description } = gqlEntity;
+    const { id, name, formattedName, description } = gqlEntity.node;
 
     this.id = id;
     this.name = name;
@@ -76,7 +80,7 @@ export abstract class AuxEntityInSearchWithIcon extends AuxEntityInSearch {
   constructor(gqlEntity: AuxEntitySearchResult) {
     super(gqlEntity);
 
-    const { name, formattedName } = gqlEntity;
+    const { name, formattedName } = gqlEntity.node;
 
     this.iconDatum = { name, formattedName };
   }

@@ -46,15 +46,21 @@ import {
 // #region
 
 export type StatusSearchQuery = {
-  [searchQueryName in EntitySearchQueryName]: StatusSearchResult[]
+  [searchQueryName in EntitySearchQueryName]?: {
+    id: string
+    
+    edges: StatusSearchResult[]
+  }
 }
 
 export interface StatusSearchResult extends AuxEntitySearchResult {
-  id: string
-  name: string
-  formattedName: string
-  description: string
-  volatile: boolean
+  node: {
+    id: string
+    name: string
+    formattedName: string
+    description: string
+    volatile: boolean
+  }
 }
 
 export interface StatusSearchVars extends EntitySearchVars {
@@ -69,14 +75,18 @@ export const STATUS_SEARCH_QUERY = gql`
     statuses(
       generation: $gen
       filter: { contains: $contains, startsWith: $startsWith }
-      pagination: { limit: $limit }
     ) {
       id
-      name
-      formattedName
+      edges(pagination: { limit: $limit }) {
+        node {
+          id
+          name
+          formattedName
 
-      description
-      volatile
+          description
+          volatile
+        }
+      }
     }
   }
 `;
@@ -87,7 +97,7 @@ export class StatusInSearch extends AuxEntityInSearchWithIcon {
   constructor(gqlStatus: StatusSearchResult) {
     super(gqlStatus);
 
-    this.volatile = gqlStatus.volatile;
+    this.volatile = gqlStatus.node.volatile;
   }
 }
 

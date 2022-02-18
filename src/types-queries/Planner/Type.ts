@@ -43,28 +43,34 @@ import {
 // #region
 
 export type TypeSearchQuery = {
-  [searchQueryName in EntitySearchQueryName]: TypeSearchResult[]
+  [searchQueryName in EntitySearchQueryName]?: {
+    id: string
+    
+    edges: TypeSearchResult[]
+  }
 }
 
 export interface TypeSearchResult extends AuxEntitySearchResult {
-  id: string
-  name: TypeName
-  formattedName: string
-
-  introduced: {
-    edges: IntroductionEdge[]
-  }
-
-  defensiveMatchups: {
-    edges: TypeMatchupEdge[]
-  }
-
-  offensiveMatchups: {
-    edges: TypeMatchupEdge[]
-  }
-
-  pokemon: {
-    edges: PokemonIconEdge[]
+  node: {
+    id: string
+    name: TypeName
+    formattedName: string
+  
+    introduced: {
+      edges: IntroductionEdge[]
+    }
+  
+    defensiveMatchups: {
+      edges: TypeMatchupEdge[]
+    }
+  
+    offensiveMatchups: {
+      edges: TypeMatchupEdge[]
+    }
+  
+    pokemon: {
+      edges: PokemonIconEdge[]
+    }
   }
 }
 
@@ -92,65 +98,69 @@ export const TYPE_SEARCH_QUERY = gql`
     types(
       generation: $gen
       filter: { contains: $contains, startsWith: $startsWith }
-      pagination: { limit: $limit }
     ) {
       id
-      name
-      formattedName
+      edges(pagination: { limit: $limit }) {
+        node {
+          id
+          name
+          formattedName
 
-      introduced {
-        edges {
-          node {
-            number
+          introduced {
+            edges {
+              node {
+                number
+              }
+            }
           }
-        }
-      }
 
-      defensiveMatchups {
-        edges {
-          node {
-            id
-            name
-            formattedName
+          defensiveMatchups {
+            edges {
+              node {
+                id
+                name
+                formattedName
+              }
+              multiplier
+            }
           }
-          multiplier
-        }
-      }
 
-      offensiveMatchups {
-        edges {
-          node {
-            id
-            name
-            formattedName
+          offensiveMatchups {
+            edges {
+              node {
+                id
+                name
+                formattedName
+              }
+              multiplier
+            }
           }
-          multiplier
-        }
-      }
 
-      pokemon(filter: {
-        formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
-        removedFromSwSh: $removedFromSwSh,
-        removedFromBDSP: $removedFromBDSP,
-      }) {
-        edges {
-          node {
-            id
-            formattedName
-            psID
+          pokemon(filter: {
+            formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+            removedFromSwSh: $removedFromSwSh,
+            removedFromBDSP: $removedFromBDSP,
+          }) {
+            edges {
+              node {
+                id
+                formattedName
+                psID
 
-            removedFromSwSh
-            removedFromBDSP
+                removedFromSwSh
+                removedFromBDSP
 
-            typeNames
+                typeNames
 
-            baseStats {
-              hp
-              attack
-              defense
-              specialAttack
-              specialDefense
-              speed
+                baseStats {
+                  hp
+                  attack
+                  defense
+                  specialAttack
+                  specialDefense
+                  speed
+                }
+              }
             }
           }
         }
@@ -204,13 +214,13 @@ export class TypeInSearch extends AuxEntityInSearch {
   constructor(gqlType: TypeSearchResult) {
     super(gqlType);
 
-    this.name = gqlType.name;
+    this.name = gqlType.node.name;
 
-    this.pokemonIconData = gqlType.pokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
-    this.typeIconDatum = typeIconEdgeToTypeIconDatum({node: gqlType});
+    this.pokemonIconData = gqlType.node.pokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
+    this.typeIconDatum = typeIconEdgeToTypeIconDatum({node: gqlType.node});
 
-    this.defensiveMatchups = typeResultToMatchups(gqlType.defensiveMatchups.edges);
-    this.offensiveMatchups = typeResultToMatchups(gqlType.offensiveMatchups.edges);
+    this.defensiveMatchups = typeResultToMatchups(gqlType.node.defensiveMatchups.edges);
+    this.offensiveMatchups = typeResultToMatchups(gqlType.node.offensiveMatchups.edges);
   }
 }
 

@@ -25,7 +25,7 @@ const listRender = ({ data, }: ListRenderArgs<StatusSearchQuery>) => {
   
   return (
     <>
-      {data.statuses.map((statusSearchResult: StatusSearchResult) => {
+      {data.statuses.edges.map((statusSearchResult: StatusSearchResult) => {
         const status = new StatusInSearch(statusSearchResult);
 
         return (

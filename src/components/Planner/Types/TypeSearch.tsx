@@ -25,7 +25,7 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeSear
   
   return (
     <>
-      {data.types.map((typeSearchResult: TypeSearchResult) => {
+      {data.types.edges.map((typeSearchResult: TypeSearchResult) => {
         const type = new TypeInSearch(typeSearchResult);
         
         return (

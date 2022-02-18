@@ -26,7 +26,7 @@ const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
   
   return (
     <>
-      {data.fieldStates.map((fieldStateSearchResult: FieldStateSearchResult) => {
+      {data.fieldStates.edges.map((fieldStateSearchResult: FieldStateSearchResult) => {
         const fieldState = new FieldStateInSearch(fieldStateSearchResult);
         
         // Build up field state data, leaving out certain default values

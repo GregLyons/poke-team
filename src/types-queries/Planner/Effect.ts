@@ -46,21 +46,27 @@ import {
 // #region
 
 export type EffectSearchQuery = {
-  [searchQueryName in EntitySearchQueryName]: EffectSearchResult[]
+  [searchQueryName in EntitySearchQueryName]?: {
+    id: string
+    
+    edges: EffectSearchResult[]
+  }
 }
 
 export interface EffectSearchResult extends AuxEntitySearchResult {
-  id: string
-  name: string
-  formattedName: string
-  description: string
-
-  moves: {
-    edges: {
-      node: {
-        id: string
-        name: string
-        formattedName: string
+  node: {
+    id: string
+    name: string
+    formattedName: string
+    description: string
+  
+    moves: {
+      edges: {
+        node: {
+          id: string
+          name: string
+          formattedName: string
+        }
       }
     }
   }
@@ -78,20 +84,24 @@ export const EFFECT_SEARCH_QUERY = gql`
     effects(
       generation: $gen
       filter: { contains: $contains, startsWith: $startsWith }
-      pagination: { limit: $limit }
     ) {
       id
-      name
-      formattedName
+      edges(pagination: { limit: $limit }) {
+        node {
+          id
+          name
+          formattedName
 
-      description
+          description
 
-      moves {
-        edges {
-          node {
-            id
-            name
-            formattedName
+          moves {
+            edges {
+              node {
+                id
+                name
+                formattedName
+              }
+            }
           }
         }
       }

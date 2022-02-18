@@ -26,7 +26,7 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<AbilityS
   
   return (
     <>
-      {data.abilities.map((abilitySearchResult: AbilitySearchResult) => {
+      {data.abilities.edges.map((abilitySearchResult: AbilitySearchResult) => {
         const ability = new AbilityInSearch(abilitySearchResult);
 
         return (

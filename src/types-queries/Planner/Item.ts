@@ -43,25 +43,27 @@ import {
 // #region
 
 export type ItemSearchQuery = {
-  [searchQueryName in EntitySearchQueryName]?: ItemSearchResult[]
+  [searchQueryName in EntitySearchQueryName]?: {
+    id: string
+    
+    edges: ItemSearchResult[]
+  }
 }
 
 export interface ItemSearchResult extends MainEntitySearchResult {
-  id: string
-  name: string
-  formattedName: string
-  class: string
-
-  descriptions: {
-    edges: VersionDependentDescriptionEdge[]
-  }
-
-  introduced: {
-    edges: IntroductionEdge[]
-  }
-
-  requiresPokemon: {
-    edges: PokemonIconEdge[]
+  node: {
+    id: string
+    name: string
+    formattedName: string
+    class: string
+  
+    descriptions: {
+      edges: VersionDependentDescriptionEdge[]
+    }
+  
+    requiresPokemon: {
+      edges: PokemonIconEdge[]
+    }
   }
 }
 
@@ -83,43 +85,47 @@ export const ITEM_SEARCH_QUERY = gql`
     items(
       generation: $gen 
       filter: { contains: $contains, startsWith: $startsWith } 
-      pagination: { limit: $limit }
     ) {
       id
-      name
-      formattedName
-      class
+      edges(pagination: { limit: $limit }) {
+        node {
+          id
+          name
+          formattedName
+          class
 
-      descriptions {
-        edges(pagination: {limit: 1}) {
-          node {
-            text
+          descriptions {
+            edges(pagination: {limit: 1}) {
+              node {
+                text
+              }
+            }
           }
-        }
-      }
-      
-      requiresPokemon(filter: {
-        removedFromSwSh: $removedFromSwSh,
-        removedFromBDSP: $removedFromBDSP,
-      }) {
-        edges {
-          node {
-            id
-            formattedName
-            psID
+          
+          requiresPokemon(filter: {
+            removedFromSwSh: $removedFromSwSh,
+            removedFromBDSP: $removedFromBDSP,
+          }) {
+            edges {
+              node {
+                id
+                formattedName
+                psID
 
-            removedFromSwSh
-            removedFromBDSP
+                removedFromSwSh
+                removedFromBDSP
 
-            typeNames
+                typeNames
 
-            baseStats {
-              hp
-              attack
-              defense
-              specialAttack
-              specialDefense
-              speed
+                baseStats {
+                  hp
+                  attack
+                  defense
+                  specialAttack
+                  specialDefense
+                  speed
+                }
+              }
             }
           }
         }
@@ -136,10 +142,10 @@ export class ItemInSearch extends MainEntityInSearch {
   constructor(gqlItem: ItemSearchResult) {
     super(gqlItem);
 
-    this.itemClass = gqlItem.class;
+    this.itemClass = gqlItem.node.class;
     
-    this.itemIconDatum = itemIconEdgeToItemIconDatum({node: gqlItem});
-    this.requiredPokemonIconData = itemRequiresPokemonEdgeToRequiredPokemonIconData({node: gqlItem});
+    this.itemIconDatum = itemIconEdgeToItemIconDatum({node: gqlItem.node});
+    this.requiredPokemonIconData = itemRequiresPokemonEdgeToRequiredPokemonIconData({node: gqlItem.node});
   }
 }
 

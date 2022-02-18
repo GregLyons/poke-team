@@ -2,17 +2,24 @@ import { gql } from "@apollo/client";
 import { EnumTypeName, GenerationNum, NameEdge, PokemonColumnName, PokemonIconDatum, PokemonIconNode, pokemonIconNodeToPokemonIconDatum, SortByEnum, StatTable, StatTableWithBST, TypeName } from "../helpers";
 
 export type PokemonQuickSearchQuery = {
-  pokemon: PokemonQuickSearchResult[]
+  pokemon: {
+    edges: PokemonQuickSearchResult[]
+  }
 }
 
 export interface PokemonQuickSearchResult extends PokemonIconNode {
-  id: string
-  name: string
-  formattedName: string
-  speciesName: string
-  psID: string
-  typeNames: EnumTypeName[]
-  baseStats: StatTableWithBST
+  node: {
+    id: string
+    name: string
+    formattedName: string
+    speciesName: string
+    psID: string
+    typeNames: EnumTypeName[]
+    baseStats: StatTableWithBST
+
+    removedFromSwSh: boolean
+    removedFromBDSP: boolean
+  }
 }
 
 export interface PokemonAbilityEdge extends NameEdge {
@@ -78,23 +85,28 @@ export const POKEMON_QUICKSEARCH_QUERY = gql`
       }
     ) {
       id
-      name
-      formattedName
-      speciesName
-      psID
+      edges {
+        node {
+          id
+          name
+          formattedName
+          speciesName
+          psID
 
-      removedFromSwSh
-      removedFromBDSP
+          removedFromSwSh
+          removedFromBDSP
 
-      typeNames
-      baseStats {
-        hp
-        attack
-        defense
-        specialAttack
-        specialDefense
-        speed
-        baseStatTotal
+          typeNames
+          baseStats {
+            hp
+            attack
+            defense
+            specialAttack
+            specialDefense
+            speed
+            baseStatTotal
+          }
+        }
       }
     }
   }
@@ -105,7 +117,7 @@ export class QuickSearchPokemon {
   public baseStatTotal: number
 
   constructor(gqlPokemon: PokemonQuickSearchResult) {
-    this.pokemonIconDatum = pokemonIconNodeToPokemonIconDatum(gqlPokemon);
-    this.baseStatTotal = gqlPokemon.baseStats.baseStatTotal;
+    this.pokemonIconDatum = pokemonIconNodeToPokemonIconDatum(gqlPokemon.node);
+    this.baseStatTotal = gqlPokemon.node.baseStats.baseStatTotal;
   }
 }

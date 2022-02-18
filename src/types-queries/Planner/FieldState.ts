@@ -49,20 +49,26 @@ import {
 // #region
 
 export type FieldStateSearchQuery = {
-  [searchQueryName in EntitySearchQueryName]: FieldStateSearchResult[]
+  [searchQueryName in EntitySearchQueryName]?: {
+    id: string
+    
+    edges: FieldStateSearchResult[]
+  }
 }
 
 export interface FieldStateSearchResult extends AuxEntitySearchResult {
-  id: string
-  name: string
-  formattedName: string
-  description: string
-
-  class: string
-  damagePercent: number
-  grounded: boolean
-  maxLayers: number
-  target: string
+  node: {
+    id: string
+    name: string
+    formattedName: string
+    description: string
+  
+    class: string
+    damagePercent: number
+    grounded: boolean
+    maxLayers: number
+    target: string
+  }
 }
 
 export interface FieldStateSearchVars extends EntitySearchVars {
@@ -77,19 +83,23 @@ export const FIELDSTATE_SEARCH_QUERY = gql`
     fieldStates(
       generation: $gen
       filter: { contains: $contains, startsWith: $startsWith }
-      pagination: { limit: $limit }
     ) {
       id
-      name
-      formattedName
+      edges(pagination: { limit: $limit }) {
+        node {
+          id
+          name
+          formattedName
 
-      description
+          description
 
-      class
-      damagePercent
-      grounded
-      maxLayers
-      target
+          class
+          damagePercent
+          grounded
+          maxLayers
+          target
+        }
+      }
     }
   }
 `;
@@ -104,7 +114,7 @@ export class FieldStateInSearch extends AuxEntityInSearchWithIcon {
   constructor(gqlFieldState: FieldStateSearchResult) {
     super(gqlFieldState);
 
-    const { damagePercent, class: fieldStateClass, grounded, maxLayers, target, } = gqlFieldState;
+    const { damagePercent, class: fieldStateClass, grounded, maxLayers, target, } = gqlFieldState.node;
     this.damagePercent = damagePercent;
     this.fieldStateClass = fieldStateClass;
     this.grounded = grounded;

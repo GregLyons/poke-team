@@ -41,32 +41,38 @@ import {
 // #region
 
 export type MoveSearchQuery = {
-  [searchQueryName in EntitySearchQueryName]?: MoveSearchResult[]
+  [searchQueryName in EntitySearchQueryName]?: {
+    id: string
+    
+    edges: MoveSearchResult[]
+  }
 }
 
 export interface MoveSearchResult extends MainEntitySearchResult {
-  id: string
-  name: string
-  formattedName: string
-
-  accuracy: number
-  category: string
-  contact: boolean
-  power: number
-  pp: number
-  priority: number
-  target: string
-
-  descriptions: {
-    edges: DescriptionsEdge[]
-  }
-
-  type: {
-    edges: TypeIconEdge[]
-  }
-
-  pokemon: {
-    edges: PokemonIconEdge[]
+  node: {
+    id: string
+    name: string
+    formattedName: string
+  
+    accuracy: number
+    category: string
+    contact: boolean
+    power: number
+    pp: number
+    priority: number
+    target: string
+  
+    descriptions: {
+      edges: DescriptionsEdge[]
+    }
+  
+    type: {
+      edges: TypeIconEdge[]
+    }
+  
+    pokemon: {
+      edges: PokemonIconEdge[]
+    }
   }
 }
 
@@ -88,69 +94,73 @@ export const MOVE_SEARCH_QUERY = gql`
     moves(
       generation: $gen 
       filter: { contains: $contains, startsWith: $startsWith, removedFromSwSh: $removedFromSwSh removedFromBDSP: $removedFromBDSP } 
-      pagination: { limit: $limit }
     ) {
       id
-      name
-      formattedName
+      edges(pagination: { limit: $limit }) {
+        node {
+          id
+          name
+          formattedName
 
-      accuracy
-      category
-      contact
-      power
-      pp
-      priority
-      target
+          accuracy
+          category
+          contact
+          power
+          pp
+          priority
+          target
 
-      descriptions {
-        edges(pagination: {limit: 1}) {
-          node {
-            text
+          descriptions {
+            edges(pagination: {limit: 1}) {
+              node {
+                text
+              }
+            }
           }
-        }
-      }
 
-      type {
-        edges {
-          node {
-            id
-            name
-            formattedName
+          type {
+            edges {
+              node {
+                id
+                name
+                formattedName
 
-            introduced {
-              edges {
-                node {
-                  number
+                introduced {
+                  edges {
+                    node {
+                      number
+                    }
+                  }
                 }
               }
             }
           }
-        }
-      }
 
-      pokemon(filter: {
-        formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
-        removedFromSwSh: $removedFromSwSh,
-        removedFromBDSP: $removedFromBDSP,
-      }) {
-        edges {
-          node {
-            id
-            formattedName
-            psID
+          pokemon(filter: {
+            formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+            removedFromSwSh: $removedFromSwSh,
+            removedFromBDSP: $removedFromBDSP,
+          }) {
+            edges {
+              node {
+                id
+                formattedName
+                psID
 
-            removedFromSwSh
-            removedFromBDSP
+                removedFromSwSh
+                removedFromBDSP
 
-            typeNames
+                typeNames
 
-            baseStats {
-              hp
-              attack
-              defense
-              specialAttack
-              specialDefense
-              speed
+                baseStats {
+                  hp
+                  attack
+                  defense
+                  specialAttack
+                  specialDefense
+                  speed
+                }
+              }
             }
           }
         }
@@ -178,9 +188,9 @@ export class MoveInSearch extends MainEntityInSearch {
   constructor(gqlMove: MoveSearchResult) {
     super(gqlMove);
 
-    this.description = gqlMove.descriptions.edges[0].node.text;
+    this.description = gqlMove.node.descriptions.edges[0].node.text;
 
-    const { accuracy, category, contact, power, pp, priority, target, } = gqlMove;
+    const { accuracy, category, contact, power, pp, priority, target, } = gqlMove.node;
 
     this.accuracy = accuracy;
     this.category = category;
@@ -190,10 +200,10 @@ export class MoveInSearch extends MainEntityInSearch {
     this.priority = priority;
     this.target = target;
 
-    this.type = gqlMove.type.edges.map(typeNameEdgeToTypeName)[0]
+    this.type = gqlMove.node.type.edges.map(typeNameEdgeToTypeName)[0]
 
-    this.pokemonIconData = gqlMove.pokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
-    this.typeIconDatum = typeIconEdgeToTypeIconDatum(gqlMove.type.edges[0]);
+    this.pokemonIconData = gqlMove.node.pokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
+    this.typeIconDatum = typeIconEdgeToTypeIconDatum(gqlMove.node.type.edges[0]);
   }
 }
 

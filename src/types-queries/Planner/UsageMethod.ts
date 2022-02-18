@@ -40,14 +40,20 @@ import {
 // #region
 
 export type UsageMethodSearchQuery = {
-  [searchQueryName in EntitySearchQueryName]: UsageMethodSearchResult[]
+  [searchQueryName in EntitySearchQueryName]?: {
+    id: string
+    
+    edges: UsageMethodSearchResult[]
+  }
 }
 
 export interface UsageMethodSearchResult extends AuxEntitySearchResult {
-  id: string
-  name: string
-  formattedName: string
-  description: string
+  node: {
+    id: string
+    name: string
+    formattedName: string
+    description: string
+  }
 }
 
 export interface UsageMethodMatchupEdge {
@@ -71,12 +77,16 @@ export const USAGEMETHOD_SEARCH_QUERY = gql`
     usageMethods(
       generation: $gen
       filter: { contains: $contains, startsWith: $startsWith }
-      pagination: { limit: $limit }
     ) {
       id
-      name
-      formattedName
-      description
+      edges(pagination: { limit: $limit }) {
+        node {
+          id
+          name
+          formattedName
+          description
+        }
+      }
     }
   }
 `;

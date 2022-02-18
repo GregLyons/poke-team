@@ -79,6 +79,7 @@ export function useRemovalConnectedSearchVars<SearchVars>(defaultSearchVars: Sea
   useEffect(() => {
     setQueryVars({
       ...queryVars,
+      gen: genFilter.gen,
       removedFromSwSh: removedFromSwSh(genFilter),
       removedFromBDSP: removedFromBDSP(genFilter),
     })

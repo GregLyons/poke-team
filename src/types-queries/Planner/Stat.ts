@@ -43,14 +43,20 @@ import {
 // #region
 
 export type StatSearchQuery = {
-  [searchQueryName in EntitySearchQueryName]: StatSearchResult[]
+  [searchQueryName in EntitySearchQueryName]?: {
+    id: string
+    
+    edges: StatSearchResult[]
+  }
 }
 
 export interface StatSearchResult extends AuxEntitySearchResult {
-  id: string
-  name: string
-  formattedName: string
-  description: string
+  node: {
+    id: string
+    name: string
+    formattedName: string
+    description: string
+  }
 }
 
 export interface StatSearchVars extends EntitySearchVars {
@@ -65,13 +71,17 @@ export const STAT_SEARCH_QUERY = gql`
     stats(
       generation: $gen
       filter: { contains: $contains, startsWith: $startsWith }
-      pagination: { limit: $limit }
     ) {
       id
-      name
-      formattedName
+      edges(pagination: { limit: $limit }) {
+        node {
+          id
+          name
+          formattedName
 
-      description
+          description
+        }
+      }
     }
   }
 `;

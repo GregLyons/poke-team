@@ -27,7 +27,7 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<ItemSear
   
   return (
     <>
-      {data.items.map((itemSearchResult: ItemSearchResult) => {
+      {data.items.edges.map((itemSearchResult: ItemSearchResult) => {
         const item = new ItemInSearch(itemSearchResult);
 
         return (
