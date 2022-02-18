@@ -241,6 +241,7 @@ const PokemonFilterForm = ({
               toggleSelect={handleTypeSelect}
               dropdownWidth={'clamp(5vw, 50ch, 80%)'}
               itemWidth={'10ch'}
+              backgroundLight={bgManager.bgColor}
             />
           </label>
         </div>
@@ -307,6 +308,7 @@ const PokemonFilterForm = ({
               toggleSelect={handleStatSelect}
               dropdownWidth={'clamp(5vw, 50ch, 80%)'}
               itemWidth={'100%'}
+              backgroundLight={bgManager.bgColor}
             />
           </label>
         </div>

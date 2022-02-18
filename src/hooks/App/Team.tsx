@@ -3,12 +3,17 @@ import { DUMMY_POKEMON_ICON_DATUM, GenerationNum, PokemonIconDatum } from "../..
 import { omitKeys } from "../../utils/helpers";
 import { BoxInCart } from "./Cart";
 
+// We'll need to quickly reference whether a Pokemon in QuickSearch is saved, so we use an object, rather than an array, for quick look-up
+export type QuickSearchPokemon = {
+  [psID: string]: PokemonIconDatum
+}
+
 export type TeamInGen = {
   savedPokemon: {
     pinnedBoxes: {
       [note: string]: PokemonIconDatum[]
     }
-    quickSearch: PokemonIconDatum[]
+    quickSearch: QuickSearchPokemon
   }
   members: (MemberPokemon | null)[]
   selectedMember: MemberPokemon | null
@@ -21,7 +26,7 @@ export type Team = {
 const EMPTY_TEAM_IN_GEN: TeamInGen = {
   savedPokemon: {
     pinnedBoxes: {},
-    quickSearch: [],
+    quickSearch: {},
   },
   members: [null, null, null, null, null, null],
   selectedMember: null,
@@ -39,6 +44,7 @@ export const DEFAULT_TEAM: Team = {
 }
 
 export type TeamAction = 
+// Pin box from cart to team
 | {
     type: 'pin_box',
     payload: {
@@ -47,6 +53,7 @@ export type TeamAction =
       note: string
     }
   }
+// Unpin cart box from team
 | {
     type: 'unpin_box',
     payload: {
@@ -54,14 +61,32 @@ export type TeamAction =
       note: string,
     }
   }
+// Toggle whether Pokemon is included in savedPokemon.quickSearch
+| {
+    type: 'toggle_save'
+    payload: {
+      gen: GenerationNum
+      pokemon: PokemonIconDatum
+    }
+  }
 
 export function teamReducer(state: Team, action: TeamAction): Team {
   let gen: GenerationNum
   let idx: number
+  let note: string;
+  let pokemon: PokemonIconDatum
+  let psID: string
+  let newState: Team;
+
   switch(action.type) {
     case 'pin_box':
-      gen = action.payload.gen; 
+      gen = action.payload.gen;
+      note = action.payload.note;
 
+      // Box is already pinned, so do nothing
+      if (state[gen].savedPokemon.pinnedBoxes?.[note]) return state;
+
+      // Box is not pinned, so add it
       return {
         ...state,
         [gen]: {
@@ -69,19 +94,48 @@ export function teamReducer(state: Team, action: TeamAction): Team {
           savedPokemon: {
             pinnedBoxes: {
               ...state[gen].savedPokemon.pinnedBoxes,
-              [action.payload.note]: [action.payload.pokemon],
+              [note]: [action.payload.pokemon],
             }
           },
         }
       };
 
     case 'unpin_box':
-      gen = action.payload.gen; 
+      gen = action.payload.gen;
+      note = action.payload.note;
 
-      if (!state[gen].savedPokemon.pinnedBoxes || !state[gen].savedPokemon.pinnedBoxes?.[action.payload.note]) return state;
+      // Box is not pinned, so do nothing
+      if (!state[gen].savedPokemon.pinnedBoxes?.[note]) return state;
 
-      const newState = { ...state };
-      delete newState[gen].savedPokemon.pinnedBoxes?.[action.payload.note];
+      // Box is pinned, so remove it
+      newState = { ...state };
+      delete newState[gen].savedPokemon.pinnedBoxes?.[note];
+      return newState;
+
+    case 'toggle_save':
+      gen = action.payload.gen;
+      psID = action.payload.pokemon.psID;
+
+      // Pokemon is not currently saved, so add it
+      if (state[gen].savedPokemon.quickSearch?.[psID] === undefined) {
+        return {
+          ...state,
+          [gen]: {
+            ...state[gen],
+            savedPokemon: {
+              ...state[gen].savedPokemon,
+              quickSearch: {
+                ...state[gen].savedPokemon.quickSearch,
+                [psID]: action.payload.pokemon,
+              },
+            },
+          },
+        };
+      }
+
+      // Pokemon is currently saved, so remove it
+      newState = { ...state };
+      delete newState[gen].savedPokemon.quickSearch[psID];
       return newState;
 
     default:

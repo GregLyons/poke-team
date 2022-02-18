@@ -75,9 +75,10 @@ export const STATUS_SEARCH_QUERY = gql`
     statuses(
       generation: $gen
       filter: { contains: $contains, startsWith: $startsWith }
+      pagination: { limit: $limit }
     ) {
       id
-      edges(pagination: { limit: $limit }) {
+      edges {
         node {
           id
           name
@@ -292,8 +293,8 @@ export const STATUS_ABILITY_QUERY = gql`
             name
             formattedName
 
-            descriptions {
-              edges(pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1}) {
+              edges {
                 node {
                   text
                 }
@@ -338,8 +339,8 @@ export const STATUS_ABILITY_QUERY = gql`
             name
             formattedName
 
-            descriptions {
-              edges(pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1}) {
+              edges {
                 node {
                   text
                 }
@@ -530,8 +531,8 @@ export const STATUS_ITEM_QUERY = gql`
             name
             formattedName
 
-            descriptions {
-              edges(pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1}) {
+              edges {
                 node {
                   text
                 }
@@ -572,8 +573,8 @@ export const STATUS_ITEM_QUERY = gql`
             name
             formattedName
 
-            descriptions {
-              edges(pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1}) {
+              edges {
                 node {
                   text
                 }
@@ -682,8 +683,8 @@ export const STATUS_MOVE_QUERY = gql`
             name
             formattedName
 
-            descriptions {
-              edges(pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1}) {
+              edges {
                 node {
                   text
                 }
@@ -738,8 +739,8 @@ export const STATUS_MOVE_QUERY = gql`
             name
             formattedName
 
-            descriptions {
-              edges(pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1}) {
+              edges {
                 node {
                   text
                 }

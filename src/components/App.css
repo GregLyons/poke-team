@@ -103,7 +103,7 @@
   transition: background-color var(--bg-transition), box-shadow var(--bg-transition);
 }
 
-/* Box shadow based on background color */
+/* Box shadow along bottom and right based on background color */
 .bg-shadow--red,
 .bg-shadow--green,
 .bg-shadow--blue {
@@ -126,6 +126,17 @@
 }
 .bg-shadow--blue.pulse {
   box-shadow: var(--bg-shadow-blue-pulse);
+}
+
+/* Box shadow along up and left based on background color */
+.bg-control--red {
+  box-shadow: var(--bg-control-red);
+}
+.bg-control--green {
+  box-shadow: var(--bg-control-green);
+}
+.bg-control--blue {
+  box-shadow: var(--bg-control-blue);
 }
 
 /* #endregion */

@@ -2,6 +2,7 @@
   position: relative;
 
   font-family: var(--monospace);
+  font-weight: 400;
 
   padding: 0.25rem;
   transition: 0.2s ease-in;

@@ -72,13 +72,6 @@ const AbilitySearch = ({
     filters.genFilter,
   );
 
-  const handleSearchBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQueryVars({
-      ...queryVars,
-      contains: e.target.value,
-    });
-  }
-
   return (
     <>
       <EntitySearchMainIcons

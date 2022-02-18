@@ -60,6 +60,7 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
           handleSearchTermChange={handleSearchTermChange}
           searchMode={searchMode}
           handleSearchModeChange={handleSearchModeChange}
+          backgroundLight="blue"
         />
       </form>
       <div className="planner-search__results-padder">

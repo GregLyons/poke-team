@@ -1,38 +1,12 @@
-export type BGColor = {
-  red: number
-  green: number
-  blue: number
-};
-
-export type BGClassSuffix = '--red' | '--green' | '--blue';
-
-export const BG_RED: BGColor = {
-  red: 255,
-  green: 0,
-  blue: 0,
-}
-
-export const BG_GREEN: BGColor = {
-  red: 161,
-  green: 201,
-  blue: 161,
-}
-
-export const BG_BLUE: BGColor = {
-  red: 0,
-  green: 0,
-  blue: 255,
-}
+export type BGColor = 'red' | 'green' | 'blue';
 
 export type BGManager = {
   bgColor: BGColor
-  classSuffix: BGClassSuffix
   pulsing: boolean
 }
 
 export const DEFAULT_BACKGROUND: BGManager = {
-  bgColor: BG_RED,
-  classSuffix: '--red',
+  bgColor: 'red',
   pulsing: false,
 }
 
@@ -49,26 +23,9 @@ export type BGAction =
 export function bgReducer(state: BGManager, action: BGAction) {
   switch(action.type) {
     case 'change':
-      let newBGColor: BGColor;
-      let newClassSuffix: BGClassSuffix;
-      switch(action.payload) {
-        case 'red':
-          newBGColor = BG_RED;
-          newClassSuffix = '--red';
-          break;
-        case 'green':
-          newBGColor = BG_GREEN;
-          newClassSuffix = '--green';
-          break;
-        case 'blue':
-          newBGColor = BG_BLUE;
-          newClassSuffix = '--blue';
-          break;
-      }
       return {
         ...state,
-        bgColor: newBGColor,
-        classSuffix: newClassSuffix,
+        bgColor: action.payload,
       };
 
     case 'toggle_pulse':
@@ -96,7 +53,7 @@ export function toggleBGPulse(dispatchBGManager: React.Dispatch<BGAction>) {
 export function classWithBG (className: string, bgManager: BGManager): string {
   return `
     ${className}
-    bg${bgManager.classSuffix}
+    bg--${bgManager.bgColor}
     ${bgManager.pulsing
       ? 'pulse' 
       : ''
@@ -107,7 +64,7 @@ export function classWithBG (className: string, bgManager: BGManager): string {
 export function classWithBGShadow (className: string, bgManager: BGManager): string {
   return `
     ${className}
-    bg-shadow${bgManager.classSuffix}
+    bg-shadow--${bgManager.bgColor}
     ${bgManager.pulsing
       ? 'pulse' 
       : ''
@@ -115,10 +72,17 @@ export function classWithBGShadow (className: string, bgManager: BGManager): str
   `;
 }
 
+export function classWithBGControl (className: string, color: 'red' | 'green' | 'blue'): string {
+  return `
+    ${className}
+    bg-control--${color}
+  `;
+}
+
 export function classWithBGAfter (className: string, bgManager: BGManager): string {
   return `
     ${className}
-    bg-after${bgManager.classSuffix}
+    bg-after--${bgManager.bgColor}
     ${bgManager.pulsing
       ? 'pulse' 
       : ''

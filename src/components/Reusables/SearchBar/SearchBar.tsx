@@ -1,3 +1,4 @@
+import { BGManager, classWithBGControl } from '../../../hooks/App/BGManager';
 import Button from '../Button/Button';
 import TextInput from '../TextInput/TextInput';
 import './SearchBar.css';
@@ -10,6 +11,8 @@ type SearchBarProps = {
   handleSearchTermChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   searchMode: 'STARTS' | 'CONTAINS'
   handleSearchModeChange: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, mode: 'STARTS' | 'CONTAINS') => void
+  
+  backgroundLight: 'red' | 'green' | 'blue'
 };
 
 const SearchBar = ({
@@ -20,9 +23,14 @@ const SearchBar = ({
   handleSearchTermChange,
   searchMode,
   handleSearchModeChange,
+
+  backgroundLight,
 }: SearchBarProps) => {
   return (
     <div className="search-bar__wrapper">
+      <div className="search-bar__label">
+        SEARCH
+      </div>
       <TextInput
         title={title}
         placeholder={placeholder}
@@ -31,7 +39,7 @@ const SearchBar = ({
       />
       <Button
         title="Search by whether names start with the given search term."
-        label="STARTS"
+        label="Starts"
         active={searchMode === 'STARTS'}
         onClick={e => handleSearchModeChange(e, 'STARTS')}
         disabled={false}
@@ -39,7 +47,7 @@ const SearchBar = ({
       />
       <Button
         title="Search by whether names contain with the given search term."
-        label="CONTAINS"
+        label="Contains"
         active={searchMode === 'CONTAINS'}
         onClick={e => handleSearchModeChange(e, 'CONTAINS')}
         disabled={false}

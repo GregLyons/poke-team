@@ -7,6 +7,7 @@ import './QuickSearch.css';
 import { compareTiers, DoublesTier, getTier, SinglesTier } from "../../../utils/smogonLogic";
 import { PokemonIconDatum, PokemonPaginationInput } from "../../../types-queries/helpers";
 import { useEffect, useMemo, useState } from "react";
+import { Team } from "../../../hooks/App/Team";
 
 type QuickSearchEntriesProps = {
   data: PokemonQuickSearchQuery
@@ -16,6 +17,8 @@ type QuickSearchEntriesProps = {
     orderBy: QuickSearchPokemonEntryKey
     sortBy: 'ASC' | 'DESC'
   }
+  onSaveClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, pokemonIconDatum: PokemonIconDatum) => void
+  team: Team
 }
 
 type QuickSearchPokemonEntry = {
@@ -54,6 +57,8 @@ const QuickSearchEntries = ({
   dispatches,
   filters,
   pagination,
+  onSaveClick,
+  team,
 }: QuickSearchEntriesProps) => {
   // State for keeping track of when the entries need to be re-sorted or re-filtered
   const [filtered, setFiltered] = useState(false);
@@ -63,7 +68,6 @@ const QuickSearchEntries = ({
   // Also add a dependence on filters.tierFilter.format to display proper tier
   // We perform our initial sort here rather than letting it be handled in the definition of entries 
   const originalEntries: QuickSearchPokemonEntry[] | undefined = useMemo(() => {
-    console.log('Recalculating original entries...');
     return data && data?.pokemon.edges.map((pokemonSearchResult: PokemonQuickSearchResult) => {
       const { pokemonIconDatum, baseStatTotal } = (new QuickSearchPokemon(pokemonSearchResult));
       const tier = getTier(filters.genFilter.gen, filters.tierFilter.format, pokemonIconDatum.psID);
@@ -77,7 +81,7 @@ const QuickSearchEntries = ({
   }, [data, filters.genFilter.gen, filters.tierFilter.format]);
 
   // Entries to be rendered, which should be sorted and filtered according to orderByKey and filters, respectively
-  // If we were to perform our initial sort here, then the unsorted array shows for a brief moment before being sorted
+  // If we were to perform our initial sort here, then the unsorted array shows for a brief moment before being sorted. Thus, we sort originalEntries instead
   const [entries, setEntries] = useState<QuickSearchPokemonEntry[] | undefined>(
     originalEntries && originalEntries.reduce((acc: QuickSearchPokemonEntry[], entry: QuickSearchPokemonEntry) => {
       const { pokemonIconDatum, baseStatTotal } = entry;
@@ -140,6 +144,9 @@ const QuickSearchEntries = ({
             pokemon={entry.pokemonIconDatum}
             baseStatTotal={entry.baseStatTotal}
             tier={entry.tier}
+            onSaveClick={onSaveClick}
+            // We use an object to store the saved Pokemon, so that this check is log(n)
+            saved={team[filters.genFilter.gen].savedPokemon.quickSearch?.[entry.pokemonIconDatum.psID] !== undefined}
           />
         )
       })}

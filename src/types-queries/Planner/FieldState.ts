@@ -83,9 +83,10 @@ export const FIELDSTATE_SEARCH_QUERY = gql`
     fieldStates(
       generation: $gen
       filter: { contains: $contains, startsWith: $startsWith }
+      pagination: { limit: $limit }
     ) {
       id
-      edges(pagination: { limit: $limit }) {
+      edges {
         node {
           id
           name
@@ -467,8 +468,8 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             name
             formattedName
 
-            descriptions {
-              edges(pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1}) {
+              edges {
                 node {
                   text
                 }
@@ -513,8 +514,8 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             name
             formattedName
 
-            descriptions {
-              edges(pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1}) {
+              edges {
                 node {
                   text
                 }
@@ -558,8 +559,8 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             name
             formattedName
 
-            descriptions {
-              edges(pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1}) {
+              edges {
                 node {
                   text
                 }
@@ -603,8 +604,8 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             name
             formattedName
 
-            descriptions {
-              edges(pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1}) {
+              edges {
                 node {
                   text
                 }
@@ -648,8 +649,8 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             name
             formattedName
 
-            descriptions {
-              edges(pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1}) {
+              edges {
                 node {
                   text
                 }
@@ -823,8 +824,8 @@ export const FIELDSTATE_ITEM_QUERY = gql`
             id
             name
             formattedName
-            descriptions {
-              edges(pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1}) {
+              edges {
                 node {
                   text
                 }
@@ -863,8 +864,8 @@ export const FIELDSTATE_ITEM_QUERY = gql`
             id
             name
             formattedName
-            descriptions {
-              edges(pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1}) {
+              edges {
                 node {
                   text
                 }
@@ -904,8 +905,8 @@ export const FIELDSTATE_ITEM_QUERY = gql`
             id
             name
             formattedName
-            descriptions {
-              edges(pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1}) {
+              edges {
                 node {
                   text
                 }
@@ -944,8 +945,8 @@ export const FIELDSTATE_ITEM_QUERY = gql`
             id
             name
             formattedName
-            descriptions {
-              edges(pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1}) {
+              edges {
                 node {
                   text
                 }
@@ -1061,8 +1062,8 @@ export const FIELDSTATE_MOVE_QUERY = gql`
             id
             name
             formattedName
-            descriptions {
-              edges(pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1}) {
+              edges {
                 node {
                   text
                 }
@@ -1116,8 +1117,8 @@ export const FIELDSTATE_MOVE_QUERY = gql`
             id
             name
             formattedName
-            descriptions {
-              edges(pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1}) {
+              edges {
                 node {
                   text
                 }
@@ -1170,8 +1171,8 @@ export const FIELDSTATE_MOVE_QUERY = gql`
             id
             name
             formattedName
-            descriptions {
-              edges(pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1}) {
+              edges {
                 node {
                   text
                 }
@@ -1224,8 +1225,8 @@ export const FIELDSTATE_MOVE_QUERY = gql`
             id
             name
             formattedName
-            descriptions {
-              edges(pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1}) {
+              edges {
                 node {
                   text
                 }

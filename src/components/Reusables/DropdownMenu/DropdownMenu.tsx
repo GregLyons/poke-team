@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import FontAwesome from "react-fontawesome";
 import { useOnClickOutside, useWindowSize } from "usehooks-ts";
+import { BGManager, classWithBGControl } from "../../../hooks/App/BGManager";
 import './DropdownMenu.css';
 
 type Item<F> = {
@@ -17,6 +18,8 @@ type DropdownMenuProps<E extends Item<F>, F> = {
   dropdownWidth: number | string
   itemWidth: number | string
   dropLeft?: boolean
+
+  backgroundLight: 'red' | 'green' | 'blue'
 }
 
 function DropdownMenu<E extends Item<F>, F>({
@@ -27,6 +30,8 @@ function DropdownMenu<E extends Item<F>, F>({
   dropdownWidth,
   itemWidth,
   dropLeft = false,
+
+  backgroundLight,
 }: DropdownMenuProps<E, F>) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -47,7 +52,6 @@ function DropdownMenu<E extends Item<F>, F>({
   }
   useOnClickOutside(dropdownRef, handleClickOutside);
 
-
   // Reset heights on window resize
   useEffect(() => {
     setTimeout(() => {
@@ -65,19 +69,18 @@ function DropdownMenu<E extends Item<F>, F>({
       <button
         ref={triggerRef}
         onClick={onClick}
-        className="dropdown__trigger"
+        className={classWithBGControl("dropdown__trigger", backgroundLight)}
         style={{
           width: 'inherit',
           color: isActive 
             ? 'var(--blue1)' 
             : 'var(--light1)',
           boxShadow: isActive
-            ? 'inset 3px 3px 2px 0 rgba(var(--green-bg-components), 0.5)'
+            ? ''
             : 'var(--control-shadow)',
           borderRadius: isActive 
             ? 0
             : '',
-          transition: 'border-radius 0.2s ease',
         }}
       >
         <span className="dropdown__title">{title}</span>
@@ -86,7 +89,7 @@ function DropdownMenu<E extends Item<F>, F>({
           : <FontAwesome name="angle-down"/>}
       </button>
       <div
-        className="dropdown__content-wrapper"
+        className={classWithBGControl("dropdown__content-wrapper", backgroundLight)}
         ref={dropdownRef}
         style={{
           width: dropdownWidth,
@@ -101,8 +104,15 @@ function DropdownMenu<E extends Item<F>, F>({
             ? -dropdownRef.current.scrollWidth + triggerRef.current.scrollWidth
             : '',
           boxShadow: isActive
-            ? `5px 15px 2px 2px rgba(0, 0, 0, 0.8),
-              inset 3px 3px 4px 0 rgba(var(--green-bg-components), 0.5)`
+            ? `
+                5px 15px 2px 2px rgba(0, 0, 0, 0.8),
+                ${backgroundLight === 'blue'
+                  ? 'var(--bg-control-blue)'
+                  : backgroundLight === 'green'
+                    ? 'var(--bg-control-green)'
+                    : 'var(--bg-control-red)'
+                }
+              `
             : '',
         }}
       >

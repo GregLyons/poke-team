@@ -61,6 +61,7 @@ const ControlPanel = ({
           genFilter={genFilter}
           tierFilter={tierFilter}
           dispatchTierFilter={dispatchTierFilter}
+          bgManager={bgManager}
         />
       </div>
       <div className="team__cell">

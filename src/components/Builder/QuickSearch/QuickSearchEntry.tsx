@@ -8,12 +8,16 @@ type QuickSearchEntryProps = {
   pokemon: PokemonIconDatum
   baseStatTotal: number
   tier: SinglesTier | DoublesTier
+  onSaveClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, pokemonIconDatum: PokemonIconDatum) => void
+  saved: boolean
 }
 
 const QuickSearchEntry = ({
   pokemon,
   baseStatTotal,
   tier,
+  onSaveClick,
+  saved,
 }: QuickSearchEntryProps) => {
   return (
     <div
@@ -25,10 +29,10 @@ const QuickSearchEntry = ({
             label="SAVE"
             title="Save Pokemon to box for teambuilding."
 
-            onClick={e => e.preventDefault()}
-            active={true}
+            onClick={e => onSaveClick(e, pokemon)}
+            active={saved}
             disabled={false}
-            immediate={true}
+            immediate={false}
           />
         </div>
       </div>

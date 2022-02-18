@@ -94,9 +94,10 @@ export const MOVE_SEARCH_QUERY = gql`
     moves(
       generation: $gen 
       filter: { contains: $contains, startsWith: $startsWith, removedFromSwSh: $removedFromSwSh removedFromBDSP: $removedFromBDSP } 
+      pagination: { limit: $limit }
     ) {
       id
-      edges(pagination: { limit: $limit }) {
+      edges {
         node {
           id
           name
@@ -110,8 +111,8 @@ export const MOVE_SEARCH_QUERY = gql`
           priority
           target
 
-          descriptions {
-            edges(pagination: {limit: 1}) {
+          descriptions(pagination: {limit: 1}) {
+            edges {
               node {
                 text
               }

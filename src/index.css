@@ -73,10 +73,20 @@ html {
 
   --button-shadow: inset 0px -5px 1px 0 rgba(0, 0, 0, 0.2);
 
+  /* Shadow along control */
+
   --control-shadow-inset: 3px 3px;
+  --control-shadow-inset-pulse: 3px 3px 1px 1px;
   --control-shadow: inset var(--control-shadow-inset) rgba(0,0,0,0.2);
   --control-padding: 3px;
 
+  --bg-control-red: inset 2px 2px 2px 1px rgba(var(--red-bg-components), 0.5);
+  --bg-control-green: inset 2px 2px 2px 1px rgba(var(--green-bg-components), 0.5);
+  --bg-control-blue: inset 2px 2px 2px 1px rgba(var(--blue-bg-components), 0.5);
+
+
+  /* Shadow along background pulsing */
+  /* #region */
 
   --bg-shadow-inset: -1px -1px 3px 1px;
   --bg-shadow-inset-pulse: -1px -1px 3px 2px;
@@ -89,6 +99,8 @@ html {
 
   --bg-shadow-blue: inset var(--bg-shadow-inset) rgba(var(--blue-bg-components), 0.8);
   --bg-shadow-blue-pulse: inset var(--bg-shadow-inset-pulse) rgba(var(--blue-bg-components), 1);
+
+  /* #endregion */
 
   /* Transitions */
   --transition-duration: 1s;

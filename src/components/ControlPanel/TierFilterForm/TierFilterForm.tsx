@@ -12,18 +12,22 @@ import DropdownMenu from "../../Reusables/DropdownMenu/DropdownMenu";
 import { GenFilter, GenFilterAction } from '../../../hooks/App/GenFilter';
 import { useEffect, useMemo, useState } from 'react';
 import Button from '../../Reusables/Button/Button';
+import { BGManager } from '../../../hooks/App/BGManager';
 
 type TierFilterFormProps = {
   genFilter: GenFilter
 
   tierFilter: TierFilter
   dispatchTierFilter: React.Dispatch<TierFilterAction>
+
+  bgManager: BGManager
 }
 
 const TierFilterForm = ({
   genFilter,
   tierFilter,
   dispatchTierFilter,
+  bgManager,
 }: TierFilterFormProps) => {
   const singlesItems = useMemo(() =>
     SINGLES_TIERS.map((singlesTier: SinglesTier) => {
@@ -137,6 +141,7 @@ const TierFilterForm = ({
                 toggleSelect={handleTierSelect}
                 dropdownWidth={'clamp(5vw, 50ch, 80%)'}
                 itemWidth={'6ch'}
+                backgroundLight={bgManager.bgColor}
               />
             : <DropdownMenu 
                 title={'TIER FILTER'}
@@ -144,6 +149,7 @@ const TierFilterForm = ({
                 toggleSelect={handleTierSelect}
                 dropdownWidth={'clamp(5vw, 50ch, 80%)'}
                 itemWidth={'6ch'}
+                backgroundLight={bgManager.bgColor}
               />
           }
         </label>

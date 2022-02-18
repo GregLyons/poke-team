@@ -85,17 +85,18 @@ export const ITEM_SEARCH_QUERY = gql`
     items(
       generation: $gen 
       filter: { contains: $contains, startsWith: $startsWith } 
+      pagination: { limit: $limit }
     ) {
       id
-      edges(pagination: { limit: $limit }) {
+      edges {
         node {
           id
           name
           formattedName
           class
 
-          descriptions {
-            edges(pagination: {limit: 1}) {
+          descriptions(pagination: {limit: 1}) {
+            edges {
               node {
                 text
               }

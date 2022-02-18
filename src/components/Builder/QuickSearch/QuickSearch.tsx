@@ -5,8 +5,9 @@ import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { validatePokemon } from '../../../hooks/App/PokemonFilter';
 import { Team } from '../../../hooks/App/Team';
 import { useFilterConnectedSearchVars } from '../../../hooks/Builder/Searches';
+import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 import { PokemonQuickSearchQuery, PokemonQuickSearchResult, PokemonQuickSearchVars, POKEMON_QUICKSEARCH_QUERY, QuickSearchPokemon } from '../../../types-queries/Builder/QuickSearch';
-import { PokemonColumnName, PokemonPaginationInput, SortByEnum } from '../../../types-queries/helpers';
+import { PokemonColumnName, PokemonIconDatum, PokemonPaginationInput, SortByEnum } from '../../../types-queries/helpers';
 import { Dispatches, Filters } from '../../App';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
 import SortSwitch from '../../Reusables/SortSwitch/SortSwitch';
@@ -32,7 +33,7 @@ const QuickSearch = ({
     sortBy: 'ASC',
   });
 
-  const [queryVars, setQueryVars] = useFilterConnectedSearchVars<PokemonQuickSearchVars>(
+  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange]  = useRemovalConnectedSearchVars<PokemonQuickSearchVars>(
     {
       gen: filters.genFilter.gen,
       startsWith: '',
@@ -68,26 +69,15 @@ const QuickSearch = ({
     }
   }
 
-  const [searchBox, setSearchBox] = useState('');
-  const [searchMode, setSearchMode] = useState<'STARTS' | 'CONTAINS'>('STARTS');
-
-  const onSearchBarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onSaveClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, pokemonIconDatum: PokemonIconDatum) => {
     e.preventDefault();
 
-    setSearchBox(e.target.value);
-    setQueryVars({
-      ...queryVars,
-      contains: e.target.value,
-    });
-  }
-
-  const onModeChange = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, mode: 'STARTS' | 'CONTAINS') => {
-    e.preventDefault();
-
-    setSearchMode(mode);
-    setQueryVars({
-      ...queryVars,
-
+    dispatches.dispatchTeam({
+      type: 'toggle_save',
+      payload: {
+        gen: filters.genFilter.gen,
+        pokemon: pokemonIconDatum
+      }
     })
   }
 
@@ -101,10 +91,11 @@ const QuickSearch = ({
         <SearchBar
           title="Search Pokemon by name"
           placeholder="Search Pokemon"
-          searchTerm={searchBox}
-          handleSearchTermChange={onSearchBarChange}
+          searchTerm={searchTerm}
+          handleSearchTermChange={handleSearchTermChange}
           searchMode={searchMode}
-          handleSearchModeChange={onModeChange}
+          handleSearchModeChange={handleSearchModeChange}
+          backgroundLight="green"
         />
       </form>
       <div className="quick-search__results">
@@ -223,9 +214,11 @@ const QuickSearch = ({
           ? <div>Loading...</div>
           : data && <QuickSearchEntries
             data={data}
+            team={team}
             filters={filters}
             dispatches={dispatches}
             pagination={pagination}
+            onSaveClick={onSaveClick}
           />
         }
       </div>
