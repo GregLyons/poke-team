@@ -111,6 +111,7 @@ const MoveSearch = ({
   return (
     <>
       <EntitySearchMainIcons
+        entityPluralString='moves'
         dispatches={dispatches}
         filters={filters}
         searchTerm={searchTerm}

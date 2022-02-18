@@ -95,6 +95,7 @@ const FieldStateSearch = ({
   return (
     <>
        <EntitySearchMain
+        entityPluralString='field states'
         genFilter={genFilter}
         searchTerm={searchTerm}
         handleSearchTermChange={handleSearchTermChange}

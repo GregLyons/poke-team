@@ -78,6 +78,7 @@ const UsageMethodSearch = ({
   return (
     <>
        <EntitySearchMain
+       entityPluralString='usage methods'
         genFilter={genFilter}
         searchTerm={searchTerm}
         handleSearchTermChange={handleSearchTermChange}

@@ -2,6 +2,8 @@ import { useRef } from "react";
 import './NumericalInput.css';
 
 type NumericalInputProps = {
+  titleFor: string
+
   min: number
   max: number
   value: number
@@ -17,6 +19,8 @@ type NumericalInputProps = {
 }
 
 const NumericalInput = ({
+  titleFor,
+
   min,
   max,
   value,
@@ -36,7 +40,7 @@ const NumericalInput = ({
     // If the user is focused on the input, the value is equal to whatever they are typing in. Only once focus is lost will value itself update. 
     
     // When user is not focused, the displayed number will be value. Once the user focuses, reset min number to equal value so that the displayed number does not change.
-    <div 
+    <div
       className={`
         numerical-input__wrapper
         ${onLeft
@@ -48,18 +52,19 @@ const NumericalInput = ({
       {onLeft &&
         <div className="numerical-input__arrow-wrapper">
           <div
-            title="Increase by 1"
+            title={`Increase ${titleFor} by 1`}
             className="numerical-input__up-arrow"
             onClick={onIncrement}
           />
           <div
-            title="Decrease by 1"
+            title={`Decrease ${titleFor} by 1`}
             className="numerical-input__down-arrow"
             onClick={onDecrement}
           />
         </div>
       }
       <input
+        title={`Enter value for ${titleFor}`}
         ref={inputRef}
         min={min}
         max={max}
@@ -68,7 +73,7 @@ const NumericalInput = ({
         value={value}
         onChange={onChange}
         style={{
-          width: `${width}ch`
+          width: `${width}ch`,
         }}
         onFocus={onFocus}
         onBlur={onBlur}
@@ -76,12 +81,12 @@ const NumericalInput = ({
       {!onLeft && 
         <div className="numerical-input__arrow-wrapper">
           <div
-            title="Increase by 1"
+            title={`Increase ${titleFor} by 1`}
             className="numerical-input__up-arrow"
             onClick={onIncrement}
           />
           <div
-            title="Decrease by 1"
+            title={`Decrease ${titleFor} by 1`}
             className="numerical-input__down-arrow"
             onClick={onDecrement}
           />

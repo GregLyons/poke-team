@@ -63,6 +63,7 @@ const QuickSearchEntries = ({
   // Also add a dependence on filters.tierFilter.format to display proper tier
   // We perform our initial sort here rather than letting it be handled in the definition of entries 
   const originalEntries: QuickSearchPokemonEntry[] | undefined = useMemo(() => {
+    console.log('Recalculating original entries...');
     return data && data?.pokemon.edges.map((pokemonSearchResult: PokemonQuickSearchResult) => {
       const { pokemonIconDatum, baseStatTotal } = (new QuickSearchPokemon(pokemonSearchResult));
       const tier = getTier(filters.genFilter.gen, filters.tierFilter.format, pokemonIconDatum.psID);
@@ -73,7 +74,7 @@ const QuickSearchEntries = ({
         tier,
       };
     }).sort(sortPokemonByKey(pagination));
-  }, [data, filters.tierFilter.format]);
+  }, [data, filters.genFilter.gen, filters.tierFilter.format]);
 
   // Entries to be rendered, which should be sorted and filtered according to orderByKey and filters, respectively
   // If we were to perform our initial sort here, then the unsorted array shows for a brief moment before being sorted
@@ -99,7 +100,7 @@ const QuickSearchEntries = ({
   // When orderByKey changes, the entries are no longer sorted
   useEffect(() => {
     setSorted(false);
-  }, [pagination, setSorted]);
+  }, [pagination, originalEntries, setSorted]);
   // When the entries are not sorted, sort them
   useEffect(() => {
     if (!data) return;
@@ -110,18 +111,16 @@ const QuickSearchEntries = ({
       setEntries([...entries].sort(sortPokemonByKey(pagination)))
       setSorted(true);
     }
-  }, [setEntries, entries, sorted, setSorted, pagination, data]);
+  }, [setEntries, originalEntries, entries, sorted, setSorted, pagination, data]);
 
   // When filters change, the entries are no longer filtered
   useEffect(() => {
-    console.log('no longer filtered');
     setFiltered(false);
-  }, [filters, setFiltered]);
+  }, [filters, originalEntries, setFiltered]);
   // When the entries are not filtered, filter them
   useEffect(() => {
     if (!data) return;
     if (!filtered) {
-
       // Use originalEntries, since changing the filter may add in Pokemon previously excluded from entries
       setEntries([...originalEntries].filter(qspe => validatePokemon({ pokemonIconDatum: qspe.pokemonIconDatum, ...filters, }).validated))
       setFiltered(true);

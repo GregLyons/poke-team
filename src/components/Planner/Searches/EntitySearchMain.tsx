@@ -17,6 +17,8 @@ import './Searches.css';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
 
 interface EntitySearchMainProps<SearchQuery, SearchQueryVars> {
+  entityPluralString: string
+
   genFilter: GenFilter
   searchTerm: string
   handleSearchTermChange: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -28,6 +30,7 @@ interface EntitySearchMainProps<SearchQuery, SearchQueryVars> {
 }
 
 function EntitySearchMain<SearchQuery, SearchQueryVars>({
+  entityPluralString,
   genFilter,
   searchTerm,
   handleSearchTermChange,
@@ -51,6 +54,8 @@ function EntitySearchMain<SearchQuery, SearchQueryVars>({
     >
       <form>
         <SearchBar
+          title={`Search ${entityPluralString} by name`}
+          placeholder={`Search ${entityPluralString}`}
           searchTerm={searchTerm}
           handleSearchTermChange={handleSearchTermChange}
           searchMode={searchMode}

@@ -84,6 +84,7 @@ const TypeSearch = ({
   return (
     <>
       <EntitySearchMainIcons
+        entityPluralString='types'
         dispatches={dispatches}
         filters={filters}
         searchTerm={searchTerm}

@@ -1,7 +1,9 @@
 .quick-search__wrapper {
   position: relative;
 
-  padding: 2rem;
+  overflow: hidden;
+
+  padding: 2rem 2rem 5rem 2rem;
 
   height: 100%;
 }
@@ -14,7 +16,7 @@
   overflow-y: scroll;
 
   height: 100%;
-  width: 90%;
+  width: 100%;
 }
 .quick-search__results {
   box-shadow: 

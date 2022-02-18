@@ -4,6 +4,8 @@ import './DoubleSlider.css';
 import NumericalInput from "../NumericalInput/NumericalInput";
 
 type DoubleSliderProps = {
+  titleFor: string
+
   min: number
   minValue: number
   onMinChange: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -23,6 +25,8 @@ type DoubleSliderProps = {
 }
 
 const DoubleSlider = ({
+  titleFor,
+
   min,
   minValue,
   onMinChange,
@@ -63,6 +67,7 @@ const DoubleSlider = ({
   return (
     <div className="double-slider__wrapper">
       <NumericalInput
+        titleFor={'minimum ' + titleFor}
         min={min}
         max={max}
         value={minFocused
@@ -86,7 +91,8 @@ const DoubleSlider = ({
 
         width={3}
       />
-      <DoubleSliderBase 
+      <DoubleSliderBase
+        titleFor={titleFor}
         min={min}
         minValue={minValue}
         onMinChange={onMinChange}
@@ -96,6 +102,7 @@ const DoubleSlider = ({
         sliderWidth={sliderWidth}
       />
       <NumericalInput
+        titleFor={'maximum ' + titleFor}
         min={min}
         max={max}
         value={maxFocused

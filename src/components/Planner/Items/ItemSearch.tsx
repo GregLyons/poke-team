@@ -93,6 +93,7 @@ const ItemSearch = ({
   return (
     <>
       <EntitySearchMainIcons
+        entityPluralString='items'
         dispatches={dispatches}
         filters={filters}
         searchTerm={searchTerm}

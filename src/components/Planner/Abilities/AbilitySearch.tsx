@@ -82,6 +82,7 @@ const AbilitySearch = ({
   return (
     <>
       <EntitySearchMainIcons
+        entityPluralString='abilities'
         dispatches={dispatches}
         filters={filters}
         searchTerm={searchTerm}

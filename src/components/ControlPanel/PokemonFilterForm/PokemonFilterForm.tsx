@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BGManager, classWithBGShadow } from "../../../hooks/App/BGManager";
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { BASE_STAT_NAMES, PokemonFilter, PokemonFilterAction, TYPE_NAMES } from "../../../hooks/App/PokemonFilter";
-import { BaseStatName, toAbbreviatedBaseStatName, toEnumTypeName, toFormattedTypeName, TypeName } from "../../../types-queries/helpers";
+import { BaseStatName, toAbbreviatedBaseStatName, toEnumTypeName, toFormattedBaseStatName, toFormattedTypeName, TypeName } from "../../../types-queries/helpers";
 import Button from "../../Reusables/Button/Button";
 import DoubleSlider from "../../Reusables/DoubleSlider/DoubleSlider";
 import DropdownMenu from "../../Reusables/DropdownMenu/DropdownMenu";
@@ -282,6 +282,7 @@ const PokemonFilterForm = ({
                           : <>{toAbbreviatedBaseStatName(baseStatName)}&nbsp;</>}
                       </div>
                       <DoubleSlider
+                        titleFor={toFormattedBaseStatName(baseStatName)}
                         min={0}
                         minValue={pokemonFilter.minBaseStats[baseStatName]}
                         onMinChange={onMinChange(baseStatName)}

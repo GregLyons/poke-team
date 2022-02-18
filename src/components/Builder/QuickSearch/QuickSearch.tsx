@@ -98,8 +98,9 @@ const QuickSearch = ({
       className="quick-search__wrapper"
     >
       <form>
-        Search
         <SearchBar
+          title="Search Pokemon by name"
+          placeholder="Search Pokemon"
           searchTerm={searchBox}
           handleSearchTermChange={onSearchBarChange}
           searchMode={searchMode}
@@ -115,6 +116,7 @@ const QuickSearch = ({
           >
             <span onClick={e => onPaginationChangeClick(e, 'psID')}>Name</span>
             <SortSwitch
+              titleFor="name"
               onClick={e => onPaginationChangeClick(e, 'psID')}
               sortBy={pagination.orderBy === 'psID' ? pagination.sortBy : null}
             />
@@ -130,6 +132,7 @@ const QuickSearch = ({
           >
             <span onClick={e => onPaginationChangeClick(e, 'tier')}>Tier</span>
             <SortSwitch
+              titleFor="tier"
               onClick={e => onPaginationChangeClick(e, 'tier')}
               sortBy={pagination.orderBy === 'tier' ? pagination.sortBy : null}
             />
@@ -141,6 +144,7 @@ const QuickSearch = ({
             >
               HP
               <SortSwitch
+                titleFor="HP"
                 onClick={e => onPaginationChangeClick(e, 'hp')}
                 sortBy={pagination.orderBy === 'hp' ? pagination.sortBy : null}
               />
@@ -151,6 +155,7 @@ const QuickSearch = ({
             >
               Atk
               <SortSwitch
+                titleFor="Attack"
                 onClick={e => onPaginationChangeClick(e, 'attack')}
                 sortBy={pagination.orderBy === 'attack' ? pagination.sortBy : null}
               />
@@ -161,6 +166,7 @@ const QuickSearch = ({
             >
               Def
               <SortSwitch
+                titleFor="Defense"
                 onClick={e => onPaginationChangeClick(e, 'defense')}
                 sortBy={pagination.orderBy === 'defense' ? pagination.sortBy : null}
               />
@@ -171,6 +177,7 @@ const QuickSearch = ({
             >
               SpA
               <SortSwitch
+                titleFor="Special Attack"
                 onClick={e => onPaginationChangeClick(e, 'specialAttack')}
                 sortBy={pagination.orderBy === 'specialAttack' ? pagination.sortBy : null}
               />
@@ -181,6 +188,7 @@ const QuickSearch = ({
             >
               SpD
               <SortSwitch
+                titleFor="Special Defense"
                 onClick={e => onPaginationChangeClick(e, 'specialDefense')}
                 sortBy={pagination.orderBy === 'specialDefense' ? pagination.sortBy : null}
               />
@@ -191,6 +199,7 @@ const QuickSearch = ({
             >
               Spe
               <SortSwitch
+                titleFor="Speed"
                 onClick={e => onPaginationChangeClick(e, 'speed')}
                 sortBy={pagination.orderBy === 'speed' ? pagination.sortBy : null}
               />
@@ -201,6 +210,7 @@ const QuickSearch = ({
             >
               BST
               <SortSwitch
+                titleFor="Base Stat Total"
                 onClick={e => onPaginationChangeClick(e, 'baseStatTotal')}
                 sortBy={pagination.orderBy === 'baseStatTotal' ? pagination.sortBy : null}
               />

@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, } from "react";
 
 type SliderBaseProps = {
+  titleFor: string
+
   min: number
   max: number
 
@@ -11,6 +13,8 @@ type SliderBaseProps = {
 };
 
 const SliderBase = ({
+  titleFor,
+  
   min,
   max,
   value,
@@ -37,7 +41,8 @@ const SliderBase = ({
   }, [value, getPercent])
 
   return (
-    <div 
+    <div
+      title={`Modify ${titleFor}`}
       className="slider__container"
       style={{
         width: sliderWidth,

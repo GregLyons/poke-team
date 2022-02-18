@@ -78,6 +78,7 @@ const StatSearch = ({
   return (
     <>
        <EntitySearchMain
+        entityPluralString='stats'
         genFilter={genFilter}
         searchTerm={searchTerm}
         handleSearchTermChange={handleSearchTermChange}

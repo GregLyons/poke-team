@@ -72,6 +72,7 @@ const EffectSearch = ({
   return (
     <>
       <EntitySearchMain
+        entityPluralString='effects'
         genFilter={genFilter}
         searchTerm={searchTerm}
         handleSearchTermChange={handleSearchTermChange}

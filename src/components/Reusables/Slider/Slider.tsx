@@ -5,6 +5,8 @@ import SliderBase from "./SliderBase";
 import './Slider.css';
 
 type SliderProps = {
+  titleFor: string
+
   min: number
   max: number
   value: number
@@ -21,6 +23,8 @@ type SliderProps = {
 }
 
 const Slider = ({
+  titleFor,
+
   min,
   max,
   value,
@@ -46,6 +50,7 @@ const Slider = ({
   return (
     <div className="slider__wrapper">
       {onLeft && <NumericalInput
+        titleFor={titleFor}
         min={min}
         max={max}
         value={focused 
@@ -73,6 +78,7 @@ const Slider = ({
         onLeft={true}
       />}
       <SliderBase
+        titleFor={titleFor}
         min={min}
         max={max}
         value={value}
@@ -80,6 +86,7 @@ const Slider = ({
         sliderWidth={sliderWidth}
       />
       {!onLeft && <NumericalInput
+        titleFor={titleFor}
         min={min}
         max={max}
         value={focused 

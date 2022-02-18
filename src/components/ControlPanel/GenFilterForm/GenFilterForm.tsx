@@ -67,6 +67,7 @@ const GenFilterForm = ({
       <div className="gen-filter__slider">
         <label htmlFor="select generation">
           <Slider
+            titleFor="Generation"
             min={1}
             max={NUMBER_OF_GENS}
             value={genFilter.gen}

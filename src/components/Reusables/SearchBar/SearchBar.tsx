@@ -1,7 +1,11 @@
 import Button from '../Button/Button';
+import TextInput from '../TextInput/TextInput';
 import './SearchBar.css';
 
 type SearchBarProps = {
+  title: string
+  placeholder: string
+
   searchTerm: string
   handleSearchTermChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   searchMode: 'STARTS' | 'CONTAINS'
@@ -9,6 +13,9 @@ type SearchBarProps = {
 };
 
 const SearchBar = ({
+  title,
+  placeholder,
+
   searchTerm,
   handleSearchTermChange,
   searchMode,
@@ -16,9 +23,9 @@ const SearchBar = ({
 }: SearchBarProps) => {
   return (
     <div className="search-bar__wrapper">
-      <input
-        className="search-bar"
-        type="text" 
+      <TextInput
+        title={title}
+        placeholder={placeholder}
         value={searchTerm}
         onChange={handleSearchTermChange}
       />

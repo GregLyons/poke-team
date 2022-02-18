@@ -15,26 +15,30 @@ type TeamViewProps = {
   team: Team
 }
 
-export type ReferencePanelView = 'POKEMON' | 'ABILITY' | 'ITEM' | 'MOVE' | 'STATS';
+export type ReferencePanelView =
+| 'POKEMON'
+| 'ABILITY'
+| 'ITEM'
+| 'STATS'
+| 'MOVESLOT 1' | 'MOVESLOT 2' | 'MOVESLOT 3' | 'MOVESLOT 4';
 
 export type CartClickHandlers = {
   onUnpinClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, note: string) => void
 }
 
 export type TeamIconsClickHandlers = {
-  onMemberClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, note: string) => void
+  onMemberClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 }
 
 export type MemberDetailClickHandlers = {
-  onAbilityClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, note: string) => void
-  onItemClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, note: string) => void
-  onMoveClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, note: string) => void
-  onStatsClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, note: string) => void
+  onAbilityClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onItemClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onMoveClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, moveslot: 1 | 2 | 3 | 4) => void
+  onStatsClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 }
 
 export type ReferencePanelClickHandlers = {
   cartClickHandlers: CartClickHandlers
-  memberDetailClickHandlers: MemberDetailClickHandlers
 }
 
 const TeamView = ({
@@ -73,9 +77,17 @@ const TeamView = ({
     }
     // #endregion
 
-    // Member details 
-    // #region
+    return {
+      teamIconsClickHandlers: {
+        onMemberClick,
+      },
+      cartClickHandlers: {
+        onUnpinClick, 
+      },
+    };
+  }, [dispatches, filters, team]);
 
+  const memberDetailClickHandlers: MemberDetailClickHandlers = useMemo(() => {
     const onAbilityClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.preventDefault();
       setView('ABILITY');
@@ -86,9 +98,9 @@ const TeamView = ({
       setView('ITEM');
     }
 
-    const onMoveClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    const onMoveClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, moveslot: 1 | 2 | 3 | 4) => {
       e.preventDefault();
-      setView('MOVE');
+      setView(`MOVESLOT ${moveslot}`);
     }
 
     const onStatsClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -96,29 +108,20 @@ const TeamView = ({
       setView('STATS');
     }
 
-    // #endregion
-
     return {
-      teamIconsClickHandlers: {
-        onMemberClick,
-      },
-      cartClickHandlers: {
-        onUnpinClick, 
-      },
-      memberDetailClickHandlers: {
-        onAbilityClick,
-        onItemClick,
-        onMoveClick,
-        onStatsClick,
-      }
+      onAbilityClick,
+      onItemClick,
+      onMoveClick,
+      onStatsClick,
     };
-  }, [dispatches, filters, team]);
+  }, [dispatches, filters, team, setView]);
 
   return (
     <div className="team-view__wrapper">
       <MemberDetails
         dispatches={dispatches}
         filters={filters}
+        clickHandlers={memberDetailClickHandlers}
       />
       <ReferencePanel
         clickHandlers={referencePanelClickHandlers}

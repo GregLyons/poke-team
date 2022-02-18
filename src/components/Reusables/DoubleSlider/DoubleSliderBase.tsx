@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, } from "react";
 
 type DoubleSliderBaseProps = {
+  titleFor: string
+
   min: number
   minValue: number
   onMinChange: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -14,12 +16,16 @@ type DoubleSliderBaseProps = {
 
 // Based on https://dev.to/sandra_lewis/building-a-multi-range-slider-in-react-from-scratch-4dl1
 const DoubleSliderBase = ({
+  titleFor,
+
   min,
   minValue,
   onMinChange,
+
   max,
   maxValue,
   onMaxChange,
+
   sliderWidth,
 }: DoubleSliderBaseProps) => {
 
@@ -66,6 +72,7 @@ const DoubleSliderBase = ({
       }}
     >
       <input
+        title={`Modify minimum ${titleFor}`}
         type="range"
         min={min}
         max={max}
@@ -78,6 +85,7 @@ const DoubleSliderBase = ({
         }
       />
       <input
+        title={`Modify maximum ${titleFor}`}
         type="range"
         min={min}
         max={max}

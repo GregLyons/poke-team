@@ -83,6 +83,7 @@ const StatusSearch = ({
   return (
     <>
        <EntitySearchMain
+        entityPluralString='statuses'
         genFilter={genFilter}
         searchTerm={searchTerm}
         handleSearchTermChange={handleSearchTermChange}

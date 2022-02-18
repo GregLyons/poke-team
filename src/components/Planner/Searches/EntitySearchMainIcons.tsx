@@ -16,6 +16,8 @@ import { Dispatches, Filters } from '../../App';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
 
 interface EntitySearchMainIconsProps<SearchQuery, SearchQueryVars> {
+  entityPluralString: string
+
   dispatches: Dispatches
   filters: Filters
   searchTerm: string
@@ -28,6 +30,7 @@ interface EntitySearchMainIconsProps<SearchQuery, SearchQueryVars> {
 }
 
 function EntitySearchMainIcons<SearchQuery, SearchQueryVars>({
+  entityPluralString,
   dispatches,
   filters,
   searchTerm,
@@ -50,6 +53,8 @@ function EntitySearchMainIcons<SearchQuery, SearchQueryVars>({
     >
       <form>
         <SearchBar
+          title={`Search ${entityPluralString} by name`}
+          placeholder={`Search ${entityPluralString}`}
           searchTerm={searchTerm}
           handleSearchTermChange={handleSearchTermChange}
           searchMode={searchMode}

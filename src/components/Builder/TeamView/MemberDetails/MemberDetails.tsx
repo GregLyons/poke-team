@@ -4,17 +4,20 @@ import { Dispatches, Filters } from "../../../App";
 import NumericalInput from "../../../Reusables/NumericalInput/NumericalInput";
 import Slider from "../../../Reusables/Slider/Slider";
 import PokemonIcon from "../../Icons/PokemonIcon";
+import { MemberDetailClickHandlers } from "../TeamView";
 
 import './MemberDetails.css';
 
 type MemberDetailsProps = {
   dispatches: Dispatches
   filters: Filters
+  clickHandlers: MemberDetailClickHandlers
 };
 
 const MemberDetails = ({
   dispatches,
   filters,
+  clickHandlers,
 }: MemberDetailsProps) => {
   return (
     <div className="member-details__wrapper">
@@ -52,6 +55,8 @@ const MemberDetails = ({
           </div>
           <div className="member-details__content">
             <Slider
+              titleFor="Level"
+
               min={0}
               max={100}
               value={50}
@@ -88,18 +93,19 @@ const MemberDetails = ({
           <div className="member-details__content">
             {![1, 8].includes(filters.genFilter.gen) 
               ? <Slider
-                min={0}
-                max={255}
-                value={125}
+                  titleFor="Happiness"
+                  min={0}
+                  max={255}
+                  value={125}
 
-                onChange={e => e.preventDefault()}
-                onBlur={e => e.preventDefault()}
-                onIncrement={e => e.preventDefault()}
-                onDecrement={e => e.preventDefault()}
+                  onChange={e => e.preventDefault()}
+                  onBlur={e => e.preventDefault()}
+                  onIncrement={e => e.preventDefault()}
+                  onDecrement={e => e.preventDefault()}
 
-                sliderWidth="50%"
-                numericalWidth={3}
-              />
+                  sliderWidth="50%"
+                  numericalWidth={3}
+                />
               : `N/A`
             }
           </div>
@@ -114,10 +120,30 @@ const MemberDetails = ({
           </div>
           <div className="member-details__content">
             <div className="member-details__moveset-wrapper">
-              <div className="member-details__move-wrapper">1</div>
-              <div className="member-details__move-wrapper">2</div>
-              <div className="member-details__move-wrapper">3</div>
-              <div className="member-details__move-wrapper">4</div>
+              <div
+                className="member-details__move-wrapper"
+                onClick={e => clickHandlers.onMoveClick(e, 1)}
+              >
+                1
+              </div>
+              <div
+                className="member-details__move-wrapper"
+                onClick={e => clickHandlers.onMoveClick(e, 2)}
+              >
+                2
+              </div>
+              <div
+                className="member-details__move-wrapper"
+                onClick={e => clickHandlers.onMoveClick(e, 3)}
+              >
+                3
+              </div>
+              <div
+                className="member-details__move-wrapper"
+                onClick={e => clickHandlers.onMoveClick(e, 4)}
+              >
+                4
+              </div>
             </div>
           </div>
         </div>
@@ -125,7 +151,10 @@ const MemberDetails = ({
           <div className="member-details__header">
             Ability
           </div>
-          <div className="member-details__content">
+          <div
+            className="member-details__content"
+            onClick={clickHandlers.onAbilityClick}
+          >
             Ability button
           </div>
         </div>
@@ -133,7 +162,10 @@ const MemberDetails = ({
           <div className="member-details__header">
             Item
           </div>
-          <div className="member-details__content">
+          <div
+            className="member-details__content"
+            onClick={clickHandlers.onItemClick}
+          >
             Item button
           </div>
         </div>
@@ -141,7 +173,10 @@ const MemberDetails = ({
           <div className="member-details__header">
             Stats
           </div>
-          <div className="member-details__content">
+          <div
+            className="member-details__content"
+            onClick={clickHandlers.onStatsClick}
+          >
             Stat button
           </div>
         </div>

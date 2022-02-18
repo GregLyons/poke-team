@@ -20,6 +20,29 @@
   padding: var(--team-builder-gap);
 }
 
+/* Hover effects */
+/* #region */
+
+/* Only highlight individual moves within Moveset box */
+.member-details__move-wrapper,
+.member-details__wrapper div:not(.member-details__moveset) > .member-details__content {
+  transition: 0.2s ease;
+}
+
+/* Change brightness when hovering over entire box */
+.member-details__move-wrapper:hover,
+.member-details__wrapper div:not(.member-details__moveset) > .member-details__content:hover {
+  background-color: rgba(var(--light1-components), 0.05);
+  filter: brightness(1.05);
+}
+
+/* Change cursor when over interactive element; some already do so (e.g. dropdowns and sliders) */
+.member-details__move-wrapper:hover {
+  cursor: pointer;
+}
+
+/* #endregion */
+
 /* Icon */
 /* #region */
 
