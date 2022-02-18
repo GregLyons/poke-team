@@ -2,14 +2,14 @@ import { useMemo } from "react";
 import { Team } from "../../../../../hooks/App/Team";
 import { Dispatches, Filters } from "../../../../App";
 import Accordion from "../../../../Reusables/Accordion/Accordion";
-import { PinnedBoxClickHandlers } from "../../TeamView";
+import { CartClickHandlers, ReferencePanelClickHandlers } from "../../TeamView";
 import PinnedBox from "./PinnedBox";
 import PinnedBoxAccordionTitle from "./PinnedBoxAccordionTitle";
 
 import './PinnedBoxAccordion.css';
 
 type PinnedBoxAccordion = {
-  clickHandlers: PinnedBoxClickHandlers
+  clickHandlers: CartClickHandlers
   dispatches: Dispatches
   filters: Filters
   team: Team

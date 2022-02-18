@@ -1,4 +1,4 @@
-/* Remove default appearance */
+/* Emove default appearance */
 /* #region */
 
 .numerical-input::-webkit-inner-spin-button {
@@ -26,6 +26,9 @@
 
 .numerical-input__wrapper {
   display: flex;
+  width: fit-content;
+  box-sizing: content-box;
+
   background: var(--dark2);
   box-shadow: inset 2px 2px 2px 0 rgba(var(--dark3-components), 0.8);
 }
@@ -55,7 +58,7 @@
 
 /* #endregion */
 
-/* Increment/decrement arrows *?
+/* Incement/decement arrows *?
 /* #region */
 
 .numerical-input__arrow-wrapper {

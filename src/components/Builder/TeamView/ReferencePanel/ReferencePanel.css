@@ -1,7 +1,12 @@
 .reference-panel__wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: var(--team-builder-gap);
+  background-color: var(--dark3);
+}
+
+.reference-panel__content {
+  position: relative;
+  width: 100%;
+  height: 100%;
   
-  padding: 1rem;
+  border: var(--team-builder-border);
 }

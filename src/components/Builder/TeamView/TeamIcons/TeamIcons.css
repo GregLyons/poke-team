@@ -1,0 +1,18 @@
+.team-icons__wrapper {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(6, 1fr);
+
+  gap: var(--team-builder-gap);
+  background-color: var(--dark3);
+}
+
+/* Individual icons */
+/* #region */
+
+.team-icon__wrapper {
+  border: var(--team-builder-border);
+  position: relative;
+}
+
+/* #endregion */

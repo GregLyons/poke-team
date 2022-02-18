@@ -5,11 +5,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: fit-content;
 }
 
 .slider {
   position: relative;
-  width: inherit;
+  width: 100%;
 }
 
 .slider__track,

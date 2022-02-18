@@ -1,9 +1,9 @@
 import Button from "../../../../Reusables/Button/Button";
-import { PinnedBoxClickHandlers } from "../../TeamView";
+import { CartClickHandlers, ReferencePanelClickHandlers } from "../../TeamView";
 
 type PinnedBoxAccordionTitleProps = {
   titleText: string
-  clickHandlers: PinnedBoxClickHandlers
+  clickHandlers: CartClickHandlers
 }
 
 const PinnedBoxAccordionTitle = ({
