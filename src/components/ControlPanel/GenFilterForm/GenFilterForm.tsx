@@ -19,29 +19,10 @@ const GenFilterForm = ({
   genFilter,
   dispatchGenFilter,
 }: GenFilterFormProps) => {
-  const handleGenSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const updateGen = (newGen: number) => {
     dispatchGenFilter({
       type: 'set_gen',
-      payload: { gen: stringToGenNumber(e.target.value), },
-    });
-  }
-
-  const onBlur = (e: React.FocusEvent<HTMLInputElement, Element>) => {
-    const value = parseInt(e.target.value, 10);
-    if (!isNaN(value)) handleGenSelect(e);
-  }
-
-  const onIncrement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    dispatchGenFilter({
-      type: 'set_gen',
-      payload: { gen: (Math.min(NUMBER_OF_GENS, genFilter.gen + 1) as GenerationNum) }
-    });
-  }
-
-  const onDecrement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    dispatchGenFilter({
-      type: 'set_gen',
-      payload: { gen: (Math.max(1, genFilter.gen - 1) as GenerationNum) }
+      payload: { gen: stringToGenNumber(newGen + ''), },
     });
   }
 
@@ -71,10 +52,7 @@ const GenFilterForm = ({
             min={1}
             max={NUMBER_OF_GENS}
             value={genFilter.gen}
-            onChange={handleGenSelect}
-            onBlur={onBlur}
-            onIncrement={onIncrement}
-            onDecrement={onDecrement}
+            updateValue={updateGen}
             onLeft={false}
             sliderWidth={"clamp(75px, 10vw, 200px"}
             numericalWidth={1}

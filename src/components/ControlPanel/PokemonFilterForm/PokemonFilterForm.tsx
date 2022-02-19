@@ -41,156 +41,73 @@ const PokemonFilterForm = ({
 
   // Don't update slider 
 
-  const handleStatSelect = (stat: BaseStatName) => {
-
-  };
-
-  const onMinChange: (baseStatName: BaseStatName) => ((e: React.ChangeEvent<HTMLInputElement>) => void) = baseStat => {
-    return (e: React.ChangeEvent<HTMLInputElement>) => {
-      e.preventDefault();
-
-      const value = parseInt(e.target.value, 10);
-      if (isNaN(value)) updateMin(baseStat, 0);
-      else updateMin(baseStat, value);
-    };
-  }
-
-  const onMinBlur: (baseStatName: BaseStatName) => ((e: React.FocusEvent<HTMLInputElement, Element>) => void) = baseStat => {
-    return (e: React.FocusEvent<HTMLInputElement, Element>) => {
-      const value = parseInt(e.target.value, 10);
-      if (isNaN(value)) updateMin(baseStat, 0);
-      else updateMin(baseStat, value);
-    };
-  }
-
-  const updateMin = (baseStat: BaseStatName, value: number) => {
-    dispatchPokemonFilter({
-      type: "set_min_stat",
-      payload: {
-        statName: baseStat,
-        value,
-      },
-    });
-
-    // Match special attack and special defense in Gen 1
-    if (genFilter.gen === 1) {
-      if (baseStat === 'specialAttack') {
-        dispatchPokemonFilter({
-          type: "set_min_stat",
-          payload: {
-            statName: 'specialDefense',
-            value,
-          }
-        });
-      }
-      else if (baseStat === 'specialDefense') {
-        dispatchPokemonFilter({
-          type: "set_min_stat",
-          payload: {
-            statName: 'specialAttack',
-            value,
-          }
-        });
+  const updateMinValue = (baseStat: BaseStatName) => {
+    return (value: number) => {
+      dispatchPokemonFilter({
+        type: "set_min_stat",
+        payload: {
+          statName: baseStat,
+          value,
+        },
+      });
+  
+      // Match special attack and special defense in Gen 1
+      if (genFilter.gen === 1) {
+        if (baseStat === 'specialAttack') {
+          dispatchPokemonFilter({
+            type: "set_min_stat",
+            payload: {
+              statName: 'specialDefense',
+              value,
+            }
+          });
+        }
+        else if (baseStat === 'specialDefense') {
+          dispatchPokemonFilter({
+            type: "set_min_stat",
+            payload: {
+              statName: 'specialAttack',
+              value,
+            }
+          });
+        }
       }
     }
   }
 
-  const onMaxChange: (baseStatName: BaseStatName) => ((e: React.ChangeEvent<HTMLInputElement>) => void) = baseStat => {
-    return (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = parseInt(e.target.value, 10);
-      if (isNaN(value)) updateMax(baseStat, 0);
-      else updateMax(baseStat, value);
-    }
-  }
-
-  const onMaxBlur: (baseStatName: BaseStatName) => ((e: React.FocusEvent<HTMLInputElement, Element>) => void) = baseStat => {
-    return (e: React.FocusEvent<HTMLInputElement, Element>) => {
-      const value = parseInt(e.target.value, 10);
-      if (isNaN(value)) updateMax(baseStat, 0);
-      else updateMax(baseStat, value);
-    };
-  }
-
-  const updateMax = (baseStat: BaseStatName, value: number) => {
-    dispatchPokemonFilter({
-      type: "set_max_stat",
-      payload: {
-        statName: baseStat,
-        value,
-      },
-    });
-
-    // Match special attack and special defense in Gen 1
-    if (genFilter.gen === 1) {
-      if (baseStat === 'specialAttack') {
-        dispatchPokemonFilter({
-          type: "set_max_stat",
-          payload: {
-            statName: 'specialDefense',
-            value,
-          }
-        });
-      }
-      else if (baseStat === 'specialDefense') {
-        dispatchPokemonFilter({
-          type: "set_max_stat",
-          payload: {
-            statName: 'specialAttack',
-            value,
-          }
-        });
+  const updateMaxValue = (baseStat: BaseStatName) => {
+    return (value: number) => {
+      dispatchPokemonFilter({
+        type: "set_max_stat",
+        payload: {
+          statName: baseStat,
+          value,
+        },
+      });
+  
+      // Match special attack and special defense in Gen 1
+      if (genFilter.gen === 1) {
+        if (baseStat === 'specialAttack') {
+          dispatchPokemonFilter({
+            type: "set_max_stat",
+            payload: {
+              statName: 'specialDefense',
+              value,
+            }
+          });
+        }
+        else if (baseStat === 'specialDefense') {
+          dispatchPokemonFilter({
+            type: "set_max_stat",
+            payload: {
+              statName: 'specialAttack',
+              value,
+            }
+          });
+        }
       }
     }
   };
-
-  const onMinIncrement: (baseStat: BaseStatName) => ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void) = baseStat => {
-    return (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-      dispatchPokemonFilter({
-        type: 'set_min_stat',
-        payload: {
-          statName: baseStat,
-          value: pokemonFilter.minBaseStats[baseStat] + 1,
-        }
-      });
-    }
-  }
-
-  const onMinDecrement: (baseStat: BaseStatName) => ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void) = baseStat => {
-    return (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-      dispatchPokemonFilter({
-        type: 'set_min_stat',
-        payload: {
-          statName: baseStat,
-          value: pokemonFilter.minBaseStats[baseStat] - 1,
-        }
-      });
-    }
-  }
-
-  const onMaxIncrement: (baseStat: BaseStatName) => ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void) = baseStat => {
-    return (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-      dispatchPokemonFilter({
-        type: 'set_max_stat',
-        payload: {
-          statName: baseStat,
-          value: pokemonFilter.maxBaseStats[baseStat] + 1,
-        }
-      });
-    }
-  }
-
-  const onMaxDecrement: (baseStat: BaseStatName) => ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void) = baseStat => {
-    return (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-      dispatchPokemonFilter({
-        type: 'set_max_stat',
-        payload: {
-          statName: baseStat,
-          value: pokemonFilter.maxBaseStats[baseStat] - 1,
-        }
-      });
-    }
-  }
-
 
   // #endregion
 
@@ -286,17 +203,11 @@ const PokemonFilterForm = ({
                         titleFor={toFormattedBaseStatName(baseStatName)}
                         min={0}
                         minValue={pokemonFilter.minBaseStats[baseStatName]}
-                        onMinChange={onMinChange(baseStatName)}
-                        onMinBlur={onMinBlur(baseStatName)}
-                        onMinIncrement={onMinIncrement(baseStatName)}
-                        onMinDecrement={onMinDecrement(baseStatName)}
+                        updateMinValue={updateMinValue(baseStatName)}
       
                         max={255}
                         maxValue={pokemonFilter.maxBaseStats[baseStatName]}
-                        onMaxChange={onMaxChange(baseStatName)}
-                        onMaxBlur={onMaxBlur(baseStatName)}
-                        onMaxIncrement={onMaxIncrement(baseStatName)}
-                        onMaxDecrement={onMaxDecrement(baseStatName)}
+                        updateMaxValue={updateMaxValue(baseStatName)}
       
                         sliderWidth="clamp(75px, 7.5vw, 150px)"
                       />
@@ -305,7 +216,6 @@ const PokemonFilterForm = ({
                   selected: true,
                 };
               })}
-              toggleSelect={handleStatSelect}
               dropdownWidth={'clamp(5vw, 50ch, 80%)'}
               itemWidth={'100%'}
               backgroundLight={bgManager.bgColor}
