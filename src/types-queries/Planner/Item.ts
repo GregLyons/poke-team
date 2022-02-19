@@ -7,6 +7,7 @@ import {
   DescriptionsEdge,
   GenerationNum,
   IntroductionEdge,
+  ItemClass,
   ItemIconDatum,
   itemIconEdgeToItemIconDatum,
   itemRequiresPokemonEdgeToRequiredPokemonIconData,
@@ -75,16 +76,19 @@ export interface ItemSearchVars extends EntitySearchVars, RemovedFromGameQueryVa
 
   removedFromSwSh: false | null
   removedFromBDSP: false | null
+
+  itemClass: ItemClass
 }
 
 export const ITEM_SEARCH_QUERY = gql`
   query ItemSearchQuery(
     $gen: Int! $limit: Int! $contains: String $startsWith: String
     $removedFromBDSP: Boolean $removedFromSwSh: Boolean
+    $itemClass: ItemClass
   ) {
     items(
       generation: $gen 
-      filter: { contains: $contains, startsWith: $startsWith } 
+      filter: { contains: $contains, startsWith: $startsWith, class: $itemClass } 
       pagination: { limit: $limit }
     ) {
       id

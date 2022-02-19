@@ -17,6 +17,8 @@ import {
   TypeNameEdge,
   TypeIconDatum,
   typeIconEdgeToTypeIconDatum,
+  FieldStateClass,
+  FieldStateTargetClass,
 } from '../helpers';
 import {
   EntitySearchQueryName,
@@ -76,14 +78,35 @@ export interface FieldStateSearchVars extends EntitySearchVars {
   limit: number
   contains: string
   startsWith: string
+
+  fieldStateClass: FieldStateClass
+  damagePercent: number
+  maxLayers: number
+  grounded: boolean
+  target: FieldStateTargetClass
 }
 
 export const FIELDSTATE_SEARCH_QUERY = gql`
-  query FieldStateSearchQuery($gen: Int! $limit: Int! $contains: String $startsWith: String) {
+  query FieldStateSearchQuery(
+    $gen: Int! $limit: Int!
+    $contains: String $startsWith: String
+    $class: FieldStateClass
+    $damagePercent: Float
+    $maxLayers: Int
+    $grounded: Boolean
+    $target: FieldStateTargetClass
+  ) {
     fieldStates(
-      generation: $gen
-      filter: { contains: $contains, startsWith: $startsWith }
-      pagination: { limit: $limit }
+      generation: $gen,
+      filter: {
+        contains: $contains, startsWith: $startsWith,
+        class: $class,
+        damagePercent: $damagePercent,
+        maxLayers: $maxLayers,
+        grounded: $grounded
+        target: $target
+      },
+      pagination: { limit: $limit },
     ) {
       id
       edges {

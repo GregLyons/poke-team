@@ -68,13 +68,15 @@ export interface StatusSearchVars extends EntitySearchVars {
   limit: number
   contains: string
   startsWith: string
+
+  volatile: boolean
 }
 
 export const STATUS_SEARCH_QUERY = gql`
-  query StatusSearchQuery($gen: Int! $limit: Int! $contains: String $startsWith: String) {
+  query StatusSearchQuery($gen: Int! $limit: Int! $contains: String $startsWith: String $volatile: Boolean) {
     statuses(
       generation: $gen
-      filter: { contains: $contains, startsWith: $startsWith }
+      filter: { contains: $contains, startsWith: $startsWith, volatile: $volatile }
       pagination: { limit: $limit }
     ) {
       id

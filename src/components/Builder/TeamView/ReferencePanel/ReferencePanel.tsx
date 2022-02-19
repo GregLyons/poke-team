@@ -3,6 +3,7 @@ import { Dispatches, Filters } from "../../../App";
 import { ReferencePanelClickHandlers, ReferencePanelView } from "../TeamView";
 
 import './ReferencePanel.css';
+import SavedPokemonView from "./SavedPokemonView/SavedPokemonView";
 
 type ReferencePanelProps = {
   clickHandlers: ReferencePanelClickHandlers
@@ -23,10 +24,16 @@ const ReferencePanel = ({
     <div
       className="reference-panel__wrapper"
     >
-      <div className="reference-panel__content">
+      {/* Mimic text-on-border effect of other panels on the page */}
+      <div className="reference-panel__padder">
         <div className="reference-panel__header">
           {view}
         </div>
+        <SavedPokemonView
+          clickHandlers={clickHandlers.savedPokemonClickHandlers}
+          filters={filters}
+          team={team}
+        />
       </div>
     </div>
   )

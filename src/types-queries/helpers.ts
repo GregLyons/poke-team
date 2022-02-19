@@ -3,6 +3,75 @@ import {
 } from '../utils/constants';
 import { compareStrings, sortArray } from '../utils/helpers';
 
+// Types for filtering
+// #region
+
+// Field States
+// #region
+
+export type FieldStateClass =
+| 'ENTRY_HAZARD'
+| 'OTHER'
+| 'PLEDGE'
+| 'ROOM'
+| 'SCREEN'
+| 'TERRAIN'
+| 'WEATHER';
+
+export type FieldStateTargetClass =
+| 'ALL'
+| 'ALL_ALLIES'
+| 'ALL_FOES';
+
+// #endregion
+
+// Items
+// #region
+
+export type ItemClass = 
+| 'BERRY'
+| 'CHOICE'
+| 'DRIVE'
+| 'GEM'
+| 'INCENSE'
+| 'MEGA_STONE'
+| 'MEMORY'
+| 'OTHER'
+| 'PLATE'
+| 'POWER'
+| 'STAT_ENHANCER'
+| 'TYPE_ENHANCER'
+| 'Z_CRYSTAL';
+
+// #endregion
+
+// Moves
+// #region
+
+export type MoveCategory =
+| 'PHYSICAL'
+| 'SPECIAL'
+| 'STATUS'
+| 'VARIES';
+
+export type MoveTargetClass =
+| 'ADJACENT_ALLY'
+| 'ADJACENT_FOE'
+| 'ALL'
+| 'ALL_ADJACENT'
+| 'ALL_ADJACENT_FOES'
+| 'ALL_ALLIES'
+| 'ALL_FOES'
+| 'ANY'
+| 'ANY_ADJACENT'
+| 'USER'
+| 'USER_AND_ALL_ALLIES'
+| 'USER_OR_ADJACENT_ALLY';
+
+// #endregion
+
+// #endregion
+
 // Types for paginating queries
 // #region
 

@@ -5,8 +5,11 @@ import {
 import {
   DescriptionEdge,
   DescriptionsEdge,
+  EnumTypeName,
   GenerationNum,
   IntroductionEdge,
+  MoveCategory,
+  MoveTargetClass,
   PokemonIconDatum,
   PokemonIconEdge,
   pokemonIconEdgeToPokemonIconDatum,
@@ -84,16 +87,49 @@ export interface MoveSearchVars extends EntitySearchVars, RemovedFromGameQueryVa
 
   removedFromSwSh: false | null
   removedFromBDSP: false | null
+
+  maxAccuracy: number
+  minAccuracy: number
+  maxPower: number
+  minPower: number
+  maxPP: number
+  minPP: number
+  maxPriority: number
+  minPriority: number
+
+  bypassAccuracy: boolean
+  category: MoveCategory
+  target: MoveTargetClass
+  types: EnumTypeName[]
 }
 
 export const MOVE_SEARCH_QUERY = gql`
   query MoveSearchQuery(
     $gen: Int! $limit: Int! $contains: String $startsWith: String
     $removedFromBDSP: Boolean $removedFromSwSh: Boolean
+    $maxAccuracy: Int $minAccuracy: Int
+    $maxPower: Int $minPower: Int
+    $maxPP: Int $minPP: Int
+    $maxPriority: Int $minPriority: Int
+    $bypassAccuracy: Boolean
+    $category: MoveCategory
+    $target: TargetClass
+    $types: [TypeName!]
   ) {
     moves(
       generation: $gen 
-      filter: { contains: $contains, startsWith: $startsWith, removedFromSwSh: $removedFromSwSh removedFromBDSP: $removedFromBDSP } 
+      filter: {
+        contains: $contains, startsWith: $startsWith,
+        removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP,
+        maxAccuracy: $maxAccuracy, minAccuracy: $minAccuracy,
+        maxPower: $maxPower, minPower: $minPower,
+        maxPP: $maxPP, minPP: $minPP,
+        maxPriority: $maxPriority, minPriority: $minPriority,
+        bypassAccuracy: $bypassAccuracy
+        category: $category
+        target: $target
+        types: $types
+      } 
       pagination: { limit: $limit }
     ) {
       id

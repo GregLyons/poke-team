@@ -3,7 +3,7 @@
   background-color: var(--dark3);
 }
 
-.reference-panel__content {
+.reference-panel__padder {
   position: relative;
   width: 100%;
   height: 100%;

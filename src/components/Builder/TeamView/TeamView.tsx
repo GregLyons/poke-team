@@ -7,6 +7,7 @@ import MemberDetails from "./MemberDetails/MemberDetails";
 import TeamIcons from "./TeamIcons/TeamIcons";
 
 import './TeamView.css';
+import { PokemonIconDatum } from "../../../types-queries/helpers";
 
 type TeamViewProps = {
   bgManager: BGManager
@@ -14,6 +15,9 @@ type TeamViewProps = {
   filters: Filters
   team: Team
 }
+
+// Reference panel 
+// #region
 
 export type ReferencePanelView =
 | 'POKEMON'
@@ -26,9 +30,32 @@ export type CartClickHandlers = {
   onUnpinClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, note: string) => void
 }
 
+export type QuickSearchClickHandlers = {
+  onRemoveClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, pokemonIconDatum: PokemonIconDatum) => void
+}
+
+export type SavedPokemonClickHandlers = {
+  cartClickHandlers: CartClickHandlers
+  quickSearchClickHandlers: QuickSearchClickHandlers
+}
+
+export type ReferencePanelClickHandlers = {
+  savedPokemonClickHandlers: SavedPokemonClickHandlers
+}
+
+// #endregion
+
+// Team icons
+// #region
+
 export type TeamIconsClickHandlers = {
   onMemberClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 }
+
+// #endregion
+
+// Member details
+// #region
 
 export type MemberDetailClickHandlers = {
   onAbilityClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
@@ -37,9 +64,7 @@ export type MemberDetailClickHandlers = {
   onStatsClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 }
 
-export type ReferencePanelClickHandlers = {
-  cartClickHandlers: CartClickHandlers
-}
+// #endregion
 
 const TeamView = ({
   bgManager,
@@ -50,7 +75,7 @@ const TeamView = ({
   const [view, setView] = useState<ReferencePanelView>('POKEMON');
 
   const referencePanelClickHandlers: ReferencePanelClickHandlers = useMemo(() => {
-    // Pinned boxes
+    // Saved Pokemon
     // #region
 
     const onUnpinClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, note: string) => {
@@ -66,25 +91,45 @@ const TeamView = ({
       toggleBGPulse(dispatches.dispatchBGManager);
     };
 
+    const onRemoveClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, pokemonIconDatum: PokemonIconDatum) => {
+      e.preventDefault();
+      dispatches.dispatchTeam({
+        type: 'toggle_save',
+        payload: {
+          gen: filters.genFilter.gen,
+          pokemon: pokemonIconDatum,
+        },
+      });
+    }
+
     // #endregion
 
     // Team icons
     // #region
 
+    // #endregion
+
+    return {
+      savedPokemonClickHandlers: {
+        quickSearchClickHandlers: {
+          onRemoveClick,
+        },
+        cartClickHandlers: {
+          onUnpinClick, 
+        },
+      },
+    };
+  }, [dispatches, filters, team]);
+
+  const teamIconsClickHandlers: TeamIconsClickHandlers = useMemo(() => {
     const onMemberClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.preventDefault();
       setView('POKEMON');
     }
-    // #endregion
 
     return {
-      teamIconsClickHandlers: {
-        onMemberClick,
-      },
-      cartClickHandlers: {
-        onUnpinClick, 
-      },
-    };
+      onMemberClick,
+    }
   }, [dispatches, filters, team]);
 
   const memberDetailClickHandlers: MemberDetailClickHandlers = useMemo(() => {
