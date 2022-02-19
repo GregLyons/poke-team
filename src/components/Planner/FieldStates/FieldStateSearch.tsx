@@ -3,7 +3,7 @@ import {
 } from 'react-router-dom';
 
 import {
-  ListRenderArgs, 
+  ListRenderArgs, listToggleValue, rangeSelect, 
 } from '../helpers';
 import {
   FieldStateSearchQuery,
@@ -20,6 +20,9 @@ import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { ENUMCASE_TO_TITLECASE } from '../../../utils/constants';
 import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
+import { Dispatch, SetStateAction } from 'react';
+import SearchBar from '../../Reusables/SearchBar/SearchBar';
+import { FieldStateClass, FieldStateDamagePercent, FieldStateTargetClass } from '../../../types-queries/helpers';
 
 const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
   if (!data || !data.fieldStates) return (<div>Data not found for the query 'fieldStates'.</div>);
@@ -67,6 +70,37 @@ const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
   );
 }
 
+
+function listFilter (
+  queryVars: FieldStateSearchVars,
+  setQueryVars: React.Dispatch<React.SetStateAction<FieldStateSearchVars>>,
+  searchTerm: string,
+  handleSearchTermChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+  searchMode: 'STARTS' | 'CONTAINS',
+  handleSearchModeChange: (e: React.MouseEvent<HTMLElement, MouseEvent>, mode: 'STARTS' | 'CONTAINS') => void
+) {
+  const handleClassSelect =  listToggleValue<FieldStateSearchVars, FieldStateClass>(queryVars, setQueryVars, 'fieldStateClass');
+
+  const handleDamagePercentRange = rangeSelect<FieldStateSearchVars>(queryVars, setQueryVars, 0, 100, 'minDamagePercent', 'maxDamagePercent');
+
+
+  const handleTargetClassSelect = listToggleValue<FieldStateSearchVars, FieldStateTargetClass>(queryVars, setQueryVars, 'target');
+
+  return (
+    <form>
+      <SearchBar
+        title={`Search field states by name`}
+        placeholder={`Search field states`}
+        searchTerm={searchTerm}
+        handleSearchTermChange={handleSearchTermChange}
+        searchMode={searchMode}
+        handleSearchModeChange={handleSearchModeChange}
+        backgroundLight="blue"
+      />
+    </form>
+  );
+}
+
 type FieldStateSearchMainProps = {
   genFilter: GenFilter
 }
@@ -80,6 +114,13 @@ const FieldStateSearch = ({
       contains: '',
       startsWith: '',
       limit: 100,
+
+      fieldStateClass: [],
+      maxDamagePercent: 100,
+      minDamagePercent: 0,
+      maxLayers: 3,
+      grounded: null,
+      target: [],
     },
     genFilter,
   );

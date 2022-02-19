@@ -18,10 +18,36 @@ export type FieldStateClass =
 | 'TERRAIN'
 | 'WEATHER';
 
+export const FIELDSTATE_CLASS_MAP = new Map<FieldStateClass, string>([
+  ['ENTRY_HAZARD', 'Entry hazard'],
+  ['OTHER', 'Other'],
+  ['PLEDGE', 'Pledge'],
+  ['ROOM', 'Room'],
+  ['SCREEN', 'Screen'],
+  ['TERRAIN', 'Terrain'],
+  ['WEATHER', 'Weather'],
+]);
+
+export type FieldStateDamagePercent = 0 | 16.67 | 12.5 | 6.25;
+
+export const FIELDSTATE_DAMAGEPERCENT_MAP = new Map<FieldStateDamagePercent, string>([
+  [0, '0'],
+  [16.67, '1/6'],
+  [12.5, '1/8'],
+  [6.25, '1/16'],
+]);
+
 export type FieldStateTargetClass =
 | 'ALL'
 | 'ALL_ALLIES'
 | 'ALL_FOES';
+
+export const FIELDSTATE_TARGETCLASS_MAP = new Map<FieldStateTargetClass, string>([
+  ['ALL', 'All'],
+  ['ALL_ALLIES', 'All allies'],
+  ['ALL_FOES', 'All foes'],
+]);
+
 
 // #endregion
 

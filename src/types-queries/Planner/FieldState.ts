@@ -19,6 +19,7 @@ import {
   typeIconEdgeToTypeIconDatum,
   FieldStateClass,
   FieldStateTargetClass,
+  FieldStateDamagePercent,
 } from '../helpers';
 import {
   EntitySearchQueryName,
@@ -79,22 +80,23 @@ export interface FieldStateSearchVars extends EntitySearchVars {
   contains: string
   startsWith: string
 
-  fieldStateClass: FieldStateClass
-  damagePercent: number
+  fieldStateClass: FieldStateClass[]
+  maxDamagePercent: number
+  minDamagePercent: number
   maxLayers: number
-  grounded: boolean
-  target: FieldStateTargetClass
+  grounded: boolean | null
+  target: FieldStateTargetClass[]
 }
 
 export const FIELDSTATE_SEARCH_QUERY = gql`
   query FieldStateSearchQuery(
     $gen: Int! $limit: Int!
     $contains: String $startsWith: String
-    $class: FieldStateClass
-    $damagePercent: Float
+    $class: [FieldStateClass!]
+    $damagePercent: Float!
     $maxLayers: Int
     $grounded: Boolean
-    $target: FieldStateTargetClass
+    $target: [FieldStateTargetClass!]
   ) {
     fieldStates(
       generation: $gen,

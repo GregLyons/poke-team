@@ -1,10 +1,10 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { GenFilter, removedFromBDSP, removedFromSwSh } from "../App/GenFilter";
 
 
 export function useGenConnectedSearchVars<SearchVars>(defaultSearchVars: SearchVars, genFilter: GenFilter): [
   SearchVars,
-  React.Dispatch<SetStateAction<SearchVars>>,
+  React.Dispatch<React.SetStateAction<SearchVars>>,
   string,
   (e: React.ChangeEvent<HTMLInputElement>) => void,
   'STARTS' | 'CONTAINS',
@@ -67,7 +67,7 @@ export function useGenConnectedSearchVars<SearchVars>(defaultSearchVars: SearchV
 
 export function useRemovalConnectedSearchVars<SearchVars>(defaultSearchVars: SearchVars, genFilter: GenFilter): [
   SearchVars,
-  React.Dispatch<SetStateAction<SearchVars>>,
+  React.Dispatch<React.SetStateAction<SearchVars>>,
   string,
   (e: React.ChangeEvent<HTMLInputElement>) => void,
   'STARTS' | 'CONTAINS',
