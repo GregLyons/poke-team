@@ -69,7 +69,7 @@ export interface StatusSearchVars extends EntitySearchVars {
   contains: string
   startsWith: string
 
-  volatile: boolean
+  volatile: boolean | null
 }
 
 export const STATUS_SEARCH_QUERY = gql`

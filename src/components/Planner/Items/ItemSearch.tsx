@@ -18,9 +18,11 @@ import {
   ENUMCASE_TO_TITLECASE,
 } from '../../../utils/constants';
 import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
-import { ListRenderArgsIcons } from '../helpers';
+import { ListFilterArgs, ListRenderArgsIcons, listToggleValue } from '../helpers';
 import { Dispatches, Filters } from '../../App';
 import EntitySearchMainIcons from '../Searches/EntitySearchMainIcons';
+import SearchBar from '../../Reusables/SearchBar/SearchBar';
+import { ItemClass, ITEM_CLASS_MAP } from '../../../types-queries/helpers';
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<ItemSearchQuery>) => {
   if (!data || !data.items) return (<div>Data not found for the query 'items'.</div>);
@@ -61,6 +63,31 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<ItemSear
   );
 }
 
+const listFilter = ({
+  queryVars,
+  setQueryVars,
+  searchTerm,
+  handleSearchTermChange,
+  searchMode,
+  handleSearchModeChange,
+}: ListFilterArgs<ItemSearchVars>) => {
+  const handleClassSelect = listToggleValue<ItemSearchVars, ItemClass>(queryVars, setQueryVars, 'itemClass'); 
+
+  return (
+    <form>
+      <SearchBar
+        title={`Search items by name`}
+        placeholder={`Search items`}
+        searchTerm={searchTerm}
+        handleSearchTermChange={handleSearchTermChange}
+        searchMode={searchMode}
+        handleSearchModeChange={handleSearchModeChange}
+        backgroundLight="blue"
+      />
+    </form>
+  );
+}
+
 type ItemSearchProps = {
   dispatches: Dispatches
   filters: Filters
@@ -78,6 +105,7 @@ const ItemSearch = ({
       limit: 10,
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
+      itemClass: Array.from(ITEM_CLASS_MAP.keys()),
     },
     filters.genFilter,
   );

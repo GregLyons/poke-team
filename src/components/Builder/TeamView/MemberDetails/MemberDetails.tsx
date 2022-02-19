@@ -60,11 +60,7 @@ const MemberDetails = ({
               min={0}
               max={100}
               value={50}
-
-              onChange={e => e.preventDefault()}
-              onBlur={e => e.preventDefault()}
-              onIncrement={e => e.preventDefault()}
-              onDecrement={e => e.preventDefault()}
+              updateValue={() => {}}
 
               sliderWidth="50%"
               numericalWidth={3}
@@ -97,12 +93,8 @@ const MemberDetails = ({
                   min={0}
                   max={255}
                   value={125}
-
-                  onChange={e => e.preventDefault()}
-                  onBlur={e => e.preventDefault()}
-                  onIncrement={e => e.preventDefault()}
-                  onDecrement={e => e.preventDefault()}
-
+                  updateValue={() => {}}
+                  
                   sliderWidth="50%"
                   numericalWidth={3}
                 />

@@ -69,6 +69,22 @@ export type ItemClass =
 | 'TYPE_ENHANCER'
 | 'Z_CRYSTAL';
 
+export const ITEM_CLASS_MAP = new Map<ItemClass, string>([
+  ['BERRY', 'Berry'],
+  ['CHOICE', 'Choice'],
+  ['DRIVE', 'Drive'],
+  ['GEM', 'Gem'],
+  ['INCENSE', 'Incense'],
+  ['MEGA_STONE', 'Mega stone'],
+  ['MEMORY', 'Memory'],
+  ['OTHER', 'Other'],
+  ['PLATE', 'Plate'],
+  ['POWER', 'Power'],
+  ['STAT_ENHANCER', 'Stat enhancer'],
+  ['TYPE_ENHANCER', 'Type enhancer'],
+  ['Z_CRYSTAL', 'Z-crystal'],
+]);
+
 // #endregion
 
 // Moves
@@ -79,6 +95,13 @@ export type MoveCategory =
 | 'SPECIAL'
 | 'STATUS'
 | 'VARIES';
+
+export const MOVE_CATEGORY_MAP = new Map<MoveCategory, string>([
+  ['PHYSICAL', 'Physical'],
+  ['SPECIAL', 'Special'],
+  ['STATUS', 'Status'],
+  ['VARIES', 'Varies'],
+]);
 
 export type MoveTargetClass =
 | 'ADJACENT_ALLY'
@@ -93,6 +116,21 @@ export type MoveTargetClass =
 | 'USER'
 | 'USER_AND_ALL_ALLIES'
 | 'USER_OR_ADJACENT_ALLY';
+
+export const MOVE_TARGETCLASS_MAP = new Map<MoveTargetClass, string>([
+  ['ADJACENT_ALLY', 'Adjacent ally'],
+  ['ADJACENT_FOE', 'Adjacent foe'],
+  ['ALL', 'All'],
+  ['ALL_ADJACENT', 'All adjacent'],
+  ['ALL_ADJACENT_FOES', 'All adjacent foes'],
+  ['ALL_ALLIES', 'All allies'],
+  ['ALL_FOES', 'All foes'],
+  ['ANY', 'Any'],
+  ['ANY_ADJACENT', 'Any adjacent'],
+  ['USER', 'User'],
+  ['USER_AND_ALL_ALLIES', 'User and all allies'],
+  ['USER_OR_ADJACENT_ALLY', 'User or adjacent ally'],
+]);
 
 // #endregion
 

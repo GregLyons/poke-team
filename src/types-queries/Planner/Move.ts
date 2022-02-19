@@ -97,10 +97,11 @@ export interface MoveSearchVars extends EntitySearchVars, RemovedFromGameQueryVa
   maxPriority: number
   minPriority: number
 
-  bypassAccuracy: boolean
-  category: MoveCategory
-  target: MoveTargetClass
+  bypassAccuracy: boolean | null
+  category: MoveCategory[]
+  target: MoveTargetClass[]
   types: EnumTypeName[]
+  variablePower: boolean | null
 }
 
 export const MOVE_SEARCH_QUERY = gql`
@@ -112,9 +113,10 @@ export const MOVE_SEARCH_QUERY = gql`
     $maxPP: Int $minPP: Int
     $maxPriority: Int $minPriority: Int
     $bypassAccuracy: Boolean
-    $category: MoveCategory
-    $target: TargetClass
+    $category: [MoveCategory!]
+    $target: [TargetClass!]
     $types: [TypeName!]
+    $variablePower: Boolean
   ) {
     moves(
       generation: $gen 
@@ -129,6 +131,7 @@ export const MOVE_SEARCH_QUERY = gql`
         category: $category
         target: $target
         types: $types
+        variablePower: $variablePower
       } 
       pagination: { limit: $limit }
     ) {

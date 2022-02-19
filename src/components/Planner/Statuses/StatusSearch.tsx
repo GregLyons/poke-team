@@ -68,6 +68,7 @@ const StatusSearch = ({
       contains: '',
       startsWith: '',
       limit: 100,
+      volatile: null,
     },
     genFilter,
   );

@@ -77,14 +77,14 @@ export interface ItemSearchVars extends EntitySearchVars, RemovedFromGameQueryVa
   removedFromSwSh: false | null
   removedFromBDSP: false | null
 
-  itemClass: ItemClass
+  itemClass: ItemClass[]
 }
 
 export const ITEM_SEARCH_QUERY = gql`
   query ItemSearchQuery(
     $gen: Int! $limit: Int! $contains: String $startsWith: String
     $removedFromBDSP: Boolean $removedFromSwSh: Boolean
-    $itemClass: ItemClass
+    $itemClass: [ItemClass!]
   ) {
     items(
       generation: $gen 

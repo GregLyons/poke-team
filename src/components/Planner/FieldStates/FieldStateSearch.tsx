@@ -3,7 +3,8 @@ import {
 } from 'react-router-dom';
 
 import {
-  ListRenderArgs, listToggleValue, rangeSelect, 
+  ListFilterArgs,
+  ListRenderArgs, listToggleValue, rangeSelect, sliderSelect, 
 } from '../helpers';
 import {
   FieldStateSearchQuery,
@@ -22,7 +23,7 @@ import { ENUMCASE_TO_TITLECASE } from '../../../utils/constants';
 import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 import { Dispatch, SetStateAction } from 'react';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
-import { FieldStateClass, FieldStateDamagePercent, FieldStateTargetClass } from '../../../types-queries/helpers';
+import { FieldStateClass, FieldStateDamagePercent, FieldStateTargetClass, FIELDSTATE_CLASS_MAP, FIELDSTATE_TARGETCLASS_MAP } from '../../../types-queries/helpers';
 
 const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
   if (!data || !data.fieldStates) return (<div>Data not found for the query 'fieldStates'.</div>);
@@ -70,19 +71,21 @@ const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
   );
 }
 
-
-function listFilter (
-  queryVars: FieldStateSearchVars,
-  setQueryVars: React.Dispatch<React.SetStateAction<FieldStateSearchVars>>,
-  searchTerm: string,
-  handleSearchTermChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-  searchMode: 'STARTS' | 'CONTAINS',
-  handleSearchModeChange: (e: React.MouseEvent<HTMLElement, MouseEvent>, mode: 'STARTS' | 'CONTAINS') => void
-) {
-  const handleClassSelect =  listToggleValue<FieldStateSearchVars, FieldStateClass>(queryVars, setQueryVars, 'fieldStateClass');
+const listFilter = ({
+  queryVars,
+  setQueryVars,
+  searchTerm,
+  handleSearchTermChange,
+  searchMode,
+  handleSearchModeChange,
+}: ListFilterArgs<FieldStateSearchVars>) => {
+  const handleClassSelect = listToggleValue<FieldStateSearchVars, FieldStateClass>(queryVars, setQueryVars, 'fieldStateClass');
 
   const handleDamagePercentRange = rangeSelect<FieldStateSearchVars>(queryVars, setQueryVars, 0, 100, 'minDamagePercent', 'maxDamagePercent');
 
+  const handleMaxLayers = sliderSelect<FieldStateSearchVars>(queryVars, setQueryVars, 1, 3, 'maxLayers');
+
+  // TODO: grounded filter
 
   const handleTargetClassSelect = listToggleValue<FieldStateSearchVars, FieldStateTargetClass>(queryVars, setQueryVars, 'target');
 
@@ -115,12 +118,12 @@ const FieldStateSearch = ({
       startsWith: '',
       limit: 100,
 
-      fieldStateClass: [],
+      fieldStateClass: Array.from(FIELDSTATE_CLASS_MAP.keys()),
       maxDamagePercent: 100,
       minDamagePercent: 0,
       maxLayers: 3,
       grounded: null,
-      target: [],
+      target: Array.from(FIELDSTATE_TARGETCLASS_MAP.keys()),
     },
     genFilter,
   );

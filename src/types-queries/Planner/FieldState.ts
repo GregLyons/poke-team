@@ -93,7 +93,8 @@ export const FIELDSTATE_SEARCH_QUERY = gql`
     $gen: Int! $limit: Int!
     $contains: String $startsWith: String
     $class: [FieldStateClass!]
-    $damagePercent: Float!
+    $maxDamagePercent: Float
+    $minDamagePercent: Float
     $maxLayers: Int
     $grounded: Boolean
     $target: [FieldStateTargetClass!]
@@ -103,7 +104,8 @@ export const FIELDSTATE_SEARCH_QUERY = gql`
       filter: {
         contains: $contains, startsWith: $startsWith,
         class: $class,
-        damagePercent: $damagePercent,
+        maxDamagePercent: $maxDamagePercent
+        minDamagePercent: $minDamagePercent
         maxLayers: $maxLayers,
         grounded: $grounded
         target: $target

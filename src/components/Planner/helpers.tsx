@@ -5,15 +5,15 @@ import { Dispatches, Filters } from "../App";
 // Rendering lists
 // #region
 
+export type ListRenderArgs<SearchQuery> = {
+  data: SearchQuery
+  genFilter: GenFilter
+}
+
 export type ListRenderArgsIcons<SearchQuery> = {
   data: SearchQuery
   dispatches: Dispatches
   filters: Filters
-}
-
-export type ListRenderArgs<SearchQuery> = {
-  data: SearchQuery
-  genFilter: GenFilter
 }
 
 export class MissingDispatchError extends Error {
@@ -91,6 +91,20 @@ export type LinkIconDatum = {
   iconDatum: IconDatum
 };
 
+
+// Filtering
+// #region
+
+export type ListFilterArgs<SearchVars> = {
+  queryVars: SearchVars
+  setQueryVars: React.Dispatch<React.SetStateAction<SearchVars>>
+  
+  searchTerm: string
+  handleSearchTermChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  searchMode: 'STARTS' | 'CONTAINS'
+  handleSearchModeChange: (e: React.MouseEvent<HTMLElement, MouseEvent>, mode: 'STARTS' | 'CONTAINS') => void
+}
+
 export function listToggleValue<SearchVars extends { [Property in keyof SearchVars]: any }, ValueType> (
   queryVars: SearchVars,
   setQueryVars: React.Dispatch<React.SetStateAction<SearchVars>>,
@@ -125,7 +139,17 @@ export function sliderSelect<SearchVars extends { [Property in keyof SearchVars]
   max: number,
   key: keyof SearchVars,
 ) {
+  // Type-check
+  if (!(queryVars[key] as number)) {
+    console.log('Incorrect min key passed:', key);
+    return;
+  }
+  const updateValue = (value: number) => setQueryVars({
+    ...queryVars,
+    [key]: value,
+  });
 
+  return { updateValue };
 }
 
 export function rangeSelect<SearchVars extends { [Property in keyof SearchVars]: any }> (
@@ -158,3 +182,5 @@ export function rangeSelect<SearchVars extends { [Property in keyof SearchVars]:
 
   return { updateMinValue, updateMaxValue, };
 }
+
+// #endregion
