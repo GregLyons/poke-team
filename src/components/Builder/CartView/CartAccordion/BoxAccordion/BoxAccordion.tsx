@@ -40,7 +40,7 @@ const BoxAccordion = ({
           cart={cart}
           box={box}
           pinned={
-            Object.keys(team[filters.genFilter.gen].savedPokemon.pinnedBoxes || {}).includes(box.note)
+            Object.keys(team[filters.genFilter.gen].savedPokemon.pinnedBoxes).includes(note)
           }
           
           clickHandlers={clickHandlers}

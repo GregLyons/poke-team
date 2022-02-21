@@ -3,6 +3,7 @@ import {
 } from 'react-router-dom';
 
 import {
+  ListFilterArgs,
   ListRenderArgsIcons,
 } from '../helpers';
 import {
@@ -20,6 +21,7 @@ import EntitySearchMainIcons from '../Searches/EntitySearchMainIcons';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 import { Dispatches, Filters } from '../../App';
+import SearchBar from '../../Reusables/SearchBar/SearchBar';
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<AbilitySearchQuery>) => {
   if (!data || !data.abilities) return (<div>Data not found for the query 'abilities'.</div>);
@@ -48,6 +50,29 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<AbilityS
         );
       })}
     </>
+  );
+}
+
+const listFilter = ({
+  queryVars,
+  setQueryVars,
+  searchTerm,
+  handleSearchTermChange,
+  searchMode,
+  handleSearchModeChange,
+}: ListFilterArgs<AbilitySearchVars>) => {
+  return (
+    <form>
+      <SearchBar
+        title={`Search abilities by name`}
+        placeholder={`Search abilities`}
+        searchTerm={searchTerm}
+        handleSearchTermChange={handleSearchTermChange}
+        searchMode={searchMode}
+        handleSearchModeChange={handleSearchModeChange}
+        backgroundLight="blue"
+      />
+    </form>
   );
 }
 

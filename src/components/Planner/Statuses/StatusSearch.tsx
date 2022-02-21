@@ -3,6 +3,7 @@ import {
 } from 'react-router-dom';
 
 import {
+  ListFilterArgs,
   ListRenderArgs, 
 } from '../helpers';
 import {
@@ -19,6 +20,7 @@ import { GenFilter } from "../../../hooks/App/GenFilter";
 import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
+import SearchBar from '../../Reusables/SearchBar/SearchBar';
 
 const listRender = ({ data, }: ListRenderArgs<StatusSearchQuery>) => {
   if (!data || !data.statuses) return (<div>Data not found for the query 'statuses'.</div>);
@@ -52,6 +54,31 @@ const listRender = ({ data, }: ListRenderArgs<StatusSearchQuery>) => {
         );
       })}
     </>
+  );
+}
+
+const listFilter = ({
+  queryVars,
+  setQueryVars,
+  searchTerm,
+  handleSearchTermChange,
+  searchMode,
+  handleSearchModeChange,
+}: ListFilterArgs<StatusSearchVars>) => {
+  // TODO: volatility
+
+  return (
+    <form>
+      <SearchBar
+        title={`Search statuses by name`}
+        placeholder={`Search statuses`}
+        searchTerm={searchTerm}
+        handleSearchTermChange={handleSearchTermChange}
+        searchMode={searchMode}
+        handleSearchModeChange={handleSearchModeChange}
+        backgroundLight="blue"
+      />
+    </form>
   );
 }
 

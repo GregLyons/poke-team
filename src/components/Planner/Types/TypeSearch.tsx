@@ -16,9 +16,10 @@ import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
-import { ListRenderArgsIcons } from '../helpers';
+import { ListFilterArgs, ListRenderArgsIcons } from '../helpers';
 import { Dispatches, Filters } from '../../App';
 import EntitySearchMainIcons from '../Searches/EntitySearchMainIcons';
+import SearchBar from '../../Reusables/SearchBar/SearchBar';
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeSearchQuery>) => {
   if (!data || !data.types) return (<div>Data not found for the query 'types'.</div>);
@@ -51,6 +52,29 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeSear
         );
       })}
     </>
+  );
+}
+
+const listFilter = ({
+  queryVars,
+  setQueryVars,
+  searchTerm,
+  handleSearchTermChange,
+  searchMode,
+  handleSearchModeChange,
+}: ListFilterArgs<TypeSearchVars>) => {
+  return (
+    <form>
+      <SearchBar
+        title={`Search types by name`}
+        placeholder={`Search types`}
+        searchTerm={searchTerm}
+        handleSearchTermChange={handleSearchTermChange}
+        searchMode={searchMode}
+        handleSearchModeChange={handleSearchModeChange}
+        backgroundLight="blue"
+      />
+    </form>
   );
 }
 

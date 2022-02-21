@@ -22,7 +22,7 @@ import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearch
 import { ListFilterArgs, ListRenderArgsIcons, listToggleValue, rangeSelect } from '../helpers';
 import { Dispatches, Filters } from '../../App';
 import EntitySearchMainIcons from '../Searches/EntitySearchMainIcons';
-import { MoveCategory, MOVE_CATEGORY_MAP, MOVE_TARGETCLASS_MAP, toEnumTypeName } from '../../../types-queries/helpers';
+import { EnumTypeName, MoveCategory, MoveTargetClass, MOVE_CATEGORY_MAP, MOVE_TARGETCLASS_MAP, toEnumTypeName } from '../../../types-queries/helpers';
 import { TYPE_NAMES } from '../../../hooks/App/PokemonFilter';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
 
@@ -91,7 +91,23 @@ const listFilter = ({
   searchMode,
   handleSearchModeChange,
 }: ListFilterArgs<MoveSearchVars>) => {
-  // TODO: volatility
+  const handleAccuracyRange = rangeSelect<MoveSearchVars>(queryVars, setQueryVars, 'minAccuracy', 'maxAccuracy');
+
+  const handlePowerRange = rangeSelect<MoveSearchVars>(queryVars, setQueryVars, 'minPower', 'maxPower');
+
+  const handlePPRange = rangeSelect<MoveSearchVars>(queryVars, setQueryVars, 'minPP', 'maxPP');
+
+  const handlePriorityRange = rangeSelect<MoveSearchVars>(queryVars, setQueryVars, 'minPriority', 'maxPriority');
+
+  // TODO: bypass accuracy
+
+  const handleCategorySelect = listToggleValue<MoveSearchVars, MoveCategory>(queryVars, setQueryVars, 'category');
+
+  const handleTypeSelect = listToggleValue<MoveSearchVars, EnumTypeName>(queryVars, setQueryVars, 'types');
+
+  const handleTargetClassSelect = listToggleValue<MoveSearchVars, MoveTargetClass>(queryVars, setQueryVars, 'target');
+
+  // TODO: variable power
 
   return (
     <form>

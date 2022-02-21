@@ -31,6 +31,7 @@ const ReferencePanel = ({
         </div>
         <SavedPokemonView
           clickHandlers={clickHandlers.savedPokemonClickHandlers}
+          dispatches={dispatches}
           filters={filters}
           team={team}
         />

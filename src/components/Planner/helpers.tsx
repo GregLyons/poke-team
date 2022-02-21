@@ -91,6 +91,7 @@ export type LinkIconDatum = {
   iconDatum: IconDatum
 };
 
+// #endregion
 
 // Filtering
 // #region
@@ -135,8 +136,6 @@ export function listToggleValue<SearchVars extends { [Property in keyof SearchVa
 export function sliderSelect<SearchVars extends { [Property in keyof SearchVars]: any }> (
   queryVars: SearchVars,
   setQueryVars: React.Dispatch<React.SetStateAction<SearchVars>>,
-  min: number,
-  max: number,
   key: keyof SearchVars,
 ) {
   // Type-check
@@ -155,8 +154,6 @@ export function sliderSelect<SearchVars extends { [Property in keyof SearchVars]
 export function rangeSelect<SearchVars extends { [Property in keyof SearchVars]: any }> (
   queryVars: SearchVars,
   setQueryVars: React.Dispatch<React.SetStateAction<SearchVars>>,
-  min: number,
-  max: number,
   minKey: keyof SearchVars,
   maxKey: keyof SearchVars,
 ) {

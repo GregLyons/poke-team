@@ -81,9 +81,9 @@ const listFilter = ({
 }: ListFilterArgs<FieldStateSearchVars>) => {
   const handleClassSelect = listToggleValue<FieldStateSearchVars, FieldStateClass>(queryVars, setQueryVars, 'fieldStateClass');
 
-  const handleDamagePercentRange = rangeSelect<FieldStateSearchVars>(queryVars, setQueryVars, 0, 100, 'minDamagePercent', 'maxDamagePercent');
+  const handleDamagePercentRange = rangeSelect<FieldStateSearchVars>(queryVars, setQueryVars, 'minDamagePercent', 'maxDamagePercent');
 
-  const handleMaxLayers = sliderSelect<FieldStateSearchVars>(queryVars, setQueryVars, 1, 3, 'maxLayers');
+  const handleMaxLayers = sliderSelect<FieldStateSearchVars>(queryVars, setQueryVars, 'maxLayers');
 
   // TODO: grounded filter
 

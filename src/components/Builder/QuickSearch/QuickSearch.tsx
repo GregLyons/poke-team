@@ -78,7 +78,7 @@ const QuickSearch = ({
         gen: filters.genFilter.gen,
         pokemon: pokemonIconDatum
       }
-    })
+    });
   }
 
   if (error) { return (<div>{error.message}</div>); }

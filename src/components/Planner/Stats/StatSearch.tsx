@@ -3,6 +3,7 @@ import {
 } from 'react-router-dom';
 
 import {
+  ListFilterArgs,
   ListRenderArgs, 
 } from '../helpers';
 import {
@@ -19,6 +20,7 @@ import { GenFilter } from "../../../hooks/App/GenFilter";
 import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
+import SearchBar from '../../Reusables/SearchBar/SearchBar';
 
 const listRender = ({ data, }: ListRenderArgs<StatSearchQuery>) => {
   if (!data || !data.stats) return (<div>Data not found for the query 'stats'.</div>);
@@ -47,6 +49,29 @@ const listRender = ({ data, }: ListRenderArgs<StatSearchQuery>) => {
         );
       })}
     </>
+  );
+}
+
+const listFilter = ({
+  queryVars,
+  setQueryVars,
+  searchTerm,
+  handleSearchTermChange,
+  searchMode,
+  handleSearchModeChange,
+}: ListFilterArgs<StatSearchVars>) => {
+  return (
+    <form>
+      <SearchBar
+        title={`Search stats by name`}
+        placeholder={`Search stats`}
+        searchTerm={searchTerm}
+        handleSearchTermChange={handleSearchTermChange}
+        searchMode={searchMode}
+        handleSearchModeChange={handleSearchModeChange}
+        backgroundLight="blue"
+      />
+    </form>
   );
 }
 
