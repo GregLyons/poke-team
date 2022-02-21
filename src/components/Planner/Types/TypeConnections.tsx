@@ -11,9 +11,6 @@ import {
   TypeMoveResult,
   TypeMoveQuery,
 } from "../../../types-queries/Planner/Type";
-import {
-  ListRenderArgs, ListRenderArgsIcons,
-} from "../helpers";
 
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 

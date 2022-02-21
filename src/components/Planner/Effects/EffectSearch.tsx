@@ -3,10 +3,6 @@ import {
 } from 'react-router-dom';
 
 import {
-  ListFilterArgs,
-  ListRenderArgs, 
-} from '../helpers';
-import {
   EffectSearchQuery,
   EffectSearchResult,
   EffectSearchVars,
@@ -19,8 +15,10 @@ import { GenFilter } from "../../../hooks/App/GenFilter";
 
 import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
-import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
+import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Planner/MainSearches';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
+import { ItemSearchQuery, ItemSearchVars } from '../../../types-queries/Planner/Item';
+import MainSearch from '../Searches/MainSearch';
 
 const listRender = ({ data, }: ListRenderArgs<EffectSearchQuery>) => {
   if (!data || !data.effects) return (<div>Data not found for the query 'effects'.</div>);
@@ -76,7 +74,7 @@ type EffectSearchMainProps = {
 const EffectSearch = ({
   genFilter,
 }: EffectSearchMainProps) => {
-  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useGenConnectedSearchVars<EffectSearchVars>(
+  const [queryVars, filterForm] = useListFilter<EffectSearchVars>(
     {
       gen: genFilter.gen,
       contains: '',
@@ -84,20 +82,20 @@ const EffectSearch = ({
       limit: 100,
     },
     genFilter,
+    listFilter,
+  );
+
+  const results = useListRender<EffectSearchQuery, EffectSearchVars>(
+    EFFECT_SEARCH_QUERY,
+    queryVars,
+    listRender,
   );
 
   return (
     <>
-      <EntitySearchMain
-        entityPluralString='effects'
-        genFilter={genFilter}
-        searchTerm={searchTerm}
-        handleSearchTermChange={handleSearchTermChange}
-        searchMode={searchMode}
-        handleSearchModeChange={handleSearchModeChange}
-        listRender={listRender}
-        query={EFFECT_SEARCH_QUERY}
-        queryVars={queryVars}
+      <MainSearch
+        filterForm={filterForm}
+        results={results}
       />
       <Outlet />
     </>

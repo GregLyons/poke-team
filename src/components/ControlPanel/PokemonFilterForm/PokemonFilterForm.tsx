@@ -137,22 +137,24 @@ const PokemonFilterForm = ({
             <DropdownMenu
               title={'TYPE FILTER'}
               items={TYPE_NAMES.map((typeName: TypeName) => {
+                const selected = pokemonFilter.types[typeName];
+
                 return {
                   id: typeName,
                   label: (
                     <Button
-                      title={pokemonFilter.types[typeName]
+                      title={selected
                         ? `Exclude ${toFormattedTypeName(typeName)}-type Pokemon.`
                         : `Include ${toFormattedTypeName(typeName)}-type Pokemon.`
                       }
                       label={toEnumTypeName(typeName)}
-                      active={pokemonFilter.types[typeName]}
+                      active={selected}
                       onClick={e => e.preventDefault()}
                       disabled={false}
                       immediate={false}
                     />
                   ),
-                  selected: pokemonFilter.types[typeName]
+                  selected,
                 }
               })}
               toggleSelect={handleTypeSelect}

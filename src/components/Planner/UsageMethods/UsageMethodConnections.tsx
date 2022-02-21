@@ -10,7 +10,6 @@ import {
 } from "../../../types-queries/Planner/UsageMethod";
 
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
-import { ListRenderArgsIcons } from "../helpers";
 
 export const listRenderUsageMethodAbility = ({ data, dispatches, filters, }: ListRenderArgsIcons<UsageMethodAbilityQuery>) => {
   if (!data || !data.usageMethodByName) return (<div>Data not found for the query 'usageMethodByName'.</div>);

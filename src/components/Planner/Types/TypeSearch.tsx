@@ -15,11 +15,11 @@ import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 
 import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
-import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
-import { ListFilterArgs, ListRenderArgsIcons } from '../helpers';
 import { Dispatches, Filters } from '../../App';
 import EntitySearchMainIcons from '../Searches/EntitySearchMainIcons';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
+import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_removal_icons } from '../../../hooks/Planner/MainSearches';
+import MainSearch from '../Searches/MainSearch';
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeSearchQuery>) => {
   if (!data || !data.types) return (<div>Data not found for the query 'types'.</div>);
@@ -87,7 +87,7 @@ const TypeSearch = ({
   dispatches,
   filters,
 }: TypeSearchMainProps) => {
-  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useRemovalConnectedSearchVars<TypeSearchVars>(
+  const [queryVars, filterForm] = useListFilter_removal<TypeSearchVars>(
     {
       gen: filters.genFilter.gen,
       contains: '',
@@ -96,22 +96,24 @@ const TypeSearch = ({
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
     },
-    filters.genFilter);
+    filters.genFilter,
+    listFilter,
+  );
+
+    const results = useListRender_removal_icons<TypeSearchQuery, TypeSearchVars>(
+      dispatches,
+      filters,
+      TYPE_SEARCH_QUERY,
+      queryVars,
+      listRender,
+    );
 
 
   return (
     <>
-      <EntitySearchMainIcons
-        entityPluralString='types'
-        dispatches={dispatches}
-        filters={filters}
-        searchTerm={searchTerm}
-        handleSearchTermChange={handleSearchTermChange}
-        searchMode={searchMode}
-        handleSearchModeChange={handleSearchModeChange}
-        listRender={listRender}
-        query={TYPE_SEARCH_QUERY}
-        queryVars={queryVars}
+      <MainSearch
+        filterForm={filterForm}
+        results={results}
       />
       <Outlet />
     </>

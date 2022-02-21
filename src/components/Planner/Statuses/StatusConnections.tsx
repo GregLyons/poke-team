@@ -11,10 +11,6 @@ import {
   StatusMoveResult,
   StatusMoveQuery,
 } from "../../../types-queries/Planner/Status";
-import {
-  ListRenderArgs,
-  ListRenderArgsIcons,
-} from "../helpers";
 
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 

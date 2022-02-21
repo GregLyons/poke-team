@@ -2,10 +2,7 @@ import {
   Outlet,
 } from 'react-router-dom';
 
-import {
-  ListFilterArgs,
-  ListRenderArgs, 
-} from '../helpers';
+
 import {
   StatusSearchQuery,
   StatusSearchResult,
@@ -19,8 +16,10 @@ import { GenFilter } from "../../../hooks/App/GenFilter";
 
 import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
-import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
+
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
+import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Planner/MainSearches';
+import MainSearch from '../Searches/MainSearch';
 
 const listRender = ({ data, }: ListRenderArgs<StatusSearchQuery>) => {
   if (!data || !data.statuses) return (<div>Data not found for the query 'statuses'.</div>);
@@ -89,7 +88,7 @@ type StatusSearchMainProps = {
 const StatusSearch = ({
   genFilter,
 }: StatusSearchMainProps) => {
-  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useGenConnectedSearchVars<StatusSearchVars>(
+  const [queryVars, filterForm] = useListFilter<StatusSearchVars>(
     {
       gen: genFilter.gen,
       contains: '',
@@ -98,20 +97,20 @@ const StatusSearch = ({
       volatile: null,
     },
     genFilter,
+    listFilter,
+  );
+
+  const results = useListRender<StatusSearchQuery, StatusSearchVars>(
+    STATUS_SEARCH_QUERY,
+    queryVars,
+    listRender,
   );
 
   return (
     <>
-       <EntitySearchMain
-        entityPluralString='statuses'
-        genFilter={genFilter}
-        searchTerm={searchTerm}
-        handleSearchTermChange={handleSearchTermChange}
-        searchMode={searchMode}
-        handleSearchModeChange={handleSearchModeChange}
-        listRender={listRender}
-        query={STATUS_SEARCH_QUERY}
-        queryVars={queryVars}
+      <MainSearch
+        filterForm={filterForm}
+        results={results}
       />
       <Outlet />
     </>

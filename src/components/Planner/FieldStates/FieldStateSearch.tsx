@@ -2,10 +2,7 @@ import {
   Outlet,
 } from 'react-router-dom';
 
-import {
-  ListFilterArgs,
-  ListRenderArgs, listToggleValue, rangeSelect, sliderSelect, 
-} from '../helpers';
+import { listToggleValue, rangeSelect, sliderSelect, } from '../helpers';
 import {
   FieldStateSearchQuery,
   FieldStateSearchResult,
@@ -20,10 +17,11 @@ import { GenFilter } from "../../../hooks/App/GenFilter";
 import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { ENUMCASE_TO_TITLECASE } from '../../../utils/constants';
-import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
 import { Dispatch, SetStateAction } from 'react';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
 import { FieldStateClass, FieldStateDamagePercent, FieldStateTargetClass, FIELDSTATE_CLASS_MAP, FIELDSTATE_TARGETCLASS_MAP } from '../../../types-queries/helpers';
+import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Planner/MainSearches';
+import MainSearch from '../Searches/MainSearch';
 
 const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
   if (!data || !data.fieldStates) return (<div>Data not found for the query 'fieldStates'.</div>);
@@ -111,7 +109,7 @@ type FieldStateSearchMainProps = {
 const FieldStateSearch = ({
   genFilter,
 }: FieldStateSearchMainProps) => {
-  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useGenConnectedSearchVars<FieldStateSearchVars>(
+  const [queryVars, filterForm] = useListFilter<FieldStateSearchVars>(
     {
       gen: genFilter.gen,
       contains: '',
@@ -126,20 +124,20 @@ const FieldStateSearch = ({
       target: Array.from(FIELDSTATE_TARGETCLASS_MAP.keys()),
     },
     genFilter,
+    listFilter,
   );
+
+  const results = useListRender<FieldStateSearchQuery, FieldStateSearchVars>(
+    FIELDSTATE_SEARCH_QUERY,
+    queryVars,
+    listRender,
+  )
 
   return (
     <>
-       <EntitySearchMain
-        entityPluralString='field states'
-        genFilter={genFilter}
-        searchTerm={searchTerm}
-        handleSearchTermChange={handleSearchTermChange}
-        searchMode={searchMode}
-        handleSearchModeChange={handleSearchModeChange}
-        listRender={listRender}
-        query={FIELDSTATE_SEARCH_QUERY}
-        queryVars={queryVars}
+      <MainSearch
+        filterForm={filterForm}
+        results={results}
       />
       <Outlet />
     </>

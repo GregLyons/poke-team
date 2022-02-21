@@ -5,16 +5,6 @@ import { Dispatches, Filters } from "../App";
 // Rendering lists
 // #region
 
-export type ListRenderArgs<SearchQuery> = {
-  data: SearchQuery
-  genFilter: GenFilter
-}
-
-export type ListRenderArgsIcons<SearchQuery> = {
-  data: SearchQuery
-  dispatches: Dispatches
-  filters: Filters
-}
 
 export class MissingDispatchError extends Error {
   constructor(msg: string) {
@@ -96,15 +86,6 @@ export type LinkIconDatum = {
 // Filtering
 // #region
 
-export type ListFilterArgs<SearchVars> = {
-  queryVars: SearchVars
-  setQueryVars: React.Dispatch<React.SetStateAction<SearchVars>>
-  
-  searchTerm: string
-  handleSearchTermChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  searchMode: 'STARTS' | 'CONTAINS'
-  handleSearchModeChange: (e: React.MouseEvent<HTMLElement, MouseEvent>, mode: 'STARTS' | 'CONTAINS') => void
-}
 
 export function listToggleValue<SearchVars extends { [Property in keyof SearchVars]: any }, ValueType> (
   queryVars: SearchVars,

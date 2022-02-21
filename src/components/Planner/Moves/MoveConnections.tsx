@@ -21,10 +21,6 @@ import {
 import { ENUMCASE_TO_TITLECASE } from "../../../utils/constants";
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 
-import {
-  ListRenderArgs, ListRenderArgsIcons,
-} from "../helpers";
-
 export const listRenderMoveEffect = ({ data, }: ListRenderArgs<MoveEffectQuery>) => {
   if (!data || !data.moveByName) return (<div>Data not found for the query 'moveByName'.</div>);
 

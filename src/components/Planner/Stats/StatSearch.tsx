@@ -2,10 +2,7 @@ import {
   Outlet,
 } from 'react-router-dom';
 
-import {
-  ListFilterArgs,
-  ListRenderArgs, 
-} from '../helpers';
+
 import {
   StatSearchQuery,
   StatSearchResult,
@@ -19,8 +16,10 @@ import { GenFilter } from "../../../hooks/App/GenFilter";
 
 import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
-import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
+
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
+import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Planner/MainSearches';
+import MainSearch from '../Searches/MainSearch';
 
 const listRender = ({ data, }: ListRenderArgs<StatSearchQuery>) => {
   if (!data || !data.stats) return (<div>Data not found for the query 'stats'.</div>);
@@ -82,7 +81,7 @@ type StatSearchMainProps = {
 const StatSearch = ({
   genFilter,
 }: StatSearchMainProps) => {
-  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useGenConnectedSearchVars<StatSearchVars>(
+  const [queryVars, filterForm] = useListFilter<StatSearchVars>(
     {
       gen: genFilter.gen,
       contains: '',
@@ -90,20 +89,20 @@ const StatSearch = ({
       limit: 100,
     },
     genFilter,
+    listFilter,
+  );
+
+  const results = useListRender<StatSearchQuery, StatSearchVars>(
+    STAT_SEARCH_QUERY,
+    queryVars,
+    listRender,
   );
 
   return (
     <>
-       <EntitySearchMain
-        entityPluralString='stats'
-        genFilter={genFilter}
-        searchTerm={searchTerm}
-        handleSearchTermChange={handleSearchTermChange}
-        searchMode={searchMode}
-        handleSearchModeChange={handleSearchModeChange}
-        listRender={listRender}
-        query={STAT_SEARCH_QUERY}
-        queryVars={queryVars}
+      <MainSearch
+        filterForm={filterForm}
+        results={results}
       />
       <Outlet />
     </>

@@ -17,9 +17,6 @@ import {
   ItemUsageMethodResult,
   ItemUsageMethodQuery,
 } from "../../../types-queries/Planner/Item";
-import {
-  ListRenderArgs, ListRenderArgsIcons,
-} from "../helpers";
 
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 import { DUMMY_POKEMON_ICON_DATUM } from "../../../types-queries/helpers";

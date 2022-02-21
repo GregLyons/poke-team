@@ -11,10 +11,6 @@ import {
   EffectMoveResult,
   EffectMoveQuery
 } from "../../../types-queries/Planner/Effect";
-import {
-  ListRenderArgs,
-  ListRenderArgsIcons,
-} from "../helpers";
 
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 

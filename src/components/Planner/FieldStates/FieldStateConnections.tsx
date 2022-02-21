@@ -26,7 +26,6 @@ import {
 
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 import { ENUMCASE_TO_TITLECASE } from "../../../utils/constants";
-import { ListRenderArgs, ListRenderArgsIcons } from "../helpers";
 
 export const listRenderFieldStateAbility = ({ data, dispatches, filters, }: ListRenderArgsIcons<FieldStateAbilityQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);

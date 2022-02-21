@@ -26,6 +26,7 @@ interface EntitySearchMainIconsProps<SearchQuery, SearchQueryVars> {
   handleSearchModeChange: (e: React.MouseEvent<HTMLElement, MouseEvent>, mode: 'STARTS' | 'CONTAINS') => void
   query: DocumentNode
   queryVars: SearchQueryVars
+  listFilter: JSX.Element
   listRender: ({ data, dispatches, filters, }: ListRenderArgsIcons<SearchQuery>) => JSX.Element
 }
 

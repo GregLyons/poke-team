@@ -2,10 +2,7 @@ import {
   Outlet,
 } from 'react-router-dom';
 
-import {
-  ListFilterArgs,
-  ListRenderArgs, 
-} from '../helpers';
+
 import {
   UsageMethodSearchQuery,
   UsageMethodSearchResult,
@@ -19,8 +16,10 @@ import { GenFilter } from "../../../hooks/App/GenFilter";
 
 import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
-import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
+
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
+import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Planner/MainSearches';
+import MainSearch from '../Searches/MainSearch';
 
 const listRender = ({ data, }: ListRenderArgs<UsageMethodSearchQuery>) => {
   if (!data || !data.usageMethods) return (<div>Data not found for the query 'usageMethods'.</div>);
@@ -82,7 +81,7 @@ type UsageMethodSearchMainProps = {
 const UsageMethodSearch = ({
   genFilter,
 }: UsageMethodSearchMainProps) => {
-  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useGenConnectedSearchVars<UsageMethodSearchVars>(
+  const [queryVars, filterForm] = useListFilter<UsageMethodSearchVars>(
     {
       gen: genFilter.gen,
       contains: '',
@@ -90,20 +89,20 @@ const UsageMethodSearch = ({
       limit: 100,
     },
     genFilter,
+    listFilter,
+  );
+
+  const results = useListRender<UsageMethodSearchQuery, UsageMethodSearchVars>(
+    USAGEMETHOD_SEARCH_QUERY,
+    queryVars,
+    listRender,
   );
 
   return (
     <>
-       <EntitySearchMain
-       entityPluralString='usage methods'
-        genFilter={genFilter}
-        searchTerm={searchTerm}
-        handleSearchTermChange={handleSearchTermChange}
-        searchMode={searchMode}
-        handleSearchModeChange={handleSearchModeChange}
-        listRender={listRender}
-        query={USAGEMETHOD_SEARCH_QUERY}
-        queryVars={queryVars}
+      <MainSearch
+        filterForm={filterForm}
+        results={results}
       />
       <Outlet />
     </>

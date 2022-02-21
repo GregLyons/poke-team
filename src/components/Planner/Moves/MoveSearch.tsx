@@ -18,13 +18,14 @@ import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import {
   ENUMCASE_TO_TITLECASE,
 } from '../../../utils/constants';
-import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
-import { ListFilterArgs, ListRenderArgsIcons, listToggleValue, rangeSelect } from '../helpers';
+import { listToggleValue, rangeSelect } from '../helpers';
 import { Dispatches, Filters } from '../../App';
 import EntitySearchMainIcons from '../Searches/EntitySearchMainIcons';
 import { EnumTypeName, MoveCategory, MoveTargetClass, MOVE_CATEGORY_MAP, MOVE_TARGETCLASS_MAP, toEnumTypeName } from '../../../types-queries/helpers';
 import { TYPE_NAMES } from '../../../hooks/App/PokemonFilter';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
+import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_removal_icons } from '../../../hooks/Planner/MainSearches';
+import MainSearch from '../Searches/MainSearch';
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<MoveSearchQuery>) => {
   if (!data || !data.moves) return (<div>Data not found for the query 'moves'.</div>);
@@ -133,7 +134,7 @@ const MoveSearch = ({
   dispatches,
   filters,
 }: MoveSearchProps) => {
-  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useRemovalConnectedSearchVars<MoveSearchVars>(
+  const [queryVars, filterForm] = useListFilter_removal<MoveSearchVars>(
     {
       gen: filters.genFilter.gen,
       contains: '',
@@ -158,21 +159,22 @@ const MoveSearch = ({
       variablePower: null,
     },
     filters.genFilter,
+    listFilter,
+  );
+
+  const results = useListRender_removal_icons<MoveSearchQuery, MoveSearchVars>(
+    dispatches,
+    filters,
+    MOVE_SEARCH_QUERY,
+    queryVars,
+    listRender,
   );
 
   return (
     <>
-      <EntitySearchMainIcons
-        entityPluralString='moves'
-        dispatches={dispatches}
-        filters={filters}
-        searchTerm={searchTerm}
-        handleSearchTermChange={handleSearchTermChange}
-        searchMode={searchMode}
-        handleSearchModeChange={handleSearchModeChange}
-        listRender={listRender}
-        query={MOVE_SEARCH_QUERY}
-        queryVars={queryVars}
+      <MainSearch
+        filterForm={filterForm}
+        results={results}
       />
       <Outlet />
     </>

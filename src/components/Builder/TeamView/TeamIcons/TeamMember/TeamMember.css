@@ -121,7 +121,7 @@
   border-left: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid transparent;
   border-right: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid transparent;
 
-  border-bottom: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid var(--dark1);
+  border-bottom: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid var(--dark3);
 }
 
 .team-member__remove--bottom {
@@ -131,7 +131,7 @@
   border-left: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid transparent;
   border-right: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid transparent;
 
-  border-top: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid var(--dark1);
+  border-top: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid var(--dark3);
 }
 
 .team-member__remove--left {
@@ -141,7 +141,7 @@
   border-top: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid transparent;
   border-bottom: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid transparent;
 
-  border-right: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid var(--dark1);
+  border-right: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid var(--dark3);
 }
 
 .team-member__remove--right {
@@ -151,7 +151,7 @@
   border-top: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid transparent;
   border-bottom: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid transparent;
 
-  border-left: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid var(--dark1);
+  border-left: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid var(--dark3);
 }
 
 /* Fade on return */

@@ -17,12 +17,15 @@ import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import {
   ENUMCASE_TO_TITLECASE,
 } from '../../../utils/constants';
-import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
-import { ListFilterArgs, ListRenderArgsIcons, listToggleValue } from '../helpers';
+import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_removal_icons, } from '../../../hooks/Planner/MainSearches';
+import { listToggleValue } from '../helpers';
 import { Dispatches, Filters } from '../../App';
 import EntitySearchMainIcons from '../Searches/EntitySearchMainIcons';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
 import { ItemClass, ITEM_CLASS_MAP } from '../../../types-queries/helpers';
+import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
+import Button from '../../Reusables/Button/Button';
+import MainSearch from '../Searches/MainSearch';
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<ItemSearchQuery>) => {
   if (!data || !data.items) return (<div>Data not found for the query 'items'.</div>);
@@ -71,10 +74,10 @@ const listFilter = ({
   searchMode,
   handleSearchModeChange,
 }: ListFilterArgs<ItemSearchVars>) => {
-  const handleClassSelect = listToggleValue<ItemSearchVars, ItemClass>(queryVars, setQueryVars, 'itemClass'); 
+  const handleClassSelect = listToggleValue<ItemSearchVars, ItemClass>(queryVars, setQueryVars, 'itemClass');
 
   return (
-    <form>
+    <>
       <SearchBar
         title={`Search items by name`}
         placeholder={`Search items`}
@@ -84,7 +87,35 @@ const listFilter = ({
         handleSearchModeChange={handleSearchModeChange}
         backgroundLight="blue"
       />
-    </form>
+      <DropdownMenu
+        title="Item class"
+        items={Array.from(ITEM_CLASS_MAP.entries()).map(([key, value]) => {
+          const selected = queryVars.itemClass.includes(key);
+
+          return {
+            id: key,
+            label: (
+              <Button
+                title={selected
+                  ? `Exclude ${ENUMCASE_TO_TITLECASE(key)} items.`
+                  : `Include ${ENUMCASE_TO_TITLECASE(key)} items.`
+                }
+                label={ENUMCASE_TO_TITLECASE(key)}
+                active={selected}
+                onClick={e => e.preventDefault()}
+                disabled={false}
+                immediate={false}
+              />
+            ),
+            selected,
+          };
+        })}
+        toggleSelect={handleClassSelect}
+        dropdownWidth={'clamp(5vw, 50ch, 80%)'}
+        itemWidth={'10ch'}
+        backgroundLight="blue"
+      />
+    </>
   );
 }
 
@@ -97,7 +128,7 @@ const ItemSearch = ({
   dispatches,
   filters,
 }: ItemSearchProps) => {
-  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useRemovalConnectedSearchVars<ItemSearchVars>(
+  const [queryVars, filterForm] = useListFilter_removal<ItemSearchVars>(
     {
       gen: filters.genFilter.gen,
       contains: '',
@@ -108,21 +139,22 @@ const ItemSearch = ({
       itemClass: Array.from(ITEM_CLASS_MAP.keys()),
     },
     filters.genFilter,
+    listFilter,
   );
+
+  const results = useListRender_removal_icons<ItemSearchQuery, ItemSearchVars>(
+    dispatches,
+    filters,
+    ITEM_SEARCH_QUERY,
+    queryVars,
+    listRender,
+  )
 
   return (
     <>
-      <EntitySearchMainIcons
-        entityPluralString='items'
-        dispatches={dispatches}
-        filters={filters}
-        searchTerm={searchTerm}
-        handleSearchTermChange={handleSearchTermChange}
-        searchMode={searchMode}
-        handleSearchModeChange={handleSearchModeChange}
-        listRender={listRender}
-        query={ITEM_SEARCH_QUERY}
-        queryVars={queryVars}
+      <MainSearch
+        filterForm={filterForm}
+        results={results}
       />
       <Outlet />
     </>
