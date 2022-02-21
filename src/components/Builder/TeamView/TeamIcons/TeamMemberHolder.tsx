@@ -2,10 +2,13 @@ import { useQuery } from '@apollo/client';
 import { MemberPokemonQuery, MemberPokemonVars, POKEMONICON_TO_MEMBER_QUERY } from '../../../../types-queries/Builder/MemberPokemon';
 import { PokemonIconDatum } from '../../../../types-queries/helpers';
 import { Dispatches, Filters } from '../../../App';
+import { TeamMembersClickHandlers } from '../TeamView';
 import TeamMember from './TeamMember/TeamMember';
 import './TeamMembers.css';
 
 type TeamMemberHolderProps = {
+  selected: boolean
+  clickHandlers: TeamMembersClickHandlers
   dispatches: Dispatches
   filters: Filters
   icon: PokemonIconDatum | null
@@ -13,6 +16,8 @@ type TeamMemberHolderProps = {
 }
 
 const TeamMemberHolder = ({
+  selected,
+  clickHandlers,
   dispatches,
   filters,
   icon,
@@ -30,12 +35,17 @@ const TeamMemberHolder = ({
   return (
     <div className="team-member-holder__wrapper">
       <div className="team-member-holder__header">
-        Member
+        {selected
+          ? 'Active'
+          : 'Member ' + (idx + 1)
+        }
       </div>
       <div className="team-member-holder__content">
         {loading
           ? <div>Loading...</div>
           : <TeamMember
+              selected={selected}
+              clickHandlers={clickHandlers}
               data={data}
               dispatches={dispatches}
               filters={filters}

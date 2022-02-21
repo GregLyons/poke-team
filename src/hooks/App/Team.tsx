@@ -178,7 +178,7 @@ export function teamReducer(state: Team, action: TeamAction): Team {
         [gen]: {
           ...state[gen],
           memberIcons: state[gen].memberIcons.map((d, i) => {
-            if (i === idx) return d;
+            if (i !== idx) return d;
             return pokemon;
           }),
         },

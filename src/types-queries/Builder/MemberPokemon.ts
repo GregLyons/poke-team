@@ -17,12 +17,21 @@ export type MemberPokemonQueryResult = {
   speciesName: string
 
   formClass: string
-  forms: PokemonFormEdge[]
+  forms: {
+    edges: PokemonFormEdge[]
+  }
 
-  introduced: IntroductionEdge[]
+  introduced: {
+    edges: IntroductionEdge[]
+  }
 
-  enablesItem: EnablesItemEdge[]
-  requiresItem: RequiresItemEdge[]
+  enablesItem: {
+    edges: EnablesItemEdge[]
+  }
+
+  requiresItem: {
+    edges: RequiresItemEdge[]
+  }
 }
 
 export type MemberPokemonVars = {
@@ -188,7 +197,7 @@ export class MemberPokemon {
     this.typing = typing;
     this.baseStats = baseStats;
 
-    this.introduced = introductionEdgeToGen(introduced[0]);
+    this.introduced = introductionEdgeToGen(introduced.edges[0]);
     this.gen = gen;
     this.removedFromSwSh = removedFromSwSh;
     this.removedFromBDSP = removedFromBDSP;
@@ -200,11 +209,11 @@ export class MemberPokemon {
     this.level = 100;
     this.happiness = 255;
 
-    this.enablesItem = enablesItem.map(edge => enablesItemEdgeToMemberItem(edge, gen));
-    this.requiresItem = requiresItem.map(edge => requiresItemEdgeToMemberItem(edge, gen));
+    this.enablesItem = enablesItem.edges.map(edge => enablesItemEdgeToMemberItem(edge, gen));
+    this.requiresItem = requiresItem.edges.map(edge => requiresItemEdgeToMemberItem(edge, gen));
 
     this.formClass = formClass;
-    this.forms = forms.map(pokemonFormEdgeToFormDatum);
+    this.forms = forms.edges.map(pokemonFormEdgeToFormDatum);
   }
 
   public setGen(newGen: GenerationNum) {

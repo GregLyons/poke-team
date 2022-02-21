@@ -37,7 +37,8 @@
   background-color: rgba(var(--green1-components), 0.5);
   transition: background-color 0.3s ease;
 }
-.team-member__wrapper--empty:hover > .team-member__add {
+.team-member__wrapper--empty:hover > .team-member__add,
+.team-member__wrapper--active > .team-member__add {
   background-color: rgba(var(--green1-components), 1);
 }
 

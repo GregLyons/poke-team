@@ -19,12 +19,17 @@ type TeamViewProps = {
 // Reference panel 
 // #region
 
-export type ReferencePanelView =
+export type ReferencePanelMode =
 | 'POKEMON'
 | 'ABILITY'
 | 'ITEM'
 | 'STATS'
-| 'MOVESLOT 1' | 'MOVESLOT 2' | 'MOVESLOT 3' | 'MOVESLOT 4';
+| 'MOVE'
+
+export type ReferencePanelView = {
+  mode: ReferencePanelMode
+  idx: number
+} | null
 
 export type SavedPokemonClickHandlers = {
   onUnpinClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, note: string) => void
@@ -41,8 +46,8 @@ export type ReferencePanelClickHandlers = {
 // Team icons
 // #region
 
-export type TeamIconsClickHandlers = {
-  onMemberClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+export type TeamMembersClickHandlers = {
+  onAddClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, idx: number) => void
 }
 
 // #endregion
@@ -65,7 +70,8 @@ const TeamView = ({
   filters,
   team,
 }: TeamViewProps) => {
-  const [view, setView] = useState<ReferencePanelView>('POKEMON');
+  const [slot, setSlot] = useState<number | null>(null);
+  const [view, setView] = useState<ReferencePanelView>(null);
 
   const referencePanelClickHandlers: ReferencePanelClickHandlers = useMemo(() => {
     // Saved Pokemon
@@ -95,8 +101,24 @@ const TeamView = ({
       });
     }
 
-    const onPokemonSelect = (e: React.MouseEvent<HTMLElement, MouseEvent>, pokemonIconDatum: PokemonIconDatum) => {
-      e.preventDefault();
+    const onPokemonSelect = (e: React.MouseEvent<HTMLElement, MouseEvent>, pokemonIconDatum: PokemonIconDatum, ) => {
+      if (!view) return;
+
+      // If a slot is selected, then add Pokemon to that slot
+      if (view.mode === 'POKEMON' && slot !== null) dispatches.dispatchTeam({
+        type: 'replace_icon',
+        payload: {
+          gen: filters.genFilter.gen,
+          pokemon: pokemonIconDatum,
+          idx: view.idx,
+        }
+      });
+
+      // De-select slot
+      setSlot(null);
+      
+      // No longer in 'POKEMON' mode (but can still view saved boxes)
+      setView(null);
     }
 
     // #endregion
@@ -113,38 +135,48 @@ const TeamView = ({
         onPokemonSelect,
       },
     };
-  }, [dispatches, filters, team]);
+  }, [dispatches, filters, team, slot, setSlot, ]);
 
-  const teamIconsClickHandlers: TeamIconsClickHandlers = useMemo(() => {
-    const onMemberClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const teamMembersClickHandlers: TeamMembersClickHandlers = useMemo(() => {
+    // On clicking AddIcon, open up savedPokemon in ReferencePanel
+    const onAddClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, idx: number) => {
       e.preventDefault();
-      setView('POKEMON');
+
+      // Slot has been selected
+      setSlot(idx);
+
+      // Pokemon for user to choose from
+      setView({ mode: 'POKEMON', idx, });
     }
 
     return {
-      onMemberClick,
+      onAddClick,
     }
-  }, [dispatches, filters, team]);
+  }, [dispatches, filters, team, view]);
 
   const memberDetailClickHandlers: MemberDetailClickHandlers = useMemo(() => {
     const onAbilityClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.preventDefault();
-      setView('ABILITY');
+
+      setView({ mode: 'ABILITY', idx: 0, });
     }
 
     const onItemClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.preventDefault();
-      setView('ITEM');
+
+      setView({ mode: 'ITEM', idx: 0, });
     }
 
     const onMoveClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, moveslot: 1 | 2 | 3 | 4) => {
       e.preventDefault();
-      setView(`MOVESLOT ${moveslot}`);
+
+      setView({ mode: 'MOVE', idx: moveslot });
     }
 
     const onStatsClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.preventDefault();
-      setView('STATS');
+
+      setView({ mode: 'STATS', idx: 0, });
     }
 
     return {
@@ -153,7 +185,7 @@ const TeamView = ({
       onMoveClick,
       onStatsClick,
     };
-  }, [dispatches, filters, team, setView]);
+  }, [dispatches, filters, team, setView, view]);
 
   return (
     <div className="team-view__wrapper">
@@ -170,9 +202,11 @@ const TeamView = ({
         view={view}
       />
       <TeamMembers
+        slot={slot}
+        clickHandlers={teamMembersClickHandlers}
         team={team}
         dispatches={dispatches}
-        filters={filters}
+        filters={filters} 
       />
     </div>
   )

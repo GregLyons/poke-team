@@ -1,15 +1,18 @@
 import { useEffect, useRef } from "react";
 import { BoxInCart } from "../../../../../../hooks/App/Cart";
 import { validatePokemon, ValidationFailureReason } from "../../../../../../hooks/App/PokemonFilter";
-import { PokemonIconDatum } from "../../../../../../types-queries/helpers";
+import { DUMMY_POKEMON_ICON_DATUM, PokemonIconDatum } from "../../../../../../types-queries/helpers";
 import { Dispatches, Filters } from "../../../../../App";
 import BoxPokemonIcon from "../../../../CartView/CartAccordion/BoxAccordion/BoxPokemonIcon";
+import { ReferencePanelView, SavedPokemonClickHandlers } from "../../../TeamView";
+import PinnedBoxPokemonIcon from "./PinnedBoxPokemonIcon";
 
 type PinnedBoxProps = {
   box: {
     note: string
     pokemon: PokemonIconDatum[]
   }
+  clickHandlers: SavedPokemonClickHandlers
   dispatches: Dispatches
   filters: Filters
   key: string
@@ -17,6 +20,7 @@ type PinnedBoxProps = {
 
 const PinnedBox = ({
   box,
+  clickHandlers,
   dispatches,
   filters,
   key,
@@ -26,6 +30,7 @@ const PinnedBox = ({
   useEffect(() => {
     hasIcon.current = false;
   }, [box.pokemon, filters]);
+
 
   return (
     <div className={`box__icons-wrapper`}>
@@ -49,9 +54,9 @@ const PinnedBox = ({
           hasIcon.current = true;
 
           return (
-            <BoxPokemonIcon
-              dispatches={dispatches}
-              key={key + '_' + pokemonIconDatum.psID + '_icon'}
+            <PinnedBoxPokemonIcon
+              onPokemonSelect={clickHandlers.onPokemonSelect}
+              key={key + '_' + pokemonIconDatum.psID + '_pinned-box_icon'}
               pokemonIconDatum={pokemonIconDatum}
             />
           )

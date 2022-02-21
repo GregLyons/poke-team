@@ -2,11 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { MemberPokemon, MemberPokemonQuery } from "../../../../../types-queries/Builder/MemberPokemon";
 import { PokemonIconDatum } from "../../../../../types-queries/helpers";
 import { Dispatches, Filters } from "../../../../App";
+import { TeamMembersClickHandlers } from "../../TeamView";
 import AddIcon from "./AddIcon";
 import RemoveIcon from "./RemoveIcon";
 import TeamMemberIcon from "./TeamMemberIcon";
 
 type TeamMemberProps = {
+  selected: boolean
+  clickHandlers: TeamMembersClickHandlers
   data?: MemberPokemonQuery
   dispatches: Dispatches
   filters: Filters
@@ -15,6 +18,8 @@ type TeamMemberProps = {
 }
 
 const TeamMember = ({
+  selected,
+  clickHandlers,
   data,
   dispatches,
   filters,
@@ -96,11 +101,18 @@ const TeamMember = ({
           ? 'team-member__wrapper--empty'
           : ''
         }
+        ${selected
+          ? 'team-member__wrapper--active'
+          : ''
+        }
       `}
+      // Only do anything if no icon present
+      onClick={e => {
+        e.preventDefault();
+        if (icon === null) clickHandlers.onAddClick(e, idx);
+      }}
     > 
-      {icon === null && <AddIcon
-        onClick={() => {}}
-      />}
+      {icon === null && <AddIcon />}
       {icon && 
         <>
           <TeamMemberIcon
