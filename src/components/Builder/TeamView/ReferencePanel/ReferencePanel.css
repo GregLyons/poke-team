@@ -9,4 +9,20 @@
   height: 100%;
   
   border: var(--team-builder-border);
+  padding: calc(1rem + 6px) 1rem 1rem calc(1rem + 6px);
+}
+
+.reference-panel__content {
+  position: relative;
+  overflow-x: scroll;
+  overflow-y: scroll;
+
+  height: 100%;
+  width: 100%;
+
+  /* Matches scroll bars */
+  box-shadow: 
+  -6px 0 0 0 var(--light3),
+  0 -6px 0 0 var(--light3),
+  -6px -6px 0 0 var(--light1);
 }

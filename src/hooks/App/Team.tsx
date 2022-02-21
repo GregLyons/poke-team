@@ -95,7 +95,7 @@ export function teamReducer(state: Team, action: TeamAction): Team {
             ...state[gen].savedPokemon,
             pinnedBoxes: {
               ...state[gen].savedPokemon.pinnedBoxes,
-              [note]: [action.payload.pokemon],
+              [note]: action.payload.pokemon,
             }
           },
         }

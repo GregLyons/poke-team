@@ -2,12 +2,8 @@
   position: relative;
 
   width: 100%;
-  height: 100%;
 
-  background-color: var(--dark1);
-  box-shadow: var(--control-shadow);
   padding-top: var(--control-padding);
-  border-radius: 15px;
   
   justify-self: center;
   align-self: center;
@@ -23,6 +19,10 @@
 .pinned-box-title__text {
   grid-column: 1 / 2;
   padding-left: 0.5rem;
+  
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .pinned-box-title__buttons {

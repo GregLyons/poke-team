@@ -4,6 +4,8 @@ import { SavedPokemonClickHandlers } from "../../TeamView";
 import PinnedBoxAccordion from "./PinnedBoxAccordion/PinnedBoxAccordion";
 import PinnedBox from "./PinnedBoxAccordion/PinnedBox";
 
+import './SavedPokemonView.css';
+
 type SavedPokemonViewProps = {
   clickHandlers: SavedPokemonClickHandlers
   dispatches: Dispatches
@@ -21,12 +23,14 @@ const SavedPokemonView = ({
     <div
       className="saved-pokemon__wrapper"
     >
+      <div className="saved-pokemon__header">Pinned boxes</div>
       <PinnedBoxAccordion
         clickHandlers={clickHandlers.cartClickHandlers}
         dispatches={dispatches}
         filters={filters}
         team={team}
       />
+      <div className="saved-pokemon__header">From Quick Search</div>
       <div
         className="saved-pokemon__quick-search-wrapper"
       >

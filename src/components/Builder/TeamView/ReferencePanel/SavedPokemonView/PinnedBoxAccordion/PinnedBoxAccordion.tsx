@@ -26,9 +26,11 @@ const PinnedBoxAccordion = ({
     content: false | JSX.Element
   }[] = useMemo(() => {
     const pinnedBoxesInGen = team[filters.genFilter.gen].savedPokemon.pinnedBoxes;
-    const boxes = Object.entries(pinnedBoxesInGen || []);
+    if (pinnedBoxesInGen === {}) {
+      return [];
+    }
+    const boxes = Object.entries(pinnedBoxesInGen);
     return boxes.map(([note, pokemon]) => {
-      console.log(note);
       return {
         title: <PinnedBoxAccordionTitle
           clickHandlers={clickHandlers}

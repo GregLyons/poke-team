@@ -30,9 +30,9 @@ const PinnedBox = ({
   return (
     <div className={`box__icons-wrapper`}>
       <div className="box__icons-background">
-        {box && box.pokemon && box.pokemon.map(pokemonIconDatum => {
+        {box.pokemon.map(pokemonIconDatum => {
           const psID = pokemonIconDatum.psID;
-          
+
           // E.g. DUMMY_POKEMON_DATUM
           if (!psID) return;
 

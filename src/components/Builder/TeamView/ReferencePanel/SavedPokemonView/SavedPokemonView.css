@@ -1,0 +1,26 @@
+.saved-pokemon__wrapper {
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  padding: 0 0.5rem 0.5rem 0.5rem;
+  background-color: rgba(var(--dark2-components), 0.1);
+}
+
+.saved-pokemon__header {
+  font-size: 1.2rem;
+  margin: 0.5rem 0 0.5rem 0;
+}
+
+.saved-pokemon__quick-search-wrapper,
+.team-view-accordion__wrapper {
+  background-color: rgba(var(--dark2-components), 0.4);
+  box-shadow: var(--control-shadow);
+}
+
+.saved-pokemon__quick-search-wrapper {
+  padding: 1rem;
+}

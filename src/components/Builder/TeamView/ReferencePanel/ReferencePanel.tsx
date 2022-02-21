@@ -29,12 +29,14 @@ const ReferencePanel = ({
         <div className="reference-panel__header">
           {view}
         </div>
-        <SavedPokemonView
-          clickHandlers={clickHandlers.savedPokemonClickHandlers}
-          dispatches={dispatches}
-          filters={filters}
-          team={team}
-        />
+        <div className="reference-panel__content">
+          <SavedPokemonView
+            clickHandlers={clickHandlers.savedPokemonClickHandlers}
+            dispatches={dispatches}
+            filters={filters}
+            team={team}
+          />
+        </div>
       </div>
     </div>
   )
