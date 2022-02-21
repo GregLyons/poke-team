@@ -1,9 +1,9 @@
 import Button from "../../../../../Reusables/Button/Button";
-import { CartClickHandlers, ReferencePanelClickHandlers } from "../../../TeamView";
+import { ReferencePanelClickHandlers, SavedPokemonClickHandlers } from "../../../TeamView";
 
 type PinnedBoxAccordionTitleProps = {
   titleText: string
-  clickHandlers: CartClickHandlers
+  clickHandlers?: SavedPokemonClickHandlers
 }
 
 const PinnedBoxAccordionTitle = ({
@@ -20,8 +20,9 @@ const PinnedBoxAccordionTitle = ({
           title='Unpin this box'
           label='UNPIN'
           active={true}
-          onClick={e => clickHandlers.onUnpinClick(e, titleText)}
-          disabled={false}
+          onClick={e => clickHandlers?.onUnpinClick(e, titleText)}
+          // If no clickHandler is passed, then there will be an empty slot (this is for Quick Search Pokemon), giving consistent space/style with pinned boxes
+          disabled={clickHandlers === undefined}
           immediate={true}
         />
       </div>

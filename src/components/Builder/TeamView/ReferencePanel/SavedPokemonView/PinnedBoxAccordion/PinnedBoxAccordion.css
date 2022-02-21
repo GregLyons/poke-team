@@ -13,7 +13,7 @@
 .accordion__title-element-wrapper.pinned-boxes-accordion__title-element-wrapper {
   display: grid;
 
-  grid-template-columns: 5fr 2fr;
+  grid-template-columns: 1fr 9ch;
 }
 
 .pinned-box-title__text {
@@ -30,7 +30,7 @@
 
   position: relative;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
 
   background-color: var(--dark1);

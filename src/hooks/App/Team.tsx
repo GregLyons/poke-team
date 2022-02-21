@@ -16,6 +16,7 @@ export type TeamInGen = {
     quickSearch: QuickSearchPokemon
   }
   members: (MemberPokemon | null)[]
+  memberIcons: (PokemonIconDatum | null)[]
   selectedMember: MemberPokemon | null
 }
 
@@ -29,6 +30,7 @@ const EMPTY_TEAM_IN_GEN: TeamInGen = {
     quickSearch: {},
   },
   members: [null, null, null, null, null, null],
+  memberIcons: [null, null, null, null, null, null],
   selectedMember: null,
 }
 
@@ -69,6 +71,33 @@ export type TeamAction =
       pokemon: PokemonIconDatum
     }
   }
+// Replace icon in team[gen].memberIcons[idx] with pokemon
+| {
+    type: 'replace_icon'
+    payload: {
+      gen: GenerationNum
+      pokemon: PokemonIconDatum
+      idx: number
+    }
+  }
+// Replace member in team[gen].members[idx] with member
+| {
+    type: 'replace_member'
+    payload: {
+      gen: GenerationNum
+      member: MemberPokemon
+      idx: number
+    }
+  }
+// Remove member in slot idx, as well as its icon
+  | {
+    type: 'remove_member'
+    payload: {
+      gen: GenerationNum
+      idx: number
+    }
+  }
+//
 
 export function teamReducer(state: Team, action: TeamAction): Team {
   let gen: GenerationNum
@@ -138,6 +167,57 @@ export function teamReducer(state: Team, action: TeamAction): Team {
       newState = { ...state };
       delete newState[gen].savedPokemon.quickSearch[psID];
       return newState;
+
+    case 'replace_icon':
+      gen = action.payload.gen;
+      pokemon = action.payload.pokemon;
+      idx = action.payload.idx;
+
+      return {
+        ...state,
+        [gen]: {
+          ...state[gen],
+          memberIcons: state[gen].memberIcons.map((d, i) => {
+            if (i === idx) return d;
+            return pokemon;
+          }),
+        },
+      };
+
+    case 'replace_member':
+      gen = action.payload.gen;
+      pokemon = action.payload.member;
+      idx = action.payload.idx;
+
+      return {
+        ...state,
+        [gen]: {
+          ...state[gen],
+          members: state[gen].members.map((d, i) => {
+            if (i !== idx) return d;
+            return pokemon;
+          }),
+        },
+      };
+
+    case 'remove_member':
+      gen = action.payload.gen;
+      idx = action.payload.idx;
+      return {
+        ...state,
+        [gen]: {
+          ...state[gen],
+          members: state[gen].members.map((d, i) => {
+            if (i !== idx) return d;
+            return null;
+          }),
+          memberIcons: state[gen].memberIcons.map((d, i) => {
+            if (i !== idx) return d;
+            return null;
+          }),
+        },
+      };
+
 
     default:
       throw new Error();

@@ -91,7 +91,7 @@
 .type-filter__wrapper,
 .stat-filter__wrapper,
 .import-export__wrapper,
-.team-member__wrapper {
+.team-icon__wrapper {
   position: relative;
 
   width: 100%;
@@ -115,7 +115,7 @@
   min-width: fit-content;
 }
 
-.team-member__cell {
+.team-icon__cell {
   position: relative;
   display: flex;
   justify-content: center;

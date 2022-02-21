@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 import { Team, TeamAction, } from "../../../hooks/App/Team";
 import { MemberPokemon } from "../../../types-queries/Builder/MemberPokemon";
 import { PokemonIconDatum } from "../../../types-queries/helpers";
-import RemoveIcon from "./RemoveIcon";
 import TeamMemberIcon from "./TeamMemberIcon";
 
 type TeamMemberProps = {
@@ -70,7 +69,7 @@ const TeamMember = ({
   return (
     <div
       className={`
-        team-member__wrapper
+        team-icon__wrapper
       `}
     >
       {/* {member.psID && (

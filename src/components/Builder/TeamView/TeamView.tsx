@@ -4,7 +4,7 @@ import { Team } from "../../../hooks/App/Team";
 import { Dispatches, Filters } from "../../App";
 import ReferencePanel from "./ReferencePanel/ReferencePanel";
 import MemberDetails from "./MemberDetails/MemberDetails";
-import TeamIcons from "./TeamIcons/TeamIcons";
+import TeamMembers from "./TeamIcons/TeamMembers";
 
 import './TeamView.css';
 import { PokemonIconDatum } from "../../../types-queries/helpers";
@@ -26,17 +26,10 @@ export type ReferencePanelView =
 | 'STATS'
 | 'MOVESLOT 1' | 'MOVESLOT 2' | 'MOVESLOT 3' | 'MOVESLOT 4';
 
-export type CartClickHandlers = {
-  onUnpinClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, note: string) => void
-}
-
-export type QuickSearchClickHandlers = {
-  onRemoveClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, pokemonIconDatum: PokemonIconDatum) => void
-}
-
 export type SavedPokemonClickHandlers = {
-  cartClickHandlers: CartClickHandlers
-  quickSearchClickHandlers: QuickSearchClickHandlers
+  onUnpinClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, note: string) => void
+  onRemoveClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, pokemonIconDatum: PokemonIconDatum) => void
+  onPokemonSelect: (e: React.MouseEvent<HTMLElement, MouseEvent>, pokemonIconDatum: PokemonIconDatum) => void
 }
 
 export type ReferencePanelClickHandlers = {
@@ -102,6 +95,10 @@ const TeamView = ({
       });
     }
 
+    const onPokemonSelect = (e: React.MouseEvent<HTMLElement, MouseEvent>, pokemonIconDatum: PokemonIconDatum) => {
+      e.preventDefault();
+    }
+
     // #endregion
 
     // Team icons
@@ -111,12 +108,9 @@ const TeamView = ({
 
     return {
       savedPokemonClickHandlers: {
-        quickSearchClickHandlers: {
-          onRemoveClick,
-        },
-        cartClickHandlers: {
-          onUnpinClick, 
-        },
+        onRemoveClick,
+        onUnpinClick, 
+        onPokemonSelect,
       },
     };
   }, [dispatches, filters, team]);
@@ -175,9 +169,10 @@ const TeamView = ({
         team={team}
         view={view}
       />
-      <TeamIcons
+      <TeamMembers
         team={team}
         dispatches={dispatches}
+        filters={filters}
       />
     </div>
   )

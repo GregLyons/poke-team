@@ -2,14 +2,14 @@ import { useMemo } from "react";
 import { Team } from "../../../../../../hooks/App/Team";
 import { Dispatches, Filters } from "../../../../../App";
 import Accordion from "../../../../../Reusables/Accordion/Accordion";
-import { CartClickHandlers, ReferencePanelClickHandlers } from "../../../TeamView";
+import { ReferencePanelClickHandlers, SavedPokemonClickHandlers } from "../../../TeamView";
 import PinnedBox from "./PinnedBox";
 import PinnedBoxAccordionTitle from "./PinnedBoxAccordionTitle";
 
 import './PinnedBoxAccordion.css';
 
 type PinnedBoxAccordion = {
-  clickHandlers: CartClickHandlers
+  clickHandlers: SavedPokemonClickHandlers
   dispatches: Dispatches
   filters: Filters
   team: Team
@@ -46,7 +46,20 @@ const PinnedBoxAccordion = ({
           key={note}
         />
       }
-    })
+    }).concat([{
+      title: <PinnedBoxAccordionTitle
+        titleText={'From Quick Search'}
+      />,
+      content: <PinnedBox
+        box={{
+          note: 'From Quick Search',
+          pokemon: Object.values(team[filters.genFilter.gen].savedPokemon.quickSearch),
+        }}
+        dispatches={dispatches}
+        filters={filters}
+        key="From Quick Search"
+      />,
+    }]);
   }, [dispatches, filters, team, ])
   return (
     <div className="team-view-accordion__wrapper">

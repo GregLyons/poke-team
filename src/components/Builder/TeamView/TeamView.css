@@ -14,7 +14,7 @@
   font-family: var(--monospace);
 }
 
-.team-icons__wrapper {
+.team-members__wrapper {
   grid-row: 1 / 2;
   grid-column: 1 / 8;
 
@@ -36,12 +36,13 @@
 }
 
 .member-details__header,
-.team-icon__header,
+.team-member-holder__header,
 .reference-panel__header {
   position: absolute;
-  top: -10px;
+  top: -7px;
   left: 6px;
 
+  line-height: 1;
   font-size: 12px;
   font-weight: 500;
   color: var(--blue1);

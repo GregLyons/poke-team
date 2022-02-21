@@ -8,7 +8,7 @@ import { enablesItemEdgeToMemberItem, MemberItem, requiresItemEdgeToMemberItem }
 import { MemberMove } from "./MemberMove"
 
 export type MemberPokemonQuery = {
-  pokemonByPSID: MemberPokemonQueryResult
+  pokemonByPSID: MemberPokemonQueryResult[]
 }
 
 export type MemberPokemonQueryResult = {
@@ -23,6 +23,11 @@ export type MemberPokemonQueryResult = {
 
   enablesItem: EnablesItemEdge[]
   requiresItem: RequiresItemEdge[]
+}
+
+export type MemberPokemonVars = {
+  gen: GenerationNum
+  psID: string
 }
 
 export const POKEMONICON_TO_MEMBER_QUERY = gql`

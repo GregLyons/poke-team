@@ -23,27 +23,12 @@ const SavedPokemonView = ({
     <div
       className="saved-pokemon__wrapper"
     >
-      <div className="saved-pokemon__header">Pinned boxes</div>
       <PinnedBoxAccordion
-        clickHandlers={clickHandlers.cartClickHandlers}
+        clickHandlers={clickHandlers}
         dispatches={dispatches}
         filters={filters}
         team={team}
       />
-      <div className="saved-pokemon__header">From Quick Search</div>
-      <div
-        className="saved-pokemon__quick-search-wrapper"
-      >
-        <PinnedBox
-          box={{
-            note: 'From Quick Search',
-            pokemon: Object.values(team[filters.genFilter.gen].savedPokemon.quickSearch),
-          }}
-          dispatches={dispatches}
-          filters={filters}
-          key="From Quick Search"
-        />
-      </div>
     </div>
   )
 };

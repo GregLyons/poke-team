@@ -25,8 +25,8 @@ const PokemonTeam = ({
       {team[genFilter.gen].members.map((member, idx) => {
         return (
           <div 
-            key={`team-member-${idx}`}
-            className='team-member__cell'
+            key={`team-icon-${idx}`}
+            className='team-icon__cell'
           >
             <TeamMember
               position={idx}

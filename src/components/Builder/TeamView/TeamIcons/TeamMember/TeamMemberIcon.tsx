@@ -1,6 +1,6 @@
-import { PokemonIconDatum } from "../../../types-queries/helpers";
-import { getPokemonIcon } from "../../../utils/sprites";
-import RemoveTimer from "../../Builder/TeamView/TeamIcons/TeamMember/RemoveTimer";
+import { PokemonIconDatum } from "../../../../../types-queries/helpers";
+import { getPokemonIcon } from "../../../../../utils/sprites";
+import RemoveTimer from "./RemoveTimer";
 
 type TeamMemberIconProps = {
   pokemonIconDatum: PokemonIconDatum
