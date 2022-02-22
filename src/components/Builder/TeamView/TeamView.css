@@ -37,10 +37,10 @@
 
 .member-details__header,
 .team-member-holder__header,
+.member-details__move-header,
 .reference-panel__header {
   position: absolute;
   top: -7px;
-  left: 6px;
 
   line-height: 1;
   font-size: 12px;
@@ -48,4 +48,12 @@
   color: var(--blue1);
   background-color: var(--dark3);
   padding: 0 2px 0 2px;
+}
+.member-details__header,
+.team-member-holder__header,
+.reference-panel__header {
+  left: 6px;
+}
+.member-details__move-header {
+  right: 6px;
 }

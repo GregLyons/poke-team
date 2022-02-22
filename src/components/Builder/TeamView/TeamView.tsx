@@ -274,6 +274,14 @@ const TeamView = ({
     };
   }, [dispatches, filters, team, setView, view, member]);
 
+  // When genFilter changes, clear member and memberSlot
+  useEffect(() => {
+    setMember(null);
+    setMemberSlot(null);
+  }, [filters.genFilter.gen]);
+
+  console.log(team[8].members[5]);
+
   return (
     <div className="team-view__wrapper">
       <MemberDetails

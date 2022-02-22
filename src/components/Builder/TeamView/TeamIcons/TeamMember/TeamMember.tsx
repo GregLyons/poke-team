@@ -83,6 +83,7 @@ const TeamMember = ({
     if (!data?.pokemonByPSID?.length || !icon) return;
 
     // Otherwise, use icon data to set up team member
+    // Note that this only actually replaces the member if the psIDs are different; this prevents overwriting in the case that, for example, the user changes the gen and then switches it back. Then, the psID will not have changed, so the original member will be used, remembering moveset, abilities, etc.
     dispatches.dispatchTeam({
       type: 'replace_member',
       payload: {

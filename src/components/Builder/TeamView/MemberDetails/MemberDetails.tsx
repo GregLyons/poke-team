@@ -1,13 +1,15 @@
 import { MemberPokemon } from "../../../../types-queries/Builder/MemberPokemon";
-import { DUMMY_POKEMON_ICON_DATUM } from "../../../../types-queries/helpers";
+import { DUMMY_POKEMON_ICON_DATUM, toTypeName } from "../../../../types-queries/helpers";
 import { Dispatches, Filters } from "../../../App";
 import NumericalInput from "../../../Reusables/NumericalInput/NumericalInput";
 import Slider from "../../../Reusables/Slider/Slider";
 import ItemIcon from "../../Icons/ItemIcon";
 import PokemonIcon from "../../Icons/PokemonIcon";
+import TypeIcon from "../../Icons/TypeIcon";
 import { MemberDetailClickHandlers, ReferencePanelView } from "../TeamView";
 
 import './MemberDetails.css';
+import MoveSlot from "./MoveSlot";
 
 type MemberDetailsProps = {
   dispatches: Dispatches
@@ -107,7 +109,10 @@ const MemberDetails = ({
                   titleFor="Happiness"
                   min={0}
                   max={255}
-                  value={125}
+                  value={member?.happiness !== undefined
+                    ? member.happiness
+                    : 255
+                  }
                   updateValue={() => {}}
                   
                   sliderWidth="50%"
@@ -127,54 +132,30 @@ const MemberDetails = ({
           </div>
           <div className="member-details__content">
             <div className="member-details__moveset-wrapper">
-              <div
-                className={`
-                  member-details__move-wrapper
-                  ${view?.mode === 'MOVE' && view?.idx === 0
-                    ? 'member-details__move-wrapper--active'
-                    : ''
-                  }
-                `}
-                onClick={e => clickHandlers.onMoveClick(e, 0)}
-              >
-                1 {member?.moveset[0]?.formattedName || ''}
-              </div>
-              <div
-                className={`
-                member-details__move-wrapper
-                ${view?.mode === 'MOVE' && view?.idx === 1
-                  ? 'member-details__move-wrapper--active'
-                  : ''
-                }
-              `}
-                onClick={e => clickHandlers.onMoveClick(e, 1)}
-              >
-                2 {member?.moveset[1]?.formattedName || ''}
-              </div>
-              <div
-                className={`
-                member-details__move-wrapper
-                ${view?.mode === 'MOVE' && view?.idx === 2
-                  ? 'member-details__move-wrapper--active'
-                  : ''
-                }
-              `}
-                onClick={e => clickHandlers.onMoveClick(e, 2)}
-              >
-                3 {member?.moveset[2]?.formattedName || ''}
-              </div>
-              <div
-                className={`
-                member-details__move-wrapper
-                ${view?.mode === 'MOVE' && view?.idx === 3
-                  ? 'member-details__move-wrapper--active'
-                  : ''
-                }
-              `}
-                onClick={e => clickHandlers.onMoveClick(e, 3)}
-              >
-                4 {member?.moveset[3]?.formattedName || ''}
-              </div>
+              <MoveSlot
+                view={view}
+                idx={0}
+                clickHandlers={clickHandlers}
+                member={member}
+              />
+              <MoveSlot
+                view={view}
+                idx={1}
+                clickHandlers={clickHandlers}
+                member={member}
+              />
+              <MoveSlot
+                view={view}
+                idx={2}
+                clickHandlers={clickHandlers}
+                member={member}
+              />
+              <MoveSlot
+                view={view}
+                idx={3}
+                clickHandlers={clickHandlers}
+                member={member}
+              />
             </div>
           </div>
         </div>

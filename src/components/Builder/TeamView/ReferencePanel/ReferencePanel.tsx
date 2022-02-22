@@ -32,7 +32,7 @@ const ReferencePanel = ({
       break;
 
     case 'MOVE':
-      viewPanelMessage = `Select Move for slot ${view.idx + 1}`
+      viewPanelMessage = `Select Move for Slot ${view.idx + 1}`
       break;
 
     case 'ABILITY':

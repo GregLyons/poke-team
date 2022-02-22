@@ -81,7 +81,7 @@ export type TeamAction =
       idx: number
     }
   }
-// Replace member in team[gen].members[idx] with member
+// Replace member in team[gen].members[idx] with member (if the psIDs are different)
 | {
     type: 'replace_member'
     payload: {
@@ -198,7 +198,8 @@ export function teamReducer(state: Team, action: TeamAction): Team {
         [gen]: {
           ...state[gen],
           members: state[gen].members.map((d, i) => {
-            if (i !== idx) return d;
+            // (If the psIDs are the same, do not overwrite)
+            if (i !== idx || (d && d.psID === member.psID)) return d;
             return member;
           }),
         },
