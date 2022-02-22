@@ -24,7 +24,14 @@ const MemberDetails = ({
   view,
 }: MemberDetailsProps) => {
   return (
-    <div className="member-details__wrapper">
+    <div className={`
+      member-details__wrapper
+      ${member ===  null
+        // If no member is selected, then don't display anything
+        ? 'member-details__wrapper--inactive'
+        : ''
+      }
+    `}>
       {/* Icon, cosmetic form select */}
       <div className="member-details__cosmetic-wrapper">
         <div className="member-details__header">

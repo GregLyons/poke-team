@@ -10,9 +10,9 @@ export type MemberAbilityQuery = {
       edges: {
         node: MemberAbilityQueryResult
         slot: 'ONE' | 'TWO' | 'HIDDEN'
-      }
+      }[]
     }
-  }
+  }[]
 }
 
 export type MemberAbilityQueryResult = {
@@ -22,11 +22,24 @@ export type MemberAbilityQueryResult = {
   psID: string
 }
 
+export type MemberAbilitySearchVars = {
+  gen: GenerationNum
+  psID: string
+
+  contains: string
+  startsWith: string
+}
+
 export const MEMBER_ABILITY_QUERY = gql`
-  query MemberAbilityQuery($gen: Int! $psID: String!) {
+  query MemberAbilityQuery(
+    $gen: Int! $psID: String!
+    $contains: String $startsWith: String!
+  ) {
     pokemonByPSID(generation: $gen psID: $psID) {
       id
-      abilities {
+      abilities(filter: {
+        contains: $contains, startsWith: $startsWith, 
+      }) {
         id
         edges {
           node {
@@ -50,7 +63,9 @@ export class MemberAbility {
   
   public gen: GenerationNum
 
-  constructor(gqlMemberAbility: MemberAbilityQueryResult, gen: GenerationNum) {
+  public slot: 'ONE' | 'TWO' | 'HIDDEN'
+
+  constructor(gqlMemberAbility: MemberAbilityQueryResult, gen: GenerationNum, slot: 'ONE' | 'TWO' | 'HIDDEN') {
     const {
       id, name, formattedName, psID: psID,
     } = gqlMemberAbility;
@@ -61,5 +76,7 @@ export class MemberAbility {
     this.psID = psID;
 
     this.gen = gen;
+
+    this.slot = slot;
   }
 }

@@ -12,7 +12,7 @@ export type MemberMoveQuery = {
         learnMethod: string
       }[]
     }
-  }
+  }[]
 }
 
 export type MemberMoveQueryResult = {
@@ -30,7 +30,9 @@ export type MemberMoveQueryResult = {
   removedFromSwSh: boolean
   removedFromBDSP: boolean
 
-  requiresItem: RequiresItemEdge[]
+  requiresItem: {
+    edges: RequiresItemEdge[]
+  }
 }
 
 export type MemberMoveSearchVars = {
@@ -136,7 +138,7 @@ export class MemberMove {
     this.accuracy = accuracy;
     this.category = category;
 
-    this.requiresItem = requiresItem.map(edge => requiresItemEdgeToMemberItem(edge, gen));
+    this.requiresItem = requiresItem.edges.map(edge => requiresItemEdgeToMemberItem(edge, gen));
 
     this.eventOnly = eventOnly;
   }

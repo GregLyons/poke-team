@@ -10,6 +10,8 @@ import './TeamView.css';
 import { PokemonIconDatum } from "../../../types-queries/helpers";
 import { MemberPokemon } from "../../../types-queries/Builder/MemberPokemon";
 import { MemberMove } from "../../../types-queries/Builder/MemberMove";
+import { MemberAbility } from "../../../types-queries/Builder/MemberAbility";
+import { MemberItem } from "../../../types-queries/Builder/MemberItem";
 
 type TeamViewProps = {
   bgManager: BGManager
@@ -39,12 +41,22 @@ export type SavedPokemonClickHandlers = {
   onPokemonSelect: (e: React.MouseEvent<HTMLElement, MouseEvent>, pokemonIconDatum: PokemonIconDatum) => void
 }
 
+export type AbilitySelectClickHandlers = {
+  onAbilitySelect: (e: React.MouseEvent<HTMLElement, MouseEvent>, ability: MemberAbility) => void
+}
+
+export type ItemSelectClickHandlers = {
+  onItemSelect: (e: React.MouseEvent<HTMLElement, MouseEvent>, item: MemberItem) => void
+}
+
 export type MoveSelectClickHandlers = {
   onMoveSelect: (e: React.MouseEvent<HTMLElement, MouseEvent>, move: MemberMove, moveIdx: 0 | 1 | 2 | 3) => void
 }
 
 export type ReferencePanelClickHandlers = {
   savedPokemonClickHandlers: SavedPokemonClickHandlers
+  abilitySelectClickHandlers: AbilitySelectClickHandlers
+  itemSelectClickHandlers: ItemSelectClickHandlers
   moveSelectClickHandlers: MoveSelectClickHandlers
 }
 
@@ -138,11 +150,35 @@ const TeamView = ({
     // Move select
     // #region
 
+    const onAbilitySelect = (e: React.MouseEvent<HTMLElement, MouseEvent>, ability: MemberAbility) => {
+      if (!view) return;
+
+      // Replace ability on selected member
+      if (view.mode === 'ABILITY' && member !== null && memberSlot !== null) {
+        team[filters.genFilter.gen].members[memberSlot]?.assignAbility(ability);
+      }
+
+      // No longer selecting abilities
+      setView(null);
+    }
+
+    const onItemSelect = (e: React.MouseEvent<HTMLElement, MouseEvent>, item: MemberItem) => {
+      if (!view) return;
+
+      // Replace item on selected member
+      if (view.mode === 'ITEM' && member !== null && memberSlot !== null) {
+        team[filters.genFilter.gen].members[memberSlot]?.assignItem(item);
+      }
+
+      // No longer selecting items
+      setView(null);
+    }
+
     const onMoveSelect = (e: React.MouseEvent<HTMLElement, MouseEvent>, move: MemberMove, moveIdx: 0 | 1 | 2 | 3) => {
       if (!view) return;
 
       // Replace move in slot moveIdx on selected member
-      if (view.mode === 'MOVE' && memberSlot !== null) {
+      if (view.mode === 'MOVE' && member !== null && memberSlot !== null) {
         team[filters.genFilter.gen].members[memberSlot]?.assignMove(move, moveIdx);
       }
 
@@ -158,16 +194,25 @@ const TeamView = ({
         onUnpinClick, 
         onPokemonSelect,
       },
+      abilitySelectClickHandlers: {
+        onAbilitySelect,
+      },
+      itemSelectClickHandlers: {
+        onItemSelect,
+      },
       moveSelectClickHandlers: {
         onMoveSelect,
-      }
+      },
     };
-  }, [dispatches, filters, team, memberSlot, setMemberSlot, ]);
+  }, [dispatches, filters, team, memberSlot, setMemberSlot, setView, member, ]);
 
   const teamMembersClickHandlers: TeamMembersClickHandlers = useMemo(() => {
     // On clicking AddIcon, open up savedPokemon in ReferencePanel
     const onAddClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, idx: number) => {
       e.preventDefault();
+
+      // No actual member has been selected yet, as the AddIcon only shows up if the slot is empty
+      setMember(null)
 
       // Slot has been selected
       setMemberSlot(idx);
@@ -194,31 +239,31 @@ const TeamView = ({
       onAddClick,
       onMemberClick,
     }
-  }, [dispatches, filters, team, view]);
+  }, [dispatches, filters, team, view, setMemberSlot, setView, setMember]);
 
   const memberDetailClickHandlers: MemberDetailClickHandlers = useMemo(() => {
     const onAbilityClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.preventDefault();
 
-      setView({ mode: 'ABILITY', idx: 0, });
+      if (member !== null) setView({ mode: 'ABILITY', idx: 0, });
     }
 
     const onItemClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.preventDefault();
 
-      setView({ mode: 'ITEM', idx: 0, });
+      if (member !== null) setView({ mode: 'ITEM', idx: 0, });
     }
 
     const onMoveClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, moveslot: 0 | 1 | 2 | 3) => {
       e.preventDefault();
 
-      setView({ mode: 'MOVE', idx: moveslot });
+      if (member !== null) setView({ mode: 'MOVE', idx: moveslot });
     }
 
     const onStatsClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.preventDefault();
 
-      setView({ mode: 'STATS', idx: 0, });
+      if (member !== null) setView({ mode: 'STATS', idx: 0, });
     }
 
     return {
@@ -227,7 +272,7 @@ const TeamView = ({
       onMoveClick,
       onStatsClick,
     };
-  }, [dispatches, filters, team, setView, view]);
+  }, [dispatches, filters, team, setView, view, member]);
 
   return (
     <div className="team-view__wrapper">
@@ -244,6 +289,7 @@ const TeamView = ({
         filters={filters}
         team={team}
         view={view}
+        psID={member?.psID}
       />
       <TeamMembers
         slot={memberSlot}

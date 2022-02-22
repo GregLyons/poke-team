@@ -3,5 +3,9 @@
 }
 
 .pokemon-icon {
-  background-image: url('../../../assets/icons/pokemonicons-sheet.png')
+  background-image: url('../../../assets/icons/pokemonicons-sheet.png');
+}
+
+.item-icon {
+  background-image: url('../../../assets/icons/itemicons-sheet.png');
 }

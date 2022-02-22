@@ -5,12 +5,10 @@ import { GenerationNum } from "@pkmn/data";
 import { EnumTypeName, toTypeName, TypeName } from "../helpers";
 
 export type MemberItemQuery = {
-  pokemonByPSID: {
-    items: {
-      edges: {
-        node: MemberItemQueryResult
-      }
-    }
+  items: {
+    edges: {
+      node: MemberItemQueryResult
+    }[]
   }
 }
 
@@ -21,19 +19,31 @@ export type MemberItemQueryResult = {
   psID: string
 }
 
+export type MemberItemSearchVars = {
+  gen: GenerationNum
+
+  contains: string
+  startsWith: string
+}
+
 export const MEMBER_ITEM_QUERY = gql`
-  query MemberItemQuery($gen: Int! $psID: String!) {
-    pokemonByPSID(generation: $gen psID: $psID) {
-      id
-      requiresItem {
-        id
-        edges {
-          node {
-            id
-            name
-            formattedName
-            psID
-          }
+  query MemberItemQuery(
+    $gen: Int!
+    $contains: String $startsWith: String!
+  ) {
+    items(
+      generation: $gen
+      filter: {
+        contains: $contains
+        startsWith: $startsWith
+      }
+    ) {
+      edges {
+        node {
+          id
+          name
+          formattedName
+          psID
         }
       }
     }

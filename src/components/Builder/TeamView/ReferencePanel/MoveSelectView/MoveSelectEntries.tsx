@@ -34,7 +34,7 @@ const MoveSelectEntries = ({
         The edge with learnMethod not equal to 'S' comes first (includes edge with learnMethod 'S' not being present at all):
           The Move is added, with 'eventOnly' flag set to 'true'. Then, within the same iteration, the flag is immediately set to 'false'. Since now Move is a key of the array, its flag will never be set to 'true' again, so it remains 'false', as desired.
     */
-    for (let moveEdge of data.pokemonByPSID.moves.edges) {
+    for (let moveEdge of data.pokemonByPSID[0].moves.edges) {
       const movePSID = moveEdge.node.psID;
       const learnMethod = moveEdge.learnMethod;
       
@@ -53,7 +53,7 @@ const MoveSelectEntries = ({
     // Keep track of duplicates
     let addedMoves: { [key: string]: boolean } = {};
 
-    return data.pokemonByPSID.moves.edges
+    return data.pokemonByPSID[0].moves.edges
       // Select only the node of the edge
       .map(edge => edge.node)
       // Gather list of Moves, removing duplicates
@@ -64,7 +64,7 @@ const MoveSelectEntries = ({
         // Move hasn't been encountered yet
         if (addedMoves?.[node.psID] === undefined) {
           // Move has now been encountered
-          addedMoves[node.psID] === true;
+          addedMoves[node.psID] = true;
 
           // Add new Move to list of moves
           return acc.concat([new MemberMove(node, filters.genFilter.gen, eventOnly)]);
