@@ -450,8 +450,8 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             name
             formattedName
 
-            descriptions {
-              edges (pagination: {limit: 1}) {
+            descriptions(pagination: {limit: 1})  {
+              edges {
                 node {
                   text
                 }

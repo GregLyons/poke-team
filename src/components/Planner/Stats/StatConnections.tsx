@@ -11,12 +11,10 @@ import {
   StatMoveResult,
   StatMoveQuery
 } from "../../../types-queries/Planner/Stat";
-import {
-  ListRenderArgs, ListRenderArgsIcons,
-} from "../helpers";
 
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 import { ENUMCASE_TO_TITLECASE } from "../../../utils/constants";
+import { ListRenderArgs, ListRenderArgsIcons } from "../../../hooks/Planner/MainSearches";
 
 export const listRenderStatAbility = ({ data, dispatches, filters, }: ListRenderArgsIcons<StatAbilityQuery>) => {
   if (!data || !data.statByName) return (<div>Data not found for the query 'statByName'.</div>);

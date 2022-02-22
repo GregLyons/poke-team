@@ -8,6 +8,8 @@ import TeamMembers from "./TeamIcons/TeamMembers";
 
 import './TeamView.css';
 import { PokemonIconDatum } from "../../../types-queries/helpers";
+import { MemberPokemon } from "../../../types-queries/Builder/MemberPokemon";
+import { MemberMove } from "../../../types-queries/Builder/MemberMove";
 
 type TeamViewProps = {
   bgManager: BGManager
@@ -37,8 +39,13 @@ export type SavedPokemonClickHandlers = {
   onPokemonSelect: (e: React.MouseEvent<HTMLElement, MouseEvent>, pokemonIconDatum: PokemonIconDatum) => void
 }
 
+export type MoveSelectClickHandlers = {
+  onMoveSelect: (e: React.MouseEvent<HTMLElement, MouseEvent>, move: MemberMove, moveIdx: 0 | 1 | 2 | 3) => void
+}
+
 export type ReferencePanelClickHandlers = {
   savedPokemonClickHandlers: SavedPokemonClickHandlers
+  moveSelectClickHandlers: MoveSelectClickHandlers
 }
 
 // #endregion
@@ -48,6 +55,7 @@ export type ReferencePanelClickHandlers = {
 
 export type TeamMembersClickHandlers = {
   onAddClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, idx: number) => void
+  onMemberClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, idx: number) => void
 }
 
 // #endregion
@@ -58,7 +66,7 @@ export type TeamMembersClickHandlers = {
 export type MemberDetailClickHandlers = {
   onAbilityClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onItemClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
-  onMoveClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, moveslot: 1 | 2 | 3 | 4) => void
+  onMoveClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, moveslot: 0 | 1 | 2 | 3) => void
   onStatsClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 }
 
@@ -70,7 +78,11 @@ const TeamView = ({
   filters,
   team,
 }: TeamViewProps) => {
-  const [slot, setSlot] = useState<number | null>(null);
+  // Position of the currently selected member
+  const [memberSlot, setMemberSlot] = useState<number | null>(null);
+  // The currently selected member
+  const [member, setMember] = useState<MemberPokemon | null>(null);
+  // Determines what is shown in ReferencePanel
   const [view, setView] = useState<ReferencePanelView>(null);
 
   const referencePanelClickHandlers: ReferencePanelClickHandlers = useMemo(() => {
@@ -105,7 +117,7 @@ const TeamView = ({
       if (!view) return;
 
       // If a slot is selected, then add Pokemon to that slot
-      if (view.mode === 'POKEMON' && slot !== null) dispatches.dispatchTeam({
+      if (view.mode === 'POKEMON' && memberSlot !== null) dispatches.dispatchTeam({
         type: 'replace_icon',
         payload: {
           gen: filters.genFilter.gen,
@@ -115,7 +127,7 @@ const TeamView = ({
       });
 
       // De-select slot
-      setSlot(null);
+      setMemberSlot(null);
       
       // No longer in 'POKEMON' mode (but can still view saved boxes)
       setView(null);
@@ -123,8 +135,20 @@ const TeamView = ({
 
     // #endregion
 
-    // Team icons
+    // Move select
     // #region
+
+    const onMoveSelect = (e: React.MouseEvent<HTMLElement, MouseEvent>, move: MemberMove, moveIdx: 0 | 1 | 2 | 3) => {
+      if (!view) return;
+
+      // Replace move in slot moveIdx on selected member
+      if (view.mode === 'MOVE' && memberSlot !== null) {
+        team[filters.genFilter.gen].members[memberSlot]?.assignMove(move, moveIdx);
+      }
+
+      // No longer selecting moves
+      setView(null);
+    }
 
     // #endregion
 
@@ -134,8 +158,11 @@ const TeamView = ({
         onUnpinClick, 
         onPokemonSelect,
       },
+      moveSelectClickHandlers: {
+        onMoveSelect,
+      }
     };
-  }, [dispatches, filters, team, slot, setSlot, ]);
+  }, [dispatches, filters, team, memberSlot, setMemberSlot, ]);
 
   const teamMembersClickHandlers: TeamMembersClickHandlers = useMemo(() => {
     // On clicking AddIcon, open up savedPokemon in ReferencePanel
@@ -143,14 +170,29 @@ const TeamView = ({
       e.preventDefault();
 
       // Slot has been selected
-      setSlot(idx);
+      setMemberSlot(idx);
 
       // Pokemon for user to choose from
       setView({ mode: 'POKEMON', idx, });
     }
 
+    // On clicking the Pokemon icon, pull up that member's details
+    const onMemberClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, idx: number) => {
+      e.preventDefault();
+
+      // Slot has been selected
+      setMemberSlot(idx);
+
+      // No need to interact with reference panel yet
+      setView(null);
+
+      // Select clicked member
+      setMember(team[filters.genFilter.gen].members[idx]);
+    }
+
     return {
       onAddClick,
+      onMemberClick,
     }
   }, [dispatches, filters, team, view]);
 
@@ -167,7 +209,7 @@ const TeamView = ({
       setView({ mode: 'ITEM', idx: 0, });
     }
 
-    const onMoveClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, moveslot: 1 | 2 | 3 | 4) => {
+    const onMoveClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, moveslot: 0 | 1 | 2 | 3) => {
       e.preventDefault();
 
       setView({ mode: 'MOVE', idx: moveslot });
@@ -193,6 +235,8 @@ const TeamView = ({
         dispatches={dispatches}
         filters={filters}
         clickHandlers={memberDetailClickHandlers}
+        member={member}
+        view={view}
       />
       <ReferencePanel
         clickHandlers={referencePanelClickHandlers}
@@ -202,7 +246,7 @@ const TeamView = ({
         view={view}
       />
       <TeamMembers
-        slot={slot}
+        slot={memberSlot}
         clickHandlers={teamMembersClickHandlers}
         team={team}
         dispatches={dispatches}

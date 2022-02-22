@@ -213,13 +213,13 @@ const QuickSearch = ({
         {loading
           ? <div>Loading...</div>
           : data && <QuickSearchEntries
-            data={data}
-            team={team}
-            filters={filters}
-            dispatches={dispatches}
-            pagination={pagination}
-            onSaveClick={onSaveClick}
-          />
+              data={data}
+              team={team}
+              filters={filters}
+              dispatches={dispatches}
+              pagination={pagination}
+              onSaveClick={onSaveClick}
+            />
         }
       </div>
     </div>

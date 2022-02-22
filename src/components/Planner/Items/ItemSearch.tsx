@@ -12,7 +12,6 @@ import {
 } from '../../../types-queries/Planner/Item';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 
-import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import {
   ENUMCASE_TO_TITLECASE,
@@ -20,7 +19,6 @@ import {
 import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_removal_icons, } from '../../../hooks/Planner/MainSearches';
 import { listToggleValue } from '../helpers';
 import { Dispatches, Filters } from '../../App';
-import EntitySearchMainIcons from '../Searches/EntitySearchMainIcons';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
 import { ItemClass, ITEM_CLASS_MAP } from '../../../types-queries/helpers';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
@@ -112,7 +110,7 @@ const listFilter = ({
         })}
         toggleSelect={handleClassSelect}
         dropdownWidth={'clamp(5vw, 50ch, 80%)'}
-        itemWidth={'10ch'}
+        itemWidth={'15ch'}
         backgroundLight="blue"
       />
     </>

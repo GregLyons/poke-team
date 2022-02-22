@@ -6,20 +6,19 @@ import {
 } from "@apollo/client";
 
 import { GenFilter } from "../../../hooks/App/GenFilter";
-import { ListRenderArgs } from '../helpers';
 
 import './Pages.css';
+import { ListRenderArgs } from '../../../hooks/Planner/MainSearches';
 
 
 interface EntityConnectionSearchProps<SearchQuery, SearchQueryVars> {
   genFilter: GenFilter
-  listRender: ({ data, genFilter, }: ListRenderArgs<SearchQuery>) => JSX.Element,
+  listRender: ({ data, }: ListRenderArgs<SearchQuery>) => JSX.Element,
   query: DocumentNode,
   queryVars: SearchQueryVars,
 }
 
 function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
-  genFilter,
   listRender,
   query,
   queryVars,
@@ -39,7 +38,7 @@ function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
     <>
       {loading 
         ? <div>Loading...</div>
-        : data && listRender({ data, genFilter, })
+        : data && listRender({ data, })
       }
     </>
   );

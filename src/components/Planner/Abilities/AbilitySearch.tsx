@@ -13,7 +13,6 @@ import {
 
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 
-import EntitySearchMainIcons from '../Searches/EntitySearchMainIcons';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_removal_icons, } from '../../../hooks/Planner/MainSearches';
 import { Dispatches, Filters } from '../../App';

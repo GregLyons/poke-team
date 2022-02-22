@@ -14,7 +14,6 @@
   cursor: pointer;
 }
 
-
 /* Add button */
 /* #region */
 
@@ -25,43 +24,24 @@
   align-self: center;
 
   display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 
   position: relative;
   height: 24px;
   width: 24px;
-
-  gap: 8px;
-
-  background-color: rgba(var(--green1-components), 0.5);
-  transition: background-color 0.3s ease;
 }
-.team-member__wrapper--empty:hover > .team-member__add,
-.team-member__wrapper--active > .team-member__add {
+
+.team-member__add-h,
+.team-member__add-v {
   background-color: rgba(var(--green1-components), 1);
 }
-
-.team-member__add-nw,
-.team-member__add-ne,
-.team-member__add-sw,
-.team-member__add-se {
-  background-color: var(--dark3);
-}
-.team-member__add-nw {
-  grid-row: 1 / 2;
-  grid-column: 1 / 2;
-}
-.team-member__add-ne {
-  grid-row: 1 / 2;
-  grid-column: 2 / 3;
-}
-.team-member__add-sw {
+.team-member__add-h {
   grid-row: 2 / 3;
-  grid-column: 1 / 2;
+  grid-column: 1 / 4;
 }
-.team-member__add-se {
-  grid-row: 2 / 3;
+.team-member__add-v {
+  grid-row: 1 / 4;
   grid-column: 2 / 3;
 }
 
@@ -90,7 +70,6 @@
   width: var(--remove-button-side);
   height: var(--remove-button-side);
   background: var(--red1);
-  border-radius: calc(0.25 * var(--remove-button-side));
 
   transition: 0.2s ease;
 }

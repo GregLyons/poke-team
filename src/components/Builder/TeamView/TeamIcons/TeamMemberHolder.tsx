@@ -33,14 +33,25 @@ const TeamMemberHolder = ({
   if (error) { return (<div>{error.message}</div>); }
 
   return (
-    <div className="team-member-holder__wrapper">
+    <div className={`
+      team-member-holder__wrapper
+      ${selected
+        ? 'team-member-holder__wrapper--active'
+        : ''
+      }
+    `}>
       <div className="team-member-holder__header">
         {selected
           ? 'Active'
           : 'Member ' + (idx + 1)
         }
       </div>
-      <div className="team-member-holder__content">
+      <div
+        className={`
+          team-member-holder__content
+        `}
+        
+      >
         {loading
           ? <div>Loading...</div>
           : <TeamMember

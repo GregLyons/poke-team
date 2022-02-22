@@ -4,7 +4,7 @@ import { Dispatches, Filters } from "../../../App";
 import NumericalInput from "../../../Reusables/NumericalInput/NumericalInput";
 import Slider from "../../../Reusables/Slider/Slider";
 import PokemonIcon from "../../Icons/PokemonIcon";
-import { MemberDetailClickHandlers } from "../TeamView";
+import { MemberDetailClickHandlers, ReferencePanelView } from "../TeamView";
 
 import './MemberDetails.css';
 
@@ -12,12 +12,16 @@ type MemberDetailsProps = {
   dispatches: Dispatches
   filters: Filters
   clickHandlers: MemberDetailClickHandlers
+  member: MemberPokemon | null
+  view: ReferencePanelView
 };
 
 const MemberDetails = ({
   dispatches,
   filters,
   clickHandlers,
+  member,
+  view,
 }: MemberDetailsProps) => {
   return (
     <div className="member-details__wrapper">
@@ -30,7 +34,10 @@ const MemberDetails = ({
           <div className="member-details__icon-options-wrapper">
             <div className="member-details__icon-wrapper">
               <PokemonIcon
-                pokemonIconDatum={DUMMY_POKEMON_ICON_DATUM}
+                pokemonIconDatum={member
+                  ? member.iconDatum
+                  : DUMMY_POKEMON_ICON_DATUM
+                }
               />
             </div>
             <div className="member-details__cosmetic">
@@ -113,26 +120,50 @@ const MemberDetails = ({
           <div className="member-details__content">
             <div className="member-details__moveset-wrapper">
               <div
-                className="member-details__move-wrapper"
-                onClick={e => clickHandlers.onMoveClick(e, 1)}
+                className={`
+                  member-details__move-wrapper
+                  ${view?.mode === 'MOVE' && view?.idx === 0
+                    ? 'member-details__move-wrapper--active'
+                    : ''
+                  }
+                `}
+                onClick={e => clickHandlers.onMoveClick(e, 0)}
               >
                 1
               </div>
               <div
-                className="member-details__move-wrapper"
-                onClick={e => clickHandlers.onMoveClick(e, 2)}
+                className={`
+                member-details__move-wrapper
+                ${view?.mode === 'MOVE' && view?.idx === 1
+                  ? 'member-details__move-wrapper--active'
+                  : ''
+                }
+              `}
+                onClick={e => clickHandlers.onMoveClick(e, 1)}
               >
                 2
               </div>
               <div
-                className="member-details__move-wrapper"
-                onClick={e => clickHandlers.onMoveClick(e, 3)}
+                className={`
+                member-details__move-wrapper
+                ${view?.mode === 'MOVE' && view?.idx === 2
+                  ? 'member-details__move-wrapper--active'
+                  : ''
+                }
+              `}
+                onClick={e => clickHandlers.onMoveClick(e, 2)}
               >
                 3
               </div>
               <div
-                className="member-details__move-wrapper"
-                onClick={e => clickHandlers.onMoveClick(e, 4)}
+                className={`
+                member-details__move-wrapper
+                ${view?.mode === 'MOVE' && view?.idx === 3
+                  ? 'member-details__move-wrapper--active'
+                  : ''
+                }
+              `}
+                onClick={e => clickHandlers.onMoveClick(e, 3)}
               >
                 4
               </div>
@@ -144,7 +175,13 @@ const MemberDetails = ({
             Ability
           </div>
           <div
-            className="member-details__content"
+            className={`
+              member-details__content
+              ${view?.mode === 'ABILITY'
+                ? 'member-details__content--active'
+                : ''
+              }
+            `}
             onClick={clickHandlers.onAbilityClick}
           >
             Ability button
@@ -155,7 +192,13 @@ const MemberDetails = ({
             Item
           </div>
           <div
-            className="member-details__content"
+            className={`
+            member-details__content
+            ${view?.mode === 'ITEM'
+              ? 'member-details__content--active'
+              : ''
+            }
+          `}
             onClick={clickHandlers.onItemClick}
           >
             Item button
@@ -166,7 +209,13 @@ const MemberDetails = ({
             Stats
           </div>
           <div
-            className="member-details__content"
+            className={`
+            member-details__content
+            ${view?.mode === 'STATS'
+              ? 'member-details__content--active'
+              : ''
+            }
+          `}
             onClick={clickHandlers.onStatsClick}
           >
             Stat button

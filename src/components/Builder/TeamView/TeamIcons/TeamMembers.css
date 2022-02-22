@@ -15,6 +15,13 @@
   position: relative;
 
   padding: var(--team-builder-gap);
+  
+  transition: 0.2s ease;
+}
+.team-member-holder__wrapper:hover,
+.team-member-holder__wrapper--active {
+  background-color: rgba(var(--light1-components), 0.05);
+  filter: brightness(1.05);
 }
 
 .team-member-holder__content {

@@ -9,10 +9,8 @@ const AddIcon =({
     <div
       className="team-member__add"
     >
-      <div className="team-member__add-nw"></div>
-      <div className="team-member__add-ne"></div>
-      <div className="team-member__add-sw"></div>
-      <div className="team-member__add-se"></div>
+      <div className="team-member__add-h"></div>
+      <div className="team-member__add-v"></div>
     </div>
   )
 }

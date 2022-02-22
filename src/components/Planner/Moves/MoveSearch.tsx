@@ -13,14 +13,12 @@ import {
 
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 
-import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import {
   ENUMCASE_TO_TITLECASE,
 } from '../../../utils/constants';
 import { listToggleValue, rangeSelect } from '../helpers';
 import { Dispatches, Filters } from '../../App';
-import EntitySearchMainIcons from '../Searches/EntitySearchMainIcons';
 import { EnumTypeName, MoveCategory, MoveTargetClass, MOVE_CATEGORY_MAP, MOVE_TARGETCLASS_MAP, toEnumTypeName } from '../../../types-queries/helpers';
 import { TYPE_NAMES } from '../../../hooks/App/PokemonFilter';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';

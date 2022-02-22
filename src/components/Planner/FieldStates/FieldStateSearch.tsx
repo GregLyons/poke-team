@@ -14,7 +14,6 @@ import {
 
 import { GenFilter } from "../../../hooks/App/GenFilter";
 
-import EntitySearchMain from '../Searches/EntitySearchMain';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { ENUMCASE_TO_TITLECASE } from '../../../utils/constants';
 import { Dispatch, SetStateAction } from 'react';

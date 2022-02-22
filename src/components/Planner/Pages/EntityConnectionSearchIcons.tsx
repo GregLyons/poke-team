@@ -5,10 +5,9 @@ import {
   useQuery,
 } from "@apollo/client";
 
-import { ListRenderArgsIcons } from '../helpers';
-
 import './Pages.css';
 import { Dispatches, Filters } from '../../App';
+import { ListRenderArgsIcons } from '../../../hooks/Planner/MainSearches';
 
 
 interface EntityConnectionSearchIconsProps<SearchQuery, SearchQueryVars> {

@@ -10,7 +10,7 @@ export type MemberMoveQuery = {
       edges: {
         node: MemberMoveQueryResult
         learnMethod: string
-      }
+      }[]
     }
   }
 }
@@ -33,11 +33,30 @@ export type MemberMoveQueryResult = {
   requiresItem: RequiresItemEdge[]
 }
 
+export type MemberMoveSearchVars = {
+  gen: GenerationNum
+  psID: string
+
+  contains: string
+  startsWith: string
+
+  removedFromSwSh: false | null
+  removedFromBDSP: false | null
+}
+
 export const MEMBER_MOVESET_QUERY = gql`
-  query MemberMovesetQuery($gen: Int! $psID: String!) {
+  query MemberMovesetQuery(
+    $gen: Int! $psID: String!
+    $contains: String $startsWith: String!
+    $removedFromBDSP: Boolean $removedFromSwSh: Boolean
+  ) {
     pokemonByPSID(generation: $gen psID: $psID) {
       id
-      moves {
+      moves(filter: {
+        contains: $contains, startsWith: $startsWith, 
+        removedFromSwSh: $removedFromSwSh,
+        removedFromBDSP: $removedFromBDSP,
+      }) {
         id
         edges {
           node {
@@ -92,7 +111,9 @@ export class MemberMove {
 
   public requiresItem: MemberItem[]
 
-  constructor(gqlMemberMove: MemberMoveQueryResult, gen: GenerationNum) {
+  public eventOnly: boolean
+
+  constructor(gqlMemberMove: MemberMoveQueryResult, gen: GenerationNum, eventOnly: boolean) {
     const {
       id, name, formattedName, psID: psID, typeName: enumTypeName,
       removedFromSwSh, removedFromBDSP,
@@ -116,5 +137,7 @@ export class MemberMove {
     this.category = category;
 
     this.requiresItem = requiresItem.map(edge => requiresItemEdgeToMemberItem(edge, gen));
+
+    this.eventOnly = eventOnly;
   }
 }

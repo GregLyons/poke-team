@@ -1,3 +1,4 @@
+import { MemberMove } from "../../types-queries/Builder/MemberMove";
 import { MemberPokemon } from "../../types-queries/Builder/MemberPokemon";
 import { DUMMY_POKEMON_ICON_DATUM, GenerationNum, PokemonIconDatum } from "../../types-queries/helpers";
 import { omitKeys } from "../../utils/helpers";
@@ -90,22 +91,25 @@ export type TeamAction =
     }
   }
 // Remove member in slot idx, as well as its icon
-  | {
+| {
     type: 'remove_member'
     payload: {
       gen: GenerationNum
       idx: number
     }
   }
-//
 
 export function teamReducer(state: Team, action: TeamAction): Team {
-  let gen: GenerationNum
-  let idx: number
+  let gen: GenerationNum;
   let note: string;
-  let pokemon: PokemonIconDatum
-  let psID: string
+  let pokemon: PokemonIconDatum;
+  let member: MemberPokemon;
+  let psID: string;
   let newState: Team;
+
+  let idx: number;
+  let memberIdx: number;
+  let moveIdx: number;
 
   switch(action.type) {
     case 'pin_box':
@@ -186,7 +190,7 @@ export function teamReducer(state: Team, action: TeamAction): Team {
 
     case 'replace_member':
       gen = action.payload.gen;
-      pokemon = action.payload.member;
+      member = action.payload.member;
       idx = action.payload.idx;
 
       return {
@@ -195,7 +199,7 @@ export function teamReducer(state: Team, action: TeamAction): Team {
           ...state[gen],
           members: state[gen].members.map((d, i) => {
             if (i !== idx) return d;
-            return pokemon;
+            return member;
           }),
         },
       };
@@ -217,7 +221,6 @@ export function teamReducer(state: Team, action: TeamAction): Team {
           }),
         },
       };
-
 
     default:
       throw new Error();

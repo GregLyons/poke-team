@@ -26,6 +26,22 @@ const ReferencePanel = ({
       viewPanelMessage = `Select Member ${view.idx + 1}`;
       break;
 
+    case 'MOVE':
+      viewPanelMessage = `Select Move for slot ${view.idx + 1}`
+      break;
+
+    case 'ABILITY':
+      viewPanelMessage = 'Select Ability';
+      break;
+
+    case 'ITEM':
+      viewPanelMessage = 'Select Item';
+      break;
+
+    case 'STATS':
+      viewPanelMessage = 'Set EVs, IVs, and Nature';
+      break;
+
     default: 
       viewPanelMessage = 'Saved Pokemon';
   }

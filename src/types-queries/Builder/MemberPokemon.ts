@@ -151,6 +151,8 @@ export class MemberPokemon {
   public typing: TypeName[]
   public baseStats: StatTable
 
+  public iconDatum: PokemonIconDatum
+
   public gen: GenerationNum
   public introduced: GenerationNum
   public removedFromSwSh: boolean
@@ -181,6 +183,9 @@ export class MemberPokemon {
       typing, baseStats, 
       removedFromSwSh, removedFromBDSP,
     } = pokemonIconDatum;
+    
+    this.iconDatum = pokemonIconDatum;
+
     const { 
       id, name, speciesName,
       introduced, 
@@ -224,7 +229,7 @@ export class MemberPokemon {
     this.ability = newAbility;
   }
 
-  public assignMove(newMove: MemberMove, slot: 1 | 2 | 3 | 4) {
+  public assignMove(newMove: MemberMove, slot: 0 | 1 | 2 | 3) {
     this.moveset = this.moveset.map((d, idx) => {
       if (idx === slot) return newMove;
       else return d;

@@ -106,10 +106,12 @@ const TeamMember = ({
           : ''
         }
       `}
-      // Only do anything if no icon present
       onClick={e => {
         e.preventDefault();
+        // If no icon present, go into adding mode
         if (icon === null) clickHandlers.onAddClick(e, idx);
+        // Otherwise, pull up the member's details
+        else clickHandlers.onMemberClick(e, idx);
       }}
     > 
       {icon === null && <AddIcon />}

@@ -1,4 +1,4 @@
-import './Searches.css';
+import './MainSearch.css';
 
 type MainSearchProps = {
   filterForm: JSX.Element

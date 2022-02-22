@@ -18,7 +18,10 @@ const RemoveIcon = ({
           ? 'team-member__return'
           : ''}
         `}
-        onClick={onClick}
+        onClick={e => {
+          onClick(e);
+          e.stopPropagation();
+        }}
       >
         <div className="team-member__remove--top" />
         <div className="team-member__remove--left" />
