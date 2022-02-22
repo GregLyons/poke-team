@@ -50,7 +50,7 @@ export type ItemSelectClickHandlers = {
 }
 
 export type MoveSelectClickHandlers = {
-  onMoveSelect: (e: React.MouseEvent<HTMLElement, MouseEvent>, move: MemberMove, moveIdx: 0 | 1 | 2 | 3) => void
+  onMoveSelect: (e: React.MouseEvent<HTMLElement, MouseEvent>, move: MemberMove) => void
 }
 
 export type ReferencePanelClickHandlers = {
@@ -174,12 +174,12 @@ const TeamView = ({
       setView(null);
     }
 
-    const onMoveSelect = (e: React.MouseEvent<HTMLElement, MouseEvent>, move: MemberMove, moveIdx: 0 | 1 | 2 | 3) => {
+    const onMoveSelect = (e: React.MouseEvent<HTMLElement, MouseEvent>, move: MemberMove) => {
       if (!view) return;
 
       // Replace move in slot moveIdx on selected member
       if (view.mode === 'MOVE' && member !== null && memberSlot !== null) {
-        team[filters.genFilter.gen].members[memberSlot]?.assignMove(move, moveIdx);
+        team[filters.genFilter.gen].members[memberSlot]?.assignMove(move, (view.idx as 0 | 1 | 2 | 3));
       }
 
       // No longer selecting moves
@@ -204,7 +204,7 @@ const TeamView = ({
         onMoveSelect,
       },
     };
-  }, [dispatches, filters, team, memberSlot, setMemberSlot, setView, member, ]);
+  }, [dispatches, filters, team, memberSlot, setMemberSlot, view, setView, member, ]);
 
   const teamMembersClickHandlers: TeamMembersClickHandlers = useMemo(() => {
     // On clicking AddIcon, open up savedPokemon in ReferencePanel

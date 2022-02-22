@@ -18,12 +18,10 @@ type SearchBarProps = {
 const SearchBar = ({
   title,
   placeholder,
-
   searchTerm,
   handleSearchTermChange,
   searchMode,
   handleSearchModeChange,
-
   backgroundLight,
 }: SearchBarProps) => {
   return (

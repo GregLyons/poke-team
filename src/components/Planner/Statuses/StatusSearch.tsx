@@ -58,10 +58,7 @@ const listRender = ({ data, }: ListRenderArgs<StatusSearchQuery>) => {
 const listFilter = ({
   queryVars,
   setQueryVars,
-  searchTerm,
-  handleSearchTermChange,
-  searchMode,
-  handleSearchModeChange,
+  searchBar,
 }: ListFilterArgs<StatusSearchVars>) => {
   // TODO: volatility
 
@@ -70,10 +67,7 @@ const listFilter = ({
       <SearchBar
         title={`Search statuses by name`}
         placeholder={`Search statuses`}
-        searchTerm={searchTerm}
-        handleSearchTermChange={handleSearchTermChange}
-        searchMode={searchMode}
-        handleSearchModeChange={handleSearchModeChange}
+        {...searchBar}
         backgroundLight="blue"
       />
     </form>

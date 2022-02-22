@@ -53,20 +53,14 @@ const listRender = ({ data, }: ListRenderArgs<StatSearchQuery>) => {
 const listFilter = ({
   queryVars,
   setQueryVars,
-  searchTerm,
-  handleSearchTermChange,
-  searchMode,
-  handleSearchModeChange,
+  searchBar,
 }: ListFilterArgs<StatSearchVars>) => {
   return (
     <form>
       <SearchBar
         title={`Search stats by name`}
         placeholder={`Search stats`}
-        searchTerm={searchTerm}
-        handleSearchTermChange={handleSearchTermChange}
-        searchMode={searchMode}
-        handleSearchModeChange={handleSearchModeChange}
+        {...searchBar}
         backgroundLight="blue"
       />
     </form>

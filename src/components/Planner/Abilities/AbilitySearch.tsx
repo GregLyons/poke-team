@@ -52,20 +52,14 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<AbilityS
 const listFilter = ({
   queryVars,
   setQueryVars,
-  searchTerm,
-  handleSearchTermChange,
-  searchMode,
-  handleSearchModeChange,
+  searchBar,
 }: ListFilterArgs<AbilitySearchVars>) => {
   return (
     <form>
       <SearchBar
         title={`Search abilities by name`}
         placeholder={`Search abilities`}
-        searchTerm={searchTerm}
-        handleSearchTermChange={handleSearchTermChange}
-        searchMode={searchMode}
-        handleSearchModeChange={handleSearchModeChange}
+        {...searchBar}
         backgroundLight="blue"
       />
     </form>

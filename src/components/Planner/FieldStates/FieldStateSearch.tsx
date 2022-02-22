@@ -71,10 +71,7 @@ const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
 const listFilter = ({
   queryVars,
   setQueryVars,
-  searchTerm,
-  handleSearchTermChange,
-  searchMode,
-  handleSearchModeChange,
+  searchBar,
 }: ListFilterArgs<FieldStateSearchVars>) => {
   const handleClassSelect = listToggleValue<FieldStateSearchVars, FieldStateClass>(queryVars, setQueryVars, 'fieldStateClass');
 
@@ -91,10 +88,7 @@ const listFilter = ({
       <SearchBar
         title={`Search field states by name`}
         placeholder={`Search field states`}
-        searchTerm={searchTerm}
-        handleSearchTermChange={handleSearchTermChange}
-        searchMode={searchMode}
-        handleSearchModeChange={handleSearchModeChange}
+        {...searchBar}
         backgroundLight="blue"
       />
     </form>

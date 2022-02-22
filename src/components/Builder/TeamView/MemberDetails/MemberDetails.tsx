@@ -3,6 +3,7 @@ import { DUMMY_POKEMON_ICON_DATUM } from "../../../../types-queries/helpers";
 import { Dispatches, Filters } from "../../../App";
 import NumericalInput from "../../../Reusables/NumericalInput/NumericalInput";
 import Slider from "../../../Reusables/Slider/Slider";
+import ItemIcon from "../../Icons/ItemIcon";
 import PokemonIcon from "../../Icons/PokemonIcon";
 import { MemberDetailClickHandlers, ReferencePanelView } from "../TeamView";
 
@@ -136,7 +137,7 @@ const MemberDetails = ({
                 `}
                 onClick={e => clickHandlers.onMoveClick(e, 0)}
               >
-                1
+                1 {member?.moveset[0]?.formattedName || ''}
               </div>
               <div
                 className={`
@@ -148,7 +149,7 @@ const MemberDetails = ({
               `}
                 onClick={e => clickHandlers.onMoveClick(e, 1)}
               >
-                2
+                2 {member?.moveset[1]?.formattedName || ''}
               </div>
               <div
                 className={`
@@ -160,7 +161,7 @@ const MemberDetails = ({
               `}
                 onClick={e => clickHandlers.onMoveClick(e, 2)}
               >
-                3
+                3 {member?.moveset[2]?.formattedName || ''}
               </div>
               <div
                 className={`
@@ -172,7 +173,7 @@ const MemberDetails = ({
               `}
                 onClick={e => clickHandlers.onMoveClick(e, 3)}
               >
-                4
+                4 {member?.moveset[3]?.formattedName || ''}
               </div>
             </div>
           </div>
@@ -191,7 +192,7 @@ const MemberDetails = ({
             `}
             onClick={clickHandlers.onAbilityClick}
           >
-            Ability button
+            {member?.ability?.formattedName}
           </div>
         </div>
         <div className="member-details__item">
@@ -208,7 +209,14 @@ const MemberDetails = ({
           `}
             onClick={clickHandlers.onItemClick}
           >
-            Item button
+            <div className="member-details__item-icon">
+              {member?.item && <ItemIcon
+                itemIconDatum={member.item}
+              />}
+            </div>
+            <div className="member-details__item-name">
+              {member?.item?.formattedName}
+            </div>
           </div>
         </div>
         <div className="member-details__stats">

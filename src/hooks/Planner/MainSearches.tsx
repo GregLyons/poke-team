@@ -97,10 +97,12 @@ export type ListFilterArgs<SearchVars> = {
   queryVars: SearchVars
   setQueryVars: React.Dispatch<React.SetStateAction<SearchVars>>
   
-  searchTerm: string
-  handleSearchTermChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  searchMode: 'STARTS' | 'CONTAINS'
-  handleSearchModeChange: (e: React.MouseEvent<HTMLElement, MouseEvent>, mode: 'STARTS' | 'CONTAINS') => void
+  searchBar: {
+    searchTerm: string
+    handleSearchTermChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    searchMode: 'STARTS' | 'CONTAINS'
+    handleSearchModeChange: (e: React.MouseEvent<HTMLElement, MouseEvent>, mode: 'STARTS' | 'CONTAINS') => void
+  }
 }
 
 export function useListFilter<SearchVars>(
@@ -109,10 +111,12 @@ export function useListFilter<SearchVars>(
   listFilter: ({
     queryVars,
     setQueryVars,
-    searchTerm,
-    handleSearchTermChange,
-    searchMode,
-    handleSearchModeChange,
+    searchBar: {
+      searchTerm,
+      handleSearchTermChange,
+      searchMode,
+      handleSearchModeChange,
+    },
   }: ListFilterArgs<SearchVars>) => JSX.Element
 ): [SearchVars, JSX.Element] {
   const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useGenConnectedSearchVars(defaultSearchVars, genFilter);
@@ -122,10 +126,12 @@ export function useListFilter<SearchVars>(
     listFilter({
       queryVars,
       setQueryVars,
-      searchTerm,
-      handleSearchTermChange,
-      searchMode,
-      handleSearchModeChange,
+      searchBar: {
+        searchTerm,
+        handleSearchTermChange,
+        searchMode,
+        handleSearchModeChange,
+      },
     }),
   ];
 }
@@ -136,10 +142,12 @@ export function useListFilter_removal<SearchVars>(
   listFilter: ({
     queryVars,
     setQueryVars,
-    searchTerm,
-    handleSearchTermChange,
-    searchMode,
-    handleSearchModeChange,
+    searchBar: {
+      searchTerm,
+      handleSearchTermChange,
+      searchMode,
+      handleSearchModeChange,
+    },
   }: ListFilterArgs<SearchVars>) => JSX.Element
 ): [SearchVars, JSX.Element] {
   const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useRemovalConnectedSearchVars(defaultSearchVars, genFilter);
@@ -149,10 +157,12 @@ export function useListFilter_removal<SearchVars>(
     listFilter({
       queryVars,
       setQueryVars,
-      searchTerm,
-      handleSearchTermChange,
-      searchMode,
-      handleSearchModeChange,
+      searchBar: {
+        searchTerm,
+        handleSearchTermChange,
+        searchMode,
+        handleSearchModeChange,
+      },
     }),
   ];
 }

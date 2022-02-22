@@ -85,10 +85,7 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<MoveSear
 const listFilter = ({
   queryVars,
   setQueryVars,
-  searchTerm,
-  handleSearchTermChange,
-  searchMode,
-  handleSearchModeChange,
+  searchBar,
 }: ListFilterArgs<MoveSearchVars>) => {
   const handleAccuracyRange = rangeSelect<MoveSearchVars>(queryVars, setQueryVars, 'minAccuracy', 'maxAccuracy');
 
@@ -113,10 +110,7 @@ const listFilter = ({
       <SearchBar
         title={`Search moves by name`}
         placeholder={`Search moves`}
-        searchTerm={searchTerm}
-        handleSearchTermChange={handleSearchTermChange}
-        searchMode={searchMode}
-        handleSearchModeChange={handleSearchModeChange}
+        {...searchBar}
         backgroundLight="blue"
       />
     </form>

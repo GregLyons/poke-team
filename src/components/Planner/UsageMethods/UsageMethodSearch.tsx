@@ -53,20 +53,14 @@ const listRender = ({ data, }: ListRenderArgs<UsageMethodSearchQuery>) => {
 const listFilter = ({
   queryVars,
   setQueryVars,
-  searchTerm,
-  handleSearchTermChange,
-  searchMode,
-  handleSearchModeChange,
+  searchBar,
 }: ListFilterArgs<UsageMethodSearchVars>) => {
   return (
     <form>
       <SearchBar
         title={`Search usage methods by name`}
         placeholder={`Search usage methods`}
-        searchTerm={searchTerm}
-        handleSearchTermChange={handleSearchTermChange}
-        searchMode={searchMode}
-        handleSearchModeChange={handleSearchModeChange}
+        {...searchBar}
         backgroundLight="blue"
       />
     </form>

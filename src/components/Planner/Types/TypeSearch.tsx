@@ -56,20 +56,14 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeSear
 const listFilter = ({
   queryVars,
   setQueryVars,
-  searchTerm,
-  handleSearchTermChange,
-  searchMode,
-  handleSearchModeChange,
+  searchBar,
 }: ListFilterArgs<TypeSearchVars>) => {
   return (
     <form>
       <SearchBar
         title={`Search types by name`}
         placeholder={`Search types`}
-        searchTerm={searchTerm}
-        handleSearchTermChange={handleSearchTermChange}
-        searchMode={searchMode}
-        handleSearchModeChange={handleSearchModeChange}
+        {...searchBar}
         backgroundLight="blue"
       />
     </form>

@@ -1,15 +1,18 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MemberMove, MemberMoveQuery, MemberMoveQueryResult } from "../../../../../types-queries/Builder/MemberMove";
 import { Filters } from "../../../../App";
+import { MoveSelectClickHandlers } from "../../TeamView";
 import MoveSelectEntry from "./MoveSelectEntry";
 
 type MoveSelectEntriesProps = {
   data: MemberMoveQuery
+  clickHandlers: MoveSelectClickHandlers
   filters: Filters
 };
 
 const MoveSelectEntries = ({
   data,
+  clickHandlers,
   filters,
 }: MoveSelectEntriesProps) => {
   const [sorted, setSorted] = useState(false);
@@ -80,6 +83,10 @@ const MoveSelectEntries = ({
   // Entries to be rendered, which should be sorted according to orderByKey
   const [entries, setEntries] = useState<MemberMove[] | undefined>(originalEntries);
 
+  useEffect(() => {
+    setEntries(originalEntries);
+  }, [originalEntries, setEntries]);
+
   return (
     <div
       className="move-select__entries-wrapper"
@@ -88,6 +95,7 @@ const MoveSelectEntries = ({
         return (
           <MoveSelectEntry
             key={`moveSelectEntry_${entry.psID}`}
+            clickHandlers={clickHandlers}
             move={entry}
           />
         )

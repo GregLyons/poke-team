@@ -67,10 +67,7 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<ItemSear
 const listFilter = ({
   queryVars,
   setQueryVars,
-  searchTerm,
-  handleSearchTermChange,
-  searchMode,
-  handleSearchModeChange,
+  searchBar,
 }: ListFilterArgs<ItemSearchVars>) => {
   const handleClassSelect = listToggleValue<ItemSearchVars, ItemClass>(queryVars, setQueryVars, 'itemClass');
 
@@ -79,10 +76,7 @@ const listFilter = ({
       <SearchBar
         title={`Search items by name`}
         placeholder={`Search items`}
-        searchTerm={searchTerm}
-        handleSearchTermChange={handleSearchTermChange}
-        searchMode={searchMode}
-        handleSearchModeChange={handleSearchModeChange}
+        {...searchBar}
         backgroundLight="blue"
       />
       <DropdownMenu

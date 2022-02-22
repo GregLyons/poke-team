@@ -2,17 +2,21 @@ import { MemberAbility } from "../../../../../types-queries/Builder/MemberAbilit
 import { toTypeName } from "../../../../../types-queries/helpers";
 import { ENUMCASE_TO_TITLECASE } from "../../../../../utils/constants";
 import TypeIcon from "../../../Icons/TypeIcon";
+import { AbilitySelectClickHandlers } from "../../TeamView";
 
 type AbilitySelectEntryProps = {
+  clickHandlers: AbilitySelectClickHandlers
   ability: MemberAbility
 };
 
 const AbilitySelectEntry = ({
   ability,
+  clickHandlers,
 }: AbilitySelectEntryProps) => {
   return (
     <div
       className="ability-select__entry"
+      onClick={e => clickHandlers.onAbilitySelect(e, ability)}
     >
       <div className="ability-select__name">
         {ability.formattedName}

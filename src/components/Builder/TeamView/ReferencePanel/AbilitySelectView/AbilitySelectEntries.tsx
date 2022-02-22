@@ -1,20 +1,21 @@
 import { useMemo, useState } from "react";
 import { MemberAbility, MemberAbilityQuery, MemberAbilityQueryResult } from "../../../../../types-queries/Builder/MemberAbility";
 import { Filters } from "../../../../App";
+import { AbilitySelectClickHandlers } from "../../TeamView";
 import AbilitySelectEntry from "./AbilitySelectEntry";
 
 type AbilitySelectEntriesProps = {
   data: MemberAbilityQuery
+  clickHandlers: AbilitySelectClickHandlers
   filters: Filters
 };
 
 const AbilitySelectEntries = ({
   data,
+  clickHandlers,
   filters,
 }: AbilitySelectEntriesProps) => {
-  const [sorted, setSorted] = useState(false);
-
-  const originalEntries: MemberAbility[] | undefined = useMemo(() => {
+  const entries: MemberAbility[] | undefined = useMemo(() => {
     // If not data, do nothing
     if (!data) return undefined;
 
@@ -22,9 +23,6 @@ const AbilitySelectEntries = ({
       return new MemberAbility(memberAbilityEdge.node, filters.genFilter.gen, memberAbilityEdge.slot);
     });
   }, [data, filters.genFilter, ]);
-
-  // Entries to be rendered, which should be sorted according to orderByKey
-  const [entries, setEntries] = useState<MemberAbility[] | undefined>(originalEntries);
 
   return (
     <div
@@ -34,6 +32,7 @@ const AbilitySelectEntries = ({
         return (
           <AbilitySelectEntry
             key={`abilitySelectEntry_${entry.psID}`}
+            clickHandlers={clickHandlers}
             ability={entry}
           />
         )

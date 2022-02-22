@@ -46,20 +46,14 @@ const listRender = ({ data, }: ListRenderArgs<EffectSearchQuery>) => {
 const listFilter = ({
   queryVars,
   setQueryVars,
-  searchTerm,
-  handleSearchTermChange,
-  searchMode,
-  handleSearchModeChange,
+  searchBar,
 }: ListFilterArgs<EffectSearchVars>) => {
   return (
     <form>
       <SearchBar
         title={`Search effects by name`}
         placeholder={`Search effects`}
-        searchTerm={searchTerm}
-        handleSearchTermChange={handleSearchTermChange}
-        searchMode={searchMode}
-        handleSearchModeChange={handleSearchModeChange}
+        {...searchBar}
         backgroundLight="blue"
       />
     </form>

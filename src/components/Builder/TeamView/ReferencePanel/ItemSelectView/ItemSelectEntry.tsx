@@ -3,17 +3,21 @@ import { toTypeName } from "../../../../../types-queries/helpers";
 import { ENUMCASE_TO_TITLECASE } from "../../../../../utils/constants";
 import ItemIcon from "../../../Icons/ItemIcon";
 import TypeIcon from "../../../Icons/TypeIcon";
+import { ItemSelectClickHandlers } from "../../TeamView";
 
 type ItemSelectEntryProps = {
+  clickHandlers: ItemSelectClickHandlers
   item: MemberItem
 };
 
 const ItemSelectEntry = ({
   item,
+  clickHandlers,
 }: ItemSelectEntryProps) => {
   return (
     <div
       className="item-select__entry"
+      onClick={e => clickHandlers.onItemSelect(e, item)}
     >
       <div className="item-select__icon">
         <ItemIcon
