@@ -120,8 +120,8 @@ export function sliderSelect<SearchVars extends { [Property in keyof SearchVars]
   key: keyof SearchVars,
 ) {
   // Type-check
-  if (!(queryVars[key] as number)) {
-    console.log('Incorrect min key passed:', key);
+  if ((queryVars[key] as number) === undefined) {
+    console.log('Incorrect key passed:', key);
     return;
   }
   const updateValue = (value: number) => setQueryVars({
@@ -139,11 +139,11 @@ export function rangeSelect<SearchVars extends { [Property in keyof SearchVars]:
   maxKey: keyof SearchVars,
 ) {
   // Type-check
-  if (!(queryVars[minKey] as number)) {
+  if ((queryVars[minKey] as number) === undefined) {
     console.log('Incorrect min key passed:', minKey);
     return;
   }
-  if (!(queryVars[maxKey] as number)) {
+  if ((queryVars[maxKey] as number) === undefined) {
     console.log('Incorrect max key passed:', maxKey);
     return;
   }

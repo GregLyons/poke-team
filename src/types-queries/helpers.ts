@@ -90,6 +90,27 @@ export const ITEM_CLASS_MAP = new Map<ItemClass, string>([
 // Moves
 // #region
 
+export const MOVE_TYPE_MAP = new Map<EnumTypeName, FormattedTypeName>([
+  ['NORMAL', 'Normal'],
+  ['FIGHTING', 'Fighting'],
+  ['FLYING', 'Flying'],
+  ['POISON', 'Poison'],
+  ['GROUND', 'Ground'],
+  ['ROCK', 'Rock'],
+  ['BUG', 'Bug'],
+  ['GHOST', 'Ghost'],
+  ['STEEL', 'Steel'],
+  ['FIRE', 'Fire'],
+  ['WATER', 'Water'],
+  ['GRASS', 'Grass'],
+  ['ELECTRIC', 'Electric'],
+  ['PSYCHIC', 'Psychic'],
+  ['ICE', 'Ice'],
+  ['DRAGON', 'Dragon'],
+  ['DARK', 'Dark'],
+  ['FAIRY', 'Fairy'],
+])
+
 export type MoveCategory =
 | 'PHYSICAL'
 | 'SPECIAL'

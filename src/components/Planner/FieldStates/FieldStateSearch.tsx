@@ -21,6 +21,10 @@ import SearchBar from '../../Reusables/SearchBar/SearchBar';
 import { FieldStateClass, FieldStateDamagePercent, FieldStateTargetClass, FIELDSTATE_CLASS_MAP, FIELDSTATE_TARGETCLASS_MAP } from '../../../types-queries/helpers';
 import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Planner/MainSearches';
 import MainSearch from '../Searches/MainSearch';
+import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
+import Button from '../../Reusables/Button/Button';
+import DoubleSlider from '../../Reusables/DoubleSlider/DoubleSlider';
+import Slider from '../../Reusables/Slider/Slider';
 
 const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
   if (!data || !data.fieldStates) return (<div>Data not found for the query 'fieldStates'.</div>);
@@ -77,7 +81,7 @@ const listFilter = ({
 
   const handleDamagePercentRange = rangeSelect<FieldStateSearchVars>(queryVars, setQueryVars, 'minDamagePercent', 'maxDamagePercent');
 
-  const handleMaxLayers = sliderSelect<FieldStateSearchVars>(queryVars, setQueryVars, 'maxLayers');
+  // const handleMaxLayers = sliderSelect<FieldStateSearchVars>(queryVars, setQueryVars, 'maxLayers');
 
   // TODO: grounded filter
 
@@ -91,6 +95,77 @@ const listFilter = ({
         {...searchBar}
         backgroundLight="blue"
       />
+      <DropdownMenu
+        title="CLASS"
+        items={Array.from(FIELDSTATE_CLASS_MAP.entries()).map(([key, value]) => {
+          const selected = queryVars.fieldStateClass.includes(key);
+
+          return {
+            id: key,
+            label: (
+              <Button
+                title={selected
+                  ? `Exclude ${value} field states.`
+                  : `Include ${value} field states.`
+                }
+                label={value}
+                active={selected}
+                onClick={e => e.preventDefault()}
+                disabled={false}
+                immediate={false}
+              />
+            ),
+            selected,
+          };
+        })}
+        toggleSelect={handleClassSelect}
+        dropdownWidth={'clamp(5vw, 50ch, 80%)'}
+        itemWidth={'15ch'}
+        backgroundLight="blue"
+      />
+      <DropdownMenu
+        title="TARGET"
+        items={Array.from(FIELDSTATE_TARGETCLASS_MAP.entries()).map(([key, value]) => {
+          const selected = queryVars.target.includes(key);
+
+          return {
+            id: key,
+            label: (
+              <Button
+                title={selected
+                  ? `Exclude field states which target ${value}.`
+                  : `Include field states which target ${value}.`
+                }
+                label={value}
+                active={selected}
+                onClick={e => e.preventDefault()}
+                disabled={false}
+                immediate={false}
+              />
+            ),
+            selected,
+          };
+        })}
+        toggleSelect={handleTargetClassSelect}
+        dropdownWidth={'clamp(5vw, 50ch, 80%)'}
+        itemWidth={'15ch'}
+        backgroundLight="blue"
+      />
+      {handleDamagePercentRange && <DoubleSlider
+        titleFor="damage percent"
+        {...handleDamagePercentRange}
+        min={0}
+        minValue={queryVars.minDamagePercent}
+        max={100}
+        maxValue={queryVars.maxDamagePercent}
+      />}
+      {/* {handleMaxLayers && <Slider
+        titleFor="max layers"
+        {...handleMaxLayers}
+        min={0}
+        max={3}
+        value={queryVars.maxLayers}
+      />} */}
     </form>
   );
 }
@@ -125,6 +200,8 @@ const FieldStateSearch = ({
     queryVars,
     listRender,
   )
+
+  console.log(queryVars);
 
   return (
     <>

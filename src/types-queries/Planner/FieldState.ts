@@ -92,7 +92,7 @@ export const FIELDSTATE_SEARCH_QUERY = gql`
   query FieldStateSearchQuery(
     $gen: Int! $limit: Int!
     $contains: String $startsWith: String
-    $class: [FieldStateClass!]
+    $fieldStateClass: [FieldStateClass!]
     $maxDamagePercent: Float
     $minDamagePercent: Float
     $maxLayers: Int
@@ -103,7 +103,7 @@ export const FIELDSTATE_SEARCH_QUERY = gql`
       generation: $gen,
       filter: {
         contains: $contains, startsWith: $startsWith,
-        class: $class,
+        class: $fieldStateClass,
         maxDamagePercent: $maxDamagePercent
         minDamagePercent: $minDamagePercent
         maxLayers: $maxLayers,

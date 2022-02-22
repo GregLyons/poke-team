@@ -80,7 +80,7 @@ const listFilter = ({
         backgroundLight="blue"
       />
       <DropdownMenu
-        title="Item class"
+        title="CLASS"
         items={Array.from(ITEM_CLASS_MAP.entries()).map(([key, value]) => {
           const selected = queryVars.itemClass.includes(key);
 
@@ -89,10 +89,10 @@ const listFilter = ({
             label: (
               <Button
                 title={selected
-                  ? `Exclude ${ENUMCASE_TO_TITLECASE(key)} items.`
-                  : `Include ${ENUMCASE_TO_TITLECASE(key)} items.`
+                  ? `Exclude ${value} items.`
+                  : `Include ${value} items.`
                 }
-                label={ENUMCASE_TO_TITLECASE(key)}
+                label={value}
                 active={selected}
                 onClick={e => e.preventDefault()}
                 disabled={false}
