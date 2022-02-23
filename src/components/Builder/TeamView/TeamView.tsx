@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { BGManager, classWithBG, classWithBGShadow, toggleBGPulse } from "../../../hooks/App/BGManager";
 import { Team } from "../../../hooks/App/Team";
 import { Dispatches, Filters } from "../../App";
@@ -42,15 +42,15 @@ export type SavedPokemonClickHandlers = {
 }
 
 export type AbilitySelectClickHandlers = {
-  onAbilitySelect: (e: React.MouseEvent<HTMLElement, MouseEvent>, ability: MemberAbility) => void
+  onAbilitySelect: (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, ability: MemberAbility) => void
 }
 
 export type ItemSelectClickHandlers = {
-  onItemSelect: (e: React.MouseEvent<HTMLElement, MouseEvent>, item: MemberItem) => void
+  onItemSelect: (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, item: MemberItem) => void
 }
 
 export type MoveSelectClickHandlers = {
-  onMoveSelect: (e: React.MouseEvent<HTMLElement, MouseEvent>, move: MemberMove) => void
+  onMoveSelect: (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, move: MemberMove) => void
 }
 
 export type ReferencePanelClickHandlers = {
@@ -150,7 +150,7 @@ const TeamView = ({
     // Move select
     // #region
 
-    const onAbilitySelect = (e: React.MouseEvent<HTMLElement, MouseEvent>, ability: MemberAbility) => {
+    const onAbilitySelect = (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, ability: MemberAbility) => {
       if (!view) return;
 
       // Replace ability on selected member
@@ -162,7 +162,7 @@ const TeamView = ({
       setView(null);
     }
 
-    const onItemSelect = (e: React.MouseEvent<HTMLElement, MouseEvent>, item: MemberItem) => {
+    const onItemSelect = (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, item: MemberItem) => {
       if (!view) return;
 
       // Replace item on selected member
@@ -174,7 +174,7 @@ const TeamView = ({
       setView(null);
     }
 
-    const onMoveSelect = (e: React.MouseEvent<HTMLElement, MouseEvent>, move: MemberMove) => {
+    const onMoveSelect = (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, move: MemberMove) => {
       if (!view) return;
 
       // Replace move in slot moveIdx on selected member
@@ -279,8 +279,6 @@ const TeamView = ({
     setMember(null);
     setMemberSlot(null);
   }, [filters.genFilter.gen]);
-
-  console.log(team[8].members[5]);
 
   return (
     <div className="team-view__wrapper">

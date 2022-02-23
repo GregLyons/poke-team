@@ -28,6 +28,8 @@ type ControlPanelProps = {
 
   dispatchBGManager: React.Dispatch<BGAction>
   bgManager: BGManager
+
+  headerRef: React.RefObject<HTMLDivElement>
 }
 
 const ControlPanel = ({
@@ -47,9 +49,14 @@ const ControlPanel = ({
 
   dispatchBGManager,
   bgManager,
+
+  headerRef,
 }: ControlPanelProps) => {
   return (
-    <div className={classWithBG('control-panel__wrapper', bgManager)}>
+    <div  
+      ref={headerRef}
+      className={classWithBG('control-panel__wrapper', bgManager)}
+    >
       <div className={classWithBGShadow("gen-filter__cell", bgManager)}>
         <GenFilterForm
           genFilter={genFilter}

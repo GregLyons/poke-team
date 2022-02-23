@@ -8,6 +8,7 @@ import { compareTiers, DoublesTier, getTier, SinglesTier } from "../../../utils/
 import { PokemonIconDatum, PokemonPaginationInput } from "../../../types-queries/helpers";
 import { useEffect, useMemo, useState } from "react";
 import { Team } from "../../../hooks/App/Team";
+import { useEventListener } from "usehooks-ts";
 
 type QuickSearchEntriesProps = {
   data: PokemonQuickSearchQuery
@@ -17,7 +18,7 @@ type QuickSearchEntriesProps = {
     orderBy: QuickSearchPokemonEntryKey
     sortBy: 'ASC' | 'DESC'
   }
-  onSaveClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, pokemonIconDatum: PokemonIconDatum) => void
+  onSaveClick: (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, pokemonIconDatum: PokemonIconDatum) => void
   team: Team
 }
 
@@ -130,6 +131,13 @@ const QuickSearchEntries = ({
       setFiltered(true);
     }
   }, [setEntries, originalEntries, filtered, filters, data]);
+
+  // 'Enter' selects first entry
+  const onEnter = (event: KeyboardEvent) => {
+    if (event.code === 'Enter' && entries && entries.length > 0) onSaveClick(event, entries[0].pokemonIconDatum);
+  }
+
+  useEventListener('keydown', onEnter);
 
   if (!data || !data.pokemon) return (<div>Data not found for the query 'pokemon'.</div>);
 

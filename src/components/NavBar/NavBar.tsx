@@ -18,10 +18,15 @@ const NavBar = ({
   headerRef,
   navBarRef,
 }: NavBarProps) => {
+  const [containerWidth] = useContainerSize(headerRef, navBarRef);
+
   return (
     <div 
       ref={navBarRef}
       className={classWithBGShadow("nav-bar__wrapper", bgManager)}
+      style={{
+        width: containerWidth,
+      }}
     >
       <nav className="nav-bar">
         <li className="nav-item">

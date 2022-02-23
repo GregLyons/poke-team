@@ -68,7 +68,7 @@ function App() {
   const [team, dispatchTeam] = useReducer(teamReducer, DEFAULT_TEAM);
   const [bgManager, dispatchBGManager] = useReducer(bgReducer, DEFAULT_BACKGROUND);
 
-  const headerRef = useRef<HTMLElement>(null);
+  const controlPanelRef = useRef<HTMLDivElement>(null);
   const navBarRef = useRef<HTMLDivElement>(null);
   
   const dispatches: Dispatches = useMemo(() => {
@@ -91,16 +91,15 @@ function App() {
     <div className={classWithBG("app__wrapper", bgManager)}>
       <div className={classWithBG("left-bg-panel", bgManager)} />
       <div className={classWithBG(classWithBGShadow("app", bgManager), bgManager)}>
-        <header
-          ref={headerRef}
-        >
+        <header>
           <NavBar
-            headerRef={headerRef}
+            headerRef={controlPanelRef}
             navBarRef={navBarRef}
             bgManager={bgManager}
             dispatchBGManager={dispatchBGManager}
           />
-          <ControlPanel 
+          <ControlPanel
+            headerRef={controlPanelRef}
             dispatchCart={dispatchCart}
             dispatchTeam={dispatchTeam}
             dispatchGenFilter={dispatchGenFilter}
@@ -120,7 +119,7 @@ function App() {
 
           {/* Routing for Analyzer */}
           <Route path="/analyzer" element={<Analyzer
-            headerRef={headerRef}
+            headerRef={controlPanelRef}
             navBarRef={navBarRef}
             bgManager={bgManager}
             dispatchBGManager={dispatchBGManager}
@@ -128,7 +127,7 @@ function App() {
 
           {/* Routing for Builder */}
           <Route path="/builder" element={<Builder
-            headerRef={headerRef}
+            headerRef={controlPanelRef}
             navBarRef={navBarRef}
             bgManager={bgManager}
             dispatchBGManager={dispatchBGManager}
@@ -176,7 +175,7 @@ function App() {
 
           {/* Routing for Planner */}
           <Route path="/planner" element={<Planner
-            headerRef={headerRef}
+            headerRef={controlPanelRef}
             navBarRef={navBarRef}
             bgManager={bgManager}
             dispatchBGManager={dispatchBGManager}

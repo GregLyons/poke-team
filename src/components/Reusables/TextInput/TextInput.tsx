@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import './TextInput.css';
 
 type TextInputProps = {
@@ -7,7 +8,11 @@ type TextInputProps = {
   placeholder: string
 
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+
   width?: number
+
+  autoFocus?: boolean
+  setFocusedOnInput: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 const TextInput = ({
@@ -16,10 +21,20 @@ const TextInput = ({
   onChange,
   placeholder,
   width,
+  autoFocus = true,
+  setFocusedOnInput,
 }: TextInputProps) => {
+  const focusRef = useRef<HTMLInputElement>(null);
+
+  // On first render, if 'autoFocus', focus on text input
+  useEffect(() => {
+    if (autoFocus && focusRef.current) focusRef.current.focus();
+  }, [autoFocus, focusRef]);
+
   return (
     <div className="text-input__wrapper">
       <input
+        ref={focusRef}
         title={title}
         type="text"
         className="text-input"
@@ -29,6 +44,8 @@ const TextInput = ({
         style={{
           width: `${width}ch`,
         }}
+        onFocus={() => setFocusedOnInput(true)}
+        onBlur={() => setFocusedOnInput(false)}
       />
     </div>
   )

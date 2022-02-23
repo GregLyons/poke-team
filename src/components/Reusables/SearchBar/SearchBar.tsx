@@ -3,7 +3,7 @@ import Button from '../Button/Button';
 import TextInput from '../TextInput/TextInput';
 import './SearchBar.css';
 
-type SearchBarProps = {
+type SearchBarProps<T> = {
   title: string
   placeholder: string
 
@@ -13,9 +13,11 @@ type SearchBarProps = {
   handleSearchModeChange: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, mode: 'STARTS' | 'CONTAINS') => void
   
   backgroundLight: 'red' | 'green' | 'blue'
+
+  setFocusedOnInput: React.Dispatch<React.SetStateAction<boolean>>
 };
 
-const SearchBar = ({
+function SearchBar<T> ({
   title,
   placeholder,
   searchTerm,
@@ -23,17 +25,19 @@ const SearchBar = ({
   searchMode,
   handleSearchModeChange,
   backgroundLight,
-}: SearchBarProps) => {
+  setFocusedOnInput,
+}: SearchBarProps<T>) {
   return (
     <div className="search-bar__wrapper">
       <div className="search-bar__label">
-        SEARCH
+        Search
       </div>
       <TextInput
         title={title}
         placeholder={placeholder}
         value={searchTerm}
         onChange={handleSearchTermChange}
+        setFocusedOnInput={setFocusedOnInput}
       />
       <Button
         title="Search by whether names start with the given search term."

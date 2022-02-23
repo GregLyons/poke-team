@@ -69,7 +69,7 @@ const QuickSearch = ({
     }
   }
 
-  const onSaveClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, pokemonIconDatum: PokemonIconDatum) => {
+  const onSaveClick = (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, pokemonIconDatum: PokemonIconDatum) => {
     e.preventDefault();
 
     dispatches.dispatchTeam({
@@ -90,7 +90,7 @@ const QuickSearch = ({
       <form>
         <SearchBar
           title="Search Pokemon by name"
-          placeholder="Search Pokemon"
+          placeholder="ENTER to save first row"
           searchTerm={searchTerm}
           handleSearchTermChange={handleSearchTermChange}
           searchMode={searchMode}

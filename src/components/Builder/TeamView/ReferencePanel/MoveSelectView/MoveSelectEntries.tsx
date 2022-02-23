@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useEventListener } from "usehooks-ts";
 import { MemberMove, MemberMoveQuery, MemberMoveQueryResult } from "../../../../../types-queries/Builder/MemberMove";
 import { Filters } from "../../../../App";
 import { MoveSelectClickHandlers } from "../../TeamView";
@@ -86,6 +87,13 @@ const MoveSelectEntries = ({
   useEffect(() => {
     setEntries(originalEntries);
   }, [originalEntries, setEntries]);
+
+  // 'Enter' selects first entry
+  const onEnter = (event: KeyboardEvent) => {
+    if (event.code === 'Enter' && entries && entries.length > 0) clickHandlers.onMoveSelect(event, entries[0]);
+  }
+
+  useEventListener('keydown', onEnter);
 
   return (
     <div

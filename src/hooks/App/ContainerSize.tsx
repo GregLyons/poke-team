@@ -10,9 +10,12 @@ export const useContainerSize = (headerRef: React.RefObject<HTMLElement>, navBar
   useEffect(() => {
     if (headerRef.current && navBarRef.current) {
       setContainerWidth(`${headerRef.current.scrollWidth}px`);
+
       // Using offset height for headerRef since its scrollHeight can change due to dropdowns
-      setContainerHeight(`calc(${windowSize.height}px - ${headerRef.current.offsetHeight}px)`);
-      setContentHeight(`calc(${windowSize.height}px - ${headerRef.current.offsetHeight}px - ${navBarRef.current.offsetHeight}px)`); 
+      setContainerHeight(`calc(${windowSize.height}px - ${headerRef.current.offsetHeight}px) - ${navBarRef.current.offsetHeight}px`);
+
+      setContentHeight(`calc(${windowSize.height}px - ${headerRef.current.offsetHeight}px - ${2 * navBarRef.current.offsetHeight}px)`); 
+    
     }
   }, [windowSize, headerRef, navBarRef, ]);
 
