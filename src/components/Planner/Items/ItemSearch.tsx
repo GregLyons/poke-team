@@ -16,7 +16,7 @@ import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import {
   ENUMCASE_TO_TITLECASE,
 } from '../../../utils/constants';
-import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_removal_icons, } from '../../../hooks/Planner/MainSearches';
+import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons, } from '../../../hooks/Planner/MainSearches';
 import { listToggleValue } from '../helpers';
 import { Dispatches, Filters } from '../../App';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
@@ -134,7 +134,7 @@ const ItemSearch = ({
     listFilter,
   );
 
-  const results = useListRender_removal_icons<ItemSearchQuery, ItemSearchVars>(
+  const results = useListRender_icons<ItemSearchQuery, ItemSearchVars>(
     dispatches,
     filters,
     ITEM_SEARCH_QUERY,

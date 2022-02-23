@@ -22,7 +22,7 @@ import { Dispatches, Filters } from '../../App';
 import { EnumTypeName, MoveCategory, MoveTargetClass, MOVE_CATEGORY_MAP, MOVE_TARGETCLASS_MAP, MOVE_TYPE_MAP, toEnumTypeName, toFormattedTypeName, TypeName } from '../../../types-queries/helpers';
 import { TYPE_NAMES } from '../../../hooks/App/PokemonFilter';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
-import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_removal_icons } from '../../../hooks/Planner/MainSearches';
+import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Planner/MainSearches';
 import MainSearch from '../Searches/MainSearch';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
 import DoubleSlider from '../../Reusables/DoubleSlider/DoubleSlider';
@@ -329,7 +329,7 @@ const MoveSearch = ({
     listFilter,
   );
 
-  const results = useListRender_removal_icons<MoveSearchQuery, MoveSearchVars>(
+  const results = useListRender_icons<MoveSearchQuery, MoveSearchVars>(
     dispatches,
     filters,
     MOVE_SEARCH_QUERY,

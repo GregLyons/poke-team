@@ -3,7 +3,7 @@ import Button from '../Button/Button';
 import TextInput from '../TextInput/TextInput';
 import './SearchBar.css';
 
-type SearchBarProps<T> = {
+type SearchBarProps = {
   title: string
   placeholder: string
 
@@ -17,7 +17,7 @@ type SearchBarProps<T> = {
   setFocusedOnInput: React.Dispatch<React.SetStateAction<boolean>>
 };
 
-function SearchBar<T> ({
+const SearchBar = ({
   title,
   placeholder,
   searchTerm,
@@ -26,7 +26,7 @@ function SearchBar<T> ({
   handleSearchModeChange,
   backgroundLight,
   setFocusedOnInput,
-}: SearchBarProps<T>) {
+}: SearchBarProps) => {
   return (
     <div className="search-bar__wrapper">
       <div className="search-bar__label">

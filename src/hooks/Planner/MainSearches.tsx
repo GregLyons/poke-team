@@ -1,20 +1,41 @@
-import { useQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { DocumentNode } from "graphql";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Dispatches, Filters } from "../../components/App";
+import SearchBar from "../../components/Reusables/SearchBar/SearchBar";
 import { GenFilter, removedFromBDSP, removedFromSwSh } from "../App/GenFilter";
 
-export function useGenConnectedSearchVars<SearchVars>(defaultSearchVars: SearchVars, genFilter: GenFilter): [
-  SearchVars,
-  React.Dispatch<React.SetStateAction<SearchVars>>,
-  string,
-  (e: React.ChangeEvent<HTMLInputElement>) => void,
-  'STARTS' | 'CONTAINS',
-  (e: React.MouseEvent<HTMLElement, MouseEvent>, mode: 'STARTS' | 'CONTAINS') => void
-] {
+export type SearchBarProps = {
+  title: string
+  placeholder: string
+  backgroundLight: 'red' | 'green' | 'blue'
+}
+
+/*
+  Given default search variables, genFilter, and some parameters to make a search bar:
+    Set queryVars to update when genFilter.gen changes
+    Set queryVars to update when the search term changes
+    Set queryVars to update when the search mode changes ('startsWith' vs. 'contains')
+    Keep track of whether the user is focused on the input field in the search bar
+*/
+export function useGenConnectedSearchVars<SearchVars>({
+  defaultSearchVars,
+  genFilter,
+  searchBarProps,
+}: {
+  defaultSearchVars: SearchVars
+  genFilter: GenFilter
+  searchBarProps: SearchBarProps
+}): {
+  queryVars: SearchVars,
+  setQueryVars: React.Dispatch<React.SetStateAction<SearchVars>>,
+  searchBar: JSX.Element
+  focusedOnInput: boolean
+} {
   const [queryVars, setQueryVars] = useState<SearchVars>(defaultSearchVars);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchMode, setSearchMode] = useState<'STARTS' | 'CONTAINS'>('STARTS');
+  const [focusedOnInput, setFocusedOnInput] = useState<boolean>(false);
 
   // Update search term
   const handleSearchTermChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,18 +85,41 @@ export function useGenConnectedSearchVars<SearchVars>(defaultSearchVars: SearchV
     });
   }, [genFilter]);
 
-  return [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange];
+  return {
+    queryVars,
+    setQueryVars, 
+    searchBar: <SearchBar 
+      {...searchBarProps}
+
+      searchTerm={searchTerm}
+      handleSearchTermChange={handleSearchTermChange}
+      searchMode={searchMode}
+      handleSearchModeChange={handleSearchModeChange}
+      setFocusedOnInput={setFocusedOnInput}
+    />,
+    focusedOnInput,
+  };
 }
 
-export function useRemovalConnectedSearchVars<SearchVars>(defaultSearchVars: SearchVars, genFilter: GenFilter): [
-  SearchVars,
-  React.Dispatch<React.SetStateAction<SearchVars>>,
-  string,
-  (e: React.ChangeEvent<HTMLInputElement>) => void,
-  'STARTS' | 'CONTAINS',
-  (e: React.MouseEvent<HTMLElement, MouseEvent>, mode: 'STARTS' | 'CONTAINS') => void
-] {
-  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useGenConnectedSearchVars<SearchVars>(defaultSearchVars, genFilter);
+/*
+  Do what useGenConnectedSearchVars does, but also:
+    Set queryVars to update when the Sw/Sh and BDSP flags change
+*/
+export function useRemovalConnectedSearchVars<SearchVars>({
+  defaultSearchVars,
+  genFilter,
+  searchBarProps,
+}: {
+  defaultSearchVars: SearchVars
+  genFilter: GenFilter
+  searchBarProps: SearchBarProps
+}): {
+  queryVars: SearchVars,
+  setQueryVars: React.Dispatch<React.SetStateAction<SearchVars>>,
+  searchBar: JSX.Element
+  focusedOnInput: boolean
+} {
+  const { queryVars, setQueryVars, searchBar, focusedOnInput } = useGenConnectedSearchVars<SearchVars>({defaultSearchVars, genFilter, searchBarProps, });
   
   // Update removal flags; gen already handled
   useEffect(() => {
@@ -87,109 +131,151 @@ export function useRemovalConnectedSearchVars<SearchVars>(defaultSearchVars: Sea
     })
   }, [genFilter]);
 
-  return [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange];
+  return {
+    queryVars,
+    setQueryVars, 
+    searchBar,
+    focusedOnInput,
+  };
 }
 
 // List filters
+/* 
+  Types and hooks for filtering searches.
+*/
 // #region
 
 export type ListFilterArgs<SearchVars> = {
   queryVars: SearchVars
   setQueryVars: React.Dispatch<React.SetStateAction<SearchVars>>
-  
-  searchBar: {
-    searchTerm: string
-    handleSearchTermChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-    searchMode: 'STARTS' | 'CONTAINS'
-    handleSearchModeChange: (e: React.MouseEvent<HTMLElement, MouseEvent>, mode: 'STARTS' | 'CONTAINS') => void
-  }
+  searchBar: JSX.Element
 }
 
-export function useListFilter<SearchVars>(
+/*
+  Do what useGenConnectedSearchVars in terms of setting up the quey variables, but also:
+    Connect the search variables to other parameters, as specified by the listFilter function
+    In addition to the search variables, return a JSX Element which serves as the filter form for the user
+*/
+export function useListFilter<SearchVars>({
+  defaultSearchVars,
+  genFilter,
+  searchBarProps,
+  listFilter,
+}: {
   defaultSearchVars: SearchVars,
   genFilter: GenFilter,
+  searchBarProps: SearchBarProps,
   listFilter: ({
     queryVars,
     setQueryVars,
-    searchBar: {
-      searchTerm,
-      handleSearchTermChange,
-      searchMode,
-      handleSearchModeChange,
-    },
+    searchBar,
   }: ListFilterArgs<SearchVars>) => JSX.Element
-): [SearchVars, JSX.Element] {
-  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useGenConnectedSearchVars(defaultSearchVars, genFilter);
+}): {
+  queryVars: SearchVars
+  filterForm: JSX.Element
+  focusedOnInput: boolean
+} {
+  const { queryVars, setQueryVars, searchBar, focusedOnInput, }= useGenConnectedSearchVars({defaultSearchVars, genFilter, searchBarProps, });
 
-  return [
+  return {
     queryVars,
-    listFilter({
+    filterForm: listFilter({
       queryVars,
       setQueryVars,
-      searchBar: {
-        searchTerm,
-        handleSearchTermChange,
-        searchMode,
-        handleSearchModeChange,
-      },
+      searchBar
     }),
-  ];
+    focusedOnInput,
+  };
 }
 
-export function useListFilter_removal<SearchVars>(
+/*
+  Do what useListFilter does, but with useRemovalConnectedSearchVars instead of useGenConnectedSearchVars
+*/
+export function useListFilter_removal<SearchVars>({
+  defaultSearchVars,
+  genFilter,
+  searchBarProps,
+  listFilter,
+}: {
   defaultSearchVars: SearchVars,
   genFilter: GenFilter,
+  searchBarProps: SearchBarProps,
   listFilter: ({
     queryVars,
     setQueryVars,
-    searchBar: {
-      searchTerm,
-      handleSearchTermChange,
-      searchMode,
-      handleSearchModeChange,
-    },
+    searchBar,
   }: ListFilterArgs<SearchVars>) => JSX.Element
-): [SearchVars, JSX.Element] {
-  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useRemovalConnectedSearchVars(defaultSearchVars, genFilter);
+}): {
+  queryVars: SearchVars
+  filterForm: JSX.Element
+  focusedOnInput: boolean
+} {
+  const { queryVars, setQueryVars, searchBar, focusedOnInput, }= useRemovalConnectedSearchVars({defaultSearchVars, genFilter, searchBarProps, });
 
-  return [
+  return {
     queryVars,
-    listFilter({
+    filterForm: listFilter({
       queryVars,
       setQueryVars,
-      searchBar: {
-        searchTerm,
-        handleSearchTermChange,
-        searchMode,
-        handleSearchModeChange,
-      },
+      searchBar
     }),
-  ];
+    focusedOnInput,
+  };
 }
 
 // #endregion
 
 // List rendering
+/*
+  Types and hooks for rendering search results
+*/
 // #region
 
+// If there are no Pokemon icons to render, only the data is needed
 export type ListRenderArgs<SearchQuery> = {
   data: SearchQuery
 }
 
+// If there are Pokemon icons to render, dispatches and filters are needed for interactivity
 export type ListRenderArgsIcons<SearchQuery> = {
   data: SearchQuery
   dispatches: Dispatches
   filters: Filters
 }
 
+/*
+  Whenever queryVars updates, execute query after a certain amount of time has passed. Updating queryVars within this time resets the timer.
+*/
+export function useDelayedQuery<SearchQuery, SearchVars>({
+  query,
+  queryVars,
+}: {
+  query: DocumentNode,
+  queryVars: SearchVars
+}) {
+  const [execute, { data, loading, error }] = useLazyQuery<SearchQuery, SearchVars>(query, {
+    variables: queryVars,
+  });
+
+  const searchTimer = useRef<NodeJS.Timeout>();
+
+  // Whenever queryVars updates, set search to execute 250ms later
+  useEffect(() => {
+    searchTimer.current = setTimeout(execute, 250);
+  }, [queryVars, execute, searchTimer]);
+
+  return { data, loading, error };
+}
+
+/*
+  Given search variables and a search query, render search results according to 'listRender'.
+*/
 export function useListRender<SearchQuery, SearchVars>(
   query: DocumentNode,
   queryVars: SearchVars,
   listRender: ({ data, }: ListRenderArgs<SearchQuery>) => JSX.Element
 ): JSX.Element {
-  const { data, loading, error } = useQuery<SearchQuery, SearchVars>(query, {
-    variables: queryVars,
-  });
+  const { data, loading, error } = useDelayedQuery<SearchQuery, SearchVars>({ query, queryVars, });
 
   if (error) { return (<div>{error.message}</div>)}
 
@@ -203,17 +289,18 @@ export function useListRender<SearchQuery, SearchVars>(
   )
 }
 
-export function useListRender_removal_icons<SearchQuery, SearchVars>(
+/* 
+  Same as useListRender, but for when Pokemon icons need to be rendered
+*/
+export function useListRender_icons<SearchQuery, SearchVars>(
   dispatches: Dispatches,
   filters: Filters,
   query: DocumentNode,
   queryVars: SearchVars,
   listRender: ({ data, dispatches, filters, }: ListRenderArgsIcons<SearchQuery>) => JSX.Element
 ): JSX.Element {
-  const { data, loading, error } = useQuery<SearchQuery, SearchVars>(query, {
-    variables: queryVars,
-  });
-
+  const { data, loading, error } = useDelayedQuery<SearchQuery, SearchVars>({ query, queryVars, });
+  
   if (error) { return (<div>{error.message}</div>)}
 
   return (

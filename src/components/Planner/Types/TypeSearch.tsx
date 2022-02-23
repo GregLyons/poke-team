@@ -16,7 +16,7 @@ import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { Dispatches, Filters } from '../../App';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
-import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_removal_icons } from '../../../hooks/Planner/MainSearches';
+import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Planner/MainSearches';
 import MainSearch from '../Searches/MainSearch';
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeSearchQuery>) => {
@@ -92,7 +92,7 @@ const TypeSearch = ({
     listFilter,
   );
 
-    const results = useListRender_removal_icons<TypeSearchQuery, TypeSearchVars>(
+    const results = useListRender_icons<TypeSearchQuery, TypeSearchVars>(
       dispatches,
       filters,
       TYPE_SEARCH_QUERY,

@@ -14,7 +14,7 @@ import {
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
-import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_removal_icons, } from '../../../hooks/Planner/MainSearches';
+import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons, } from '../../../hooks/Planner/MainSearches';
 import { Dispatches, Filters } from '../../App';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
 import MainSearch from '../Searches/MainSearch';
@@ -88,7 +88,7 @@ const AbilitySearch = ({
     listFilter,
   );
 
-  const results = useListRender_removal_icons<AbilitySearchQuery, AbilitySearchVars>(
+  const results = useListRender_icons<AbilitySearchQuery, AbilitySearchVars>(
     dispatches,
     filters,
     ABILITY_SEARCH_QUERY,
