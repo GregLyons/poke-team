@@ -975,7 +975,6 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
 
     case 'execute_combination':
       gen = action.payload.gen;
-      console.log(state[gen].combination);
       const result = executeCombination(state[gen].combination);
 
       // If result is null, don't clear original combination; give user option to manipulate combination still
@@ -1011,8 +1010,6 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
 
     case 'add_combination_result':
       gen = action.payload.gen;
-      console.log(state[gen].combinationResult);
-      console.log(action.payload);
 
       // Shouldn't happen
       if (!state[gen].combinationResult) return endCombo(state);

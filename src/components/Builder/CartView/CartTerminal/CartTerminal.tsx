@@ -73,7 +73,6 @@ const CartTerminal = ({
 
     const onSubmit = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.preventDefault();
-      console.log('Newname is ', newName)
       if (newName) {
         dispatches.dispatchCart({
           type: 'add_combination_result',

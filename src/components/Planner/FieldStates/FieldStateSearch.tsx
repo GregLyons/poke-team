@@ -200,8 +200,6 @@ const FieldStateSearch = ({
     listRender,
   )
 
-  console.log(queryVars);
-
   return (
     <>
       <MainSearch

@@ -207,6 +207,14 @@ export type TeamAction =
       newValue: number
     }
   }
+| {
+    type: 'assign_cosmetic_form'
+    payload: {
+      gen: GenerationNum,
+      idx: number,
+      psID: string,
+    }
+  }
 
 // #endregion
 
@@ -453,6 +461,15 @@ export function teamReducer(state: Team, action: TeamAction): Team {
       modifiedMember = state[gen].members[idx]?.copy();
       if (!modifiedMember) return state;
       modifiedMember.assignIV(stat, newValue);
+      return stateWithModifiedMember(state, gen, modifiedMember, idx);
+
+    case 'assign_cosmetic_form':
+      gen = action.payload.gen;
+      idx = action.payload.idx;
+      psID = action.payload.psID;
+
+      modifiedMember = state[gen].members[idx]?.cosmeticForm(psID);
+      if (!modifiedMember) return state;
       return stateWithModifiedMember(state, gen, modifiedMember, idx);
 
     // #endregion 

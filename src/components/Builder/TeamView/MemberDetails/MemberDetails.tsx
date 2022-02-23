@@ -38,6 +38,7 @@ const MemberDetails = ({
   if (member === null || memberSlot === null) return (
     <div className="member-details__wrapper member-details__wrapper--inactive" />
   );
+
   return (
     <div className="member-details__wrapper">
       {/* Icon, cosmetic form select */}

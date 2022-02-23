@@ -90,6 +90,8 @@ export type MemberDetailHandlers = {
   updateNature: (newValue: NatureName) => void
   updateEV: (stat: BaseStatName, newValue: number) => void
   updateIV: (stat: BaseStatName, newValue: number) => void
+
+  updateCosmeticForm: (psID: string) => void
 }
 
 // #endregion
@@ -420,6 +422,10 @@ const TeamView = ({
       });
     };
 
+    const updateCosmeticForm = (psID: string) => {
+
+    }
+
     return {
       onAbilityClick,
       onItemClick,
@@ -435,6 +441,8 @@ const TeamView = ({
       updateNature,
       updateEV,
       updateIV,
+
+      updateCosmeticForm,
     };
   }, [dispatches, filters, team, setView, view, memberSlot, ]);
 

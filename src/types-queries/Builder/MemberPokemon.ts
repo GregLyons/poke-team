@@ -174,8 +174,16 @@ export class MemberPokemon {
   public nickname?: string
   public shiny?: boolean
   public happiness?: number
+
+  // For keeping track of G-max
   public formClass: string
-  public forms: PokemonFormDatum[]
+
+  // Handling cosmetic forms
+  private forms: {
+    edges: PokemonFormEdge[]
+  }
+  // An array including the icon data for this Pokemon's cosmetic forms. Note that if this Pokemon is itself a cosmetic form, then the base form will be listed as a cosmetic form here.
+  public cosmeticForms: PokemonIconDatum[]
 
   // For making copy
   private gqlMember: MemberPokemonQueryResult
@@ -223,7 +231,28 @@ export class MemberPokemon {
     this.requiresItem = requiresItem.edges.map(edge => requiresItemEdgeToMemberItem(edge, gen));
 
     this.formClass = formClass;
-    this.forms = forms.edges.map(pokemonFormEdgeToFormDatum);
+
+    this.forms = forms;
+    this.cosmeticForms = forms.edges
+      // Map to PokemonFormDatum
+      .map(pokemonFormEdgeToFormDatum)
+      // Only select cosmetic forms/the base form
+      .filter(d => d.formClass === 'COSMETIC' || d.formClass === 'BASE')
+      // Map to PokemonIconDatum
+      .map(d => {
+        const { id, name, psID, formattedName, speciesName } = d;
+        return {
+          id,
+          formattedName,
+          psID,
+
+          removedFromSwSh,
+          removedFromBDSP,
+
+          typing,
+          baseStats,
+        };
+      });
   }
 
   public setGen(newGen: GenerationNum) {
@@ -329,11 +358,7 @@ export class MemberPokemon {
   private setIVs(newIVs: StatTable) {
     this.ivs = newIVs;
   }
-
-  // Returns a deep copy of this member
-  public copy() {
-    const copy = new MemberPokemon(this.gqlMember, this.iconDatum, this.gen);
-
+  private assignAttributesToCopy(copy: MemberPokemon) {
     this.ability && copy.assignAbility(this.ability);
     this.item && copy.assignItem(this.item);
     for (let idx of ([0, 1, 2, 3] as (0 | 1 | 2 | 3)[])) {
@@ -349,7 +374,65 @@ export class MemberPokemon {
     this.gender && copy.assignGender(this.gender);
     this.shiny !== undefined && copy.assignShiny(this.shiny);
     this.happiness !== undefined && copy.assignHappiness(this.happiness);
+  }
 
+  // Returns a deep copy of this member
+  public copy() {
+    const copy = new MemberPokemon(this.gqlMember, this.iconDatum, this.gen);
+
+    // Copy move, ability, etc. info 
+    this.assignAttributesToCopy(copy);
     return copy;
+  }
+
+  // Returns a cosmetic form of this member with the given psID if it exists, otherwise simply this.copy()
+  public cosmeticForm(psID: string) {
+    const cosmeticFormSelect = this.forms.edges.filter(edge => edge.node.psID === psID);
+
+    // If cosmetic form not found, simply return a copy of this Pokemon
+    if (cosmeticFormSelect.length === 0) return this.copy();
+    const cosmeticFormDatum = cosmeticFormSelect[0];
+    
+    const newIconDatum: PokemonIconDatum = {
+      ...this.iconDatum,
+      // Overwrite name info with cosmetic form's name info
+      ...cosmeticFormDatum.node,
+    };
+
+    const newFormEdges = this.forms.edges
+      // Only select cosmetic forms
+      .filter(edge => edge.class === 'COSMETIC')
+      // De-select cosmetic form with psID
+      .filter(edge => edge.node.psID !== psID)
+      // Add on this current form with the 'COSMETIC' flag. Note that cosmetic forms are always filtered out of actual GQL queries, so we can modify the form edges in a way that goes against the GraphQL API (i.e. by assigning 'COSMETIC' to what is possibly the base form).
+      .concat([{
+        node: {
+          id: this.id,
+          name: this.name,
+          formattedName: this.formattedName,
+          speciesName: this.speciesName,
+          psID: this.psID,
+        },
+        class: this.formClass,
+      }]);
+
+    // Initialize a new MemberPokemon with the cosmetic form's form and icon data. 
+    const cosmeticForm = new MemberPokemon(
+      {
+        ...this.gqlMember,
+        // Overwrite name info
+        ...cosmeticFormDatum.node,
+        // Overwrite form info
+        forms: {
+          edges: newFormEdges,
+        }
+      },
+      newIconDatum,
+      this.gen,
+    );
+      
+    // Copy move, ability, etc. info 
+    this.assignAttributesToCopy(cosmeticForm);
+    return cosmeticForm;
   }
 }

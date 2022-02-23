@@ -42,7 +42,6 @@ export type PokemonFormDatum = {
 export const pokemonFormEdgeToFormDatum: (edge: PokemonFormEdge) => PokemonFormDatum = edge => {
   return {
     ...edge.node,
-    psID: edge.node.psID,
     formClass: edge.class,
   };
 }
