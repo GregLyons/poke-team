@@ -1,6 +1,8 @@
+import { MemberAbility } from "../../types-queries/Builder/MemberAbility";
+import { MemberItem } from "../../types-queries/Builder/MemberItem";
 import { MemberMove } from "../../types-queries/Builder/MemberMove";
-import { MemberPokemon } from "../../types-queries/Builder/MemberPokemon";
-import { DUMMY_POKEMON_ICON_DATUM, GenerationNum, PokemonIconDatum } from "../../types-queries/helpers";
+import { GenderName, MemberPokemon, NatureName } from "../../types-queries/Builder/MemberPokemon";
+import { BaseStatName, DUMMY_POKEMON_ICON_DATUM, GenerationNum, PokemonIconDatum } from "../../types-queries/helpers";
 import { omitKeys } from "../../utils/helpers";
 import { BoxInCart } from "./Cart";
 
@@ -44,6 +46,19 @@ export const DEFAULT_TEAM: Team = {
   6: EMPTY_TEAM_IN_GEN,
   7: EMPTY_TEAM_IN_GEN,
   8: EMPTY_TEAM_IN_GEN,
+}
+
+const stateWithModifiedMember = (state: Team, gen: GenerationNum, modifiedMember: MemberPokemon, idx: number) => {
+  return {
+    ...state,
+    [gen]: {
+      ...state[gen],
+      members: state[gen].members.map((d, i) => {
+        if (i !== idx) return d;
+        return modifiedMember;
+      }),
+    }
+  }
 }
 
 export type TeamAction = 
@@ -98,6 +113,102 @@ export type TeamAction =
       idx: number
     }
   }
+// Member actions
+// #region
+
+| {
+    type: 'assign_ability'
+    payload: {
+      gen: GenerationNum
+      idx: number,
+      ability: MemberAbility
+    }
+  }
+| {
+    type: 'assign_item'
+    payload: {
+      gen: GenerationNum
+      idx: number,
+      item: MemberItem
+    }
+  }
+| {
+    type: 'assign_move'
+    payload: {
+      gen: GenerationNum
+      idx: number
+      move: MemberMove
+      moveIdx: 0 | 1 | 2 | 3
+    }
+  }
+| {
+    type: 'assign_nickname'
+    payload: {
+      gen: GenerationNum
+      idx: number
+      nickname: string
+    }
+  }
+| {
+    type: 'assign_level'
+    payload: {
+      gen: GenerationNum
+      idx: number
+      newValue: number
+    }
+  }
+| {
+    type: 'assign_gender'
+    payload: {
+      gen: GenerationNum
+      idx: number
+      gender: GenderName
+    }
+  }
+| {
+    type: 'assign_shiny'
+    payload: {
+      gen: GenerationNum
+      idx: number
+      shiny: boolean
+    }
+  }
+| {
+    type: 'assign_happiness'
+    payload: {
+      gen: GenerationNum
+      idx: number
+      newValue: number
+    }
+  }
+| {
+    type: 'assign_nature'
+    payload: {
+      gen: GenerationNum
+      idx: number
+      nature: NatureName
+    }
+  }
+| {
+    type: 'assign_ev'
+    payload: {
+      gen: GenerationNum
+      idx: number
+      stat: BaseStatName
+      newValue: number
+    }
+  }
+| {
+    type: 'assign_iv'
+    payload: {
+      gen: GenerationNum
+      idx: number
+      stat: BaseStatName
+      newValue: number
+    }
+  }
+
+// #endregion
 
 export function teamReducer(state: Team, action: TeamAction): Team {
   let gen: GenerationNum;
@@ -109,7 +220,12 @@ export function teamReducer(state: Team, action: TeamAction): Team {
 
   let idx: number;
   let memberIdx: number;
-  let moveIdx: number;
+  let moveIdx: 0 | 1 | 2 | 3;
+
+  let modifiedMember: MemberPokemon | undefined
+
+  let stat: BaseStatName;
+  let newValue: number;
 
   switch(action.type) {
     case 'pin_box':
@@ -222,6 +338,124 @@ export function teamReducer(state: Team, action: TeamAction): Team {
           }),
         },
       };
+
+    // Member modifications
+    // #region
+
+    case 'assign_ability':
+      gen = action.payload.gen;
+      idx = action.payload.idx;
+      const ability = action.payload.ability;
+
+      modifiedMember = state[gen].members[idx]?.copy();
+      if (!modifiedMember) return state;
+      modifiedMember.assignAbility(ability);
+      return stateWithModifiedMember(state, gen, modifiedMember, idx);
+
+    case 'assign_item':
+      gen = action.payload.gen;
+      idx = action.payload.idx;
+      const item = action.payload.item;
+
+      modifiedMember = state[gen].members[idx]?.copy();
+      if (!modifiedMember) return state;
+      modifiedMember.assignItem(item);
+      return stateWithModifiedMember(state, gen, modifiedMember, idx);
+
+    case 'assign_move':
+      gen = action.payload.gen;
+      idx = action.payload.idx;
+      moveIdx = action.payload.moveIdx;
+      const move = action.payload.move;
+
+      modifiedMember = state[gen].members[idx]?.copy();
+      if (!modifiedMember) return state;
+      modifiedMember.assignMove(move, moveIdx);
+      return stateWithModifiedMember(state, gen, modifiedMember, idx);
+
+    case 'assign_nickname':
+      gen = action.payload.gen;
+      idx = action.payload.idx;
+      const nickname = action.payload.nickname;
+
+      modifiedMember = state[gen].members[idx]?.copy();
+      if (!modifiedMember) return state;
+      modifiedMember.assignNickname(nickname);
+      return stateWithModifiedMember(state, gen, modifiedMember, idx);
+
+    case 'assign_level':
+      gen = action.payload.gen;
+      idx = action.payload.idx;
+      newValue = action.payload.newValue;
+
+      modifiedMember = state[gen].members[idx]?.copy();
+      if (!modifiedMember) return state;
+      modifiedMember.assignLevel(newValue);
+      return stateWithModifiedMember(state, gen, modifiedMember, idx);
+
+    case 'assign_shiny':
+      gen = action.payload.gen;
+      idx = action.payload.idx;
+      const shiny = action.payload.shiny;
+
+      modifiedMember = state[gen].members[idx]?.copy();
+      if (!modifiedMember) return state;
+      modifiedMember.assignShiny(shiny);
+      return stateWithModifiedMember(state, gen, modifiedMember, idx);
+
+    case 'assign_happiness':
+      gen = action.payload.gen;
+      idx = action.payload.idx;
+      newValue = action.payload.newValue;
+
+      modifiedMember = state[gen].members[idx]?.copy();
+      if (!modifiedMember) return state;
+      modifiedMember.assignHappiness(newValue);
+      return stateWithModifiedMember(state, gen, modifiedMember, idx);
+
+    case 'assign_gender':
+      gen = action.payload.gen;
+      idx = action.payload.idx;
+      const gender = action.payload.gender;
+
+      modifiedMember = state[gen].members[idx]?.copy();
+      if (!modifiedMember) return state;
+      modifiedMember.assignGender(gender);
+      return stateWithModifiedMember(state, gen, modifiedMember, idx);
+
+    case 'assign_nature':
+      gen = action.payload.gen;
+      idx = action.payload.idx;
+      const nature = action.payload.nature;
+
+      modifiedMember = state[gen].members[idx]?.copy();
+      if (!modifiedMember) return state;
+      modifiedMember.assignNature(nature);
+      return stateWithModifiedMember(state, gen, modifiedMember, idx);
+
+    case 'assign_ev':
+      gen = action.payload.gen;
+      idx = action.payload.idx;
+      stat = action.payload.stat;
+      newValue = action.payload.newValue;
+
+      modifiedMember = state[gen].members[idx]?.copy();
+      if (!modifiedMember) return state;
+      modifiedMember.assignEV(stat, newValue);
+      return stateWithModifiedMember(state, gen, modifiedMember, idx);
+
+    case 'assign_iv':
+      gen = action.payload.gen;
+      idx = action.payload.idx;
+      stat = action.payload.stat;
+      newValue = action.payload.newValue;
+
+      modifiedMember = state[gen].members[idx]?.copy();
+      if (!modifiedMember) return state;
+      modifiedMember.assignIV(stat, newValue);
+      return stateWithModifiedMember(state, gen, modifiedMember, idx);
+
+    // #endregion 
 
     default:
       throw new Error();

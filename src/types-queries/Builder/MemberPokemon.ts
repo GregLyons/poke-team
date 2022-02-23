@@ -177,6 +177,9 @@ export class MemberPokemon {
   public formClass: string
   public forms: PokemonFormDatum[]
 
+  // For making copy
+  private gqlMember: MemberPokemonQueryResult
+
   constructor(gqlMember: MemberPokemonQueryResult, pokemonIconDatum: PokemonIconDatum, gen: GenerationNum) {
     const {
       formattedName, psID,
@@ -192,6 +195,8 @@ export class MemberPokemon {
       enablesItem, requiresItem,
       formClass, forms,
     } = gqlMember;
+
+    this.gqlMember = gqlMember;
 
     this.id = id;
     this.name = name;
@@ -229,7 +234,7 @@ export class MemberPokemon {
     this.ability = newAbility;
   }
 
-  public assignMove(newMove: MemberMove, slot: 0 | 1 | 2 | 3) {
+  public assignMove(newMove: MemberMove | null, slot: 0 | 1 | 2 | 3) {
     this.moveset = this.moveset.map((d, idx) => {
       if (idx === slot) return newMove;
       else return d;
@@ -269,6 +274,10 @@ export class MemberPokemon {
 
   public assignNature(newNature: NatureName) {
     this.nature = newNature;
+  }
+
+  public assignNickname(newNickname: string) {
+    this.nickname = newNickname;
   }
 
   public assignLevel(newLevel: number) {
@@ -311,5 +320,36 @@ export class MemberPokemon {
     };
 
     return pokemonSet;
+  }
+
+  // For copying
+  private setEVs(newEVs: StatTable) {
+    this.evs = newEVs;
+  }
+  private setIVs(newIVs: StatTable) {
+    this.ivs = newIVs;
+  }
+
+  // Returns a deep copy of this member
+  public copy() {
+    const copy = new MemberPokemon(this.gqlMember, this.iconDatum, this.gen);
+
+    this.ability && copy.assignAbility(this.ability);
+    this.item && copy.assignItem(this.item);
+    for (let idx of ([0, 1, 2, 3] as (0 | 1 | 2 | 3)[])) {
+      this.moveset[idx] && copy.assignMove(this.moveset[idx], idx);
+    }
+
+    copy.setEVs(this.evs);
+    copy.setIVs(this.ivs);
+    copy.assignNature(this.nature);
+
+    this.nickname !== undefined && copy.assignNickname(this.nickname);
+    copy.assignLevel(this.level);
+    this.gender && copy.assignGender(this.gender);
+    this.shiny !== undefined && copy.assignShiny(this.shiny);
+    this.happiness !== undefined && copy.assignHappiness(this.happiness);
+
+    return copy;
   }
 }

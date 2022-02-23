@@ -43,7 +43,7 @@ const ItemSelectView = ({
     query: MEMBER_ITEM_QUERY,
     queryVars,
     // Shorten the delay since users might be rapidly entering searches
-    delay: 150,
+    delay: 50,
   });
 
   if (error) { return (<div>{error.message}</div>); }

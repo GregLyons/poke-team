@@ -1,11 +1,11 @@
 import { MemberPokemon } from "../../../../types-queries/Builder/MemberPokemon";
 import TypeIcon from "../../Icons/TypeIcon";
-import { MemberDetailClickHandlers, MoveSelectClickHandlers, ReferencePanelView } from "../TeamView";
+import { MemberDetailHandlers, MoveSelectClickHandlers, ReferencePanelView } from "../TeamView";
 
 type MoveSlotProps = {
   view: ReferencePanelView
   idx: 0 | 1 | 2 | 3
-  clickHandlers: MemberDetailClickHandlers
+  clickHandlers: MemberDetailHandlers
   member: MemberPokemon | null
 }
 

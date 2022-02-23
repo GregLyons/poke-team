@@ -1,0 +1,11 @@
+.text-input,
+.text-input:focus {
+  border: none;
+  outline: none;
+  background-color: inherit;
+  border-bottom: 1px solid var(--blue1);
+
+  color: var(--light1);
+  font-family: var(--monospace);
+  font-size: 0.9rem;
+}

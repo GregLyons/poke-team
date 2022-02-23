@@ -12,7 +12,7 @@ type TextInputProps = {
   width?: number
 
   autoFocus?: boolean
-  setFocusedOnInput: React.Dispatch<React.SetStateAction<boolean>>
+  setFocusedOnInput?: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 const TextInput = ({
@@ -42,10 +42,10 @@ const TextInput = ({
         placeholder={placeholder}
         onChange={onChange}
         style={{
-          width: `${width}ch`,
+          maxWidth: `${width}ch`,
         }}
-        onFocus={() => setFocusedOnInput(true)}
-        onBlur={() => setFocusedOnInput(false)}
+        onFocus={() => setFocusedOnInput && setFocusedOnInput(true)}
+        onBlur={() => setFocusedOnInput && setFocusedOnInput(false)}
       />
     </div>
   )

@@ -94,6 +94,7 @@ const MoveSelectEntries = ({
   const onEnter = (event: KeyboardEvent) => {
     if (!focusedOnInput) return;
     if (event.code === 'Enter' && entries && entries.length > 0) clickHandlers.onMoveSelect(event, entries[0]);
+    console.log(event.code);
   }
   useEventListener('keydown', onEnter);
 

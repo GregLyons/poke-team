@@ -278,7 +278,6 @@ export function useDelayedQuery<SearchQuery, SearchVars>({
   // Average keys per minute is 190-220 according to Google, so roughly 3 keys a second. Thus, 300ms is around the average time between key strokes, which is why we set default to be 300ms
   useEffect(() => {
     if (queryTimer.current) {
-      console.log('Clearing timeout');
       clearTimeout(queryTimer.current);
     }
     queryTimer.current = setTimeout(() => { setDelayedQueryVars(queryVars) }, delay);

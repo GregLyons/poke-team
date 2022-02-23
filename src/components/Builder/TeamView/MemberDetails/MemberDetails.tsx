@@ -1,12 +1,15 @@
+import { useEffect, useState } from "react";
+import { Team } from "../../../../hooks/App/Team";
 import { MemberPokemon } from "../../../../types-queries/Builder/MemberPokemon";
 import { DUMMY_POKEMON_ICON_DATUM, toTypeName } from "../../../../types-queries/helpers";
 import { Dispatches, Filters } from "../../../App";
 import NumericalInput from "../../../Reusables/NumericalInput/NumericalInput";
 import Slider from "../../../Reusables/Slider/Slider";
+import TextInput from "../../../Reusables/TextInput/TextInput";
 import ItemIcon from "../../Icons/ItemIcon";
 import PokemonIcon from "../../Icons/PokemonIcon";
 import TypeIcon from "../../Icons/TypeIcon";
-import { MemberDetailClickHandlers, ReferencePanelView } from "../TeamView";
+import { MemberDetailHandlers, ReferencePanelView } from "../TeamView";
 
 import './MemberDetails.css';
 import MoveSlot from "./MoveSlot";
@@ -14,27 +17,29 @@ import MoveSlot from "./MoveSlot";
 type MemberDetailsProps = {
   dispatches: Dispatches
   filters: Filters
-  clickHandlers: MemberDetailClickHandlers
-  member: MemberPokemon | null
+  handlers: MemberDetailHandlers
+  team: Team
+  memberSlot: number | null
   view: ReferencePanelView
 };
 
 const MemberDetails = ({
   dispatches,
   filters,
-  clickHandlers,
-  member,
+  handlers,
+  team,
+  memberSlot,
   view,
 }: MemberDetailsProps) => {
+  const member = memberSlot !== null
+    ? team[filters.genFilter.gen].members[memberSlot]
+    : null;
+
+  if (member === null || memberSlot === null) return (
+    <div className="member-details__wrapper member-details__wrapper--inactive" />
+  );
   return (
-    <div className={`
-      member-details__wrapper
-      ${member ===  null
-        // If no member is selected, then don't display anything
-        ? 'member-details__wrapper--inactive'
-        : ''
-      }
-    `}>
+    <div className="member-details__wrapper">
       {/* Icon, cosmetic form select */}
       <div className="member-details__cosmetic-wrapper">
         <div className="member-details__header">
@@ -64,6 +69,14 @@ const MemberDetails = ({
             Nickname
           </div>
           <div className="member-details__content">
+            <TextInput
+              title="Give this Pokemon a nickname"
+              placeholder="Nickname"
+              value={member?.nickname || ''}
+              onChange={handlers.updateNickname}
+              width={15}
+              autoFocus={false}
+            />
           </div>
         </div>
         <div className="member-details__level">
@@ -71,17 +84,17 @@ const MemberDetails = ({
             Level
           </div>
           <div className="member-details__content">
-            <Slider
+            {member && <Slider
               titleFor="Level"
 
               min={0}
               max={100}
-              value={50}
-              updateValue={() => {}}
+              value={member.level}
+              updateValue={handlers.updateLevel}
 
               sliderWidth="50%"
               numericalWidth={3}
-            />
+            />}
           </div>
         </div>
         <div className="member-details__gender">
@@ -113,7 +126,7 @@ const MemberDetails = ({
                     ? member.happiness
                     : 255
                   }
-                  updateValue={() => {}}
+                  updateValue={handlers.updateHappiness}
                   
                   sliderWidth="50%"
                   numericalWidth={3}
@@ -135,25 +148,25 @@ const MemberDetails = ({
               <MoveSlot
                 view={view}
                 idx={0}
-                clickHandlers={clickHandlers}
+                clickHandlers={handlers}
                 member={member}
               />
               <MoveSlot
                 view={view}
                 idx={1}
-                clickHandlers={clickHandlers}
+                clickHandlers={handlers}
                 member={member}
               />
               <MoveSlot
                 view={view}
                 idx={2}
-                clickHandlers={clickHandlers}
+                clickHandlers={handlers}
                 member={member}
               />
               <MoveSlot
                 view={view}
                 idx={3}
-                clickHandlers={clickHandlers}
+                clickHandlers={handlers}
                 member={member}
               />
             </div>
@@ -171,7 +184,7 @@ const MemberDetails = ({
                 : ''
               }
             `}
-            onClick={clickHandlers.onAbilityClick}
+            onClick={handlers.onAbilityClick}
           >
             {member?.ability?.formattedName}
           </div>
@@ -188,7 +201,7 @@ const MemberDetails = ({
               : ''
             }
           `}
-            onClick={clickHandlers.onItemClick}
+            onClick={handlers.onItemClick}
           >
             <div className="member-details__item-icon">
               {member?.item && <ItemIcon
@@ -212,7 +225,7 @@ const MemberDetails = ({
               : ''
             }
           `}
-            onClick={clickHandlers.onStatsClick}
+            onClick={handlers.onStatsClick}
           >
             Stat button
           </div>

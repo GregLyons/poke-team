@@ -7,8 +7,8 @@ import MemberDetails from "./MemberDetails/MemberDetails";
 import TeamMembers from "./TeamIcons/TeamMembers";
 
 import './TeamView.css';
-import { PokemonIconDatum } from "../../../types-queries/helpers";
-import { MemberPokemon } from "../../../types-queries/Builder/MemberPokemon";
+import { BaseStatName, PokemonIconDatum } from "../../../types-queries/helpers";
+import { GenderName, MemberPokemon, NatureName } from "../../../types-queries/Builder/MemberPokemon";
 import { MemberMove } from "../../../types-queries/Builder/MemberMove";
 import { MemberAbility } from "../../../types-queries/Builder/MemberAbility";
 import { MemberItem } from "../../../types-queries/Builder/MemberItem";
@@ -75,11 +75,21 @@ export type TeamMembersClickHandlers = {
 // Member details
 // #region
 
-export type MemberDetailClickHandlers = {
+export type MemberDetailHandlers = {
   onAbilityClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onItemClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onMoveClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, moveslot: 0 | 1 | 2 | 3) => void
   onStatsClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+
+  updateNickname: (e: React.ChangeEvent<HTMLInputElement>) => void
+  updateLevel: (newValue: number) => void
+  updateGender: (newValue: GenderName) => void
+  updateShiny: (newValue: boolean) => void
+  updateHappiness: (newValue: number) => void
+
+  updateNature: (newValue: NatureName) => void
+  updateEV: (stat: BaseStatName, newValue: number) => void
+  updateIV: (stat: BaseStatName, newValue: number) => void
 }
 
 // #endregion
@@ -92,8 +102,6 @@ const TeamView = ({
 }: TeamViewProps) => {
   // Position of the currently selected member
   const [memberSlot, setMemberSlot] = useState<number | null>(null);
-  // The currently selected member
-  const [member, setMember] = useState<MemberPokemon | null>(null);
   // Determines what is shown in ReferencePanel
   const [view, setView] = useState<ReferencePanelView>(null);
 
@@ -139,7 +147,7 @@ const TeamView = ({
       });
 
       // De-select slot
-      setMemberSlot(null);
+      setMemberSlot(view.idx);
       
       // No longer in 'POKEMON' mode (but can still view saved boxes)
       setView(null);
@@ -151,10 +159,17 @@ const TeamView = ({
     // #region
 
     const onAbilitySelect = (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, ability: MemberAbility) => {
-      if (!view || view.mode !== 'ABILITY' || member === null) return;
+      if (!view || view.mode !== 'ABILITY' || memberSlot === null) return;
 
       // Replace ability on selected member
-      member.assignAbility(ability);
+      dispatches.dispatchTeam({
+        type: 'assign_ability',
+        payload: {
+          gen: filters.genFilter.gen,
+          idx: memberSlot,
+          ability,
+        }
+      });
 
       // Setting view to null clears the search bar, so that when we set the view back, the search bar will be cleared
       setView(null)
@@ -167,46 +182,54 @@ const TeamView = ({
     }
 
     const onItemSelect = (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, item: MemberItem) => {
-      if (!view || view.mode !== 'ITEM' || member === null) return;
+      if (!view || view.mode !== 'ITEM' || memberSlot === null) return;
 
       // Replace item on selected member
-      member.assignItem(item);
+      dispatches.dispatchTeam({
+        type: 'assign_item',
+        payload: {
+          gen: filters.genFilter.gen,
+          idx: memberSlot,
+          item,
+        }
+      });
 
       // Setting view to null clears the search bar, so that when we set the view back, the search bar will be cleared
       setView(null)
 
       // No longer selecting items
       return setView({
-        mode: 'STATS',
+        mode: 'MOVE',
         idx: 0,
       });
     }
 
     const onMoveSelect = (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, move: MemberMove) => {
-      if (!view || view.mode !== 'MOVE' || member === null) return;
+      if (!view || view.mode !== 'MOVE' || memberSlot === null) return;
 
       // Replace move in slot moveIdx on selected member
-      member.assignMove(move, (view.idx as 0 | 1 | 2 | 3));
+      dispatches.dispatchTeam({
+        type: 'assign_move',
+        payload: {
+          gen: filters.genFilter.gen,
+          idx: memberSlot,
+          move,
+          moveIdx: (view.idx as 0 | 1 | 2 | 3),
+        }
+      });
       
       // Setting view to null clears the search bar, so that when we set the view back, the search bar will be cleared
       setView(null)
 
-      // Select next available move slot
-      for (let moveIdx of [0, 1, 2, 3]) {
-        // If empty move slot is found, select that slot and return
-        if (member.moveset[moveIdx] === null) {
-          setTimeout(() => setView({
-            mode: 'MOVE',
-            idx: moveIdx,
-          }));
+      // Select next move slot, if not at the end
+      if (view.idx !== 3) return setView({
+        mode: 'MOVE',
+        idx: view.idx + 1,
+      });
 
-          return;
-        }
-      }
-
-      // If no available move slot, select ability
+      // Otherwise, move onto stats
       return setView({
-        mode: 'ABILITY',
+        mode: 'STATS',
         idx: 0,
       });
     }
@@ -229,15 +252,12 @@ const TeamView = ({
         onMoveSelect,
       },
     };
-  }, [dispatches, filters, team, memberSlot, setMemberSlot, view, setView, member, ]);
+  }, [dispatches, filters, team, memberSlot, setMemberSlot, view, setView, ]);
 
   const teamMembersClickHandlers: TeamMembersClickHandlers = useMemo(() => {
     // On clicking AddIcon, open up savedPokemon in ReferencePanel
     const onAddClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, idx: number) => {
       e.preventDefault();
-
-      // No actual member has been selected yet, as the AddIcon only shows up if the slot is empty
-      setMember(null)
 
       // Slot has been selected
       setMemberSlot(idx);
@@ -255,53 +275,171 @@ const TeamView = ({
 
       // No need to interact with reference panel yet
       setView(null);
-
-      // Select clicked member
-      setMember(team[filters.genFilter.gen].members[idx]);
     }
 
     return {
       onAddClick,
       onMemberClick,
     }
-  }, [dispatches, filters, team, view, setMemberSlot, setView, setMember]);
+  }, [dispatches, filters, team, view, setMemberSlot, setView, ]);
 
-  const memberDetailClickHandlers: MemberDetailClickHandlers = useMemo(() => {
+  const memberDetailHandlers: MemberDetailHandlers = useMemo(() => {
     const onAbilityClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.preventDefault();
+      if (memberSlot === null) return;
 
-      if (member !== null) setView({ mode: 'ABILITY', idx: 0, });
-    }
+      return setView({ mode: 'ABILITY', idx: 0, });
+    };
 
     const onItemClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.preventDefault();
+      if (memberSlot === null) return;
 
-      if (member !== null) setView({ mode: 'ITEM', idx: 0, });
-    }
+      return setView({ mode: 'ITEM', idx: 0, });
+    };
 
     const onMoveClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, moveslot: 0 | 1 | 2 | 3) => {
       e.preventDefault();
+      if (memberSlot === null) return;
 
-      if (member !== null) setView({ mode: 'MOVE', idx: moveslot });
-    }
+      return setView({ mode: 'MOVE', idx: moveslot });
+    };
 
     const onStatsClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.preventDefault();
+      if (memberSlot === null) return;
 
-      if (member !== null) setView({ mode: 'STATS', idx: 0, });
+      return setView({ mode: 'STATS', idx: 0, });
+    };
+
+    // TODO: connect to ability
+    const updateNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
+      e.preventDefault();
+      if (memberSlot === null) return;
+
+      dispatches.dispatchTeam({
+        type: 'assign_nickname',
+        payload: {
+          gen: filters.genFilter.gen,
+          idx: memberSlot,
+          nickname: e.target.value,
+        }
+      });
+    };
+
+    const updateLevel = (newValue: number) => {
+      if (memberSlot === null) return;
+
+      dispatches.dispatchTeam({
+        type: 'assign_level',
+        payload: {
+          gen: filters.genFilter.gen,
+          idx: memberSlot,
+          newValue,
+        }
+      });
+    };
+
+    const updateGender = (newValue: GenderName) => {
+      if (memberSlot === null) return;
+
+      dispatches.dispatchTeam({
+        type: 'assign_gender',
+        payload: {
+          gen: filters.genFilter.gen,
+          idx: memberSlot,
+          gender: newValue,
+        }
+      });
+    };
+
+    const updateShiny = (newValue: boolean) => {
+      if (memberSlot === null) return;
+
+      dispatches.dispatchTeam({
+        type: 'assign_shiny',
+        payload: {
+          gen: filters.genFilter.gen,
+          idx: memberSlot,
+          shiny: newValue,
+        }
+      });
+    };
+
+    const updateHappiness = (newValue: number) => {
+      if (memberSlot === null) return;
+
+      dispatches.dispatchTeam({
+        type: 'assign_happiness',
+        payload: {
+          gen: filters.genFilter.gen,
+          idx: memberSlot,
+          newValue,
+        }
+      });
+    };
+
+    const updateNature = (newValue: NatureName) => {
+      if (memberSlot === null) return;
+
+      dispatches.dispatchTeam({
+        type: 'assign_nature',
+        payload: {
+          gen: filters.genFilter.gen,
+          idx: memberSlot,
+          nature: newValue,
+        }
+      });
     }
+
+    const updateEV = (stat: BaseStatName, newValue: number) => {
+      if (memberSlot === null) return;
+
+      dispatches.dispatchTeam({
+        type: 'assign_ev',
+        payload: {
+          gen: filters.genFilter.gen,
+          idx: memberSlot,
+          stat,
+          newValue,
+        }
+      });
+    };
+
+    const updateIV = (stat: BaseStatName, newValue: number) => {
+      if (memberSlot === null) return;
+
+      dispatches.dispatchTeam({
+        type: 'assign_iv',
+        payload: {
+          gen: filters.genFilter.gen,
+          idx: memberSlot,
+          stat,
+          newValue,
+        }
+      });
+    };
 
     return {
       onAbilityClick,
       onItemClick,
       onMoveClick,
       onStatsClick,
-    };
-  }, [dispatches, filters, team, setView, view, member]);
 
-  // When genFilter changes, clear member and memberSlot
+      updateNickname,
+      updateLevel,
+      updateGender,
+      updateShiny,
+      updateHappiness,
+
+      updateNature,
+      updateEV,
+      updateIV,
+    };
+  }, [dispatches, filters, team, setView, view, memberSlot, ]);
+
+  // When genFilter changes, clear memberSlot
   useEffect(() => {
-    setMember(null);
     setMemberSlot(null);
   }, [filters.genFilter.gen]);
 
@@ -310,8 +448,9 @@ const TeamView = ({
       <MemberDetails
         dispatches={dispatches}
         filters={filters}
-        clickHandlers={memberDetailClickHandlers}
-        member={member}
+        handlers={memberDetailHandlers}
+        memberSlot={memberSlot}
+        team={team}
         view={view}
       />
       <ReferencePanel
@@ -320,7 +459,10 @@ const TeamView = ({
         filters={filters}
         team={team}
         view={view}
-        psID={member?.psID}
+        psID={memberSlot !== null
+          ? team[filters.genFilter.gen].members[memberSlot]?.psID
+          : ''
+        }
       />
       <TeamMembers
         slot={memberSlot}
