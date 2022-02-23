@@ -40,7 +40,7 @@ import {
   listRenderUsageMethodMove,
 } from './UsageMethodConnections';
 
-import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
+import { useRemovalConnectedSearchVars } from '../../../hooks/Searches';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 import { Dispatches, Filters } from '../../App';
@@ -62,25 +62,25 @@ const UsageMethodPage = ({
   // Connection queries
   // #region 
   
-  const [abilityQueryVars, setAbilityQueryVars] = useRemovalConnectedSearchVars<UsageMethodAbilityQueryVars>({
+  const { queryVars: abilityQueryVars, setQueryVars: setAbilityQueryVars, } = useRemovalConnectedSearchVars<UsageMethodAbilityQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: usageMethodName,
     removedFromSwSh: removedFromSwSh(filters.genFilter),
     removedFromBDSP: removedFromBDSP(filters.genFilter),
-  }, filters.genFilter);
-  const [itemQueryVars, setItemQueryVars] = useRemovalConnectedSearchVars<UsageMethodItemQueryVars>({
+  }, genFilter: filters.genFilter});
+  const { queryVars: itemQueryVars, setQueryVars: setItemQueryVars, } = useRemovalConnectedSearchVars<UsageMethodItemQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: usageMethodName,
     removedFromSwSh: removedFromSwSh(filters.genFilter),
     removedFromBDSP: removedFromBDSP(filters.genFilter),
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [moveQueryVars, setMoveQueryVars] = useRemovalConnectedSearchVars<UsageMethodMoveQueryVars>({
+  const { queryVars: moveQueryVars, setQueryVars: setMoveQueryVars, } = useRemovalConnectedSearchVars<UsageMethodMoveQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: usageMethodName,
     removedFromSwSh: removedFromSwSh(filters.genFilter),
     removedFromBDSP: removedFromBDSP(filters.genFilter),
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
   // #endregion
 

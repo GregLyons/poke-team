@@ -59,7 +59,7 @@ import { TeamAction } from '../../../hooks/App/Team';
 import { CartAction } from '../../../hooks/App/Cart';
 import { GenFilter, removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { PokemonFilter } from '../../../hooks/App/PokemonFilter';
-import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
 import { TierFilter } from '../../../hooks/App/TierFilter';
 import { BGAction } from '../../../hooks/App/BGManager';
 import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
@@ -81,37 +81,37 @@ const AbilityPage = ({
   // Connections
   // #region
 
-  const [effectQueryVars, handleChangeEffect] = useGenConnectedSearchVars<AbilityEffectQueryVars>({
+  const { queryVars: effectQueryVars, setQueryVars: setEffectQueryVars, } = useGenConnectedSearchVars<AbilityEffectQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: abilityName,
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [fieldStateQueryVars, handleChangeFieldState] = useGenConnectedSearchVars<AbilityFieldStateQueryVars>({
+  const { queryVars: fieldStateQueryVars, setQueryVars: setFieldStateQueryVars, } = useGenConnectedSearchVars<AbilityFieldStateQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: abilityName,
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [statQueryVars, handleChangeStat] = useGenConnectedSearchVars<AbilityStatQueryVars>({
+  const { queryVars: statQueryVars, setQueryVars: setStatQueryVars, } = useGenConnectedSearchVars<AbilityStatQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: abilityName,
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [statusQueryVars, handleChangeStatus] = useGenConnectedSearchVars<AbilityStatusQueryVars>({
+  const { queryVars: statusQueryVars, setQueryVars: setStatusQueryVars, } = useGenConnectedSearchVars<AbilityStatusQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: abilityName,
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [typeQueryVars, handleChangeType] = useRemovalConnectedSearchVars<AbilityTypeQueryVars>({
+  const { queryVars: typeQueryVars, setQueryVars: setTypeQueryVars, } = useRemovalConnectedSearchVars<AbilityTypeQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: abilityName,
     removedFromSwSh: removedFromSwSh(filters.genFilter),
     removedFromBDSP: removedFromBDSP(filters.genFilter),
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [usageMethodQueryVars, handleChangeUsageMethod] = useGenConnectedSearchVars<AbilityUsageMethodQueryVars>({
+  const { queryVars: usageMethodQueryVars, setQueryVars: setUsageMethodQueryVars, } = useGenConnectedSearchVars<AbilityUsageMethodQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: abilityName,
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
   // #endregion
   

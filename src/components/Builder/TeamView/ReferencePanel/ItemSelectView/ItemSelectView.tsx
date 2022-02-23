@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { removedFromBDSP, removedFromSwSh } from "../../../../../hooks/App/GenFilter";
 import { Team } from "../../../../../hooks/App/Team";
-import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from "../../../../../hooks/Planner/MainSearches";
+import { useDelayedQuery, useGenConnectedSearchVars, useRemovalConnectedSearchVars } from "../../../../../hooks/Searches";
 import { MemberItemQuery, MemberItemSearchVars, MEMBER_ITEM_QUERY } from "../../../../../types-queries/Builder/MemberItem";
 import { MemberMoveQuery, MemberMoveSearchVars, MEMBER_MOVESET_QUERY } from "../../../../../types-queries/Builder/MemberMove";
 import { Dispatches, Filters } from "../../../../App";
@@ -26,17 +26,24 @@ const ItemSelectView = ({
   filters,
   psID,
 }: ItemSelectViewProps) => {
-  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useGenConnectedSearchVars<MemberItemSearchVars>(
-    {
+  const { queryVars, setQueryVars, searchBar, focusedOnInput, } = useGenConnectedSearchVars<MemberItemSearchVars>({
+    defaultSearchVars: {
       gen: filters.genFilter.gen,
       contains: '',
       startsWith: '',
     },
-    filters.genFilter,
-  );
+    genFilter: filters.genFilter,
+    searchBarProps: {
+      title: "Search items by name",
+      backgroundLight: "green"
+    },
+  });
 
-  const { data, loading, error } = useQuery<MemberItemQuery, MemberItemSearchVars>(MEMBER_ITEM_QUERY, {
-    variables: queryVars,
+  const { data, loading, error } = useDelayedQuery<MemberItemQuery, MemberItemSearchVars>({
+    query: MEMBER_ITEM_QUERY,
+    queryVars,
+    // Shorten the delay since users might be rapidly entering searches
+    delay: 150,
   });
 
   if (error) { return (<div>{error.message}</div>); }
@@ -44,15 +51,7 @@ const ItemSelectView = ({
   return (
     <div className="item-select__wrapper">
       <form>
-        <SearchBar
-          title="Search items by name"
-          placeholder="ENTER to select first result"
-          searchTerm={searchTerm}
-          handleSearchTermChange={handleSearchTermChange}
-          searchMode={searchMode}
-          handleSearchModeChange={handleSearchModeChange}
-          backgroundLight="green"
-        />
+        {searchBar}
       </form>
       <div className="item-select__results">
         <div className="item-select__legend">
@@ -69,6 +68,7 @@ const ItemSelectView = ({
               data={data}
               clickHandlers={clickHandlers}
               filters={filters}
+              focusedOnInput={focusedOnInput}
             />
         }
       </div>

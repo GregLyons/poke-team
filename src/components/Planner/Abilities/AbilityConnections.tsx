@@ -16,7 +16,7 @@ import {
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 import { DUMMY_POKEMON_ICON_DATUM } from "../../../types-queries/helpers";
 import { ENUMCASE_TO_TITLECASE } from "../../../utils/constants";
-import { ListRenderArgs, ListRenderArgsIcons } from "../../../hooks/Planner/MainSearches";
+import { ListRenderArgs, ListRenderArgsIcons } from "../../../hooks/Searches";
 
 export const listRenderAbilityEffect = ({ data, }: ListRenderArgs<AbilityEffectQuery>) => {
   if (!data || !data.abilityByName) return (<div>Data not found for the query 'abilityByName'.</div>);

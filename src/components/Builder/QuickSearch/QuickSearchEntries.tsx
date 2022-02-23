@@ -20,6 +20,7 @@ type QuickSearchEntriesProps = {
   }
   onSaveClick: (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, pokemonIconDatum: PokemonIconDatum) => void
   team: Team
+  focusedOnInput: boolean
 }
 
 type QuickSearchPokemonEntry = {
@@ -60,6 +61,7 @@ const QuickSearchEntries = ({
   pagination,
   onSaveClick,
   team,
+  focusedOnInput,
 }: QuickSearchEntriesProps) => {
   // State for keeping track of when the entries need to be re-sorted or re-filtered
   const [filtered, setFiltered] = useState(false);
@@ -134,9 +136,9 @@ const QuickSearchEntries = ({
 
   // 'Enter' selects first entry
   const onEnter = (event: KeyboardEvent) => {
+    if (!focusedOnInput) return;
     if (event.code === 'Enter' && entries && entries.length > 0) onSaveClick(event, entries[0].pokemonIconDatum);
   }
-
   useEventListener('keydown', onEnter);
 
   if (!data || !data.pokemon) return (<div>Data not found for the query 'pokemon'.</div>);

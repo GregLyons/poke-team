@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { removedFromBDSP, removedFromSwSh } from "../../../../../hooks/App/GenFilter";
 import { Team } from "../../../../../hooks/App/Team";
-import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from "../../../../../hooks/Planner/MainSearches";
+import { useDelayedQuery, useGenConnectedSearchVars, useRemovalConnectedSearchVars } from "../../../../../hooks/Searches";
 import { MemberAbilityQuery, MemberAbilitySearchVars, MEMBER_ABILITY_QUERY } from "../../../../../types-queries/Builder/MemberAbility";
 import { MemberMoveQuery, MemberMoveSearchVars, MEMBER_MOVESET_QUERY } from "../../../../../types-queries/Builder/MemberMove";
 import { Dispatches, Filters } from "../../../../App";
@@ -26,18 +26,25 @@ const AbilitySelectView = ({
   filters,
   psID,
 }: AbilitySelectViewProps) => {
-  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useGenConnectedSearchVars<MemberAbilitySearchVars>(
-    {
+  const { queryVars, setQueryVars, searchBar, focusedOnInput, } = useGenConnectedSearchVars<MemberAbilitySearchVars>({
+    defaultSearchVars: {
       gen: filters.genFilter.gen,
       psID,
       contains: '',
       startsWith: '',
     },
-    filters.genFilter,
-  );
+    genFilter: filters.genFilter,
+    searchBarProps: {
+      title: "Search abilities by name",
+      backgroundLight: "green"
+    },
+  });
 
-  const { data, loading, error } = useQuery<MemberAbilityQuery, MemberAbilitySearchVars>(MEMBER_ABILITY_QUERY, {
-    variables: queryVars,
+  const { data, loading, error } = useDelayedQuery<MemberAbilityQuery, MemberAbilitySearchVars>({
+    query: MEMBER_ABILITY_QUERY,
+    queryVars,
+    // Shorten the delay since users might be rapidly entering searches
+    delay: 150,
   });
 
   if (error) { return (<div>{error.message}</div>); }
@@ -45,15 +52,7 @@ const AbilitySelectView = ({
   return (
     <div className="ability-select__wrapper">
       <form>
-        <SearchBar
-          title="Search abilities by name"
-          placeholder="ENTER to select first row"
-          searchTerm={searchTerm}
-          handleSearchTermChange={handleSearchTermChange}
-          searchMode={searchMode}
-          handleSearchModeChange={handleSearchModeChange}
-          backgroundLight="green"
-        />
+        {searchBar}
       </form>
       <div className="ability-select__results">
         <div className="ability-select__legend">
@@ -73,6 +72,7 @@ const AbilitySelectView = ({
               data={data}
               clickHandlers={clickHandlers}
               filters={filters}
+              focusedOnInput={focusedOnInput}
             />
         }
       </div>

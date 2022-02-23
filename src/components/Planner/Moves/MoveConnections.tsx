@@ -1,4 +1,4 @@
-import { ListRenderArgs, ListRenderArgsIcons } from "../../../hooks/Planner/MainSearches";
+import { ListRenderArgs, ListRenderArgsIcons } from "../../../hooks/Searches";
 import { DUMMY_POKEMON_ICON_DATUM } from "../../../types-queries/helpers";
 import {
   MoveEffectResult,

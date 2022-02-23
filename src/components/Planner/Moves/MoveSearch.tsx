@@ -22,7 +22,7 @@ import { Dispatches, Filters } from '../../App';
 import { EnumTypeName, MoveCategory, MoveTargetClass, MOVE_CATEGORY_MAP, MOVE_TARGETCLASS_MAP, MOVE_TYPE_MAP, toEnumTypeName, toFormattedTypeName, TypeName } from '../../../types-queries/helpers';
 import { TYPE_NAMES } from '../../../hooks/App/PokemonFilter';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
-import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Planner/MainSearches';
+import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Searches';
 import MainSearch from '../Searches/MainSearch';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
 import DoubleSlider from '../../Reusables/DoubleSlider/DoubleSlider';
@@ -110,12 +110,7 @@ const listFilter = ({
 
   return (
     <form>
-      <SearchBar
-        title={`Search moves by name`}
-        placeholder={`Search moves`}
-        {...searchBar}
-        backgroundLight="blue"
-      />
+      {searchBar}
       {handleAccuracyRange && handlePowerRange && handlePPRange && handlePriorityRange && <DropdownMenu
         title="RANGES"
         items={['Accuracy', 'Power', 'PP ', 'Priority'].map(attributeName => {
@@ -301,8 +296,8 @@ const MoveSearch = ({
   dispatches,
   filters,
 }: MoveSearchProps) => {
-  const [queryVars, filterForm] = useListFilter_removal<MoveSearchVars>(
-    {
+  const { queryVars, filterForm, focusedOnInput, } = useListFilter_removal<MoveSearchVars>({
+    defaultSearchVars: {
       gen: filters.genFilter.gen,
       contains: '',
       startsWith: '',
@@ -325,9 +320,13 @@ const MoveSearch = ({
       types: Array.from(TYPE_NAMES.map(toEnumTypeName)),
       variablePower: null,
     },
-    filters.genFilter,
+    genFilter: filters.genFilter,
+    searchBarProps: {
+      title: 'Search moves by name',
+      backgroundLight: 'blue',
+    },
     listFilter,
-  );
+});
 
   const results = useListRender_icons<MoveSearchQuery, MoveSearchVars>(
     dispatches,

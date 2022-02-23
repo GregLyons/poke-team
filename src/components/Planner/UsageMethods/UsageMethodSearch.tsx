@@ -17,7 +17,7 @@ import { GenFilter } from "../../../hooks/App/GenFilter";
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
-import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Planner/MainSearches';
+import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
 import MainSearch from '../Searches/MainSearch';
 
 const listRender = ({ data, }: ListRenderArgs<UsageMethodSearchQuery>) => {
@@ -57,12 +57,7 @@ const listFilter = ({
 }: ListFilterArgs<UsageMethodSearchVars>) => {
   return (
     <form>
-      <SearchBar
-        title={`Search usage methods by name`}
-        placeholder={`Search usage methods`}
-        {...searchBar}
-        backgroundLight="blue"
-      />
+      {searchBar}
     </form>
   );
 }
@@ -74,16 +69,20 @@ type UsageMethodSearchMainProps = {
 const UsageMethodSearch = ({
   genFilter,
 }: UsageMethodSearchMainProps) => {
-  const [queryVars, filterForm] = useListFilter<UsageMethodSearchVars>(
-    {
+  const { queryVars, filterForm, focusedOnInput, } = useListFilter<UsageMethodSearchVars>({
+    defaultSearchVars: {
       gen: genFilter.gen,
       contains: '',
       startsWith: '',
       limit: 100,
     },
     genFilter,
+    searchBarProps: {
+      title: 'Search usage methods by name',
+      backgroundLight: 'blue',
+    },
     listFilter,
-  );
+  });
 
   const results = useListRender<UsageMethodSearchQuery, UsageMethodSearchVars>(
     USAGEMETHOD_SEARCH_QUERY,

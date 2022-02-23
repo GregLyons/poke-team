@@ -9,12 +9,14 @@ type ItemSelectEntriesProps = {
   data: MemberItemQuery
   clickHandlers: ItemSelectClickHandlers
   filters: Filters
+  focusedOnInput: boolean
 };
 
 const ItemSelectEntries = ({
   data,
   clickHandlers,
   filters,
+  focusedOnInput,
 }: ItemSelectEntriesProps) => {
   const [sorted, setSorted] = useState(false);
 
@@ -36,9 +38,9 @@ const ItemSelectEntries = ({
 
   // 'Enter' selects first entry
   const onEnter = (event: KeyboardEvent) => {
+    if (!focusedOnInput) return;
     if (event.code === 'Enter' && entries && entries.length > 0) clickHandlers.onItemSelect(event, entries[0]);
   }
-
   useEventListener('keydown', onEnter);
 
   return (

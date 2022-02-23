@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { removedFromBDSP, removedFromSwSh } from "../../../../../hooks/App/GenFilter";
 import { Team } from "../../../../../hooks/App/Team";
-import { useRemovalConnectedSearchVars } from "../../../../../hooks/Planner/MainSearches";
+import { useDelayedQuery, useRemovalConnectedSearchVars } from "../../../../../hooks/Searches";
 import { MemberMoveQuery, MemberMoveSearchVars, MEMBER_MOVESET_QUERY } from "../../../../../types-queries/Builder/MemberMove";
 import { Dispatches, Filters } from "../../../../App";
 import SearchBar from "../../../../Reusables/SearchBar/SearchBar";
@@ -25,20 +25,27 @@ const MoveSelectView = ({
   filters,
   psID,
 }: MoveSelectViewProps) => {
-  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange] = useRemovalConnectedSearchVars<MemberMoveSearchVars>(
-    {
+  const { queryVars, setQueryVars, searchBar, focusedOnInput, } = useRemovalConnectedSearchVars<MemberMoveSearchVars>({
+    defaultSearchVars: {
       gen: filters.genFilter.gen,
       psID,
-      contains: '',
-      startsWith: '',
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
+      contains: '',
+      startsWith: '',
     },
-    filters.genFilter,
-  );
+    genFilter: filters.genFilter,
+    searchBarProps: {
+      title: "Search moves by name",
+      backgroundLight: "green"
+    },
+  });
 
-  const { data, loading, error } = useQuery<MemberMoveQuery, MemberMoveSearchVars>(MEMBER_MOVESET_QUERY, {
-    variables: queryVars,
+  const { data, loading, error } = useDelayedQuery<MemberMoveQuery, MemberMoveSearchVars>({
+    query: MEMBER_MOVESET_QUERY,
+    queryVars,
+    // Shorten the delay since users might be rapidly entering searches
+    delay: 150,
   });
 
   if (error) { return (<div>{error.message}</div>); }
@@ -46,15 +53,7 @@ const MoveSelectView = ({
   return (
     <div className="move-select__wrapper">
       <form>
-        <SearchBar
-          title="Search items by name"
-          placeholder="ENTER to select first result"
-          searchTerm={searchTerm}
-          handleSearchTermChange={handleSearchTermChange}
-          searchMode={searchMode}
-          handleSearchModeChange={handleSearchModeChange}
-          backgroundLight="green"
-        />
+        {searchBar}
       </form>
       <div className="move-select__results">
         <div className="move-select__legend">
@@ -74,6 +73,7 @@ const MoveSelectView = ({
               data={data}
               clickHandlers={clickHandlers}
               filters={filters}
+              focusedOnInput={focusedOnInput}
             />
         }
       </div>

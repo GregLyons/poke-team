@@ -1,4 +1,4 @@
-import { ListRenderArgsIcons } from "../../../hooks/Planner/MainSearches";
+import { ListRenderArgsIcons } from "../../../hooks/Searches";
 import {
   UsageMethodAbilityResult,
   UsageMethodAbilityQuery,

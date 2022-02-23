@@ -8,7 +8,7 @@ import {
 import { GenFilter } from "../../../hooks/App/GenFilter";
 
 import './Pages.css';
-import { ListRenderArgs } from '../../../hooks/Planner/MainSearches';
+import { ListRenderArgs } from '../../../hooks/Searches';
 
 
 interface EntityConnectionSearchProps<SearchQuery, SearchQueryVars> {

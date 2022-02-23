@@ -5,7 +5,7 @@ import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { validatePokemon } from '../../../hooks/App/PokemonFilter';
 import { Team } from '../../../hooks/App/Team';
 import { useFilterConnectedSearchVars } from '../../../hooks/Builder/Searches';
-import { useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
+import { useDelayedQuery, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
 import { PokemonQuickSearchQuery, PokemonQuickSearchResult, PokemonQuickSearchVars, POKEMON_QUICKSEARCH_QUERY, QuickSearchPokemon } from '../../../types-queries/Builder/QuickSearch';
 import { PokemonColumnName, PokemonIconDatum, PokemonPaginationInput, SortByEnum } from '../../../types-queries/helpers';
 import { Dispatches, Filters } from '../../App';
@@ -33,19 +33,25 @@ const QuickSearch = ({
     sortBy: 'ASC',
   });
 
-  const [queryVars, setQueryVars, searchTerm, handleSearchTermChange, searchMode, handleSearchModeChange]  = useRemovalConnectedSearchVars<PokemonQuickSearchVars>(
-    {
+  const { queryVars, setQueryVars, searchBar, focusedOnInput, }  = useRemovalConnectedSearchVars<PokemonQuickSearchVars>({
+    defaultSearchVars: {
       gen: filters.genFilter.gen,
       startsWith: '',
       contains: '',
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
     }, 
-    filters.genFilter,
-  );
+    genFilter: filters.genFilter,
+    searchBarProps: {
+      title: "Search PokemonByName",
+      placeholder: "ENTER to save first row",
+      backgroundLight: "green"
+    }
+  });
 
-  const { data, loading, error } = useQuery<PokemonQuickSearchQuery, PokemonQuickSearchVars>(POKEMON_QUICKSEARCH_QUERY, {
-    variables: queryVars,
+  const { data, loading, error } = useDelayedQuery<PokemonQuickSearchQuery, PokemonQuickSearchVars>({
+    query: POKEMON_QUICKSEARCH_QUERY,
+    queryVars,
   });
 
 
@@ -88,15 +94,7 @@ const QuickSearch = ({
       className="quick-search__wrapper"
     >
       <form>
-        <SearchBar
-          title="Search Pokemon by name"
-          placeholder="ENTER to save first row"
-          searchTerm={searchTerm}
-          handleSearchTermChange={handleSearchTermChange}
-          searchMode={searchMode}
-          handleSearchModeChange={handleSearchModeChange}
-          backgroundLight="green"
-        />
+        {searchBar}
       </form>
       <div className="quick-search__results">
         <div 
@@ -219,6 +217,7 @@ const QuickSearch = ({
               dispatches={dispatches}
               pagination={pagination}
               onSaveClick={onSaveClick}
+              focusedOnInput={focusedOnInput}
             />
         }
       </div>

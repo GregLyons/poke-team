@@ -45,7 +45,7 @@ import {
 } from './TypeConnections';
 
 import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
-import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 import { Dispatches, Filters } from '../../App';
@@ -67,31 +67,31 @@ const TypePage = ({
   // Connection queries
   // #region 
   
-  const [abilityQueryVars, setAbilityQueryVars] = useRemovalConnectedSearchVars<TypeAbilityQueryVars>({
+  const { queryVars: abilityQueryVars, setQueryVars: setAbilityQueryVars, } = useRemovalConnectedSearchVars<TypeAbilityQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: typeName,
     removedFromSwSh: removedFromSwSh(filters.genFilter),
     removedFromBDSP: removedFromBDSP(filters.genFilter),
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [fieldStateQueryVars, setFieldStateQueryVars] = useGenConnectedSearchVars<TypeFieldStateQueryVars>({
+  const { queryVars: fieldStateQueryVars, setQueryVars: setFieldStateQueryVars, } = useGenConnectedSearchVars<TypeFieldStateQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: typeName,
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [itemQueryVars, setItemQueryVars] = useRemovalConnectedSearchVars<TypeItemQueryVars>({
-    gen: filters.genFilter.gen,
-    name: typeName,
-    removedFromSwSh: removedFromSwSh(filters.genFilter),
-    removedFromBDSP: removedFromBDSP(filters.genFilter),
-  }, filters.genFilter);
-
-  const [moveQueryVars, setMoveQueryVars] = useRemovalConnectedSearchVars<TypeMoveQueryVars>({
+  const { queryVars: itemQueryVars, setQueryVars: setItemQueryVars, } = useRemovalConnectedSearchVars<TypeItemQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: typeName,
     removedFromSwSh: removedFromSwSh(filters.genFilter),
     removedFromBDSP: removedFromBDSP(filters.genFilter),
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
+
+  const { queryVars: moveQueryVars, setQueryVars: setMoveQueryVars, } = useRemovalConnectedSearchVars<TypeMoveQueryVars>({ defaultSearchVars: {
+    gen: filters.genFilter.gen,
+    name: typeName,
+    removedFromSwSh: removedFromSwSh(filters.genFilter),
+    removedFromBDSP: removedFromBDSP(filters.genFilter),
+  }, genFilter: filters.genFilter});
 
   // #endregion
 

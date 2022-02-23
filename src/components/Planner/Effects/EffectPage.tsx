@@ -41,7 +41,7 @@ import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 
 import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import { listRenderEffectAbility, listRenderEffectFieldState, listRenderEffectItem, listRenderEffectMove } from './EffectConnections';
-import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 import { Dispatches, Filters } from '../../App';
@@ -63,31 +63,31 @@ const EffectPage = ({
   // Connection queries
   // #region 
   
-  const [abilityQueryVars, setAbilityQueryVars] = useRemovalConnectedSearchVars<EffectAbilityQueryVars>({
+  const { queryVars: abilityQueryVars, setQueryVars: setAbilityQueryVars, } = useRemovalConnectedSearchVars<EffectAbilityQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: effectName,
     removedFromSwSh: removedFromSwSh(filters.genFilter),
     removedFromBDSP: removedFromBDSP(filters.genFilter),
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [fieldStateQueryVars, setFieldStateQueryVars] = useGenConnectedSearchVars<EffectFieldStateQueryVars>({
+  const { queryVars: fieldStateQueryVars, setQueryVars: setFieldStateQueryVars, } = useGenConnectedSearchVars<EffectFieldStateQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: effectName,
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [itemQueryVars, setItemQueryVars] = useGenConnectedSearchVars<EffectItemQueryVars>({
-    gen: filters.genFilter.gen,
-    name: effectName,
-    removedFromSwSh: removedFromSwSh(filters.genFilter),
-    removedFromBDSP: removedFromBDSP(filters.genFilter),
-  }, filters.genFilter);
-
-  const [moveQueryVars, setMoveQueryVars] = useGenConnectedSearchVars<EffectMoveQueryVars>({
+  const { queryVars: itemQueryVars, setQueryVars: setItemQueryVars, } = useGenConnectedSearchVars<EffectItemQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: effectName,
     removedFromSwSh: removedFromSwSh(filters.genFilter),
     removedFromBDSP: removedFromBDSP(filters.genFilter),
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
+
+  const { queryVars: moveQueryVars, setQueryVars: setMoveQueryVars, } = useGenConnectedSearchVars<EffectMoveQueryVars>({ defaultSearchVars: {
+    gen: filters.genFilter.gen,
+    name: effectName,
+    removedFromSwSh: removedFromSwSh(filters.genFilter),
+    removedFromBDSP: removedFromBDSP(filters.genFilter),
+  }, genFilter: filters.genFilter});
 
   // #endregion
 

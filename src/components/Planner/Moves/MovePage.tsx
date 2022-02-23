@@ -53,7 +53,7 @@ import {
 } from './MoveConnections';
 
 import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
-import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
+import { useGenConnectedSearchVars } from '../../../hooks/Searches';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
@@ -76,35 +76,35 @@ const MovePage = ({
   // Connections
   // #region
   
-  const [effectQueryVars, setEffectQueryVars] = useGenConnectedSearchVars<MoveEffectQueryVars>({
+  const { queryVars: effectQueryVars, setQueryVars: setEffectQueryVars, } = useGenConnectedSearchVars<MoveEffectQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: moveName,
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [fieldStateQueryVars, setFieldStateQueryVars] = useGenConnectedSearchVars<MoveFieldStateQueryVars>({
+  const { queryVars: fieldStateQueryVars, setQueryVars: setFieldStateQueryVars, } = useGenConnectedSearchVars<MoveFieldStateQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: moveName,
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [statQueryVars, setStatQueryVars] = useGenConnectedSearchVars<MoveStatQueryVars>({
+  const { queryVars: statQueryVars, setQueryVars: setStatQueryVars, } = useGenConnectedSearchVars<MoveStatQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: moveName,
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [statusQueryVars, setStatusQueryVars] = useGenConnectedSearchVars<MoveStatusQueryVars>({
+  const { queryVars: statusQueryVars, setQueryVars: setStatusQueryVars, } = useGenConnectedSearchVars<MoveStatusQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: moveName,
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [typeQueryVars, setTypeQueryVars] = useGenConnectedSearchVars<MoveTypeQueryVars>({
+  const { queryVars: typeQueryVars, setQueryVars: setTypeQueryVars, } = useGenConnectedSearchVars<MoveTypeQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: moveName,
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [usageMethodQueryVars, setUsageMethodQueryVars] = useGenConnectedSearchVars<MoveUsageMethodQueryVars>({
+  const { queryVars: usageMethodQueryVars, setQueryVars: setUsageMethodQueryVars, } = useGenConnectedSearchVars<MoveUsageMethodQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: moveName,
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
   // #endregion
   

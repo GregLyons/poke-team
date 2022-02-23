@@ -16,7 +16,7 @@ import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { Dispatches, Filters } from '../../App';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
-import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Planner/MainSearches';
+import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Searches';
 import MainSearch from '../Searches/MainSearch';
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeSearchQuery>) => {
@@ -60,12 +60,7 @@ const listFilter = ({
 }: ListFilterArgs<TypeSearchVars>) => {
   return (
     <form>
-      <SearchBar
-        title={`Search types by name`}
-        placeholder={`Search types`}
-        {...searchBar}
-        backgroundLight="blue"
-      />
+      {searchBar}
     </form>
   );
 }
@@ -79,8 +74,8 @@ const TypeSearch = ({
   dispatches,
   filters,
 }: TypeSearchMainProps) => {
-  const [queryVars, filterForm] = useListFilter_removal<TypeSearchVars>(
-    {
+  const { queryVars, filterForm, focusedOnInput, } = useListFilter_removal<TypeSearchVars>({
+    defaultSearchVars: {
       gen: filters.genFilter.gen,
       contains: '',
       startsWith: '',
@@ -88,18 +83,21 @@ const TypeSearch = ({
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
     },
-    filters.genFilter,
+    genFilter: filters.genFilter,
+    searchBarProps: {
+      title: 'Search types by name',
+      backgroundLight: 'blue',
+    },
     listFilter,
+  });
+
+  const results = useListRender_icons<TypeSearchQuery, TypeSearchVars>(
+    dispatches,
+    filters,
+    TYPE_SEARCH_QUERY,
+    queryVars,
+    listRender,
   );
-
-    const results = useListRender_icons<TypeSearchQuery, TypeSearchVars>(
-      dispatches,
-      filters,
-      TYPE_SEARCH_QUERY,
-      queryVars,
-      listRender,
-    );
-
 
   return (
     <>

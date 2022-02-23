@@ -151,39 +151,64 @@ const TeamView = ({
     // #region
 
     const onAbilitySelect = (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, ability: MemberAbility) => {
-      if (!view) return;
+      if (!view || view.mode !== 'ABILITY' || member === null) return;
 
       // Replace ability on selected member
-      if (view.mode === 'ABILITY' && member !== null && memberSlot !== null) {
-        team[filters.genFilter.gen].members[memberSlot]?.assignAbility(ability);
-      }
+      member.assignAbility(ability);
+
+      // Setting view to null clears the search bar, so that when we set the view back, the search bar will be cleared
+      setView(null)
 
       // No longer selecting abilities
-      setView(null);
+      return setView({
+        mode: 'ITEM',
+        idx: 0,
+      });
     }
 
     const onItemSelect = (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, item: MemberItem) => {
-      if (!view) return;
+      if (!view || view.mode !== 'ITEM' || member === null) return;
 
       // Replace item on selected member
-      if (view.mode === 'ITEM' && member !== null && memberSlot !== null) {
-        team[filters.genFilter.gen].members[memberSlot]?.assignItem(item);
-      }
+      member.assignItem(item);
+
+      // Setting view to null clears the search bar, so that when we set the view back, the search bar will be cleared
+      setView(null)
 
       // No longer selecting items
-      setView(null);
+      return setView({
+        mode: 'STATS',
+        idx: 0,
+      });
     }
 
     const onMoveSelect = (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, move: MemberMove) => {
-      if (!view) return;
+      if (!view || view.mode !== 'MOVE' || member === null) return;
 
       // Replace move in slot moveIdx on selected member
-      if (view.mode === 'MOVE' && member !== null && memberSlot !== null) {
-        team[filters.genFilter.gen].members[memberSlot]?.assignMove(move, (view.idx as 0 | 1 | 2 | 3));
+      member.assignMove(move, (view.idx as 0 | 1 | 2 | 3));
+      
+      // Setting view to null clears the search bar, so that when we set the view back, the search bar will be cleared
+      setView(null)
+
+      // Select next available move slot
+      for (let moveIdx of [0, 1, 2, 3]) {
+        // If empty move slot is found, select that slot and return
+        if (member.moveset[moveIdx] === null) {
+          setTimeout(() => setView({
+            mode: 'MOVE',
+            idx: moveIdx,
+          }));
+
+          return;
+        }
       }
 
-      // No longer selecting moves
-      setView(null);
+      // If no available move slot, select ability
+      return setView({
+        mode: 'ABILITY',
+        idx: 0,
+      });
     }
 
     // #endregion

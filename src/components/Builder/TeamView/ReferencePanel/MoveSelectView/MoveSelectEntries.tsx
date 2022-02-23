@@ -9,12 +9,14 @@ type MoveSelectEntriesProps = {
   data: MemberMoveQuery
   clickHandlers: MoveSelectClickHandlers
   filters: Filters
+  focusedOnInput: boolean
 };
 
 const MoveSelectEntries = ({
   data,
   clickHandlers,
   filters,
+  focusedOnInput,
 }: MoveSelectEntriesProps) => {
   const [sorted, setSorted] = useState(false);
 
@@ -90,9 +92,9 @@ const MoveSelectEntries = ({
 
   // 'Enter' selects first entry
   const onEnter = (event: KeyboardEvent) => {
+    if (!focusedOnInput) return;
     if (event.code === 'Enter' && entries && entries.length > 0) clickHandlers.onMoveSelect(event, entries[0]);
   }
-
   useEventListener('keydown', onEnter);
 
   return (

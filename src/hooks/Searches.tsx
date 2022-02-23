@@ -1,13 +1,13 @@
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { DocumentNode } from "graphql";
 import { useEffect, useRef, useState } from "react";
-import { Dispatches, Filters } from "../../components/App";
-import SearchBar from "../../components/Reusables/SearchBar/SearchBar";
-import { GenFilter, removedFromBDSP, removedFromSwSh } from "../App/GenFilter";
+import { Dispatches, Filters } from "../components/App";
+import SearchBar from "../components/Reusables/SearchBar/SearchBar";
+import { GenFilter, removedFromBDSP, removedFromSwSh } from "./App/GenFilter";
 
 export type SearchBarProps = {
   title: string
-  placeholder: string
+  placeholder?: string
   backgroundLight: 'red' | 'green' | 'blue'
 }
 
@@ -25,7 +25,7 @@ export function useGenConnectedSearchVars<SearchVars>({
 }: {
   defaultSearchVars: SearchVars
   genFilter: GenFilter
-  searchBarProps: SearchBarProps
+  searchBarProps?: SearchBarProps
 }): {
   queryVars: SearchVars,
   setQueryVars: React.Dispatch<React.SetStateAction<SearchVars>>,
@@ -88,15 +88,22 @@ export function useGenConnectedSearchVars<SearchVars>({
   return {
     queryVars,
     setQueryVars, 
-    searchBar: <SearchBar 
-      {...searchBarProps}
+    searchBar: <>
+      {searchBarProps !== undefined
+        ? <SearchBar 
+            title={searchBarProps.title}
+            placeholder={searchBarProps.placeholder || 'ENTER to select first row'}
+            backgroundLight={searchBarProps.backgroundLight}
 
-      searchTerm={searchTerm}
-      handleSearchTermChange={handleSearchTermChange}
-      searchMode={searchMode}
-      handleSearchModeChange={handleSearchModeChange}
-      setFocusedOnInput={setFocusedOnInput}
-    />,
+            searchTerm={searchTerm}
+            handleSearchTermChange={handleSearchTermChange}
+            searchMode={searchMode}
+            handleSearchModeChange={handleSearchModeChange}
+            setFocusedOnInput={setFocusedOnInput}
+          />
+        : <div></div>
+      }
+    </>,
     focusedOnInput,
   };
 }
@@ -112,7 +119,7 @@ export function useRemovalConnectedSearchVars<SearchVars>({
 }: {
   defaultSearchVars: SearchVars
   genFilter: GenFilter
-  searchBarProps: SearchBarProps
+  searchBarProps?: SearchBarProps
 }): {
   queryVars: SearchVars,
   setQueryVars: React.Dispatch<React.SetStateAction<SearchVars>>,
@@ -244,25 +251,38 @@ export type ListRenderArgsIcons<SearchQuery> = {
 }
 
 /*
-  Whenever queryVars updates, execute query after a certain amount of time has passed. Updating queryVars within this time resets the timer.
+  Whenever queryVars updates, execute query after 'delay' ms have passed. Updating queryVars within this time resets the timer.
 */
 export function useDelayedQuery<SearchQuery, SearchVars>({
   query,
   queryVars,
+  delay = 300,
 }: {
   query: DocumentNode,
   queryVars: SearchVars
+  delay?: number
 }) {
-  const [execute, { data, loading, error }] = useLazyQuery<SearchQuery, SearchVars>(query, {
-    variables: queryVars,
+  const [delayedQueryVars, setDelayedQueryVars] = useState<SearchVars>(queryVars)
+  const queryTimer = useRef<NodeJS.Timeout>();
+
+  const { data, loading, error } = useQuery<SearchQuery, SearchVars>(query, {
+    variables: delayedQueryVars,
   });
 
-  const searchTimer = useRef<NodeJS.Timeout>();
+  // // Execute query on initial render
+  // useEffect(() => {
+  //   executeQuery();
+  // }, [execute]);
 
-  // Whenever queryVars updates, set search to execute 250ms later
+  // Whenever queryVars updates, set search to execute 'delay' ms later
+  // Average keys per minute is 190-220 according to Google, so roughly 3 keys a second. Thus, 300ms is around the average time between key strokes, which is why we set default to be 300ms
   useEffect(() => {
-    searchTimer.current = setTimeout(execute, 250);
-  }, [queryVars, execute, searchTimer]);
+    if (queryTimer.current) {
+      console.log('Clearing timeout');
+      clearTimeout(queryTimer.current);
+    }
+    queryTimer.current = setTimeout(() => { setDelayedQueryVars(queryVars) }, delay);
+  }, [queryVars, setDelayedQueryVars, queryTimer]);
 
   return { data, loading, error };
 }

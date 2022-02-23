@@ -14,7 +14,7 @@ import {
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
-import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons, } from '../../../hooks/Planner/MainSearches';
+import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons, } from '../../../hooks/Searches';
 import { Dispatches, Filters } from '../../App';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
 import MainSearch from '../Searches/MainSearch';
@@ -56,12 +56,7 @@ const listFilter = ({
 }: ListFilterArgs<AbilitySearchVars>) => {
   return (
     <form>
-      <SearchBar
-        title={`Search abilities by name`}
-        placeholder={`Search abilities`}
-        {...searchBar}
-        backgroundLight="blue"
-      />
+      {searchBar}
     </form>
   );
 }
@@ -75,8 +70,8 @@ const AbilitySearch = ({
   dispatches,
   filters,
 }: AbilitySearchMainProps) => {
-  const [queryVars, filterForm] = useListFilter_removal<AbilitySearchVars>(
-    {
+  const { queryVars, filterForm, focusedOnInput, } = useListFilter_removal<AbilitySearchVars>({
+    defaultSearchVars: {
       gen: filters.genFilter.gen,
       contains: '',
       startsWith: '',
@@ -84,9 +79,13 @@ const AbilitySearch = ({
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
     },
-    filters.genFilter,
+    genFilter: filters.genFilter,
+    searchBarProps: {
+      title: 'Search abilities by name',
+      backgroundLight: 'blue',
+    },
     listFilter,
-  );
+  });
 
   const results = useListRender_icons<AbilitySearchQuery, AbilitySearchVars>(
     dispatches,
@@ -95,7 +94,6 @@ const AbilitySearch = ({
     queryVars,
     listRender,
   );
-
 
   return (
     <>

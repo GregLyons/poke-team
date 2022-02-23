@@ -54,7 +54,7 @@ import {
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 
 import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
-import { useGenConnectedSearchVars } from '../../../hooks/Planner/MainSearches';
+import { useGenConnectedSearchVars } from '../../../hooks/Searches';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 import { Dispatches, Filters } from '../../App';
@@ -76,35 +76,35 @@ const ItemPage = ({
   // Connections
   // #region
 
-  const [effectQueryVars, setEffectQueryVars] = useGenConnectedSearchVars<ItemEffectQueryVars>({
+  const { queryVars: effectQueryVars, setQueryVars: setEffectQueryVars, } = useGenConnectedSearchVars<ItemEffectQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: itemName,
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [fieldStateQueryVars, setFieldStateQueryVars] = useGenConnectedSearchVars<ItemFieldStateQueryVars>({
+  const { queryVars: fieldStateQueryVars, setQueryVars: setFieldStateQueryVars, } = useGenConnectedSearchVars<ItemFieldStateQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: itemName,
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [statQueryVars, setStatQueryVars] = useGenConnectedSearchVars<ItemStatQueryVars>({
+  const { queryVars: statQueryVars, setQueryVars: setStatQueryVars, } = useGenConnectedSearchVars<ItemStatQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: itemName,
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [statusQueryVars, setStatusQueryVars] = useGenConnectedSearchVars<ItemStatusQueryVars>({
+  const { queryVars: statusQueryVars, setQueryVars: setStatusQueryVars, } = useGenConnectedSearchVars<ItemStatusQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: itemName,
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [typeQueryVars, setTypeQueryVars] = useGenConnectedSearchVars<ItemTypeQueryVars>({
+  const { queryVars: typeQueryVars, setQueryVars: setTypeQueryVars, } = useGenConnectedSearchVars<ItemTypeQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: itemName,
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
-  const [usageMethodQueryVars, setUsageMethodQueryVars] = useGenConnectedSearchVars<ItemUsageMethodQueryVars>({
+  const { queryVars: usageMethodQueryVars, setQueryVars: setUsageMethodQueryVars, } = useGenConnectedSearchVars<ItemUsageMethodQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: itemName,
-  }, filters.genFilter);
+  }, genFilter: filters.genFilter});
 
   // #endregion
   

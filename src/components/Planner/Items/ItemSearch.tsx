@@ -16,7 +16,7 @@ import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import {
   ENUMCASE_TO_TITLECASE,
 } from '../../../utils/constants';
-import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons, } from '../../../hooks/Planner/MainSearches';
+import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons, } from '../../../hooks/Searches';
 import { listToggleValue } from '../helpers';
 import { Dispatches, Filters } from '../../App';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
@@ -73,12 +73,7 @@ const listFilter = ({
 
   return (
     <>
-      <SearchBar
-        title={`Search items by name`}
-        placeholder={`Search items`}
-        {...searchBar}
-        backgroundLight="blue"
-      />
+      {searchBar}
       <DropdownMenu
         title="CLASS"
         items={Array.from(ITEM_CLASS_MAP.entries()).map(([key, value]) => {
@@ -120,8 +115,8 @@ const ItemSearch = ({
   dispatches,
   filters,
 }: ItemSearchProps) => {
-  const [queryVars, filterForm] = useListFilter_removal<ItemSearchVars>(
-    {
+  const { queryVars, filterForm, focusedOnInput, } = useListFilter_removal<ItemSearchVars>({
+    defaultSearchVars: {
       gen: filters.genFilter.gen,
       contains: '',
       startsWith: '',
@@ -130,9 +125,13 @@ const ItemSearch = ({
       removedFromBDSP: removedFromBDSP(filters.genFilter),
       itemClass: Array.from(ITEM_CLASS_MAP.keys()),
     },
-    filters.genFilter,
+    genFilter: filters.genFilter,
+    searchBarProps: {
+      title: 'Search items by name',
+      backgroundLight: 'blue',
+    },
     listFilter,
-  );
+  });
 
   const results = useListRender_icons<ItemSearchQuery, ItemSearchVars>(
     dispatches,

@@ -19,7 +19,7 @@ import { ENUMCASE_TO_TITLECASE } from '../../../utils/constants';
 import { Dispatch, SetStateAction } from 'react';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
 import { FieldStateClass, FieldStateDamagePercent, FieldStateTargetClass, FIELDSTATE_CLASS_MAP, FIELDSTATE_TARGETCLASS_MAP } from '../../../types-queries/helpers';
-import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Planner/MainSearches';
+import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
 import MainSearch from '../Searches/MainSearch';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
 import Button from '../../Reusables/Button/Button';
@@ -89,12 +89,7 @@ const listFilter = ({
 
   return (
     <form>
-      <SearchBar
-        title={`Search field states by name`}
-        placeholder={`Search field states`}
-        {...searchBar}
-        backgroundLight="blue"
-      />
+      {searchBar}
       <DropdownMenu
         title="CLASS"
         items={Array.from(FIELDSTATE_CLASS_MAP.entries()).map(([key, value]) => {
@@ -177,8 +172,8 @@ type FieldStateSearchMainProps = {
 const FieldStateSearch = ({
   genFilter,
 }: FieldStateSearchMainProps) => {
-  const [queryVars, filterForm] = useListFilter<FieldStateSearchVars>(
-    {
+  const { queryVars, filterForm, focusedOnInput, } = useListFilter<FieldStateSearchVars>({
+    defaultSearchVars: {
       gen: genFilter.gen,
       contains: '',
       startsWith: '',
@@ -192,8 +187,12 @@ const FieldStateSearch = ({
       target: Array.from(FIELDSTATE_TARGETCLASS_MAP.keys()),
     },
     genFilter,
+    searchBarProps: {
+      title: 'Search field states by name',
+      backgroundLight: 'blue',
+    },
     listFilter,
-  );
+  });
 
   const results = useListRender<FieldStateSearchQuery, FieldStateSearchVars>(
     FIELDSTATE_SEARCH_QUERY,

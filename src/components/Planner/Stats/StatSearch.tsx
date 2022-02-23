@@ -17,7 +17,7 @@ import { GenFilter } from "../../../hooks/App/GenFilter";
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
-import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Planner/MainSearches';
+import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
 import MainSearch from '../Searches/MainSearch';
 
 const listRender = ({ data, }: ListRenderArgs<StatSearchQuery>) => {
@@ -57,12 +57,7 @@ const listFilter = ({
 }: ListFilterArgs<StatSearchVars>) => {
   return (
     <form>
-      <SearchBar
-        title={`Search stats by name`}
-        placeholder={`Search stats`}
-        {...searchBar}
-        backgroundLight="blue"
-      />
+      {searchBar}
     </form>
   );
 }
@@ -74,16 +69,20 @@ type StatSearchMainProps = {
 const StatSearch = ({
   genFilter,
 }: StatSearchMainProps) => {
-  const [queryVars, filterForm] = useListFilter<StatSearchVars>(
-    {
+  const { queryVars, filterForm, focusedOnInput, } = useListFilter<StatSearchVars>({
+    defaultSearchVars: {
       gen: genFilter.gen,
       contains: '',
       startsWith: '',
       limit: 100,
     },
     genFilter,
+    searchBarProps: {
+      title: 'Search statuses by name',
+      backgroundLight: 'blue',
+    },
     listFilter,
-  );
+  });
 
   const results = useListRender<StatSearchQuery, StatSearchVars>(
     STAT_SEARCH_QUERY,

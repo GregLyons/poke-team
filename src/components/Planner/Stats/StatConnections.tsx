@@ -14,7 +14,7 @@ import {
 
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 import { ENUMCASE_TO_TITLECASE } from "../../../utils/constants";
-import { ListRenderArgs, ListRenderArgsIcons } from "../../../hooks/Planner/MainSearches";
+import { ListRenderArgs, ListRenderArgsIcons } from "../../../hooks/Searches";
 
 export const listRenderStatAbility = ({ data, dispatches, filters, }: ListRenderArgsIcons<StatAbilityQuery>) => {
   if (!data || !data.statByName) return (<div>Data not found for the query 'statByName'.</div>);

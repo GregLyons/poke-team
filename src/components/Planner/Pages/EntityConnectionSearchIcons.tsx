@@ -7,7 +7,7 @@ import {
 
 import './Pages.css';
 import { Dispatches, Filters } from '../../App';
-import { ListRenderArgsIcons } from '../../../hooks/Planner/MainSearches';
+import { ListRenderArgsIcons } from '../../../hooks/Searches';
 
 
 interface EntityConnectionSearchIconsProps<SearchQuery, SearchQueryVars> {

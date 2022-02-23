@@ -14,7 +14,7 @@ import {
 import { GenFilter } from "../../../hooks/App/GenFilter";
 
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
-import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Planner/MainSearches';
+import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
 import { ItemSearchQuery, ItemSearchVars } from '../../../types-queries/Planner/Item';
 import MainSearch from '../Searches/MainSearch';
@@ -50,12 +50,7 @@ const listFilter = ({
 }: ListFilterArgs<EffectSearchVars>) => {
   return (
     <form>
-      <SearchBar
-        title={`Search effects by name`}
-        placeholder={`Search effects`}
-        {...searchBar}
-        backgroundLight="blue"
-      />
+      {searchBar}
     </form>
   );
 }
@@ -67,16 +62,20 @@ type EffectSearchMainProps = {
 const EffectSearch = ({
   genFilter,
 }: EffectSearchMainProps) => {
-  const [queryVars, filterForm] = useListFilter<EffectSearchVars>(
-    {
+  const { queryVars, filterForm, focusedOnInput, } = useListFilter<EffectSearchVars>({
+    defaultSearchVars: {
       gen: genFilter.gen,
       contains: '',
       startsWith: '',
       limit: 100,
     },
     genFilter,
+    searchBarProps: {
+      title: 'Search effects by name',
+      backgroundLight: 'blue',
+    },
     listFilter,
-  );
+});
 
   const results = useListRender<EffectSearchQuery, EffectSearchVars>(
     EFFECT_SEARCH_QUERY,

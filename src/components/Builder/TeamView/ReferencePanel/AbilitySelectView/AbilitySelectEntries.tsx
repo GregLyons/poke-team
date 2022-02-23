@@ -9,12 +9,14 @@ type AbilitySelectEntriesProps = {
   data: MemberAbilityQuery
   clickHandlers: AbilitySelectClickHandlers
   filters: Filters
+  focusedOnInput: boolean
 };
 
 const AbilitySelectEntries = ({
   data,
   clickHandlers,
   filters,
+  focusedOnInput,
 }: AbilitySelectEntriesProps) => {
   const entries: MemberAbility[] | undefined = useMemo(() => {
     // If not data, do nothing
@@ -27,9 +29,9 @@ const AbilitySelectEntries = ({
 
   // 'Enter' selects first entry
   const onEnter = (event: KeyboardEvent) => {
+    if (!focusedOnInput) return;
     if (event.code === 'Enter' && entries && entries.length > 0) clickHandlers.onAbilitySelect(event, entries[0]);
   }
-
   useEventListener('keydown', onEnter);
 
   return (
