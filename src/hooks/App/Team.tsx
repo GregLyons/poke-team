@@ -1,6 +1,7 @@
 import { MemberAbility } from "../../types-queries/Builder/MemberAbility";
 import { MemberItem } from "../../types-queries/Builder/MemberItem";
 import { MemberMove } from "../../types-queries/Builder/MemberMove";
+import { MemberNature } from "../../types-queries/Builder/MemberNature";
 import { GenderName, MemberPokemon, NatureName } from "../../types-queries/Builder/MemberPokemon";
 import { BaseStatName, DUMMY_POKEMON_ICON_DATUM, GenerationNum, PokemonIconDatum } from "../../types-queries/helpers";
 import { omitKeys } from "../../utils/helpers";
@@ -186,7 +187,7 @@ export type TeamAction =
     payload: {
       gen: GenerationNum
       idx: number
-      nature: NatureName
+      nature: MemberNature
     }
   }
 | {

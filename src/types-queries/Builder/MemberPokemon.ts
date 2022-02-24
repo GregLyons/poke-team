@@ -6,6 +6,7 @@ import { EnablesItemEdge, PokemonFormDatum, PokemonFormEdge, pokemonFormEdgeToFo
 import { MemberAbility } from "./MemberAbility"
 import { enablesItemEdgeToMemberItem, MemberItem, requiresItemEdgeToMemberItem } from "./MemberItem"
 import { MemberMove } from "./MemberMove"
+import { MemberNature } from "./MemberNature"
 
 export type MemberPokemonQuery = {
   pokemonByPSID: MemberPokemonQueryResult[]
@@ -104,6 +105,15 @@ export const DefaultEVSpread: StatTable = {
   speed: 0,
 }
 
+export const DefaultEVSpreadGens12: StatTable = {
+  hp: 252,
+  attack: 252,
+  defense: 252,
+  specialAttack: 252,
+  specialDefense: 252,
+  speed: 252,
+}
+
 export const DefaultIVSpread: StatTable = {
   hp: 31,
   attack: 31,
@@ -111,6 +121,15 @@ export const DefaultIVSpread: StatTable = {
   specialAttack: 31,
   specialDefense: 31,
   speed: 31,
+}
+
+export const DefaultDVSpread: StatTable = {
+  hp: 15,
+  attack: 15,
+  defense: 15,
+  specialAttack: 15,
+  specialDefense: 15,
+  speed: 15,
 }
 
 export const statTableToPSStatsTable: (statTable: StatTable) => StatsTable<number> = statTable => {
@@ -135,7 +154,7 @@ export type FormattedNatureName = 'Adamant' | 'Bashful' | 'Bold' | 'Brave' | 'Ca
 'Rash' | 'Relaxed' | 'Sassy' | 'Serious' | 'Timid';
 
 export const natureNameToFormattedNatureName = (natureName: NatureName) => {
-  return ((natureName.charAt(0) + natureName.slice(1)) as FormattedNatureName);
+  return ((natureName.charAt(0).toUpperCase() + natureName.slice(1)) as FormattedNatureName);
 }
 
 export const formattedNatureNameToNatureName = (formattedNatureName: FormattedNatureName) => {
@@ -164,7 +183,7 @@ export class MemberPokemon {
 
   public evs: StatTable
   public ivs: StatTable
-  public nature: NatureName
+  public nature?: MemberNature
   public level: number
 
   public enablesItem: MemberItem[]
@@ -221,9 +240,16 @@ export class MemberPokemon {
     this.removedFromBDSP = removedFromBDSP;
 
     this.moveset = [null, null, null, null];
-    this.evs = DefaultEVSpread;
-    this.ivs = DefaultIVSpread;
-    this.nature = 'serious';
+
+    if (gen < 3) {
+      this.evs = DefaultEVSpreadGens12;
+      this.ivs = DefaultDVSpread;
+    }
+    else {
+      this.evs = DefaultEVSpread;
+      this.ivs = DefaultIVSpread;
+    }
+
     this.level = 100;
     this.happiness = 255;
 
@@ -301,7 +327,7 @@ export class MemberPokemon {
     };
   }
 
-  public assignNature(newNature: NatureName) {
+  public assignNature(newNature: MemberNature) {
     this.nature = newNature;
   }
 
@@ -338,7 +364,7 @@ export class MemberPokemon {
       item: this.item?.psID || '',
       ability: this?.ability?.psID || '',
       moves: this.moveset.map(move => move?.psID || ''),
-      nature: this.nature,
+      nature: this.nature?.name || 'serious',
       gender: this.gender || '',
       evs: statTableToPSStatsTable(this.evs),
       ivs: statTableToPSStatsTable(this.ivs),
@@ -367,7 +393,7 @@ export class MemberPokemon {
 
     copy.setEVs(this.evs);
     copy.setIVs(this.ivs);
-    copy.assignNature(this.nature);
+    this.nature !== undefined && copy.assignNature(this.nature);
 
     this.nickname !== undefined && copy.assignNickname(this.nickname);
     copy.assignLevel(this.level);

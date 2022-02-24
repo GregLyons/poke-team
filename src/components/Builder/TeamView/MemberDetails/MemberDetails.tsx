@@ -1,5 +1,5 @@
 import { Team } from "../../../../hooks/App/Team";
-import { DUMMY_POKEMON_ICON_DATUM, } from "../../../../types-queries/helpers";
+import { BaseStatName, DUMMY_POKEMON_ICON_DATUM, toAbbreviatedBaseStatName, } from "../../../../types-queries/helpers";
 import { Dispatches, Filters } from "../../../App";
 import Slider from "../../../Reusables/Slider/Slider";
 import TextInput from "../../../Reusables/TextInput/TextInput";
@@ -10,6 +10,8 @@ import CosmeticFormDropdown from "./CosmeticFormDropdown";
 
 import './MemberDetails.css';
 import MoveSlot from "./MoveSlot";
+import SpreadTable from "./SpreadTable";
+import StatTable from "./SpreadTable";
 
 type MemberDetailsProps = {
   dispatches: Dispatches
@@ -277,14 +279,84 @@ const MemberDetails = ({
           <div
             className={`
             member-details__content
-            ${view?.mode === 'STATS'
-              ? 'member-details__content--active'
-              : ''
-            }
           `}
-            onClick={handlers.onStatsClick}
           >
-            Stat button
+            <div
+              className={`
+                member-details__stat-wrapper
+                member-details__nature-wrapper
+                ${view && view.mode === 'NATURE'
+                  ? 'member-details__stat-wrapper--active'
+                  : ''
+                }
+                ${gen < 3
+                  ? 'member-details__content--disabled'
+                  : ''
+                }
+              `}
+              onClick={handlers.onNatureClick}
+            >
+              <div className="member-details__stat-header">
+                Nature
+              </div>
+              <div className="member-details__nature-name">
+                {member?.nature?.formattedName}
+              </div>
+              <div className="member-details__nature-boosts">
+                {member?.nature?.modifiesStat?.boosts
+                  ? '+' + toAbbreviatedBaseStatName(member.nature.modifiesStat.boosts)
+                  : ''
+                }
+              </div>
+              <div className="member-details__nature-reduces">
+                {member?.nature?.modifiesStat?.reduces
+                  ? '-' + toAbbreviatedBaseStatName(member.nature.modifiesStat.reduces)
+                  : ''
+                }
+              </div>
+            </div>
+            <div
+              className={`
+                member-details__stat-wrapper
+                member-details__evs-wrapper
+                ${view && view.mode === 'EV'
+                  ? 'member-details__stat-wrapper--active'
+                  : ''
+                }
+                ${gen < 3
+                  ? 'member-details__content--disabled'
+                  : ''
+                }
+              `}
+              onClick={() => {}}
+            >
+              <div className="member-details__stat-header">
+                EVs
+              </div>
+              <SpreadTable
+                statTable={member.evs}
+                tableFor="ev"
+              />
+            </div>
+            <div
+              className={`
+                member-details__stat-wrapper
+                member-details__ivs-wrapper
+                ${view && view.mode === 'IV'
+                  ? 'member-details__stat-wrapper--active'
+                  : ''
+                }
+              `}
+              onClick={() => {}}
+            >
+              <div className="member-details__stat-header">
+                {gen < 3 ? 'DVs' : 'IVs'}
+              </div>
+              <SpreadTable
+                statTable={member.ivs}
+                tableFor="iv"
+              />
+            </div>
           </div>
         </div>
       </div>

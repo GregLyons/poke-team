@@ -181,6 +181,15 @@ export interface PokemonPaginationInput extends PaginationInput {
 
 // #endregion
 
+export interface ModifiesBaseStatEdge {
+  node: {
+    id: string
+    name: GQLBaseStatName
+  }
+  stage: number
+  multiplier: number
+}
+
 // Generations
 // #region
 
@@ -204,38 +213,45 @@ export const stringToGenNumber = (value: string | null): GenerationNum => {
 // Pokemon icons
 // #region
 
+export type GQLBaseStatName = 'hp' | 'attack' | 'defense' | 'special_attack' | 'special_defense' | 'speed';
+
 export type BaseStatName = 'hp' | 'attack' | 'defense' | 'specialAttack' | 'specialDefense' | 'speed';
 
 export type FormattedBaseStatName = 'HP' | 'Attack' | 'Defense' | 'Special Attack' | 'Special Defense' | 'Speed';
 
 export type AbbreviatedBaseStatName = 'HP' | 'Atk' | 'Def' | 'SpA' | 'SpD' | 'Spe';
 
-export const toBaseStatName: (baseStatName: FormattedBaseStatName | AbbreviatedBaseStatName) => BaseStatName = baseStateName => {
+export const toBaseStatName: (baseStatName: FormattedBaseStatName | AbbreviatedBaseStatName | GQLBaseStatName ) => BaseStatName = baseStateName => {
   switch(baseStateName) {
     case 'HP':
-    case 'HP':
+    case 'hp':
       return 'hp';
     case 'Attack':
     case 'Atk':
+    case 'attack':
       return 'attack';
     case 'Defense':
     case 'Def':
+    case 'defense':
       return 'defense';
     case 'Special Attack':
     case 'SpA':
+    case 'special_attack':
       return 'specialAttack';
     case 'Special Defense':
     case 'SpD':
+    case 'special_defense':
       return 'specialDefense';
     case 'Speed':
     case 'Spe':
+    case 'speed':
       return 'speed';
     default:
       throw Error();
   }
 };
 
-export const toFormattedBaseStatName: (baseStatName: BaseStatName | AbbreviatedBaseStatName) => FormattedBaseStatName = baseStateName => {
+export const toFormattedBaseStatName: (baseStatName: BaseStatName | AbbreviatedBaseStatName | GQLBaseStatName) => FormattedBaseStatName = baseStateName => {
   switch(baseStateName) {
     case 'hp':
     case 'HP':
@@ -247,9 +263,11 @@ export const toFormattedBaseStatName: (baseStatName: BaseStatName | AbbreviatedB
     case 'Def':
       return 'Defense';
     case 'specialAttack':
+    case 'special_attack':
     case 'SpA':
       return 'Special Attack';
     case 'specialDefense':
+    case 'special_defense':
     case 'SpD':
       return 'Special Defense';
     case 'speed':
@@ -260,7 +278,7 @@ export const toFormattedBaseStatName: (baseStatName: BaseStatName | AbbreviatedB
   }
 }
 
-export const toAbbreviatedBaseStatName: (baseStatName: BaseStatName | FormattedBaseStatName) => AbbreviatedBaseStatName = baseStatName => {
+export const toAbbreviatedBaseStatName: (baseStatName: BaseStatName | FormattedBaseStatName | GQLBaseStatName) => AbbreviatedBaseStatName = baseStatName => {
   switch(baseStatName) {
     case 'HP':
     case 'hp':
@@ -273,9 +291,11 @@ export const toAbbreviatedBaseStatName: (baseStatName: BaseStatName | FormattedB
       return 'Def';
     case 'specialAttack':
     case 'Special Attack':
+    case 'special_attack':
       return 'SpA';
     case 'specialDefense':
     case 'Special Defense':
+    case 'special_defense':
       return 'SpD';
     case 'speed':
     case 'Speed':

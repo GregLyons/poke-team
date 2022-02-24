@@ -1,15 +1,17 @@
 import { Team } from "../../../../hooks/App/Team";
 import { Dispatches, Filters } from "../../../App";
-import { ReferencePanelClickHandlers, ReferencePanelMode, ReferencePanelView } from "../TeamView";
+import { ReferencePanelHandlers, ReferencePanelView, } from "../TeamView";
 import AbilitySelectView from "./AbilitySelectView/AbilitySelectView";
 import ItemSelectView from "./ItemSelectView/ItemSelectView";
 import MoveSelectView from "./MoveSelectView/MoveSelectView";
 
 import './ReferencePanel.css';
 import SavedPokemonView from "./SavedPokemonView/SavedPokemonView";
+import StatsView from "./NatureSelectView/NatureSelectView";
+import NatureSelectView from "./NatureSelectView/NatureSelectView";
 
 type ReferencePanelProps = {
-  clickHandlers: ReferencePanelClickHandlers
+  handlers: ReferencePanelHandlers
   dispatches: Dispatches
   filters: Filters
   team: Team
@@ -18,7 +20,7 @@ type ReferencePanelProps = {
 }
 
 const ReferencePanel = ({
-  clickHandlers,
+  handlers,
   dispatches,
   filters,
   team,
@@ -43,8 +45,16 @@ const ReferencePanel = ({
       viewPanelMessage = 'Select Item';
       break;
 
-    case 'STATS':
-      viewPanelMessage = 'Set EVs, IVs, and Nature';
+    case 'NATURE':
+      viewPanelMessage = 'Select Nature';
+      break;
+
+    case 'EV':
+      viewPanelMessage = 'Set EVs';
+      break;
+
+    case 'IV':
+      viewPanelMessage = 'Set IVs';
       break;
 
     default: 
@@ -62,7 +72,7 @@ const ReferencePanel = ({
         </div>
         <div className="reference-panel__content">
           {(view?.mode === 'POKEMON' || view === null) && <SavedPokemonView
-            clickHandlers={clickHandlers.savedPokemonClickHandlers}
+            clickHandlers={handlers.savedPokemonClickHandlers}
             dispatches={dispatches}
             filters={filters}
             team={team}
@@ -70,21 +80,25 @@ const ReferencePanel = ({
           {(view?.mode === 'MOVE' && psID !== undefined) && <MoveSelectView
             // Key attribute forces re-render on index change,
             key={'moveSelectView_' + view.idx}
-            clickHandlers={clickHandlers.moveSelectClickHandlers}
+            clickHandlers={handlers.moveSelectClickHandlers}
             filters={filters}
             psID={psID}
           />}
           {(view?.mode === 'ABILITY' && psID !== undefined) && <AbilitySelectView
-            clickHandlers={clickHandlers.abilitySelectClickHandlers}
+            clickHandlers={handlers.abilitySelectClickHandlers}
             view={view}
             dispatches={dispatches}
             filters={filters}
             psID={psID}
           />}
           {(view?.mode === 'ITEM' && psID !== undefined) && <ItemSelectView
-            clickHandlers={clickHandlers.itemSelectClickHandlers}
+            clickHandlers={handlers.itemSelectClickHandlers}
             filters={filters}
           />}
+          {(view?.mode === 'NATURE' && <NatureSelectView
+            clickHandlers={handlers.natureSelectClickHandlers}
+            filters={filters}
+          />)}
         </div>
       </div>
     </div>

@@ -7,11 +7,12 @@ import MemberDetails from "./MemberDetails/MemberDetails";
 import TeamMembers from "./TeamIcons/TeamMembers";
 
 import './TeamView.css';
-import { BaseStatName, PokemonIconDatum } from "../../../types-queries/helpers";
-import { GenderName, MemberPokemon, NatureName } from "../../../types-queries/Builder/MemberPokemon";
+import { BaseStatName, PokemonIconDatum, StatTable } from "../../../types-queries/helpers";
+import { DefaultEVSpread, GenderName, MemberPokemon, NatureName } from "../../../types-queries/Builder/MemberPokemon";
 import { MemberMove } from "../../../types-queries/Builder/MemberMove";
 import { MemberAbility } from "../../../types-queries/Builder/MemberAbility";
 import { MemberItem } from "../../../types-queries/Builder/MemberItem";
+import { MemberNature } from "../../../types-queries/Builder/MemberNature";
 
 type TeamViewProps = {
   bgManager: BGManager
@@ -27,8 +28,10 @@ export type ReferencePanelMode =
 | 'POKEMON'
 | 'ABILITY'
 | 'ITEM'
-| 'STATS'
 | 'MOVE'
+| 'NATURE'
+| 'EV'
+| 'IV'
 
 export type ReferencePanelView = {
   mode: ReferencePanelMode
@@ -53,11 +56,16 @@ export type MoveSelectClickHandlers = {
   onMoveSelect: (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, move: MemberMove) => void
 }
 
-export type ReferencePanelClickHandlers = {
+export type NatureSelectClickHandlers = {
+  onNatureSelect: (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, nature: MemberNature) => void
+}
+
+export type ReferencePanelHandlers = {
   savedPokemonClickHandlers: SavedPokemonClickHandlers
   abilitySelectClickHandlers: AbilitySelectClickHandlers
   itemSelectClickHandlers: ItemSelectClickHandlers
   moveSelectClickHandlers: MoveSelectClickHandlers
+  natureSelectClickHandlers: NatureSelectClickHandlers
 }
 
 // #endregion
@@ -79,17 +87,13 @@ export type MemberDetailHandlers = {
   onAbilityClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onItemClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onMoveClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, moveslot: 0 | 1 | 2 | 3) => void
-  onStatsClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onNatureClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 
   updateNickname: (e: React.ChangeEvent<HTMLInputElement>) => void
   updateLevel: (newValue: number) => void
   updateGender: (newValue: GenderName) => void
   updateShiny: (newValue: boolean) => void
   updateHappiness: (newValue: number) => void
-
-  updateNature: (newValue: NatureName) => void
-  updateEV: (stat: BaseStatName, newValue: number) => void
-  updateIV: (stat: BaseStatName, newValue: number) => void
 
   updateCosmeticForm: (psID: string) => void
 }
@@ -107,7 +111,7 @@ const TeamView = ({
   // Determines what is shown in ReferencePanel
   const [view, setView] = useState<ReferencePanelView>(null);
 
-  const referencePanelClickHandlers: ReferencePanelClickHandlers = useMemo(() => {
+  const referencePanelClickHandlers: ReferencePanelHandlers = useMemo(() => {
     // Saved Pokemon
     // #region
 
@@ -229,12 +233,58 @@ const TeamView = ({
         idx: view.idx + 1,
       });
 
-      // Otherwise, move onto stats
+      // Otherwise, move onto nature
       return setView({
-        mode: 'STATS',
+        mode: 'NATURE',
         idx: 0,
       });
     }
+
+    // #endregion
+
+    // Stats
+    // #region 
+
+    const onNatureSelect = (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, memberNature: MemberNature) => {
+      if (memberSlot === null) return;
+
+      dispatches.dispatchTeam({
+        type: 'assign_nature',
+        payload: {
+          gen: filters.genFilter.gen,
+          idx: memberSlot,
+          nature: memberNature,
+        }
+      });
+    }
+
+    const onEVSelect = (stat: BaseStatName, newValue: number) => {
+      if (memberSlot === null) return;
+
+      dispatches.dispatchTeam({
+        type: 'assign_ev',
+        payload: {
+          gen: filters.genFilter.gen,
+          idx: memberSlot,
+          stat,
+          newValue,
+        }
+      });
+    };
+
+    const onIVSelect = (stat: BaseStatName, newValue: number) => {
+      if (memberSlot === null) return;
+
+      dispatches.dispatchTeam({
+        type: 'assign_iv',
+        payload: {
+          gen: filters.genFilter.gen,
+          idx: memberSlot,
+          stat,
+          newValue,
+        }
+      });
+    };
 
     // #endregion
 
@@ -253,6 +303,13 @@ const TeamView = ({
       moveSelectClickHandlers: {
         onMoveSelect,
       },
+      natureSelectClickHandlers: {
+        onNatureSelect,
+      },
+      statHandlers: {
+        onEVSelect,
+        onIVSelect,
+      }
     };
   }, [dispatches, filters, team, memberSlot, setMemberSlot, view, setView, ]);
 
@@ -313,11 +370,14 @@ const TeamView = ({
       return setView({ mode: 'MOVE', idx: moveslot });
     };
 
-    const onStatsClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    const onNatureClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.preventDefault();
       if (memberSlot === null) return;
-
-      return setView({ mode: 'STATS', idx: 0, });
+      
+      // Natures not present prior to gen 3
+      if (filters.genFilter.gen < 3) return setView(null);
+      
+      return setView({ mode: 'NATURE', idx: 0, });
     };
 
     // TODO: connect to ability
@@ -387,47 +447,6 @@ const TeamView = ({
       });
     };
 
-    const updateNature = (newValue: NatureName) => {
-      if (memberSlot === null) return;
-
-      dispatches.dispatchTeam({
-        type: 'assign_nature',
-        payload: {
-          gen: filters.genFilter.gen,
-          idx: memberSlot,
-          nature: newValue,
-        }
-      });
-    }
-
-    const updateEV = (stat: BaseStatName, newValue: number) => {
-      if (memberSlot === null) return;
-
-      dispatches.dispatchTeam({
-        type: 'assign_ev',
-        payload: {
-          gen: filters.genFilter.gen,
-          idx: memberSlot,
-          stat,
-          newValue,
-        }
-      });
-    };
-
-    const updateIV = (stat: BaseStatName, newValue: number) => {
-      if (memberSlot === null) return;
-
-      dispatches.dispatchTeam({
-        type: 'assign_iv',
-        payload: {
-          gen: filters.genFilter.gen,
-          idx: memberSlot,
-          stat,
-          newValue,
-        }
-      });
-    };
-
     const updateCosmeticForm = (psID: string) => {
       if (memberSlot === null) return;
 
@@ -445,17 +464,13 @@ const TeamView = ({
       onAbilityClick,
       onItemClick,
       onMoveClick,
-      onStatsClick,
+      onNatureClick,
 
       updateNickname,
       updateLevel,
       updateGender,
       updateShiny,
       updateHappiness,
-
-      updateNature,
-      updateEV,
-      updateIV,
 
       updateCosmeticForm,
     };
@@ -477,7 +492,7 @@ const TeamView = ({
         view={view}
       />
       <ReferencePanel
-        clickHandlers={referencePanelClickHandlers}
+        handlers={referencePanelClickHandlers}
         dispatches={dispatches}
         filters={filters}
         team={team}
