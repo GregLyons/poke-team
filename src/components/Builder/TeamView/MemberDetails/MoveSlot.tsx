@@ -23,6 +23,7 @@ const MoveSlot = ({
           : ''
         }
       `}
+      title={member?.moveset[idx]?.eventOnly ? 'Event-only' : ''}
       onClick={e => clickHandlers.onMoveClick(e, idx)}
     >
       <div className="member-details__move-header">
@@ -38,6 +39,11 @@ const MoveSlot = ({
       </div>
       <div className="member-details__move-name">
         {member?.moveset[idx]?.formattedName || ''}
+        {member?.moveset[idx]?.eventOnly && <>
+          &nbsp;<span className="member-details__move-event">
+            E
+          </span>
+        </>}
       </div>
     </div>
   )

@@ -6,8 +6,7 @@ import './Entries/Entries.css';
 
 import PlannerNavBar from './PlannerNavBar';
 import { BGAction, BGManager, classWithBGShadow, toggleBGPulse } from "../../hooks/App/BGManager";
-import { useEffect, useRef } from "react";
-import { useWindowSize } from "usehooks-ts";
+import { useEffect, } from "react";
 import { useContainerSize } from "../../hooks/App/ContainerSize";
 
 
@@ -33,7 +32,7 @@ const Planner = ({
       payload: 'blue',
     });
     toggleBGPulse(dispatchBGManager);
-  }, []);
+  }, [ dispatchBGManager, ]);
   return (
     <div 
       className={classWithBGShadow("planner-container", bgManager)}

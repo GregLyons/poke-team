@@ -92,7 +92,7 @@ const TeamMember = ({
         idx,
       },
     })
-  }, [data]);
+  }, [data, dispatches, filters.genFilter.gen, icon, idx, ]);
 
   return (
     <div

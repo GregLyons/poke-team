@@ -15,7 +15,14 @@ const MoveSelectEntry = ({
 }: MoveSelectEntryProps) => {
   return (
     <div
-      className="move-select__entry"
+      className={`
+        move-select__entry
+        ${move.eventOnly
+          ? "move-select__entry--event"
+          : ''
+        }
+      `}
+      title={move.eventOnly ? "Event-only" : ''}
       onClick={e => clickHandlers.onMoveSelect(e, move)}
     >
       <div className="move-select__name">

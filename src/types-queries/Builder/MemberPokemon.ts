@@ -237,7 +237,7 @@ export class MemberPokemon {
       // Map to PokemonFormDatum
       .map(pokemonFormEdgeToFormDatum)
       // Only select cosmetic forms/the base form
-      .filter(d => d.formClass === 'COSMETIC' || d.formClass === 'BASE')
+      .filter(d => d.formClass === 'COSMETIC')
       // Map to PokemonIconDatum
       .map(d => {
         const { id, name, psID, formattedName, speciesName } = d;
@@ -402,19 +402,7 @@ export class MemberPokemon {
     const newFormEdges = this.forms.edges
       // Only select cosmetic forms
       .filter(edge => edge.class === 'COSMETIC')
-      // De-select cosmetic form with psID
-      .filter(edge => edge.node.psID !== psID)
       // Add on this current form with the 'COSMETIC' flag. Note that cosmetic forms are always filtered out of actual GQL queries, so we can modify the form edges in a way that goes against the GraphQL API (i.e. by assigning 'COSMETIC' to what is possibly the base form).
-      .concat([{
-        node: {
-          id: this.id,
-          name: this.name,
-          formattedName: this.formattedName,
-          speciesName: this.speciesName,
-          psID: this.psID,
-        },
-        class: this.formClass,
-      }]);
 
     // Initialize a new MemberPokemon with the cosmetic form's form and icon data. 
     const cosmeticForm = new MemberPokemon(

@@ -2,12 +2,11 @@ import { useMemo } from "react";
 import { Team } from "../../../../../../hooks/App/Team";
 import { Dispatches, Filters } from "../../../../../App";
 import Accordion from "../../../../../Reusables/Accordion/Accordion";
-import { ReferencePanelClickHandlers, ReferencePanelView, SavedPokemonClickHandlers } from "../../../TeamView";
+import { SavedPokemonClickHandlers } from "../../../TeamView";
 import PinnedBox from "./PinnedBox";
 import PinnedBoxAccordionTitle from "./PinnedBoxAccordionTitle";
 
 import './PinnedBoxAccordion.css';
-import { DUMMY_POKEMON_ICON_DATUM } from "../../../../../../types-queries/helpers";
 
 type PinnedBoxAccordion = {
   clickHandlers: SavedPokemonClickHandlers

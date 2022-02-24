@@ -2,6 +2,7 @@ import {
   Sprites,
   Icons,
 } from '@pkmn/img';
+import { GenderName } from '../types-queries/Builder/MemberPokemon.js';
 import {
   GenerationNum,
   ItemIconDatum,
@@ -27,8 +28,10 @@ import {
 //   }
 // }
 
-export const getPokemonIcon = (pokemon: PokemonIconDatum) => {
-  return Icons.getPokemon(pokemon.psID);
+export const getPokemonIcon = (pokemon: PokemonIconDatum, gender?: GenderName) => {
+  return Icons.getPokemon(pokemon.psID, {
+    gender,
+  });
 }
 
 //#endregion

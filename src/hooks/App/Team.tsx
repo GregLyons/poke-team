@@ -469,8 +469,23 @@ export function teamReducer(state: Team, action: TeamAction): Team {
       psID = action.payload.psID;
 
       modifiedMember = state[gen].members[idx]?.cosmeticForm(psID);
-      if (!modifiedMember) return state;
-      return stateWithModifiedMember(state, gen, modifiedMember, idx);
+      const newIconDatum = modifiedMember?.iconDatum;
+      if (!modifiedMember || !newIconDatum) return state;
+
+      // Replace icon data 
+      const stateWithNewIconDatum = {
+        ...state,
+        [gen]: {
+          ...state[gen],
+          memberIcons: state[gen].memberIcons.map((d, i) => {
+            if (i !== idx) return d;
+            return newIconDatum;
+          }),
+        }
+      }
+      
+      // Replace member data
+      return stateWithModifiedMember(stateWithNewIconDatum, gen, modifiedMember, idx);
 
     // #endregion 
 

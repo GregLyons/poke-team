@@ -1,15 +1,12 @@
-import { useEffect, useState } from "react";
 import { Team } from "../../../../hooks/App/Team";
-import { MemberPokemon } from "../../../../types-queries/Builder/MemberPokemon";
-import { DUMMY_POKEMON_ICON_DATUM, toTypeName } from "../../../../types-queries/helpers";
+import { DUMMY_POKEMON_ICON_DATUM, } from "../../../../types-queries/helpers";
 import { Dispatches, Filters } from "../../../App";
-import NumericalInput from "../../../Reusables/NumericalInput/NumericalInput";
 import Slider from "../../../Reusables/Slider/Slider";
 import TextInput from "../../../Reusables/TextInput/TextInput";
 import ItemIcon from "../../Icons/ItemIcon";
 import PokemonIcon from "../../Icons/PokemonIcon";
-import TypeIcon from "../../Icons/TypeIcon";
 import { MemberDetailHandlers, ReferencePanelView } from "../TeamView";
+import CosmeticFormDropdown from "./CosmeticFormDropdown";
 
 import './MemberDetails.css';
 import MoveSlot from "./MoveSlot";
@@ -24,7 +21,6 @@ type MemberDetailsProps = {
 };
 
 const MemberDetails = ({
-  dispatches,
   filters,
   handlers,
   team,
@@ -39,25 +35,28 @@ const MemberDetails = ({
     <div className="member-details__wrapper member-details__wrapper--inactive" />
   );
 
+  const gen = filters.genFilter.gen;
+
   return (
     <div className="member-details__wrapper">
       {/* Icon, cosmetic form select */}
       <div className="member-details__cosmetic-wrapper">
         <div className="member-details__header">
-          Pokemon name
+          {member.formattedName}
         </div>
         <div className="member-details__content">
           <div className="member-details__icon-options-wrapper">
             <div className="member-details__icon-wrapper">
               <PokemonIcon
-                pokemonIconDatum={member
-                  ? member.iconDatum
-                  : DUMMY_POKEMON_ICON_DATUM
-                }
+                pokemonIconDatum={member.iconDatum}
+                gender={member.gender}
               />
             </div>
             <div className="member-details__cosmetic">
-              Cosmetic forms
+              {member.cosmeticForms.length > 0 && <CosmeticFormDropdown
+                member={member}
+                updateCosmeticForm={handlers.updateCosmeticForm}
+              />}
             </div>
           </div>
         </div>
@@ -100,25 +99,59 @@ const MemberDetails = ({
         </div>
         <div className="member-details__gender">
           <div className="member-details__header">
-            Gender
+            {gen > 1
+              ? 'Gender'
+              : ''
+            }
           </div>
-          <div className="member-details__content">
-            Yo
+          <div className={`
+            member-details__content
+            ${gen < 2
+              ? 'member-details__content--disabled'
+              : ''
+            }
+          `}>
+            {gen > 1
+              ? 'Yo'
+              : ''
+            }
           </div>
         </div>
         <div className="member-details__shiny">
           <div className="member-details__header">
-            Shiny
+            {gen > 1
+              ? 'Shiny'
+              : ''
+            }
           </div>
-          <div className="member-details__content">
+          <div className={`
+            member-details__content
+            ${gen < 2
+              ? 'member-details__content--disabled'
+              : ''
+            }
+          `}>
+            {gen > 1
+              ? 'Yo'
+              : ''
+            }
           </div>
         </div>
         <div className="member-details__happiness">
           <div className="member-details__header">
-            Happiness
+            {![1, 8].includes(gen)
+              ? 'Happiness'
+              : ''
+            }
           </div>
-          <div className="member-details__content">
-            {![1, 8].includes(filters.genFilter.gen) 
+          <div className={`
+            member-details__content
+            ${[1, 8].includes(gen)
+              ? 'member-details__content--disabled'
+              : ''
+            }
+          `}>
+            {![1, 8].includes(gen) 
               ? <Slider
                   titleFor="Happiness"
                   min={0}
@@ -132,7 +165,7 @@ const MemberDetails = ({
                   sliderWidth="50%"
                   numericalWidth={3}
                 />
-              : `N/A`
+              : ''
             }
           </div>
         </div>
@@ -175,7 +208,10 @@ const MemberDetails = ({
         </div>
         <div className="member-details__ability">
           <div className="member-details__header">
-            Ability
+            {gen > 2
+              ? 'Ability'
+              : ''
+            }
           </div>
           <div
             className={`
@@ -184,15 +220,26 @@ const MemberDetails = ({
                 ? 'member-details__content--active'
                 : ''
               }
+              ${gen < 3
+                ? 'member-details__content--disabled'
+                : ''
+              }
             `}
             onClick={handlers.onAbilityClick}
           >
-            {member?.ability?.formattedName}
+            {gen > 2
+              ? member?.ability?.formattedName
+              : ''
+            }
+            
           </div>
         </div>
         <div className="member-details__item">
           <div className="member-details__header">
-            Item
+            {gen > 1
+              ? 'Item'
+              : ''
+            }
           </div>
           <div
             className={`
@@ -201,17 +248,26 @@ const MemberDetails = ({
               ? 'member-details__content--active'
               : ''
             }
+            ${gen < 2
+              ? 'member-details__content--disabled'
+              : ''
+            }
           `}
             onClick={handlers.onItemClick}
           >
-            <div className="member-details__item-icon">
-              {member?.item && <ItemIcon
-                itemIconDatum={member.item}
-              />}
-            </div>
-            <div className="member-details__item-name">
-              {member?.item?.formattedName}
-            </div>
+            {gen > 1
+              ? <>
+                <div className="member-details__item-icon">
+                  {member?.item && <ItemIcon
+                    itemIconDatum={member.item}
+                  />}
+                </div>
+                <div className="member-details__item-name">
+                  {member?.item?.formattedName}
+                </div>
+              </>
+              : ''
+            }
           </div>
         </div>
         <div className="member-details__stats">

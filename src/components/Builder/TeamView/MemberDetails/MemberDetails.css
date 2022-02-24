@@ -39,9 +39,9 @@
   transition: 0.2s ease;
 }
 
-/* Change brightness when hovering over entire box */
+/* Change brightness when hovering over entire box, or when active */
 .member-details__move-wrapper:hover,
-.member-details__wrapper div:not(.member-details__moveset) > .member-details__content:hover, 
+.member-details__wrapper div:not(.member-details__moveset) > .member-details__content:not(.member-details__content--disabled):hover, 
 .member-details__move-wrapper--active,
 .member-details__wrapper div:not(.member-details__moveset) > .member-details__content--active {
   background-color: rgba(var(--light1-components), 0.05);
@@ -50,9 +50,9 @@
 
 /* Change cursor when over interactive element; some already do so (e.g. dropdowns and sliders) */
 .member-details__move-wrapper:hover,
-.member-details__ability > .member-details__content,
-.member-details__item > .member-details__content,
-.member-details__stats > .member-details__content {
+.member-details__ability > .member-details__content:not(.member-details__content--disabled),
+.member-details__item > .member-details__content:not(.member-details__content--disabled),
+.member-details__stats > .member-details__content:not(.member-details__content--disabled) {
   cursor: pointer;
 }
 
@@ -70,6 +70,9 @@
   height: 100%;
 
   border: var(--team-builder-border);
+
+  /* Make dropdown go over other interactive elements; thumbs in level slider have z-index 3-5 */
+  z-index: 10;
 }
 
 .member-details__icon-options-wrapper {
@@ -93,6 +96,8 @@
   justify-content: center;
   align-items: center;
 
+  position: relative;
+
   background-color: var(--dark2);
   border-radius: 50%;
   box-shadow: var(--control-shadow);
@@ -106,7 +111,27 @@
   justify-content: center;
   align-items: center;
 
-  border: 1px solid red;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.member-details__cosmetic-form-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.member-details__cosmetic-form-icon--selected,
+.member-details__cosmetic-form-icon:hover {
+  background-color: var(--blue1);
+  border-radius: 50%;
+}
+.member-details__cosmetic-form-icon:hover {
+  cursor: pointer;
 }
 
 /* #endregion */
@@ -211,7 +236,7 @@
 
 .member-details__move-wrapper {
   display: grid;
-  grid-template-columns: 47px 15ch;
+  grid-template-columns: 47px 1fr;
   grid-template-rows: 1fr;
   align-items: center;
   gap: 0.5rem;
@@ -229,6 +254,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.member-details__move-event {
+  color: var(--red1);
+  font-weight: 600;
 }
 
 /* #endregion */

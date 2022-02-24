@@ -388,9 +388,6 @@ export const ABILITY_EFFECT_QUERY = gql`
 `;
 
 export class AbilityEffectResult extends MainToAuxConnectionOnPage {
-  constructor(gqlAbilityEffect: AbilityEffectEdge) {
-    super(gqlAbilityEffect);
-  }
 }
 
 // #endregion

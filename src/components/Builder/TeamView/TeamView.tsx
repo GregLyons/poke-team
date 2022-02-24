@@ -290,12 +290,18 @@ const TeamView = ({
       e.preventDefault();
       if (memberSlot === null) return;
 
+      // Abilities not present prior to gen 3
+      if (filters.genFilter.gen < 3) return setView(null);
+
       return setView({ mode: 'ABILITY', idx: 0, });
     };
 
     const onItemClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.preventDefault();
       if (memberSlot === null) return;
+
+      // Held items not present prior to gen 2
+      if (filters.genFilter.gen < 2) return setView(null);
 
       return setView({ mode: 'ITEM', idx: 0, });
     };
@@ -423,8 +429,17 @@ const TeamView = ({
     };
 
     const updateCosmeticForm = (psID: string) => {
+      if (memberSlot === null) return;
 
-    }
+      dispatches.dispatchTeam({
+        type: 'assign_cosmetic_form',
+        payload: {
+          gen: filters.genFilter.gen,
+          idx: memberSlot,
+          psID,
+        }
+      });
+    };
 
     return {
       onAbilityClick,

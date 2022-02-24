@@ -3,29 +3,24 @@ import { removedFromBDSP, removedFromSwSh } from "../../../../../hooks/App/GenFi
 import { Team } from "../../../../../hooks/App/Team";
 import { useDelayedQuery, useRemovalConnectedSearchVars } from "../../../../../hooks/Searches";
 import { MemberMoveQuery, MemberMoveSearchVars, MEMBER_MOVESET_QUERY } from "../../../../../types-queries/Builder/MemberMove";
-import { Dispatches, Filters } from "../../../../App";
-import SearchBar from "../../../../Reusables/SearchBar/SearchBar";
-import { MoveSelectClickHandlers, ReferencePanelView, SavedPokemonClickHandlers } from "../../TeamView";
+import { Filters } from "../../../../App";
+import { MoveSelectClickHandlers, } from "../../TeamView";
 import MoveSelectEntries from "./MoveSelectEntries";
 
 import './MoveSelectView.css';
 
 type MoveSelectViewProps = {
   clickHandlers: MoveSelectClickHandlers
-  view: ReferencePanelView
-  dispatches: Dispatches
   filters: Filters
   psID: string
 }
 
 const MoveSelectView = ({
   clickHandlers,
-  view,
-  dispatches,
   filters,
   psID,
 }: MoveSelectViewProps) => {
-  const { queryVars, setQueryVars, searchBar, focusedOnInput, } = useRemovalConnectedSearchVars<MemberMoveSearchVars>({
+  const { queryVars, searchBar, focusedOnInput, } = useRemovalConnectedSearchVars<MemberMoveSearchVars>({
     defaultSearchVars: {
       gen: filters.genFilter.gen,
       psID,

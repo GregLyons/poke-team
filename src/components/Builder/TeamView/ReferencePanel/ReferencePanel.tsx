@@ -62,7 +62,6 @@ const ReferencePanel = ({
         </div>
         <div className="reference-panel__content">
           {(view?.mode === 'POKEMON' || view === null) && <SavedPokemonView
-            view={view}
             clickHandlers={clickHandlers.savedPokemonClickHandlers}
             dispatches={dispatches}
             filters={filters}
@@ -72,8 +71,6 @@ const ReferencePanel = ({
             // Key attribute forces re-render on index change,
             key={'moveSelectView_' + view.idx}
             clickHandlers={clickHandlers.moveSelectClickHandlers}
-            view={view}
-            dispatches={dispatches}
             filters={filters}
             psID={psID}
           />}
@@ -86,10 +83,7 @@ const ReferencePanel = ({
           />}
           {(view?.mode === 'ITEM' && psID !== undefined) && <ItemSelectView
             clickHandlers={clickHandlers.itemSelectClickHandlers}
-            view={view}
-            dispatches={dispatches}
             filters={filters}
-            psID={psID}
           />}
         </div>
       </div>
