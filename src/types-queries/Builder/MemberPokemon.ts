@@ -2,7 +2,7 @@ import { gql } from "@apollo/client"
 import { PokemonSet } from "@pkmn/data"
 import { StatsTable } from "@pkmn/data"
 import { BaseStatName, GenerationNum, IntroductionEdge, introductionEdgeToGen, PokemonIconDatum, StatTable, TypeName } from "../helpers"
-import { EnablesItemEdge, PokemonFormDatum, PokemonFormEdge, pokemonFormEdgeToFormDatum, RequiresItemEdge, } from "./helpers"
+import { EnablesItemEdge, PokemonFormDatum, PokemonFormEdge, pokemonFormEdgeToFormDatum, RequiresItemEdge, spreadSummary, } from "./helpers"
 import { MemberAbility } from "./MemberAbility"
 import { enablesItemEdgeToMemberItem, MemberItem, requiresItemEdgeToMemberItem } from "./MemberItem"
 import { MemberMove } from "./MemberMove"
@@ -355,6 +355,14 @@ export class MemberPokemon {
 
     // Happiness not a battle mechanic in Gens 1 or 8
     if (![1, 8].includes(this.gen)) this.happiness = newHappinessValue;
+  }
+
+  public evsSummary() {
+    return spreadSummary(this.evs, 0);
+  }
+
+  public ivsSummary() {
+    return spreadSummary(this.ivs, this.gen > 2 ? 31 : 15);
   }
 
   public toPokemonSet() {

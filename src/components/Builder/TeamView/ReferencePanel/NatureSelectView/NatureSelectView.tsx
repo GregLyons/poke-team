@@ -1,18 +1,18 @@
 import { useDelayedQuery, useGenConnectedSearchVars, } from "../../../../../hooks/Searches";
 import { MemberNatureQuery, MemberNatureSearchVars, MEMBER_NATURE_QUERY } from "../../../../../types-queries/Builder/MemberNature";
 import { Filters } from "../../../../App";
-import { NatureSelectClickHandlers, } from "../../TeamView";
+import { NatureSelectHandlers, } from "../../TeamView";
 import NatureSelectEntries from "./NatureSelectEntries";
 
 import './NatureSelectView.css';
 
 type NatureSelectViewProps = {
-  clickHandlers: NatureSelectClickHandlers
+  handlers: NatureSelectHandlers
   filters: Filters
 }
 
 const NatureSelectView = ({
-  clickHandlers,
+  handlers: clickHandlers,
   filters,
 }: NatureSelectViewProps) => {
   const { queryVars, searchBar, focusedOnInput, } = useGenConnectedSearchVars<MemberNatureSearchVars>({

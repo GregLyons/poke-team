@@ -3,10 +3,10 @@ import { toTypeName } from "../../../../../types-queries/helpers";
 import { ENUMCASE_TO_TITLECASE } from "../../../../../utils/constants";
 import ItemIcon from "../../../Icons/ItemIcon";
 import TypeIcon from "../../../Icons/TypeIcon";
-import { ItemSelectClickHandlers } from "../../TeamView";
+import { ItemSelectHandlers } from "../../TeamView";
 
 type ItemSelectEntryProps = {
-  clickHandlers: ItemSelectClickHandlers
+  clickHandlers: ItemSelectHandlers
   item: MemberItem
 };
 

@@ -6,13 +6,13 @@ import { MemberAbilityQuery, MemberAbilitySearchVars, MEMBER_ABILITY_QUERY } fro
 import { MemberMoveQuery, MemberMoveSearchVars, MEMBER_MOVESET_QUERY } from "../../../../../types-queries/Builder/MemberMove";
 import { Dispatches, Filters } from "../../../../App";
 import SearchBar from "../../../../Reusables/SearchBar/SearchBar";
-import { AbilitySelectClickHandlers, ReferencePanelView, SavedPokemonClickHandlers } from "../../TeamView";
+import { AbilitySelectHandlers, ReferencePanelView, SavedPokemonClickHandlers } from "../../TeamView";
 import AbilitySelectEntries from "./AbilitySelectEntries";
 
 import './AbilitySelectView.css';
 
 type AbilitySelectViewProps = {
-  clickHandlers: AbilitySelectClickHandlers
+  handlers: AbilitySelectHandlers
   view: ReferencePanelView
   dispatches: Dispatches
   filters: Filters
@@ -20,7 +20,7 @@ type AbilitySelectViewProps = {
 }
 
 const AbilitySelectView = ({
-  clickHandlers,
+  handlers: clickHandlers,
   view,
   dispatches,
   filters,

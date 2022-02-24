@@ -2,10 +2,10 @@ import { MemberMove } from "../../../../../types-queries/Builder/MemberMove";
 import { toTypeName } from "../../../../../types-queries/helpers";
 import { ENUMCASE_TO_TITLECASE } from "../../../../../utils/constants";
 import TypeIcon from "../../../Icons/TypeIcon";
-import { MoveSelectClickHandlers } from "../../TeamView";
+import { MoveSelectHandlers } from "../../TeamView";
 
 type MoveSelectEntryProps = {
-  clickHandlers: MoveSelectClickHandlers
+  clickHandlers: MoveSelectHandlers
   move: MemberMove
 };
 

@@ -328,7 +328,7 @@ const MemberDetails = ({
                   : ''
                 }
               `}
-              onClick={() => {}}
+              onClick={handlers.onEVsClick}
             >
               <div className="member-details__stat-header">
                 EVs
@@ -347,7 +347,7 @@ const MemberDetails = ({
                   : ''
                 }
               `}
-              onClick={() => {}}
+              onClick={handlers.onIVsClick}
             >
               <div className="member-details__stat-header">
                 {gen < 3 ? 'DVs' : 'IVs'}

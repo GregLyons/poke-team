@@ -44,28 +44,34 @@ export type SavedPokemonClickHandlers = {
   onPokemonSelect: (e: React.MouseEvent<HTMLElement, MouseEvent>, pokemonIconDatum: PokemonIconDatum) => void
 }
 
-export type AbilitySelectClickHandlers = {
+export type AbilitySelectHandlers = {
   onAbilitySelect: (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, ability: MemberAbility) => void
 }
 
-export type ItemSelectClickHandlers = {
+export type ItemSelectHandlers = {
   onItemSelect: (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, item: MemberItem) => void
 }
 
-export type MoveSelectClickHandlers = {
+export type MoveSelectHandlers = {
   onMoveSelect: (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, move: MemberMove) => void
 }
 
-export type NatureSelectClickHandlers = {
+export type NatureSelectHandlers = {
   onNatureSelect: (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, nature: MemberNature) => void
+}
+
+export type SpreadHandlers = {
+  updateEV: (statName: BaseStatName, newValue: number) => void
+  updateIV: (statName: BaseStatName, newValue: number) => void
 }
 
 export type ReferencePanelHandlers = {
   savedPokemonClickHandlers: SavedPokemonClickHandlers
-  abilitySelectClickHandlers: AbilitySelectClickHandlers
-  itemSelectClickHandlers: ItemSelectClickHandlers
-  moveSelectClickHandlers: MoveSelectClickHandlers
-  natureSelectClickHandlers: NatureSelectClickHandlers
+  abilitySelectHandlers: AbilitySelectHandlers
+  itemSelectHandlers: ItemSelectHandlers
+  moveSelectHandlers: MoveSelectHandlers
+  natureSelectHandlers: NatureSelectHandlers
+  spreadHandlers: SpreadHandlers
 }
 
 // #endregion
@@ -88,6 +94,8 @@ export type MemberDetailHandlers = {
   onItemClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onMoveClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, moveslot: 0 | 1 | 2 | 3) => void
   onNatureClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onEVsClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onIVsClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 
   updateNickname: (e: React.ChangeEvent<HTMLInputElement>) => void
   updateLevel: (newValue: number) => void
@@ -258,7 +266,7 @@ const TeamView = ({
       });
     }
 
-    const onEVSelect = (stat: BaseStatName, newValue: number) => {
+    const updateEV = (stat: BaseStatName, newValue: number) => {
       if (memberSlot === null) return;
 
       dispatches.dispatchTeam({
@@ -272,7 +280,7 @@ const TeamView = ({
       });
     };
 
-    const onIVSelect = (stat: BaseStatName, newValue: number) => {
+    const updateIV = (stat: BaseStatName, newValue: number) => {
       if (memberSlot === null) return;
 
       dispatches.dispatchTeam({
@@ -294,21 +302,21 @@ const TeamView = ({
         onUnpinClick, 
         onPokemonSelect,
       },
-      abilitySelectClickHandlers: {
+      abilitySelectHandlers: {
         onAbilitySelect,
       },
-      itemSelectClickHandlers: {
+      itemSelectHandlers: {
         onItemSelect,
       },
-      moveSelectClickHandlers: {
+      moveSelectHandlers: {
         onMoveSelect,
       },
-      natureSelectClickHandlers: {
+      natureSelectHandlers: {
         onNatureSelect,
       },
-      statHandlers: {
-        onEVSelect,
-        onIVSelect,
+      spreadHandlers: {
+        updateEV,
+        updateIV,
       }
     };
   }, [dispatches, filters, team, memberSlot, setMemberSlot, view, setView, ]);
@@ -379,6 +387,24 @@ const TeamView = ({
       
       return setView({ mode: 'NATURE', idx: 0, });
     };
+
+    const onEVsClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      e.preventDefault();
+      if (memberSlot === null) return;
+      
+      // EVs not present prior to gen 3
+      if (filters.genFilter.gen < 3) return setView(null);
+      
+      return setView({ mode: 'EV', idx: 0, });
+
+    }
+
+    const onIVsClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      e.preventDefault();
+      if (memberSlot === null) return;
+      
+      return setView({ mode: 'IV', idx: 0, });
+    }
 
     // TODO: connect to ability
     const updateNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -465,6 +491,8 @@ const TeamView = ({
       onItemClick,
       onMoveClick,
       onNatureClick,
+      onEVsClick,
+      onIVsClick,
 
       updateNickname,
       updateLevel,
@@ -500,6 +528,10 @@ const TeamView = ({
         psID={memberSlot !== null
           ? team[filters.genFilter.gen].members[memberSlot]?.psID
           : ''
+        }
+        member={memberSlot !== null
+          ? team[filters.genFilter.gen].members[memberSlot]
+          : undefined
         }
       />
       <TeamMembers

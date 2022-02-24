@@ -9,6 +9,9 @@ import './ReferencePanel.css';
 import SavedPokemonView from "./SavedPokemonView/SavedPokemonView";
 import StatsView from "./NatureSelectView/NatureSelectView";
 import NatureSelectView from "./NatureSelectView/NatureSelectView";
+import { StatTable } from "../../../../types-queries/helpers";
+import { MemberPokemon } from "../../../../types-queries/Builder/MemberPokemon";
+import SpreadView from "./SpreadView/SpreadView";
 
 type ReferencePanelProps = {
   handlers: ReferencePanelHandlers
@@ -17,6 +20,7 @@ type ReferencePanelProps = {
   team: Team
   view: ReferencePanelView
   psID?: string
+  member?: MemberPokemon | null
 }
 
 const ReferencePanel = ({
@@ -26,8 +30,9 @@ const ReferencePanel = ({
   team,
   view,
   psID,
+  member,
 }: ReferencePanelProps) => {
-  let viewPanelMessage;
+  let viewPanelMessage: string;
   switch(view?.mode) {
     case 'POKEMON':
       viewPanelMessage = `Select Member ${view.idx + 1}`;
@@ -52,14 +57,17 @@ const ReferencePanel = ({
     case 'EV':
       viewPanelMessage = 'Set EVs';
       break;
-
+      
     case 'IV':
-      viewPanelMessage = 'Set IVs';
+      viewPanelMessage = filters.genFilter.gen > 2 ? viewPanelMessage = 'Set IVs' : 'Set DVs';
       break;
 
     default: 
       viewPanelMessage = 'Saved Pokemon';
   }
+
+  let spreads: { evs: StatTable, ivs: StatTable, } | undefined
+  if (member) spreads = { evs: member.evs, ivs: member.ivs, };
 
   return (
     <div
@@ -80,25 +88,35 @@ const ReferencePanel = ({
           {(view?.mode === 'MOVE' && psID !== undefined) && <MoveSelectView
             // Key attribute forces re-render on index change,
             key={'moveSelectView_' + view.idx}
-            clickHandlers={handlers.moveSelectClickHandlers}
+            handlers={handlers.moveSelectHandlers}
             filters={filters}
             psID={psID}
           />}
           {(view?.mode === 'ABILITY' && psID !== undefined) && <AbilitySelectView
-            clickHandlers={handlers.abilitySelectClickHandlers}
+            handlers={handlers.abilitySelectHandlers}
             view={view}
             dispatches={dispatches}
             filters={filters}
             psID={psID}
           />}
           {(view?.mode === 'ITEM' && psID !== undefined) && <ItemSelectView
-            clickHandlers={handlers.itemSelectClickHandlers}
+            handlers={handlers.itemSelectHandlers}
             filters={filters}
           />}
           {(view?.mode === 'NATURE' && <NatureSelectView
-            clickHandlers={handlers.natureSelectClickHandlers}
+            handlers={handlers.natureSelectHandlers}
             filters={filters}
           />)}
+          {(view?.mode === 'EV' || view?.mode === 'IV') && spreads && <SpreadView
+            handlers={handlers.spreadHandlers}
+            spread={view?.mode === 'EV' ? spreads.evs : spreads.ivs}
+            spreadFor={view?.mode === 'EV'
+              ? 'EV'
+              : filters.genFilter.gen > 2
+                ? 'IV'
+                : 'DV'
+            }
+          />}
         </div>
       </div>
     </div>

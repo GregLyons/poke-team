@@ -10,6 +10,7 @@ type SliderProps = {
   min: number
   max: number
   value: number
+  step?: number
 
   updateValue: (newValue: number) => void
   
@@ -25,6 +26,7 @@ const Slider = ({
   min,
   max,
   value,
+  step = 1,
 
   updateValue,
 
@@ -33,7 +35,7 @@ const Slider = ({
   numericalWidth,
 }: SliderProps) => {
   const [focused, setFocused] = useState(false);
-  const [number, setNumber] = useState(max);
+  const [number, setNumber] = useState<number | ''>(max);
 
   // Change handled by slider, so min/max constraints already enforced
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +45,7 @@ const Slider = ({
   // When focusing input window, changing value updates number instead of value; value is only updated upon blurring
   const onFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     const value = parseInt(e.target.value, 10);
-    if (isNaN(value)) setNumber(8);
+    if (isNaN(value)) return;
     else setNumber(value);
     setFocused(true);
   }
@@ -51,21 +53,21 @@ const Slider = ({
   // When blurring focus window, value is updated based on what is in input window
   const onBlur = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     const value = parseInt(e.target.value, 10);
-    if (!isNaN(value)) updateValue(value);
+    if (!isNaN(value)) updateValue(value - (value % step));
   }
 
   // When up arrow is pressed, increase value by 1 if possible
   const onIncrement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     // If value would go over max, do nothing
-    if (value + 1 > max) return;
-    updateValue(value + 1);
+    if (value + step > max) return;
+    updateValue(value + step);
   }
 
   // When down arrow is pressed, decrease value by 1 if possible
   const onDecrement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     // If value would go under min, do nothing
-    if (value - 1 < min) return;
-    updateValue(value - 1);
+    if (value - step < min) return;
+    updateValue(value - step);
   }
 
 
@@ -80,12 +82,11 @@ const Slider = ({
           : value}
         onChange={(e) => {
           const strValue = e.target.value.length > 0 
-            ? e.target.value.charAt(0)
+            ? e.target.value
             : ''
           const value = parseInt(strValue, 10);
-          if (isNaN(value)) setNumber(8)
+          if (isNaN(value)) setNumber('');
           else setNumber(value);
-          setNumber(value);
         }}
         onFocus={onFocus}
         onBlur={(e) => {
@@ -103,6 +104,7 @@ const Slider = ({
         min={min}
         max={max}
         value={value}
+        step={step}
         onChange={onChange}
         sliderWidth={sliderWidth}
       />
@@ -116,12 +118,11 @@ const Slider = ({
 
         onChange={(e) => {
           const strValue = e.target.value.length > 0 
-            ? e.target.value.charAt(0)
+            ? e.target.value
             : ''
           const value = parseInt(strValue, 10);
-          if (isNaN(value)) setNumber(8)
+          if (isNaN(value)) setNumber('');
           else setNumber(value);
-          setNumber(value);
         }}
         onFocus={onFocus}
         onBlur={(e) => {

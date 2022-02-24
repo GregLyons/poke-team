@@ -2,12 +2,12 @@ import { useMemo, } from "react";
 import { useEventListener } from "usehooks-ts";
 import { MemberAbility, MemberAbilityQuery, MemberAbilityQueryResult } from "../../../../../types-queries/Builder/MemberAbility";
 import { Filters } from "../../../../App";
-import { AbilitySelectClickHandlers } from "../../TeamView";
+import { AbilitySelectHandlers } from "../../TeamView";
 import AbilitySelectEntry from "./AbilitySelectEntry";
 
 type AbilitySelectEntriesProps = {
   data: MemberAbilityQuery
-  clickHandlers: AbilitySelectClickHandlers
+  clickHandlers: AbilitySelectHandlers
   filters: Filters
   focusedOnInput: boolean
 };

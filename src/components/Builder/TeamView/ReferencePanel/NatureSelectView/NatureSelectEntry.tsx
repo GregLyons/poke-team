@@ -4,10 +4,10 @@ import { toAbbreviatedBaseStatName, toTypeName } from "../../../../../types-quer
 import { ENUMCASE_TO_TITLECASE } from "../../../../../utils/constants";
 import ItemIcon from "../../../Icons/ItemIcon";
 import TypeIcon from "../../../Icons/TypeIcon";
-import { ItemSelectClickHandlers, NatureSelectClickHandlers } from "../../TeamView";
+import { ItemSelectHandlers, NatureSelectHandlers } from "../../TeamView";
 
 type NatureSelectEntryProps = {
-  clickHandlers: NatureSelectClickHandlers
+  clickHandlers: NatureSelectHandlers
   nature: MemberNature
 };
 

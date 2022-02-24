@@ -6,7 +6,7 @@ type NumericalInputProps = {
 
   min: number
   max: number
-  value: number
+  value: number | ''
   
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   onIncrement: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void

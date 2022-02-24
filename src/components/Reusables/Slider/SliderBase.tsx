@@ -5,8 +5,9 @@ type SliderBaseProps = {
 
   min: number
   max: number
-
   value: number
+  step: number
+
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 
   sliderWidth: number | string
@@ -18,6 +19,8 @@ const SliderBase = ({
   min,
   max,
   value,
+  step,
+
   onChange,
   sliderWidth
 }: SliderBaseProps) => {
@@ -55,7 +58,7 @@ const SliderBase = ({
         value={value}
         ref={valRef}
         onChange={onChange}
-        step="1"
+        step={step}
         className="slider__thumb"
       />
       <div className="slider">

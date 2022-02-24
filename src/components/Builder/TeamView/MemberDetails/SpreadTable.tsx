@@ -12,6 +12,7 @@ const SpreadTable = ({
   return (
     <>
       {Object.entries(statTable).map(([key, value]) => {
+        // Type guard
         const statName = (key as BaseStatName);
         if (!statName) return;
         

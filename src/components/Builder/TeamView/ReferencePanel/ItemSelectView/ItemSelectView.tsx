@@ -1,18 +1,18 @@
 import { useDelayedQuery, useGenConnectedSearchVars, } from "../../../../../hooks/Searches";
 import { MemberItemQuery, MemberItemSearchVars, MEMBER_ITEM_QUERY } from "../../../../../types-queries/Builder/MemberItem";
 import { Filters } from "../../../../App";
-import { ItemSelectClickHandlers, } from "../../TeamView";
+import { ItemSelectHandlers, } from "../../TeamView";
 import ItemSelectEntries from "./ItemSelectEntries";
 
 import './ItemSelectView.css';
 
 type ItemSelectViewProps = {
-  clickHandlers: ItemSelectClickHandlers
+  handlers: ItemSelectHandlers
   filters: Filters
 }
 
 const ItemSelectView = ({
-  clickHandlers,
+  handlers: clickHandlers,
   filters,
 }: ItemSelectViewProps) => {
   const { queryVars, searchBar, focusedOnInput, } = useGenConnectedSearchVars<MemberItemSearchVars>({

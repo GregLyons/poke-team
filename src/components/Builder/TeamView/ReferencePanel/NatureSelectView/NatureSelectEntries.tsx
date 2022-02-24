@@ -2,12 +2,12 @@ import { useEffect, useMemo, useState } from "react";
 import { useEventListener } from "usehooks-ts";
 import { MemberNature, MemberNatureQuery, MemberNatureQueryResult } from "../../../../../types-queries/Builder/MemberNature";
 import { Filters } from "../../../../App";
-import { NatureSelectClickHandlers } from "../../TeamView";
+import { NatureSelectHandlers } from "../../TeamView";
 import NatureSelectEntry from "./NatureSelectEntry";
 
 type NatureSelectEntriesProps = {
   data: MemberNatureQuery
-  clickHandlers: NatureSelectClickHandlers
+  clickHandlers: NatureSelectHandlers
   filters: Filters
   focusedOnInput: boolean
 };

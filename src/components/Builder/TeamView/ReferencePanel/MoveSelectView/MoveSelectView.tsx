@@ -4,19 +4,19 @@ import { Team } from "../../../../../hooks/App/Team";
 import { useDelayedQuery, useRemovalConnectedSearchVars } from "../../../../../hooks/Searches";
 import { MemberMoveQuery, MemberMoveSearchVars, MEMBER_MOVESET_QUERY } from "../../../../../types-queries/Builder/MemberMove";
 import { Filters } from "../../../../App";
-import { MoveSelectClickHandlers, } from "../../TeamView";
+import { MoveSelectHandlers, } from "../../TeamView";
 import MoveSelectEntries from "./MoveSelectEntries";
 
 import './MoveSelectView.css';
 
 type MoveSelectViewProps = {
-  clickHandlers: MoveSelectClickHandlers
+  handlers: MoveSelectHandlers
   filters: Filters
   psID: string
 }
 
 const MoveSelectView = ({
-  clickHandlers,
+  handlers: clickHandlers,
   filters,
   psID,
 }: MoveSelectViewProps) => {

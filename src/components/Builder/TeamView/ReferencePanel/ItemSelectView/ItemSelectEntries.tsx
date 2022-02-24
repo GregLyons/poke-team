@@ -2,12 +2,12 @@ import { useEffect, useMemo, useState } from "react";
 import { useEventListener } from "usehooks-ts";
 import { MemberItem, MemberItemQuery, MemberItemQueryResult } from "../../../../../types-queries/Builder/MemberItem";
 import { Filters } from "../../../../App";
-import { ItemSelectClickHandlers } from "../../TeamView";
+import { ItemSelectHandlers } from "../../TeamView";
 import ItemSelectEntry from "./ItemSelectEntry";
 
 type ItemSelectEntriesProps = {
   data: MemberItemQuery
-  clickHandlers: ItemSelectClickHandlers
+  clickHandlers: ItemSelectHandlers
   filters: Filters
   focusedOnInput: boolean
 };

@@ -450,7 +450,15 @@ export function teamReducer(state: Team, action: TeamAction): Team {
 
       modifiedMember = state[gen].members[idx]?.copy();
       if (!modifiedMember) return state;
-      modifiedMember.assignEV(stat, newValue);
+
+      // If illegal EV value, then return original state
+      try {
+        modifiedMember.assignEV(stat, newValue);
+      }
+      catch {
+        return state;
+      }
+
       return stateWithModifiedMember(state, gen, modifiedMember, idx);
 
     case 'assign_iv':
@@ -461,7 +469,15 @@ export function teamReducer(state: Team, action: TeamAction): Team {
 
       modifiedMember = state[gen].members[idx]?.copy();
       if (!modifiedMember) return state;
-      modifiedMember.assignIV(stat, newValue);
+
+      // If illegal IV value, then return original state
+      try {
+        modifiedMember.assignIV(stat, newValue);
+      }
+      catch {
+        return state;
+      }
+      
       return stateWithModifiedMember(state, gen, modifiedMember, idx);
 
     case 'assign_cosmetic_form':
