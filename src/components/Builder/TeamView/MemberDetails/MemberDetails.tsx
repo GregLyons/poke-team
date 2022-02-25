@@ -1,10 +1,12 @@
+import { HPTypeName } from "@pkmn/data";
 import { Team } from "../../../../hooks/App/Team";
-import { BaseStatName, DUMMY_POKEMON_ICON_DATUM, toAbbreviatedBaseStatName, } from "../../../../types-queries/helpers";
+import { BaseStatName, DUMMY_POKEMON_ICON_DATUM, ivsToHiddenPower, toAbbreviatedBaseStatName, } from "../../../../types-queries/helpers";
 import { Dispatches, Filters } from "../../../App";
 import Slider from "../../../Reusables/Slider/Slider";
 import TextInput from "../../../Reusables/TextInput/TextInput";
 import ItemIcon from "../../Icons/ItemIcon";
 import PokemonIcon from "../../Icons/PokemonIcon";
+import TypeIcon from "../../Icons/TypeIcon";
 import { MemberDetailHandlers, ReferencePanelView } from "../TeamView";
 import CosmeticFormDropdown from "./CosmeticFormDropdown";
 
@@ -333,10 +335,9 @@ const MemberDetails = ({
               <div className="member-details__stat-header">
                 EVs
               </div>
-              <SpreadTable
-                statTable={member.evs}
-                tableFor="ev"
-              />
+              <div className="member-details__evs-summary">
+                {member.evsSummary()}
+              </div>
             </div>
             <div
               className={`
@@ -352,10 +353,33 @@ const MemberDetails = ({
               <div className="member-details__stat-header">
                 {gen < 3 ? 'DVs' : 'IVs'}
               </div>
-              <SpreadTable
-                statTable={member.ivs}
-                tableFor="iv"
-              />
+              <div className="member-details__ivs-summary">
+                {member.ivsSummary()}
+              </div>
+            </div>
+            <div
+              // Not interactive, so we don't give it .member-detials__stat-wrapper class
+              className={`
+                member-details__hidden-power-wrapper
+                ${[1, 8].includes(gen)
+                  ? 'member-details__content--disabled'
+                  : ''
+                }
+              `}
+            >
+              <div className="member-details__stat-header">
+                {![1, 8].includes(gen) ? 'Hidden Power' : ''}
+              </div>
+                {![1, 8].includes(gen) && <>
+                  <div className="member-details__hidden-power-type">
+                    <TypeIcon
+                      typeName={ivsToHiddenPower(member.ivs, gen).type}
+                    />
+                  </div>
+                  <div className="member-details__hidden-power-value">
+                    {ivsToHiddenPower(member.ivs, gen).power}
+                  </div>
+                </>}
             </div>
           </div>
         </div>
@@ -363,5 +387,7 @@ const MemberDetails = ({
     </div>
   )
 };
+
+let a: HPTypeName
 
 export default MemberDetails;

@@ -309,12 +309,25 @@ export class MemberPokemon {
       if ((curr[0] as BaseStatName) !== stat) return acc + curr[1];
       else return acc + newValue;
     }, 0);
-    if (newEVTotal < 0 || (newEVTotal > 510 && ![1, 2].includes(this.gen))) throw new Error(`New value ${newValue} for ${stat} would give an invalid EV total: ${newEVTotal}`);
 
-    this.evs = {
-      ...this.evs,
-      [stat]: newValue,
-    };
+    // After gen 2, total EVs can't exceed 510
+    if (newEVTotal > 510 && ![1, 2].includes(this.gen)) {
+      let currentEVTotal = 0;
+      for (let value of Object.values(this.evs)) {
+        currentEVTotal += value;
+      }
+
+      this.evs = {
+        ...this.evs,
+        [stat]: this.evs[stat] + (510 - currentEVTotal),
+      }
+    }
+    else {
+      this.evs = {
+        ...this.evs,
+        [stat]: newValue,
+      };
+    }
   }
 
   public assignIV(stat: BaseStatName, newValue: number) {
@@ -325,6 +338,20 @@ export class MemberPokemon {
       ...this.ivs,
       [stat]: newValue,
     };
+
+    // Special DV in Gens 1 and 2
+    if (stat === 'specialAttack' && this.gen < 3) {
+      this.ivs = {
+        ...this.ivs,
+        specialDefense: newValue,
+      }
+    }
+    else if (stat === 'specialDefense' && this.gen < 3) {
+      this.ivs = {
+        ...this.ivs,
+        specialAttack: newValue,
+      }
+    }
   }
 
   public assignNature(newNature: MemberNature) {

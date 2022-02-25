@@ -207,10 +207,7 @@ export const stringToGenNumber = (value: string | null): GenerationNum => {
 
 // #endregion
 
-// Icons
-// #region
-
-// Pokemon icons
+// Base stat logic 
 // #region
 
 export type GQLBaseStatName = 'hp' | 'attack' | 'defense' | 'special_attack' | 'special_defense' | 'speed';
@@ -312,6 +309,111 @@ export type StatTable = {
 export type StatTableWithBST = {
   [baseStatName in BaseStatName | 'baseStatTotal']: number
 }
+
+const mostSignificantBit = (value: number, threshold: number) => {
+  return value < threshold ? 0 : 1;
+}
+const secondLeastSignificantBit = (value: number) => {
+  return [2, 3].includes(value % 4) ? 1 : 0;
+}
+
+export const ivsToHiddenPower: (ivs: StatTable, gen: GenerationNum) => { type: TypeName, power: number, } = (ivs, gen) => {
+  let type: TypeName;
+  let typeValue: number;
+  let power: number;
+  if (gen === 2) {
+    typeValue = 4 * (ivs.attack % 4) + 4 * (ivs.defense % 4)
+
+    power = Math.floor(((5 * (
+        1 * mostSignificantBit(ivs.specialAttack, 8)
+      + 2 * mostSignificantBit(ivs.speed, 8)
+      + 4 * mostSignificantBit(ivs.defense, 8)
+      + 8 * mostSignificantBit(ivs.attack, 8)
+    ) + ivs.specialAttack % 4) / 2 + 31));
+  }
+  else {
+    typeValue = Math.floor(5 * (
+        1 * (ivs.hp % 2)
+      + 2 * (ivs.attack % 2)
+      + 4 * (ivs.defense % 2)
+      + 8 * (ivs.speed % 2)
+      + 16 * (ivs.specialAttack % 2)
+      + 32 * (ivs.specialDefense % 2)
+    ) / 21);
+
+    power = Math.floor(40 * (
+        1 * secondLeastSignificantBit(ivs.hp)
+      + 2 * secondLeastSignificantBit(ivs.attack) 
+      + 4 * secondLeastSignificantBit(ivs.defense) 
+      + 8 * secondLeastSignificantBit(ivs.speed) 
+      + 16 * secondLeastSignificantBit(ivs.specialAttack) 
+      + 32 * secondLeastSignificantBit(ivs.specialDefense) 
+    ) / 63) + 30
+  }
+
+  switch (typeValue) {
+    case 0:
+      type = 'fighting';
+      break;
+    case 1:
+      type = 'flying';
+      break;
+    case 2:
+      type = 'poison';
+      break;
+    case 3:
+      type = 'ground';
+      break;
+    case 4:
+      type = 'rock';
+      break;
+    case 5:
+      type = 'bug';
+      break;
+    case 6:
+      type = 'ghost';
+      break;
+    case 7:
+      type = 'steel';
+      break;
+    case 8:
+      type = 'fire';
+      break;
+    case 9:
+      type = 'water';
+      break;
+    case 10:
+      type = 'grass';
+      break;
+    case 11:
+      type = 'electric';
+      break;
+    case 12:
+      type = 'psychic';
+      break;
+    case 13:
+      type = 'ice';
+      break;
+    case 14:
+      type = 'dragon';
+      break;
+    case 15:
+      type = 'dark';
+      break;
+    default:
+      type = 'dark';
+  }
+
+  return { type, power, };
+}
+
+// #endregion 
+
+// Icons
+// #region
+
+// Pokemon icons
+// #region
 
 export type psID = string;
 

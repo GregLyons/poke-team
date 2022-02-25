@@ -68,7 +68,7 @@ const SpreadView = ({
                   }
                   sliderWidth={'200px'}
                   numericalWidth={3}
-                  step={spreadFor === 'EV' ? 4 : 1}
+                  // step={spreadFor === 'EV' ? 4 : 1}
                 />
               </div>
             </div>
