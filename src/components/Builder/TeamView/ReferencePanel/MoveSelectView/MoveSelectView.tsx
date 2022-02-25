@@ -40,7 +40,7 @@ const MoveSelectView = ({
     query: MEMBER_MOVESET_QUERY,
     queryVars,
     // Shorten the delay since users might be rapidly entering searches
-    delay: 50,
+    delay: 1,
   });
 
   if (error) { return (<div>{error.message}</div>); }

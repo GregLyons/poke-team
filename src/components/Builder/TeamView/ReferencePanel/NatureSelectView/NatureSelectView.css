@@ -61,7 +61,7 @@
 }
 .nature-select__entry:hover {
   cursor: pointer;
-  filter:brightness(1.1);
+  background-color: var(--dark1);
 }
 
 .nature-select__name {

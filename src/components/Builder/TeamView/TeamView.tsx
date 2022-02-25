@@ -264,6 +264,12 @@ const TeamView = ({
           nature: memberNature,
         }
       });
+
+      // Move on to EV
+      return setView({
+        mode: 'EV',
+        idx: 0,
+      });
     }
 
     const updateEV = (stat: BaseStatName, newValue: number) => {

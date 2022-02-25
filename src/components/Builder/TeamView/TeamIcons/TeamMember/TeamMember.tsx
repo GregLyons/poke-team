@@ -118,12 +118,14 @@ const TeamMember = ({
       {icon === null && <AddIcon />}
       {icon && 
         <>
-          <TeamMemberIcon
-            pokemonIconDatum={icon}
-            removing={removing}
-            removeDuration={removeDuration}
-            startTime={startTime}
-          />
+          <div className="team-member__pokemon-icon-wrapper">
+            <TeamMemberIcon
+              pokemonIconDatum={icon}
+              removing={removing}
+              removeDuration={removeDuration}
+              startTime={startTime}
+            />
+          </div>
           <RemoveIcon
             removing={removing}
             onClick={removing

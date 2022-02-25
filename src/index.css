@@ -200,3 +200,20 @@ h1 {
 /* #endregion */
 
 /* #endregion */
+
+/* font size change media query */
+@media screen and (max-width: 1440px) {
+  :root {
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 1000px) {
+  :root {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 400px) {
+  :root {
+    font-size: 13px;
+  }
+}

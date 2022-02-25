@@ -164,3 +164,18 @@
 .quick-search__legend > .quick-search__stats > .quick-search__stat:hover {
   cursor: pointer;
 }
+
+/* Emphasize first entry */
+.quick-search__entry:first-of-type {
+  background-color: var(--dark1);
+  border-top: 1px solid var(--light3);
+  border-bottom: 1px solid var(--light3);
+  box-shadow: none;
+}
+/* Change button and icon background colors to retain contrast */
+.quick-search__entry:first-of-type > .quick-search__icon {
+  background-color: rgba(var(--light3-components), 0.7);
+}
+.quick-search__entry:first-of-type > .quick-search__save-wrapper > .quick-search__save {
+  background-color: rgba(var(--light3-components), 0.7);
+}

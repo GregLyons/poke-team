@@ -8,6 +8,7 @@ import ItemIcon from "../../Icons/ItemIcon";
 import PokemonIcon from "../../Icons/PokemonIcon";
 import TypeIcon from "../../Icons/TypeIcon";
 import { MemberDetailHandlers, ReferencePanelView } from "../TeamView";
+import BaseStatGraph from "./BaseStatGraph";
 import CosmeticFormDropdown from "./CosmeticFormDropdown";
 
 import './MemberDetails.css';
@@ -335,9 +336,10 @@ const MemberDetails = ({
               <div className="member-details__stat-header">
                 EVs
               </div>
-              <div className="member-details__evs-summary">
-                {member.evsSummary()}
-              </div>
+              <SpreadTable
+                statTable={member.evs}
+                tableFor={'ev'}
+              />
             </div>
             <div
               className={`
@@ -353,9 +355,10 @@ const MemberDetails = ({
               <div className="member-details__stat-header">
                 {gen < 3 ? 'DVs' : 'IVs'}
               </div>
-              <div className="member-details__ivs-summary">
-                {member.ivsSummary()}
-              </div>
+              <SpreadTable
+                statTable={member.ivs}
+                tableFor={'iv'}
+              />
             </div>
             <div
               // Not interactive, so we don't give it .member-detials__stat-wrapper class
@@ -380,6 +383,20 @@ const MemberDetails = ({
                     {ivsToHiddenPower(member.ivs, gen).power}
                   </div>
                 </>}
+            </div>
+            <div className="member-details__graph-wrapper">
+                <div className="member-details__stat-header">
+                  Stat values
+                </div>
+              <BaseStatGraph
+                gen={gen}
+                level={member.level}
+                baseStats={member.baseStats}
+                nature={member.nature}
+                evs={member.evs}
+                ivs={member.ivs}
+                isShedinja={member.name === 'shedinja'}
+              />
             </div>
           </div>
         </div>
