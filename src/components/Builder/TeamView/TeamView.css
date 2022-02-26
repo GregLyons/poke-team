@@ -1,6 +1,8 @@
 .team-view__wrapper {
   --team-builder-gap: 9px;
-  --team-builder-border: 1px solid rgba(var(--light1-components), 0.5);
+  --team-builder-border1: 1px solid rgba(var(--light1-components), 0.6);
+  --team-builder-border2: 1px solid rgba(var(--light2-components), 0.5);
+  --team-builder-border3: 1px solid rgba(var(--light3-components), 0.4);
   
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -53,6 +55,8 @@
   color: var(--blue1);
   background-color: var(--dark3);
   padding: 0 2px 0 2px;
+
+  z-index: 2;
 }
 .member-details__header,
 .team-member-holder__header,

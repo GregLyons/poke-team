@@ -15,14 +15,15 @@
   width: 100%;
   height: 100%;
   
-  border: var(--team-builder-border);
+  border: var(--team-builder-border3);
   padding: var(--team-builder-gap);
-  transition: 0.2s ease;
+  transition: 0.3s ease;
 }
 .team-member-holder__wrapper:hover,
 .team-member-holder__wrapper--active {
   background-color: rgba(var(--light1-components), 0.05);
-  filter: brightness(1.05);
+  border: var(--team-builder-border1);
+  filter: brightness(1.1);
 }
 
 .team-member-holder__content {

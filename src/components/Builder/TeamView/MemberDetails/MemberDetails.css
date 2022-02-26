@@ -41,7 +41,7 @@
 .member-details__nature-wrapper,
 /* All other boxes */
 .member-details__wrapper div:not(.member-details__moveset):not(.member-details__stats) > .member-details__content {
-  transition: 0.2s ease;
+  transition: 0.3s ease;
 }
 
 /* Change brightness when hovering over entire box, or when active */
@@ -57,6 +57,25 @@
   background-color: rgba(var(--light1-components), 0.05);
 }
 
+/* Hover effects for cosmetic and extra boxes */
+.member-details__extra-wrapper > div,
+.member-details__cosmetic-wrapper {
+  transition: border 0.3s ease;
+}
+.member-details__extra-wrapper > div:not(.member-details--disabled):hover,
+.member-details__cosmetic-wrapper {
+  border: var(--team-builder-border2);
+}
+.member-details__extra-wrapper > div:not(.member-details--disabled):focus-within,
+.member-details__cosmetic-wrapper:focus-within {
+  border: var(--team-builder-border1);
+}
+/* When extra and cosmetic boxes are 'active' */
+.member-details__extra-wrapper > div > .member-details__content:not(.member-details__content--disabled):focus-within,
+.member-details__cosmetic-wrapper:focus-within {
+  background-color: rgba(var(--light1-components), 0.05);
+}
+
 /* Change cursor when over interactive element; some already do so (e.g. dropdowns and sliders) */
 /* Individual moves */
 .member-details__move-wrapper:hover,
@@ -64,7 +83,8 @@
 .member-details__stat-wrapper:hover:not(.member-details__content--disabled),
 /* Other boxes */
 .member-details__ability > .member-details__content:not(.member-details__content--disabled),
-.member-details__item > .member-details__content:not(.member-details__content--disabled) {
+.member-details__item > .member-details__content:not(.member-details__content--disabled),
+.member-details__shiny > .member-details__content:not(.member-details__content--disabled) {
   cursor: pointer;
 }
 
@@ -81,7 +101,7 @@
   width: 100%;
   height: 100%;
 
-  border: var(--team-builder-border);
+  border: var(--team-builder-border3);
 
   /* Make dropdown go over other interactive elements; thumbs in level slider have z-index 3-5 */
   z-index: 10;
@@ -165,7 +185,7 @@
 }
 
 .member-details__nickname {
-  border: var(--team-builder-border);
+  border: var(--team-builder-border3);
   grid-row: 1 / 2;
   grid-column: 1 / 2;
   
@@ -177,7 +197,7 @@
 
   position: relative;
 
-  border: var(--team-builder-border);
+  border: var(--team-builder-border3);
 }
 
 .member-details__gender {
@@ -185,7 +205,7 @@
 
   position: relative;
 
-  border: var(--team-builder-border);
+  border: var(--team-builder-border3);
 }
 
 .member-details__shiny {
@@ -193,7 +213,7 @@
 
   position: relative;
 
-  border: var(--team-builder-border);
+  border: var(--team-builder-border3);
 }
 
 .member-details__happiness {
@@ -201,7 +221,7 @@
   
   position: relative;
 
-  border: var(--team-builder-border);
+  border: var(--team-builder-border3);
 
   font-size: 0.8rem;
 }
@@ -228,13 +248,18 @@
 /* #region */
 
 .member-details__moveset {
-  border: var(--team-builder-border);
   grid-row: 2 / 3;
   grid-column: 1 / 3;
-
+  
   position: relative;
-
+  
   padding: calc(0.5 * var(--team-builder-gap));
+  border: var(--team-builder-border3);
+  transition: 0.3s ease;
+}
+.member-details__moveset:hover,
+.member-details__moveset--active {
+  border: var(--team-builder-border2);
 }
 
 .member-details__moveset-wrapper {
@@ -257,7 +282,12 @@
 
   position: relative;
 
-  border: var(--team-builder-border);
+  border: var(--team-builder-border3);
+  transition: 0.3s ease;
+}
+.member-details__move-wrapper:hover,
+.member-details__move-wrapper--active {
+  border: var(--team-builder-border1);
 }
 
 .member-details__move-header {
@@ -284,7 +314,7 @@
 /* #endregion */
 
 .member-details__ability {
-  border: var(--team-builder-border);
+  border: var(--team-builder-border3);
   grid-row: 1 / 2;
   grid-column: 1 / 2;
   
@@ -295,7 +325,7 @@
 /* #region */ 
 
 .member-details__item {
-  border: var(--team-builder-border);
+  border: var(--team-builder-border3);
   grid-row: 1 / 2;
   grid-column: 2 / 3;
   
@@ -344,12 +374,18 @@
 /* #region */
 
 .member-details__stats {
-  border: var(--team-builder-border);
   grid-row: 3 / 4;
   grid-column: 1 / 3;
-
+  
   position: relative;
   min-width: fit-content;
+
+  border: var(--team-builder-border3);
+  transition: 0.3s ease;
+}
+.member-details__stats:hover,
+.member-details__stats--active {
+  border: var(--team-builder-border2);
 }
 
 .member-details__stat-wrapper {
@@ -358,6 +394,13 @@
   align-items: center;
 
   position: relative;
+  
+  border: var(--team-builder-border3);
+  transition: 0.3s ease;
+}
+.member-details__stat-wrapper:hover,
+.member-details__stat-wrapper--active {
+  border: var(--team-builder-border1);
 }
 
 .member-details__stats > .member-details__content {
@@ -390,7 +433,6 @@
   width: 100%;
   height: 100%;
 
-  border: var(--team-builder-border);
   font-size: 0.8rem;
 }
 
@@ -428,7 +470,6 @@
   height: 100%;
 
   padding: var(--team-builder-gap);
-  border: var(--team-builder-border);
   font-size: 0.8rem;
 }
 /* .member-details__evs-summary,
@@ -469,8 +510,8 @@
   width: 100%;
   height: 100%;
 
-  border: var(--team-builder-border);
   font-size: 0.8rem;
+  border: var(--team-builder-border3);
 }
 .member-details__hidden-power-type {
   display: flex;
@@ -498,8 +539,8 @@
   height: 100%;
 
   padding: calc(2 * var(--team-builder-gap));
-  border: var(--team-builder-border);
   font-size: 0.9rem;
+  border: var(--team-builder-border3);
 }
 
 .member-details__graph-row-wrapper {

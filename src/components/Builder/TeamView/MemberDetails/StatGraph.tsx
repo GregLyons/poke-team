@@ -1,7 +1,7 @@
 import { MemberNature } from "../../../../types-queries/Builder/MemberNature";
 import { BaseStatName, GenerationNum, StatTable, toAbbreviatedBaseStatName } from "../../../../types-queries/helpers";
 
-type BaseStatGraphProps = {
+type StatGraphProps = {
   gen: GenerationNum
   baseStats: StatTable
   level: number
@@ -11,7 +11,7 @@ type BaseStatGraphProps = {
   isShedinja: boolean
 };
 
-const BaseStatGraph = ({
+const StatGraph = ({
   gen,
   level,
   baseStats,
@@ -19,7 +19,7 @@ const BaseStatGraph = ({
   evs,
   ivs,
   isShedinja,
-}: BaseStatGraphProps) => {
+}: StatGraphProps) => {
   let statObj = { hp: 0, attack: 0, defense: 0, specialAttack: 0, specialDefense: 0, speed: 0, };
   let maxStatObj = { hp: 0, attack: 0, defense: 0, specialAttack: 0, specialDefense: 0, speed: 0, };
   let statPercentObj = { hp: 0, attack: 0, defense: 0, specialAttack: 0, specialDefense: 0, speed: 0, };
@@ -100,7 +100,7 @@ const BaseStatGraph = ({
     // Compute stat percentages
     // #region
 
-    statPercentObj[statName] = ( statObj[statName] / maxStatObj[statName] ) * 100.0;
+    statPercentObj[statName] = Math.pow( statObj[statName] / maxStatObj[statName], 0.7 ) * 100.0;
 
     // #endregion
   };
@@ -115,13 +115,13 @@ const BaseStatGraph = ({
 
         const value = statObj[statName];
         let rating: 'bad' | 'ok' | 'decent' | 'good' | 'great';
-        if (value <= 100) {
+        if (value <= 150) {
           rating = 'bad';
-        } else if (value <= 200) {
+        } else if (value <= 250) {
           rating = 'ok';
-        } else if (value <= 300) {
+        } else if (value <= 350) {
           rating = 'decent';
-        } else if (value <= 400) {
+        } else if (value <= 450) {
           rating = 'good';
         } else {
           rating = 'great';
@@ -158,4 +158,4 @@ const BaseStatGraph = ({
   )
 };
 
-export default BaseStatGraph;
+export default StatGraph;

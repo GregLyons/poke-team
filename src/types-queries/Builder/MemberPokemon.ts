@@ -373,7 +373,13 @@ export class MemberPokemon {
   }
 
   public assignShiny(newShinyValue: boolean) {
-    this.shiny = newShinyValue;
+    if (this.gen === 1) this.shiny = false;
+    else this.shiny = newShinyValue;
+  }
+
+  public toggleShiny() {
+    if (this.gen === 1) this.shiny = false;
+    else this.shiny = !this.shiny;
   }
 
   public assignHappiness(newHappinessValue: number) {

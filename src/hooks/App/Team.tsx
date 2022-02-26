@@ -167,11 +167,10 @@ export type TeamAction =
     }
   }
 | {
-    type: 'assign_shiny'
+    type: 'toggle_shiny'
     payload: {
       gen: GenerationNum
       idx: number
-      shiny: boolean
     }
   }
 | {
@@ -402,14 +401,13 @@ export function teamReducer(state: Team, action: TeamAction): Team {
       modifiedMember.assignLevel(newValue);
       return stateWithModifiedMember(state, gen, modifiedMember, idx);
 
-    case 'assign_shiny':
+    case 'toggle_shiny':
       gen = action.payload.gen;
       idx = action.payload.idx;
-      const shiny = action.payload.shiny;
 
       modifiedMember = state[gen].members[idx]?.copy();
       if (!modifiedMember) return state;
-      modifiedMember.assignShiny(shiny);
+      modifiedMember.toggleShiny();
       return stateWithModifiedMember(state, gen, modifiedMember, idx);
 
     case 'assign_happiness':

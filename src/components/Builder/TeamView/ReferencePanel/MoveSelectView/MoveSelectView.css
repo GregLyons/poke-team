@@ -33,10 +33,10 @@
 .move-select__legend {
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: minmax(15ch, min-content) 1fr 1fr;
+  grid-template-columns: minmax(15ch, min-content) 5ch 3ch 3ch 3ch 3ch 7ch;
 
   align-items: center;
-  gap: 0 24px;
+  gap: 0 30px;
 
   min-width: fit-content;
   width: auto;

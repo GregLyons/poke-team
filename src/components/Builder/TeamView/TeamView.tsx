@@ -100,7 +100,7 @@ export type MemberDetailHandlers = {
   updateNickname: (e: React.ChangeEvent<HTMLInputElement>) => void
   updateLevel: (newValue: number) => void
   updateGender: (newValue: GenderName) => void
-  updateShiny: (newValue: boolean) => void
+  toggleShiny: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   updateHappiness: (newValue: number) => void
 
   updateCosmeticForm: (psID: string) => void
@@ -453,15 +453,15 @@ const TeamView = ({
       });
     };
 
-    const updateShiny = (newValue: boolean) => {
+    const toggleShiny = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      e.preventDefault();
       if (memberSlot === null) return;
 
       dispatches.dispatchTeam({
-        type: 'assign_shiny',
+        type: 'toggle_shiny',
         payload: {
           gen: filters.genFilter.gen,
           idx: memberSlot,
-          shiny: newValue,
         }
       });
     };
@@ -503,7 +503,7 @@ const TeamView = ({
       updateNickname,
       updateLevel,
       updateGender,
-      updateShiny,
+      toggleShiny,
       updateHappiness,
 
       updateCosmeticForm,

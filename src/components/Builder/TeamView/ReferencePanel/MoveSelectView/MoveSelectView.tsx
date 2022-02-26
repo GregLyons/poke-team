@@ -55,11 +55,20 @@ const MoveSelectView = ({
           <div className="move-select__name">
             <span>Name</span>
           </div>
-          <div className="move-select__data">
-            <span>Data</span>
+          <div className="move-select__type">
+            <span>Type</span>
           </div>
-          <div className="move-select__description">
-            <span>Description</span>
+          <div className="move-select__power">
+            <span>Pow</span>
+          </div>
+          <div className="move-select__pp">
+            <span>PP</span>
+          </div>
+          <div className="move-select__accuracy">
+            <span>Acc</span>
+          </div>
+          <div className="move-select__category">
+            <span>Cat</span>
           </div>
         </div>
         {loading

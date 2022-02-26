@@ -8,7 +8,7 @@ import ItemIcon from "../../Icons/ItemIcon";
 import PokemonIcon from "../../Icons/PokemonIcon";
 import TypeIcon from "../../Icons/TypeIcon";
 import { MemberDetailHandlers, ReferencePanelView } from "../TeamView";
-import BaseStatGraph from "./BaseStatGraph";
+import StatGraph from "./StatGraph";
 import CosmeticFormDropdown from "./CosmeticFormDropdown";
 
 import './MemberDetails.css';
@@ -102,7 +102,14 @@ const MemberDetails = ({
             />}
           </div>
         </div>
-        <div className="member-details__gender">
+        <div
+          className={`
+            member-details__gender
+            ${[1, 8].includes(gen)
+              ? 'member-details--disabled'
+              : ''
+            }
+          `}>
           <div className="member-details__header">
             {gen > 1
               ? 'Gender'
@@ -122,27 +129,47 @@ const MemberDetails = ({
             }
           </div>
         </div>
-        <div className="member-details__shiny">
+        <div
+          className={`
+            member-details__shiny
+            ${[1, 8].includes(gen)
+              ? 'member-details--disabled'
+              : ''
+            }
+          `}>
           <div className="member-details__header">
             {gen > 1
               ? 'Shiny'
               : ''
             }
           </div>
-          <div className={`
-            member-details__content
-            ${gen < 2
-              ? 'member-details__content--disabled'
-              : ''
-            }
-          `}>
+          <div
+            className={`
+              member-details__content
+              ${gen < 2
+                ? 'member-details__content--disabled'
+                : ''
+              }
+            `}
+            onClick={handlers.toggleShiny}
+          >
             {gen > 1
-              ? 'Yo'
+              ? member.shiny
+                ? 'Yes'
+                : 'No'
               : ''
             }
           </div>
         </div>
-        <div className="member-details__happiness">
+        <div
+          className={`
+            member-details__happiness
+            ${[1, 8].includes(gen)
+              ? 'member-details--disabled'
+              : ''
+            }
+          `}
+        >
           <div className="member-details__header">
             {![1, 8].includes(gen)
               ? 'Happiness'
@@ -177,8 +204,20 @@ const MemberDetails = ({
       </div>
 
       {/* Main */}
-      <div className="member-details__main-wrapper">
-        <div className="member-details__moveset">
+      <div 
+        className={`
+          member-details__main-wrapper
+        `}
+      >
+        <div
+          className={`
+            member-details__moveset
+            ${view && view.mode === 'MOVE'
+              ? 'member-details__moveset--active'
+              : ''
+            }
+          `}
+        >
           <div className="member-details__header">
             Moveset
           </div>
@@ -275,7 +314,15 @@ const MemberDetails = ({
             }
           </div>
         </div>
-        <div className="member-details__stats">
+        <div
+          className={`
+            member-details__stats
+            ${view && ['NATURE', 'EV', 'IV'].includes(view.mode)
+              ? 'member-details__stats--active'
+              : ''
+            }
+          `}
+        >
           <div className="member-details__header">
             Stats
           </div>
@@ -384,11 +431,15 @@ const MemberDetails = ({
                   </div>
                 </>}
             </div>
-            <div className="member-details__graph-wrapper">
+            <div
+              className={`
+                member-details__graph-wrapper
+              `}
+            >
                 <div className="member-details__stat-header">
                   Stat values
                 </div>
-              <BaseStatGraph
+              <StatGraph
                 gen={gen}
                 level={member.level}
                 baseStats={member.baseStats}
