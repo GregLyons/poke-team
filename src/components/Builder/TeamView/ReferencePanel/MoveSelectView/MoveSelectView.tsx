@@ -1,9 +1,12 @@
 import { useQuery } from "@apollo/client";
+import { useState } from "react";
 import { removedFromBDSP, removedFromSwSh } from "../../../../../hooks/App/GenFilter";
 import { Team } from "../../../../../hooks/App/Team";
 import { useDelayedQuery, useRemovalConnectedSearchVars } from "../../../../../hooks/Searches";
 import { MemberMoveQuery, MemberMoveSearchVars, MEMBER_MOVESET_QUERY } from "../../../../../types-queries/Builder/MemberMove";
+import { MoveColumnName, MovePaginationInput } from "../../../../../types-queries/helpers";
 import { Filters } from "../../../../App";
+import SortSwitch from "../../../../Reusables/SortSwitch/SortSwitch";
 import { MoveSelectHandlers, } from "../../TeamView";
 import MoveSelectEntries from "./MoveSelectEntries";
 
@@ -16,10 +19,15 @@ type MoveSelectViewProps = {
 }
 
 const MoveSelectView = ({
-  handlers: clickHandlers,
+  handlers,
   filters,
   psID,
 }: MoveSelectViewProps) => {
+  const [pagination, setPagination] = useState<MovePaginationInput>({
+    orderBy: 'psID',
+    sortBy: 'ASC',
+  });
+
   const { queryVars, searchBar, focusedOnInput, } = useRemovalConnectedSearchVars<MemberMoveSearchVars>({
     defaultSearchVars: {
       gen: filters.genFilter.gen,
@@ -43,6 +51,26 @@ const MoveSelectView = ({
     delay: 1,
   });
 
+  const onPaginationChangeClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, orderBy: MoveColumnName) => {
+    e.preventDefault();
+
+    // Reversing sortBy direction
+    if (orderBy === pagination.orderBy) {
+      setPagination({
+        ...pagination,
+        sortBy: pagination.sortBy === 'ASC'
+          ? 'DESC'
+          : 'ASC',
+      })
+    }
+    else {
+      setPagination({
+        orderBy,
+        sortBy: 'ASC',
+      });
+    }
+  }
+
   if (error) { return (<div>{error.message}</div>); }
 
   return (
@@ -53,31 +81,62 @@ const MoveSelectView = ({
       <div className="move-select__results">
         <div className="move-select__legend">
           <div className="move-select__name">
-            <span>Name</span>
+            <span onClick={e => onPaginationChangeClick(e, 'psID')}>Name</span>
+            <SortSwitch
+              titleFor="name"
+              onClick={e => onPaginationChangeClick(e, 'psID')}
+              sortBy={pagination.orderBy === 'psID' ? pagination.sortBy : null}
+            />
           </div>
           <div className="move-select__type">
-            <span>Type</span>
+            <span onClick={e => onPaginationChangeClick(e, 'type')}>Type</span>
+            <SortSwitch
+              titleFor="type"
+              onClick={e => onPaginationChangeClick(e, 'type')}
+              sortBy={pagination.orderBy === 'type' ? pagination.sortBy : null}
+            />
           </div>
           <div className="move-select__power">
-            <span>Pow</span>
+            <span onClick={e => onPaginationChangeClick(e, 'power')}>Pow</span>
+            <SortSwitch
+              titleFor="power"
+              onClick={e => onPaginationChangeClick(e, 'power')}
+              sortBy={pagination.orderBy === 'power' ? pagination.sortBy : null}
+            />
           </div>
           <div className="move-select__pp">
-            <span>PP</span>
+            <span onClick={e => onPaginationChangeClick(e, 'pp')}>PP</span>
+            <SortSwitch
+              titleFor="PP"
+              onClick={e => onPaginationChangeClick(e, 'pp')}
+              sortBy={pagination.orderBy === 'pp' ? pagination.sortBy : null}
+            />
           </div>
           <div className="move-select__accuracy">
-            <span>Acc</span>
+            <span onClick={e => onPaginationChangeClick(e, 'accuracy')}>Acc</span>
+            <SortSwitch
+              titleFor="accuracy"
+              onClick={e => onPaginationChangeClick(e, 'accuracy')}
+              sortBy={pagination.orderBy === 'accuracy' ? pagination.sortBy : null}
+            />
           </div>
           <div className="move-select__category">
-            <span>Cat</span>
+            <span onClick={e => onPaginationChangeClick(e, 'category')}>Category</span>
+            <SortSwitch
+              titleFor="category"
+              onClick={e => onPaginationChangeClick(e, 'category')}
+              sortBy={pagination.orderBy === 'category' ? pagination.sortBy : null}
+            />
           </div>
         </div>
         {loading
           ? <div>Loading...</div>
           : data && <MoveSelectEntries
               data={data}
-              clickHandlers={clickHandlers}
+              clickHandlers={handlers}
               filters={filters}
               focusedOnInput={focusedOnInput}
+              pagination={pagination}
             />
         }
       </div>

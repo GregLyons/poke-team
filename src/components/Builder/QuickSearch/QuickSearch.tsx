@@ -54,7 +54,6 @@ const QuickSearch = ({
     queryVars,
   });
 
-
   const onPaginationChangeClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, orderBy: PokemonColumnName) => {
     e.preventDefault();
 

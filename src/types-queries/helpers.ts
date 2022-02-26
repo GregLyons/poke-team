@@ -177,6 +177,18 @@ export interface PokemonPaginationInput extends PaginationInput {
   sortBy: SortByEnum
 }
 
+// Move pagination
+// #region
+
+export type MoveColumnName = 'psID' | 'type' | 'power' | 'accuracy' | 'pp' | 'category';
+
+export interface MovePaginationInput extends PaginationInput {
+  orderBy: MoveColumnName
+  sortBy: SortByEnum
+}
+
+// #endregion
+
 // #endregion
 
 // #endregion

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useEventListener } from "usehooks-ts";
 import { MemberMove, MemberMoveQuery, MemberMoveQueryResult } from "../../../../../types-queries/Builder/MemberMove";
+import { MovePaginationInput } from "../../../../../types-queries/helpers";
 import { Filters } from "../../../../App";
 import { MoveSelectHandlers } from "../../TeamView";
 import MoveSelectEntry from "./MoveSelectEntry";
@@ -10,13 +11,37 @@ type MoveSelectEntriesProps = {
   clickHandlers: MoveSelectHandlers
   filters: Filters
   focusedOnInput: boolean
+  pagination: MovePaginationInput
 };
+
+const sortHelper: (el1: number | string | null, el2: number | string | null) => number = (el1, el2) => {
+  if (el1 === null && el2 !== null) return -1;
+  else if (el1 !== null && el2 === null) return 1;
+  else if (el1 === null && el2 === null) return 0;
+  else if (el1 !== null && el2 !== null) {
+    if (el1 > el2) return 1;
+    else if (el1 === el2) return 0;
+    return -1
+  }
+  // Shouldn't happen
+  else return 0;
+}
+
+const sortMoveByKey: (pagination: MovePaginationInput) => ((move1: MemberMove, move2: MemberMove) => number) = pagination => {
+  const { orderBy, sortBy, } = pagination;
+  const sign = sortBy === 'ASC' ? 1 : -1;
+  return (move1: MemberMove, move2: MemberMove) => {
+    if (move1 === null || move2 === null) return 0;
+    return sign * sortHelper(move1[orderBy], move2[orderBy]);
+  }
+}
 
 const MoveSelectEntries = ({
   data,
   clickHandlers,
   filters,
   focusedOnInput,
+  pagination,
 }: MoveSelectEntriesProps) => {
   const [sorted, setSorted] = useState(false);
 
@@ -78,10 +103,10 @@ const MoveSelectEntries = ({
 
         // If Move has already been encountered, do nothing
         return acc;
-      }, []);
+      }, []).sort(sortMoveByKey(pagination));
 
     // #endregion
-  }, [data, filters.genFilter, ]);
+  }, [data, filters.genFilter, pagination, ]);
 
   // Entries to be rendered, which should be sorted according to orderByKey
   const [entries, setEntries] = useState<MemberMove[] | undefined>(originalEntries);
@@ -89,6 +114,22 @@ const MoveSelectEntries = ({
   useEffect(() => {
     setEntries(originalEntries);
   }, [originalEntries, setEntries]);
+
+  // When orderByKey changes, the entries are no longer sorted
+  useEffect(() => {
+    setSorted(false);
+  }, [pagination, originalEntries, setSorted]);
+  // When the entries are not sorted, sort them
+  useEffect(() => {
+    if (!data) return;
+    if (!sorted) {
+      if (!entries) return;
+
+      // Use entries, since changing the sort criteria does not add or remove Pokemon
+      setEntries([...entries].sort(sortMoveByKey(pagination)))
+      setSorted(true);
+    }
+  }, [setEntries, entries, sorted, setSorted, pagination, data]);
 
   // 'Enter' selects first entry
   const onEnter = (event: KeyboardEvent) => {

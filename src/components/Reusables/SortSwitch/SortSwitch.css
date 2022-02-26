@@ -1,7 +1,7 @@
 .sort-switch__wrapper {
   position: absolute;
   vertical-align: center;
-  top: 0.15rem;
+  top: 0;
   left: -24px;
 
   background-color: rgba(var(--dark3-components), 0.5);
