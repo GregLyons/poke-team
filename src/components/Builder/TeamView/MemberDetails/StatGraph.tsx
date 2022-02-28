@@ -139,7 +139,7 @@ const StatGraph = ({
               }
             </div>
             <div className="member-details__graph-value">
-              {value}
+              {Math.floor(value)}
             </div>
             <div className={`
               member-details__graph-row

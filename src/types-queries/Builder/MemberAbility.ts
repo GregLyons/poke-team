@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { GenerationNum } from "@pkmn/data";
-import { EnumTypeName, toTypeName, TypeName } from "../helpers";
+import { CapsTypeName, toTypeName, TypeName } from "../helpers";
 import { RequiresItemEdge } from "./helpers";
 import { MemberItem, requiresItemEdgeToMemberItem } from "./MemberItem";
 

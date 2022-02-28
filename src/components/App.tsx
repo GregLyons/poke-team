@@ -38,9 +38,9 @@ import UsageMethodMainPage from './Planner/UsageMethods/UsageMethodMainPage';
 import UsageMethodPage from './Planner/UsageMethods/UsageMethodPage';
 
 import ControlPanel from './ControlPanel/ControlPanel';
-import { DEFAULT_GEN_FILTER, GenFilter, genReducer } from '../hooks/App/GenFilter';
-import { DEFAULT_TIER_FILTER, TierFilter, tierReducer } from '../hooks/App/TierFilter';
-import { DEFAULT_POKEMON_FILTER, PokemonFilter, pokemonReducer } from '../hooks/App/PokemonFilter';
+import { DEFAULT_GEN_FILTER, GenFilter, GenFilterAction, genReducer } from '../hooks/App/GenFilter';
+import { DEFAULT_TIER_FILTER, TierFilter, TierFilterAction, tierReducer } from '../hooks/App/TierFilter';
+import { DEFAULT_POKEMON_FILTER, PokemonFilter, PokemonFilterAction, pokemonReducer } from '../hooks/App/PokemonFilter';
 import { CartAction, cartReducer, DEFAULT_CART } from '../hooks/App/Cart';
 import { DEFAULT_TEAM, TeamAction, teamReducer } from '../hooks/App/Team';
 import { BGAction, bgReducer, classWithBG, classWithBGShadow, DEFAULT_BACKGROUND } from '../hooks/App/BGManager';
@@ -50,7 +50,10 @@ import QuickSearch from './Builder/QuickSearch/QuickSearch';
 
 export type Dispatches = {
   dispatchCart: React.Dispatch<CartAction>
+  dispatchGenFilter: React.Dispatch<GenFilterAction>
+  dispatchPokemonFilter: React.Dispatch<PokemonFilterAction>
   dispatchTeam: React.Dispatch<TeamAction>
+  dispatchTierFilter: React.Dispatch<TierFilterAction>
   dispatchBGManager: React.Dispatch<BGAction>
 }
 
@@ -74,10 +77,13 @@ function App() {
   const dispatches: Dispatches = useMemo(() => {
     return {
       dispatchCart,
+      dispatchGenFilter,
+      dispatchPokemonFilter,
       dispatchTeam,
+      dispatchTierFilter,
       dispatchBGManager,
     }
-  }, [dispatchCart, dispatchTeam, dispatchBGManager]);
+  }, [dispatchCart, dispatchGenFilter, dispatchPokemonFilter, dispatchTeam, dispatchTierFilter, dispatchBGManager]);
 
   const filters: Filters = useMemo(() => {
     return {
@@ -99,17 +105,11 @@ function App() {
             dispatchBGManager={dispatchBGManager}
           />
           <ControlPanel
+            dispatches={dispatches}
+            filters={filters}
             headerRef={controlPanelRef}
-            dispatchCart={dispatchCart}
-            dispatchTeam={dispatchTeam}
-            dispatchGenFilter={dispatchGenFilter}
-            genFilter={genFilter}
-            dispatchTierFilter={dispatchTierFilter}
-            tierFilter={tierFilter}
-            dispatchPokemonFilter={dispatchPokemonFilter}
             bgManager={bgManager}
             dispatchBGManager={dispatchBGManager}
-            pokemonFilter={pokemonFilter}
             team={team}
           />
         </header>

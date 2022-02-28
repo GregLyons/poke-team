@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { MemberPokemonQuery, MemberPokemonVars, POKEMONICON_TO_MEMBER_QUERY } from '../../../../types-queries/Builder/MemberPokemon';
+import { MemberPokemonFromIconQuery, MemberPokemonVars, POKEMONICON_TO_MEMBER_QUERY } from '../../../../types-queries/Builder/MemberPokemon';
 import { PokemonIconDatum } from '../../../../types-queries/helpers';
 import { Dispatches, Filters } from '../../../App';
 import { TeamMembersClickHandlers } from '../TeamView';
@@ -23,7 +23,7 @@ const TeamMemberHolder = ({
   icon,
   idx,
 }: TeamMemberHolderProps) => {
-  const { data, loading, error } = useQuery<MemberPokemonQuery, MemberPokemonVars>(POKEMONICON_TO_MEMBER_QUERY, {
+  const { data, loading, error } = useQuery<MemberPokemonFromIconQuery, MemberPokemonVars>(POKEMONICON_TO_MEMBER_QUERY, {
     variables: {
       gen: filters.genFilter.gen,
       psID: icon?.psID || '',

@@ -124,7 +124,7 @@ const MemberDetails = ({
             }
           `}>
             {gen > 1
-              ? 'Yo'
+              ? 'Coming soon'
               : ''
             }
           </div>
@@ -347,7 +347,7 @@ const MemberDetails = ({
               onClick={handlers.onNatureClick}
             >
               <div className="member-details__stat-header">
-                Nature
+                {gen > 2 ? 'Nature' : ''}
               </div>
               <div className="member-details__nature-name">
                 {member?.nature?.formattedName}

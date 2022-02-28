@@ -19,7 +19,7 @@ import {
 } from '../../../utils/constants';
 import { listToggleValue, rangeSelect } from '../helpers';
 import { Dispatches, Filters } from '../../App';
-import { EnumTypeName, MoveCategory, MoveTargetClass, MOVE_CATEGORY_MAP, MOVE_TARGETCLASS_MAP, MOVE_TYPE_MAP, toEnumTypeName, toFormattedTypeName, TypeName } from '../../../types-queries/helpers';
+import { CapsTypeName, MoveCategory, MoveTargetClass, MOVE_CATEGORY_MAP, MOVE_TARGETCLASS_MAP, MOVE_TYPE_MAP, toEnumTypeName, toFormattedTypeName, TypeName } from '../../../types-queries/helpers';
 import { TYPE_NAMES } from '../../../hooks/App/PokemonFilter';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
 import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Searches';
@@ -102,7 +102,7 @@ const listFilter = ({
 
   const handleCategorySelect = listToggleValue<MoveSearchVars, MoveCategory>(queryVars, setQueryVars, 'category');
 
-  const handleTypeSelect = listToggleValue<MoveSearchVars, EnumTypeName>(queryVars, setQueryVars, 'types');
+  const handleTypeSelect = listToggleValue<MoveSearchVars, CapsTypeName>(queryVars, setQueryVars, 'types');
 
   const handleTargetClassSelect = listToggleValue<MoveSearchVars, MoveTargetClass>(queryVars, setQueryVars, 'target');
 

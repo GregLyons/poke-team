@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { GenerationNum } from "@pkmn/data";
-import { EnumTypeName, toTypeName, TypeName } from "../helpers";
+import { CapsTypeName, toTypeName, TypeName } from "../helpers";
 import { RequiresItemEdge } from "./helpers";
 import { MemberItem, requiresItemEdgeToMemberItem } from "./MemberItem";
 
@@ -25,7 +25,7 @@ export type MemberMoveQueryResult = {
   pp: number
   accuracy: number | null
   category: 'PHYSICAL' | 'SPECIAL' | 'STATUS' | 'VARIES'
-  typeName: EnumTypeName
+  typeName: CapsTypeName
 
   removedFromSwSh: boolean
   removedFromBDSP: boolean

@@ -1,18 +1,25 @@
 import { gql } from "@apollo/client"
 import { PokemonSet } from "@pkmn/data"
 import { StatsTable } from "@pkmn/data"
-import { BaseStatName, GenerationNum, IntroductionEdge, introductionEdgeToGen, PokemonIconDatum, StatTable, TypeName } from "../helpers"
+import { Dex } from "@pkmn/dex"
+import { Data, Sets } from "@pkmn/sets"
+import { BaseStatName, CapsTypeName, GenerationNum, IntroductionEdge, introductionEdgeToGen, PokemonIconDatum, StatTable, toTypeName, TypeName } from "../helpers"
 import { EnablesItemEdge, PokemonFormDatum, PokemonFormEdge, pokemonFormEdgeToFormDatum, RequiresItemEdge, spreadSummary, } from "./helpers"
 import { MemberAbility } from "./MemberAbility"
 import { enablesItemEdgeToMemberItem, MemberItem, requiresItemEdgeToMemberItem } from "./MemberItem"
 import { MemberMove } from "./MemberMove"
 import { MemberNature } from "./MemberNature"
 
-export type MemberPokemonQuery = {
-  pokemonByPSID: MemberPokemonQueryResult[]
+export type MemberPokemonVars = {
+  gen: GenerationNum
+  psID: string
 }
 
-export type MemberPokemonQueryResult = {
+export type MemberPokemonFromIconQuery = {
+  pokemonByPSID: MemberPokemonFromIconQueryResult[]
+}
+
+export type MemberPokemonFromIconQueryResult = {
   id: string
   name: string
   speciesName: string
@@ -33,11 +40,6 @@ export type MemberPokemonQueryResult = {
   requiresItem: {
     edges: RequiresItemEdge[]
   }
-}
-
-export type MemberPokemonVars = {
-  gen: GenerationNum
-  psID: string
 }
 
 export const POKEMONICON_TO_MEMBER_QUERY = gql`
@@ -205,9 +207,9 @@ export class MemberPokemon {
   public cosmeticForms: PokemonIconDatum[]
 
   // For making copy
-  private gqlMember: MemberPokemonQueryResult
+  private gqlMember: MemberPokemonFromIconQueryResult
 
-  constructor(gqlMember: MemberPokemonQueryResult, pokemonIconDatum: PokemonIconDatum, gen: GenerationNum) {
+  constructor(gqlMember: MemberPokemonFromIconQueryResult, pokemonIconDatum: PokemonIconDatum, gen: GenerationNum) {
     const {
       formattedName, psID,
       typing, baseStats, 
@@ -280,6 +282,35 @@ export class MemberPokemon {
         };
       });
   }
+
+  // Exporting as PokemonSet
+  // #region
+
+  public toPokemonSet() {
+    const pokemonSet: PokemonSet = {
+      name: this.psID,
+      species: this.speciesName,
+      item: this.item?.psID || '',
+      ability: this?.ability?.psID || '',
+      moves: this.moveset.map(move => move?.psID || ''),
+      nature: this.nature?.name || 'serious',
+      gender: this.gender || '',
+      evs: statTableToPSStatsTable(this.evs),
+      ivs: statTableToPSStatsTable(this.ivs),
+      level: this.level,
+      shiny: this.shiny,
+      happiness: this.happiness,
+      gigantamax: this.formClass === 'GMAX',
+    };
+
+    return pokemonSet;
+  }
+
+  public toSetString() {
+    return Sets.toString(this.toPokemonSet(), Dex.forGen(this.gen));
+  }
+
+  // #endregion
 
   public setGen(newGen: GenerationNum) {
     this.gen = newGen;
@@ -398,26 +429,6 @@ export class MemberPokemon {
     return spreadSummary(this.ivs, this.gen > 2 ? 31 : 15);
   }
 
-  public toPokemonSet() {
-    const pokemonSet: PokemonSet = {
-      name: this.psID,
-      species: this.speciesName,
-      item: this.item?.psID || '',
-      ability: this?.ability?.psID || '',
-      moves: this.moveset.map(move => move?.psID || ''),
-      nature: this.nature?.name || 'serious',
-      gender: this.gender || '',
-      evs: statTableToPSStatsTable(this.evs),
-      ivs: statTableToPSStatsTable(this.ivs),
-      level: this.level,
-      shiny: this.shiny,
-      happiness: this.happiness,
-      gigantamax: this.formClass === 'GMAX',
-    };
-
-    return pokemonSet;
-  }
-
   // For copying
   private setEVs(newEVs: StatTable) {
     this.evs = newEVs;
@@ -491,3 +502,169 @@ export class MemberPokemon {
     return cosmeticForm;
   }
 }
+
+// Importing Pokemon sets
+// #region
+
+export type MemberPokemonFromSetQuery = {
+  pokemonByPSIDs: MemberPokemonFromSetQueryResult[]
+}
+
+// This is a combination of the data contained in a PokemonIconDatum, as well as MemberPokemonFromIconQueryResult, both of which are necessary to create a MemberPokemon instance
+export type MemberPokemonFromSetQueryResult = {
+  id: string
+  name: string
+  formattedName: string
+  speciesName: string
+  psID: string
+
+  removedFromSwSh: boolean
+  removedFromBDSP: boolean
+
+  typeNames: CapsTypeName[]
+  baseStats: StatTable
+
+  formClass: string
+  forms: {
+    edges: PokemonFormEdge[]
+  }
+
+  introduced: {
+    edges: IntroductionEdge[]
+  }
+
+  enablesItem: {
+    edges: EnablesItemEdge[]
+  }
+
+  requiresItem: {
+    edges: RequiresItemEdge[]
+  }
+}
+
+export const POKEMONSET_TO_MEMBER_QUERY = gql`
+  query PokemonSetToMemberQuery($gen: Int! $psIDs: [String!]!) {
+    pokemonByPSIDs(generation: $gen, psIDs: $psIDs) {
+      id
+      name
+      formattedName
+      speciesName
+      psID
+
+      removedFromSwSh
+      removedFromBDSP
+
+      typeNames
+      baseStats {
+        hp
+        attack
+        defense
+        specialAttack
+        specialDefense
+        speed
+      }
+      
+      formClass
+      forms {
+        id
+        edges {
+          node {
+            id
+            name
+            speciesName
+            formattedName
+            psID
+          }
+          class
+        }
+      }
+
+      introduced {
+        edges {
+          node {
+            number
+          }
+        }
+      }
+
+      enablesItem {
+        id
+        edges {
+          node {
+            id
+            name
+            formattedName
+            psID
+          }
+        }
+      }
+      requiresItem {
+        id
+        edges {
+          node {
+            id
+            name
+            formattedName
+            psID
+          }
+        }
+      }
+    }
+
+    }
+  }
+`;
+
+export class LateIntroductionError extends Error {
+  constructor(msg: string) {
+    super(msg);
+
+    Object.setPrototypeOf(this, LateIntroductionError.prototype)
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, LateIntroductionError);
+    }
+
+    this.name='LateIntroductionError';
+  }
+}
+
+export const setsToMembers: (data: MemberPokemonFromSetQuery, gen: GenerationNum) => MemberPokemon[] = (data, gen) => {
+  let lateMembers: [string, GenerationNum][] = [];
+
+  const gqlMembers: MemberPokemonFromIconQueryResult[] = data.pokemonByPSIDs.map(d => {
+    // Check for late members
+    if (d.introduced.edges[0].node.number > gen) lateMembers = lateMembers.concat([d.formattedName, d.introduced.edges[0].node.number]);
+
+    return {
+      ...d,
+    };
+  });
+
+  // Throw error if a member was introduced later than 'gen'
+  if (lateMembers.length > 0) throw new LateIntroductionError('');
+
+  const pokemonIconData: PokemonIconDatum[] = data.pokemonByPSIDs.map(d => {
+    return {
+      ...d,
+      typing: d.typeNames.map(toTypeName),
+    };
+  });
+
+  let constructorData: {
+    gqlMember: MemberPokemonFromIconQueryResult
+    pokemonIconDatum: PokemonIconDatum
+    gen: GenerationNum
+  }[] = [];
+  for (let i: number = 0; i < Math.min(gqlMembers.length, pokemonIconData.length); i++) {
+    constructorData = constructorData.concat([{
+      gqlMember: gqlMembers[i],
+      pokemonIconDatum: pokemonIconData[i],
+      gen,
+    }]);
+  }
+
+  return constructorData.map(d => new MemberPokemon(d.gqlMember, d.pokemonIconDatum, d.gen));
+}
+
+// #endregion

@@ -5,7 +5,7 @@ import {
 import {
   DescriptionEdge,
   DescriptionsEdge,
-  EnumTypeName,
+  CapsTypeName,
   GenerationNum,
   IntroductionEdge,
   MoveCategory,
@@ -100,7 +100,7 @@ export interface MoveSearchVars extends EntitySearchVars, RemovedFromGameQueryVa
   bypassAccuracy: boolean | null
   category: MoveCategory[]
   target: MoveTargetClass[]
-  types: EnumTypeName[]
+  types: CapsTypeName[]
   variablePower: boolean | null
 }
 

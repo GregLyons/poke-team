@@ -2,7 +2,7 @@ import { EnablesItemEdge, RequiresItemEdge } from "./helpers"
 
 import { gql } from "@apollo/client";
 import { GenerationNum } from "@pkmn/data";
-import { EnumTypeName, toTypeName, TypeName } from "../helpers";
+import { CapsTypeName, toTypeName, TypeName } from "../helpers";
 
 export type MemberItemQuery = {
   items: {

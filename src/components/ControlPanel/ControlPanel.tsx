@@ -10,20 +10,12 @@ import { GenFilter, GenFilterAction } from '../../hooks/App/GenFilter';
 import { Team, TeamAction } from '../../hooks/App/Team';
 import { CartAction } from '../../hooks/App/Cart';
 import { BGManager, BGAction, classWithBGShadow, classWithBG } from '../../hooks/App/BGManager';
+import ImportExport from './ImportExport/ImportExport';
+import { Dispatches, Filters } from '../App';
 
 type ControlPanelProps = {
-  dispatchCart: React.Dispatch<CartAction>
-
-  dispatchGenFilter: React.Dispatch<GenFilterAction>
-  genFilter: GenFilter
-  
-  dispatchTierFilter: React.Dispatch<TierFilterAction>
-  tierFilter: TierFilter
-
-  dispatchPokemonFilter: React.Dispatch<PokemonFilterAction>
-  pokemonFilter: PokemonFilter
-
-  dispatchTeam: React.Dispatch<TeamAction>
+  dispatches: Dispatches
+  filters: Filters
   team: Team
 
   dispatchBGManager: React.Dispatch<BGAction>
@@ -33,18 +25,8 @@ type ControlPanelProps = {
 }
 
 const ControlPanel = ({
-  dispatchCart,
-  
-  dispatchGenFilter,
-  genFilter,
-  
-  dispatchTierFilter,
-  tierFilter,
-  
-  dispatchPokemonFilter,
-  pokemonFilter,
-  
-  dispatchTeam,
+  dispatches,
+  filters,
   team,
 
   dispatchBGManager,
@@ -59,34 +41,37 @@ const ControlPanel = ({
     >
       <div className={classWithBGShadow("gen-filter__cell", bgManager)}>
         <GenFilterForm
-          genFilter={genFilter}
-          dispatchGenFilter={dispatchGenFilter}
+          genFilter={filters.genFilter}
+          dispatchGenFilter={dispatches.dispatchGenFilter}
         />
       </div>
       <div className={classWithBGShadow("tier-filter__cell", bgManager)}>
         <TierFilterForm
-          genFilter={genFilter}
-          tierFilter={tierFilter}
-          dispatchTierFilter={dispatchTierFilter}
+          genFilter={filters.genFilter}
+          tierFilter={filters.tierFilter}
+          dispatchTierFilter={dispatches.dispatchTierFilter}
           bgManager={bgManager}
         />
       </div>
       <div className="team__cell">
         <PokemonTeam
-          dispatchCart={dispatchCart}
-          dispatchTeam={dispatchTeam}
-          genFilter={genFilter}
+          dispatchCart={dispatches.dispatchCart}
+          dispatchTeam={dispatches.dispatchTeam}
+          genFilter={filters.genFilter}
           team={team}
         />
       </div>
       <div className={classWithBGShadow("import-export__cell", bgManager)}>
-        <div className="import-export__wrapper"></div>
+        <ImportExport
+          filters={filters}
+          team={team}
+        />
       </div>
       <>
         <PokemonFilterForm
-          dispatchPokemonFilter={dispatchPokemonFilter}
-          pokemonFilter={pokemonFilter}
-          genFilter={genFilter}
+          dispatchPokemonFilter={dispatches.dispatchPokemonFilter}
+          pokemonFilter={filters.pokemonFilter}
+          genFilter={filters.genFilter}
           bgManager={bgManager}
         />
       </>

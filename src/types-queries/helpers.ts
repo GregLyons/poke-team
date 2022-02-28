@@ -90,7 +90,7 @@ export const ITEM_CLASS_MAP = new Map<ItemClass, string>([
 // Moves
 // #region
 
-export const MOVE_TYPE_MAP = new Map<EnumTypeName, FormattedTypeName>([
+export const MOVE_TYPE_MAP = new Map<CapsTypeName, FormattedTypeName>([
   ['NORMAL', 'Normal'],
   ['FIGHTING', 'Fighting'],
   ['FLYING', 'Flying'],
@@ -546,21 +546,43 @@ export const iconEdgeToIconDatum: (edge: IconEdge) => IconDatum = (edge) => {
 
 export type TypeName = 'normal' | 'fighting' | 'flying' | 'poison' | 'ground' | 'rock' | 'bug' | 'ghost' | 'steel' | 'fire' | 'water' | 'grass' | 'electric' | 'psychic' | 'ice' | 'dragon' | 'dark' | 'fairy';
 
-export type EnumTypeName = 'NORMAL' | 'FIGHTING' | 'FLYING' | 'POISON' | 'GROUND' | 'ROCK' | 'BUG' | 'GHOST' | 'STEEL' | 'FIRE' | 'WATER' | 'GRASS' | 'ELECTRIC' | 'PSYCHIC' | 'ICE' | 'DRAGON' | 'DARK' | 'FAIRY';
+export const TYPENAMES: TypeName[] = [
+  'normal',
+  'fighting',
+  'flying',
+  'poison',
+  'ground',
+  'rock',
+  'bug',
+  'ghost',
+  'steel',
+  'fire',
+  'water',
+  'grass',
+  'electric',
+  'psychic',
+  'ice',
+  'dragon',
+  'dark',
+  'fairy',
+];
+
+// TypeName in capital letters
+export type CapsTypeName = 'NORMAL' | 'FIGHTING' | 'FLYING' | 'POISON' | 'GROUND' | 'ROCK' | 'BUG' | 'GHOST' | 'STEEL' | 'FIRE' | 'WATER' | 'GRASS' | 'ELECTRIC' | 'PSYCHIC' | 'ICE' | 'DRAGON' | 'DARK' | 'FAIRY';
 
 export type FormattedTypeName = 'Normal' | 'Fighting' | 'Flying' | 'Poison' | 'Ground' | 'Rock' | 'Bug' | 'Ghost' | 'Steel' | 'Fire' | 'Water' | 'Grass' | 'Electric' | 'Psychic' | 'Ice' | 'Dragon' | 'Dark' | 'Fairy';
 
 export const typeNameEdgeToTypeName: (edge: TypeNameEdge) => TypeName = edge => edge.node.name;
 
-export const toEnumTypeName: (typeName: TypeName | FormattedTypeName) => EnumTypeName = (typeName) => {
-  return (typeName.toUpperCase() as EnumTypeName);
+export const toEnumTypeName: (typeName: TypeName | FormattedTypeName) => CapsTypeName = (typeName) => {
+  return (typeName.toUpperCase() as CapsTypeName);
 }
 
-export const toFormattedTypeName: (typeName: TypeName | EnumTypeName) => FormattedTypeName = (typeName) => {
+export const toFormattedTypeName: (typeName: TypeName | CapsTypeName) => FormattedTypeName = (typeName) => {
   return (typeName.charAt(0).toUpperCase() + typeName.slice(1).toLowerCase() as FormattedTypeName);
 }
 
-export const toTypeName: (enumTypeName: EnumTypeName | FormattedTypeName) => TypeName = (enumTypeName) => {
+export const toTypeName: (enumTypeName: CapsTypeName | FormattedTypeName) => TypeName = (enumTypeName) => {
   return (enumTypeName.toLowerCase() as TypeName);
 }
 
@@ -720,7 +742,7 @@ export interface PokemonIconNode {
   removedFromSwSh: boolean
   removedFromBDSP: boolean
 
-  typeNames: EnumTypeName[]
+  typeNames: CapsTypeName[]
   baseStats: StatTable
 }
 

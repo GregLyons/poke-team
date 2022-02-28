@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { EnumTypeName, GenerationNum, NameEdge, PokemonColumnName, PokemonIconDatum, PokemonIconNode, pokemonIconNodeToPokemonIconDatum, SortByEnum, StatTable, StatTableWithBST, TypeName } from "../helpers";
+import { CapsTypeName, GenerationNum, NameEdge, PokemonColumnName, PokemonIconDatum, PokemonIconNode, pokemonIconNodeToPokemonIconDatum, SortByEnum, StatTable, StatTableWithBST, TypeName } from "../helpers";
 
 export type PokemonQuickSearchQuery = {
   pokemon: {
@@ -14,7 +14,7 @@ export interface PokemonQuickSearchResult extends PokemonIconNode {
     formattedName: string
     speciesName: string
     psID: string
-    typeNames: EnumTypeName[]
+    typeNames: CapsTypeName[]
     baseStats: StatTableWithBST
 
     removedFromSwSh: boolean
