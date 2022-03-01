@@ -9,6 +9,7 @@
     "@pkmn/img": "^0.1.14",
     "@pkmn/sets": "^2.0.0",
     "@pkmn/smogon": "^0.0.12",
+    "@smogon/calc": "^0.6.0",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",

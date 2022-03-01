@@ -1,33 +1,400 @@
 import { gql } from "@apollo/client";
-import { TypeName, TYPENAMES } from "../helpers";
+import { CausesStatusEdge, ControlFieldStateEdge, EffectClass, EffectClassEdge, FieldStateClass, FieldStateTargetClass, ModifiesStatEdge, MoveCategory, ResistsStatusEdge, StatusControlFieldStateEdge, STATUSES, StatusName, TypeName, TYPENAMES } from "../helpers";
 
-// Type resistances
+export interface CoverageResult {
+  psID: string
+
+  priority?: number
+  category?: MoveCategory
+  
+  effects: {
+    edges: EffectClassEdge[]
+  }
+
+  modifiesStat: {
+    edges: ModifiesStatEdge[]
+  }
+
+  causesStatus: {
+    edges: CausesStatusEdge[]
+  }
+  resistsStatus: {
+    edges: ResistsStatusEdge[]
+  }
+
+  createsFieldState?: {
+    edges: StatusControlFieldStateEdge[]
+  }
+  preventsFieldState?: {
+    edges: ControlFieldStateEdge[]
+  }
+  removesFieldState?: {
+    edges: ControlFieldStateEdge[]
+  }
+  suppressesFieldState?: {
+    edges: ControlFieldStateEdge[]
+  }
+}
+
+// Ability coverage
 // #region
 
-export type DefensiveMatchupEdge = {
+export interface AbilityCoverageQuery {
+  abilitiesByPSID: AbilityCoverageResult[]
+}
+
+export interface AbilityCoverageResult extends CoverageResult {
+  psID: string
+
+  effects: {
+    edges: EffectClassEdge[]
+  }
+
+  modifiesStat: {
+    edges: ModifiesStatEdge[]
+  }
+
+  // Status control
+  causesStatus: {
+    edges: CausesStatusEdge[]
+  }
+  resistsStatus: {
+    edges: ResistsStatusEdge[]
+  }
+  createsFieldState: {
+    edges: StatusControlFieldStateEdge[]
+  }
+
+  // Weather and terrain control
+  preventsFieldState: {
+    edges: ControlFieldStateEdge[]
+  }
+  removesFieldState: {
+    edges: ControlFieldStateEdge[]
+  }
+  suppressesFieldState: {
+    edges: ControlFieldStateEdge[]
+  }
+}
+
+export const ABILITY_COVERAGE_QUERY = gql`
+  query AbilityCoverageQuery($gen: Int!, $psIDs: [String!]!) {
+    abilitiesByPSID(generation: $gen, psIDs: $psIDs) {
+      id
+      psID
+
+      # Effects
+      effects {
+        id
+        edges {
+          node {
+            id
+            name
+          }
+        }
+      }
+
+      # Stat modifications
+      modifiesStat {
+        id
+        edges {
+          node {
+            id
+            name
+          }
+          multiplier
+          stage
+          chance
+          recipient
+        }
+      }
+
+      # Statuses
+      causesStatus {
+        id
+        edges {
+          node {
+            id
+            name
+          }
+          chance
+        }
+      }
+      resistsStatus {
+        id
+        edges {
+          node {
+            id
+            name
+          }
+        }
+      }
+      createsFieldState {
+        id
+        edges {
+          node {
+            name
+            class
+
+            causesStatus {
+              id
+              edges {
+                node {
+                  id
+                  name
+                }
+                chance
+              }
+            }
+            resistsStatus {
+              id
+              edges {
+                node {
+                  id
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
+
+      # Weather and terrain control
+      removesFieldState {
+        id
+        edges {
+          node {
+            id
+            name
+            class
+          }
+        }
+      }
+      preventsFieldState {
+        id
+        edges {
+          node {
+            id
+            name
+            class
+          }
+        }
+      }
+      suppressesFieldState {
+        id
+        edges {
+          node {
+            id
+            name
+            class
+          }
+        }
+      }
+    }
+  }
+`;
+
+// #endregion
+
+// Item coverage
+// #region
+
+export interface ItemCoverageQuery {
+  itemsByPSID: ItemCoverageResult[]
+}
+
+export interface ItemCoverageResult extends CoverageResult {
+  psID: string
+
+  effects: {
+    edges: {
+      node: {
+        name: string
+        class: EffectClass
+      }
+    }[]
+  }
+
+  modifiesStat: {
+    edges: ModifiesStatEdge[]
+  }
+
+  // Statuses
+  causesStatus: {
+    edges: CausesStatusEdge[]
+  }
+  resistsStatus: {
+    edges: ResistsStatusEdge[]
+  }
+}
+
+export const ITEM_COVERAGE_QUERY = gql`
+  query ItemCoverageQuery($gen: Int!, $psIDs: [String!]!) {
+    itemsByPSID(generation: $gen, psIDs: $psIDs) {
+      id
+      psID
+
+      # Effects
+      effects {
+        id
+        edges {
+          node {
+            id
+            name
+          }
+        }
+      }
+
+      # Stat modifications
+      modifiesStat {
+        id
+        edges {
+          node {
+            id
+            name
+          }
+          multiplier
+          stage
+          chance
+          recipient
+        }
+      }
+
+      # Statuses
+      causesStatus {
+        id
+        edges {
+          node {
+            id
+            name
+          }
+          chance
+        }
+      }
+      resistsStatus {
+        id
+        edges {
+          node {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+`;
+
+// #endregion
+
+// Move coverage
+// #region
+
+export interface OffensiveMatchupEdge {
   node: {
     name: TypeName
   }
   multiplier: number
 }
 
-export type TypeMatchupsFromTypingsQuery = {
-  typesByName: TypeMatchupsFromTypingsResult[]
+export interface MoveCoverageQuery {
+  movesByPSID: MoveCoverageResult[]
 }
 
-export type TypeMatchupsFromTypingsResult = {
-  name: TypeName
-  defensiveMatchups: {
-    edges: DefensiveMatchupEdge[]
+export interface MoveCoverageResult extends CoverageResult {
+  psID: string
+
+  category: MoveCategory
+
+  contact: boolean
+  priority: number
+
+  // Type coverage
+  type: {
+    edges: {
+      node: {
+        name: TypeName
+        offensiveMatchups: {
+          edges: OffensiveMatchupEdge[]
+        }
+      }
+    }[]
+  }
+
+  // Effects
+  effects: {
+    edges: {
+      node: {
+        name: string
+        class: EffectClass
+      }
+    }[]
+  }
+
+  modifiesStat: {
+    edges: ModifiesStatEdge[]
+  }
+
+  // Statuses
+  causesStatus: {
+    edges: CausesStatusEdge[]
+  }
+  resistsStatus: {
+    edges: ResistsStatusEdge[]
+  }
+  createsFieldState: {
+    edges: StatusControlFieldStateEdge[]
+  }
+
+  // Weather and terrain control
+  removesFieldState: {
+    edges: ControlFieldStateEdge[]
   }
 }
 
-export const TYPINGS_TYPEMATCHUPS_QUERY = gql`
-  query TypingsTypeMatchupQuery($gen: Int!, $names: [String!]!) {
-    typesByName(generation: $gen, names: $names) {
+export const MOVE_COVERAGE_QUERY = gql`
+  query MoveCoverageQuery($gen: Int!, $psIDs: [String!]!) {
+    movesByPSID(generation: $gen, psIDs: $psIDs) {
       id
-      name
-      defensiveMatchups {
+      psID
+
+      category
+      priority
+
+      # Type coverage
+      type {
+        id
+        edges {
+          node {
+            id
+            name
+            offensiveMatchups {
+              id
+              edges {
+                node {
+                  id
+                  name
+                }
+                multiplier
+              }
+            }
+          }
+        }
+      }
+
+      # Effects
+      effects {
+        id
+        edges {
+          node {
+            id
+            name
+            class
+          }
+        }
+      }
+
+      # Stat modifications
+      modifiesStat {
         id
         edges {
           node {
@@ -35,217 +402,282 @@ export const TYPINGS_TYPEMATCHUPS_QUERY = gql`
             name
           }
           multiplier
+          stage
+          chance
+          recipient
         }
       }
-    }
-  }
-`;
 
-export type TypeMatchupsFromAbilitiesQuery = {
-  typesByName: TypeMatchupsFromAbilitiesResult[]
-}
-
-export type TypeMatchupsFromAbilitiesResult = {
-  psID: string
-  defensiveMatchups: {
-    edges: DefensiveMatchupEdge[]
-  }
-}
-export const ABILITIES_TYPEMATCHUPS_QUERY = gql`
-  query AbilitiesTypeMatchupQuery($gen: Int!, $psIDs: [String!]!) {
-    abilitiesByPSIDs(generation: $gen, psIDs: $psIDs) {
-      resistsType {
-        edges {
-          node {
-            id
-            name
-          }
-          multiplier
-        }
-      }
-    }
-  }
-`;
-
-export type TypeMatchupsFromItemsQuery = {
-  typesByName: TypeMatchupsFromItemsResult[]
-}
-
-export type TypeMatchupsFromItemsResult = {
-  psID: string
-  defensiveMatchups: {
-    edges: DefensiveMatchupEdge[]
-  }
-}
-
-export const ITEMS_TYPEMATCHUPS_QUERY = gql`
-  query ItemsTypeMatchupQuery($gen: Int!, $psIDs: [String!]!) {
-    itemsByPSIDs(generation: $gen, psIDs: $psIDs) {
-      id
-      resistsType {
+      # Statuses
+      causesStatus {
         id
         edges {
           node {
             id
             name
           }
-          multiplier
+          chance
+        }
+      }
+      resistsStatus {
+        id
+        edges {
+          node {
+            id
+            name
+          }
+        }
+      }
+      createsFieldState {
+        id
+        edges {
+          node {
+            name
+            class
+
+            causesStatus {
+              id
+              edges {
+                node {
+                  id
+                  name
+                }
+                chance
+              }
+            }
+            resistsStatus {
+              id
+              edges {
+                node {
+                  id
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
+
+      # Weather and terrain control
+      removesFieldState {
+        id
+        edges {
+          node {
+            id
+            name
+            class
+          }
         }
       }
     }
   }
 `;
 
-type NormalizedMatchupResult = {
-  name: string
-  defensiveMatchups: {
-    edges: DefensiveMatchupEdge[]
-  }
-};
+// #endregion
 
-// Takes a result and changes 'psID' key to 'name'
-const toNormalizedMatchupResult: (result: TypeMatchupsFromAbilitiesResult | TypeMatchupsFromItemsResult) => NormalizedMatchupResult = result => {
-  return {
-    name: result.psID,
-    defensiveMatchups: result.defensiveMatchups,
-  };
-}
+// Speed control
+// #region
 
-type DefensiveTypeMatchup = {
-  [typeName in TypeName]: number
-};
+export const computeSpeedControl: (results: CoverageResult[]) => {
+  total: number
+  psIDs: string[]
+} = results => {
+  let total = 0;
+  let psIDs = [];
 
-type DefensiveTypeMatchupMap = Map<string, DefensiveTypeMatchup>;
-
-const initializeDefensiveTypeMatchupMapEntry: () => DefensiveTypeMatchup = () => {
-  let initialDefensiveTypeMatchup: { [typeName in TypeName]?: number } = {};
-  for (let typeName of TYPENAMES) {
-    initialDefensiveTypeMatchup[typeName] = 1;
-  }
-  return (initialDefensiveTypeMatchup as DefensiveTypeMatchup);
-}
-
-// Returns a map, whose keys are entity names (e.g. ability psIDs, item psIDs, or type names), and whose values are DefensiveTypeMatchups
-const resultsToMatchupMap = (results: NormalizedMatchupResult[]) => {
-  const map: DefensiveTypeMatchupMap = new Map();
   for (let result of results) {
-    // Initialize entry in map for name
-    map.set(result.name, initializeDefensiveTypeMatchupMapEntry());
-    
-    // Iterate over edges and update map
-    result.defensiveMatchups.edges.map(edge => {
-      // Unpack edge
-      const { node, multiplier } = edge;
-      const { name: typeName } = node;
+    let isSpeedControl = false;
+    const { psID } = result;
 
-      const matchup = map.get(result.name);
-      
-      // Typeguard; shouldn't happen
-      if (!matchup) return;
+    // Check effects
+    for (let effectEdge of result.effects.edges) {
+      const { class: effectClass } = effectEdge.node;
+      if (effectClass === 'SPEED') isSpeedControl = true;
+    }
 
-      matchup[typeName] = multiplier;
-    });
+    // Check stat modifications
+    for (let statModEdge of result.modifiesStat.edges) {
+      const { multiplier, stage, chance, recipient } = statModEdge;
+      // Positively affects speed
+      const positiveModification = stage > 0 || multiplier > 1;
+      // Negative affects speed
+      const negativeModification = stage < 0 || multiplier < 1;
+      // Reasonable chance to modify speed
+      const reliable = chance >= 0.5;
+      // Can target user and/or allies
+      const allies = ['ALL_ALLIES', 'USER', 'TARGET', 'ALL'].includes(recipient);
+      // Can target enemies
+      const enemies = ['ALL_FOES', 'TARGET', 'ALL'].includes(recipient);
+
+      const { name } = statModEdge.node;
+
+      // Only interested in speed modifications
+      if (name !== 'speed') continue;
+      /* We consider the result to be speed control if
+          It modifies user's and/or ally's speed positively, or it modifies target and/or foe's speed negatively
+          It does so reliably
+      */
+      if (
+        (
+          (positiveModification && allies) || (negativeModification && enemies)
+        )
+        && reliable
+      ) isSpeedControl = true;
+    }
+
+    // Check whether reliably causes paralysis
+    for (let causesStatusEdge of result.causesStatus.edges) {
+      const { chance } = causesStatusEdge;
+      const { name } = causesStatusEdge.node;
+
+      if (chance >= 0.5 && name === 'paralysis') isSpeedControl = true;
+    }
+
+    // Check if priority and damaging (i.e. physical/special)
+    if (result?.priority !== undefined && result?.category !== undefined && result.priority > 0 && ['PHYSICAL', 'SPECIAL'].includes(result.category)) isSpeedControl = true;
+
+    if (isSpeedControl) {
+      total += 1;
+      psIDs.push(psID);
+    }
   }
 
-  return map;
+  return { total, psIDs, };
 }
 
-export type DefensiveTypeMatchupSummary = {
-  immunities: number
-  quadResistances: number
-  resistances: number
-  weaknesses: number
-  quadWeaknesses: number
-};
+// #endregion
 
-export const computeTypeMatchups: (
-  members: {
-    typing: TypeName[]
-    ability: string
-    item: string
-  }[],
-  results: {
-    fromTypings: TypeMatchupsFromTypingsResult[], 
-    fromAbilities: TypeMatchupsFromAbilitiesResult[], 
-    fromItems: TypeMatchupsFromItemsResult[],
-  },
-) => Map<TypeName, DefensiveTypeMatchupSummary> = (members, results) => {
+// Status control
+// #region
+
+export type StatusControlSummary = {
+  cause: number
+  resist: number
+  psIDs: string[]
+}
+
+export const computeStatusControl: (results: CoverageResult[]) => Map<StatusName, StatusControlSummary> = results => {
   // Initialize Map
-  const result = new Map<TypeName, DefensiveTypeMatchupSummary>();
-  for (let typeName of TYPENAMES) {
-    result.set(typeName, {
-      immunities: 0,
-      quadResistances: 0,
-      resistances: 0,
-      weaknesses: 0,
-      quadWeaknesses: 0,
+  const statusControlMap = new Map<StatusName, StatusControlSummary>();
+  for (let statusName of STATUSES) {
+    statusControlMap.set(statusName, {
+      cause: 0,
+      resist: 0,
+      psIDs: [],
     });
   }
 
-  // Get lookup maps from results
-  const fromTypingsMap = resultsToMatchupMap(results.fromTypings);
-  const fromAbilitiesMap = resultsToMatchupMap(results.fromAbilities.map(toNormalizedMatchupResult));
-  const fromItemsMap = resultsToMatchupMap(results.fromItems.map(toNormalizedMatchupResult));
+  // Iterate over results
+  for (let result of results) {
+    const { psID } = result;
+    // Iterate caused statuses, aside from field states
+    for (let causesStatusEdge of result.causesStatus.edges) {
+      const { chance } = causesStatusEdge;
+      const { name } = causesStatusEdge.node;
 
-  // Iterate over members, updating 'result' when necessary
-  members.map(member => {
-    // Iterate over individual types
-    for (let typeName of TYPENAMES) {
-      // Keeps track of effectiveness of typeName against member after factoring in typing, ability, and item
-      let finalMultiplier = 1;
+      const statusName: StatusName = name as StatusName;
 
-      // Typing
-      for (let memberType of member.typing) {
-        const typeMatchup = fromTypingsMap.get(memberType);
-        finalMultiplier *= typeMatchup
-          ? typeMatchup[typeName]
-          : 1;
-      }
+      // Type guard
+      if (!STATUSES.includes(statusName) || !statusName) continue;
+      // Reliability check
+      if (chance < 0.3) continue;
 
-      // Ability
-      const abilityTypeMatchup = fromAbilitiesMap.get(member.ability);
-      finalMultiplier *= abilityTypeMatchup
-        ? abilityTypeMatchup[typeName]
-        : 1;
-
-      // Item
-      const itemTypeMatchup = fromItemsMap.get(member.item);
-      finalMultiplier *= itemTypeMatchup
-        ? itemTypeMatchup[typeName]
-        : 1;
-
-      // Add data to 'result.get(typeName)'
-      let curr = result.get(typeName);
-      console.log('was', curr);
+      let curr = statusControlMap.get(statusName);
       if (curr !== undefined) {
-        // Immunity
-        if (finalMultiplier === 0) {
-          curr.immunities++;
-        }
-        // Resistance
-        else if (finalMultiplier < 1) {
-          curr.resistances++;
+        curr.cause++;
+        curr.psIDs.push(psID);
+      }
+    }
+    // Iterate resisted statuses, aside from field states
+    for (let resistsStatusEdge of result.resistsStatus.edges) {
+      const { name } = resistsStatusEdge.node;
 
-          // Quad resistance
-          if (finalMultiplier < 0.26) {
-            curr.quadResistances++;
-          }
-        }
-        // Weakness
-        else if (finalMultiplier > 1) {
-          curr.weaknesses++;
+      const statusName: StatusName = name as StatusName;
 
-          // Quad weakness
-          if (finalMultiplier > 3.9) {
-            curr.quadWeaknesses++;
+      // Type guard
+      if (!STATUSES.includes(statusName) || !statusName) continue;
+
+      let curr = statusControlMap.get(statusName);
+      if (curr !== undefined) {
+        curr.resist++;
+        curr.psIDs.push(psID);
+      }
+    }
+
+    // Check whether the ability/move creates a field state, and if so whether that field state causes/resists a status
+    if (result?.createsFieldState === undefined ) continue;
+
+    
+  }
+}
+
+// #endregion
+
+// Type coverage
+// #region
+
+const effectTypeExceptions: string[] = [
+  'special_type_effectiveness',
+  'type_varies',
+  'deals_direct_damage',
+  'ohko',
+  'no_effect',
+  'calls_other_move',
+];
+
+export type TypeCoverageSummary = {
+  noEffect: number
+  notVeryEffective: number
+  neutral: number
+  superEffective: number
+}
+
+export const computeTypeCoverage: (results: MoveCoverageResult[]) => Map<TypeName, TypeCoverageSummary> = results => {
+  // Initialize Map
+  const typeCoverageMap = new Map<TypeName, TypeCoverageSummary>();
+  for (let typeName of TYPENAMES) {
+    typeCoverageMap.set(typeName, {
+      noEffect: 0,
+      notVeryEffective: 0,
+      neutral: 0,
+      superEffective: 0,
+    });
+  }
+
+  // Iterate over moves
+  loop1:
+    for (let result of results) {
+      // Check whether move is in one of the exceptions that we wish to exclude; if so, continue onto next move
+      loop2:
+        for (let moveEffectEdge of result.effects.edges) {
+          if (effectTypeExceptions.includes(moveEffectEdge.node.name)) continue loop1;
+        }
+
+      // Iterate over MoveTypeEdges; should only be one
+      for (let moveTypeEdge of result.type.edges) {
+        for (let matchupEdge of moveTypeEdge.node.offensiveMatchups.edges) {
+          const typeName = matchupEdge.node.name;
+          const { multiplier } = matchupEdge;
+
+          let curr = typeCoverageMap.get(typeName)
+          if (curr !== undefined) {
+            if (multiplier === 0) curr.noEffect++;
+            else if (multiplier < 1) curr.notVeryEffective++;
+            else if (multiplier > 1) curr.superEffective++;
+            else curr.neutral++;
           }
         }
       }
-      console.log('now', curr);
     }
-  });
+  
+    return typeCoverageMap;
+}
 
-  return result;
-};
+// #endregion
+
+// Weather and terrain control
+// #region
+
+
 
 // #endregion

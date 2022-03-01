@@ -4,6 +4,7 @@ import {
 
 import {
   AbilityIconEdge,
+  EffectClass,
   GenerationNum,
   IntroductionEdge,
   MoveIconEdge,
@@ -59,16 +60,7 @@ export interface EffectSearchResult extends AuxEntitySearchResult {
     name: string
     formattedName: string
     description: string
-  
-    moves: {
-      edges: {
-        node: {
-          id: string
-          name: string
-          formattedName: string
-        }
-      }
-    }
+    class: EffectClass
   }
 }
 
@@ -77,13 +69,15 @@ export interface EffectSearchVars extends EntitySearchVars {
   limit: number
   contains: string
   startsWith: string
+
+  effectClass: EffectClass[]
 }
 
 export const EFFECT_SEARCH_QUERY = gql`
-  query EffectSearchQuery($gen: Int! $limit: Int! $contains: String $startsWith: String) {
+  query EffectSearchQuery($gen: Int! $limit: Int! $contains: String $startsWith: String $effectClass: [EffectClass!]) {
     effects(
       generation: $gen
-      filter: { contains: $contains, startsWith: $startsWith }
+      filter: { contains: $contains, startsWith: $startsWith, effectClass: $effectClass }
       pagination: { limit: $limit }
     ) {
       id
@@ -93,17 +87,9 @@ export const EFFECT_SEARCH_QUERY = gql`
           name
           formattedName
 
-          description
+          class
 
-          moves {
-            edges {
-              node {
-                id
-                name
-                formattedName
-              }
-            }
-          }
+          description
         }
       }
     }
@@ -111,8 +97,12 @@ export const EFFECT_SEARCH_QUERY = gql`
 `;
 
 export class EffectInSearch extends AuxEntityInSearch {
+  public effectClass: EffectClass
+
   constructor(gqlEffect: EffectSearchResult) {
     super(gqlEffect);
+
+    this.effectClass = gqlEffect.node.class;
   }
 }
 

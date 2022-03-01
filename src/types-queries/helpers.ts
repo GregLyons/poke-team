@@ -6,6 +6,61 @@ import { compareStrings, sortArray } from '../utils/helpers';
 // Types for filtering
 // #region
 
+// Effects
+// #region
+
+export type EffectClass =
+| 'ABILITY'
+| 'ACCURACY'
+| 'CONTACT'
+| 'COST'
+| 'CRIT'
+| 'GROUND'
+| 'MISC'
+| 'POWER'
+| 'RESTORE'
+| 'STAT'
+| 'SWITCH'
+| 'SIZE'
+| 'SPEED'
+| 'TYPE';
+
+export const EFFECT_CLASS_MAP = new Map<EffectClass, string>([
+  ['ABILITY', 'Ability'],
+  ['ACCURACY', 'Accuracy'],
+  ['CONTACT', 'Contact'],
+  ['COST', 'Cost'],
+  ['CRIT', 'Crit'],
+  ['GROUND', 'Ground'],
+  ['MISC', 'Misc'],
+  ['POWER', 'Power'],
+  ['RESTORE', 'Restore'],
+  ['STAT', 'Stat'],
+  ['SWITCH', 'Switch'],
+  ['SIZE', 'Size'],
+  ['SPEED', 'Speed'],
+  ['TYPE', 'Type'],
+]);
+
+export const EFFECT_TITLE_MAP = new Map<EffectClass, string>([
+  ['ABILITY', 'ability-related effects'],
+  ['ACCURACY', 'effects which pertain to accuracy and evasion'],
+  ['CONTACT', 'effects which pertain to contact-based moves'],
+  ['COST', 'effects which cost HP'],
+  ['CRIT', 'effects which maniuplate crit chance'],
+  ['GROUND', 'effects which pertain to whether the target is grounded'],
+  ['MISC', 'miscellaneous effects'],
+  ['POWER', 'effects which pertain to the damage or power of the move'],
+  ['RESTORE', 'restorative effects'],
+  ['STAT', 'effects related to either battle stats or base stats'],
+  ['SWITCH', 'effects related to switching Pokemon'],
+  ['SIZE', 'effects related to a Pokemon\'s size'],
+  ['SPEED', 'effects related to speed control or pri]ority'],
+  ['TYPE', 'effects which manipulate or are otherwise related to type.'],
+]);
+
+// #endregion
+
 // Field States
 // #region
 
@@ -193,14 +248,91 @@ export interface MovePaginationInput extends PaginationInput {
 
 // #endregion
 
+// Edges
+// #region
+
+export interface EffectClassEdge {
+  node: {
+    name: string
+    class: EffectClass
+  }
+}
+
 export interface ModifiesBaseStatEdge {
   node: {
-    id: string
     name: GQLBaseStatName
   }
   stage: number
   multiplier: number
 }
+
+export type StatusName =
+| 'burn'
+| 'freeze'
+| 'paralysis'
+| 'poison'
+| 'bad_poison'
+| 'sleep'
+| 'confusion'
+| 'taunt'
+| 'trapped'
+
+export const STATUSES: StatusName[] = [
+  'burn', 'freeze', 'paralysis', 'poison', 'bad_poison', 'sleep', 'confusion', 'taunt', 'trapped',
+];
+
+export interface CausesStatusEdge {
+  node: {
+    name: string
+  }
+  chance: number
+}
+
+export interface ResistsStatusEdge {
+  node: {
+    name: string
+  }
+}
+
+export type StatModificationRecipientEnum =
+| 'ALL'
+| 'ALL_ALLIES'
+| 'ALL_FOES'
+| 'TARGET'
+| 'USER';
+
+export interface ModifiesStatEdge {
+  node: {
+    name: GQLBaseStatName
+  }
+  multiplier: number
+  stage: number
+  chance: number
+  recipient: StatModificationRecipientEnum
+}
+
+export interface ControlFieldStateEdge {
+  node: {
+    name: string
+    class: FieldStateClass
+  }
+}
+
+export interface StatusControlFieldStateEdge {
+  node: {
+    name: string
+    target: FieldStateTargetClass
+
+    causesStatus: {
+      edges: CausesStatusEdge[]
+    }
+    resistsStatus: {
+      edges: ResistsStatusEdge[]
+    }
+  }
+}
+
+// #endregion
 
 // Generations
 // #region

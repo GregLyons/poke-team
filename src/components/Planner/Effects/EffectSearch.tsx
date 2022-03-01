@@ -18,6 +18,10 @@ import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '..
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
 import { ItemSearchQuery, ItemSearchVars } from '../../../types-queries/Planner/Item';
 import MainSearch from '../Searches/MainSearch';
+import { EffectClass, EFFECT_CLASS_MAP, EFFECT_TITLE_MAP } from '../../../types-queries/helpers';
+import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
+import { listToggleValue } from '../helpers';
+import Button from '../../Reusables/Button/Button';
 
 const listRender = ({ data, }: ListRenderArgs<EffectSearchQuery>) => {
   if (!data || !data.effects) return (<div>Data not found for the query 'effects'.</div>);
@@ -48,9 +52,39 @@ const listFilter = ({
   setQueryVars,
   searchBar,
 }: ListFilterArgs<EffectSearchVars>) => {
+  const handleClassSelect = listToggleValue<EffectSearchVars, EffectClass>(queryVars, setQueryVars, 'effectClass');
+
   return (
     <form>
       {searchBar}
+      <DropdownMenu
+        title="CLASS"
+        items={Array.from(EFFECT_CLASS_MAP.entries()).map(([key, value]) => {
+          const selected = queryVars.effectClass.includes(key);
+
+          return {
+            id: key,
+            label: (
+              <Button
+                title={selected
+                  ? `Exclude ${EFFECT_TITLE_MAP.get(key)}.`
+                  : `Include ${EFFECT_TITLE_MAP.get(key)}.`
+                }
+                label={value}
+                active={selected}
+                onClick={e => e.preventDefault()}
+                disabled={false}
+                immediate={false}
+              />
+            ),
+            selected,
+          };
+        })}
+        toggleSelect={handleClassSelect}
+        dropdownWidth={'clamp(5vw, 50ch, 80%)'}
+        itemWidth={'15ch'}
+        backgroundLight="blue"
+      />
     </form>
   );
 }
@@ -68,6 +102,7 @@ const EffectSearch = ({
       contains: '',
       startsWith: '',
       limit: 100,
+      effectClass: Array.from(EFFECT_CLASS_MAP.keys()),
     },
     genFilter,
     searchBarProps: {
