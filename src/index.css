@@ -7,10 +7,9 @@ html {
 
 /* Variable declarations */
 :root {
-  --app-width: 85vw;
-  --control-panel-height: 20vh;
+  --app-width: 90vw;
   --nav-bar-height: clamp(1.5rem, 32px, 3vh);
-  --content-padding: 1rem;
+  --content-padding: 0.75rem;
 
   font-family: var(--monospace);
   overflow: hidden;
@@ -70,7 +69,7 @@ html {
 
   /* Shadows */
   --bg-shadow-gap: 1px;
-  --cell-padding: clamp(4px, 0.8rem, 2vw);
+  --cell-padding: clamp(4px, 0.6rem, 2vw);
 
   --button-shadow: inset 0px -5px 1px 0 rgba(0, 0, 0, 0.2);
 

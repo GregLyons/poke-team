@@ -2,8 +2,8 @@ import { MemberItem } from "../../../../../types-queries/Builder/MemberItem";
 import { MemberNature as MemberNature } from "../../../../../types-queries/Builder/MemberNature";
 import { toAbbreviatedBaseStatName, toTypeName } from "../../../../../types-queries/helpers";
 import { ENUMCASE_TO_TITLECASE } from "../../../../../utils/constants";
-import ItemIcon from "../../../Icons/ItemIcon";
-import TypeIcon from "../../../Icons/TypeIcon";
+import ItemIcon from "../../../../Icons/ItemIcon";
+import TypeIcon from "../../../../Icons/TypeIcon";
 import { ItemSelectHandlers, NatureSelectHandlers } from "../../TeamView";
 
 type NatureSelectEntryProps = {

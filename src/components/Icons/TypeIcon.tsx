@@ -1,5 +1,5 @@
-import { toFormattedTypeName, TypeName } from "../../../types-queries/helpers";
-import { getTypeIcon } from "../../../utils/sprites";
+import { toFormattedTypeName, TypeName } from "../../types-queries/helpers";
+import { getTypeIcon } from "../../utils/sprites";
 
 import './Icons.css';
 

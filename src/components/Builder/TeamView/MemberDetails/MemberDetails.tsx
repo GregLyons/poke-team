@@ -4,9 +4,9 @@ import { BaseStatName, DUMMY_POKEMON_ICON_DATUM, ivsToHiddenPower, toAbbreviated
 import { Dispatches, Filters } from "../../../App";
 import Slider from "../../../Reusables/Slider/Slider";
 import TextInput from "../../../Reusables/TextInput/TextInput";
-import ItemIcon from "../../Icons/ItemIcon";
-import PokemonIcon from "../../Icons/PokemonIcon";
-import TypeIcon from "../../Icons/TypeIcon";
+import ItemIcon from "../../../Icons/ItemIcon";
+import PokemonIcon from "../../../Icons/PokemonIcon";
+import TypeIcon from "../../../Icons/TypeIcon";
 import { MemberDetailHandlers, ReferencePanelView } from "../TeamView";
 import StatGraph from "./StatGraph";
 import CosmeticFormDropdown from "./CosmeticFormDropdown";

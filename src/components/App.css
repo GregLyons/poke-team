@@ -150,6 +150,7 @@
   grid-template-columns: 1fr;
 
   position: relative;
+  width: 100%;
 }
 
 .planner-container > .nav-bar__wrapper, 
@@ -164,6 +165,7 @@
   grid-column: 1 / 2;
 
   position: relative;
+  width: 100%;
   box-sizing: border-box;
 
   padding: var(--content-padding);

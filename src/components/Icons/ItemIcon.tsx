@@ -1,5 +1,5 @@
-import { ItemIconDatum } from "../../../types-queries/helpers"
-import { getItemIcon } from "../../../utils/sprites";
+import { ItemIconDatum } from "../../types-queries/helpers"
+import { getItemIcon } from "../../utils/sprites";
 
 import './Icons.css';
 

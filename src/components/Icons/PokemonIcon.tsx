@@ -1,6 +1,6 @@
-import { GenderName } from "../../../types-queries/Builder/MemberPokemon";
-import { PokemonIconDatum } from "../../../types-queries/helpers"
-import { getPokemonIcon } from "../../../utils/sprites";
+import { GenderName } from "../../types-queries/Builder/MemberPokemon";
+import { PokemonIconDatum } from "../../types-queries/helpers"
+import { getPokemonIcon } from "../../utils/sprites";
 
 import './Icons.css';
 
