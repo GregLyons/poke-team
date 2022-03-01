@@ -19,7 +19,7 @@
   height: 100%;
 }
 
-.type-coverage__cell {
+.type-matchup__cell {
   grid-row: 1 / 7;
   grid-column: 4 / 7;
 
@@ -30,7 +30,7 @@
   border: 1px solid white;
 }
 
-.type-matchup__cell {
+.type-coverage__cell {
   grid-row: 1 / 7;
   grid-column: 7 / 10;
 

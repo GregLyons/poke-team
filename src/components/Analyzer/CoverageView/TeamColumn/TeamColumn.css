@@ -41,6 +41,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  transition: 0.5s ease;
 }
 
 .analyzer-member__icon {
@@ -84,4 +86,12 @@
 .analyzer-member__move4 {
   grid-row: 4 / 5;
   grid-column: 3 / 4;
+}
+
+.analyzer-member__relevant {
+  font-weight: 600;
+  text-decoration: underline;
+}
+.analyzer-member__irrelevant {
+  color: var(--dark1);
 }

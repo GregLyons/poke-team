@@ -1,0 +1,59 @@
+.type-matchup__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  width: auto;
+  height: 100%;
+
+  padding: 0.5rem;
+}
+
+.type-matchup__entry {
+  display: grid;
+  grid-template-columns: 40px repeat(6, 3ch);
+  gap: 2ch;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  width: auto;
+
+  text-align: center;
+}
+
+.type-matchup__entry-icon,
+.type-matchup__entry-0,
+.type-matchup__entry-1-4,
+.type-matchup__entry-1-2,
+.type-matchup__entry-1,
+.type-matchup__entry-2,
+.type-matchup__entry-4 {
+  grid-row: 1 / 2;
+  grid-column: span 1;
+  align-self: center;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Background colors */
+
+.type-matchup__entry:nth-of-type(2n) {
+  background-color: rgba(var(--dark1-components), 0.5);
+}
+.type-matchup__entry:nth-of-type(2n + 1) {
+  background-color: rgba(var(--dark2-components), 0.5);
+}
+.type-matchup__entry > div:nth-of-type(2n):not(.type-matchup__entry-icon) {
+  background-color: rgba(var(--dark1-components), 0.2);
+}
+.type-matchup__entry > div:nth-of-type(2n + 1):not(.type-matchup__entry-icon) {
+  background-color: rgba(var(--dark1-components), 0.5);
+}
+.type-matchup__entry:not(:first-of-type) > div:not(.type-matchup__entry-icon):hover {
+  background: rgba(var(--blue1-components), 0.5);
+}

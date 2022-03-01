@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Team } from "../../../hooks/App/Team";
 import { useDelayedQuery } from "../../../hooks/Searches";
 import { AbilityCoverageQuery, ABILITY_COVERAGE_QUERY, CoverageSearchVars, ItemCoverageQuery, ITEM_COVERAGE_QUERY, MoveCoverageQuery, MOVE_COVERAGE_QUERY } from "../../../types-queries/Analyzer/Coverage";
@@ -11,9 +11,10 @@ import SpeedControl from "./SpeedControl";
 import StatusControl from "./StatusControl";
 import TeamColumn from "./TeamColumn/TeamColumn";
 import TypeCoverage from "./TypeCoverage";
-import TypeMatchup from "./TypeMatchup";
+import TypeMatchup from "./TypeMatchup/TypeMatchup";
 
 import './CoverageView.css';
+import { useQuery } from "@apollo/client";
 
 type CoverageViewProps = {
   filters: Filters
@@ -37,6 +38,8 @@ const CoverageView = ({
   filters,
   team,
 }: CoverageViewProps) => {
+  const [relevantNames, setRelevantNames] = useState<string[] | null>(null);
+
   const namesForQueries: NamesForQueries = useMemo(() => {
     let names: NamesForQueries = {
       matchups: {
@@ -80,66 +83,84 @@ const CoverageView = ({
   // Matchup queries
   // #region
 
-  const { data: data_matchupType, loading: loading_matchupType, error: error_matchupType } = useDelayedQuery<TypingMatchupQuery, MatchupSearchVarsType>({
-    query: TYPING_MATCHUP_QUERY, 
-    queryVars: {
-      gen: filters.genFilter.gen,
-      names: namesForQueries.matchups.typeNames,
-    },
-    delay: 50,
-  });
+  const { data: data_matchupType, loading: loading_matchupType, error: error_matchupType } = useQuery<TypingMatchupQuery, MatchupSearchVarsType>(
+    TYPING_MATCHUP_QUERY, 
+    {
+      variables: {
+        gen: filters.genFilter.gen,
+        names: namesForQueries.matchups.typeNames,
+      }
+    }
+  );
 
-  const { data: data_matchupAbility, loading: loading_matchupAbility, error: error_matchupAbility } = useDelayedQuery<AbilityMatchupQuery, MatchupSearchVars>({
-    query: ABILITY_MATCHUP_QUERY, 
-    queryVars: {
-      gen: filters.genFilter.gen,
-      psIDs: namesForQueries.matchups.abilityPSIDs,
-    },
-    delay: 50,
-  });
+  const { data: data_matchupAbility, loading: loading_matchupAbility, error: error_matchupAbility } = useQuery<AbilityMatchupQuery, MatchupSearchVars>(
+    ABILITY_MATCHUP_QUERY, 
+    {
+      variables: {
+        gen: filters.genFilter.gen,
+        psIDs: namesForQueries.matchups.abilityPSIDs,
+        }
+      }
+    );
 
-  const { data: data_matchupItem, loading: loading_matchupItem, error: error_matchupItem } = useDelayedQuery<ItemMatchupQuery, MatchupSearchVars>({
-    query: ITEM_MATCHUP_QUERY, 
-    queryVars: {
-      gen: filters.genFilter.gen,
-      psIDs: namesForQueries.matchups.itemPSIDs,
-    },
-    delay: 50,
-  });
+  const { data: data_matchupItem, loading: loading_matchupItem, error: error_matchupItem } = useQuery<ItemMatchupQuery, MatchupSearchVars>(
+    ITEM_MATCHUP_QUERY, 
+    {
+      variables: {
+        gen: filters.genFilter.gen,
+        psIDs: namesForQueries.matchups.itemPSIDs,
+      }
+    }
+  );
 
   // #endregion
 
   // Coverage queries
   // #region
 
-  const { data: data_coverageAbility, loading: loading_coverageAbility, error: error_coverageAbility } = useDelayedQuery<AbilityCoverageQuery, CoverageSearchVars>({
-    query: ABILITY_COVERAGE_QUERY, 
-    queryVars: {
-      gen: filters.genFilter.gen,
-      psIDs: namesForQueries.coverage.abilityPSIDs,
-    },
-    delay: 50,
-  });
+  const { data: data_coverageAbility, loading: loading_coverageAbility, error: error_coverageAbility } = useQuery<AbilityCoverageQuery, CoverageSearchVars>(
+    ABILITY_COVERAGE_QUERY, 
+    {
+      variables: {
+        gen: filters.genFilter.gen,
+        psIDs: namesForQueries.coverage.abilityPSIDs,
+      }
+    }
+  );
 
-  const { data: data_coverageItem, loading: loading_coverageItem, error: error_coverageItem } = useDelayedQuery<ItemCoverageQuery, CoverageSearchVars>({
-    query: ITEM_COVERAGE_QUERY, 
-    queryVars: {
-      gen: filters.genFilter.gen,
-      psIDs: namesForQueries.coverage.itemPSIDs,
-    },
-    delay: 50,
-  });
+  const { data: data_coverageItem, loading: loading_coverageItem, error: error_coverageItem } = useQuery<ItemCoverageQuery, CoverageSearchVars>(
+    ITEM_COVERAGE_QUERY, 
+    {
+      variables: {
+        gen: filters.genFilter.gen,
+        psIDs: namesForQueries.coverage.itemPSIDs,
+      }
+    }
+  );
 
-  const { data: data_coverageMove, loading: loading_coverageMove, error: error_coverageMove } = useDelayedQuery<MoveCoverageQuery, CoverageSearchVars>({
-    query: MOVE_COVERAGE_QUERY, 
-    queryVars: {
-      gen: filters.genFilter.gen,
-      psIDs: namesForQueries.coverage.movePSIDs,
-    },
-    delay: 50,
-  });
+  const { data: data_coverageMove, loading: loading_coverageMove, error: error_coverageMove } = useQuery<MoveCoverageQuery, CoverageSearchVars>(
+    MOVE_COVERAGE_QUERY, 
+    {
+      variables: {
+        gen: filters.genFilter.gen,
+        psIDs: namesForQueries.coverage.movePSIDs,
+      }
+    }
+  );
 
   // #endregion
+
+  const onMouseOver = (psIDs: string[]) => {
+    return (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      e.preventDefault();
+      setRelevantNames(psIDs);
+    }
+  }
+
+  const onMouseLeave = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.preventDefault();
+    setRelevantNames(null);
+  }
 
   return (
     <div
@@ -149,18 +170,8 @@ const CoverageView = ({
         <TeamColumn
           filters={filters}
           team={team}
+          relevantNames={relevantNames}
         />
-      </div>
-      <div className="type-coverage__cell">
-        {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
-          ? <div>Loading...</div>
-          : data_coverageAbility && data_coverageItem && data_coverageMove
-            ? <TypeCoverage
-                filters={filters}
-                moveData={data_coverageMove} 
-              />
-            : <div>Type coverage data not found.</div>
-        }
       </div>
       <div className="type-matchup__cell">
         {loading_matchupAbility || loading_matchupItem || loading_matchupType 
@@ -171,9 +182,22 @@ const CoverageView = ({
                 team={team}
                 abilityData={data_matchupAbility} 
                 itemData={data_matchupItem} 
-                typingData={data_matchupType} 
+                typingData={data_matchupType}
+                onMouseOver={onMouseOver}
+                onMouseLeave={onMouseLeave}
               />
             : <div>Type matchup data not found.</div>
+        }
+      </div>
+      <div className="type-coverage__cell">
+        {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
+          ? <div>Loading...</div>
+          : data_coverageMove
+            ? <TypeCoverage
+                filters={filters}
+                moveData={data_coverageMove} 
+              />
+            : <div>Type coverage data not found.</div>
         }
       </div>
       <div className="field-control__cell">

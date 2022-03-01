@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { DocumentNode } from "graphql";
 import { CapsTypeName, GenerationNum, TypeName, TYPENAMES } from "../helpers";
 import { CoverageDatum, incrementCoverageDatum, INITIAL_COVERAGEDATUM } from "./helpers";
 
@@ -61,8 +62,8 @@ export const TYPING_MATCHUP_QUERY = gql`
   }
 `;
 
-export type AbilityMatchupQuery = {
-  abilitiesByPSIDs: AbilityMatchupResult[]
+export interface AbilityMatchupQuery {
+  abilitiesByPSID: AbilityMatchupResult[]
 }
 
 export interface AbilityMatchupResult extends MatchupResult {
@@ -73,7 +74,9 @@ export interface AbilityMatchupResult extends MatchupResult {
 }
 export const ABILITY_MATCHUP_QUERY = gql`
   query AbilitiesTypeMatchupQuery($gen: Int!, $psIDs: [String!]!) {
-    abilitiesByPSIDs(generation: $gen, psIDs: $psIDs) {
+    abilitiesByPSID(generation: $gen, psIDs: $psIDs) {
+      id
+      psID
       resistsType {
         edges {
           node {
@@ -88,7 +91,7 @@ export const ABILITY_MATCHUP_QUERY = gql`
 `;
 
 export type ItemMatchupQuery = {
-  itemsByPSIDs: ItemMatchupResult[]
+  itemsByPSID: ItemMatchupResult[]
 }
 
 export interface ItemMatchupResult extends MatchupResult {
@@ -100,8 +103,9 @@ export interface ItemMatchupResult extends MatchupResult {
 
 export const ITEM_MATCHUP_QUERY = gql`
   query ItemsTypeMatchupQuery($gen: Int!, $psIDs: [String!]!) {
-    itemsByPSIDs(generation: $gen, psIDs: $psIDs) {
+    itemsByPSID(generation: $gen, psIDs: $psIDs) {
       id
+      psID
       resistsType {
         id
         edges {
@@ -244,7 +248,7 @@ export const computeTypeMatchups: (
           ? abilityTypeMatchup[typeName]
           : 1;
         // If ability affects calculation, add its psID
-        if (abilityTypeMatchup !== undefined) psIDs.push(member.ability);
+        if (abilityTypeMatchup && abilityTypeMatchup[typeName] !== 1) psIDs.push(member.ability);
       }
 
       // Item
@@ -254,7 +258,7 @@ export const computeTypeMatchups: (
           ? itemTypeMatchup[typeName]
           : 1;
         // If item affects calculation, add its psID
-        if (itemTypeMatchup !== undefined) psIDs.push(member.item);
+        if (itemTypeMatchup && itemTypeMatchup[typeName] !== 1) psIDs.push(member.item);
       }
 
       // Add data to 'result.get(typeName)'
@@ -264,21 +268,17 @@ export const computeTypeMatchups: (
         if (finalMultiplier === 0) curr.immunities = incrementCoverageDatum(curr.immunities, '', psIDs)
         // Resistance
         else if (finalMultiplier < 1) {
-          curr.resistances = incrementCoverageDatum(curr.resistances, '', psIDs);
-
           // Quad resistance
-          if (finalMultiplier < 0.26) {
-            curr.quadResistances = incrementCoverageDatum(curr.quadResistances, '', psIDs);
-          }
+          if (finalMultiplier < 0.26) curr.quadResistances = incrementCoverageDatum(curr.quadResistances, '', psIDs);
+          // Normal resistance
+          else curr.resistances = incrementCoverageDatum(curr.resistances, '', psIDs);
         }
         // Weakness
         else if (finalMultiplier > 1) {
-          curr.weaknesses = incrementCoverageDatum(curr.weaknesses, '', psIDs);
-
           // Quad weakness
-          if (finalMultiplier > 3.9) {
-            curr.quadWeaknesses = incrementCoverageDatum(curr.quadWeaknesses, '', psIDs);
-          }
+          if (finalMultiplier > 3.9) curr.quadWeaknesses = incrementCoverageDatum(curr.quadWeaknesses, '', psIDs);
+          // Normal weakness
+          else curr.weaknesses = incrementCoverageDatum(curr.weaknesses, '', psIDs);
         }
         // Neutral
         else {

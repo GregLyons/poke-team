@@ -8,11 +8,13 @@ import './TeamColumn.css';
 type TeamColumnProps = {
   filters: Filters
   team: Team
+  relevantNames: string[] | null
 };
 
 const TeamColumn = ({
   filters,
   team,
+  relevantNames,
 }: TeamColumnProps) => {
   const members = useMemo(() => {
     return team[filters.genFilter.gen].members;
@@ -22,7 +24,11 @@ const TeamColumn = ({
     <div
       className="team-column__wrapper"
     >
-      {members.map((member, idx) => <AnalyzerMember key={`analyzer_member_${idx}`} member={member} />
+      {members.map((member, idx) => <AnalyzerMember
+          key={`analyzer_member_${idx}`}
+          member={member}
+          relevantNames={relevantNames}
+        />
       )}
     </div>
   );
