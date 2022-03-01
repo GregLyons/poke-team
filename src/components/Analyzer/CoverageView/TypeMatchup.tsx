@@ -35,9 +35,10 @@ const TypeMatchup = ({
         fromTypings: typingData.typesByName,
         fromAbilities: abilityData.abilitiesByPSIDs,
         fromItems: itemData.itemsByPSIDs,
-      }
+      },
+      filters.genFilter.gen,
     );
-  }, [abilityData, itemData, typingData, team]);
+  }, [abilityData, itemData, typingData, team, filters, ]);
 
 
   return (

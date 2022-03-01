@@ -277,8 +277,16 @@ export type StatusName =
 | 'taunt'
 | 'trapped'
 
-export const STATUSES: StatusName[] = [
-  'burn', 'freeze', 'paralysis', 'poison', 'bad_poison', 'sleep', 'confusion', 'taunt', 'trapped',
+export const STATUSES: [StatusName, GenerationNum][] = [
+  ['burn', 1],
+  ['freeze', 1],
+  ['paralysis', 1],
+  ['poison', 1],
+  ['bad_poison', 1],
+  ['sleep', 1],
+  ['confusion', 1],
+  ['taunt', 3],
+  ['trapped', 2],
 ];
 
 export interface CausesStatusEdge {
@@ -678,25 +686,25 @@ export const iconEdgeToIconDatum: (edge: IconEdge) => IconDatum = (edge) => {
 
 export type TypeName = 'normal' | 'fighting' | 'flying' | 'poison' | 'ground' | 'rock' | 'bug' | 'ghost' | 'steel' | 'fire' | 'water' | 'grass' | 'electric' | 'psychic' | 'ice' | 'dragon' | 'dark' | 'fairy';
 
-export const TYPENAMES: TypeName[] = [
-  'normal',
-  'fighting',
-  'flying',
-  'poison',
-  'ground',
-  'rock',
-  'bug',
-  'ghost',
-  'steel',
-  'fire',
-  'water',
-  'grass',
-  'electric',
-  'psychic',
-  'ice',
-  'dragon',
-  'dark',
-  'fairy',
+export const TYPENAMES: [TypeName, GenerationNum][] = [
+  ['normal', 1],
+  ['fighting', 1],
+  ['flying', 1],
+  ['poison', 1],
+  ['ground', 1],
+  ['rock', 1],
+  ['bug', 1],
+  ['ghost', 1],
+  ['steel', 2],
+  ['fire', 1],
+  ['water', 1],
+  ['grass', 1],
+  ['electric', 1],
+  ['psychic', 1],
+  ['ice', 1],
+  ['dragon', 1],
+  ['dark', 2],
+  ['fairy', 6],
 ];
 
 // TypeName in capital letters

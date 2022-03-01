@@ -604,14 +604,17 @@ export type StatusControlSummary = {
   cause: CoverageDatum
   resistance: CoverageDatum
 }
-export const computeStatusControl: (results: CoverageResult[]) => Map<StatusName, StatusControlSummary> = results => {
+export const computeStatusControl: (results: CoverageResult[], gen: GenerationNum) => Map<StatusName, StatusControlSummary> = (results, gen) => {
   // Initialize Map
   const statusControlMap = new Map<StatusName, StatusControlSummary>();
-  for (let statusName of STATUSES) {
-    statusControlMap.set(statusName, {
-      cause: INITIAL_COVERAGEDATUM,
-      resistance: INITIAL_COVERAGEDATUM, 
-    });
+  for (let [statusName, statusGen] of STATUSES) {
+    // Only track statuses in given gen
+    if (statusGen <= gen) {
+      statusControlMap.set(statusName, {
+        cause: INITIAL_COVERAGEDATUM,
+        resistance: INITIAL_COVERAGEDATUM, 
+      });
+    }
   }
 
   // Iterate over results
@@ -625,7 +628,7 @@ export const computeStatusControl: (results: CoverageResult[]) => Map<StatusName
       const statusName: StatusName = name as StatusName;
 
       // Type guard
-      if (!STATUSES.includes(statusName) || !statusName) continue;
+      if (!STATUSES.map(d => d[0]).includes(statusName) || !statusName) continue;
       // Reliability check
       if (chance < 0.3) continue;
 
@@ -639,7 +642,7 @@ export const computeStatusControl: (results: CoverageResult[]) => Map<StatusName
       const statusName: StatusName = name as StatusName;
 
       // Type guard
-      if (!STATUSES.includes(statusName) || !statusName) continue;
+      if (!STATUSES.map(d => d[0]).includes(statusName) || !statusName) continue;
 
       let curr = statusControlMap.get(statusName);
       if (curr !== undefined) curr.resistance = incrementCoverageDatum(curr.resistance, psID);
@@ -655,7 +658,7 @@ export const computeStatusControl: (results: CoverageResult[]) => Map<StatusName
         const statusName: StatusName = name as StatusName;
   
         // Type guard
-        if (!STATUSES.includes(statusName) || !statusName) continue;
+        if (!STATUSES.map(d => d[0]).includes(statusName) || !statusName) continue;
         // Reliability check
         if (chance < 0.3) continue;
   
@@ -668,7 +671,7 @@ export const computeStatusControl: (results: CoverageResult[]) => Map<StatusName
         const statusName: StatusName = name as StatusName;
   
         // Type guard
-        if (!STATUSES.includes(statusName) || !statusName) continue;
+        if (!STATUSES.map(d => d[0]).includes(statusName) || !statusName) continue;
   
         let curr = statusControlMap.get(statusName);
         if (curr !== undefined) curr.resistance = incrementCoverageDatum(curr.resistance, psID);
@@ -700,16 +703,19 @@ export type TypeCoverageSummary = {
   superEffective: CoverageDatum
 }
 
-export const computeTypeCoverage: (results: MoveCoverageResult[]) => Map<TypeName, TypeCoverageSummary> = results => {
+export const computeTypeCoverage: (results: MoveCoverageResult[], gen: GenerationNum) => Map<TypeName, TypeCoverageSummary> = (results, gen) => {
   // Initialize Map
   const typeCoverageMap = new Map<TypeName, TypeCoverageSummary>();
-  for (let typeName of TYPENAMES) {
-    typeCoverageMap.set(typeName, {
-      noEffect: INITIAL_COVERAGEDATUM,
-      notVeryEffective: INITIAL_COVERAGEDATUM,
-      neutral: INITIAL_COVERAGEDATUM,
-      superEffective: INITIAL_COVERAGEDATUM,
-    });
+  for (let [typeName, typeGen] of TYPENAMES) {
+    // Only track types in given gen
+    if (typeGen <= gen) {
+      typeCoverageMap.set(typeName, {
+        noEffect: INITIAL_COVERAGEDATUM,
+        notVeryEffective: INITIAL_COVERAGEDATUM,
+        neutral: INITIAL_COVERAGEDATUM,
+        superEffective: INITIAL_COVERAGEDATUM,
+      });
+    }
   }
 
   // Iterate over moves
@@ -748,12 +754,19 @@ export const computeTypeCoverage: (results: MoveCoverageResult[]) => Map<TypeNam
 // Weather, terrain, and entry hazard control
 // #region
 
-export const computeFieldStateControl: (results: CoverageResult[]) => Map<FieldStateClass, CoverageDatum> = results => {
+export const computeFieldControl: (results: CoverageResult[], gen: GenerationNum) => Map<FieldStateClass, CoverageDatum> = (results, gen) => {
   // Initialize Map
-  const RELEVANT_CLASSES: FieldStateClass[] = ['WEATHER', 'ENTRY_HAZARD', 'TERRAIN'];
+  const RELEVANT_CLASSES: [FieldStateClass, GenerationNum][] = [
+    ['WEATHER', 2],
+    ['ENTRY_HAZARD', 2],
+    ['TERRAIN', 6],
+  ];
   const fieldStateControlMap = new Map<FieldStateClass, CoverageDatum>();
-  for (let className of RELEVANT_CLASSES) {
-    fieldStateControlMap.set(className, INITIAL_COVERAGEDATUM);
+  for (let [className, classGen] of RELEVANT_CLASSES) {
+    // Only track classes in given gen
+    if (classGen <= gen) {
+      fieldStateControlMap.set(className, INITIAL_COVERAGEDATUM);
+    }
   }
 
   // Iterate over results

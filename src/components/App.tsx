@@ -47,6 +47,8 @@ import { BGAction, bgReducer, classWithBG, classWithBGShadow, DEFAULT_BACKGROUND
 import CartView from './Builder/CartView/CartView';
 import TeamView from './Builder/TeamView/TeamView';
 import QuickSearch from './Builder/QuickSearch/QuickSearch';
+import AnalyzerHome from './Analyzer/AnalyzerHome';
+import CoverageView from './Analyzer/CoverageView/CoverageView';
 
 export type Dispatches = {
   dispatchCart: React.Dispatch<CartAction>
@@ -123,7 +125,23 @@ function App() {
             navBarRef={navBarRef}
             bgManager={bgManager}
             dispatchBGManager={dispatchBGManager}
-          />} />
+          />}>
+            <Route
+              index
+              element={<AnalyzerHome
+                dispatches={dispatches}
+                filters={filters}
+                bgManager={bgManager}
+              />}
+            />
+            <Route
+              path='coverage'
+              element={<CoverageView
+                team={team}
+                filters={filters}
+              />}
+            />
+          </Route>
 
           {/* Routing for Builder */}
           <Route path="/builder" element={<Builder

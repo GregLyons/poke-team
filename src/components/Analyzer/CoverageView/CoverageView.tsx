@@ -6,6 +6,14 @@ import { ABILITY_MATCHUP_QUERY, ITEM_MATCHUP_QUERY, MatchupSearchVars, MatchupSe
 import { MemberPokemon } from "../../../types-queries/Builder/MemberPokemon";
 import { CapsTypeName, toCapsTypeName } from "../../../types-queries/helpers";
 import { Filters } from "../../App";
+import FieldControl from "./FieldControl";
+import SpeedControl from "./SpeedControl";
+import StatusControl from "./StatusControl";
+import TeamColumn from "./TeamColumn/TeamColumn";
+import TypeCoverage from "./TypeCoverage";
+import TypeMatchup from "./TypeMatchup";
+
+import './CoverageView.css';
 
 type CoverageViewProps = {
   filters: Filters
@@ -134,7 +142,82 @@ const CoverageView = ({
   // #endregion
 
   return (
-    <div>yo</div>
+    <div
+      className="coverage-view__wrapper"
+    >
+      <div className="team-column__cell">
+        <TeamColumn
+          filters={filters}
+          team={team}
+        />
+      </div>
+      <div className="type-coverage__cell">
+        {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
+          ? <div>Loading...</div>
+          : data_coverageAbility && data_coverageItem && data_coverageMove
+            ? <TypeCoverage
+                filters={filters}
+                moveData={data_coverageMove} 
+              />
+            : <div>Type coverage data not found.</div>
+        }
+      </div>
+      <div className="type-matchup__cell">
+        {loading_matchupAbility || loading_matchupItem || loading_matchupType 
+          ? <div>Loading...</div>
+          : data_matchupAbility && data_matchupItem && data_matchupType
+            ? <TypeMatchup
+                filters={filters}
+                team={team}
+                abilityData={data_matchupAbility} 
+                itemData={data_matchupItem} 
+                typingData={data_matchupType} 
+              />
+            : <div>Type matchup data not found.</div>
+        }
+      </div>
+      <div className="field-control__cell">
+        {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
+          ? <div>Loading...</div>
+          : data_coverageAbility && data_coverageItem && data_coverageMove
+            ? <FieldControl
+                filters={filters}
+                abilityData={data_coverageAbility} 
+                itemData={data_coverageItem} 
+                moveData={data_coverageMove} 
+              />
+            : <div>Field control data not found.</div>
+        }
+      </div>
+      <div className="speed-control__cell">
+        {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
+          ? <div>Loading...</div>
+          : data_coverageAbility && data_coverageItem && data_coverageMove
+            ? <SpeedControl
+                filters={filters}
+                abilityData={data_coverageAbility} 
+                itemData={data_coverageItem} 
+                moveData={data_coverageMove} 
+              />
+            : <div>Speed control data not found.</div>
+        }
+
+      </div>
+      <div className="status-control__cell">
+        {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
+          ? <div>Loading...</div>
+          : data_coverageAbility && data_coverageItem && data_coverageMove
+            ? <StatusControl
+                filters={filters}
+                abilityData={data_coverageAbility} 
+                itemData={data_coverageItem} 
+                moveData={data_coverageMove} 
+              />
+            : <div>Status control data not found.</div>
+        }
+
+      </div>
+    </div>
   );
 };
 

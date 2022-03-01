@@ -146,7 +146,7 @@ type DefensiveTypeMatchupMap = Map<string, DefensiveTypeMatchup>;
 
 const initializeDefensiveTypeMatchupMapEntry: () => DefensiveTypeMatchup = () => {
   let initialDefensiveTypeMatchup: { [typeName in TypeName]?: number } = {};
-  for (let typeName of TYPENAMES) {
+  for (let typeName of TYPENAMES.map(d => d[0])) {
     initialDefensiveTypeMatchup[typeName] = 1;
   }
   return (initialDefensiveTypeMatchup as DefensiveTypeMatchup);
@@ -198,18 +198,22 @@ export const computeTypeMatchups: (
     fromAbilities: AbilityMatchupResult[], 
     fromItems: ItemMatchupResult[],
   },
-) => Map<TypeName, DefensiveTypeMatchupSummary> = (members, results) => {
+  gen: GenerationNum,
+) => Map<TypeName, DefensiveTypeMatchupSummary> = (members, results, gen) => {
   // Initialize Map
   const typeMatchupMap = new Map<TypeName, DefensiveTypeMatchupSummary>();
-  for (let typeName of TYPENAMES) {
-    typeMatchupMap.set(typeName, {
-      immunities: INITIAL_COVERAGEDATUM,
-      quadResistances: INITIAL_COVERAGEDATUM,
-      resistances: INITIAL_COVERAGEDATUM,
-      neutral: INITIAL_COVERAGEDATUM,
-      weaknesses: INITIAL_COVERAGEDATUM,
-      quadWeaknesses: INITIAL_COVERAGEDATUM,
-    });
+  for (let [typeName, typeGen] of TYPENAMES) {
+    // Only consider types in the given gen
+    if (typeGen <= gen) {
+      typeMatchupMap.set(typeName, {
+        immunities: INITIAL_COVERAGEDATUM,
+        quadResistances: INITIAL_COVERAGEDATUM,
+        resistances: INITIAL_COVERAGEDATUM,
+        neutral: INITIAL_COVERAGEDATUM,
+        weaknesses: INITIAL_COVERAGEDATUM,
+        quadWeaknesses: INITIAL_COVERAGEDATUM,
+      });
+    }
   }
 
   // Get lookup maps from results
@@ -220,7 +224,7 @@ export const computeTypeMatchups: (
   // Iterate over members, updating 'result' when necessary
   members.map(member => {
     // Iterate over individual types
-    for (let typeName of TYPENAMES) {
+    for (let typeName of TYPENAMES.map(d => d[0])) {
       // Keeps track of effectiveness of typeName against member after factoring in typing, ability, and item
       let finalMultiplier = 1;
       let psIDs: string[] = [member.psID];

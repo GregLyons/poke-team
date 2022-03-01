@@ -610,8 +610,6 @@ export const POKEMONSET_TO_MEMBER_QUERY = gql`
         }
       }
     }
-
-    }
   }
 `;
 
