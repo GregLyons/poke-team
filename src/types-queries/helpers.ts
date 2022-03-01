@@ -706,7 +706,7 @@ export type FormattedTypeName = 'Normal' | 'Fighting' | 'Flying' | 'Poison' | 'G
 
 export const typeNameEdgeToTypeName: (edge: TypeNameEdge) => TypeName = edge => edge.node.name;
 
-export const toEnumTypeName: (typeName: TypeName | FormattedTypeName) => CapsTypeName = (typeName) => {
+export const toCapsTypeName: (typeName: TypeName | FormattedTypeName) => CapsTypeName = (typeName) => {
   return (typeName.toUpperCase() as CapsTypeName);
 }
 

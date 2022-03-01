@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { TypeName, TYPENAMES } from "../helpers";
+import { CapsTypeName, GenerationNum, TypeName, TYPENAMES } from "../helpers";
 import { CoverageDatum, incrementCoverageDatum, INITIAL_COVERAGEDATUM } from "./helpers";
 
 export type DefensiveMatchupEdge = {
@@ -9,18 +9,40 @@ export type DefensiveMatchupEdge = {
   multiplier: number
 }
 
-export type TypeMatchupsFromTypingsQuery = {
-  typesByName: TypeMatchupsFromTypingsResult[]
+export interface MatchupSearchVars {
+  gen: GenerationNum
+  psIDs: string[]
+}
+export interface MatchupSearchVarsType {
+  gen: GenerationNum
+  names: CapsTypeName[]
 }
 
-export type TypeMatchupsFromTypingsResult = {
+export interface MatchupResult {
+  psID?: string
+  name?: string
+
+  defensiveMatchups?: {
+    edges: DefensiveMatchupEdge[]
+  }
+
+  resistsType?: {
+    edges: DefensiveMatchupEdge[]
+  }
+}
+
+export type TypingMatchupQuery = {
+  typesByName: TypingMatchupResult[]
+}
+
+export interface TypingMatchupResult extends MatchupResult {
   name: TypeName
   defensiveMatchups: {
     edges: DefensiveMatchupEdge[]
   }
 }
 
-export const TYPINGS_TYPEMATCHUPS_QUERY = gql`
+export const TYPING_MATCHUP_QUERY = gql`
   query TypingsTypeMatchupQuery($gen: Int!, $names: [String!]!) {
     typesByName(generation: $gen, names: $names) {
       id
@@ -39,17 +61,17 @@ export const TYPINGS_TYPEMATCHUPS_QUERY = gql`
   }
 `;
 
-export type TypeMatchupsFromAbilitiesQuery = {
-  typesByName: TypeMatchupsFromAbilitiesResult[]
+export type AbilityMatchupQuery = {
+  abilitiesByPSIDs: AbilityMatchupResult[]
 }
 
-export type TypeMatchupsFromAbilitiesResult = {
+export interface AbilityMatchupResult extends MatchupResult {
   psID: string
-  defensiveMatchups: {
+  resistsType: {
     edges: DefensiveMatchupEdge[]
   }
 }
-export const ABILITIES_TYPEMATCHUPS_QUERY = gql`
+export const ABILITY_MATCHUP_QUERY = gql`
   query AbilitiesTypeMatchupQuery($gen: Int!, $psIDs: [String!]!) {
     abilitiesByPSIDs(generation: $gen, psIDs: $psIDs) {
       resistsType {
@@ -65,18 +87,18 @@ export const ABILITIES_TYPEMATCHUPS_QUERY = gql`
   }
 `;
 
-export type TypeMatchupsFromItemsQuery = {
-  typesByName: TypeMatchupsFromItemsResult[]
+export type ItemMatchupQuery = {
+  itemsByPSIDs: ItemMatchupResult[]
 }
 
-export type TypeMatchupsFromItemsResult = {
+export interface ItemMatchupResult extends MatchupResult {
   psID: string
-  defensiveMatchups: {
+  resistsType: {
     edges: DefensiveMatchupEdge[]
   }
 }
 
-export const ITEMS_TYPEMATCHUPS_QUERY = gql`
+export const ITEM_MATCHUP_QUERY = gql`
   query ItemsTypeMatchupQuery($gen: Int!, $psIDs: [String!]!) {
     itemsByPSIDs(generation: $gen, psIDs: $psIDs) {
       id
@@ -102,11 +124,18 @@ type NormalizedMatchupResult = {
 };
 
 // Takes a result and changes 'psID' key to 'name'
-const toNormalizedMatchupResult: (result: TypeMatchupsFromAbilitiesResult | TypeMatchupsFromItemsResult) => NormalizedMatchupResult = result => {
-  return {
-    name: result.psID,
+const toNormalizedMatchupResult: (result: MatchupResult) => NormalizedMatchupResult = result => {
+  if (result?.psID && result?.resistsType) {
+    return {
+      name: result.psID,
+      defensiveMatchups: result.resistsType,
+    };
+  }
+  else if (result?.name && result?.defensiveMatchups) return {
+    name: result.name,
     defensiveMatchups: result.defensiveMatchups,
   };
+  else throw new Error('Incompatiable MatchupResult');
 }
 
 type DefensiveTypeMatchup = {
@@ -161,13 +190,13 @@ export const computeTypeMatchups: (
   members: {
     psID: string
     typing: TypeName[]
-    ability: string
-    item: string
+    ability?: string
+    item?: string
   }[],
   results: {
-    fromTypings: TypeMatchupsFromTypingsResult[], 
-    fromAbilities: TypeMatchupsFromAbilitiesResult[], 
-    fromItems: TypeMatchupsFromItemsResult[],
+    fromTypings: TypingMatchupResult[], 
+    fromAbilities: AbilityMatchupResult[], 
+    fromItems: ItemMatchupResult[],
   },
 ) => Map<TypeName, DefensiveTypeMatchupSummary> = (members, results) => {
   // Initialize Map
@@ -184,7 +213,7 @@ export const computeTypeMatchups: (
   }
 
   // Get lookup maps from results
-  const fromTypingsMap = resultsToMatchupMap(results.fromTypings);
+  const fromTypingsMap = resultsToMatchupMap(results.fromTypings.map(toNormalizedMatchupResult));
   const fromAbilitiesMap = resultsToMatchupMap(results.fromAbilities.map(toNormalizedMatchupResult));
   const fromItemsMap = resultsToMatchupMap(results.fromItems.map(toNormalizedMatchupResult));
 
@@ -205,20 +234,24 @@ export const computeTypeMatchups: (
       }
 
       // Ability
-      const abilityTypeMatchup = fromAbilitiesMap.get(member.ability);
-      finalMultiplier *= abilityTypeMatchup
-        ? abilityTypeMatchup[typeName]
-        : 1;
-      // If ability affects calculation, add its psID
-      if (abilityTypeMatchup !== undefined) psIDs.push(member.ability);
+      if (member.ability) {
+        const abilityTypeMatchup = fromAbilitiesMap.get(member.ability);
+        finalMultiplier *= abilityTypeMatchup
+          ? abilityTypeMatchup[typeName]
+          : 1;
+        // If ability affects calculation, add its psID
+        if (abilityTypeMatchup !== undefined) psIDs.push(member.ability);
+      }
 
       // Item
-      const itemTypeMatchup = fromItemsMap.get(member.item);
-      finalMultiplier *= itemTypeMatchup
-        ? itemTypeMatchup[typeName]
-        : 1;
-      // If item affects calculation, add its psID
-      if (itemTypeMatchup !== undefined) psIDs.push(member.item);
+      if (member.item) {
+        const itemTypeMatchup = fromItemsMap.get(member.item);
+        finalMultiplier *= itemTypeMatchup
+          ? itemTypeMatchup[typeName]
+          : 1;
+        // If item affects calculation, add its psID
+        if (itemTypeMatchup !== undefined) psIDs.push(member.item);
+      }
 
       // Add data to 'result.get(typeName)'
       let curr = typeMatchupMap.get(typeName);

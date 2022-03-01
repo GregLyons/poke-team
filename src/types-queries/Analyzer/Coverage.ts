@@ -1,6 +1,14 @@
 import { gql } from "@apollo/client";
-import { CausesStatusEdge, ControlFieldStateEdge, EffectClass, EffectClassEdge, FieldStateClass, FieldStateTargetClass, ModifiesStatEdge, MoveCategory, ResistsStatusEdge, StatusControlFieldStateEdge, STATUSES, StatusName, TypeName, TYPENAMES } from "../helpers";
+import { CausesStatusEdge, ControlFieldStateEdge, EffectClass, EffectClassEdge, FieldStateClass, FieldStateTargetClass, GenerationNum, ModifiesStatEdge, MoveCategory, ResistsStatusEdge, StatusControlFieldStateEdge, STATUSES, StatusName, TypeName, TYPENAMES } from "../helpers";
 import { CoverageDatum, incrementCoverageDatum, INITIAL_COVERAGEDATUM } from "./helpers";
+
+// Queries
+// #region
+
+export interface CoverageSearchVars {
+  gen: GenerationNum
+  psIDs: string[]
+}
 
 export interface CoverageResult {
   psID: string
@@ -26,10 +34,16 @@ export interface CoverageResult {
   createsFieldState?: {
     edges: StatusControlFieldStateEdge[]
   }
+  ignoresFieldState?: {
+    edges: ControlFieldStateEdge[]
+  }
   preventsFieldState?: {
     edges: ControlFieldStateEdge[]
   }
   removesFieldState?: {
+    edges: ControlFieldStateEdge[]
+  }
+  resistsFieldState?: {
     edges: ControlFieldStateEdge[]
   }
   suppressesFieldState?: {
@@ -37,7 +51,7 @@ export interface CoverageResult {
   }
 }
 
-// Ability coverage
+// Ability coverage results
 // #region
 
 export interface AbilityCoverageQuery {
@@ -66,11 +80,17 @@ export interface AbilityCoverageResult extends CoverageResult {
     edges: StatusControlFieldStateEdge[]
   }
 
-  // Weather and terrain control
+  // Field state control
+  ignoresFieldState: {
+    edges: ControlFieldStateEdge[]
+  }
   preventsFieldState: {
     edges: ControlFieldStateEdge[]
   }
   removesFieldState: {
+    edges: ControlFieldStateEdge[]
+  }
+  resistsFieldState: {
     edges: ControlFieldStateEdge[]
   }
   suppressesFieldState: {
@@ -84,7 +104,6 @@ export const ABILITY_COVERAGE_QUERY = gql`
       id
       psID
 
-      # Effects
       effects {
         id
         edges {
@@ -160,7 +179,17 @@ export const ABILITY_COVERAGE_QUERY = gql`
         }
       }
 
-      # Weather and terrain control
+      # Field state control
+      ignoresFieldState {
+        id
+        edges {
+          node {
+            id
+            name
+            class
+          }
+        }
+      }
       removesFieldState {
         id
         edges {
@@ -197,7 +226,7 @@ export const ABILITY_COVERAGE_QUERY = gql`
 
 // #endregion
 
-// Item coverage
+// Item coverage results
 // #region
 
 export interface ItemCoverageQuery {
@@ -281,13 +310,35 @@ export const ITEM_COVERAGE_QUERY = gql`
           }
         }
       }
+
+      # Field state control
+      ignoresFieldState {
+        id
+        edges {
+          node {
+            id
+            name
+            class
+          }
+        }
+      }
+      resistsFieldState {
+        id
+        edges {
+          node {
+            id
+            name
+            class
+          }
+        }
+      }
     }
   }
 `;
 
 // #endregion
 
-// Move coverage
+// Move coverage results
 // #region
 
 export interface OffensiveMatchupEdge {
@@ -346,7 +397,7 @@ export interface MoveCoverageResult extends CoverageResult {
     edges: StatusControlFieldStateEdge[]
   }
 
-  // Weather and terrain control
+  // Field state control
   removesFieldState: {
     edges: ControlFieldStateEdge[]
   }
@@ -459,7 +510,7 @@ export const MOVE_COVERAGE_QUERY = gql`
         }
       }
 
-      # Weather and terrain control
+      # Field state control
       removesFieldState {
         id
         edges {
@@ -475,6 +526,11 @@ export const MOVE_COVERAGE_QUERY = gql`
 `;
 
 // #endregion
+
+// #endregion
+
+// Coverage calculators
+// #region
 
 // Speed control
 // #region
@@ -591,10 +647,36 @@ export const computeStatusControl: (results: CoverageResult[]) => Map<StatusName
 
     // Check whether the ability/move creates a field state, and if so whether that field state causes/resists a status
     if (result?.createsFieldState === undefined ) continue;
-    // for (let createsFieldStateEdge of result.createsFieldState.edges) {
-    //   for (let causesStatusEdge)
-    // }
+    for (let createsFieldStateEdge of result.createsFieldState.edges) {
+      for (let causesStatusEdge of createsFieldStateEdge.node.causesStatus.edges) {
+        const { chance } = causesStatusEdge;
+        const { name } = causesStatusEdge.node;
+  
+        const statusName: StatusName = name as StatusName;
+  
+        // Type guard
+        if (!STATUSES.includes(statusName) || !statusName) continue;
+        // Reliability check
+        if (chance < 0.3) continue;
+  
+        let curr = statusControlMap.get(statusName);
+        if (curr !== undefined) curr.cause = incrementCoverageDatum(curr.cause, psID);
+      }
+      for (let resistsStatusEdge of createsFieldStateEdge.node.resistsStatus.edges) {
+        const { name } = resistsStatusEdge.node;
+  
+        const statusName: StatusName = name as StatusName;
+  
+        // Type guard
+        if (!STATUSES.includes(statusName) || !statusName) continue;
+  
+        let curr = statusControlMap.get(statusName);
+        if (curr !== undefined) curr.resistance = incrementCoverageDatum(curr.resistance, psID);
+      }
+    }
   }
+
+  return statusControlMap;
 }
 
 // #endregion
@@ -658,14 +740,81 @@ export const computeTypeCoverage: (results: MoveCoverageResult[]) => Map<TypeNam
       }
     }
   
-    return typeCoverageMap;
+  return typeCoverageMap;
 }
 
 // #endregion
 
-// Weather and terrain control
+// Weather, terrain, and entry hazard control
 // #region
 
+export const computeFieldStateControl: (results: CoverageResult[]) => Map<FieldStateClass, CoverageDatum> = results => {
+  // Initialize Map
+  const RELEVANT_CLASSES: FieldStateClass[] = ['WEATHER', 'ENTRY_HAZARD', 'TERRAIN'];
+  const fieldStateControlMap = new Map<FieldStateClass, CoverageDatum>();
+  for (let className of RELEVANT_CLASSES) {
+    fieldStateControlMap.set(className, INITIAL_COVERAGEDATUM);
+  }
 
+  // Iterate over results
+  for (let result of results) {
+    const { psID } = result;
+
+    // Ignoring field states
+    if (result.ignoresFieldState) {
+      // Iterate over edges
+      for (let fieldStateEdge of result.ignoresFieldState.edges) {
+        const { class: className } = fieldStateEdge.node;
+
+        let curr = fieldStateControlMap.get(className);
+        if (curr !== undefined) curr = incrementCoverageDatum(curr, psID);
+      }
+    }
+    // Preventing field states
+    if (result.preventsFieldState) {
+      // Iterate over edges
+      for (let fieldStateEdge of result.preventsFieldState.edges) {
+        const { class: className } = fieldStateEdge.node;
+
+        let curr = fieldStateControlMap.get(className);
+        if (curr !== undefined) curr = incrementCoverageDatum(curr, psID);
+      }
+    }
+    // Removing field states
+    if (result.removesFieldState) {
+      // Iterate over edges
+      for (let fieldStateEdge of result.removesFieldState.edges) {
+        const { class: className } = fieldStateEdge.node;
+
+        let curr = fieldStateControlMap.get(className);
+        if (curr !== undefined) curr = incrementCoverageDatum(curr, psID);
+      }
+    }
+    // Resisting field states
+    if (result.resistsFieldState) {
+      // Iterate over edges
+      for (let fieldStateEdge of result.resistsFieldState.edges) {
+        const { class: className } = fieldStateEdge.node;
+
+        let curr = fieldStateControlMap.get(className);
+        if (curr !== undefined) curr = incrementCoverageDatum(curr, psID);
+      }
+    }
+    // Suppressing field states
+    if (result.suppressesFieldState) {
+      // Iterate over edges
+      for (let fieldStateEdge of result.suppressesFieldState.edges) {
+        const { class: className } = fieldStateEdge.node;
+
+        let curr = fieldStateControlMap.get(className);
+        if (curr !== undefined) curr = incrementCoverageDatum(curr, psID);
+      }
+    }
+  }
+  
+  return fieldStateControlMap;
+}
+
+// #endregion
 
 // #endregion

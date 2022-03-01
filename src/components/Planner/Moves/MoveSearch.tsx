@@ -19,7 +19,7 @@ import {
 } from '../../../utils/constants';
 import { listToggleValue, rangeSelect } from '../helpers';
 import { Dispatches, Filters } from '../../App';
-import { CapsTypeName, MoveCategory, MoveTargetClass, MOVE_CATEGORY_MAP, MOVE_TARGETCLASS_MAP, MOVE_TYPE_MAP, toEnumTypeName, toFormattedTypeName, TypeName } from '../../../types-queries/helpers';
+import { CapsTypeName, MoveCategory, MoveTargetClass, MOVE_CATEGORY_MAP, MOVE_TARGETCLASS_MAP, MOVE_TYPE_MAP, toCapsTypeName, toFormattedTypeName, TypeName } from '../../../types-queries/helpers';
 import { TYPE_NAMES } from '../../../hooks/App/PokemonFilter';
 import SearchBar from '../../Reusables/SearchBar/SearchBar';
 import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Searches';
@@ -317,7 +317,7 @@ const MoveSearch = ({
       bypassAccuracy: null,
       category: Array.from(MOVE_CATEGORY_MAP.keys()),
       target: Array.from(MOVE_TARGETCLASS_MAP.keys()),
-      types: Array.from(TYPE_NAMES.map(toEnumTypeName)),
+      types: Array.from(TYPE_NAMES.map(toCapsTypeName)),
       variablePower: null,
     },
     genFilter: filters.genFilter,

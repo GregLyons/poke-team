@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BGManager, classWithBGShadow } from "../../../hooks/App/BGManager";
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { BASE_STAT_NAMES, PokemonFilter, PokemonFilterAction, TYPE_NAMES } from "../../../hooks/App/PokemonFilter";
-import { BaseStatName, toAbbreviatedBaseStatName, toEnumTypeName, toFormattedBaseStatName, toFormattedTypeName, TypeName } from "../../../types-queries/helpers";
+import { BaseStatName, toAbbreviatedBaseStatName, toCapsTypeName, toFormattedBaseStatName, toFormattedTypeName, TypeName } from "../../../types-queries/helpers";
 import Button from "../../Reusables/Button/Button";
 import DoubleSlider from "../../Reusables/DoubleSlider/DoubleSlider";
 import DropdownMenu from "../../Reusables/DropdownMenu/DropdownMenu";
@@ -147,7 +147,7 @@ const PokemonFilterForm = ({
                         ? `Exclude ${toFormattedTypeName(typeName)}-type Pokemon.`
                         : `Include ${toFormattedTypeName(typeName)}-type Pokemon.`
                       }
-                      label={toEnumTypeName(typeName)}
+                      label={toCapsTypeName(typeName)}
                       active={selected}
                       onClick={e => e.preventDefault()}
                       disabled={false}
