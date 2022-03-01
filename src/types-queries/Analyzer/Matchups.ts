@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 import { TypeName, TYPENAMES } from "../helpers";
+import { CoverageDatum, incrementCoverageDatum, INITIAL_COVERAGEDATUM } from "./helpers";
 
 export type DefensiveMatchupEdge = {
   node: {
@@ -148,16 +149,17 @@ const resultsToMatchupMap = (results: NormalizedMatchupResult[]) => {
 }
 
 export type DefensiveTypeMatchupSummary = {
-  immunities: number
-  quadResistances: number
-  resistances: number
-  neutral: number
-  weaknesses: number
-  quadWeaknesses: number
+  immunities: CoverageDatum
+  quadResistances: CoverageDatum
+  resistances: CoverageDatum
+  neutral: CoverageDatum
+  weaknesses: CoverageDatum
+  quadWeaknesses: CoverageDatum
 };
 
 export const computeTypeMatchups: (
   members: {
+    psID: string
     typing: TypeName[]
     ability: string
     item: string
@@ -172,12 +174,12 @@ export const computeTypeMatchups: (
   const typeMatchupMap = new Map<TypeName, DefensiveTypeMatchupSummary>();
   for (let typeName of TYPENAMES) {
     typeMatchupMap.set(typeName, {
-      immunities: 0,
-      quadResistances: 0,
-      resistances: 0,
-      neutral: 0,
-      weaknesses: 0,
-      quadWeaknesses: 0,
+      immunities: INITIAL_COVERAGEDATUM,
+      quadResistances: INITIAL_COVERAGEDATUM,
+      resistances: INITIAL_COVERAGEDATUM,
+      neutral: INITIAL_COVERAGEDATUM,
+      weaknesses: INITIAL_COVERAGEDATUM,
+      quadWeaknesses: INITIAL_COVERAGEDATUM,
     });
   }
 
@@ -192,6 +194,7 @@ export const computeTypeMatchups: (
     for (let typeName of TYPENAMES) {
       // Keeps track of effectiveness of typeName against member after factoring in typing, ability, and item
       let finalMultiplier = 1;
+      let psIDs: string[] = [member.psID];
 
       // Typing
       for (let memberType of member.typing) {
@@ -206,45 +209,45 @@ export const computeTypeMatchups: (
       finalMultiplier *= abilityTypeMatchup
         ? abilityTypeMatchup[typeName]
         : 1;
+      // If ability affects calculation, add its psID
+      if (abilityTypeMatchup !== undefined) psIDs.push(member.ability);
 
       // Item
       const itemTypeMatchup = fromItemsMap.get(member.item);
       finalMultiplier *= itemTypeMatchup
         ? itemTypeMatchup[typeName]
         : 1;
+      // If item affects calculation, add its psID
+      if (itemTypeMatchup !== undefined) psIDs.push(member.item);
 
       // Add data to 'result.get(typeName)'
       let curr = typeMatchupMap.get(typeName);
-      console.log('was', curr);
       if (curr !== undefined) {
         // Immunity
-        if (finalMultiplier === 0) {
-          curr.immunities++;
-        }
+        if (finalMultiplier === 0) curr.immunities = incrementCoverageDatum(curr.immunities, '', psIDs)
         // Resistance
         else if (finalMultiplier < 1) {
-          curr.resistances++;
+          curr.resistances = incrementCoverageDatum(curr.resistances, '', psIDs);
 
           // Quad resistance
           if (finalMultiplier < 0.26) {
-            curr.quadResistances++;
+            curr.quadResistances = incrementCoverageDatum(curr.quadResistances, '', psIDs);
           }
         }
         // Weakness
         else if (finalMultiplier > 1) {
-          curr.weaknesses++;
+          curr.weaknesses = incrementCoverageDatum(curr.weaknesses, '', psIDs);
 
           // Quad weakness
           if (finalMultiplier > 3.9) {
-            curr.quadWeaknesses++;
+            curr.quadWeaknesses = incrementCoverageDatum(curr.quadWeaknesses, '', psIDs);
           }
         }
         // Neutral
-        else if (finalMultiplier === 1) {
-          curr.neutral++;
+        else {
+          curr.neutral = incrementCoverageDatum(curr.neutral, '', psIDs);
         }
       }
-      console.log('now', curr);
     }
   });
 

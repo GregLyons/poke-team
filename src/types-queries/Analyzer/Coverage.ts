@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 import { CausesStatusEdge, ControlFieldStateEdge, EffectClass, EffectClassEdge, FieldStateClass, FieldStateTargetClass, ModifiesStatEdge, MoveCategory, ResistsStatusEdge, StatusControlFieldStateEdge, STATUSES, StatusName, TypeName, TYPENAMES } from "../helpers";
+import { CoverageDatum, incrementCoverageDatum, INITIAL_COVERAGEDATUM } from "./helpers";
 
 export interface CoverageResult {
   psID: string
@@ -478,12 +479,8 @@ export const MOVE_COVERAGE_QUERY = gql`
 // Speed control
 // #region
 
-export const computeSpeedControl: (results: CoverageResult[]) => {
-  total: number
-  psIDs: string[]
-} = results => {
-  let total = 0;
-  let psIDs = [];
+export const computeSpeedControl: (results: CoverageResult[]) => CoverageDatum = results => {
+  let coverageDatum = { total: 0, psIDs: [] as string[], };
 
   for (let result of results) {
     let isSpeedControl = false;
@@ -536,13 +533,10 @@ export const computeSpeedControl: (results: CoverageResult[]) => {
     // Check if priority and damaging (i.e. physical/special)
     if (result?.priority !== undefined && result?.category !== undefined && result.priority > 0 && ['PHYSICAL', 'SPECIAL'].includes(result.category)) isSpeedControl = true;
 
-    if (isSpeedControl) {
-      total += 1;
-      psIDs.push(psID);
-    }
+    if (isSpeedControl) coverageDatum = incrementCoverageDatum(coverageDatum, psID);
   }
 
-  return { total, psIDs, };
+  return coverageDatum;
 }
 
 // #endregion
@@ -551,19 +545,16 @@ export const computeSpeedControl: (results: CoverageResult[]) => {
 // #region
 
 export type StatusControlSummary = {
-  cause: number
-  resist: number
-  psIDs: string[]
+  cause: CoverageDatum
+  resistance: CoverageDatum
 }
-
 export const computeStatusControl: (results: CoverageResult[]) => Map<StatusName, StatusControlSummary> = results => {
   // Initialize Map
   const statusControlMap = new Map<StatusName, StatusControlSummary>();
   for (let statusName of STATUSES) {
     statusControlMap.set(statusName, {
-      cause: 0,
-      resist: 0,
-      psIDs: [],
+      cause: INITIAL_COVERAGEDATUM,
+      resistance: INITIAL_COVERAGEDATUM, 
     });
   }
 
@@ -583,10 +574,7 @@ export const computeStatusControl: (results: CoverageResult[]) => Map<StatusName
       if (chance < 0.3) continue;
 
       let curr = statusControlMap.get(statusName);
-      if (curr !== undefined) {
-        curr.cause++;
-        curr.psIDs.push(psID);
-      }
+      if (curr !== undefined) curr.cause = incrementCoverageDatum(curr.cause, psID);
     }
     // Iterate resisted statuses, aside from field states
     for (let resistsStatusEdge of result.resistsStatus.edges) {
@@ -598,16 +586,14 @@ export const computeStatusControl: (results: CoverageResult[]) => Map<StatusName
       if (!STATUSES.includes(statusName) || !statusName) continue;
 
       let curr = statusControlMap.get(statusName);
-      if (curr !== undefined) {
-        curr.resist++;
-        curr.psIDs.push(psID);
-      }
+      if (curr !== undefined) curr.resistance = incrementCoverageDatum(curr.resistance, psID);
     }
 
     // Check whether the ability/move creates a field state, and if so whether that field state causes/resists a status
     if (result?.createsFieldState === undefined ) continue;
-
-    
+    // for (let createsFieldStateEdge of result.createsFieldState.edges) {
+    //   for (let causesStatusEdge)
+    // }
   }
 }
 
@@ -626,10 +612,10 @@ const effectTypeExceptions: string[] = [
 ];
 
 export type TypeCoverageSummary = {
-  noEffect: number
-  notVeryEffective: number
-  neutral: number
-  superEffective: number
+  noEffect: CoverageDatum
+  notVeryEffective: CoverageDatum
+  neutral: CoverageDatum
+  superEffective: CoverageDatum
 }
 
 export const computeTypeCoverage: (results: MoveCoverageResult[]) => Map<TypeName, TypeCoverageSummary> = results => {
@@ -637,16 +623,18 @@ export const computeTypeCoverage: (results: MoveCoverageResult[]) => Map<TypeNam
   const typeCoverageMap = new Map<TypeName, TypeCoverageSummary>();
   for (let typeName of TYPENAMES) {
     typeCoverageMap.set(typeName, {
-      noEffect: 0,
-      notVeryEffective: 0,
-      neutral: 0,
-      superEffective: 0,
+      noEffect: INITIAL_COVERAGEDATUM,
+      notVeryEffective: INITIAL_COVERAGEDATUM,
+      neutral: INITIAL_COVERAGEDATUM,
+      superEffective: INITIAL_COVERAGEDATUM,
     });
   }
 
   // Iterate over moves
   loop1:
     for (let result of results) {
+      const { psID } = result;
+
       // Check whether move is in one of the exceptions that we wish to exclude; if so, continue onto next move
       loop2:
         for (let moveEffectEdge of result.effects.edges) {
@@ -661,10 +649,10 @@ export const computeTypeCoverage: (results: MoveCoverageResult[]) => Map<TypeNam
 
           let curr = typeCoverageMap.get(typeName)
           if (curr !== undefined) {
-            if (multiplier === 0) curr.noEffect++;
-            else if (multiplier < 1) curr.notVeryEffective++;
-            else if (multiplier > 1) curr.superEffective++;
-            else curr.neutral++;
+            if (multiplier === 0) curr.noEffect = incrementCoverageDatum(curr.noEffect, psID);
+            else if (multiplier < 1) curr.notVeryEffective = incrementCoverageDatum(curr.notVeryEffective, psID);
+            else if (multiplier > 1) curr.neutral = incrementCoverageDatum(curr.neutral, psID);
+            else curr.superEffective = incrementCoverageDatum(curr.superEffective, psID);
           }
         }
       }
