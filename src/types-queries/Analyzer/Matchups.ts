@@ -204,8 +204,8 @@ export const computeTypeMatchups: (
   members: {
     psID: string
     typing: TypeName[]
-    ability?: string
-    item?: string
+    abilityPSID?: string
+    itemPSID?: string
   }[],
   results: {
     fromTypings: TypingMatchupResult[], 
@@ -231,11 +231,13 @@ export const computeTypeMatchups: (
 
   // Iterate over members, updating 'result' when necessary
   members.map(member => {
+    const { psID: memberPSID } = member;
+
     // Iterate over individual types
     for (let typeName of TYPENAMES.map(d => d[0])) {
       // Keeps track of effectiveness of typeName against member after factoring in typing, ability, and item
       let finalMultiplier = 1;
-      let psIDs: string[] = [member.psID];
+      let entityPSIDs: string[] = [];
 
       // Typing
       for (let memberType of member.typing) {
@@ -246,47 +248,47 @@ export const computeTypeMatchups: (
       }
 
       // Ability
-      if (member.ability) {
-        const abilityTypeMatchup = fromAbilitiesMap.get(member.ability);
+      if (member.abilityPSID) {
+        const abilityTypeMatchup = fromAbilitiesMap.get(member.abilityPSID);
         finalMultiplier *= abilityTypeMatchup
           ? abilityTypeMatchup[typeName]
           : 1;
         // If ability affects calculation, add its psID
-        if (abilityTypeMatchup && abilityTypeMatchup[typeName] !== 1) psIDs.push(member.ability);
+        if (abilityTypeMatchup && abilityTypeMatchup[typeName] !== 1) entityPSIDs.push(member.abilityPSID);
       }
 
       // Item
-      if (member.item) {
-        const itemTypeMatchup = fromItemsMap.get(member.item);
+      if (member.itemPSID) {
+        const itemTypeMatchup = fromItemsMap.get(member.itemPSID);
         finalMultiplier *= itemTypeMatchup
           ? itemTypeMatchup[typeName]
           : 1;
         // If item affects calculation, add its psID
-        if (itemTypeMatchup && itemTypeMatchup[typeName] !== 1) psIDs.push(member.item);
+        if (itemTypeMatchup && itemTypeMatchup[typeName] !== 1) entityPSIDs.push(member.itemPSID);
       }
 
       // Add data to 'result.get(typeName)'
       let curr = typeMatchupMap.get(typeName);
       if (curr !== undefined) {
         // Immunity
-        if (finalMultiplier === 0) curr.immunities = incrementCoverageDatum(curr.immunities, '', psIDs)
+        if (finalMultiplier === 0) curr.immunities = incrementCoverageDatum(curr.immunities, memberPSID, entityPSIDs)
         // Resistance
         else if (finalMultiplier < 1) {
           // Quad resistance
-          if (finalMultiplier < 0.26) curr.quadResistances = incrementCoverageDatum(curr.quadResistances, '', psIDs);
+          if (finalMultiplier < 0.26) curr.quadResistances = incrementCoverageDatum(curr.quadResistances, memberPSID, entityPSIDs);
           // Normal resistance
-          else curr.resistances = incrementCoverageDatum(curr.resistances, '', psIDs);
+          else curr.resistances = incrementCoverageDatum(curr.resistances, memberPSID, entityPSIDs);
         }
         // Weakness
         else if (finalMultiplier > 1) {
           // Quad weakness
-          if (finalMultiplier > 3.9) curr.quadWeaknesses = incrementCoverageDatum(curr.quadWeaknesses, '', psIDs);
+          if (finalMultiplier > 3.9) curr.quadWeaknesses = incrementCoverageDatum(curr.quadWeaknesses, memberPSID, entityPSIDs);
           // Normal weakness
-          else curr.weaknesses = incrementCoverageDatum(curr.weaknesses, '', psIDs);
+          else curr.weaknesses = incrementCoverageDatum(curr.weaknesses, memberPSID, entityPSIDs);
         }
         // Neutral
         else {
-          curr.neutral = incrementCoverageDatum(curr.neutral, '', psIDs);
+          curr.neutral = incrementCoverageDatum(curr.neutral, memberPSID, entityPSIDs);
         }
       }
     }
