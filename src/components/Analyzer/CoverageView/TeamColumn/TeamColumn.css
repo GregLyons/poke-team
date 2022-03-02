@@ -31,6 +31,9 @@
   border: 1px solid white;
 }
 
+.analyzer-member__icon,
+.analyzer-member__typing,
+.analyzer-member__item-icon,
 .analyzer-member__name,
 .analyzer-member__ability,
 .analyzer-member__item,
@@ -94,4 +97,9 @@
 }
 .analyzer-member__irrelevant {
   color: var(--dark1);
+}
+.analyzer-member__irrelevant.analyzer-member__type-icon,
+.analyzer-member__irrelevant.analyzer-member__item-icon,
+.analyzer-member__irrelevant.analyzer-member__typing {
+  filter: brightness(0.5);
 }

@@ -21,29 +21,22 @@
 
 .type-matchup__cell {
   grid-row: 1 / 7;
-  grid-column: 4 / 7;
+  grid-column: 4 / 9;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   position: relative;
   width: 100%;
   height: 100%;
 
-  border: 1px solid white;
-}
-
-.type-coverage__cell {
-  grid-row: 1 / 7;
-  grid-column: 7 / 10;
-
-  position: relative;
-  width: 100%;
-  height: 100%;
-
-  border: 1px solid white;
+  background-color: rgba(var(--dark2-components), 0.2);
 }
 
 .field-control__cell {
   grid-row: 1 / 3;
-  grid-column: 10 / 13;
+  grid-column: 9 / 13;
 
   position: relative;
   width: 100%;
@@ -54,7 +47,7 @@
 
 .speed-control__cell {
   grid-row: 3 / 5;
-  grid-column: 10 / 13;
+  grid-column: 9 / 13;
 
   position: relative;
   width: 100%;
@@ -65,7 +58,7 @@
 
 .status-control__cell {
   grid-row: 5 / 7;
-  grid-column: 10 / 13;
+  grid-column: 9 / 13;
 
   position: relative;
   width: 100%;

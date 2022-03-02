@@ -1,4 +1,6 @@
 import { gql } from "@apollo/client";
+import { isType } from "graphql";
+import { binarySearchValueByKey, compareNumbers, compareStrings } from "../../utils/helpers";
 import { CausesStatusEdge, ControlFieldStateEdge, EffectClass, EffectClassEdge, FieldStateClass, FieldStateTargetClass, GenerationNum, ModifiesStatEdge, MoveCategory, ResistsStatusEdge, StatusControlFieldStateEdge, STATUSES, StatusName, TypeName, TYPENAMES } from "../helpers";
 import { CoverageDatum, incrementCoverageDatum, INITIAL_COVERAGEDATUM } from "./helpers";
 
@@ -703,18 +705,163 @@ export type TypeCoverageSummary = {
   superEffective: CoverageDatum
 }
 
-export const computeTypeCoverage: (results: MoveCoverageResult[], gen: GenerationNum) => Map<TypeName, TypeCoverageSummary> = (results, gen) => {
+// Spread operator needed, otherwise each entry will refer to the same object
+export const INITIAL_TYPECOVERAGE_SUMMARY: TypeCoverageSummary = {
+  noEffect: { ...INITIAL_COVERAGEDATUM, },
+  notVeryEffective: { ...INITIAL_COVERAGEDATUM, },
+  neutral: { ...INITIAL_COVERAGEDATUM, },
+  superEffective: { ...INITIAL_COVERAGEDATUM, },
+}
+
+export const isTypeDamagingMove: (result: MoveCoverageResult) => boolean = result => {
+  if (result.category === 'STATUS') return false;
+  for (let moveEffectEdge of result.effects.edges) {
+    if (effectTypeExceptions.includes(moveEffectEdge.node.name)) return false;
+  }
+  return true;
+}
+
+export const countDamagingMoves: (results: MoveCoverageResult[]) => number = results => {
+  let count = 0;
+  loop1:
+    for (let result of results) {
+      // Ignore status moves
+      if (result.category === 'STATUS') continue;
+      
+      // Ignore moves which have certain effects
+      loop2:
+        for (let moveEffectEdge of result.effects.edges) {
+          if (effectTypeExceptions.includes(moveEffectEdge.node.name)) continue loop1;
+
+        }
+      
+      count++;
+  }
+  return count;
+}
+
+const moveCoverageResultsSortHelper = (result1: MoveCoverageResult, result2: MoveCoverageResult) => compareStrings(result1.psID, result2.psID);
+
+const TYPECOVERAGE_SUMMARY_KEYS: (keyof TypeCoverageSummary)[] = ['noEffect', 'notVeryEffective', 'neutral', 'superEffective'];
+
+const compareMoveRank = (key1: keyof TypeCoverageSummary, key2: keyof TypeCoverageSummary) => {
+  const idx1 = TYPECOVERAGE_SUMMARY_KEYS.indexOf(key1);
+  const idx2 = TYPECOVERAGE_SUMMARY_KEYS.indexOf(key2);
+
+  return compareNumbers(idx1, idx2);
+}
+
+export const computeMemberTypeCoverage: (
+  members: {
+    psID: string
+    movePSIDs: string[]
+  }[],
+  results: MoveCoverageResult[],
+  gen: GenerationNum
+) => Map<TypeName, TypeCoverageSummary> = (members, results, gen) => {
   // Initialize Map
   const typeCoverageMap = new Map<TypeName, TypeCoverageSummary>();
   for (let [typeName, typeGen] of TYPENAMES) {
     // Only track types in given gen
     if (typeGen <= gen) {
-      typeCoverageMap.set(typeName, {
-        noEffect: INITIAL_COVERAGEDATUM,
-        notVeryEffective: INITIAL_COVERAGEDATUM,
-        neutral: INITIAL_COVERAGEDATUM,
-        superEffective: INITIAL_COVERAGEDATUM,
-      });
+      // Spread operator needed, otherwise each entry will refer to the same object
+      typeCoverageMap.set(typeName, { ...INITIAL_TYPECOVERAGE_SUMMARY, });
+    }
+  }
+
+  // Sort results for faster lookup
+  results.sort(moveCoverageResultsSortHelper);
+
+  // Fill out typeCoverageMap
+  for (let member of members) {
+    const { psID: memberPSID } = member;
+
+    // Map holding maximum effectiveness of member's moves against each type
+    let memberRankMap = new Map<TypeName, (keyof TypeCoverageSummary)>();
+    // Initialize memberRankMap
+    for (let [typeName, typeGen] of TYPENAMES) {
+      // Only track types in given gen
+      if (typeGen <= gen) {
+        // Spread operator needed, otherwise each entry will refer to the same object
+        memberRankMap.set(typeName, 'noEffect');
+      }
+    }
+
+    // If the member has no type-damaging moves, then rank is irrelevant
+    let validMoveFound = false;
+
+    // Iterate over member's moves to fill out memberRankMap
+    for (let movePSID of member.movePSIDs) {
+      // We have sorted results by psID
+      const moveResultIndex = binarySearchValueByKey(
+        results,
+        'psID',
+        movePSID,
+        compareStrings,
+      );
+
+      // Shouldn't happen
+      if (moveResultIndex === -1) continue;
+      // Extract corresponding moveResult
+      const moveResult = results[moveResultIndex];
+
+      // Ignore moves which aren't type-damaging
+      if (!isTypeDamagingMove(moveResult)) continue;
+      
+      // Type-damaging move found, so rank is relevant
+      validMoveFound = true;
+
+      // Should only be one type edge for the move
+      for (let moveTypeEdge of moveResult.type.edges) {
+        // Iterate over matchup edges for the move's type
+        for (let matchupEdge of moveTypeEdge.node.offensiveMatchups.edges) {
+          const typeName = matchupEdge.node.name;
+          const { multiplier } = matchupEdge;
+          
+          let moveRank: keyof TypeCoverageSummary;
+          if (multiplier === 0) moveRank = 'noEffect';
+          else if (multiplier < 1) moveRank = 'notVeryEffective';
+          else if (multiplier === 1) moveRank = 'neutral';
+          else moveRank = 'superEffective';
+
+          // Type guard
+          const currentMemberRank = memberRankMap.get(typeName);
+          if (!currentMemberRank) continue;
+          // If moveRank is greater than currentMemberRank, set new memberRank for typeName to be moveRank
+          if (compareMoveRank(moveRank, currentMemberRank) > 0) memberRankMap.set(typeName, moveRank);
+        }
+      }
+    }
+
+    // If no type-damaging move was found, move onto next member
+    if (!validMoveFound) continue;
+
+    // Otherwise, update typeCoverageMap
+    for (let [typeName, memberRank] of Array.from(memberRankMap.entries())) {
+      let curr = typeCoverageMap.get(typeName);
+      
+      // Type-guard
+      if (curr === undefined) continue;
+
+      curr[memberRank] = incrementCoverageDatum(curr[memberRank], memberPSID);
+    }
+  }
+
+  return typeCoverageMap;
+};
+
+// Counts type coverage for individual moves
+export const computeTypeCoverage: (
+    results: MoveCoverageResult[],
+    gen: GenerationNum
+  ) => Map<TypeName, TypeCoverageSummary> = (results, gen) => {
+  // Initialize Map
+  const typeCoverageMap = new Map<TypeName, TypeCoverageSummary>();
+  for (let [typeName, typeGen] of TYPENAMES) {
+    // Only track types in given gen
+    if (typeGen <= gen) {
+      // Spread operator needed, otherwise each entry will refer to the same object
+      typeCoverageMap.set(typeName, { ...INITIAL_TYPECOVERAGE_SUMMARY, });
     }
   }
 
@@ -722,6 +869,9 @@ export const computeTypeCoverage: (results: MoveCoverageResult[], gen: Generatio
   loop1:
     for (let result of results) {
       const { psID } = result;
+
+      // Ignore status moves
+      if (result.category === 'STATUS') continue;
 
       // Check whether move is in one of the exceptions that we wish to exclude; if so, continue onto next move
       loop2:
@@ -739,7 +889,7 @@ export const computeTypeCoverage: (results: MoveCoverageResult[], gen: Generatio
           if (curr !== undefined) {
             if (multiplier === 0) curr.noEffect = incrementCoverageDatum(curr.noEffect, psID);
             else if (multiplier < 1) curr.notVeryEffective = incrementCoverageDatum(curr.notVeryEffective, psID);
-            else if (multiplier > 1) curr.neutral = incrementCoverageDatum(curr.neutral, psID);
+            else if (multiplier === 1) curr.neutral = incrementCoverageDatum(curr.neutral, psID);
             else curr.superEffective = incrementCoverageDatum(curr.superEffective, psID);
           }
         }

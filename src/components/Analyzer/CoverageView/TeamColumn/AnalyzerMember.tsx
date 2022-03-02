@@ -29,6 +29,7 @@ const AnalyzerMember = ({
       <div
         className={`
           analyzer-member__icon
+          ${determineRelevancy(member?.psID)}
         `}
       >
         {member && <PokemonIcon
@@ -42,6 +43,7 @@ const AnalyzerMember = ({
       <div
         className={`
           analyzer-member__item-icon
+          ${determineRelevancy(member?.item?.psID)}
         `}
       >
         {member?.item && <ItemIcon
@@ -59,6 +61,7 @@ const AnalyzerMember = ({
       <div
         className={`
           analyzer-member__typing
+          ${determineRelevancy(member?.psID)}
         `}
       >
         {member && member.typing.map(typeName => <TypeIcon

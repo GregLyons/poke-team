@@ -181,13 +181,23 @@ const resultsToMatchupMap = (results: NormalizedMatchupResult[]) => {
   return map;
 }
 
-export type DefensiveTypeMatchupSummary = {
+export type TypeMatchupSummary = {
   immunities: CoverageDatum
   quadResistances: CoverageDatum
   resistances: CoverageDatum
   neutral: CoverageDatum
   weaknesses: CoverageDatum
   quadWeaknesses: CoverageDatum
+};
+
+// Spread operator needed, otherwise each entry will refer to the same object
+export const INITIAL_TYPEMATCHUP_SUMMARY: TypeMatchupSummary = {
+  immunities: { ...INITIAL_COVERAGEDATUM, },
+  quadResistances: { ...INITIAL_COVERAGEDATUM, },
+  resistances: { ...INITIAL_COVERAGEDATUM, },
+  neutral: { ...INITIAL_COVERAGEDATUM, },
+  weaknesses: { ...INITIAL_COVERAGEDATUM, },
+  quadWeaknesses: { ...INITIAL_COVERAGEDATUM, },
 };
 
 export const computeTypeMatchups: (
@@ -203,20 +213,14 @@ export const computeTypeMatchups: (
     fromItems: ItemMatchupResult[],
   },
   gen: GenerationNum,
-) => Map<TypeName, DefensiveTypeMatchupSummary> = (members, results, gen) => {
+) => Map<TypeName, TypeMatchupSummary> = (members, results, gen) => {
   // Initialize Map
-  const typeMatchupMap = new Map<TypeName, DefensiveTypeMatchupSummary>();
+  const typeMatchupMap = new Map<TypeName, TypeMatchupSummary>();
   for (let [typeName, typeGen] of TYPENAMES) {
     // Only consider types in the given gen
     if (typeGen <= gen) {
-      typeMatchupMap.set(typeName, {
-        immunities: INITIAL_COVERAGEDATUM,
-        quadResistances: INITIAL_COVERAGEDATUM,
-        resistances: INITIAL_COVERAGEDATUM,
-        neutral: INITIAL_COVERAGEDATUM,
-        weaknesses: INITIAL_COVERAGEDATUM,
-        quadWeaknesses: INITIAL_COVERAGEDATUM,
-      });
+      // Spread operator needed, otherwise each entry will refer to the same object
+      typeMatchupMap.set(typeName, { ...INITIAL_TYPEMATCHUP_SUMMARY, });
     }
   }
 

@@ -10,7 +10,6 @@ import FieldControl from "./FieldControl";
 import SpeedControl from "./SpeedControl";
 import StatusControl from "./StatusControl";
 import TeamColumn from "./TeamColumn/TeamColumn";
-import TypeCoverage from "./TypeCoverage";
 import TypeMatchup from "./TypeMatchup/TypeMatchup";
 
 import './CoverageView.css';
@@ -174,30 +173,20 @@ const CoverageView = ({
         />
       </div>
       <div className="type-matchup__cell">
-        {loading_matchupAbility || loading_matchupItem || loading_matchupType 
+        {loading_matchupAbility || loading_matchupItem || loading_matchupType || loading_coverageMove
           ? <div>Loading...</div>
-          : data_matchupAbility && data_matchupItem && data_matchupType
+          : data_matchupAbility && data_matchupItem && data_matchupType && data_coverageMove
             ? <TypeMatchup
                 filters={filters}
                 team={team}
                 abilityData={data_matchupAbility} 
                 itemData={data_matchupItem} 
                 typingData={data_matchupType}
+                moveData={data_coverageMove}
                 onMouseOver={onMouseOver}
                 onMouseLeave={onMouseLeave}
               />
             : <div>Type matchup data not found.</div>
-        }
-      </div>
-      <div className="type-coverage__cell">
-        {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
-          ? <div>Loading...</div>
-          : data_coverageMove
-            ? <TypeCoverage
-                filters={filters}
-                moveData={data_coverageMove} 
-              />
-            : <div>Type coverage data not found.</div>
         }
       </div>
       <div className="field-control__cell">
