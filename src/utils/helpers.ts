@@ -18,26 +18,25 @@ export function binarySearch<E> (
   arr: E[],
   el: E,
   // Positive means el1 is bigger; negative means el2 is bigger; 0 means they're equal
-  cmp: (el1: E, el2: E) => number
+  cmp: (el1: E, el2: E) => number,
+  start = 0,
+  end = arr.length - 1
 ): number {
-  const mid = Math.floor(arr.length / 2);
+  const mid = Math.floor((start + end) / 2);
 
   // Element is in middle
-  if (arr[mid] === el) {
+  if (cmp(el, arr[mid]) === 0) {
     return mid;
-  } 
-  // Element is to the left of mid/smaller than mid
-  else if (cmp(arr[mid], el) > 0 && arr.length > 1) {
-    return binarySearch(arr.slice(0, mid), el, cmp);
-  } 
-  // Element is to the right of mid/larger than mid
-  else if (cmp(arr[mid], el) < 0 && arr.length > 1) {
-    return binarySearch(arr.slice(mid, arr.length), el, cmp);
-  } 
-  // Element is not in the array
-  else {
+  }
+
+  if (start >= end) {
     return -1;
   }
+
+  return cmp(el, arr[mid]) < 0
+    // el is smaller
+    ? binarySearch(arr, el, cmp, start, mid - 1)
+    : binarySearch(arr, el, cmp, mid + 1, end);
 }
 
 // Given an array, 'arr', of objects, of type 'E', search 'arr' for an object whose value, of type 'F', for key 'k' is 'v'.

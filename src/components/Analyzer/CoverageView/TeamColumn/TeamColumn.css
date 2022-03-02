@@ -28,7 +28,6 @@
   font-size: 0.9rem;
   line-height: 1.0;
   padding: 0.25rem;
-  border: 1px solid white;
 }
 
 .analyzer-member__icon,
@@ -98,6 +97,7 @@
 .analyzer-member__irrelevant {
   color: var(--dark1);
 }
+.analyzer-member__irrelevant.analyzer-member__icon,
 .analyzer-member__irrelevant.analyzer-member__type-icon,
 .analyzer-member__irrelevant.analyzer-member__item-icon,
 .analyzer-member__irrelevant.analyzer-member__typing {

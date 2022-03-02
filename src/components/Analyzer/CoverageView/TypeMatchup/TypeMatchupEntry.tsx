@@ -31,57 +31,55 @@ const TypeMatchupEntry = ({
     switch(label) {
       case 'immunities':
         if (total > 1) return 'great';
-        if (total === 1) return 'good';
-        else return 'decent';
+        if (total > 0) return 'good';
+        else return '';
       case 'quadResistances':
         if (total > 1) return 'great';
-        if (total === 1) return 'good';
-        else return 'decent';
+        if (total > 0) return 'good';
+        else return '';
       case 'resistances':
         if (total > 2) return 'great';
-        else if (total === 2) return 'good';
+        else if (total > 1) return 'good';
         else if (total > 0) return 'decent';
         else return 'ok';
       case 'neutral':
         if (total > 4) return 'ok';
         if (total === 4) return 'decent';
-        else return '';
-      case 'weaknesses':
-        if (total > 2) return 'bad';
-        else if (total === 2) return 'ok';
-        else if (total === 1) return 'decent';
         else return 'good';
+      case 'weaknesses':
+        if (total > 3) return 'bad';
+        else if (total > 2) return 'ok';
+        else if (total > 1) return 'decent';
+        else if (total > 0) return 'good';
+        else return 'great';
       case 'quadWeaknesses':
-        if (total > 1) return 'bad';
-        else if (total === 1) return 'ok';
+        if (total > 2) return 'bad';
+        else if (total > 1) return 'ok';
+        else if (total > 0) return 'decent';
         else return 'good';
       default:
         return '';
     }
   }, []);
   const rankCoverageValue = useCallback((total: number, label: keyof TypeCoverageSummary) => {
-    // If no damaging moves, type coverage is not relevant
-    if (damagingMoveCount === 0) return '';
-    const ratio = total / damagingMoveCount;
-
     switch(label) {
       case 'noEffect':
-        if (ratio > 0.4) return 'bad';
-        else if (ratio > 0.2) return 'ok';
-        else if (ratio > 0) return 'decent';
+        if (total > 2) return 'bad';
+        else if (total > 1) return 'ok';
+        else if (total > 0) return 'decent';
         else return 'good';
       case 'notVeryEffective':
-        if (ratio > 0.8) return 'bad';
-        else if (ratio > 0.4) return 'ok';
-        else if (ratio > 0) return 'decent';
+        if (total > 3) return 'bad';
+        else if (total > 2) return 'ok';
+        else if (total > 1) return 'decent';
         else return 'good';
       case 'neutral':
-        if (total > 4) return 'good';
-        if (total > 2) return 'decent';
+        if (total > 3) return 'great';
+        if (total > 0) return 'good';
         else return '';
       case 'superEffective':
-        if (total > 4) return 'great';
-        else if (total > 2) return 'good';
+        if (total > 3) return 'great';
+        else if (total > 1) return 'good';
         else if (total > 0) return 'decent'; 
         else return 'ok';
       default:
@@ -185,9 +183,9 @@ const TypeMatchupEntry = ({
         onMouseOver={onMouseOver(neutralCoverage.memberPSIDs)}
       >
         <span
-          className={rankCoverageValue(neutralMatchup.total, 'neutral')}
+          className={rankCoverageValue(neutralCoverage.total, 'neutral')}
         >
-          {neutralMatchup.total}
+          {neutralCoverage.total}
         </span>
       </div>
       <div

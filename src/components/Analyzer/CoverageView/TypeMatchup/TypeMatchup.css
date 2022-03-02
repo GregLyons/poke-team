@@ -30,7 +30,7 @@
   text-align: center;
 }
 .type-matchup__entry:not(:first-of-type) {
-  color: var(--light2);
+  color: var(--light3);
 }
 
 .type-matchup__entry-icon,

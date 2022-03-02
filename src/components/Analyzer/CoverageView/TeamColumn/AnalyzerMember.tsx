@@ -17,7 +17,8 @@ const AnalyzerMember = ({
 }: AnalyzerMemberProps) => {
   const determineRelevancy = useCallback((name: string | undefined) => {
     if (member === null || relevantNames === null) return '';
-    else if (name && relevantNames[member?.psID].includes(name)) return 'analyzer-member__relevant';
+    else if (name && relevantNames[member?.psID] && relevantNames[member?.psID].includes(name)) return 'analyzer-member__relevant';
+    else if (name && Object.keys(relevantNames).includes(name)) return 'analyzer-member__relevant';
     else return 'analyzer-member__irrelevant';
   }, [relevantNames]);
 
@@ -57,7 +58,7 @@ const AnalyzerMember = ({
           ${determineRelevancy(member?.psID)}
         `}
       >
-        {member?.formattedName || 'Empty'}
+        {member?.formattedName || ''}
       </div>
       <div
         className={`
@@ -76,7 +77,7 @@ const AnalyzerMember = ({
           ${determineRelevancy(member?.ability?.psID)}
         `}
       >
-        {member?.ability?.formattedName || 'Empty'}
+        {member?.ability?.formattedName || ''}
       </div>
       <div
         className={`
@@ -84,7 +85,7 @@ const AnalyzerMember = ({
           ${determineRelevancy(member?.item?.psID)}
         `}
       >
-        {member?.item?.formattedName || 'Empty'}
+        {member?.item?.formattedName || ''}
       </div>
       <div
         className={`
@@ -92,7 +93,7 @@ const AnalyzerMember = ({
           ${determineRelevancy(member?.moveset[0]?.psID)}
         `}
       >
-        {member?.moveset[0]?.formattedName || 'Empty'}
+        {member?.moveset[0]?.formattedName || ''}
       </div>
       <div
         className={`
@@ -100,7 +101,7 @@ const AnalyzerMember = ({
           ${determineRelevancy(member?.moveset[1]?.psID)}
         `}
       >
-        {member?.moveset[1]?.formattedName || 'Empty'}
+        {member?.moveset[1]?.formattedName || ''}
       </div>
       <div
         className={`
@@ -108,7 +109,7 @@ const AnalyzerMember = ({
           ${determineRelevancy(member?.moveset[2]?.psID)}
         `}
       >
-        {member?.moveset[2]?.formattedName || 'Empty'}
+        {member?.moveset[2]?.formattedName || ''}
       </div>
       <div
         className={`
@@ -116,7 +117,7 @@ const AnalyzerMember = ({
           ${determineRelevancy(member?.moveset[3]?.psID)}
         `}
       >
-        {member?.moveset[3]?.formattedName || 'Empty'}
+        {member?.moveset[3]?.formattedName || ''}
       </div>
     </div>
   )

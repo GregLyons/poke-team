@@ -552,7 +552,7 @@ type CoverageResults = {
 
 // Convert CoverageResults type to CoverageResult[]. This allows us to use getMemberToResultsMap regardless of whether we get all the ability, item, and move data
 const flattenCoverageResults: (results: CoverageResults) => CoverageResult[] = results => {
-  return results.fromAbilities.concat(results.fromItems).concat(results.fromMoves);
+  return ([] as CoverageResult[]).concat(results.fromAbilities || []).concat(results.fromItems || []).concat(results.fromMoves || []);
 }
 
 // For sorting arrays of coverage results by psID
@@ -563,7 +563,7 @@ const getMemberToResultsMap: (members: MemberAndEntityPSIDs, results: CoverageRe
   let memberToResultsMap = new Map<string, CoverageResult[]>();
 
   // Sort results for faster lookup
-  results.sort(coverageResultsSortHelper);
+  results = [...results].sort(coverageResultsSortHelper);
 
   // Iterate over members to fill out memberToResultsMap
   for (let member of members) {
@@ -583,6 +583,7 @@ const getMemberToResultsMap: (members: MemberAndEntityPSIDs, results: CoverageRe
     }
     if (member.movePSIDs) {
       for (let movePSID of member.movePSIDs) {
+        console.log(movePSID);
         const index = binarySearchValueByKey(results, 'psID', movePSID, compareStrings);
   
         if (index !== -1) memberResults.push(results[index]);
@@ -604,7 +605,7 @@ export const computeSpeedControl: (
 ) => CoverageDatum = (members, results) => {
   let coverageDatum = getInitialCoverageDatumFromMembers(members);
 
-  const memberToResultsMap = getMemberToResultsMap(members, flattenCoverageResults(results));
+  const memberToResultsMap = getMemberToResultsMap(members,flattenCoverageResults(results));
 
   // Iterate over members
   for (let member of members) {
@@ -864,12 +865,12 @@ export const computeMemberTypeCoverage: (
     const { psID: memberPSID } = member;
 
     // Map holding maximum effectiveness of member's moves against each type
-    let memberRankMap = new Map<TypeName, { movePSID: string, rank: keyof TypeCoverageSummary}>();
+    let memberRankMap = new Map<TypeName, { movePSIDs: string[], rank: keyof TypeCoverageSummary}>();
     // Initialize memberRankMap
     for (let [typeName, typeGen] of TYPENAMES) {
       // Only track types in given gen
       if (typeGen <= gen) {
-        memberRankMap.set(typeName, { movePSID: '', rank: 'noEffect', });
+        memberRankMap.set(typeName, { movePSIDs: [], rank: 'noEffect', });
       }
     }
 
@@ -909,8 +910,18 @@ export const computeMemberTypeCoverage: (
           // Type guard
           const currentMemberRank = memberRankMap.get(typeName);
           if (!currentMemberRank) continue;
+
           // If moveRank is greater than currentMemberRank, set new memberRank for typeName to the current move
-          if (compareMoveRank(moveRank, currentMemberRank.rank) > 0) memberRankMap.set(typeName, { movePSID, rank: moveRank, });
+          if (compareMoveRank(moveRank, currentMemberRank.rank) > 0) memberRankMap.set(typeName, { movePSIDs: [movePSID], rank: moveRank, });
+          // If moveRank is equal to currentMemberRank, add the move to the list of psIDs
+          else if (compareMoveRank(moveRank, currentMemberRank.rank) === 0) {
+            let currentRank = memberRankMap.get(typeName);
+
+            // Type-guard
+            if (!currentRank) continue;
+            
+            memberRankMap.set(typeName, { movePSIDs: currentRank.movePSIDs.concat([movePSID]), rank: currentRank.rank, });
+          }
         }
       }
     }
@@ -925,7 +936,7 @@ export const computeMemberTypeCoverage: (
       // Type-guard
       if (curr === undefined) continue;
 
-      curr[memberRank.rank] = incrementCoverageDatum(curr[memberRank.rank], memberPSID, [memberRank.movePSID]);
+      curr[memberRank.rank] = incrementCoverageDatum(curr[memberRank.rank], memberPSID, memberRank.movePSIDs);
     }
   }
 
