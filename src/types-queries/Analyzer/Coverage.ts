@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import { isType } from "graphql";
 import { binarySearchValueByKey, compareNumbers, compareStrings } from "../../utils/helpers";
 import { CausesStatusEdge, ControlFieldStateEdge, EffectClass, EffectClassEdge, FieldStateClass, FieldStateTargetClass, GenerationNum, ModifiesStatEdge, MoveCategory, ResistsStatusEdge, StatusControlFieldStateEdge, STATUSES, StatusName, TypeName, TYPENAMES } from "../helpers";
-import { CoverageDatum, incrementCoverageDatum, INITIAL_COVERAGEDATUM } from "./helpers";
+import { CoverageDatum, incrementCoverageDatum, INITIAL_COVERAGEDATUM, MemberAndEntityPSIDs } from "./helpers";
 
 // Queries
 // #region
@@ -533,13 +533,6 @@ export const MOVE_COVERAGE_QUERY = gql`
 
 // Coverage calculators
 // #region
-
-type MemberAndEntityPSIDs = {
-  psID: string
-  abilityPSID?: string
-  itemPSID?: string
-  movePSIDs?: string[]
-}[];
 
 // Returns CoverageDatum with total 0, and a key for each member in memberPSIDs
 const getInitialCoverageDatumFromMembers: (members: MemberAndEntityPSIDs) => CoverageDatum = members => {

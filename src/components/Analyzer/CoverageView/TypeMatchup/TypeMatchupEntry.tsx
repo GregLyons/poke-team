@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { TypeCoverageSummary } from "../../../../types-queries/Analyzer/Coverage";
+import { MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
 import { TypeMatchupSummary } from "../../../../types-queries/Analyzer/Matchups";
 import { TypeName } from "../../../../types-queries/helpers";
 import TypeIcon from "../../../Icons/TypeIcon";
@@ -9,7 +10,8 @@ type TypeMatchupEntryProps = {
   typeName: TypeName
   summary: TypeSummary
   damagingMoveCount: number
-  onMouseOver: (psIDs: string[]) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  
+  onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 };
 
@@ -17,6 +19,7 @@ const TypeMatchupEntry = ({
   typeName,
   summary,
   damagingMoveCount,
+
   onMouseOver,
   onMouseLeave,
 }: TypeMatchupEntryProps) => {
@@ -98,7 +101,7 @@ const TypeMatchupEntry = ({
       </div>
       <div
         className="type-matchup__entry-0"
-        onMouseOver={onMouseOver(immunities.psIDs)}
+        onMouseOver={onMouseOver(immunities.memberPSIDs)}
       >
         <span
           className={rankMatchupValue(immunities.total, 'immunities')}
@@ -108,7 +111,7 @@ const TypeMatchupEntry = ({
       </div>
       <div
         className="type-matchup__entry-1-4"
-        onMouseOver={onMouseOver(quadResistances.psIDs)}
+        onMouseOver={onMouseOver(quadResistances.memberPSIDs)}
       >
         <span
           className={rankMatchupValue(quadResistances.total, 'quadResistances')}
@@ -118,7 +121,7 @@ const TypeMatchupEntry = ({
       </div>
       <div
         className="type-matchup__entry-1-2"
-        onMouseOver={onMouseOver(resistances.psIDs)}
+        onMouseOver={onMouseOver(resistances.memberPSIDs)}
       >
         <span
           className={rankMatchupValue(resistances.total, 'resistances')}
@@ -128,7 +131,7 @@ const TypeMatchupEntry = ({
       </div>
       <div
         className="type-matchup__entry-1"
-        onMouseOver={onMouseOver(neutralMatchup.psIDs)}
+        onMouseOver={onMouseOver(neutralMatchup.memberPSIDs)}
       >
         <span
           className={rankMatchupValue(neutralMatchup.total, 'neutral')}
@@ -138,7 +141,7 @@ const TypeMatchupEntry = ({
       </div>
       <div
         className="type-matchup__entry-2"
-        onMouseOver={onMouseOver(weaknesses.psIDs)}
+        onMouseOver={onMouseOver(weaknesses.memberPSIDs)}
       >
         <span
           className={rankMatchupValue(weaknesses.total, 'weaknesses')}
@@ -148,7 +151,7 @@ const TypeMatchupEntry = ({
       </div>
       <div
         className="type-matchup__entry-4"
-        onMouseOver={onMouseOver(quadWeaknesses.psIDs)}
+        onMouseOver={onMouseOver(quadWeaknesses.memberPSIDs)}
       >
         <span
           className={rankMatchupValue(quadWeaknesses.total, 'quadWeaknesses')}
@@ -159,7 +162,7 @@ const TypeMatchupEntry = ({
       <div className="type-matchup__buffer"></div>
       <div
         className="type-coverage__entry-0"
-        onMouseOver={onMouseOver(noEffect.psIDs)}
+        onMouseOver={onMouseOver(noEffect.memberPSIDs)}
       >
         <span
           className={rankCoverageValue(noEffect.total, 'noEffect')}
@@ -169,7 +172,7 @@ const TypeMatchupEntry = ({
       </div>
       <div
         className="type-coverage__entry-1-2"
-        onMouseOver={onMouseOver(notVeryEffective.psIDs)}
+        onMouseOver={onMouseOver(notVeryEffective.memberPSIDs)}
       >
         <span
           className={rankCoverageValue(notVeryEffective.total, 'notVeryEffective')}
@@ -179,7 +182,7 @@ const TypeMatchupEntry = ({
       </div>
       <div
         className="type-coverage__entry-1"
-        onMouseOver={onMouseOver(neutralCoverage.psIDs)}
+        onMouseOver={onMouseOver(neutralCoverage.memberPSIDs)}
       >
         <span
           className={rankCoverageValue(neutralMatchup.total, 'neutral')}
@@ -189,7 +192,7 @@ const TypeMatchupEntry = ({
       </div>
       <div
         className="type-coverage__entry-2"
-        onMouseOver={onMouseOver(superEffective.psIDs)}
+        onMouseOver={onMouseOver(superEffective.memberPSIDs)}
       >
         <span
           className={rankCoverageValue(superEffective.total, 'superEffective')}

@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { Team } from "../../../../hooks/App/Team";
+import { MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
 import { Filters } from "../../../App";
 import AnalyzerMember from "./AnalyzerMember";
 
@@ -8,7 +9,7 @@ import './TeamColumn.css';
 type TeamColumnProps = {
   filters: Filters
   team: Team
-  relevantNames: string[] | null
+  relevantNames: MemberPSIDObject | null
 };
 
 const TeamColumn = ({

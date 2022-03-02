@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
 import { MemberPokemon } from "../../../../types-queries/Builder/MemberPokemon";
 import { DUMMY_POKEMON_ICON_DATUM } from "../../../../types-queries/helpers";
 import ItemIcon from "../../../Icons/ItemIcon";
@@ -7,7 +8,7 @@ import TypeIcon from "../../../Icons/TypeIcon";
 
 type AnalyzerMemberProps = {
   member: MemberPokemon | null
-  relevantNames: string[] | null
+  relevantNames: MemberPSIDObject | null
 };
 
 const AnalyzerMember = ({
@@ -15,8 +16,8 @@ const AnalyzerMember = ({
   relevantNames,
 }: AnalyzerMemberProps) => {
   const determineRelevancy = useCallback((name: string | undefined) => {
-    if (relevantNames === null) return '';
-    else if (relevantNames.includes(name || '')) return 'analyzer-member__relevant';
+    if (member === null || relevantNames === null) return '';
+    else if (name && relevantNames[member?.psID].includes(name)) return 'analyzer-member__relevant';
     else return 'analyzer-member__irrelevant';
   }, [relevantNames]);
 

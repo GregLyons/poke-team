@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { DocumentNode } from "graphql";
 import { CapsTypeName, GenerationNum, TypeName, TYPENAMES } from "../helpers";
-import { CoverageDatum, incrementCoverageDatum, INITIAL_COVERAGEDATUM } from "./helpers";
+import { CoverageDatum, incrementCoverageDatum, INITIAL_COVERAGEDATUM, MemberAndEntityPSIDs } from "./helpers";
 
 export type DefensiveMatchupEdge = {
   node: {
@@ -201,12 +201,7 @@ export const INITIAL_TYPEMATCHUP_SUMMARY: TypeMatchupSummary = {
 };
 
 export const computeTypeMatchups: (
-  members: {
-    psID: string
-    typing: TypeName[]
-    abilityPSID?: string
-    itemPSID?: string
-  }[],
+  members: MemberAndEntityPSIDs,
   results: {
     fromTypings: TypingMatchupResult[], 
     fromAbilities: AbilityMatchupResult[], 
@@ -232,6 +227,9 @@ export const computeTypeMatchups: (
   // Iterate over members, updating 'result' when necessary
   members.map(member => {
     const { psID: memberPSID } = member;
+
+    // Type-guard
+    if (!member.typing) return;
 
     // Iterate over individual types
     for (let typeName of TYPENAMES.map(d => d[0])) {

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Team } from "../../../../hooks/App/Team";
 import { computeTypeCoverage, countDamagingMoves, INITIAL_TYPECOVERAGE_SUMMARY, MoveCoverageQuery, TypeCoverageSummary } from "../../../../types-queries/Analyzer/Coverage";
-import { INITIAL_COVERAGEDATUM } from "../../../../types-queries/Analyzer/helpers";
+import { INITIAL_COVERAGEDATUM, MemberAndEntityPSIDs, MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
 import { AbilityMatchupQuery, computeTypeMatchups, INITIAL_TYPEMATCHUP_SUMMARY, ItemMatchupQuery, TypeMatchupSummary, TypingMatchupQuery, } from "../../../../types-queries/Analyzer/Matchups";
 import { MemberPokemon } from "../../../../types-queries/Builder/MemberPokemon";
 import { TypeName, TYPENAMES } from "../../../../types-queries/helpers";
@@ -12,12 +12,14 @@ import TypeMatchupEntry from "./TypeMatchupEntry";
 
 type TypeMatchupProps = {
   filters: Filters
-  team: Team
+
   abilityData: AbilityMatchupQuery
   itemData: ItemMatchupQuery
   typingData: TypingMatchupQuery
   moveData: MoveCoverageQuery
-  onMouseOver: (psIDs: string[]) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+
+  memberAndEntityPSIDs: MemberAndEntityPSIDs
+  onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 };
 
@@ -28,28 +30,21 @@ export type TypeSummary = {
 
 const TypeMatchup = ({
   filters,
-  team,
+
   abilityData,
   itemData,
   typingData,
   moveData,
+
+  memberAndEntityPSIDs,
   onMouseOver,
   onMouseLeave,
 }: TypeMatchupProps) => {
   const typeSummaryMap: Map<TypeName, TypeSummary> = useMemo(() => {
     const gen = filters.genFilter.gen;
 
-    const nonNullMembers: MemberPokemon[] = (team[filters.genFilter.gen].members.filter(d => d !== null) as MemberPokemon[]);
-
     const typeMatchupMap = computeTypeMatchups(
-      nonNullMembers.map(d => {
-        return {
-          psID: d.psID,
-          typing: d.typing,
-          ability: d.ability?.psID,
-          item: d.item?.psID,
-        }
-      }),
+      memberAndEntityPSIDs,
       {
         fromTypings: typingData.typesByName,
         fromAbilities: abilityData.abilitiesByPSID,
@@ -58,7 +53,11 @@ const TypeMatchup = ({
       gen,
     );
 
-    const typeCoverageMap = computeTypeCoverage(moveData.movesByPSID, gen);
+    const typeCoverageMap = computeTypeCoverage(
+      memberAndEntityPSIDs,
+      moveData.movesByPSID,
+      gen
+    );
 
     // Combine the two maps to get a summary
     const typeSummaryMap = new Map<TypeName, TypeSummary>();
@@ -72,7 +71,7 @@ const TypeMatchup = ({
     }
 
     return typeSummaryMap;
-  }, [abilityData, itemData, typingData, team, filters, moveData, ]);
+  }, [filters, abilityData, itemData, typingData,moveData, memberAndEntityPSIDs, ]);
 
   const damagingMoveCount = useMemo(() => {
     return countDamagingMoves(moveData.movesByPSID);
@@ -125,6 +124,7 @@ const TypeMatchup = ({
             typeName={typeName}
             summary={summary}
             damagingMoveCount={damagingMoveCount}
+
             onMouseOver={onMouseOver}
             onMouseLeave={onMouseLeave}
           />

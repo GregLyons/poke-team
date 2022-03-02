@@ -14,6 +14,7 @@ import TypeMatchup from "./TypeMatchup/TypeMatchup";
 
 import './CoverageView.css';
 import { useQuery } from "@apollo/client";
+import { MemberAndEntityPSIDs, MemberPSIDObject } from "../../../types-queries/Analyzer/helpers";
 
 type CoverageViewProps = {
   filters: Filters
@@ -37,7 +38,7 @@ const CoverageView = ({
   filters,
   team,
 }: CoverageViewProps) => {
-  const [relevantNames, setRelevantNames] = useState<string[] | null>(null);
+  const [relevantNames, setRelevantNames] = useState<MemberPSIDObject | null>(null);
 
   const namesForQueries: NamesForQueries = useMemo(() => {
     let names: NamesForQueries = {
@@ -78,6 +79,21 @@ const CoverageView = ({
 
     return names;
   }, [filters, team]);
+
+  const memberAndEntityPSIDs: MemberAndEntityPSIDs = useMemo(() => {
+    const nonNullMembers: MemberPokemon[] = (team[filters.genFilter.gen].members.filter(d => d !== null) as MemberPokemon[]);
+
+    return nonNullMembers.map(d => {
+      const movePSIDs: string[] = (d.moveset.map(d => d?.psID).filter(d => d !== undefined) as string[]);
+      return {
+        psID: d.psID,
+        typing: d.typing,
+        abilityPSID: d.ability?.psID,
+        itemPSID: d.item?.psID,
+        movePSIDs,
+      };
+    });
+  }, [team, filters]);
 
   // Matchup queries
   // #region
@@ -149,13 +165,15 @@ const CoverageView = ({
 
   // #endregion
 
-  const onMouseOver = (psIDs: string[]) => {
+  // When hovering over a data point, store the relevant names
+  const onMouseOver = (memberPSIDObject: MemberPSIDObject) => {
     return (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.preventDefault();
-      setRelevantNames(psIDs);
+      setRelevantNames(memberPSIDObject);
     }
   }
 
+  // Upon leaving a data point, discard the relevant names
   const onMouseLeave = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
     setRelevantNames(null);
@@ -178,11 +196,13 @@ const CoverageView = ({
           : data_matchupAbility && data_matchupItem && data_matchupType && data_coverageMove
             ? <TypeMatchup
                 filters={filters}
-                team={team}
+
                 abilityData={data_matchupAbility} 
                 itemData={data_matchupItem} 
                 typingData={data_matchupType}
                 moveData={data_coverageMove}
+
+                memberAndEntityPSIDs={memberAndEntityPSIDs}
                 onMouseOver={onMouseOver}
                 onMouseLeave={onMouseLeave}
               />
@@ -195,9 +215,14 @@ const CoverageView = ({
           : data_coverageAbility && data_coverageItem && data_coverageMove
             ? <FieldControl
                 filters={filters}
+
                 abilityData={data_coverageAbility} 
                 itemData={data_coverageItem} 
-                moveData={data_coverageMove} 
+                moveData={data_coverageMove}
+
+                memberAndEntityPSIDs={memberAndEntityPSIDs}
+                onMouseOver={onMouseOver}
+                onMouseLeave={onMouseLeave}
               />
             : <div>Field control data not found.</div>
         }
@@ -208,9 +233,14 @@ const CoverageView = ({
           : data_coverageAbility && data_coverageItem && data_coverageMove
             ? <SpeedControl
                 filters={filters}
+
                 abilityData={data_coverageAbility} 
                 itemData={data_coverageItem} 
-                moveData={data_coverageMove} 
+                moveData={data_coverageMove}
+
+                memberAndEntityPSIDs={memberAndEntityPSIDs}
+                onMouseOver={onMouseOver}
+                onMouseLeave={onMouseLeave}
               />
             : <div>Speed control data not found.</div>
         }
@@ -222,9 +252,14 @@ const CoverageView = ({
           : data_coverageAbility && data_coverageItem && data_coverageMove
             ? <StatusControl
                 filters={filters}
+                
                 abilityData={data_coverageAbility} 
                 itemData={data_coverageItem} 
-                moveData={data_coverageMove} 
+                moveData={data_coverageMove}
+
+                memberAndEntityPSIDs={memberAndEntityPSIDs}
+                onMouseOver={onMouseOver}
+                onMouseLeave={onMouseLeave}
               />
             : <div>Status control data not found.</div>
         }
