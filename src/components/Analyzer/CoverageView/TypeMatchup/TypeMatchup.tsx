@@ -82,43 +82,41 @@ const TypeMatchup = ({
       className="type-matchup__wrapper"
     >
       <div className="type-matchup__entry">
-        <div className="type-matchup__entry-icon">
+        <div className="type-matchup__icon">
         </div>
-        <div className="type-matchup__entry-0">
+        <div className="type-matchup__0">
           0x
         </div>
-        <div className="type-matchup__entry-1-4">
+        <div className="type-matchup__1-4">
           &frac14;x
         </div>
-        <div className="type-matchup__entry-1-2">
+        <div className="type-matchup__1-2">
           &frac12;x
         </div>
-        <div className="type-matchup__entry-1">
+        <div className="type-matchup__1">
           1x
         </div>
-        <div className="type-matchup__entry-2">
+        <div className="type-matchup__2">
           2x
         </div>
-        <div className="type-matchup__entry-4">
+        <div className="type-matchup__4">
           4x
         </div>
         <div className="type-matchup__buffer"></div>
-        <div className="type-coverage__entry-0">
+        <div className="type-coverage__0">
           0x
         </div>
-        <div className="type-coverage__entry-1-2">
+        <div className="type-coverage__1-2">
           &frac12;x
         </div>
-        <div className="type-coverage__entry-1">
+        <div className="type-coverage__1">
           1x
         </div>
         <div className="type-coverage__entry2">
           2x
         </div>
       </div>
-      {Array.from(typeSummaryMap.entries()).map(([key, value]) => {
-        const [typeName, summary] = [key, value];
-        return (
+      {Array.from(typeSummaryMap.entries()).map(([typeName, summary]) => (
           <TypeMatchupEntry
             key={`type_matchup_${typeName}`}
             typeName={typeName}
@@ -128,8 +126,7 @@ const TypeMatchup = ({
             onMouseOver={onMouseOver}
             onMouseLeave={onMouseLeave}
           />
-        )
-      })}
+        ))}
     </div>
   )
 };

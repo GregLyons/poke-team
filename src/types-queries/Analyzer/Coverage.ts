@@ -583,7 +583,6 @@ const getMemberToResultsMap: (members: MemberAndEntityPSIDs, results: CoverageRe
     }
     if (member.movePSIDs) {
       for (let movePSID of member.movePSIDs) {
-        console.log(movePSID);
         const index = binarySearchValueByKey(results, 'psID', movePSID, compareStrings);
   
         if (index !== -1) memberResults.push(results[index]);
@@ -634,7 +633,7 @@ export const computeSpeedControl: (
         // Negative affects speed
         const negativeModification = stage < 0 || multiplier < 1;
         // Reasonable chance to modify speed
-        const reliable = chance >= 0.5;
+        const reliable = chance >= 50;
         // Can target user and/or allies
         const allies = ['ALL_ALLIES', 'USER', 'TARGET', 'ALL'].includes(recipient);
         // Can target enemies
@@ -661,7 +660,7 @@ export const computeSpeedControl: (
         const { chance } = causesStatusEdge;
         const { name } = causesStatusEdge.node;
   
-        if (chance >= 0.5 && name === 'paralysis') isSpeedControl = true;
+        if (chance >= 50 && name === 'paralysis') isSpeedControl = true;
       }
   
       // Check if priority and damaging (i.e. physical/special)
@@ -682,7 +681,7 @@ export const computeSpeedControl: (
 
 export type StatusControlSummary = {
   cause: CoverageDatum
-  resistance: CoverageDatum
+  resist: CoverageDatum
 }
 
 export const computeStatusControl: 
@@ -698,7 +697,7 @@ export const computeStatusControl:
     if (statusGen <= gen) {
       statusControlMap.set(statusName, {
         cause: INITIAL_COVERAGEDATUM,
-        resistance: INITIAL_COVERAGEDATUM, 
+        resist: INITIAL_COVERAGEDATUM, 
       });
     }
   }
@@ -725,7 +724,7 @@ export const computeStatusControl:
         // Type guard
         if (!STATUSES.map(d => d[0]).includes(statusName) || !statusName) continue;
         // Reliability check
-        if (chance < 0.3) continue;
+        if (chance < 30) continue;
 
         let curr = statusControlMap.get(statusName);
         if (curr !== undefined) curr.cause = incrementCoverageDatum(curr.cause, memberPSID, [entityPSID]);
@@ -740,7 +739,7 @@ export const computeStatusControl:
         if (!STATUSES.map(d => d[0]).includes(statusName) || !statusName) continue;
 
         let curr = statusControlMap.get(statusName);
-        if (curr !== undefined) curr.resistance = incrementCoverageDatum(curr.resistance, memberPSID, [entityPSID]);
+        if (curr !== undefined) curr.resist = incrementCoverageDatum(curr.resist, memberPSID, [entityPSID]);
       }
 
       // Check whether the ability/move creates a field state, and if so whether that field state causes/resists a status
@@ -755,7 +754,7 @@ export const computeStatusControl:
           // Type guard
           if (!STATUSES.map(d => d[0]).includes(statusName) || !statusName) continue;
           // Reliability check
-          if (chance < 0.3) continue;
+          if (chance < 30) continue;
     
           let curr = statusControlMap.get(statusName);
           if (curr !== undefined) curr.cause = incrementCoverageDatum(curr.cause, memberPSID, [entityPSID]);
@@ -769,7 +768,7 @@ export const computeStatusControl:
           if (!STATUSES.map(d => d[0]).includes(statusName) || !statusName) continue;
     
           let curr = statusControlMap.get(statusName);
-          if (curr !== undefined) curr.resistance = incrementCoverageDatum(curr.resistance, memberPSID, [entityPSID]);
+          if (curr !== undefined) curr.resist = incrementCoverageDatum(curr.resist, memberPSID, [entityPSID]);
         }
       }
     }

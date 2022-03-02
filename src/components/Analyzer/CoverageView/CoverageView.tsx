@@ -6,9 +6,9 @@ import { ABILITY_MATCHUP_QUERY, ITEM_MATCHUP_QUERY, MatchupSearchVars, MatchupSe
 import { MemberPokemon } from "../../../types-queries/Builder/MemberPokemon";
 import { CapsTypeName, toCapsTypeName } from "../../../types-queries/helpers";
 import { Filters } from "../../App";
-import FieldControl from "./FieldControl";
-import SpeedControl from "./SpeedControl";
-import StatusControl from "./StatusControl";
+import FieldControl from "./FieldControl/FieldControl";
+import SpeedControl from "./SpeedControl/SpeedControl";
+import StatusControl from "./StatusControl/StatusControl";
 import TeamColumn from "./TeamColumn/TeamColumn";
 import TypeMatchup from "./TypeMatchup/TypeMatchup";
 

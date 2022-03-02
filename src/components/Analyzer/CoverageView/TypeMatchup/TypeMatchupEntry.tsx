@@ -92,13 +92,13 @@ const TypeMatchupEntry = ({
       className="type-matchup__entry"
       onMouseLeave={onMouseLeave}
     >
-      <div className="type-matchup__entry-icon">
+      <div className="type-matchup__icon">
         <TypeIcon
           typeName={typeName}
         />
       </div>
       <div
-        className="type-matchup__entry-0"
+        className="type-matchup__0"
         onMouseOver={onMouseOver(immunities.memberPSIDs)}
       >
         <span
@@ -108,7 +108,7 @@ const TypeMatchupEntry = ({
         </span>
       </div>
       <div
-        className="type-matchup__entry-1-4"
+        className="type-matchup__1-4"
         onMouseOver={onMouseOver(quadResistances.memberPSIDs)}
       >
         <span
@@ -118,7 +118,7 @@ const TypeMatchupEntry = ({
         </span>
       </div>
       <div
-        className="type-matchup__entry-1-2"
+        className="type-matchup__1-2"
         onMouseOver={onMouseOver(resistances.memberPSIDs)}
       >
         <span
@@ -128,7 +128,7 @@ const TypeMatchupEntry = ({
         </span>
       </div>
       <div
-        className="type-matchup__entry-1"
+        className="type-matchup__1"
         onMouseOver={onMouseOver(neutralMatchup.memberPSIDs)}
       >
         <span
@@ -138,7 +138,7 @@ const TypeMatchupEntry = ({
         </span>
       </div>
       <div
-        className="type-matchup__entry-2"
+        className="type-matchup__2"
         onMouseOver={onMouseOver(weaknesses.memberPSIDs)}
       >
         <span
@@ -148,7 +148,7 @@ const TypeMatchupEntry = ({
         </span>
       </div>
       <div
-        className="type-matchup__entry-4"
+        className="type-matchup__4"
         onMouseOver={onMouseOver(quadWeaknesses.memberPSIDs)}
       >
         <span
@@ -159,7 +159,7 @@ const TypeMatchupEntry = ({
       </div>
       <div className="type-matchup__buffer"></div>
       <div
-        className="type-coverage__entry-0"
+        className="type-coverage__0"
         onMouseOver={onMouseOver(noEffect.memberPSIDs)}
       >
         <span
@@ -169,7 +169,7 @@ const TypeMatchupEntry = ({
         </span>
       </div>
       <div
-        className="type-coverage__entry-1-2"
+        className="type-coverage__1-2"
         onMouseOver={onMouseOver(notVeryEffective.memberPSIDs)}
       >
         <span
@@ -179,7 +179,7 @@ const TypeMatchupEntry = ({
         </span>
       </div>
       <div
-        className="type-coverage__entry-1"
+        className="type-coverage__1"
         onMouseOver={onMouseOver(neutralCoverage.memberPSIDs)}
       >
         <span
@@ -189,7 +189,7 @@ const TypeMatchupEntry = ({
         </span>
       </div>
       <div
-        className="type-coverage__entry-2"
+        className="type-coverage__2"
         onMouseOver={onMouseOver(superEffective.memberPSIDs)}
       >
         <span

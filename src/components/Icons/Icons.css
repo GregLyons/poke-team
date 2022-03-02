@@ -9,3 +9,7 @@
 .item-icon {
   background-image: url('../../assets/icons/itemicons-sheet.png');
 }
+
+.status-icon {
+  background-image: url('../../assets/icons/statusicons-sheet.png');
+}

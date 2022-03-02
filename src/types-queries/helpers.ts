@@ -289,6 +289,18 @@ export const STATUSES: [StatusName, GenerationNum][] = [
   ['trapped', 2],
 ];
 
+export const STATUS_MAP = new Map<StatusName, string>([
+  ['burn', 'Burn'],
+  ['freeze', 'Freeze'],
+  ['paralysis', 'Paralysis'],
+  ['poison', 'Poison'],
+  ['bad_poison', 'Toxic'],
+  ['sleep', 'Sleep'],
+  ['confusion', 'Confusion'],
+  ['taunt', 'Taunt'],
+  ['trapped', 'Trapped'],
+]);
+
 export interface CausesStatusEdge {
   node: {
     name: string
