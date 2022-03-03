@@ -105,7 +105,7 @@ function DropdownMenu<E extends Item<F>, F>({
             : '',
           boxShadow: isActive
             ? `
-                5px 15px 2px 2px rgba(0, 0, 0, 0.8),
+                5px 5px 2px 2px rgba(0, 0, 0, 0.8),
                 ${backgroundLight === 'blue'
                   ? 'var(--bg-control-blue)'
                   : backgroundLight === 'green'

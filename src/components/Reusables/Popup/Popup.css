@@ -1,0 +1,86 @@
+.popup-wrapper {
+  position: relative;
+}
+
+.popup-trigger {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+}
+
+.popup-trigger--v {
+  padding: 0.125rem 0.25rem 0 0.25rem;
+}
+
+/* Make trigger take on background color when active */
+.popup-trigger--active {
+  background-color: rgba(var(--dark3-components), 0.6);
+  text-decoration: underline;
+}
+
+.popup-content {
+  position: absolute;
+  overflow: hidden;
+
+  background-color: rgba(var(--dark3-components), 0.6);
+  z-index: 100;
+  
+  /* Need to use opacity; just setting height to 0 or auto will still show the borders */
+  opacity: 0;
+  pointer-events: none;
+}
+.popup-content.popup-content--active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Border effects */
+/* #region */
+/* Prevents content from moving when border appears */
+.popup-trigger--h {
+  border-left: 1px solid transparent;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+.popup-trigger--v {
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-top: 1px solid transparent;
+}
+
+/* Turn on border when active */
+/* Horizontal */
+.popup-trigger--h.popup-trigger--active {
+  border-left: 1px solid var(--light3);
+  border-top: 1px solid var(--light3);
+  border-bottom: 1px solid var(--light3);
+}
+.popup-content--h.popup-content--active {
+  border-left: 1px solid var(--light3);
+  border-top: 1px solid var(--light3);
+  border-bottom: 1px solid var(--light3);
+}
+/* Vertical */
+.popup-trigger--v.popup-trigger--active {
+  border-left: 1px solid var(--light3);
+  border-right: 1px solid var(--light3);
+  border-top: 1px solid var(--light3);
+}
+.popup-content--v.popup-content--active {
+  border-left: 1px solid var(--light3);
+  border-right: 1px solid var(--light3);
+  border-bottom: 1px solid var(--light3);
+}
+
+/* Box shadow around active content */
+.popup-content--active {
+  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* #endregion */
+
+.popup-padder {
+  position: relative;
+
+  padding: 1rem;
+}

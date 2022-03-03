@@ -1,10 +1,10 @@
 import { useCallback } from "react";
-import { MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
-import { MemberPokemon } from "../../../../types-queries/Builder/MemberPokemon";
-import { DUMMY_POKEMON_ICON_DATUM } from "../../../../types-queries/helpers";
-import ItemIcon from "../../../Icons/ItemIcon";
-import PokemonIcon from "../../../Icons/PokemonIcon";
-import TypeIcon from "../../../Icons/TypeIcon";
+import { MemberPSIDObject } from "../../../types-queries/Analyzer/helpers";
+import { MemberPokemon } from "../../../types-queries/Builder/MemberPokemon";
+import { DUMMY_POKEMON_ICON_DATUM } from "../../../types-queries/helpers";
+import ItemIcon from "../../Icons/ItemIcon";
+import PokemonIcon from "../../Icons/PokemonIcon";
+import TypeIcon from "../../Icons/TypeIcon";
 
 type AnalyzerMemberProps = {
   member: MemberPokemon | null

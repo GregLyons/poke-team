@@ -9,7 +9,7 @@ import { Filters } from "../../App";
 import FieldControl from "./FieldControl/FieldControl";
 import SpeedControl from "./SpeedControl/SpeedControl";
 import StatusControl from "./StatusControl/StatusControl";
-import TeamColumn from "./TeamColumn/TeamColumn";
+import TeamColumn from "../TeamColumn/TeamColumn";
 import TypeMatchup from "./TypeMatchup/TypeMatchup";
 
 import './CoverageView.css';

@@ -5,6 +5,7 @@ import { PokemonSet } from "@pkmn/data";
 
 import { Team } from "../../../hooks/App/Team";
 import { Filters } from "../../App";
+import Popup from "../../Reusables/Popup/Popup";
 
 type ImportExportProps = {
   filters: Filters
@@ -17,15 +18,33 @@ const ImportExport = ({
 }: ImportExportProps) => {
   const [importedSets, setImportedSets] = useState<PokemonSet[]>([]);
 
-  const member = team[filters.genFilter.gen].members[0];
+  // const member = team[filters.genFilter.gen].members[0];
 
-  if (member === null) { return (<div> yo </div>); }
+  // if (member === null) { return (<div> yo </div>); }
 
-  const str = member.toSetString();
-
+  // const str = member.toSetString();
 
   return (
-    <div>yo</div>
+    <div className="import-export__wrapper">
+      <div
+        className="import-wrapper"
+      >
+        <Popup
+          trigger={<div>Import</div>}
+          content={<div>asdf asdf asdf</div>}
+          orientation="v"
+        />
+      </div>
+      <div
+        className="export-wrapper"
+      >
+        <Popup
+          trigger={<div>Export</div>}
+          content={<div>asdfasdfasdf</div>}
+          orientation="v"
+        />
+      </div>
+    </div>
   );
 };
 

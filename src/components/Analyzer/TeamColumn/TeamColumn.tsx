@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import { Team } from "../../../../hooks/App/Team";
-import { MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
-import { Filters } from "../../../App";
+import { Team } from "../../../hooks/App/Team";
+import { MemberPSIDObject } from "../../../types-queries/Analyzer/helpers";
+import { Filters } from "../../App";
 import AnalyzerMember from "./AnalyzerMember";
 
 import './TeamColumn.css';

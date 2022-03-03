@@ -30,16 +30,13 @@ const TypeMatchupEntry = ({
   const rankMatchupValue = useCallback((total: number, label: keyof TypeMatchupSummary) => {
     switch(label) {
       case 'immunities':
-        if (total > 1) return 'great';
         if (total > 0) return 'good';
         else return '';
       case 'quadResistances':
-        if (total > 1) return 'great';
         if (total > 0) return 'good';
         else return '';
       case 'resistances':
-        if (total > 2) return 'great';
-        else if (total > 1) return 'good';
+        if (total > 1) return 'good';
         else if (total > 0) return 'decent';
         else return 'ok';
       case 'neutral':
@@ -50,8 +47,7 @@ const TypeMatchupEntry = ({
         if (total > 3) return 'bad';
         else if (total > 2) return 'ok';
         else if (total > 1) return 'decent';
-        else if (total > 0) return 'good';
-        else return 'great';
+        else return 'good';
       case 'quadWeaknesses':
         if (total > 2) return 'bad';
         else if (total > 1) return 'ok';
@@ -74,12 +70,11 @@ const TypeMatchupEntry = ({
         else if (total > 1) return 'decent';
         else return 'good';
       case 'neutral':
-        if (total > 3) return 'great';
-        if (total > 0) return 'good';
+        if (total > 3) return 'good';
+        if (total > 0) return '';
         else return '';
       case 'superEffective':
-        if (total > 3) return 'great';
-        else if (total > 1) return 'good';
+        if (total > 2) return 'good';
         else if (total > 0) return 'decent'; 
         else return 'ok';
       default:
