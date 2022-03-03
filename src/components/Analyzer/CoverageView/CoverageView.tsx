@@ -15,6 +15,7 @@ import TypeMatchup from "./TypeMatchup/TypeMatchup";
 import './CoverageView.css';
 import { useQuery } from "@apollo/client";
 import { MemberAndEntityPSIDs, MemberPSIDObject } from "../../../types-queries/Analyzer/helpers";
+import { useWindowSize } from "usehooks-ts";
 
 type CoverageViewProps = {
   filters: Filters
@@ -209,6 +210,26 @@ const CoverageView = ({
             : <div>Type matchup data not found.</div>
         }
       </div>
+      <div
+        className="status-control__cell"
+      >
+        {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
+          ? <div>Loading...</div>
+          : data_coverageAbility && data_coverageItem && data_coverageMove
+            ? <StatusControl
+                filters={filters}
+                
+                abilityData={data_coverageAbility} 
+                itemData={data_coverageItem} 
+                moveData={data_coverageMove}
+
+                memberAndEntityPSIDs={memberAndEntityPSIDs}
+                onMouseOver={onMouseOver}
+                onMouseLeave={onMouseLeave}
+              />
+            : <div>Status control data not found.</div>
+        }
+      </div>
       <div className="field-control__cell">
         {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
           ? <div>Loading...</div>
@@ -243,25 +264,6 @@ const CoverageView = ({
                 onMouseLeave={onMouseLeave}
               />
             : <div>Speed control data not found.</div>
-        }
-
-      </div>
-      <div className="status-control__cell">
-        {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
-          ? <div>Loading...</div>
-          : data_coverageAbility && data_coverageItem && data_coverageMove
-            ? <StatusControl
-                filters={filters}
-                
-                abilityData={data_coverageAbility} 
-                itemData={data_coverageItem} 
-                moveData={data_coverageMove}
-
-                memberAndEntityPSIDs={memberAndEntityPSIDs}
-                onMouseOver={onMouseOver}
-                onMouseLeave={onMouseLeave}
-              />
-            : <div>Status control data not found.</div>
         }
 
       </div>

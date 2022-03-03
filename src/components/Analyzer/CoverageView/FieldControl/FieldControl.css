@@ -1,4 +1,4 @@
-.status-control__wrapper {
+.field-control__wrapper {
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: 1fr;
@@ -6,7 +6,7 @@
 
   position: relative;
   width: fit-content;
-  min-width: calc(40px + 24ch);
+  min-width: calc(20ch);
   height: auto;
 
   padding: 0.5rem;
@@ -15,10 +15,10 @@
   box-shadow: 3px 3px 3px 0 rgba(var(--dark3-components), 0.9);
 }
 
-.status-control__entry {
+.field-control__entry {
   display: grid;
-  grid-template-columns: 40px 11ch 4ch 4ch;
-  gap: 1.5ch;
+  grid-template-columns: 8ch 4ch 4ch;
+  gap: 1ch;
   justify-content: center;
   align-items: center;
 
@@ -27,10 +27,9 @@
   height: clamp(1.5rem, 2rem, 5%);
 }
 
-.status-control__icon,
-.status-control__name,
-.status-control__cause,
-.status-control__resist {
+.field-control__name,
+.field-control__create,
+.field-control__resist {
   grid-column: span 1;
   align-self: center;
 
@@ -41,34 +40,31 @@
   width: 100%;
   height: 100%;
 }
-/* Pad cells except icons */
-.status-control__name,
-.status-control__cause,
-.status-control__resist {
+/* Pad cells */
+.field-control__name,
+.field-control__create,
+.field-control__resist {
   padding: 0 1ch 0 1ch;
 }
 /* Center everything except names */
-.status-control__icon,
-.status-control__entry:first-of-type > .status-control__name,
-.status-control__cause,
-.status-control__resist {
+.field-control__entry:first-of-type > .field-control__name,
+.field-control__create,
+.field-control__resist {
   justify-content: center;
 }
 
+
 /* Background colors */
 
-.status-control__entry:nth-of-type(2n) {
+.field-control__entry:nth-of-type(2n) {
   background-color: rgba(var(--dark1-components), 0.5);
 }
-.status-control__entry:nth-of-type(2n + 1) {
+.field-control__entry:nth-of-type(2n + 1) {
   background-color: rgba(var(--dark2-components), 0.5);
 }
-.status-control__entry > div:nth-of-type(2n):not(.status-control__icon) {
+.field-control__entry > div:nth-of-type(2n) {
   background-color: rgba(var(--dark1-components), 0.1);
 }
-.status-control__entry > div:nth-of-type(2n + 1):not(.status-control__icon) {
-  background-color: rgba(var(--dark1-components), 0.3);
-}
-.status-control__entry:not(:first-of-type) > div:not(.status-control__icon):not(.status-control__name):hover {
+.field-control__entry:not(:first-of-type) > div:not(.field-control__name):hover {
   background: rgba(var(--blue1-components), 0.5);
 }

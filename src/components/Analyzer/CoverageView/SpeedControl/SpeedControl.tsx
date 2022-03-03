@@ -2,6 +2,9 @@ import { useCallback, useMemo } from "react";
 import { AbilityCoverageQuery, computeSpeedControl, ItemCoverageQuery, MoveCoverageQuery } from "../../../../types-queries/Analyzer/Coverage";
 import { MemberAndEntityPSIDs, MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
 import { Filters } from "../../../App";
+import SpeedControlEntry from "./SpeedControlEntry";
+
+import './SpeedControl.css';
 
 type SpeedControlProps = {
   filters: Filters
@@ -26,7 +29,7 @@ const SpeedControl = ({
   onMouseOver,
   onMouseLeave,
 }: SpeedControlProps) => {
-  const speedControlDatum = useMemo(() => {
+  const speedControlMap = useMemo(() => {
     return computeSpeedControl(
       memberAndEntityPSIDs,
       {
@@ -47,21 +50,24 @@ const SpeedControl = ({
   return (
     <div
       className="speed-control__wrapper"
-      onMouseLeave={onMouseLeave}
     >
-      <div className="speed-control__header">
-        Speed control
+      <div className="speed-control__entry">
+        <div className="speed-control__name">
+        </div>
+        <div className="speed-control__value">
+          #
+        </div>
       </div>
-      <div
-        className="speed-control__value"
-        onMouseOver={onMouseOver(speedControlDatum.memberPSIDs)}
-      >
-        <span
-          className={rankControlValue(speedControlDatum.total)}
-        >
-          {speedControlDatum.total}
-        </span>
-      </div>
+      {(Object.entries(speedControlMap)).map(([speedControlKey, coverageDatum]) => (
+        <SpeedControlEntry
+          key={`speed_control_${speedControlKey}`}
+          speedControlKey={speedControlKey}
+          coverageDatum={coverageDatum}
+
+          onMouseOver={onMouseOver}
+          onMouseLeave={onMouseLeave}
+        />
+      ))}
     </div>
   )
 };

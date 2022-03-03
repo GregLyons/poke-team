@@ -157,6 +157,7 @@ export const ABILITY_COVERAGE_QUERY = gql`
           node {
             name
             class
+            target
 
             causesStatus {
               id
@@ -488,6 +489,7 @@ export const MOVE_COVERAGE_QUERY = gql`
           node {
             name
             class
+            target
 
             causesStatus {
               id
@@ -598,11 +600,24 @@ const getMemberToResultsMap: (members: MemberAndEntityPSIDs, results: CoverageRe
 // Speed control
 // #region
 
+export type SpeedControlSummary = {
+  stat: CoverageDatum
+  priority: CoverageDatum
+  other: CoverageDatum
+}
+
+export type SpeedControlKey = keyof SpeedControlSummary
+
 export const computeSpeedControl: (
   members: MemberAndEntityPSIDs,
   results: CoverageResults,
-) => CoverageDatum = (members, results) => {
-  let coverageDatum = getInitialCoverageDatumFromMembers(members);
+) => SpeedControlSummary = (members, results) => {
+  // Initialize Map
+  let speedControlMap: SpeedControlSummary = {
+    stat: { ...INITIAL_COVERAGEDATUM, },
+    priority: { ...INITIAL_COVERAGEDATUM, },
+    other: { ...INITIAL_COVERAGEDATUM, },
+  }
 
   const memberToResultsMap = getMemberToResultsMap(members,flattenCoverageResults(results));
 
@@ -616,13 +631,19 @@ export const computeSpeedControl: (
 
     // Iterate over memberResults
     for (let memberResult of memberResults) {
-      let isSpeedControl = false;
       const { psID: entityPSID } = memberResult;
   
       // Check effects
       for (let effectEdge of memberResult.effects.edges) {
         const { class: effectClass } = effectEdge.node;
-        if (effectClass === 'SPEED') isSpeedControl = true;
+
+        // Speed control Effect
+        if (effectClass === 'SPEED') {
+          speedControlMap = {
+            ...speedControlMap,
+            other: incrementCoverageDatum(speedControlMap.other, memberPSID, [entityPSID]),
+          };
+        }
       }
   
       // Check stat modifications
@@ -647,12 +668,14 @@ export const computeSpeedControl: (
             It modifies user's and/or ally's speed positively, or it modifies target and/or foe's speed negatively
             It does so reliably
         */
-        if (
-          (
-            (positiveModification && allies) || (negativeModification && enemies)
-          )
-          && reliable
-        ) isSpeedControl = true;
+        if (reliable) {
+          if ((positiveModification && allies) || (negativeModification && enemies)) {
+            speedControlMap = {
+              ...speedControlMap,
+              stat: incrementCoverageDatum(speedControlMap.stat, memberPSID, [entityPSID]),
+            };
+          }
+        }
       }
   
       // Check whether reliably causes paralysis
@@ -660,18 +683,25 @@ export const computeSpeedControl: (
         const { chance } = causesStatusEdge;
         const { name } = causesStatusEdge.node;
   
-        if (chance >= 50 && name === 'paralysis') isSpeedControl = true;
+        if (chance >= 50 && name === 'paralysis') {
+          speedControlMap = {
+            ...speedControlMap,
+            other: incrementCoverageDatum(speedControlMap.other, memberPSID, [entityPSID]),
+          };
+        }
       }
   
       // Check if priority and damaging (i.e. physical/special)
-      if (memberResult?.priority !== undefined && memberResult?.category !== undefined && memberResult.priority > 0 && ['PHYSICAL', 'SPECIAL'].includes(memberResult.category)) isSpeedControl = true;
-      
-      // If entity is speed control, add it to coverageDatum
-      if (isSpeedControl) coverageDatum = incrementCoverageDatum(coverageDatum, memberPSID, [entityPSID]);
+      if (memberResult?.priority !== undefined && memberResult?.category !== undefined && memberResult.priority > 0 && ['PHYSICAL', 'SPECIAL'].includes(memberResult.category)) {
+        speedControlMap = {
+          ...speedControlMap,
+          priority: incrementCoverageDatum(speedControlMap.priority, memberPSID, [entityPSID]),
+        };
+      }
     }
   }
 
-  return coverageDatum;
+  return speedControlMap;
 }
 
 // #endregion
@@ -696,8 +726,8 @@ export const computeStatusControl:
     // Only track statuses in given gen
     if (statusGen <= gen) {
       statusControlMap.set(statusName, {
-        cause: INITIAL_COVERAGEDATUM,
-        resist: INITIAL_COVERAGEDATUM, 
+        cause: { ...INITIAL_COVERAGEDATUM },
+        resist: { ...INITIAL_COVERAGEDATUM }, 
       });
     }
   }
@@ -1010,22 +1040,30 @@ export const computeTypeCoverage: (
 // Weather, terrain, and entry hazard control
 // #region
 
+export type FieldControlSummary = {
+  create: CoverageDatum
+  resist: CoverageDatum
+}
+
 export const computeFieldControl: (
   members: MemberAndEntityPSIDs,
   results: CoverageResults,
   gen: GenerationNum
-) => Map<FieldStateClass, CoverageDatum> = (members, results, gen) => {
+) => Map<FieldStateClass, FieldControlSummary> = (members, results, gen) => {
   // Initialize Map
   const RELEVANT_CLASSES: [FieldStateClass, GenerationNum][] = [
     ['WEATHER', 2],
     ['ENTRY_HAZARD', 2],
     ['TERRAIN', 6],
   ];
-  const fieldStateControlMap = new Map<FieldStateClass, CoverageDatum>();
+  const fieldStateControlMap = new Map<FieldStateClass, FieldControlSummary>();
   for (let [className, classGen] of RELEVANT_CLASSES) {
     // Only track classes in given gen
     if (classGen <= gen) {
-      fieldStateControlMap.set(className, INITIAL_COVERAGEDATUM);
+      fieldStateControlMap.set(className, {
+        create: { ...INITIAL_COVERAGEDATUM, },
+        resist: { ...INITIAL_COVERAGEDATUM, },
+      });
     }
   }
   
@@ -1043,13 +1081,24 @@ export const computeFieldControl: (
     for (let memberResult of memberResults) {
       const { psID: entityPSID } = memberResult;
 
+      // Creating fieldStates
+      if (memberResult.createsFieldState) {
+        // Iterate over edges
+        for (let fieldStateEdge of memberResult.createsFieldState.edges) {
+          const { class: className } = fieldStateEdge.node;
+
+          let curr = fieldStateControlMap.get(className)?.create;
+          if (curr !== undefined) curr = incrementCoverageDatum(curr, memberPSID, [entityPSID]);
+        }
+      }
+
       // Ignoring field states
       if (memberResult.ignoresFieldState) {
         // Iterate over edges
         for (let fieldStateEdge of memberResult.ignoresFieldState.edges) {
           const { class: className } = fieldStateEdge.node;
 
-          let curr = fieldStateControlMap.get(className);
+          let curr = fieldStateControlMap.get(className)?.resist;
           if (curr !== undefined) curr = incrementCoverageDatum(curr, memberPSID, [entityPSID]);
         }
       }
@@ -1059,7 +1108,7 @@ export const computeFieldControl: (
         for (let fieldStateEdge of memberResult.preventsFieldState.edges) {
           const { class: className } = fieldStateEdge.node;
 
-          let curr = fieldStateControlMap.get(className);
+          let curr = fieldStateControlMap.get(className)?.resist;
           if (curr !== undefined) curr = incrementCoverageDatum(curr, memberPSID, [entityPSID]);
         }
       }
@@ -1069,7 +1118,7 @@ export const computeFieldControl: (
         for (let fieldStateEdge of memberResult.removesFieldState.edges) {
           const { class: className } = fieldStateEdge.node;
 
-          let curr = fieldStateControlMap.get(className);
+          let curr = fieldStateControlMap.get(className)?.resist;
           if (curr !== undefined) curr = incrementCoverageDatum(curr, memberPSID, [entityPSID]);
         }
       }
@@ -1079,7 +1128,7 @@ export const computeFieldControl: (
         for (let fieldStateEdge of memberResult.resistsFieldState.edges) {
           const { class: className } = fieldStateEdge.node;
 
-          let curr = fieldStateControlMap.get(className);
+          let curr = fieldStateControlMap.get(className)?.resist;
           if (curr !== undefined) curr = incrementCoverageDatum(curr, memberPSID, [entityPSID]);
         }
       }
@@ -1089,7 +1138,7 @@ export const computeFieldControl: (
         for (let fieldStateEdge of memberResult.suppressesFieldState.edges) {
           const { class: className } = fieldStateEdge.node;
 
-          let curr = fieldStateControlMap.get(className);
+          let curr = fieldStateControlMap.get(className)?.resist;
           if (curr !== undefined) curr = incrementCoverageDatum(curr, memberPSID, [entityPSID]);
         }
       }

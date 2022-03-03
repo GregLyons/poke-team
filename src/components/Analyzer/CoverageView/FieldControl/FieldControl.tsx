@@ -4,6 +4,9 @@ import { MemberAndEntityPSIDs, MemberPSIDObject } from "../../../../types-querie
 import { FIELDSTATE_CLASS_MAP } from "../../../../types-queries/helpers";
 import { Filters } from "../../../App";
 
+import './FieldControl.css';
+import FieldControlEntry from "./FieldControlEntry";
+
 type FieldControlProps = {
   filters: Filters
 
@@ -46,27 +49,28 @@ const FieldControl = ({
   }, []);
   
   return (
-    <div className="field-control__wrapper">
-      {Array.from(fieldControlMap.entries()).map(([fieldStateClass, controlDatum]) => (
-        <div
-          key={`field-control_${fieldStateClass}_entry`}
-          className="field-control__entry"
-          onMouseLeave={onMouseLeave}
-        >
-          <div className="field-control__name">
-            {FIELDSTATE_CLASS_MAP.get(fieldStateClass)}
-          </div>
-          <div
-            className="field-control__value"
-            onMouseOver={onMouseOver(controlDatum.memberPSIDs)}
-          >
-            <span
-              className={rankControlValue(controlDatum.total)}
-            >
-              {controlDatum.total}
-            </span>
-          </div>
+    <div
+      className="field-control__wrapper"
+    >
+      <div className="field-control__entry">
+        <div className="field-control__name">
         </div>
+        <div className="field-control__create">
+          +
+        </div>
+        <div className="field-control__resist">
+          -
+        </div>
+      </div>
+      {Array.from(fieldControlMap.entries()).map(([fieldStateClass, summary]) => (
+        <FieldControlEntry
+          key={`field_control_${fieldStateClass}`}
+          fieldStateClass={fieldStateClass}
+          summary={summary}
+
+          onMouseOver={onMouseOver}
+          onMouseLeave={onMouseLeave}
+        />
       ))}
     </div>
   )

@@ -48,13 +48,13 @@ const StatusControl = ({
       <div className="status-control__entry">
         <div className="status-control__icon"></div>
         <div className="status-control__name">
-          Name
+          
         </div>
         <div className="status-control__cause">
-          Cause
+          +
         </div>
         <div className="status-control__resist">
-          Resist
+          -
         </div>
       </div>
       {Array.from(statusControlMap.entries()).map(([statusName, summary]) => (

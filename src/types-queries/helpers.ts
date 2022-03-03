@@ -341,6 +341,7 @@ export interface ControlFieldStateEdge {
 export interface StatusControlFieldStateEdge {
   node: {
     name: string
+    class: FieldStateClass
     target: FieldStateTargetClass
 
     causesStatus: {

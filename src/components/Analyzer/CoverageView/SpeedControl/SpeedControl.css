@@ -1,4 +1,4 @@
-.type-matchup__wrapper {
+.speed-control__wrapper {
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: 1fr;
@@ -6,9 +6,8 @@
 
   position: relative;
   width: fit-content;
-  min-width: calc(40px + 51ch);
+  min-width: calc(13ch);
   height: auto;
-  min-height: 420px;
 
   padding: 0.5rem;
   background-color: rgba(var(--dark3-components), 0.5);
@@ -16,56 +15,55 @@
   box-shadow: 3px 3px 3px 0 rgba(var(--dark3-components), 0.9);
 }
 
-.type-matchup__entry {
+.speed-control__entry {
   display: grid;
-  grid-template-columns: 40px repeat(11, 3ch);
-  gap: 1.5ch;
+  grid-template-columns: 9ch 4ch;
+  gap: 1ch;
   justify-content: center;
   align-items: center;
 
   position: relative;
   width: auto;
   height: clamp(1.5rem, 2rem, 5%);
-
-  text-align: center;
-}
-.type-matchup__entry:not(:first-of-type) {
-  color: var(--light3);
 }
 
-.type-matchup__icon,
-.type-matchup__0,
-.type-matchup__1-4,
-.type-matchup__1-2,
-.type-matchup__1,
-.type-matchup__2,
-.type-matchup__4 {
+.speed-control__name,
+.speed-control__value {
   grid-column: span 1;
   align-self: center;
 
   display: flex;
-  justify-content: center;
   align-items: center;
 
   position: relative;
   width: 100%;
   height: 100%;
 }
+/* Pad cells */
+.speed-control__name,
+.speed-control__value {
+  padding: 0 1ch 0 1ch;
+}
+/* Center cells except names */
+.speed-control__entry:first-of-type > .speed-control__name,
+.speed-control__value {
+  justify-content: center;
+}
 
 /* Background colors */
 
-.type-matchup__entry:nth-of-type(2n) {
+.speed-control__entry:nth-of-type(2n) {
   background-color: rgba(var(--dark1-components), 0.5);
 }
-.type-matchup__entry:nth-of-type(2n + 1) {
+.speed-control__entry:nth-of-type(2n + 1) {
   background-color: rgba(var(--dark2-components), 0.5);
 }
-.type-matchup__entry > div:nth-of-type(2n):not(.type-matchup__icon) {
+.speed-control__entry > div:nth-of-type(2n) {
   background-color: rgba(var(--dark1-components), 0.1);
 }
-.type-matchup__entry > div:nth-of-type(2n + 1):not(.type-matchup__icon) {
-  background-color: rgba(var(--dark1-components), 0.3);
+.speed-control__value:hover {
+  background: rgba(var(--blue1-components), 0.5);
 }
-.type-matchup__entry:not(:first-of-type) > div:not(.type-matchup__icon):hover {
+.speed-control__entry:not(:first-of-type) > div:not(.speed-control__name):hover {
   background: rgba(var(--blue1-components), 0.5);
 }
