@@ -16,7 +16,8 @@
   color: var(--dark1);
 }
 
-.button:hover:enabled {
+.button:hover:enabled,
+.button:focus:enabled {
   cursor: pointer;
   box-shadow: var(--button-shadow);
 }
@@ -46,13 +47,15 @@
 }
 
 /* Inactive, hover: blue */
-.button:hover:enabled::before {
+.button:hover:enabled::before,
+.button:focus:enabled::before {
   border-left-color: var(--blue1);
   opacity: 1;
 }
 
 /* Active, hover: white */
-.button--active:hover:enabled::before {
+.button--active:hover:enabled::before,
+.button--active:focus:enabled::before {
   border-left-color: var(--light1);
   opacity: 1;
 }

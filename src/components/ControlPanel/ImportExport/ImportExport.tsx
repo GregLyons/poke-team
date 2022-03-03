@@ -4,19 +4,29 @@ import { Dex } from '@pkmn/dex';
 import { PokemonSet } from "@pkmn/data";
 
 import { Team } from "../../../hooks/App/Team";
-import { Filters } from "../../App";
+import { Dispatches, Filters } from "../../App";
 import Popup from "../../Reusables/Popup/Popup";
+import ImportTextbox from "./ImportTextbox";
+
+import './ImportExport.css';
 
 type ImportExportProps = {
+  dispatches: Dispatches
   filters: Filters
   team: Team
 };
 
 const ImportExport = ({
+  dispatches,
   filters,
   team,
 }: ImportExportProps) => {
-  const [importedSets, setImportedSets] = useState<PokemonSet[]>([]);
+  const onImport: (teamString: string) => (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void = teamString => {
+    return e => {
+      e.preventDefault();
+
+    }
+  }
 
   // const member = team[filters.genFilter.gen].members[0];
 
@@ -28,14 +38,17 @@ const ImportExport = ({
     <div className="import-export__wrapper">
       <div
         className="import-wrapper"
+        title="Import Pokemon."
       >
         <Popup
           trigger={<div>Import</div>}
-          content={<div>asdf asdf asdf</div>}
+          content={<ImportTextbox 
+            onImport={onImport}
+          />}
           orientation="v"
         />
       </div>
-      <div
+      {/* <div
         className="export-wrapper"
       >
         <Popup
@@ -43,7 +56,7 @@ const ImportExport = ({
           content={<div>asdfasdfasdf</div>}
           orientation="v"
         />
-      </div>
+      </div> */}
     </div>
   );
 };

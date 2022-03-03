@@ -63,6 +63,7 @@ const ControlPanel = ({
       </div>
       <div className={classWithBGShadow("import-export__cell", bgManager)}>
         <ImportExport
+          dispatches={dispatches}
           filters={filters}
           team={team}
         />

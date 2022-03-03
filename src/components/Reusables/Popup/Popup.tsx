@@ -39,20 +39,23 @@ const Popup = ({
     setTimeout(() => {
       // Displace popup to right or bottom of trigger, respectively
       triggerRef.current && setTriggerMainDisplacement(orientation === 'h'
-        ? triggerRef.current.scrollWidth
-        : triggerRef.current.scrollHeight
+        ? triggerRef.current.offsetWidth
+        : triggerRef.current.offsetHeight
       );
 
       // Displace popup so that it's as centered as possible, while respecting window boundary
-      if (triggerRef.current && contentRef.current) {
+      // Need windowWidth and windowHeight to be nonzero; on first render they are zero, so skip that render. Then, they will be updated to the actual values, which will trigger this effect again
+      if (triggerRef.current && contentRef.current && windowWidth && windowHeight) {
         // Initial auxDisplacement, centering
         let auxDisplacement = orientation === 'h'
-          ? (-contentRef.current.scrollHeight + triggerRef.current.offsetHeight) / 2
-          : (-contentRef.current.scrollWidth + triggerRef.current.offsetWidth) / 2;
-        
+          ? (-contentRef.current.offsetHeight + triggerRef.current.offsetHeight) / 2
+          : (-contentRef.current.offsetWidth + triggerRef.current.offsetWidth) / 2;
+
+          
         // Additional displacement so that box doesn't go off screen
         const contentRect = contentRef.current.getBoundingClientRect();
         const displacementMagnitude = Math.abs(auxDisplacement);
+
         // Content will be displaced upwards
         if (orientation === 'h') {
           // Keep top from going off top of screen
@@ -70,6 +73,7 @@ const Popup = ({
           if (contentRect.left - displacementMagnitude < 0) {
             auxDisplacement += contentRect.left - displacementMagnitude + 16;
           }
+          // Keep right from going off right of screen
           else if (contentRect.right - displacementMagnitude > windowWidth) {
             auxDisplacement -= contentRect.right - displacementMagnitude + 16;
           }
@@ -79,18 +83,6 @@ const Popup = ({
       }
     });
   }, [windowWidth, windowHeight, triggerRef, contentRef, setTriggerMainDisplacement, setTriggerAuxDisplacement]);
-
-  console.log('aux displacement', triggerAuxDisplacement);
-  console.log({
-      content: '',
-      position: 'absolute',
-      height: '1px',
-      backgroundColor: 'var(--light3)',
-      right: 0,
-      width: triggerAuxDisplacement
-        ? triggerAuxDisplacement / 2
-        : '',
-    })
 
   return (
     <div

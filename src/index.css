@@ -153,6 +153,12 @@ input:focus {
   outline: none;
 }
 
+/* Remove default textarea styling */
+textarea {
+  outline: none;
+  resize: none;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
