@@ -303,7 +303,7 @@ export const setsToMembers: (
         const abilityIndex = abilityResults.map(d => d.psID).indexOf(abilityPSID);
 
         // Shouldn't occur
-        if (abilityIndex === -1) throw new InvalidAbilityError(set.ability);
+        if (abilityIndex === -1) throw new InvalidAbilityError(set.ability, memberPokemon.formattedName);
 
         const abilityResult = abilityResults[abilityIndex];
 
@@ -320,7 +320,7 @@ export const setsToMembers: (
         memberPokemon.assignAbility(memberAbility);
       }
       // Otherwise, throw error
-      else throw new InvalidAbilityError(set.ability); 
+      else throw new InvalidAbilityError(set.ability, memberPokemon.formattedName); 
     }
 
     // #endregion
@@ -334,7 +334,7 @@ export const setsToMembers: (
         const itemIndex = itemResults.map(d => d.psID).indexOf(itemPSID);
 
         // Shouldn't occur
-        if (itemIndex === -1) throw new InvalidItemError(set.item);
+        if (itemIndex === -1) throw new InvalidItemError(set.item, memberPokemon.formattedName);
 
         const itemResult = itemResults[itemIndex];
 
@@ -348,7 +348,7 @@ export const setsToMembers: (
         // Finally, assign item
         memberPokemon.assignItem(memberItem);
       }
-      else throw new InvalidItemError(set.item);
+      else throw new InvalidItemError(set.item, memberPokemon.formattedName);
     }
 
     // #endregion
@@ -360,7 +360,7 @@ export const setsToMembers: (
       // Cast movesetIdx as 0 | 1 | 2 | 3 so that we can assign it later
       const movesetIdx: 0 | 1 | 2 | 3= (idx as 0 | 1 | 2 | 3);
       // Shouldn't happen
-      if (![0, 1, 2, 3].includes(movesetIdx)) throw new InvalidMoveError(move);
+      if (![0, 1, 2, 3].includes(movesetIdx)) throw new InvalidMoveError(move, memberPokemon.formattedName);
 
       const movePSID = toPSID(move);
       if (movePSID) {
@@ -371,7 +371,7 @@ export const setsToMembers: (
           const moveIndex = moveResults.map(d => d.psID).indexOf(movePSID);
 
           // Shouldn't occur
-          if (moveIndex === -1) throw new InvalidMoveError(move);
+          if (moveIndex === -1) throw new InvalidMoveError(move, memberPokemon.formattedName);
 
           const moveResult = moveResults[moveIndex];
 
@@ -385,7 +385,7 @@ export const setsToMembers: (
           // Finally, assign move
           memberPokemon.assignMove(memberMove, movesetIdx);
         }
-        else throw new InvalidMoveError(move);
+        else throw new InvalidMoveError(move, memberPokemon.formattedName);
       }
     });
 
@@ -401,7 +401,7 @@ export const setsToMembers: (
         const natureIndex = natureResults.map(d => d.name).indexOf(natureName);
 
         // Shouldn't occur
-        if (natureIndex === -1) throw new InvalidItemError(set.nature);
+        if (natureIndex === -1) throw new InvalidItemError(set.nature, memberPokemon.formattedName);
 
         const natureResult = natureResults[natureIndex];
 
@@ -415,7 +415,7 @@ export const setsToMembers: (
         // Finally, assign item
         memberPokemon.assignNature(memberNature);
       }
-      else throw new InvalidNatureError(set.nature);
+      else throw new InvalidNatureError(set.nature, memberPokemon.formattedName);
     }
 
     // #endregion
@@ -435,7 +435,7 @@ export const setsToMembers: (
       set.hpType !== undefined && memberPokemon.assignHPType(set.hpType);
     }
     catch {
-      throw new InvalidStatsError(memberPokemon.formattedName);
+      throw new InvalidStatsError('', memberPokemon.formattedName);
     }
 
     // #endregion

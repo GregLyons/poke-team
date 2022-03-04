@@ -229,6 +229,19 @@ export type TeamAction =
       importString: string
     }
   }
+| {
+    type: 'clear_import'
+    payload: {
+      gen: GenerationNum
+    }
+  }
+| {
+    type: 'add_imported_members'
+    payload: {
+      gen: GenerationNum
+      newMembers: MemberPokemon[]
+    }
+  }
 // #endregion
 
 export function teamReducer(state: Team, action: TeamAction): Team {
@@ -533,7 +546,9 @@ export function teamReducer(state: Team, action: TeamAction): Team {
       // Check that all sets are properly parsed
       try {
         for (let set of sets) {
+          // Set should be defined
           if (set === undefined) throw new Error();
+          // Set shouldn't have space in name
           else if (set.species.includes(' ')) throw new Error();
         }
       }
@@ -551,11 +566,59 @@ export function teamReducer(state: Team, action: TeamAction): Team {
         ...state,
         [gen]: {
             ...state[gen],
+            // Filter out sets with missing name
             importedMembers: sets.filter(set => {
               return ('' + set.species).toLowerCase().replace(/[^a-z0-9]+/g, '');
             }),
             failedImport: false,
           },
+      };
+
+    case 'clear_import':
+      gen = action.payload.gen;
+
+      // If no imported members, and 'failedImport' flag is false, do nothing
+      if (state[gen].importedMembers.length === 0 && !state[gen].failedImport) return state;
+
+      // Otherwise, clear imported members, and remove 'failedImport' flag
+      return {
+        ...state,
+        [gen]: {
+          ...state[gen],
+          importedMembers: [],
+          failedImport: false,
+        },
+      };
+
+    case 'add_imported_members':
+      gen = action.payload.gen;
+      const newMembers = action.payload.newMembers;
+      let currentTeam = [...state[gen].members];
+
+      for (let newMember of newMembers) {
+        // Search for next open slot
+        const openSlotIdx = currentTeam.indexOf(null);
+
+        // If there is no open slot, continue
+        if (openSlotIdx === -1) continue;
+
+        // If there is an open slot, add in newMember to that slot
+        currentTeam = [
+          ...currentTeam.slice(0, openSlotIdx),
+          newMember,
+          ...currentTeam.slice(openSlotIdx + 1)
+        ];
+      }
+
+      // Return state with new members, and clear the import
+      return {
+        ...state,
+        [gen]: {
+          ...state[gen],
+          members: currentTeam,
+          importedMembers: [],
+          failedImport: false,
+        },
       };
 
     // #endregion

@@ -19,9 +19,10 @@ export class LateIntroductionError extends Error {
 
 // 'msg' holds ability name
 export class InvalidAbilityError extends Error {
-  constructor(msg: string) {
+  public memberName: string
+  constructor(msg: string, memberName: string) {
     super(msg);
-
+    this.memberName = memberName;
     Object.setPrototypeOf(this, InvalidAbilityError.prototype)
 
     if (Error.captureStackTrace) {
@@ -34,9 +35,10 @@ export class InvalidAbilityError extends Error {
 
 // 'msg' holds item name
 export class InvalidItemError extends Error {
-  constructor(msg: string) {
+  public memberName: string
+  constructor(msg: string, memberName: string) {
     super(msg);
-
+    this.memberName = memberName;
     Object.setPrototypeOf(this, InvalidItemError.prototype)
 
     if (Error.captureStackTrace) {
@@ -49,9 +51,10 @@ export class InvalidItemError extends Error {
 
 // 'msg' holds move name
 export class InvalidMoveError extends Error {
-  constructor(msg: string) {
+  public memberName: string
+  constructor(msg: string, memberName: string) {
     super(msg);
-
+    this.memberName = memberName;
     Object.setPrototypeOf(this, InvalidMoveError.prototype)
 
     if (Error.captureStackTrace) {
@@ -64,9 +67,10 @@ export class InvalidMoveError extends Error {
 
 // 'msg' holds nature name
 export class InvalidNatureError extends Error {
-  constructor(msg: string) {
+  public memberName: string
+  constructor(msg: string, memberName: string) {
     super(msg);
-
+    this.memberName = memberName;
     Object.setPrototypeOf(this, InvalidNatureError.prototype)
 
     if (Error.captureStackTrace) {
@@ -79,9 +83,10 @@ export class InvalidNatureError extends Error {
 
 // 'msg' is name of MemberPokemon
 export class InvalidStatsError extends Error {
-  constructor(msg: string) {
+  public memberName: string
+  constructor(msg: string, memberName: string) {
     super(msg);
-
+    this.memberName = memberName;
     Object.setPrototypeOf(this, InvalidStatsError.prototype)
 
     if (Error.captureStackTrace) {

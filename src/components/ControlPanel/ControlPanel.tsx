@@ -10,7 +10,7 @@ import { GenFilter, GenFilterAction } from '../../hooks/App/GenFilter';
 import { Team, TeamAction } from '../../hooks/App/Team';
 import { CartAction } from '../../hooks/App/Cart';
 import { BGManager, BGAction, classWithBGShadow, classWithBG } from '../../hooks/App/BGManager';
-import ImportExport from './ImportExport/ImportExport';
+import ImportExport from './ImportExport/Import';
 import { Dispatches, Filters } from '../App';
 
 type ControlPanelProps = {

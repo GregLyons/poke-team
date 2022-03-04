@@ -1,24 +1,36 @@
 import { ApolloError } from "@apollo/client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { GenerationNum } from "../../../types-queries/helpers";
 import Button from "../../Reusables/Button/Button";
+import { ImportState } from "./Import";
 
 type ImportTextboxProps = {
   onImport: (importString: string) => (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
-  importError: boolean
-  lateMembers: [string, GenerationNum][]
-  loading: boolean
-  queryError: ApolloError | undefined
+  importState: ImportState
 };
 
 const ImportTextbox = ({
   onImport,
-  importError,
-  queryError,
-  lateMembers,
-  loading,
+  importState,
 }: ImportTextboxProps) => {
   const [importString, setImportString] = useState<string>('');
+
+  /*
+    Determine message to display based on various factors:
+      First, flag 'importError', as that indicates we failed to parse the import string
+      If we successfully parsed the import string, then we then attempt to run a GQL query. 'queryError' and 'loading' keep track of thi 
+  */
+  const messageDisplay: JSX.Element = useMemo(() => {
+    return (
+      <div className={`
+        import-message__${importState.key}
+      `}
+      >
+        {importState.messageComponent}
+      </div>
+    )
+  }, [importState, ]);
+
   return (
     <div className="import-textbox__wrapper">
       <textarea
@@ -32,18 +44,7 @@ const ImportTextbox = ({
         onChange={e => setImportString(e.target.value)}
       />
       <div className="import-textbox__bottom-wrapper">
-        <div className="import-textbox__message">
-          {importError  
-            ? <span className="import-textbox__error">ERROR: check formatting</span>
-            : queryError 
-              ? <span className="import-textbox__error">ERROR: failed query</span>
-              : loading
-                ? <span className="import-textbox__loading">Loading...</span> 
-                : lateMembers && lateMembers.length > 0
-                  ? <span className="import-textbox__error">{lateMembers.map(d => `${d[0]} (Gen ${d[1]})`).join(',')} not valid!</span>
-                  : ''
-          }
-        </div>
+        {messageDisplay}
         <div className="import-textbox__button">
           <Button
             title="Import Pokemon."
