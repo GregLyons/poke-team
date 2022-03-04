@@ -43,8 +43,7 @@
 
 .member-details__header,
 .team-member-holder__header,
-.member-details__move-header,
-.member-details__stat-header,
+.member-details__inner-header,
 .reference-panel__header {
   position: absolute;
   top: -7px;
@@ -63,7 +62,6 @@
 .reference-panel__header {
   left: 6px;
 }
-.member-details__stat-header,
-.member-details__move-header {
+.member-details__inner-header {
   right: 6px;
 }

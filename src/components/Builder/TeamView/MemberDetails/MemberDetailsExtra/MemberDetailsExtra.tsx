@@ -34,6 +34,8 @@ const MemberDetailsExtra = ({
           width={15}
           autoFocus={false}
         />}
+
+        interactive={true}
       />
       
       {/* Level */}
@@ -51,6 +53,8 @@ const MemberDetailsExtra = ({
           sliderWidth="50%"
           numericalWidth={3}
         />}
+
+        interactive={true}
       />
 
       {/* Gender */}
@@ -58,6 +62,8 @@ const MemberDetailsExtra = ({
         forClass="gender"
         header="Gender"
         content={<>{member.gender}</>}
+
+        interactive={true}
 
         gen={gen}
         minGen={2}
@@ -70,6 +76,7 @@ const MemberDetailsExtra = ({
         content={<>{member.shiny ? 'Yes' : 'No'}</>}
 
         onContentClick={handlers.toggleShiny}
+        interactive={true}
 
         gen={gen}
         minGen={2}
@@ -92,6 +99,8 @@ const MemberDetailsExtra = ({
           sliderWidth="50%"
           numericalWidth={3}
         />}
+        
+        interactive={true}
 
         gen={gen}
         minGen={2}

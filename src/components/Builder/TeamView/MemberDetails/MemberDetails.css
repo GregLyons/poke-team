@@ -11,83 +11,70 @@
   display: none;
 }
 
-.member-details__content {
+.member-details__box,
+.member-details__inner-box {
   display: flex;
   justify-content: center;
   align-items: center;
 
   position: relative;
+  width: 100%;
+  height: 100%;
 
+  border: var(--team-builder-border3);
+}
+
+.member-details__content,
+.member-details__inner-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
   width: 100%;
   height: 100%;
 
   padding: var(--team-builder-gap);
 }
 
-.member-details__ability,
-.member-details__item,
-.member-details__moveset {
-  font-size: 14px;
-}
 
 /* Hover effects */
 /* #region */
 
-/* Individual moves */
-.member-details__move-wrapper,
-/* Individual stat boxes */
-.member-details__ev-wrapper,
-.member-details__iv-wrapper,
-.member-details__nature-wrapper,
-/* All other boxes */
-.member-details__wrapper div:not(.member-details__moveset):not(.member-details__stats) > .member-details__content {
+.member-details__box,
+.member-details__inner-box {
   transition: 0.3s ease;
 }
 
-/* Change brightness when hovering over entire box, or when active */
-/* Individual moves */
-.member-details__move-wrapper:hover,
-.member-details__move-wrapper--active,
-/* Individual stat boxes */
-.member-details__stat-wrapper:hover:not(.member-details__content--disabled),
-.member-details__stat-wrapper--active:not(.member-details__content--disabled),
-/* All other boxes */
-.member-details__wrapper div:not(.member-details__moveset):not(.member-details__stats) > .member-details__content:not(.member-details__content--disabled):hover, 
-.member-details__wrapper div:not(.member-details__moveset) > .member-details__content--active {
+/* Change brightness when hovering over/focusingwithin enabled, interactive box, or when box is active */
+.member-details__box.--interactive:not(.--disabled):not(.--has-inner-box):hover,
+.member-details__inner-box.--interactive:not(.--disabled):hover,
+.member-details__box:not(.--disabled):not(.--has-inner-box):focus-within,
+.member-details__inner-box:not(.--disabled):focus-within,
+.member-details__box:not(.--has-inner-box).--active,
+.member-details__inner-box.--active {
   background-color: rgba(var(--light1-components), 0.05);
 }
 
-/* Hover effects for cosmetic and extra boxes */
-.member-details__extra-wrapper > div,
-.member-details__cosmetic-wrapper {
-  transition: border 0.3s ease;
-}
-.member-details__extra-wrapper > div:not(.member-details--disabled):hover,
-.member-details__cosmetic-wrapper {
-  border: var(--team-builder-border2);
-}
-.member-details__extra-wrapper > div:not(.member-details--disabled):focus-within,
-.member-details__cosmetic-wrapper:focus-within {
+/* Add border when hovering over/focusing within enabled, interactive box */
+.member-details__box.--interactive:not(.--disabled):not(.--has-inner-box):hover,
+.member-details__inner-box.--interactive:not(.--disabled):hover,
+.member-details__box:not(.--disabled):not(.--has-inner-box):focus-within
+.member-details__inner-box:not(.--disabled):focus-within,
+.member-details__box.--active,
+.member-details__inner-box.--active {
   border: var(--team-builder-border1);
 }
-/* When extra and cosmetic boxes are 'active' */
-.member-details__extra-wrapper > div > .member-details__content:not(.member-details__content--disabled):focus-within,
-.member-details__cosmetic-wrapper:focus-within {
-  background-color: rgba(var(--light1-components), 0.05);
+/* When box has inner box, don't change the border so strongly */
+.member-details__box.--has-inner-box.--interactive:not(.--disabled):hover,
+.member-details__box.--has-inner-box.--interactive:not(.--disabled):focus-within {
+  border: var(--team-builder-border2);
 }
 
-/* Change cursor when over interactive element; some already do so (e.g. dropdowns and sliders) */
-/* Individual moves */
-.member-details__move-wrapper:hover,
-/* Individual stat boxes */
-.member-details__stat-wrapper:hover:not(.member-details__content--disabled),
-/* Other boxes */
-.member-details__ability > .member-details__content:not(.member-details__content--disabled),
-.member-details__item > .member-details__content:not(.member-details__content--disabled),
-.member-details__shiny > .member-details__content:not(.member-details__content--disabled) {
+/* When hovering over enabled, interactive box/inner box, change cursor */
+.member-details__box.--interactive:not(.--has-inner-box):not(.--disabled):hover,
+.member-details__inner-box.--interactive:hover {
   cursor: pointer;
 }
 
 /* #endregion */
-
-

@@ -1,4 +1,5 @@
-import { BaseStatName, StatTable, toAbbreviatedBaseStatName } from "../../../../../types-queries/helpers";
+import { BaseStatName, StatTable, toAbbreviatedBaseStatName } from "../../../../../../types-queries/helpers";
+
 
 type SpreadTableProps = {
   statTable: StatTable
@@ -10,7 +11,11 @@ const SpreadTable = ({
   tableFor,
 }: SpreadTableProps) => {
   return (
-    <>
+    <div
+      className={`
+        member-details__${tableFor}s-wrapper
+      `}
+    >
       {Object.entries(statTable).map(([key, value]) => {
         // Type guard
         const statName = (key as BaseStatName);
@@ -59,7 +64,7 @@ const SpreadTable = ({
           </div>
         )
       })}
-    </>
+    </div>
   )
 };
 

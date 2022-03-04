@@ -8,7 +8,7 @@ import ItemIcon from "../../../Icons/ItemIcon";
 import PokemonIcon from "../../../Icons/PokemonIcon";
 import TypeIcon from "../../../Icons/TypeIcon";
 import { MemberDetailsHandlers, ReferencePanelView } from "../TeamView";
-import StatGraph from "./MemberDetailsMain/StatGraph";
+import StatGraph from "./MemberDetailsMain/StatBox/StatGraph";
 import CosmeticFormDropdown from "./MemberDetailsCosmetic/CosmeticFormDropdown";
 
 import './MemberDetails.css';

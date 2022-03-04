@@ -1,5 +1,5 @@
-import { MemberNature } from "../../../../../types-queries/Builder/MemberNature";
-import { BaseStatName, GenerationNum, StatTable, toAbbreviatedBaseStatName } from "../../../../../types-queries/helpers";
+import { MemberNature } from "../../../../../../types-queries/Builder/MemberNature";
+import { BaseStatName, GenerationNum, StatTable, toAbbreviatedBaseStatName } from "../../../../../../types-queries/helpers";
 
 type StatGraphProps = {
   gen: GenerationNum
@@ -107,7 +107,9 @@ const StatGraph = ({
   };
 
   return (
-    <>
+    <div
+      className="member-details__graph-wrapper"
+    >
       {Object.keys(evs).map(key => {
         // Type guard
         if (key === '__typename') return <div></div>;
@@ -155,7 +157,7 @@ const StatGraph = ({
           </div>
         )
       })}
-    </>
+    </div>
   )
 };
 

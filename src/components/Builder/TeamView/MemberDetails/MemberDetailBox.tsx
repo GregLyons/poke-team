@@ -7,6 +7,8 @@ type MemberDetailBoxProps = {
 
   active?: boolean
   onContentClick?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  hasInnerBox?: boolean
+  interactive?: boolean
 
   gen?: GenerationNum
   minGen?: GenerationNum
@@ -20,6 +22,8 @@ const MemberDetailBox = ({
 
   active,
   onContentClick,
+  hasInnerBox,
+  interactive,
 
   gen,
   minGen,
@@ -30,18 +34,34 @@ const MemberDetailBox = ({
   return (
     <div
       className={`
+        member-details__box
         member-details__${forClass}
-        ${invalidGen ? 'member-details--disabled' : ''}
+        ${invalidGen
+          ? '--disabled'
+          : ''}
         ${active
-          ? `member-details__content--active`
+          ? `--active`
+          : ''}
+        ${hasInnerBox
+          ? `--has-inner-box`
+          : ''
+        }
+        ${interactive
+          ? '--interactive'
           : ''}
       `}
     >
       <div className="member-details__header">
-        {invalidGen ? '' : header}
+        {invalidGen
+        ? ''
+        : active 
+          ? 'Active'
+          :header}
       </div>
       <div
-        className="member-details__content"
+        className={`
+          member-details__content
+        `}
         onClick={onContentClick && !invalidGen ? onContentClick : () => {}}
       >
         {invalidGen ? '' : content}
