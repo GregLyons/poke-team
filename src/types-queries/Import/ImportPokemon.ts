@@ -378,7 +378,9 @@ export const setsToMembers: (
       // Shouldn't happen
       if (![0, 1, 2, 3].includes(movesetIdx)) throw new InvalidMoveError(move, memberPokemon.formattedName);
 
-      const movePSID = toPSID(move);
+      // Set might have hidden power type in the name; in this case, remove it
+      let movePSID = toPSID(move);
+      if (movePSID.includes('hiddenpower')) { movePSID = 'hiddenpower'; }
       if (movePSID) {
         // If move is valid for the Pokemon, assign it
         if (memberResult.moves.edges.map(edge => edge.node.psID).includes(movePSID)) {
@@ -440,17 +442,17 @@ export const setsToMembers: (
     // #region
 
     try {
-      memberPokemon.assignEVs(toStatTable(set.evs));
-      memberPokemon.assignIVs(toStatTable(set.ivs));
-      memberPokemon.assignLevel(set.level);
+      memberPokemon.assignEVs(toStatTable(set.evs, gen, 'ev'));
+      memberPokemon.assignIVs(toStatTable(set.ivs, gen, 'iv'));
+      memberPokemon.assignLevel(set.level || 100);
 
       set.shiny !== undefined && memberPokemon.assignShiny(set.shiny);
       set.happiness !== undefined && memberPokemon.assignHappiness(set.happiness);
-      set.level !== undefined && memberPokemon.assignHappiness(set.level);
       set.pokeball !== undefined && memberPokemon.assignPokeball(set.pokeball);
       set.hpType !== undefined && memberPokemon.assignHPType(set.hpType);
     }
-    catch {
+    catch (e) {
+      console.log(e);
       throw new InvalidStatsError('', memberPokemon.formattedName);
     }
 

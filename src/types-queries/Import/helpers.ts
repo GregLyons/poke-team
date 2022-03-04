@@ -118,20 +118,37 @@ export const toPSID = (s: string | number) => {
   return ('' + s).toLowerCase().replace(/[^a-z0-9]+/g, '')
 }
 
-export const toStatTable: (statTable: {
-  hp: number,
-  atk: number,
-  def: number,
-  spa: number,
-  spd: number,
-  spe: number
-}) => StatTable = statTable => {
+export const toStatTable: (
+  statTable: {
+    hp?: number,
+    atk?: number,
+    def?: number,
+    spa?: number,
+    spd?: number,
+    spe?: number,
+  },
+  gen: GenerationNum, 
+  mode: 'ev' | 'iv'
+) => StatTable = (statTable, gen, mode) => {
+  const defaultEV = gen < 3 ? 252 : 0;
+  const defaultIV = gen < 3 ? 15 : 31;
+  const defaultValue = mode === 'ev' ? defaultEV : defaultIV;
   return {
-    hp: statTable.hp,
-    attack: statTable.atk,
-    defense: statTable.def,
-    specialAttack: statTable.spa,
-    specialDefense: statTable.spd,
-    speed: statTable.spe,
+    hp: statTable?.hp || defaultValue,
+    attack: statTable?.atk !== undefined
+      ? statTable.atk
+      : defaultValue,
+    defense: statTable?.def !== undefined
+      ? statTable.def
+      : defaultValue,
+    specialAttack: statTable?.spa !== undefined
+      ? statTable.spa
+      : defaultValue,
+    specialDefense: statTable?.spd !== undefined
+      ? statTable.spd
+      : defaultValue,
+    speed: statTable?.spe !== undefined
+      ? statTable.spe
+      : defaultValue,
   };
 };

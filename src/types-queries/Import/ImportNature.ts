@@ -3,7 +3,7 @@ import { MemberNatureQueryResult } from "../Builder/MemberNature";
 import { GenerationNum } from "../helpers";
 
 export type MemberNatureFromSetQuery = {
-  natureByPSID: MemberNatureQueryResult[]
+  naturesByName: MemberNatureQueryResult[]
 }
 
 export type MemberNatureFromSetQueryVars = {

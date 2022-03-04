@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Sets } from '@pkmn/sets';
 import { Dex } from '@pkmn/dex';
 import { PokemonSet } from "@pkmn/data";
@@ -18,6 +18,7 @@ import { MemberItemFromSetQuery, MemberItemFromSetQueryVars, SET_MEMBERITEM_QUER
 import { MemberNatureFromSetQuery, MemberNatureFromSetQueryVars, SET_MEMBERNATURE_QUERY } from "../../../types-queries/Import/ImportNature";
 import { InvalidAbilityError, InvalidItemError, InvalidMoveError, InvalidNatureError, InvalidStatsError, LateIntroductionError, PSIDNotFoundError } from "../../../types-queries/Import/helpers";
 import { useLazyQuery } from "@apollo/client";
+import { useIsFirstRender } from "usehooks-ts";
 
 type ImportProps = {
   dispatches: Dispatches
@@ -109,7 +110,12 @@ const Import = ({
         </>)
       });
 
-      return;
+      return dispatches.dispatchTeam({
+        type: 'clear_import',
+        payload: {
+          gen: filters.genFilter.gen,
+        },
+      });
     }
     
     // 'failedImport' flag is set, that means we could not parse the import string
@@ -121,7 +127,12 @@ const Import = ({
         </>),
       });
 
-      return;
+      return dispatches.dispatchTeam({
+        type: 'clear_import',
+        payload: {
+          gen: filters.genFilter.gen,
+        },
+      });
     }
     
     // If no imported members
@@ -133,7 +144,12 @@ const Import = ({
         </>),
       });
 
-      return;
+      return dispatches.dispatchTeam({
+        type: 'clear_import',
+        payload: {
+          gen: filters.genFilter.gen,
+        },
+      });
     }
 
     // #endregion
@@ -142,7 +158,7 @@ const Import = ({
     execute_pokemon();
     execute_item();
     execute_nature();
-  }, [filters, team, importState, execute_pokemon, execute_item, execute_nature]);
+  }, [filters, team, dispatches, importState, execute_pokemon, execute_item, execute_nature]);
 
   // Handles import state, and attempts to add imported members to the team
   useEffect(() => {
@@ -161,7 +177,12 @@ const Import = ({
         </>)
       });
 
-      return;
+      return dispatches.dispatchTeam({
+        type: 'clear_import',
+        payload: {
+          gen: filters.genFilter.gen,
+        },
+      });
     }
 
     // Error in item query
@@ -173,7 +194,12 @@ const Import = ({
         </>)
       });
 
-      return;
+      return dispatches.dispatchTeam({
+        type: 'clear_import',
+        payload: {
+          gen: filters.genFilter.gen,
+        },
+      });
     }
 
     // Error in Nature query
@@ -185,7 +211,12 @@ const Import = ({
         </>)
       });
 
-      return;
+      return dispatches.dispatchTeam({
+        type: 'clear_import',
+        payload: {
+          gen: filters.genFilter.gen,
+        },
+      });
     }
 
     // #endregion
@@ -206,21 +237,20 @@ const Import = ({
     // #endregion
 
     // At this point, if we have all the necessary data, try to add imported members to team
-    if (data_pokemon && data_item && data_nature && data_pokemon.pokemonByPSIDs.length > 0) {
+    if (data_pokemon?.pokemonByPSIDs && data_item?.itemsByPSID && data_nature?.naturesByName && data_pokemon.pokemonByPSIDs.length > 0) {
       let newMembers: MemberPokemon[] = [];
       // Attempting to add new members to team
       try {
         newMembers = setsToMembers(
-          team[filters.genFilter.gen].importedMembers.slice(numOpenSlots),
+          team[filters.genFilter.gen].importedMembers.slice(0, numOpenSlots),
           data_pokemon.pokemonByPSIDs,
           data_item.itemsByPSID,
-          data_nature.natureByPSID,
+          data_nature.naturesByName,
           filters.genFilter.gen,
         );
       }
       // Handle various errors that could come from setsToMembers, e.g. invalid moves, abilities, etc.
       catch (e) {
-        console.log(e);
         if (e instanceof LateIntroductionError) {
           setImportState({
             key: 'error',
@@ -279,19 +309,25 @@ const Import = ({
           setImportState({
             key: 'error',
             messageComponent: (<>
-              Could not find data on members {e.indices.join(', ')}.
+              Could not find data on members {e.indices.map(d => d + 1).join(', ')}.
             </>)
           })
         }
         else {
           console.log('thrown');
+          console.log(e);
           throw e;
         }
       }
       finally {
         // If no newMembers could be added due to an error above, return
         if (newMembers.length === 0) {
-          return;
+          return dispatches.dispatchTeam({
+            type: 'clear_import',
+            payload: {
+              gen: filters.genFilter.gen,
+            },
+          });
         }
 
         // Otherwise, add imported members to team, and then clear import
@@ -310,15 +346,6 @@ const Import = ({
           },
         });
       }
-    }
-    else {
-      // If no other error has occured, then data has not been found
-      if (importState.key !== 'error') setImportState({
-        key: 'error',
-        messageComponent: (<>
-          Data not found. 
-        </>),
-      });
     }
   }, [
     error_pokemon, error_item, error_nature,
