@@ -37,7 +37,10 @@ const FieldControlEntry = ({
   }, []);
 
   return (
-  <div className="field-control__entry">
+  <div
+    className="field-control__entry"
+    onMouseLeave={onMouseLeave}
+  >
     <div className="field-control__name">
       {FIELDSTATE_CLASS_MAP.get(fieldStateClass)?.replace('Entry hazard', 'Hazards')}
     </div>

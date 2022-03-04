@@ -1,12 +1,13 @@
 import { gql } from "@apollo/client";
 import { PokemonSet } from "@pkmn/sets";
+import { compareNumbers } from "../../utils/helpers";
 import { EnablesItemEdge, PokemonFormEdge, RequiresItemEdge } from "../Builder/helpers";
 import { MemberAbility, MemberAbilityQueryResult } from "../Builder/MemberAbility";
 import { MemberItem, MemberItemQueryResult } from "../Builder/MemberItem";
 import { MemberMove, MemberMoveQueryResult } from "../Builder/MemberMove";
 import { MemberNature, MemberNatureQueryResult } from "../Builder/MemberNature";
 import { MemberPokemon, MemberPokemonFromIconQueryResult, NatureName } from "../Builder/MemberPokemon";
-import { CapsTypeName, GenerationNum, IntroductionEdge, PokemonIconDatum, StatTable, toTypeName } from "../helpers";
+import { CapsTypeName, GenerationNum, IntroductionEdge, PokemonIconDatum, StatTable, toTypeName, TypeName } from "../helpers";
 import { InvalidAbilityError, InvalidItemError, InvalidMoveError, InvalidNatureError, InvalidStatsError, LateIntroductionError, PSIDNotFoundError, toPSID, toStatTable } from "./helpers";
 
 export type MemberPokemonFromSetQuery = {
@@ -21,6 +22,10 @@ export type MemberPokemonFromSetQueryResult = {
   formattedName: string
   speciesName: string
   psID: string
+
+  maleRate: number
+  femaleRate: number
+  genderless: boolean
 
   removedFromSwSh: boolean
   removedFromBDSP: boolean
@@ -79,6 +84,10 @@ export const POKEMONSET_TO_MEMBER_QUERY = gql`
 
       removedFromSwSh
       removedFromBDSP
+
+      maleRate
+      femaleRate
+      genderless
 
       typeNames
       baseStats {
@@ -229,7 +238,7 @@ export const setsToMembers: (
 ) => MemberPokemon[] = (sets, results, itemResults, natureResults, gen) => {
   // Verify that every set has a corresponding result, otherwise throw error
   // #region
-
+  
   const memberPSIDs = results.map(d => d.psID);
   const invalidSets: number[] = [];
   sets.map((set, idx) => {
@@ -280,10 +289,10 @@ export const setsToMembers: (
   const memberPokemon = memberPokemonConstructorData.map(d => new MemberPokemon(d.gqlMember, d.pokemonIconDatum, d.gen));
   
   // Map for keeping track of memberPokemon
-  let memberPokemonMap = new Map<string, MemberPokemon>();
-  for (let member of memberPokemon) {
-    memberPokemonMap.set(member.psID, member);
-  }
+  let memberPokemonMap = new Map<string, { member: MemberPokemon, slot: number, }>();
+  memberPokemon.map((member, idx) => {
+    memberPokemonMap.set(member.psID, { member, slot: idx, });
+  });
 
   // #endregion
 
@@ -300,10 +309,14 @@ export const setsToMembers: (
     }
 
     // Now that memberPSID has been found, find the corresponding MemberPokemon
-    const memberPokemon = memberPokemonMap.get(memberPSID);
+    let memberPokemonValue = memberPokemonMap.get(memberPSID);
 
     // Type-guard
-    if (!memberPokemon) return;
+    if (!memberPokemonValue) return;
+
+    // Assign memberPokemonSlot to be idx
+    memberPokemonValue.slot = idx;
+    let memberPokemon = memberPokemonValue.member;
 
     // Get corresponding result
     const memberResult = results[memberPSIDs.indexOf(memberPSID)];
@@ -412,7 +425,7 @@ export const setsToMembers: (
     // Nature
     // #region
 
-    const naturePSID = toPSID(set.nature);
+    const naturePSID = toPSID(set.nature || 'serious');
     if (naturePSID) {
       const natureName: NatureName = (naturePSID as NatureName);
       if (natureName !== undefined && natureResults.map(d => d.name).includes(natureName)) {
@@ -449,7 +462,7 @@ export const setsToMembers: (
       set.shiny !== undefined && memberPokemon.assignShiny(set.shiny);
       set.happiness !== undefined && memberPokemon.assignHappiness(set.happiness);
       set.pokeball !== undefined && memberPokemon.assignPokeball(set.pokeball);
-      set.hpType !== undefined && memberPokemon.assignHPType(set.hpType);
+      set.hpType !== undefined && memberPokemon.assignHPType(set.hpType as TypeName);
     }
     catch (e) {
       console.log(e);
@@ -462,7 +475,10 @@ export const setsToMembers: (
   // Throw error if an ability, item, etc. was introduced later than 'gen'
   if (lateEntities.length > 0) throw new LateIntroductionError('', lateEntities);
 
-  return Array.from(memberPokemonMap.values());
+  return Array.from(memberPokemonMap.values())
+    // Reorder members to match import order
+    .sort((d1, d2) => compareNumbers(d1.slot, d2.slot))
+    .map(memberValue => memberValue.member);
 
   // #endregion
 }

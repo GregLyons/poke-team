@@ -654,7 +654,7 @@ export const computeSpeedControl: (
         // Negative affects speed
         const negativeModification = stage < 0 || multiplier < 1;
         // Reasonable chance to modify speed
-        const reliable = chance >= 50;
+        const reliable = chance >= 30;
         // Can target user and/or allies
         const allies = ['ALL_ALLIES', 'USER', 'TARGET', 'ALL'].includes(recipient);
         // Can target enemies
@@ -683,7 +683,7 @@ export const computeSpeedControl: (
         const { chance } = causesStatusEdge;
         const { name } = causesStatusEdge.node;
   
-        if (chance >= 50 && name === 'paralysis') {
+        if (chance >= 30 && name === 'paralysis') {
           speedControlMap = {
             ...speedControlMap,
             other: incrementCoverageDatum(speedControlMap.other, memberPSID, [entityPSID]),
@@ -1082,65 +1082,54 @@ export const computeFieldControl: (
       const { psID: entityPSID } = memberResult;
 
       // Creating fieldStates
-      if (memberResult.createsFieldState) {
-        // Iterate over edges
-        for (let fieldStateEdge of memberResult.createsFieldState.edges) {
-          const { class: className } = fieldStateEdge.node;
+      if (memberResult.createsFieldState && memberResult.createsFieldState.edges.length > 0) {
+        const fieldStateEdge = memberResult.createsFieldState.edges[0];
+        const { class: className } = fieldStateEdge.node;
 
-          let curr = fieldStateControlMap.get(className)?.create;
-          if (curr !== undefined) curr = incrementCoverageDatum(curr, memberPSID, [entityPSID]);
-        }
+        let curr = fieldStateControlMap.get(className);
+        if (curr?.create !== undefined) curr.create = incrementCoverageDatum(curr.create, memberPSID, [entityPSID]);
       }
 
       // Ignoring field states
-      if (memberResult.ignoresFieldState) {
-        // Iterate over edges
-        for (let fieldStateEdge of memberResult.ignoresFieldState.edges) {
-          const { class: className } = fieldStateEdge.node;
+      if (memberResult.ignoresFieldState && memberResult.ignoresFieldState.edges.length > 0) {
+        const fieldStateEdge = memberResult.ignoresFieldState.edges[0];
+        const { class: className } = fieldStateEdge.node;
 
-          let curr = fieldStateControlMap.get(className)?.resist;
-          if (curr !== undefined) curr = incrementCoverageDatum(curr, memberPSID, [entityPSID]);
-        }
+        let curr = fieldStateControlMap.get(className);
+        if (curr?.resist !== undefined) curr.resist = incrementCoverageDatum(curr.resist, memberPSID, [entityPSID]);
       }
+      // We use 'else if' to prevent double-counting
       // Preventing field states
-      if (memberResult.preventsFieldState) {
-        // Iterate over edges
-        for (let fieldStateEdge of memberResult.preventsFieldState.edges) {
-          const { class: className } = fieldStateEdge.node;
+      else if (memberResult.preventsFieldState && memberResult.preventsFieldState.edges.length > 0) {
+        const fieldStateEdge = memberResult.preventsFieldState.edges[0];
+        const { class: className } = fieldStateEdge.node;
 
-          let curr = fieldStateControlMap.get(className)?.resist;
-          if (curr !== undefined) curr = incrementCoverageDatum(curr, memberPSID, [entityPSID]);
-        }
+        let curr = fieldStateControlMap.get(className);
+        if (curr?.resist !== undefined) curr.resist = incrementCoverageDatum(curr.resist, memberPSID, [entityPSID]);
       }
       // Removing field states
-      if (memberResult.removesFieldState) {
-        // Iterate over edges
-        for (let fieldStateEdge of memberResult.removesFieldState.edges) {
-          const { class: className } = fieldStateEdge.node;
+      else if (memberResult.removesFieldState && memberResult.removesFieldState.edges.length > 0) {
+        const fieldStateEdge = memberResult.removesFieldState.edges[0];
+        const { class: className } = fieldStateEdge.node;
 
-          let curr = fieldStateControlMap.get(className)?.resist;
-          if (curr !== undefined) curr = incrementCoverageDatum(curr, memberPSID, [entityPSID]);
-        }
+        let curr = fieldStateControlMap.get(className);
+        if (curr?.resist !== undefined) curr.resist = incrementCoverageDatum(curr.resist, memberPSID, [entityPSID]);
       }
       // Resisting field states
-      if (memberResult.resistsFieldState) {
-        // Iterate over edges
-        for (let fieldStateEdge of memberResult.resistsFieldState.edges) {
-          const { class: className } = fieldStateEdge.node;
+      else if (memberResult.resistsFieldState && memberResult.resistsFieldState.edges.length > 0) {
+        const fieldStateEdge = memberResult.resistsFieldState.edges[0];
+        const { class: className } = fieldStateEdge.node;
 
-          let curr = fieldStateControlMap.get(className)?.resist;
-          if (curr !== undefined) curr = incrementCoverageDatum(curr, memberPSID, [entityPSID]);
-        }
+        let curr = fieldStateControlMap.get(className);
+        if (curr?.resist !== undefined) curr.resist = incrementCoverageDatum(curr.resist, memberPSID, [entityPSID]);
       }
       // Suppressing field states
-      if (memberResult.suppressesFieldState) {
-        // Iterate over edges
-        for (let fieldStateEdge of memberResult.suppressesFieldState.edges) {
-          const { class: className } = fieldStateEdge.node;
+      else if (memberResult.suppressesFieldState && memberResult.suppressesFieldState.edges.length > 0) {
+        const fieldStateEdge = memberResult.suppressesFieldState.edges[0];
+        const { class: className } = fieldStateEdge.node;
 
-          let curr = fieldStateControlMap.get(className)?.resist;
-          if (curr !== undefined) curr = incrementCoverageDatum(curr, memberPSID, [entityPSID]);
-        }
+        let curr = fieldStateControlMap.get(className);
+        if (curr?.resist !== undefined) curr.resist = incrementCoverageDatum(curr.resist, memberPSID, [entityPSID]);
       }
     }
   }

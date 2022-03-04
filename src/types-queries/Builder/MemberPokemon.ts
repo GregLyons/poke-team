@@ -24,6 +24,10 @@ export type MemberPokemonFromIconQueryResult = {
   name: string
   speciesName: string
 
+  maleRate: number
+  femaleRate: number
+  genderless: boolean
+
   formClass: string
   forms: {
     edges: PokemonFormEdge[]
@@ -48,6 +52,10 @@ export const POKEMONICON_TO_MEMBER_QUERY = gql`
       id
       name
       speciesName
+
+      maleRate
+      femaleRate
+      genderless
       
       formClass
       forms {
@@ -207,14 +215,18 @@ export class MemberPokemon {
   public enablesItem: MemberItem[]
   public requiresItem: MemberItem[]
 
-  public gender?: GenderName
+  public maleRate: number
+  public femaleRate: number
+  public genderless: boolean
+  public gender: GenderName
+
   public nickname?: string
   public shiny?: boolean
   public happiness?: number
+  public hpType?: TypeName
 
   // Not used in this app, but imported sets may have it, so we keep track of it for exporting
   public pokeball?: string
-  public hpType?: string
 
   // For keeping track of G-max
   public formClass: string
@@ -243,6 +255,7 @@ export class MemberPokemon {
       introduced, 
       enablesItem, requiresItem,
       formClass, forms,
+      maleRate, femaleRate, genderless,
     } = gqlMember;
 
     this.gqlMember = gqlMember;
@@ -252,6 +265,23 @@ export class MemberPokemon {
     this.formattedName = formattedName;
     this.psID = psID;
     this.speciesName = speciesName;
+
+    this.maleRate = maleRate;
+    this.femaleRate = femaleRate;
+    this.genderless = genderless;
+
+    // If possible for Pokemon to be male, set it to be male by default
+    if (maleRate > 0) {
+      this.gender = 'M';
+    }
+    // Otherwise, if the Pokemon can be female, set it to female
+    else if (femaleRate > 0) {
+      this.gender = 'F';
+    }
+    // Otherwise, set it to neutral
+    else {
+      this.gender = 'N';
+    }
 
     this.typing = typing;
     this.baseStats = baseStats;
@@ -264,12 +294,12 @@ export class MemberPokemon {
     this.moveset = [null, null, null, null];
 
     if (gen < 3) {
-      this.evs = DefaultEVSpreadGens12;
-      this.ivs = DefaultDVSpread;
+      this.evs = { ...DefaultEVSpreadGens12, };
+      this.ivs = { ...DefaultDVSpread, };
     }
     else {
-      this.evs = DefaultEVSpread;
-      this.ivs = DefaultIVSpread;
+      this.evs = { ...DefaultEVSpread, };
+      this.ivs = { ...DefaultIVSpread, };
     }
 
     this.level = 100;
@@ -469,8 +499,11 @@ export class MemberPokemon {
     this.pokeball = newPokeball;
   }
 
-  public assignHPType(newHPType: string) {
+  public assignHPType(newHPType?: TypeName) {
+    if (!newHPType || ['fairy', 'normal'].includes(newHPType)) return;
+
     this.hpType = newHPType;
+    this.ivs = hpToMaxIVs(newHPType);
   }
 
   public evsSummary() {
@@ -556,4 +589,26 @@ export class MemberPokemon {
     this.assignAttributesToCopy(cosmeticForm);
     return cosmeticForm;
   }
+}
+
+const THIRTY_HP = ['dragon', 'grass', 'psychic'];
+const THIRTY_ATTACK = ['fire', 'ghost'];
+const THIRTY_DEFENSE = ['fighting', 'poison', 'rock'];
+const THIRTY_SPECIALATTACK = ['electric', 'fire', 'flying', 'flying'];
+const THIRTY_SPECIALDEFENSE = ['bug', 'fighting', 'flying', 'ghost', 'ground',  'poison', 'rock', 'steel']; 
+const THIRTY_SPEED = ['bug', 'fighting', 'fire', 'flying', 'ice', 'psychic', 'rock', 'steel'];
+
+
+const hpToMaxIVs: (hpType: TypeName) => StatTable = hpType => {
+  let ivs = { ...DefaultIVSpread, };
+
+  // Assign HP
+  if (THIRTY_HP.includes(hpType)) ivs.hp = 30;
+  if (THIRTY_ATTACK.includes(hpType)) ivs.attack = 30;
+  if (THIRTY_DEFENSE.includes(hpType)) ivs.defense = 30;
+  if (THIRTY_SPECIALATTACK.includes(hpType)) ivs.specialAttack = 30;
+  if (THIRTY_SPECIALDEFENSE.includes(hpType)) ivs.specialDefense = 30;
+  if (THIRTY_SPEED.includes(hpType)) ivs.speed = 30;
+
+  return ivs;
 }

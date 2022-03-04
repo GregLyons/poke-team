@@ -41,12 +41,6 @@ const FieldControl = ({
       filters.genFilter.gen,
     );
   }, [abilityData, itemData, moveData, filters, memberAndEntityPSIDs]);
-
-  const rankControlValue = useCallback((total: number) => {
-    if (total > 1) return 'great';
-    if (total > 0) return 'good';
-    else return 'ok';
-  }, []);
   
   return (
     <div

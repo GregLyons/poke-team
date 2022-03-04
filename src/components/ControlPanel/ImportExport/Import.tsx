@@ -52,7 +52,10 @@ const Import = ({
       variables: {
         gen: filters.genFilter.gen,
         // Convert species name to psID
-        psIDs: team[filters.genFilter.gen].importedMembers.slice(0, numOpenSlots).map(set => set.species.toLowerCase().replace(/[^a-z0-9]+/g, '')) || [],
+        psIDs: team[filters.genFilter.gen].importedMembers
+          .slice(0, numOpenSlots)
+          .filter(set => set.species)
+          .map(set => set.species.toLowerCase().replace(/[^a-z0-9]+/g, '')) || [],
       }
     });
 
@@ -61,7 +64,10 @@ const Import = ({
       variables: {
         gen: filters.genFilter.gen,
         // Convert species name to psID
-        psIDs: team[filters.genFilter.gen].importedMembers.slice(0, numOpenSlots).map(set => set.item.toLowerCase().replace(/[^a-z0-9]+/g, '')) || [],
+        psIDs: team[filters.genFilter.gen].importedMembers
+          .slice(0, numOpenSlots)
+          .filter(set => set.item)
+          .map(set => set.item.toLowerCase().replace(/[^a-z0-9]+/g, '')) || [],
       }
     });
 
@@ -70,7 +76,11 @@ const Import = ({
       variables: {
         gen: filters.genFilter.gen,
         // Convert species name to psID
-        psIDs: team[filters.genFilter.gen].importedMembers.slice(0, numOpenSlots).map(set => set.nature.toLowerCase().replace(/[^a-z0-9]+/g, '')) || [],
+        psIDs: team[filters.genFilter.gen].importedMembers
+          .slice(0, numOpenSlots)
+          .filter(set => set.nature)
+          .map(set => set.nature.toLowerCase().replace(/[^a-z0-9]+/g, ''))
+          .concat(['serious']),
       }
     });
 

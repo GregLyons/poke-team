@@ -105,7 +105,7 @@ const MemberDetails = ({
         <div
           className={`
             member-details__gender
-            ${[1, 8].includes(gen)
+            ${gen < 2
               ? 'member-details--disabled'
               : ''
             }
@@ -124,7 +124,7 @@ const MemberDetails = ({
             }
           `}>
             {gen > 1
-              ? 'Coming soon'
+              ? member.gender
               : ''
             }
           </div>
