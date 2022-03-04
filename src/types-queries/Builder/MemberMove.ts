@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { GenerationNum } from "@pkmn/data";
-import { CapsTypeName, toTypeName, TypeName } from "../helpers";
+import { CapsTypeName, IntroductionEdge, introductionEdgeToGen, toTypeName, TypeName } from "../helpers";
 import { RequiresItemEdge } from "./helpers";
 import { MemberItem, requiresItemEdgeToMemberItem } from "./MemberItem";
 
@@ -20,6 +20,10 @@ export type MemberMoveQueryResult = {
   name: string
   formattedName: string
   psID: string
+
+  introduced: {
+    edges: IntroductionEdge[]
+  }
 
   power: number
   pp: number
@@ -67,6 +71,14 @@ export const MEMBER_MOVESET_QUERY = gql`
             formattedName
             psID
 
+            introduced {
+              edges {
+                node {
+                  number
+                }
+              }
+            }
+
             power
             pp
             accuracy
@@ -103,6 +115,7 @@ export class MemberMove {
   public type: TypeName
 
   public gen: GenerationNum
+  public introduced: GenerationNum
   public removedFromSwSh: boolean
   public removedFromBDSP: boolean
 
@@ -118,7 +131,7 @@ export class MemberMove {
   constructor(gqlMemberMove: MemberMoveQueryResult, gen: GenerationNum, eventOnly: boolean) {
     const {
       id, name, formattedName, psID: psID, typeName: enumTypeName,
-      removedFromSwSh, removedFromBDSP,
+      introduced, removedFromSwSh, removedFromBDSP,
       power, pp, accuracy, category,
       requiresItem,
     } = gqlMemberMove;
@@ -130,6 +143,7 @@ export class MemberMove {
     this.type = toTypeName(enumTypeName);
 
     this.gen = gen;
+    this.introduced = introductionEdgeToGen(introduced.edges[0]);
     this.removedFromSwSh = removedFromSwSh;
     this.removedFromBDSP = removedFromBDSP;
 

@@ -1,3 +1,4 @@
+import { PokemonSet, Sets } from "@pkmn/sets";
 import { MemberAbility } from "../../types-queries/Builder/MemberAbility";
 import { MemberItem } from "../../types-queries/Builder/MemberItem";
 import { MemberMove } from "../../types-queries/Builder/MemberMove";
@@ -22,6 +23,8 @@ export type TeamInGen = {
   members: (MemberPokemon | null)[]
   memberIcons: (PokemonIconDatum | null)[]
   selectedMember: MemberPokemon | null
+  importedMembers: PokemonSet<string>[]
+  failedImport: boolean
 }
 
 export type Team = {
@@ -36,6 +39,8 @@ const EMPTY_TEAM_IN_GEN: TeamInGen = {
   members: [null, null, null, null, null, null],
   memberIcons: [null, null, null, null, null, null],
   selectedMember: null,
+  importedMembers: [],
+  failedImport: false,
 }
 
 export const DEFAULT_TEAM: Team = {
@@ -116,7 +121,6 @@ export type TeamAction =
   }
 // Member actions
 // #region
-
 | {
     type: 'assign_ability'
     payload: {
@@ -215,7 +219,16 @@ export type TeamAction =
       psID: string,
     }
   }
-
+// #endregion
+// Importing
+// #region
+| {
+    type: 'import'
+    payload: {
+      gen: GenerationNum
+      importString: string
+    }
+  }
 // #endregion
 
 export function teamReducer(state: Team, action: TeamAction): Team {
@@ -503,6 +516,49 @@ export function teamReducer(state: Team, action: TeamAction): Team {
       return stateWithModifiedMember(stateWithNewIconDatum, gen, modifiedMember, idx);
 
     // #endregion 
+
+    // Importing
+    // #region
+
+    case 'import':
+      gen = action.payload.gen;
+      const importString = action.payload.importString;
+
+      const sets = importString.split(/\n\n+/)
+        // Filter out empty parts
+        .filter(d => d)
+        // Get set for each member
+        .map(member => Sets.importSet(member));
+
+      // Check that all sets are properly parsed
+      try {
+        for (let set of sets) {
+          if (set === undefined) throw new Error();
+          else if (set.species.includes(' ')) throw new Error();
+        }
+      }
+      catch {
+        return {
+          ...state,
+          [gen]: {
+            ...state[gen],
+            failedImport: true,
+          }
+        }
+      }
+
+      return {
+        ...state,
+        [gen]: {
+            ...state[gen],
+            importedMembers: sets.filter(set => {
+              return ('' + set.species).toLowerCase().replace(/[^a-z0-9]+/g, '');
+            }),
+            failedImport: false,
+          },
+      };
+
+    // #endregion
 
     default:
       throw new Error();

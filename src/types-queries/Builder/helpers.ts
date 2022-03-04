@@ -1,4 +1,4 @@
-import { BaseStatName, NameEdge, StatTable, toAbbreviatedBaseStatName } from "../helpers";
+import { BaseStatName, IntroductionEdge, NameEdge, StatTable, toAbbreviatedBaseStatName } from "../helpers";
 
 // Formatting spreads 
 // #region
@@ -29,6 +29,10 @@ export interface EnablesItemEdge extends NameEdge {
     name: string
     formattedName: string
     psID: string
+
+    introduced: {
+      edges: IntroductionEdge[]
+    }
   }
 };
 
@@ -38,6 +42,10 @@ export interface RequiresItemEdge extends NameEdge {
     name: string
     formattedName: string
     psID: string
+
+    introduced: {
+      edges: IntroductionEdge[]
+    }
   }
 };
 

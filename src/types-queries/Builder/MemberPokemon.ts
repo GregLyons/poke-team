@@ -80,6 +80,14 @@ export const POKEMONICON_TO_MEMBER_QUERY = gql`
             name
             formattedName
             psID
+
+            introduced {
+              edges {
+                node {
+                  number
+                }
+              }
+            }
           }
         }
       }
@@ -91,6 +99,14 @@ export const POKEMONICON_TO_MEMBER_QUERY = gql`
             name
             formattedName
             psID
+
+            introduced {
+              edges {
+                node {
+                  number
+                }
+              }
+            }
           }
         }
       }
@@ -196,6 +212,10 @@ export class MemberPokemon {
   public shiny?: boolean
   public happiness?: number
 
+  // Not used in this app, but imported sets may have it, so we keep track of it for exporting
+  public pokeball?: string
+  public hpType?: string
+
   // For keeping track of G-max
   public formClass: string
 
@@ -236,8 +256,8 @@ export class MemberPokemon {
     this.typing = typing;
     this.baseStats = baseStats;
 
-    this.introduced = introductionEdgeToGen(introduced.edges[0]);
     this.gen = gen;
+    this.introduced = introductionEdgeToGen(introduced.edges[0]);
     this.removedFromSwSh = removedFromSwSh;
     this.removedFromBDSP = removedFromBDSP;
 
@@ -300,6 +320,8 @@ export class MemberPokemon {
       level: this.level,
       shiny: this.shiny,
       happiness: this.happiness,
+      pokeball: this.pokeball,
+      hpType: this.hpType,
       gigantamax: this.formClass === 'GMAX',
     };
 
@@ -361,6 +383,17 @@ export class MemberPokemon {
     }
   }
 
+  public assignEVs(newEVs: StatTable) {
+    Object.entries(newEVs).map(([key, value]) => {
+      const statName = key as BaseStatName;
+
+      // Type-guard
+      if (!statName) return;
+
+      this.assignEV(statName, value);
+    });
+  }
+
   public assignIV(stat: BaseStatName, newValue: number) {
     // Check that IV is in valid range; 0-31 Gen 3 onwards, 0-15 Gens 1 and 2
     if (newValue < 0 || newValue > 31 || (newValue > 15 && [1, 2].includes(this.gen))) throw new Error(`Invalid value for ${stat} IV in Generation ${this.gen}: ${newValue}.`)
@@ -383,6 +416,17 @@ export class MemberPokemon {
         specialAttack: newValue,
       }
     }
+  }
+
+  public assignIVs(newIVs: StatTable) {
+    Object.entries(newIVs).map(([key, value]) => {
+      const statName = key as BaseStatName;
+
+      // Type-guard
+      if (!statName) return;
+
+      this.assignIV(statName, value);
+    });
   }
 
   public assignNature(newNature: MemberNature) {
@@ -421,6 +465,14 @@ export class MemberPokemon {
     if (![1, 8].includes(this.gen)) this.happiness = newHappinessValue;
   }
 
+  public assignPokeball(newPokeball: string) {
+    this.pokeball = newPokeball;
+  }
+
+  public assignHPType(newHPType: string) {
+    this.hpType = newHPType;
+  }
+
   public evsSummary() {
     return spreadSummary(this.evs, 0);
   }
@@ -452,6 +504,9 @@ export class MemberPokemon {
     this.gender && copy.assignGender(this.gender);
     this.shiny !== undefined && copy.assignShiny(this.shiny);
     this.happiness !== undefined && copy.assignHappiness(this.happiness);
+
+    this.pokeball !== undefined && copy.assignPokeball(this.pokeball);
+    this.hpType !== undefined && copy.assignHPType(this.hpType);
   }
 
   // Returns a deep copy of this member
@@ -502,167 +557,3 @@ export class MemberPokemon {
     return cosmeticForm;
   }
 }
-
-// Importing Pokemon sets
-// #region
-
-export type MemberPokemonFromSetQuery = {
-  pokemonByPSIDs: MemberPokemonFromSetQueryResult[]
-}
-
-// This is a combination of the data contained in a PokemonIconDatum, as well as MemberPokemonFromIconQueryResult, both of which are necessary to create a MemberPokemon instance
-export type MemberPokemonFromSetQueryResult = {
-  id: string
-  name: string
-  formattedName: string
-  speciesName: string
-  psID: string
-
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
-
-  typeNames: CapsTypeName[]
-  baseStats: StatTable
-
-  formClass: string
-  forms: {
-    edges: PokemonFormEdge[]
-  }
-
-  introduced: {
-    edges: IntroductionEdge[]
-  }
-
-  enablesItem: {
-    edges: EnablesItemEdge[]
-  }
-
-  requiresItem: {
-    edges: RequiresItemEdge[]
-  }
-}
-
-export const POKEMONSET_TO_MEMBER_QUERY = gql`
-  query PokemonSetToMemberQuery($gen: Int! $psIDs: [String!]!) {
-    pokemonByPSIDs(generation: $gen, psIDs: $psIDs) {
-      id
-      name
-      formattedName
-      speciesName
-      psID
-
-      removedFromSwSh
-      removedFromBDSP
-
-      typeNames
-      baseStats {
-        hp
-        attack
-        defense
-        specialAttack
-        specialDefense
-        speed
-      }
-      
-      formClass
-      forms {
-        id
-        edges {
-          node {
-            id
-            name
-            speciesName
-            formattedName
-            psID
-          }
-          class
-        }
-      }
-
-      introduced {
-        edges {
-          node {
-            number
-          }
-        }
-      }
-
-      enablesItem {
-        id
-        edges {
-          node {
-            id
-            name
-            formattedName
-            psID
-          }
-        }
-      }
-      requiresItem {
-        id
-        edges {
-          node {
-            id
-            name
-            formattedName
-            psID
-          }
-        }
-      }
-    }
-  }
-`;
-
-export class LateIntroductionError extends Error {
-  constructor(msg: string) {
-    super(msg);
-
-    Object.setPrototypeOf(this, LateIntroductionError.prototype)
-
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, LateIntroductionError);
-    }
-
-    this.name='LateIntroductionError';
-  }
-}
-
-export const setsToMembers: (data: MemberPokemonFromSetQuery, gen: GenerationNum) => MemberPokemon[] = (data, gen) => {
-  let lateMembers: [string, GenerationNum][] = [];
-
-  const gqlMembers: MemberPokemonFromIconQueryResult[] = data.pokemonByPSIDs.map(d => {
-    // Check for late members
-    if (d.introduced.edges[0].node.number > gen) lateMembers = lateMembers.concat([d.formattedName, d.introduced.edges[0].node.number]);
-
-    return {
-      ...d,
-    };
-  });
-
-  // Throw error if a member was introduced later than 'gen'
-  if (lateMembers.length > 0) throw new LateIntroductionError('');
-
-  const pokemonIconData: PokemonIconDatum[] = data.pokemonByPSIDs.map(d => {
-    return {
-      ...d,
-      typing: d.typeNames.map(toTypeName),
-    };
-  });
-
-  let constructorData: {
-    gqlMember: MemberPokemonFromIconQueryResult
-    pokemonIconDatum: PokemonIconDatum
-    gen: GenerationNum
-  }[] = [];
-  for (let i: number = 0; i < Math.min(gqlMembers.length, pokemonIconData.length); i++) {
-    constructorData = constructorData.concat([{
-      gqlMember: gqlMembers[i],
-      pokemonIconDatum: pokemonIconData[i],
-      gen,
-    }]);
-  }
-
-  return constructorData.map(d => new MemberPokemon(d.gqlMember, d.pokemonIconDatum, d.gen));
-}
-
-// #endregion

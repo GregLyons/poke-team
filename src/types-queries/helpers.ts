@@ -769,6 +769,7 @@ export const toTypeName: (enumTypeName: CapsTypeName | FormattedTypeName) => Typ
 // Edges for queries
 // #region
 
+
 export type Edge = { node: any }
 
 // Names

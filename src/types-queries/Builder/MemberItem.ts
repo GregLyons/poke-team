@@ -2,7 +2,7 @@ import { EnablesItemEdge, RequiresItemEdge } from "./helpers"
 
 import { gql } from "@apollo/client";
 import { GenerationNum } from "@pkmn/data";
-import { CapsTypeName, toTypeName, TypeName } from "../helpers";
+import { CapsTypeName, IntroductionEdge, introductionEdgeToGen, toTypeName, TypeName } from "../helpers";
 
 export type MemberItemQuery = {
   items: {
@@ -17,6 +17,10 @@ export type MemberItemQueryResult = {
   name: string
   formattedName: string
   psID: string
+
+  introduced: {
+    edges: IntroductionEdge[]
+  }
 }
 
 export type MemberItemSearchVars = {
@@ -44,6 +48,14 @@ export const MEMBER_ITEM_QUERY = gql`
           name
           formattedName
           psID
+
+          introduced {
+            edges {
+              node {
+                number
+              }
+            }
+          }
         }
       }
     }
@@ -57,10 +69,11 @@ export class MemberItem {
   public psID: string
   
   public gen: GenerationNum
+  public introduced: GenerationNum
 
   constructor(gqlMemberItem: MemberItemQueryResult, gen: GenerationNum) {
     const {
-      id, name, formattedName, psID: psID,
+      id, name, formattedName, psID: psID, introduced,
     } = gqlMemberItem;
 
     this.id = id;
@@ -69,6 +82,7 @@ export class MemberItem {
     this.psID = psID;
 
     this.gen = gen;
+    this.introduced = introductionEdgeToGen(introduced.edges[0]);
   }
 }
 

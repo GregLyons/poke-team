@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { GenerationNum } from "@pkmn/data";
-import { CapsTypeName, toTypeName, TypeName } from "../helpers";
+import { CapsTypeName, IntroductionEdge, introductionEdgeToGen, toTypeName, TypeName } from "../helpers";
 import { RequiresItemEdge } from "./helpers";
 import { MemberItem, requiresItemEdgeToMemberItem } from "./MemberItem";
 
@@ -20,6 +20,10 @@ export type MemberAbilityQueryResult = {
   name: string
   formattedName: string
   psID: string
+
+  introduced: {
+    edges: IntroductionEdge[]
+  }
 }
 
 export type MemberAbilitySearchVars = {
@@ -47,6 +51,14 @@ export const MEMBER_ABILITY_QUERY = gql`
             name
             formattedName
             psID
+
+            introduced {
+              edges {
+                node {
+                  number
+                }
+              }
+            }
           }
           slot
         }
@@ -62,12 +74,13 @@ export class MemberAbility {
   public psID: string
   
   public gen: GenerationNum
+  public introduced: GenerationNum
 
   public slot: 'ONE' | 'TWO' | 'HIDDEN'
 
   constructor(gqlMemberAbility: MemberAbilityQueryResult, gen: GenerationNum, slot: 'ONE' | 'TWO' | 'HIDDEN') {
     const {
-      id, name, formattedName, psID: psID,
+      id, name, formattedName, psID: psID, introduced,
     } = gqlMemberAbility;
 
     this.id = id;
@@ -76,6 +89,7 @@ export class MemberAbility {
     this.psID = psID;
 
     this.gen = gen;
+    this.introduced = introductionEdgeToGen(introduced.edges[0]);
 
     this.slot = slot;
   }

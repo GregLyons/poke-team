@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { BaseStatName, GenerationNum, ModifiesBaseStatEdge, toBaseStatName } from "../helpers";
+import { BaseStatName, GenerationNum, IntroductionEdge, introductionEdgeToGen, ModifiesBaseStatEdge, toBaseStatName } from "../helpers";
 import { NatureName } from "./MemberPokemon";
 
 export type MemberNatureQuery = {
@@ -16,6 +16,10 @@ export interface MemberNatureQueryResult {
   formattedName: NatureName
   modifiesStat: {
     edges: ModifiesBaseStatEdge[]
+  }
+
+  introduced: {
+    edges: IntroductionEdge[]
   }
 }
 
@@ -54,6 +58,14 @@ export const MEMBER_NATURE_QUERY = gql`
               multiplier
             }
           }
+
+          introduced {
+            edges {
+              node {
+                number
+              }
+            }
+          }
         }
       }
     }
@@ -63,6 +75,8 @@ export const MEMBER_NATURE_QUERY = gql`
 export class MemberNature {
   public name: NatureName
   public formattedName: string
+
+  public introduced: GenerationNum
 
   public modifiesStat: {
     boosts: BaseStatName | null
@@ -84,5 +98,7 @@ export class MemberNature {
       }
     }
     this.modifiesStat = { boosts, reduces };
+
+    this.introduced = introductionEdgeToGen(gqlNature.introduced.edges[0]);
   }
 }
