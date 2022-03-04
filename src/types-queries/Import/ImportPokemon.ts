@@ -121,6 +121,14 @@ export const POKEMONSET_TO_MEMBER_QUERY = gql`
             name
             formattedName
             psID
+
+            introduced {
+              edges {
+                node {
+                  number
+                }
+              }
+            }
           }
         }
       }
@@ -132,6 +140,14 @@ export const POKEMONSET_TO_MEMBER_QUERY = gql`
             name
             formattedName
             psID
+
+            introduced {
+              edges {
+                node {
+                  number
+                }
+              }
+            }
           }
         }
       }

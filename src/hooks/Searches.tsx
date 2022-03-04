@@ -281,7 +281,7 @@ export function useDelayedQuery<SearchQuery, SearchVars>({
       clearTimeout(queryTimer.current);
     }
     queryTimer.current = setTimeout(() => { setDelayedQueryVars(queryVars) }, delay);
-  }, [queryVars, setDelayedQueryVars, queryTimer]);
+  }, [queryVars, delayedQueryVars, setDelayedQueryVars, queryTimer]);
 
   return { data, loading, error };
 }

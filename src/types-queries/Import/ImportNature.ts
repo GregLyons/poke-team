@@ -13,34 +13,29 @@ export type MemberNatureFromSetQueryVars = {
 
 
 export const SET_MEMBERNATURE_QUERY = gql`
-query NatureQuery($gen: Int!, $psIDs: [String!]!) {
-  naturesByPSID(generation: $gen, psIDs: $psIDs) {
-    id
-    edges {
-      node {
-        id
-        name
-        formattedName
-        modifiesStat {
-          edges {
-            node {
-              id
-              name
-              name
-            }
-            multiplier
+  query NatureQuery($gen: Int!, $psIDs: [String!]!) {
+    naturesByName(generation: $gen, names: $psIDs) {
+      id
+      name
+      formattedName
+      modifiesStat {
+        edges {
+          node {
+            id
+            name
+            name
           }
+          multiplier
         }
+      }
 
-        introduced {
-          edges {
-            node {
-              number
-            }
+      introduced {
+        edges {
+          node {
+            number
           }
         }
       }
     }
   }
-}
 `;

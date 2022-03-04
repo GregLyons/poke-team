@@ -616,6 +616,7 @@ export function teamReducer(state: Team, action: TeamAction): Team {
         [gen]: {
           ...state[gen],
           members: currentTeam,
+          memberIcons: currentTeam.map(member => member?.iconDatum !== undefined ? member.iconDatum : null),
           importedMembers: [],
           failedImport: false,
         },

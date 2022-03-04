@@ -17,19 +17,15 @@ export const SET_MEMBERITEM_QUERY = gql`
     $psIDs: [String!]!
   ) {
     itemsByPSID(generation: $gen, psIDs: $psIDs) {
-      edges {
-        node {
-          id
-          name
-          formattedName
-          psID
+      id
+      name
+      formattedName
+      psID
 
-          introduced {
-            edges {
-              node {
-                number
-              }
-            }
+      introduced {
+        edges {
+          node {
+            number
           }
         }
       }
