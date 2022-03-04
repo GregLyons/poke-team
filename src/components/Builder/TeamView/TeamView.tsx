@@ -89,7 +89,7 @@ export type TeamMembersClickHandlers = {
 // Member details
 // #region
 
-export type MemberDetailHandlers = {
+export type MemberDetailsHandlers = {
   onAbilityClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onItemClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onMoveClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, moveslot: 0 | 1 | 2 | 3) => void
@@ -356,7 +356,7 @@ const TeamView = ({
     }
   }, [dispatches, filters, team, view, setMemberSlot, setView, ]);
 
-  const memberDetailHandlers: MemberDetailHandlers = useMemo(() => {
+  const memberDetailHandlers: MemberDetailsHandlers = useMemo(() => {
     const onAbilityClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.preventDefault();
       if (memberSlot === null) return;

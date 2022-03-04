@@ -1,0 +1,72 @@
+.member-details__cosmetic-wrapper {
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+  
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  border: var(--team-builder-border3);
+
+  /* Make dropdown go over other interactive elements; thumbs in level slider have z-index 3-5 */
+  z-index: 10;
+}
+
+.member-details__icon-options-wrapper {
+  display: grid;
+  grid-template-columns: calc(40px + 1rem) 1fr;
+  grid-template-rows: 1fr;
+  gap: var(--team-builder-gap);
+  justify-content: center;
+  align-items: center;
+  
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.member-details__icon-wrapper {
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+
+  background-color: var(--dark2);
+  border-radius: 50%;
+  box-shadow: var(--control-shadow);
+}
+
+.member-details__cosmetic {
+  grid-row: 1 / 2;
+  grid-column: 2 / 3;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.member-details__cosmetic-form-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.member-details__cosmetic-form-icon--selected,
+.member-details__cosmetic-form-icon:hover {
+  background-color: var(--blue1);
+  border-radius: 50%;
+}
+.member-details__cosmetic-form-icon:hover {
+  cursor: pointer;
+}

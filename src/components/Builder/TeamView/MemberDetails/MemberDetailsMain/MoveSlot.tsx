@@ -1,11 +1,11 @@
-import { MemberPokemon } from "../../../../types-queries/Builder/MemberPokemon";
-import TypeIcon from "../../../Icons/TypeIcon";
-import { MemberDetailHandlers, MoveSelectHandlers, ReferencePanelView } from "../TeamView";
+import { MemberPokemon } from "../../../../../types-queries/Builder/MemberPokemon";
+import TypeIcon from "../../../../Icons/TypeIcon";
+import { MemberDetailsHandlers, MoveSelectHandlers, ReferencePanelView } from "../../TeamView";
 
 type MoveSlotProps = {
   view: ReferencePanelView
   idx: 0 | 1 | 2 | 3
-  clickHandlers: MemberDetailHandlers
+  clickHandlers: MemberDetailsHandlers
   member: MemberPokemon | null
 }
 
@@ -16,7 +16,8 @@ const MoveSlot = ({
   member,
 }: MoveSlotProps) => {
   return (
-    <div className={`
+    <div
+      className={`
         member-details__move-wrapper
         ${view && view.mode === 'MOVE' && view.idx === idx
           ? 'member-details__move-wrapper--active'
