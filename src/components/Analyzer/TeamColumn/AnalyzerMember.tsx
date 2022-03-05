@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { MemberPSIDObject } from "../../../types-queries/Analyzer/helpers";
-import { DUMMY_POKEMON_ICON_DATUM } from "../../../types-queries/helpers";
+import { DUMMY_POKEMON_ICON_DATUM, toFormattedTypeName } from "../../../types-queries/helpers";
 import { MemberPokemon } from "../../../types-queries/Member/MemberPokemon";
 import ItemIcon from "../../Icons/ItemIcon";
 import PokemonIcon from "../../Icons/PokemonIcon";
@@ -49,7 +49,7 @@ const AnalyzerMember = ({
         `}
       >
         {member?.item && <ItemIcon
-          itemIconDatum={{ psID: member.item.psID, formattedName: member.item.formattedName}}
+          itemIconDatum={{ name: member.item.psID, formattedName: member.item.formattedName}}
         />}
       </div>
       <div
@@ -68,7 +68,10 @@ const AnalyzerMember = ({
       >
         {member && member.typing.map(typeName => <TypeIcon
           key={`analyzer_${member.psID}_${typeName}`}
-          typeName={typeName}
+          typeIconDatum={{
+            name: typeName,
+            formattedName: toFormattedTypeName(typeName)
+          }}
         />)}
       </div>
       <div

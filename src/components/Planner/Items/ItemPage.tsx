@@ -110,7 +110,7 @@ const ItemPage = ({
     if (debutComponent) return debutComponent;
     if (pageComponent) return pageComponent;
   
-    if (!data?.itemByName) return <div>Data not found for '{itemName}'</div>;
+    if (!data?.itemByName || !data?.itemByName[0]) return <div>Data not found for '{itemName}'</div>;
 
 
   const itemResult = new ItemOnPage(data.itemByName[0]);

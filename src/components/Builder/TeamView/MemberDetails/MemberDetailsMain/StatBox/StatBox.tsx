@@ -8,6 +8,8 @@ import './StatBox.css';
 import { MemberPokemon } from "../../../../../../types-queries/Member/MemberPokemon";
 import { GenNum, ivsToHiddenPower, toAbbreviatedBaseStatName } from "../../../../../../types-queries/entities";
 import { DEFAULT_DV_SPREAD, DEFAULT_EV_SPREAD, DEFAULT_EV_SPREAD_GENS12, DEFAULT_IV_SPREAD } from "../../../../../../types-queries/Member/helpers";
+import { useMemo } from "react";
+import { toFormattedTypeName, TypeName } from "../../../../../../types-queries/helpers";
 
 type StatBoxProps = {
   member: MemberPokemon | null
@@ -22,6 +24,9 @@ const StatBox = ({
   gen,
   view,
 }: StatBoxProps) => {
+  const hiddenPower: { type: TypeName, power: number, } = useMemo(() => {
+    return ivsToHiddenPower(member?.ivs || (gen > 2 ? DEFAULT_IV_SPREAD : DEFAULT_DV_SPREAD), gen);
+  }, [gen, member, ])
   return (<>
     {/* Nature */}
     <MemberDetailInnerBox
@@ -97,11 +102,14 @@ const StatBox = ({
       >
         <div className="member-details__hidden-power-type">
           <TypeIcon
-            typeName={ivsToHiddenPower(member?.ivs || (gen > 2 ? DEFAULT_IV_SPREAD : DEFAULT_DV_SPREAD), gen).type}
+            typeIconDatum={{
+              name: hiddenPower.type,
+              formattedName: toFormattedTypeName(hiddenPower.type),
+            }}
           />
         </div>
         <div className="member-details__hidden-power-value">
-          {ivsToHiddenPower(member?.ivs || (gen > 2 ? DEFAULT_IV_SPREAD : DEFAULT_DV_SPREAD), gen).power}
+          {hiddenPower.power}
         </div>
       </div>}
 

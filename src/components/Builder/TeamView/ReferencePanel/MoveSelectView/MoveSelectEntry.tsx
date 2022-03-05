@@ -1,3 +1,4 @@
+import { toFormattedTypeName } from "../../../../../types-queries/helpers";
 import { MemberMove } from "../../../../../types-queries/Member/MemberMove";
 import { ENUMCASE_TO_TITLECASE } from "../../../../../utils/constants";
 import TypeIcon from "../../../../Icons/TypeIcon";
@@ -29,7 +30,10 @@ const MoveSelectEntry = ({
       </div>
       <div className="move-select__type">
         <TypeIcon
-          typeName={move.type}
+          typeIconDatum={{
+            name: move.type,
+            formattedName: toFormattedTypeName(move.type)
+          }}
         />
       </div>
       <div className="move-select__power">

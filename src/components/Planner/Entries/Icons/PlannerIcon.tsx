@@ -1,3 +1,4 @@
+import { toFormattedTypeName, TypeName } from "../../../../types-queries/helpers";
 import FieldStateIcon from "../../../Icons/FieldStateIcon";
 import ItemIcon from "../../../Icons/ItemIcon";
 import StatIcon from "../../../Icons/StatIcon";
@@ -9,15 +10,14 @@ import { LinkIconDatum } from "../../helpers";
 import './Icons.css';
 
 type PlannerIconProps = {
-  key: string
   linkIconDatum: LinkIconDatum
 }
 
 const PlannerIcon = ({
-  key,
   linkIconDatum
 }: PlannerIconProps) => {
   const { iconClass, iconDatum } = linkIconDatum;
+
   let iconComponent: JSX.Element;
   switch(iconClass) {
     case 'fieldState':
@@ -42,7 +42,10 @@ const PlannerIcon = ({
       break;
     case 'type':
       iconComponent = <TypeIcon
-        typeIconDatum={iconDatum}
+        typeIconDatum={{
+          name: (iconDatum.name as TypeName) || 'normal',
+          formattedName: toFormattedTypeName((iconDatum.name as TypeName) || 'normal'),
+        }}
       />;
       break;
     case 'usageMethod':

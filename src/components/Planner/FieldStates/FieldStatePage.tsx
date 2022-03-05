@@ -138,7 +138,7 @@ const FieldStatePage = ({
     if (debutComponent) return debutComponent;
     if (pageComponent) return pageComponent;
   
-    if (!data?.fieldStateByName) return <div>Data not found for '{fieldStateName}'</div>;
+    if (!data?.fieldStateByName || !data?.fieldStateByName[0]) return <div>Data not found for '{fieldStateName}'</div>;
   
 
   const fieldStateResult = new FieldStateOnPage(data.fieldStateByName[0]);

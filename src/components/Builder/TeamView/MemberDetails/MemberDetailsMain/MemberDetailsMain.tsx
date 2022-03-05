@@ -47,7 +47,10 @@ const MemberDetailsMain = ({
         content={<>
           <div className="member-details__item-icon">
             {member?.item && <ItemIcon
-              itemIconDatum={member.item}
+              itemIconDatum={{
+                name: member.item.psID,
+                formattedName: member.item.formattedName,
+              }}
             />}
           </div>
           <div className="member-details__item-name">

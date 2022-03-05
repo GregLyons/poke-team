@@ -6,8 +6,8 @@ import { GenNum, ItemClass } from '../entities';
 import {
   DescriptionEdge,
   DescriptionsEdge,
+  IconDatum,
   IntroductionEdge,
-  ItemIconDatum,
   itemIconEdgeToItemIconDatum,
   itemRequiresPokemonEdgeToRequiredPokemonIconData,
   PokemonIconDatum,
@@ -19,7 +19,6 @@ import {
   TypeName,
 } from '../helpers';
 import {
-  EntitySearchQueryName,
   MainEntitySearchResult,
   EntitySearchVars,
   MainEntityInSearch,
@@ -43,7 +42,7 @@ import {
 // #region
 
 export type ItemSearchQuery = {
-  [searchQueryName in EntitySearchQueryName]?: {
+  items: {
     edges: ItemSearchResult[]
   }
 }
@@ -130,7 +129,7 @@ export const ITEM_SEARCH_QUERY = gql`
 
 export class ItemInSearch extends MainEntityInSearch {
   public itemClass: string
-  public itemIconDatum: ItemIconDatum
+  public itemIconDatum: IconDatum
   public requiredPokemonIconData: PokemonIconDatum[]
 
   constructor(gqlItem: ItemSearchResult) {

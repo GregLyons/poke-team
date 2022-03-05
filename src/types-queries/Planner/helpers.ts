@@ -2,14 +2,49 @@ import {
   gql,
 } from "@apollo/client";
 import { GenNum } from "../entities";
-import { CapsTypeName, IconDatum, IconEdge, iconEdgeToIconDatum, IntroductionEdge, ItemIconDatum, ItemIconEdge, itemIconEdgeToItemIconDatum, ItemRequiresPokemonEdge, itemRequiresPokemonEdgeToRequiredPokemonIconData, NameEdge, PokemonIconDatum, PokemonIconEdge } from "../helpers";
+import { CapsTypeName, IconDatum, IconEdge, iconEdgeToIconDatum, IntroductionEdge, ItemIconEdge, itemIconEdgeToItemIconDatum, ItemRequiresPokemonEdge, itemRequiresPokemonEdgeToRequiredPokemonIconData, NameEdge, PokemonIconDatum, PokemonIconEdge, } from "../helpers";
 
 // Entity in search
 // #region
 
-export type EntitySearchQueryName = 'abilities' | 'effects' | 'fieldStates' | 'items' | 'moves' | 'pokemon' | 'stats' | 'statuses' | 'types' | 'usageMethods';
+export interface EntitySearchQuery {
+  abilities?: {
+    edges: MainEntitySearchResult[]
+  }
+  effects?: {
+    edges: AuxEntitySearchResult[]
+  }
+  fieldStates?: {
+    edges: AuxEntitySearchResult[]
+  }
+  items?: {
+    edges: MainEntitySearchResult[]
+  }
+  moves?: {
+    edges: MainEntitySearchResult[]
+  }
+  stats?: {
+    edges: AuxEntitySearchResult[]
+  }
+  statuses?: {
+    edges: AuxEntitySearchResult[]
+  }
+  types?: {
+    edges: AuxEntitySearchResult[]
+  }
+  usageMethods?: {
+    edges: AuxEntitySearchResult[]
+  }
+}
 
-export interface MainEntitySearchResult {
+export interface EntitySearchResult {
+  node: {
+    name: string
+    formattedName: string
+  }
+}
+
+export interface MainEntitySearchResult extends EntitySearchResult {
   node: {
     name: string
     formattedName: string
@@ -19,12 +54,12 @@ export interface MainEntitySearchResult {
   }
 }
 
-export interface AuxEntitySearchResult {
+export interface AuxEntitySearchResult extends EntitySearchResult {
   node: {
     id: string
     name: string
     formattedName: string
-    description?: string
+    description: string
   }
 }
 
@@ -41,7 +76,8 @@ export abstract class MainEntityInSearch {
   public description: string
 
   constructor(gqlEntity: MainEntitySearchResult) {
-    const { name, formattedName } = gqlEntity.node;
+    console.log(gqlEntity);
+    const { name, formattedName, } = gqlEntity.node;
 
     this.name = name;
     this.formattedName = formattedName;
@@ -144,6 +180,7 @@ export abstract class MainEntityOnPage {
   public introduced: GenNum
 
   constructor(gqlEntity: MainEntityPageResult) {
+    console.log(gqlEntity);
     const { id, name, formattedName, descriptions } = gqlEntity;
 
     this.id = id;
@@ -328,7 +365,7 @@ export abstract class AuxToMainConnectionOnPage {
 }
 
 export abstract class AuxToItemConnectionOnPage extends AuxToMainConnectionOnPage {
-  public itemIconDatum: ItemIconDatum
+  public itemIconDatum: IconDatum
   public requiredPokemonIconData: PokemonIconDatum[]
 
   constructor(gqlEdge: AuxToItemConnectionEdge) {

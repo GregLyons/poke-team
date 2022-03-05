@@ -18,7 +18,10 @@ const ItemSelectEntry = ({
     >
       <div className="item-select__icon">
         <ItemIcon
-          itemIconDatum={{...item}}
+          itemIconDatum={{
+            name: item.psID,
+            formattedName: item.formattedName,
+          }}
         />
       </div>
       <div className="item-select__name">

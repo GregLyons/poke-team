@@ -2,7 +2,7 @@ import { useCallback, useMemo } from "react";
 import { TypeCoverageSummary } from "../../../../types-queries/Analyzer/Coverage";
 import { MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
 import { TypeMatchupSummary } from "../../../../types-queries/Analyzer/Matchups";
-import { TypeName } from "../../../../types-queries/helpers";
+import { toFormattedTypeName, TypeName } from "../../../../types-queries/helpers";
 import TypeIcon from "../../../Icons/TypeIcon";
 import { TypeSummary } from "./TypeMatchup";
 
@@ -87,7 +87,10 @@ const TypeMatchupEntry = ({
     >
       <div className="type-matchup__icon">
         <TypeIcon
-          typeName={typeName}
+          typeIconDatum={{
+            name: typeName,
+            formattedName: toFormattedTypeName(typeName),
+          }}
         />
       </div>
       <div

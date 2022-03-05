@@ -110,7 +110,7 @@ const MovePage = ({
     if (debutComponent) return debutComponent;
     if (pageComponent) return pageComponent;
   
-    if (!data?.moveByName) return <div>Data not found for '{moveName}'</div>;
+    if (!data?.moveByName || !data?.moveByName[0]) return <div>Data not found for '{moveName}'</div>;
 
 
   const moveResult = new MoveOnPage(data.moveByName[0]);

@@ -86,7 +86,7 @@ const UsageMethodPage = ({
     if (debutComponent) return debutComponent;
     if (pageComponent) return pageComponent;
   
-    if (!data?.usageMethodByName) return <div>Data not found for '{usageMethodName}'</div>;
+    if (!data?.usageMethodByName || !data?.usageMethodByName[0]) return <div>Data not found for '{usageMethodName}'</div>;
 
 
   const usageMethodResult = new UsageMethodOnPage(data.usageMethodByName[0]);

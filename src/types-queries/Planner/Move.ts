@@ -19,7 +19,6 @@ import {
   typeNameEdgeToTypeName,
 } from '../helpers';
 import {
-  EntitySearchQueryName,
   MainEntitySearchResult,
   EntitySearchVars,
   MainEntityInSearch,
@@ -42,9 +41,7 @@ import {
 // #region
 
 export type MoveSearchQuery = {
-  [searchQueryName in EntitySearchQueryName]?: {
-    id: string
-    
+  moves: {
     edges: MoveSearchResult[]
   }
 }

@@ -92,7 +92,7 @@ const StatPage = ({
     if (debutComponent) return debutComponent;
     if (pageComponent) return pageComponent;
   
-    if (!data?.statByName) return <div>Data not found for '{statName}'</div>;
+    if (!data?.statByName || !data?.statByName[0]) return <div>Data not found for '{statName}'</div>;
 
 
   const statResult = new StatOnPage(data.statByName[0]);

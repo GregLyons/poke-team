@@ -17,7 +17,6 @@ import {
   typeNameEdgeToTypeName,
 } from '../helpers';
 import {
-  EntitySearchQueryName,
   EntitySearchVars,
   
   EntityPageQueryName,
@@ -45,9 +44,7 @@ import {
 // #region
 
 export type StatusSearchQuery = {
-  [searchQueryName in EntitySearchQueryName]?: {
-    id: string
-    
+  statuses: {
     edges: StatusSearchResult[]
   }
 }

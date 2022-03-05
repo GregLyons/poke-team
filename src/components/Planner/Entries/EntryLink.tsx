@@ -40,14 +40,14 @@ const EntryLink = ({
         </span>}
       </Link>
       <br />
-      {icons?.linkIconDatum?.iconClass === 'item' && icons?.linkIconDatum
-          ? <>
-              <PlannerIcon
-                key={name}
-                linkIconDatum={icons.linkIconDatum}
-              />
-            </>
-          : ''
+      {icons?.linkIconDatum
+        ? <>
+            <PlannerIcon
+              key={name}
+              linkIconDatum={icons.linkIconDatum}
+            />
+          </>
+        : ''
       }
     </div>
   )

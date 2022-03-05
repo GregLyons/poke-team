@@ -16,7 +16,6 @@ import {
   TypeName,
 } from '../helpers';
 import {
-  EntitySearchQueryName,
   MainEntitySearchResult,
   EntitySearchVars,
   MainEntityInSearch,
@@ -39,9 +38,7 @@ import {
 // #region
 
 export type AbilitySearchQuery = {
-  [searchQueryName in EntitySearchQueryName]?: {
-    id: string
-    
+  abilities: {
     edges: AbilitySearchResult[]
   }
 }

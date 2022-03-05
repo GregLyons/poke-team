@@ -1,10 +1,10 @@
-import { ItemIconDatum } from "../../types-queries/helpers"
+import { IconDatum } from "../../types-queries/helpers";
 import { getItemIcon } from "../../utils/sprites";
 
 import './Icons.css';
 
 type ItemIconProps = {
-  itemIconDatum: ItemIconDatum
+  itemIconDatum: IconDatum
 }
 
 const ItemIcon = ({

@@ -109,7 +109,7 @@ const AbilityPage = ({
   if (debutComponent) return debutComponent;
   if (pageComponent) return pageComponent;
 
-  if (!data?.abilityByName) return <div>Data not found for '{abilityName}'</div>;
+  if (!data?.abilityByName || !data.abilityByName[0]) return <div>Data not found for '{abilityName}'</div>;
 
   const abilityResult = new AbilityOnPage(data.abilityByName[0]);
   

@@ -97,7 +97,7 @@ const StatusPage = ({
     if (debutComponent) return debutComponent;
     if (pageComponent) return pageComponent;
   
-    if (!data?.statusByName) return <div>Data not found for '{statusName}'</div>;
+    if (!data?.statusByName || !data?.statusByName[0]) return <div>Data not found for '{statusName}'</div>;
 
 
   const statusResult = new StatusOnPage(data.statusByName[0]);

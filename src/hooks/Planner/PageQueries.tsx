@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { DocumentNode } from "graphql";
 import { EntityPageQueryName, IntroductionQuery, IntroductionQueryVars, INTRODUCTION_QUERY } from "../../types-queries/Planner/helpers";
-import { EntityClass } from "../../utils/constants";
+import { EntityClass, NUMBER_OF_GENS } from "../../utils/constants";
 import { GenFilter } from "../App/GenFilter";
 
 export function useDebutQuery(entityName: string, entityClass: EntityClass, genFilter: GenFilter): JSX.Element | null {
@@ -36,7 +36,12 @@ export function useDebutQuery(entityName: string, entityClass: EntityClass, genF
       break;
   }
 
-  const { loading, error, data } = useQuery<IntroductionQuery, IntroductionQueryVars>(INTRODUCTION_QUERY(queryName));
+  const { loading, error, data } = useQuery<IntroductionQuery, IntroductionQueryVars>(INTRODUCTION_QUERY(queryName), {
+    variables: {
+      gen: NUMBER_OF_GENS,
+      name: entityName,
+    },
+  });
 
   if (loading) {
     return (

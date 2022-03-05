@@ -4,17 +4,18 @@ import {
 import { GenNum } from '../entities';
 import {
   AbilityIconEdge,
+  FormattedTypeName,
   IntroductionEdge,
   MoveIconEdge, PokemonIconDatum,
   PokemonIconEdge,
   pokemonIconEdgeToPokemonIconDatum,
+  toFormattedTypeName,
   TypeIconDatum,
   typeIconEdgeToTypeIconDatum,
   TypeName, TypeNameEdge,
   typeNameEdgeToTypeName,
 } from '../helpers';
 import {
-  EntitySearchQueryName,
   EntitySearchVars,
   
   EntityPageQueryName,
@@ -25,8 +26,6 @@ import {
 
   VersionDependentDescriptionEdge,
   AuxToMainConnectionEdge,
-  AuxEntityInSearch,
-  AuxEntitySearchResult,
   AuxEntityPageResult,
   AuxEntityOnPage,
   AuxToMainConnectionOnPage,
@@ -42,14 +41,12 @@ import {
 // #region
 
 export type TypeSearchQuery = {
-  [searchQueryName in EntitySearchQueryName]?: {
-    id: string
-    
+  types: {
     edges: TypeSearchResult[]
   }
 }
 
-export interface TypeSearchResult extends AuxEntitySearchResult {
+export interface TypeSearchResult {
   node: {
     id: string
     name: TypeName
@@ -202,8 +199,9 @@ const typeResultToMatchups = (edges: TypeMatchupEdge[]): TypeMatchups => {
   return matchups;
 }
 
-export class TypeInSearch extends AuxEntityInSearch {
+export class TypeInSearch {
   public name: TypeName
+  public formattedName: FormattedTypeName
 
   public pokemonIconData: PokemonIconDatum[]
   public typeIconDatum: TypeIconDatum
@@ -212,9 +210,8 @@ export class TypeInSearch extends AuxEntityInSearch {
   public offensiveMatchups: TypeMatchups
 
   constructor(gqlType: TypeSearchResult) {
-    super(gqlType);
-
     this.name = gqlType.node.name;
+    this.formattedName = toFormattedTypeName(gqlType.node.name);
 
     this.pokemonIconData = gqlType.node.pokemon.edges.map(pokemonIconEdgeToPokemonIconDatum);
     this.typeIconDatum = typeIconEdgeToTypeIconDatum({node: gqlType.node});

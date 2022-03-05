@@ -1,4 +1,4 @@
-import { IconDatum, ItemIconDatum, PokemonIconDatum, TypeIconDatum } from "../../types-queries/helpers";
+import { IconDatum, PokemonIconDatum, TypeIconDatum } from "../../types-queries/helpers";
 import { Dispatches, Filters } from "../App";
 
 // Rendering lists
@@ -70,13 +70,10 @@ export type EntryIconData = {
 }
 
 export type LinkIconDatum = {
-  iconClass: 'item'
-  iconDatum: ItemIconDatum
-} | {
   iconClass: 'type'
   iconDatum: TypeIconDatum
 } | {
-  iconClass: 'fieldState' | 'stat' | 'status' | 'usageMethod'
+  iconClass: 'item' | 'fieldState' | 'stat' | 'status' | 'usageMethod'
   iconDatum: IconDatum
 };
 

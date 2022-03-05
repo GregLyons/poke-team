@@ -17,7 +17,6 @@ import {
   typeNameEdgeToTypeName,
 } from '../helpers';
 import {
-  EntitySearchQueryName,
   EntitySearchVars,
   
   EntityPageQueryName,
@@ -34,7 +33,6 @@ import {
   AuxEntityOnPage,
   AuxToMainConnectionOnPage,
   AuxToAuxConnectionEdge,
-  AuxToAuxConnectionOnPage,
   AuxToItemConnectionEdge,
   AuxToItemConnectionOnPage,
   RemovedFromGameQueryVars,
@@ -46,9 +44,7 @@ import {
 // #region
 
 export type EffectSearchQuery = {
-  [searchQueryName in EntitySearchQueryName]?: {
-    id: string
-    
+  effects: {
     edges: EffectSearchResult[]
   }
 }

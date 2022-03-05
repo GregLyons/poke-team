@@ -1,5 +1,5 @@
 import { GenNum } from "../../types-queries/entities";
-import { equateTwoPokemonIconData, ItemIconDatum, PokemonIconDatum, sortPokemonIconData, } from "../../types-queries/helpers";
+import { equateTwoPokemonIconData, PokemonIconDatum, IconDatum, sortPokemonIconData, } from "../../types-queries/helpers";
 import { EntityClass, } from "../../utils/constants";
 import { binaryIncludes, compareStrings, removeDuplicatesFromSortedArray } from "../../utils/helpers";
 
@@ -418,7 +418,7 @@ export type CartAction =
     type: 'add_item',
     payload: {
       gen: GenNum,
-      item: ItemIconDatum,
+      item: IconDatum,
       requiredPokemon: PokemonIconDatum[],
       parentEntityClass: EntityClass,
       targetEntityClass: TargetEntityClass,

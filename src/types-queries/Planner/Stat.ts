@@ -15,7 +15,6 @@ import {
   typeIconEdgeToTypeIconDatum,
 } from '../helpers';
 import {
-  EntitySearchQueryName,
   EntitySearchVars,
   
   EntityPageQueryName,
@@ -42,9 +41,7 @@ import {
 // #region
 
 export type StatSearchQuery = {
-  [searchQueryName in EntitySearchQueryName]?: {
-    id: string
-    
+  stats: {
     edges: StatSearchResult[]
   }
 }

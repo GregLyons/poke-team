@@ -1,4 +1,4 @@
-import { PokemonIconDatum } from "../../../types-queries/helpers";
+import { PokemonIconDatum, toFormattedTypeName } from "../../../types-queries/helpers";
 import { DoublesTier, SinglesTier } from "../../../utils/smogonLogic";
 import Button from "../../Reusables/Button/Button";
 import PokemonIcon from "../../Icons/PokemonIcon";
@@ -48,7 +48,10 @@ const QuickSearchEntry = ({
         {pokemon.typing.map(typeName => (
           <TypeIcon 
             key={pokemon.psID + typeName}
-            typeName={typeName}
+            typeIconDatum={{
+              name: typeName,
+              formattedName: toFormattedTypeName(typeName),
+            }}
           />
         ))}
       </div>

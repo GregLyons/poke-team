@@ -1,3 +1,4 @@
+import { toFormattedTypeName } from "../../../../../types-queries/helpers";
 import { MemberMove } from "../../../../../types-queries/Member/MemberMove";
 import TypeIcon from "../../../../Icons/TypeIcon";
 
@@ -14,7 +15,10 @@ const MoveSlot = ({
     >
       <div className="member-details__move-type">
         {move?.type && <TypeIcon
-          typeName={move?.type || 'normal'}
+          typeIconDatum={{
+            name: move?.type || 'normal',
+            formattedName: toFormattedTypeName(move?.type || 'normal'),
+          }}
         />}
       </div>
       <div className="member-details__move-name">

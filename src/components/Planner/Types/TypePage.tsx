@@ -97,7 +97,7 @@ const TypePage = ({
     if (debutComponent) return debutComponent;
     if (pageComponent) return pageComponent;
   
-    if (!data?.typeByName) return <div>Data not found for '{typeName}'</div>;
+    if (!data?.typeByName || !data?.typeByName[0]) return <div>Data not found for '{typeName}'</div>;
 
 
   const typeResult = new TypeOnPage(data.typeByName[0]);

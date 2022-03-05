@@ -6,7 +6,7 @@ import { FieldStateClass, FieldStateTargetClass, GenNum } from '../entities';
 import {
   AbilityIconEdge,
   IntroductionEdge,
-  ItemIconDatum,
+  IconDatum,
   itemIconEdgeToItemIconDatum,
   MoveIconEdge,
   PokemonIconDatum,
@@ -19,7 +19,6 @@ import {
   typeIconEdgeToTypeIconDatum,
 } from '../helpers';
 import {
-  EntitySearchQueryName,
   EntitySearchVars,
   
   EntityPageQueryName,
@@ -47,10 +46,8 @@ import {
 // FieldState in main search
 // #region
 
-export type FieldStateSearchQuery = {
-  [searchQueryName in EntitySearchQueryName]?: {
-    id: string
-    
+export interface FieldStateSearchQuery {
+  fieldStates: {
     edges: FieldStateSearchResult[]
   }
 }
@@ -1007,7 +1004,7 @@ export const FIELDSTATE_ITEM_QUERY = gql`
 `;
 
 export class FieldStateItemResult extends AuxToItemConnectionOnPage {
-  public itemIconData: ItemIconDatum
+  public itemIconData: IconDatum
   public turns?: number
 
   constructor(gqlFieldStateItem: FieldStateItemEdge) {

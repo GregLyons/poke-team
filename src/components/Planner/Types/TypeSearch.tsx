@@ -33,7 +33,7 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeSear
               key={'typeEntry_' + type.name}
               name={type.formattedName}
               linkName={type.name}
-              description={type.description}
+              description=''
               icons={{
                 pokemonIconData: type.pokemonIconData,
                 linkIconDatum: {

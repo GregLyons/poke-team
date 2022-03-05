@@ -93,7 +93,7 @@ const EffectPage = ({
     if (debutComponent) return debutComponent;
     if (pageComponent) return pageComponent;
   
-    if (!data?.effectByName) return <div>Data not found for '{effectName}'</div>;
+    if (!data?.effectByName || !data?.effectByName[0]) return <div>Data not found for '{effectName}'</div>;
 
 
   const effectResult = new EffectOnPage(data.effectByName[0]);

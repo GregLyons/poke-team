@@ -17,23 +17,14 @@ import BuilderHome from './Builder/BuilderHome';
 import Planner from './Planner/Planner';
 import PlannerHome from './Planner/PlannerHome';
 
-import AbilityMainPage from './Planner/Abilities/AbilityMainPage';
 import AbilityPage from './Planner/Abilities/AbilityPage';
-import EffectMainPage from './Planner/Effects/EffectMainPage';
 import EffectPage from './Planner/Effects/EffectPage';
 import FieldStatePage from './Planner/FieldStates/FieldStatePage';
-import FieldStateMainPage from './Planner/FieldStates/FieldStateMainPage';
-import ItemMainPage from './Planner/Items/ItemMainPage';
 import ItemPage from './Planner/Items/ItemPage';
-import MoveMainPage from './Planner/Moves/MoveMainPage';
 import MovePage from './Planner/Moves/MovePage';
-import StatMainPage from './Planner/Stats/StatMainPage';
 import StatPage from './Planner/Stats/StatPage';
-import StatusMainPage from './Planner/Statuses/StatusMainPage';
 import StatusPage from './Planner/Statuses/StatusPage';
-import TypeMainPage from './Planner/Types/TypeMainPage';
 import TypePage from './Planner/Types/TypePage';
-import UsageMethodMainPage from './Planner/UsageMethods/UsageMethodMainPage';
 import UsageMethodPage from './Planner/UsageMethods/UsageMethodPage';
 
 import ControlPanel from './ControlPanel/ControlPanel';
@@ -48,6 +39,15 @@ import TeamView from './Builder/TeamView/TeamView';
 import QuickSearch from './Builder/QuickSearch/QuickSearch';
 import AnalyzerHome from './Analyzer/AnalyzerHome';
 import CoverageView from './Analyzer/CoverageView/CoverageView';
+import AbilitySearch from './Planner/Abilities/AbilitySearch';
+import ItemSearch from './Planner/Items/ItemSearch';
+import MoveSearch from './Planner/Moves/MoveSearch';
+import EffectSearch from './Planner/Effects/EffectSearch';
+import FieldStateSearch from './Planner/FieldStates/FieldStateSearch';
+import StatSearch from './Planner/Stats/StatSearch';
+import StatusSearch from './Planner/Statuses/StatusSearch';
+import TypeSearch from './Planner/Types/TypeSearch';
+import UsageMethodSearch from './Planner/UsageMethods/UsageMethodSearch';
 
 export type Dispatches = {
   dispatchCart: React.Dispatch<CartAction>
@@ -195,7 +195,7 @@ function App() {
             {/* */}
             <Route 
               path='abilities' 
-              element={<AbilityMainPage
+              element={<AbilitySearch
                 dispatches={dispatches}
                 filters={filters}
               />}
@@ -207,7 +207,7 @@ function App() {
 
             <Route 
               path='items' 
-              element={<ItemMainPage
+              element={<ItemSearch
                 dispatches={dispatches}
                 filters={filters}
               />}
@@ -219,7 +219,7 @@ function App() {
 
             <Route 
               path='moves' 
-              element={<MoveMainPage
+              element={<MoveSearch
                 dispatches={dispatches}
                 filters={filters}
               />} 
@@ -233,7 +233,7 @@ function App() {
             {/* */}
             <Route 
               path='effects' 
-              element={<EffectMainPage
+              element={<EffectSearch
                 genFilter={genFilter}
               />}
             />
@@ -244,7 +244,7 @@ function App() {
 
             <Route 
               path='fieldStates' 
-              element={<FieldStateMainPage
+              element={<FieldStateSearch
                 genFilter={genFilter}
               />}
             />
@@ -255,7 +255,7 @@ function App() {
 
             <Route 
               path='stats' 
-              element={<StatMainPage
+              element={<StatSearch
                 genFilter={genFilter}
               />}
             />
@@ -266,7 +266,7 @@ function App() {
 
             <Route 
               path='statuses' 
-              element={<StatusMainPage
+              element={<StatusSearch
                 genFilter={genFilter}
               />}
             />
@@ -277,7 +277,7 @@ function App() {
 
             <Route 
               path='types' 
-              element={<TypeMainPage
+              element={<TypeSearch
                 dispatches={dispatches}
                 filters={filters}
               />}
@@ -289,7 +289,7 @@ function App() {
 
             <Route 
               path='usageMethods' 
-              element={<UsageMethodMainPage
+              element={<UsageMethodSearch
                 genFilter={genFilter}
               />}
             />

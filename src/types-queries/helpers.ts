@@ -173,14 +173,9 @@ export const pokemonIconEdgeToPokemonIconDatum: (edge: PokemonIconEdge) => Pokem
 // Item icons
 // #region
 
-export type ItemIconDatum = {
-  psID: string
-  formattedName: string
-}
-
-export const itemIconEdgeToItemIconDatum: (edge: ItemIconEdge) => ItemIconDatum = (edge) => {
+export const itemIconEdgeToItemIconDatum: (edge: ItemIconEdge) => IconDatum = (edge) => {
   return {
-    psID: edge.node.name,
+    name: edge.node.name,
     formattedName: edge.node.formattedName,
   };
 }
