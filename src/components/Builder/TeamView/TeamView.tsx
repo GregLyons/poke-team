@@ -10,7 +10,7 @@ import './TeamView.css';
 import { BaseStatName, PokemonIconDatum, StatTable } from "../../../types-queries/helpers";
 import { DefaultEVSpread, GenderName, MemberPokemon, NatureName } from "../../../types-queries/Builder/MemberPokemon";
 import { MemberMove } from "../../../types-queries/Builder/MemberMove";
-import { MemberAbility } from "../../../types-queries/Builder/MemberAbility";
+import { MemberAbility } from "../../../types-queries/Member/MemberAbility";
 import { MemberItem } from "../../../types-queries/Builder/MemberItem";
 import { MemberNature } from "../../../types-queries/Builder/MemberNature";
 

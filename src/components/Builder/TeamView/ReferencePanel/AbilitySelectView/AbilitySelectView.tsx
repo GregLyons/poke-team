@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { removedFromBDSP, removedFromSwSh } from "../../../../../hooks/App/GenFilter";
 import { Team } from "../../../../../hooks/App/Team";
 import { useDelayedQuery, useGenConnectedSearchVars, useRemovalConnectedSearchVars } from "../../../../../hooks/Searches";
-import { MemberAbilityQuery, MemberAbilitySearchVars, MEMBER_ABILITY_QUERY } from "../../../../../types-queries/Builder/MemberAbility";
+import { MemberAbilityQuery, MemberAbilitySearchVars, MEMBER_ABILITY_QUERY } from "../../../../../types-queries/Member/MemberAbility";
 import { MemberMoveQuery, MemberMoveSearchVars, MEMBER_MOVESET_QUERY } from "../../../../../types-queries/Builder/MemberMove";
 import { Dispatches, Filters } from "../../../../App";
 import SearchBar from "../../../../Reusables/SearchBar/SearchBar";

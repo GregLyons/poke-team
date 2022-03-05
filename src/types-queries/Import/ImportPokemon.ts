@@ -2,11 +2,6 @@ import { gql } from "@apollo/client";
 import { PokemonSet } from "@pkmn/sets";
 import { compareNumbers } from "../../utils/helpers";
 import { EnablesItemEdge, PokemonFormEdge, RequiresItemEdge } from "../Builder/helpers";
-import { MemberAbility, MemberAbilityQueryResult } from "../Builder/MemberAbility";
-import { MemberItem, MemberItemQueryResult } from "../Builder/MemberItem";
-import { MemberMove, MemberMoveQueryResult } from "../Builder/MemberMove";
-import { MemberNature, MemberNatureQueryResult } from "../Builder/MemberNature";
-import { MemberPokemon, MemberPokemonFromIconQueryResult, NatureName } from "../Builder/MemberPokemon";
 import { CapsTypeName, GenerationNum, IntroductionEdge, PokemonIconDatum, StatTable, toTypeName, TypeName } from "../helpers";
 import { InvalidAbilityError, InvalidItemError, InvalidMoveError, InvalidNatureError, InvalidStatsError, LateIntroductionError, PSIDNotFoundError, toPSID, toStatTable } from "./helpers";
 
@@ -53,7 +48,7 @@ export type MemberPokemonFromSetQueryResult = {
   // Data for abilities
   abilities: {
     edges: {
-      node: MemberAbilityQueryResult
+      node: MemberAbilityResult
       slot: 'ONE' | 'TWO' | 'HIDDEN'
     }[]
   }

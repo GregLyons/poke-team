@@ -1,30 +1,22 @@
 import { gql } from "@apollo/client";
 import { GenerationNum } from "@pkmn/data";
-import { CapsTypeName, IntroductionEdge, introductionEdgeToGen, toTypeName, TypeName } from "../helpers";
-import { RequiresItemEdge } from "./helpers";
+import { RequiresItemEdge } from "../Builder/helpers";
+import { CapsTypeName, toTypeName, TypeName } from "../helpers";
+import { MemberEntity, MemberSpecificEntityVars, MemberResult, } from "./helpers";
 import { MemberItem, requiresItemEdgeToMemberItem } from "./MemberItem";
 
-export type MemberMoveQuery = {
+export interface MemberMoveQuery {
   pokemonByPSID: {
     moves: {
       edges: {
-        node: MemberMoveQueryResult
+        node: MemberMoveResult
         learnMethod: string
       }[]
     }
   }[]
 }
 
-export type MemberMoveQueryResult = {
-  id: string
-  name: string
-  formattedName: string
-  psID: string
-
-  introduced: {
-    edges: IntroductionEdge[]
-  }
-
+export interface MemberMoveResult extends MemberResult {
   power: number
   pp: number
   accuracy: number | null
@@ -39,7 +31,7 @@ export type MemberMoveQueryResult = {
   }
 }
 
-export type MemberMoveSearchVars = {
+export interface MemberMoveSearchVars extends MemberSpecificEntityVars {
   gen: GenerationNum
   psID: string
 
@@ -115,15 +107,9 @@ export const MEMBER_MOVESET_QUERY = gql`
   }
 `;
 
-export class MemberMove {
-  public id: string
-  public name: string
-  public formattedName: string
-  public psID: string
+export class MemberMove extends MemberEntity {
   public type: TypeName
 
-  public gen: GenerationNum
-  public introduced: GenerationNum
   public removedFromSwSh: boolean
   public removedFromBDSP: boolean
 
@@ -136,22 +122,16 @@ export class MemberMove {
 
   public eventOnly: boolean
 
-  constructor(gqlMemberMove: MemberMoveQueryResult, gen: GenerationNum, eventOnly: boolean) {
+  constructor(gqlMemberMove: MemberMoveResult, gen: GenerationNum, eventOnly: boolean) {
+    super(gqlMemberMove, gen);
     const {
-      id, name, formattedName, psID: psID, typeName: enumTypeName,
-      introduced, removedFromSwSh, removedFromBDSP,
+      typeName: enumTypeName,
+      removedFromSwSh, removedFromBDSP,
       power, pp, accuracy, category,
       requiresItem,
     } = gqlMemberMove;
-
-    this.id = id;
-    this.name = name;
-    this.formattedName = formattedName;
-    this.psID = psID;
     this.type = toTypeName(enumTypeName);
 
-    this.gen = gen;
-    this.introduced = introductionEdgeToGen(introduced.edges[0]);
     this.removedFromSwSh = removedFromSwSh;
     this.removedFromBDSP = removedFromBDSP;
 

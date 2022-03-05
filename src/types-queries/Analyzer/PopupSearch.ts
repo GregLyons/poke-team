@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { MemberAbilityQueryResult } from "../Builder/MemberAbility";
+import { MemberAbilityResult } from "../Member/MemberAbility";
 import { MemberItemQueryResult } from "../Builder/MemberItem";
 import { MemberMoveQueryResult } from "../Builder/MemberMove";
 import { GenerationNum } from "../helpers";
@@ -12,7 +12,7 @@ export interface PopupAbilityQuery {
   pokemonByPSID: {
     abilities: {
       edges: {
-        node: MemberAbilityQueryResult
+        node: MemberAbilityResult
         slot: 'ONE' | 'TWO' | 'HIDDEN'
       }[]
     }

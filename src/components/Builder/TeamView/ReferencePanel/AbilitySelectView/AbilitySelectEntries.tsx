@@ -1,6 +1,6 @@
 import { useMemo, } from "react";
 import { useEventListener } from "usehooks-ts";
-import { MemberAbility, MemberAbilityQuery, MemberAbilityQueryResult } from "../../../../../types-queries/Builder/MemberAbility";
+import { MemberAbility, MemberAbilityQuery, MemberAbilityResult } from "../../../../../types-queries/Member/MemberAbility";
 import { Filters } from "../../../../App";
 import { AbilitySelectHandlers } from "../../TeamView";
 import AbilitySelectEntry from "./AbilitySelectEntry";
@@ -22,7 +22,7 @@ const AbilitySelectEntries = ({
     // If not data, do nothing
     if (!data) return undefined;
 
-    return data.pokemonByPSID[0].abilities.edges.map((memberAbilityEdge: { node: MemberAbilityQueryResult, slot: 'ONE' | 'TWO' | 'HIDDEN' }) => {
+    return data.pokemonByPSID[0].abilities.edges.map((memberAbilityEdge: { node: MemberAbilityResult, slot: 'ONE' | 'TWO' | 'HIDDEN' }) => {
       return new MemberAbility(memberAbilityEdge.node, filters.genFilter.gen, memberAbilityEdge.slot);
     });
   }, [data, filters.genFilter, ]);

@@ -2,26 +2,25 @@ import { gql } from "@apollo/client"
 import { PokemonSet } from "@pkmn/data"
 import { StatsTable } from "@pkmn/data"
 import { Dex } from "@pkmn/dex"
-import { Data, Sets } from "@pkmn/sets"
-import { BaseStatName, CapsTypeName, GenerationNum, IntroductionEdge, introductionEdgeToGen, PokemonIconDatum, StatTable, toTypeName, TypeName } from "../helpers"
-import { EnablesItemEdge, PokemonFormDatum, PokemonFormEdge, pokemonFormEdgeToFormDatum, RequiresItemEdge, spreadSummary, } from "./helpers"
+import { Sets } from "@pkmn/sets"
+import { EnablesItemEdge, PokemonFormEdge, pokemonFormEdgeToFormDatum, RequiresItemEdge, spreadSummary } from "../Builder/helpers"
+import { BaseStatName, GenerationNum, PokemonIconDatum, StatTable, statTableToPSStatsTable, TypeName } from "../helpers"
+import { DEFAULT_DV_SPREAD, DEFAULT_EV_SPREAD, DEFAULT_EV_SPREAD_GENS12, DEFAULT_IV_SPREAD, GenderName, hiddenPowerToMaxIVs, MemberEntity, MemberResult, } from "./helpers"
 import { MemberAbility } from "./MemberAbility"
 import { enablesItemEdgeToMemberItem, MemberItem, requiresItemEdgeToMemberItem } from "./MemberItem"
 import { MemberMove } from "./MemberMove"
 import { MemberNature } from "./MemberNature"
 
-export type MemberPokemonVars = {
+export interface MemberPokemonVars {
   gen: GenerationNum
   psID: string
 }
 
-export type MemberPokemonFromIconQuery = {
-  pokemonByPSID: MemberPokemonFromIconQueryResult[]
+export interface MemberPokemonQuery {
+  pokemonByPSID: MemberPokemonResult[]
 }
 
-export type MemberPokemonFromIconQueryResult = {
-  id: string
-  name: string
+export interface MemberPokemonResult extends MemberResult {
   speciesName: string
 
   maleRate: number
@@ -33,10 +32,6 @@ export type MemberPokemonFromIconQueryResult = {
     edges: PokemonFormEdge[]
   }
 
-  introduced: {
-    edges: IntroductionEdge[]
-  }
-
   enablesItem: {
     edges: EnablesItemEdge[]
   }
@@ -44,6 +39,11 @@ export type MemberPokemonFromIconQueryResult = {
   requiresItem: {
     edges: RequiresItemEdge[]
   }
+}
+
+export interface MemberPokemonVars {
+  gen: GenerationNum
+  psID: string
 }
 
 export const POKEMONICON_TO_MEMBER_QUERY = gql`
@@ -122,84 +122,13 @@ export const POKEMONICON_TO_MEMBER_QUERY = gql`
   }
 `;
 
-export const DefaultEVSpread: StatTable = {
-  hp: 0,
-  attack: 0,
-  defense: 0,
-  specialAttack: 0,
-  specialDefense: 0,
-  speed: 0,
-}
-
-export const DefaultEVSpreadGens12: StatTable = {
-  hp: 252,
-  attack: 252,
-  defense: 252,
-  specialAttack: 252,
-  specialDefense: 252,
-  speed: 252,
-}
-
-export const DefaultIVSpread: StatTable = {
-  hp: 31,
-  attack: 31,
-  defense: 31,
-  specialAttack: 31,
-  specialDefense: 31,
-  speed: 31,
-}
-
-export const DefaultDVSpread: StatTable = {
-  hp: 15,
-  attack: 15,
-  defense: 15,
-  specialAttack: 15,
-  specialDefense: 15,
-  speed: 15,
-}
-
-export const statTableToPSStatsTable: (statTable: StatTable) => StatsTable<number> = statTable => {
-  return {
-    hp: statTable.hp,
-    atk: statTable.attack,
-    def: statTable.defense,
-    spa: statTable.specialAttack,
-    spd: statTable.specialDefense,
-    spe: statTable.speed,
-  };
-}
-
-export type GenderName = 'M' | 'F' | 'N';
-
-export type NatureName = 'adamant' | 'bashful' | 'bold' | 'brave' | 'calm' | 'careful' | 'docile' | 'gentle' | 'hardy' | 'hasty' | 'impish' | 'jolly' | 'lax' | 'lonely' | 'mild' | 'modest' | 'naive' | 'naughty' | 'quiet' | 'quirky' | 'rash' | 'relaxed' | 'sassy' | 'serious' | 'timid';
-
-export type FormattedNatureName = 'Adamant' | 'Bashful' | 'Bold' | 'Brave' | 'Calm' |
-'Careful' | 'Docile' | 'Gentle' | 'Hardy' | 'Hasty' |
-'Impish' | 'Jolly' | 'Lax' | 'Lonely' | 'Mild' |
-'Modest' | 'Naive' | 'Naughty' | 'Quiet' | 'Quirky' |
-'Rash' | 'Relaxed' | 'Sassy' | 'Serious' | 'Timid';
-
-export const natureNameToFormattedNatureName = (natureName: NatureName) => {
-  return ((natureName.charAt(0).toUpperCase() + natureName.slice(1)) as FormattedNatureName);
-}
-
-export const formattedNatureNameToNatureName = (formattedNatureName: FormattedNatureName) => {
-  return (formattedNatureName.toLowerCase() as NatureName);
-}
-
-export class MemberPokemon {
-  public id: string
-  public name: string
-  public formattedName: string
+export class MemberPokemon extends MemberEntity {
   public speciesName: string
-  public psID: string
   public typing: TypeName[]
   public baseStats: StatTable
 
   public iconDatum: PokemonIconDatum
 
-  public gen: GenerationNum
-  public introduced: GenerationNum
   public removedFromSwSh: boolean
   public removedFromBDSP: boolean
 
@@ -239,11 +168,12 @@ export class MemberPokemon {
   public cosmeticForms: PokemonIconDatum[]
 
   // For making copy
-  private gqlMember: MemberPokemonFromIconQueryResult
+  private gqlMember: MemberPokemonResult
 
-  constructor(gqlMember: MemberPokemonFromIconQueryResult, pokemonIconDatum: PokemonIconDatum, gen: GenerationNum) {
+  constructor(gqlMember: MemberPokemonResult, pokemonIconDatum: PokemonIconDatum, gen: GenerationNum) {
+    super(gqlMember, gen);
+
     const {
-      formattedName, psID,
       typing, baseStats, 
       removedFromSwSh, removedFromBDSP,
     } = pokemonIconDatum;
@@ -251,8 +181,7 @@ export class MemberPokemon {
     this.iconDatum = pokemonIconDatum;
 
     const { 
-      id, name, speciesName,
-      introduced, 
+      speciesName,
       enablesItem, requiresItem,
       formClass, forms,
       maleRate, femaleRate, genderless,
@@ -260,10 +189,6 @@ export class MemberPokemon {
 
     this.gqlMember = gqlMember;
 
-    this.id = id;
-    this.name = name;
-    this.formattedName = formattedName;
-    this.psID = psID;
     this.speciesName = speciesName;
 
     this.maleRate = maleRate;
@@ -286,20 +211,18 @@ export class MemberPokemon {
     this.typing = typing;
     this.baseStats = baseStats;
 
-    this.gen = gen;
-    this.introduced = introductionEdgeToGen(introduced.edges[0]);
     this.removedFromSwSh = removedFromSwSh;
     this.removedFromBDSP = removedFromBDSP;
 
     this.moveset = [null, null, null, null];
 
     if (gen < 3) {
-      this.evs = { ...DefaultEVSpreadGens12, };
-      this.ivs = { ...DefaultDVSpread, };
+      this.evs = { ...DEFAULT_EV_SPREAD_GENS12, };
+      this.ivs = { ...DEFAULT_DV_SPREAD, };
     }
     else {
-      this.evs = { ...DefaultEVSpread, };
-      this.ivs = { ...DefaultIVSpread, };
+      this.evs = { ...DEFAULT_EV_SPREAD, };
+      this.ivs = { ...DEFAULT_IV_SPREAD, };
     }
 
     this.level = 100;
@@ -503,7 +426,7 @@ export class MemberPokemon {
     if (!newHPType || ['fairy', 'normal'].includes(newHPType)) return;
 
     this.hpType = newHPType;
-    this.ivs = hpToMaxIVs(newHPType);
+    this.ivs = hiddenPowerToMaxIVs(newHPType);
   }
 
   public evsSummary() {
@@ -589,26 +512,4 @@ export class MemberPokemon {
     this.assignAttributesToCopy(cosmeticForm);
     return cosmeticForm;
   }
-}
-
-const THIRTY_HP = ['dragon', 'grass', 'psychic'];
-const THIRTY_ATTACK = ['fire', 'ghost'];
-const THIRTY_DEFENSE = ['fighting', 'poison', 'rock'];
-const THIRTY_SPECIALATTACK = ['electric', 'fire', 'flying', 'flying'];
-const THIRTY_SPECIALDEFENSE = ['bug', 'fighting', 'flying', 'ghost', 'ground',  'poison', 'rock', 'steel']; 
-const THIRTY_SPEED = ['bug', 'fighting', 'fire', 'flying', 'ice', 'psychic', 'rock', 'steel'];
-
-
-const hpToMaxIVs: (hpType: TypeName) => StatTable = hpType => {
-  let ivs = { ...DefaultIVSpread, };
-
-  // Assign HP
-  if (THIRTY_HP.includes(hpType)) ivs.hp = 30;
-  if (THIRTY_ATTACK.includes(hpType)) ivs.attack = 30;
-  if (THIRTY_DEFENSE.includes(hpType)) ivs.defense = 30;
-  if (THIRTY_SPECIALATTACK.includes(hpType)) ivs.specialAttack = 30;
-  if (THIRTY_SPECIALDEFENSE.includes(hpType)) ivs.specialDefense = 30;
-  if (THIRTY_SPEED.includes(hpType)) ivs.speed = 30;
-
-  return ivs;
 }

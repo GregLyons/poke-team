@@ -1,20 +1,19 @@
-import { EnablesItemEdge, RequiresItemEdge } from "./helpers"
+import { MemberEntityVars, MemberResult, MemberEntity, } from "./helpers"
 
 import { gql } from "@apollo/client";
 import { GenerationNum } from "@pkmn/data";
-import { CapsTypeName, IntroductionEdge, introductionEdgeToGen, toTypeName, TypeName } from "../helpers";
+import { IntroductionEdge, } from "../helpers";
+import { EnablesItemEdge, RequiresItemEdge } from "../Builder/helpers";
 
-export type MemberItemQuery = {
+export interface MemberItemQuery {
   items: {
     edges: {
-      node: MemberItemQueryResult
+      node: MemberItemResult
     }[]
   }
 }
 
-export type MemberItemQueryResult = {
-  id: string
-  name: string
+export interface MemberItemResult extends MemberResult {
   formattedName: string
   psID: string
 
@@ -23,7 +22,7 @@ export type MemberItemQueryResult = {
   }
 }
 
-export type MemberItemSearchVars = {
+export interface MemberItemVars extends MemberEntityVars {
   gen: GenerationNum
 
   contains: string
@@ -63,27 +62,9 @@ export const MEMBER_ITEM_QUERY = gql`
   }
 `;
 
-export class MemberItem {
-  public id: string
-  public name: string
-  public formattedName: string
-  public psID: string
-  
-  public gen: GenerationNum
-  public introduced: GenerationNum
-
-  constructor(gqlMemberItem: MemberItemQueryResult, gen: GenerationNum) {
-    const {
-      id, name, formattedName, psID: psID, introduced,
-    } = gqlMemberItem;
-
-    this.id = id;
-    this.name = name;
-    this.formattedName = formattedName;
-    this.psID = psID;
-
-    this.gen = gen;
-    this.introduced = introductionEdgeToGen(introduced.edges[0]);
+export class MemberItem extends MemberEntity {
+  constructor(gqlMemberItem: MemberItemResult, gen: GenerationNum) {
+    super(gqlMemberItem, gen);
   }
 }
 

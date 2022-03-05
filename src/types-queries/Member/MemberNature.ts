@@ -1,29 +1,28 @@
 import { gql } from "@apollo/client";
 import { BaseStatName, GenerationNum, IntroductionEdge, introductionEdgeToGen, ModifiesBaseStatEdge, toBaseStatName } from "../helpers";
-import { NatureName } from "./MemberPokemon";
+import { FormattedNatureName, MemberEntityVars, MemberResult, NatureName, natureNameToFormattedNatureName, } from "./helpers";
 
-export type MemberNatureQuery = {
+export interface MemberNatureQuery {
   natures: {
     edges: {
-      node: MemberNatureQueryResult
+      node: MemberNatureResult
     }[]
   }
 }
 
-export interface MemberNatureQueryResult {
-  id: string
+export interface MemberNatureResult {
   name: NatureName
-  formattedName: NatureName
-  modifiesStat: {
-    edges: ModifiesBaseStatEdge[]
-  }
 
   introduced: {
     edges: IntroductionEdge[]
   }
+
+  modifiesStat: {
+    edges: ModifiesBaseStatEdge[]
+  }
 }
 
-export interface MemberNatureSearchVars {
+export interface MemberNatureVars extends MemberEntityVars {
   gen: GenerationNum
 
   contains: string
@@ -47,7 +46,6 @@ export const MEMBER_NATURE_QUERY = gql`
         node {
           id
           name
-          formattedName
           modifiesStat {
             edges {
               node {
@@ -74,8 +72,9 @@ export const MEMBER_NATURE_QUERY = gql`
 
 export class MemberNature {
   public name: NatureName
-  public formattedName: string
+  public formattedName: FormattedNatureName
 
+  public gen: GenerationNum
   public introduced: GenerationNum
 
   public modifiesStat: {
@@ -83,9 +82,14 @@ export class MemberNature {
     reduces: BaseStatName | null
   }
 
-  constructor(gqlNature: MemberNatureQueryResult) {
-    this.name = gqlNature.name;
-    this.formattedName = gqlNature.formattedName
+  constructor(gqlNature: MemberNatureResult, gen: GenerationNum) {
+    const { name, introduced } = gqlNature;
+
+    this.name = name;
+    this.formattedName = natureNameToFormattedNatureName(name);
+
+    this.gen = gen;
+    this.introduced = introductionEdgeToGen(introduced.edges[0]);
     
     const statModEdges = gqlNature.modifiesStat.edges;
     let boosts = null, reduces = null;
@@ -98,7 +102,5 @@ export class MemberNature {
       }
     }
     this.modifiesStat = { boosts, reduces };
-
-    this.introduced = introductionEdgeToGen(gqlNature.introduced.edges[0]);
   }
 }

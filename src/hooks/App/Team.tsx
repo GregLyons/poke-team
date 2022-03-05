@@ -1,5 +1,5 @@
 import { PokemonSet, Sets } from "@pkmn/sets";
-import { MemberAbility } from "../../types-queries/Builder/MemberAbility";
+import { MemberAbility } from "../../types-queries/Member/MemberAbility";
 import { MemberItem } from "../../types-queries/Builder/MemberItem";
 import { MemberMove } from "../../types-queries/Builder/MemberMove";
 import { MemberNature } from "../../types-queries/Builder/MemberNature";

@@ -1,3 +1,4 @@
+import { StatsTable } from '@pkmn/data';
 import {
   NUMBER_OF_GENS,
 } from '../utils/constants';
@@ -570,6 +571,17 @@ export const ivsToHiddenPower: (ivs: StatTable, gen: GenerationNum) => { type: T
   }
 
   return { type, power, };
+}
+
+export const statTableToPSStatsTable: (statTable: StatTable) => StatsTable<number> = statTable => {
+  return {
+    hp: statTable.hp,
+    atk: statTable.attack,
+    def: statTable.defense,
+    spa: statTable.specialAttack,
+    spd: statTable.specialDefense,
+    spe: statTable.speed,
+  };
 }
 
 // #endregion 
