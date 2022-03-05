@@ -1,10 +1,10 @@
 import {
   gql,
 } from '@apollo/client';
+import { GenNum } from '../entities';
 
 import {
   AbilityIconEdge,
-  GenerationNum,
   IntroductionEdge,
   MoveIconEdge,
   PokemonIconDatum,
@@ -66,7 +66,7 @@ export interface UsageMethodMatchupEdge {
 }
 
 export interface UsageMethodSearchVars extends EntitySearchVars {
-  gen: GenerationNum
+  gen: GenNum
   limit: number
   contains: string
   startsWith: string
@@ -137,7 +137,7 @@ export interface UsageMethodPageResult extends AuxEntityPageResult {
 }
 
 export interface UsageMethodPageQueryVars extends EntityPageVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -278,7 +278,7 @@ export interface UsageMethodAbilityEdge extends AbilityIconEdge, AuxToMainConnec
 }
 
 export interface UsageMethodAbilityQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -532,7 +532,7 @@ export interface UsageMethodItemEdge extends AuxToItemConnectionEdge {
 }
 
 export interface UsageMethodItemQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -725,7 +725,7 @@ export interface UsageMethodMoveEdge extends MoveIconEdge, AuxToMainConnectionEd
 }
 
 export interface UsageMethodMoveQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
   removedFromSwSh: false | null
   removedFromBDSP: false | null

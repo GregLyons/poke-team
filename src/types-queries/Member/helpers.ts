@@ -1,7 +1,9 @@
-import { GenerationNum, IntroductionEdge, introductionEdgeToGen, StatTable, TypeName } from "../helpers";
+import { GenNum, IntroductionEdge, introductionEdgeToGen, StatTable, TypeName } from "../helpers";
 
 // Enum types
 // #region
+
+export type AbilitySlot = 'ONE' | 'TWO' | 'HIDDEN';
 
 export type GenderName = 'M' | 'F' | 'N';
 
@@ -41,7 +43,7 @@ export interface MemberResult {
 }
 
 export interface MemberEntityVars {
-  gen: GenerationNum
+  gen: GenNum
   
   contains: string
   startsWith: string
@@ -60,10 +62,10 @@ export abstract class MemberEntity {
   public formattedName: string
   public psID: string
 
-  public gen: GenerationNum
-  public introduced: GenerationNum
+  public gen: GenNum
+  public introduced: GenNum
 
-  constructor(memberSpecificResult: MemberResult, gen: GenerationNum) {
+  constructor(memberSpecificResult: MemberResult, gen: GenNum) {
     const { formattedName, psID, introduced} = memberSpecificResult;
 
     this.formattedName = formattedName;

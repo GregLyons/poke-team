@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { BaseStatName, GenerationNum, IntroductionEdge, introductionEdgeToGen, ModifiesBaseStatEdge, toBaseStatName } from "../helpers";
+import { BaseStatName, GenNum, IntroductionEdge, introductionEdgeToGen, ModifiesBaseStatEdge, toBaseStatName } from "../helpers";
 import { FormattedNatureName, MemberEntityVars, MemberResult, NatureName, natureNameToFormattedNatureName, } from "./helpers";
 
 export interface MemberNatureQuery {
@@ -23,7 +23,7 @@ export interface MemberNatureResult {
 }
 
 export interface MemberNatureVars extends MemberEntityVars {
-  gen: GenerationNum
+  gen: GenNum
 
   contains: string
   startsWith: string
@@ -74,15 +74,15 @@ export class MemberNature {
   public name: NatureName
   public formattedName: FormattedNatureName
 
-  public gen: GenerationNum
-  public introduced: GenerationNum
+  public gen: GenNum
+  public introduced: GenNum
 
   public modifiesStat: {
     boosts: BaseStatName | null
     reduces: BaseStatName | null
   }
 
-  constructor(gqlNature: MemberNatureResult, gen: GenerationNum) {
+  constructor(gqlNature: MemberNatureResult, gen: GenNum) {
     const { name, introduced } = gqlNature;
 
     this.name = name;

@@ -1,5 +1,5 @@
 import { DefaultEVSpread, DefaultIVSpread, MemberPokemon } from "../../../../../../types-queries/Builder/MemberPokemon";
-import { GenerationNum, ivsToHiddenPower, toAbbreviatedBaseStatName } from "../../../../../../types-queries/helpers";
+import { GenNum, ivsToHiddenPower, toAbbreviatedBaseStatName } from "../../../../../../types-queries/helpers";
 import TypeIcon from "../../../../../Icons/TypeIcon";
 import { MemberDetailsHandlers, ReferencePanelView } from "../../../TeamView";
 import MemberDetailInnerBox from "../../MemberDetailInnerBox";
@@ -11,7 +11,7 @@ import './StatBox.css';
 type StatBoxProps = {
   member: MemberPokemon | null
   handlers: MemberDetailsHandlers
-  gen: GenerationNum
+  gen: GenNum
   view: ReferencePanelView
 };
 

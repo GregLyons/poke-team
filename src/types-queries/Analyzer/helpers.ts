@@ -1,4 +1,4 @@
-import { GenerationNum, TypeName } from "../helpers";
+import { GenNum, TypeName } from "../helpers";
 
 // Keys are psIDs of MemberPokemon, values are subsets of psIDs of the MemberPokemon's Ability, Item, Moves, and Types (call them 'entityPSIDs')
 export type MemberPSIDObject = {
@@ -51,7 +51,7 @@ export type MemberAndEntityPSIDs = {
 // #region
 
 export interface PopupVars {
-  gen: GenerationNum
+  gen: GenNum
 
   startsWith: string
   limit: number

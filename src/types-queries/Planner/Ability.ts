@@ -1,11 +1,11 @@
 import {
   gql,
 } from '@apollo/client';
+import { GenNum } from '../entities';
 
 import {
   DescriptionEdge,
   DescriptionsEdge,
-  GenerationNum,
   IntroductionEdge,
   PokemonIconDatum,
   PokemonIconEdge,
@@ -63,7 +63,7 @@ export interface AbilitySearchResult extends MainEntitySearchResult {
 }
 
 export interface AbilitySearchVars extends EntitySearchVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
+  gen: GenNum
   limit: number
   contains: string
   startsWith: string
@@ -183,7 +183,7 @@ export interface AbilityPageResult extends MainEntityPageResult {
 }
 
 export interface AbilityPageQueryVars extends EntityPageVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -361,7 +361,7 @@ export interface AbilityEffectEdge extends MainToAuxConnectionEdge, DescriptionE
 }
 
 export interface AbilityEffectQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -434,7 +434,7 @@ export interface AbilityFieldStateEdge extends MainToIconConnectionEdge, MainToA
 }
 
 export interface AbilityFieldStateQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -552,7 +552,7 @@ export interface AbilityStatEdge extends MainToIconConnectionEdge, MainToAuxConn
 }
 
 export interface AbilityStatQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -631,7 +631,7 @@ export interface AbilityStatusEdge extends MainToIconConnectionEdge, MainToAuxCo
 }
 
 export interface AbilityStatusQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -716,7 +716,7 @@ export interface AbilityTypeEdge extends MainToAuxConnectionEdge, TypeIconEdge {
 }
 
 export interface AbilityTypeQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -805,7 +805,7 @@ export interface AbilityUsageMethodEdge extends MainToIconConnectionEdge, MainTo
 }
 
 export interface AbilityUsageMethodQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 

@@ -1,5 +1,5 @@
 import {
-  GenerationNum,
+  GenNum,
 } from "../../../types-queries/helpers";
 import { TierFilter } from "../../../hooks/App/TierFilter";
 

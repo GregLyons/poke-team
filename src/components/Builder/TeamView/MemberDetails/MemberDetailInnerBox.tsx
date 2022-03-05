@@ -1,4 +1,4 @@
-import { GenerationNum } from "../../../../types-queries/helpers";
+import { GenNum } from "../../../../types-queries/helpers";
 
 type MemberDetailInnerBoxProps = {
   forClass: string
@@ -9,9 +9,9 @@ type MemberDetailInnerBoxProps = {
   onContentClick?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   interactive?: boolean
 
-  gen?: GenerationNum
-  minGen?: GenerationNum
-  excludeGens?: GenerationNum[]
+  gen?: GenNum
+  minGen?: GenNum
+  excludeGens?: GenNum[]
 };
 
 const MemberDetailInnerBox = ({

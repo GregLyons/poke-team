@@ -1,13 +1,12 @@
 import {
   gql,
 } from '@apollo/client';
+import { GenNum, ItemClass } from '../entities';
 
 import {
   DescriptionEdge,
   DescriptionsEdge,
-  GenerationNum,
   IntroductionEdge,
-  ItemClass,
   ItemIconDatum,
   itemIconEdgeToItemIconDatum,
   itemRequiresPokemonEdgeToRequiredPokemonIconData,
@@ -45,18 +44,16 @@ import {
 
 export type ItemSearchQuery = {
   [searchQueryName in EntitySearchQueryName]?: {
-    id: string
-    
     edges: ItemSearchResult[]
   }
 }
 
 export interface ItemSearchResult extends MainEntitySearchResult {
   node: {
-    id: string
     name: string
     formattedName: string
-    class: string
+    psID: string
+    class: ItemClass
   
     descriptions: {
       edges: VersionDependentDescriptionEdge[]
@@ -69,14 +66,6 @@ export interface ItemSearchResult extends MainEntitySearchResult {
 }
 
 export interface ItemSearchVars extends EntitySearchVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
-  limit: number
-  contains: string
-  startsWith: string
-
-  removedFromSwSh: false | null
-  removedFromBDSP: false | null
-
   itemClass: ItemClass[]
 }
 
@@ -197,7 +186,7 @@ export interface ItemPageResult extends MainEntityPageResult {
 }
 
 export interface ItemPageQueryVars extends EntityPageVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -371,7 +360,7 @@ export interface ItemEffectEdge extends MainToAuxConnectionEdge, DescriptionEdge
 }
 
 export interface ItemEffectQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -441,7 +430,7 @@ export interface ItemFieldStateEdge extends MainToIconConnectionEdge, MainToAuxC
 }
 
 export interface ItemFieldStateQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -539,7 +528,7 @@ export interface ItemStatEdge extends MainToIconConnectionEdge, MainToAuxConnect
 }
 
 export interface ItemStatQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -618,7 +607,7 @@ export interface ItemStatusEdge extends MainToIconConnectionEdge, MainToAuxConne
 }
 
 export interface ItemStatusQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -712,7 +701,7 @@ export interface ItemTypeEdge extends MainToAuxConnectionEdge, TypeIconEdge {
 }
 
 export interface ItemTypeQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -809,7 +798,7 @@ export interface ItemUsageMethodEdge extends MainToIconConnectionEdge, MainToAux
 }
 
 export interface ItemUsageMethodQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 

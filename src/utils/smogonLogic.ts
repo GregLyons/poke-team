@@ -6,7 +6,7 @@ import {
 } from "@pkmn/dex";
 import { TierFilter } from "../hooks/App/TierFilter";
 import {
-  GenerationNum
+  GenNum
 } from "../types-queries/helpers";
 
 // Tier filtering
@@ -37,15 +37,15 @@ export const compareTiers: (tier1: SinglesTier | DoublesTier, tier2: SinglesTier
 
 const gens = new Generations(Dex);
 
-export const psIDToSinglesTier = (gen: GenerationNum, psID: string) => {
+export const psIDToSinglesTier = (gen: GenNum, psID: string) => {
   return (gens.get(gen).species.get(psID)?.tier.replace('(', '').replace(')', '') as SinglesTier) || 'None';
 }
 
-export const psIDToDoublesTier = (gen: GenerationNum, psID: string) => {
+export const psIDToDoublesTier = (gen: GenNum, psID: string) => {
   return (gens.get(gen).species.get(psID)?.doublesTier.replace('(', '').replace(')', '').replace('DNFE', 'NFE').replace('DLC', 'LC') as DoublesTier) || 'DNone';
 }
 
-export const getTier = (gen: GenerationNum, format: 'singles' | 'doubles', psID: string) => {
+export const getTier = (gen: GenNum, format: 'singles' | 'doubles', psID: string) => {
   return format === 'singles'
     ? psIDToSinglesTier(gen, psID)
     : (psIDToDoublesTier(gen, psID)?.replace('LC', 'DLC').replace('NFE', 'DNFE') as DoublesTier);

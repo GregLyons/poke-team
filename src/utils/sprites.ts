@@ -4,7 +4,7 @@ import {
 } from '@pkmn/img';
 import { GenderName } from '../types-queries/Builder/MemberPokemon.js';
 import {
-  GenerationNum,
+  GenNum,
   ItemIconDatum,
   PokemonIconDatum,
   TypeName,

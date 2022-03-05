@@ -1,4 +1,4 @@
-import { GenerationNum } from "../../../../types-queries/helpers"
+import { GenNum } from "../../../../types-queries/helpers"
 
 type MemberDetailBoxProps = {
   forClass: string
@@ -10,9 +10,9 @@ type MemberDetailBoxProps = {
   hasInnerBox?: boolean
   interactive?: boolean
 
-  gen?: GenerationNum
-  minGen?: GenerationNum
-  excludeGens?: GenerationNum[]
+  gen?: GenNum
+  minGen?: GenNum
+  excludeGens?: GenNum[]
 }
 
 const MemberDetailBox = ({

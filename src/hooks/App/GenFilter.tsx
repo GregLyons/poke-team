@@ -1,7 +1,7 @@
-import { GenerationNum } from "../../types-queries/helpers";
+import { GenNum } from "../../types-queries/helpers";
 
 export type GenFilter = {
-  gen: GenerationNum
+  gen: GenNum
   includeRemovedFromSwSh: boolean
   includeRemovedFromBDSP: boolean
 }
@@ -26,7 +26,7 @@ export type GenFilterAction =
 | {
     type: 'set_gen',
     payload: {
-      gen: GenerationNum,
+      gen: GenNum,
     },
   }
 | {

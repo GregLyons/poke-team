@@ -1,16 +1,16 @@
 import { gql } from "@apollo/client";
-import { MemberNatureQueryResult } from "../Builder/MemberNature";
-import { GenerationNum } from "../helpers";
+import { GenNum } from "../helpers";
+import { MemberNatureResult } from "../Member/MemberNature";
+import { ImportVars } from "./helpers";
 
-export type MemberNatureFromSetQuery = {
-  naturesByName: MemberNatureQueryResult[]
+export interface ImportNatureQuery {
+  naturesByName: MemberNatureResult[]
 }
 
-export type MemberNatureFromSetQueryVars = {
-  gen: GenerationNum
+export interface ImportNatureVars extends ImportVars {
+  gen: GenNum
   psIDs: string[]
 }
-
 
 export const SET_MEMBERNATURE_QUERY = gql`
   query NatureQuery($gen: Int!, $psIDs: [String!]!) {

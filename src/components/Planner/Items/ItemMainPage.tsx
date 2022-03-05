@@ -1,4 +1,4 @@
-import { GenerationNum } from "../../../types-queries/helpers";
+import { GenNum } from "../../../types-queries/helpers";
 import { TierFilter } from "../../../hooks/App/TierFilter";
 
 import { CartAction } from "../../../hooks/App/Cart";

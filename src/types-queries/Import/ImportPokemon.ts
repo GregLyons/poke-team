@@ -1,74 +1,46 @@
 import { gql } from "@apollo/client";
 import { PokemonSet } from "@pkmn/sets";
 import { compareNumbers } from "../../utils/helpers";
-import { EnablesItemEdge, PokemonFormEdge, RequiresItemEdge } from "../Builder/helpers";
-import { CapsTypeName, GenerationNum, IntroductionEdge, PokemonIconDatum, StatTable, toTypeName, TypeName } from "../helpers";
-import { InvalidAbilityError, InvalidItemError, InvalidMoveError, InvalidNatureError, InvalidStatsError, LateIntroductionError, PSIDNotFoundError, toPSID, toStatTable } from "./helpers";
+import { GenNum } from "../entities";
+import { CapsTypeName, PokemonIconDatum, PokemonIconNode, toTypeName, TypeName } from "../helpers";
+import { AbilitySlot, NatureName } from "../Member/helpers";
+import { MemberAbility, MemberAbilityResult } from "../Member/MemberAbility";
+import { MemberItem, MemberItemResult } from "../Member/MemberItem";
+import { MemberMove, MemberMoveResult } from "../Member/MemberMove";
+import { MemberNature, MemberNatureResult } from "../Member/MemberNature";
+import { MemberPokemon, MemberPokemonResult } from "../Member/MemberPokemon";
+import { ImportVars, InvalidAbilityError, InvalidItemError, InvalidMoveError, InvalidNatureError, InvalidStatsError, LateIntroductionError, PSIDNotFoundError, toPSID, toStatTable } from "./helpers";
 
-export type MemberPokemonFromSetQuery = {
-  pokemonByPSIDs: MemberPokemonFromSetQueryResult[]
+export interface ImportMemberQuery {
+  pokemonByPSIDs: ImportMemberResult[]
 }
 
-// This is a combination of the data contained in a PokemonIconDatum, as well as MemberPokemonFromIconQueryResult, both of which are necessary to create a MemberPokemon instance
-export type MemberPokemonFromSetQueryResult = { 
-  // Data for member Pokemon
-  id: string
-  name: string
-  formattedName: string
-  speciesName: string
-  psID: string
-
-  maleRate: number
-  femaleRate: number
-  genderless: boolean
-
-  removedFromSwSh: boolean
-  removedFromBDSP: boolean
-
-  typeNames: CapsTypeName[]
-  baseStats: StatTable
-
-  formClass: string
-  forms: {
-    edges: PokemonFormEdge[]
-  }
-
-  introduced: {
-    edges: IntroductionEdge[]
-  }
-
-  enablesItem: {
-    edges: EnablesItemEdge[]
-  }
-
-  requiresItem: {
-    edges: RequiresItemEdge[]
-  }
-  
+// This is a combination of the data contained in a PokemonIconDatum, as well as MemberPokemonResult, both of which are necessary to create a MemberPokemon instance. Also includes ability and move data.
+export interface ImportMemberResult extends MemberPokemonResult, PokemonIconNode {
   // Data for abilities
   abilities: {
     edges: {
       node: MemberAbilityResult
-      slot: 'ONE' | 'TWO' | 'HIDDEN'
+      slot: AbilitySlot
     }[]
   }
   
   // Data for moves
   moves: {
     edges: {
-      node: MemberMoveQueryResult
+      node: MemberMoveResult
       learnMethod: string
     }[]
   }
 }
 
-export type MemberPokemonFromSetQueryVars = {
-  gen: GenerationNum
+export interface ImportMemberVars extends ImportVars {
+  gen: GenNum
   psIDs: string[]
 }
 
-export const POKEMONSET_TO_MEMBER_QUERY = gql`
-  query PokemonSetToMemberQuery($gen: Int! $psIDs: [String!]!) {
+export const IMPORT_MEMBER_QUERY = gql`
+  query ImportMemberQuery($gen: Int! $psIDs: [String!]!) {
     pokemonByPSIDs(generation: $gen, psIDs: $psIDs) {
       # Pokemon data
       id
@@ -226,10 +198,10 @@ export const POKEMONSET_TO_MEMBER_QUERY = gql`
 
 export const setsToMembers: (
   sets: PokemonSet[],
-  results: MemberPokemonFromSetQueryResult[],
-  itemResults: MemberItemQueryResult[],
-  natureResults: MemberNatureQueryResult[],
-  gen: GenerationNum
+  results: ImportMemberResult[],
+  itemResults: MemberItemResult[],
+  natureResults: MemberNatureResult[],
+  gen: GenNum
 ) => MemberPokemon[] = (sets, results, itemResults, natureResults, gen) => {
   // Verify that every set has a corresponding result, otherwise throw error
   // #region
@@ -244,12 +216,12 @@ export const setsToMembers: (
 
   // #endregion
 
-  let lateEntities: [string, GenerationNum][] = [];
+  let lateEntities: [string, GenNum][] = [];
 
   // Extract constructor data for MemberPokemon
   // #region
 
-  const gqlMembers: MemberPokemonFromIconQueryResult[] = results.map(d => {
+  const gqlMembers: MemberPokemonResult[] = results.map(d => {
     // Check for late members
     if (d.introduced.edges[0].node.number > gen) lateEntities = lateEntities.concat([d.formattedName, d.introduced.edges[0].node.number]);
 
@@ -266,9 +238,9 @@ export const setsToMembers: (
   });
 
   let memberPokemonConstructorData: {
-    gqlMember: MemberPokemonFromIconQueryResult
+    gqlMember: MemberPokemonResult
     pokemonIconDatum: PokemonIconDatum
-    gen: GenerationNum
+    gen: GenNum
   }[] = [];
   for (let i: number = 0; i < Math.min(gqlMembers.length, pokemonIconData.length); i++) {
     memberPokemonConstructorData = memberPokemonConstructorData.concat([{
@@ -431,7 +403,7 @@ export const setsToMembers: (
 
         const natureResult = natureResults[natureIndex];
 
-        const memberNature = new MemberNature(natureResult);
+        const memberNature = new MemberNature(natureResult, gen);
 
         // Check if item is late
         if (memberNature.introduced > gen) {

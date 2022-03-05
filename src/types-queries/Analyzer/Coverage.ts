@@ -1,14 +1,14 @@
 import { gql } from "@apollo/client";
 import { isType } from "graphql";
 import { binarySearchValueByKey, compareNumbers, compareStrings } from "../../utils/helpers";
-import { CausesStatusEdge, ControlFieldStateEdge, EffectClass, EffectClassEdge, FieldStateClass, FieldStateTargetClass, GenerationNum, ModifiesStatEdge, MoveCategory, ResistsStatusEdge, StatusControlFieldStateEdge, STATUSES, StatusName, TypeName, TYPENAMES } from "../helpers";
+import { CausesStatusEdge, ControlFieldStateEdge, EffectClass, EffectClassEdge, FieldStateClass, FieldStateTargetClass, GenNum, ModifiesStatEdge, MoveCategory, ResistsStatusEdge, StatusControlFieldStateEdge, STATUSES, StatusName, TypeName, TYPENAMES } from "../helpers";
 import { CoverageDatum, incrementCoverageDatum, INITIAL_COVERAGEDATUM, MemberAndEntityPSIDs } from "./helpers";
 
 // Queries
 // #region
 
 export interface CoverageSearchVars {
-  gen: GenerationNum
+  gen: GenNum
   psIDs: string[]
 }
 
@@ -718,7 +718,7 @@ export const computeStatusControl:
 ( 
   members: MemberAndEntityPSIDs,
   results: CoverageResults,
-  gen: GenerationNum,
+  gen: GenNum,
 ) => Map<StatusName, StatusControlSummary> = (members, results, gen) => {
   // Initialize Map
   const statusControlMap = new Map<StatusName, StatusControlSummary>();
@@ -875,7 +875,7 @@ const compareMoveRank = (key1: keyof TypeCoverageSummary, key2: keyof TypeCovera
 export const computeMemberTypeCoverage: (
   members: MemberAndEntityPSIDs,
   moveResults: CoverageResult[],
-  gen: GenerationNum
+  gen: GenNum
 ) => Map<TypeName, TypeCoverageSummary> = (members, moveResults, gen) => {
   // Initialize Map
   const typeCoverageMap = new Map<TypeName, TypeCoverageSummary>();
@@ -976,7 +976,7 @@ export const computeMemberTypeCoverage: (
 export const computeTypeCoverage: (
   members: MemberAndEntityPSIDs,
   moveResults: MoveCoverageResult[],
-  gen: GenerationNum
+  gen: GenNum
 ) => Map<TypeName, TypeCoverageSummary> = (members, moveResults, gen) => {
   // Initialize Map
   const typeCoverageMap = new Map<TypeName, TypeCoverageSummary>();
@@ -1048,10 +1048,10 @@ export type FieldControlSummary = {
 export const computeFieldControl: (
   members: MemberAndEntityPSIDs,
   results: CoverageResults,
-  gen: GenerationNum
+  gen: GenNum
 ) => Map<FieldStateClass, FieldControlSummary> = (members, results, gen) => {
   // Initialize Map
-  const RELEVANT_CLASSES: [FieldStateClass, GenerationNum][] = [
+  const RELEVANT_CLASSES: [FieldStateClass, GenNum][] = [
     ['WEATHER', 2],
     ['ENTRY_HAZARD', 2],
     ['TERRAIN', 6],

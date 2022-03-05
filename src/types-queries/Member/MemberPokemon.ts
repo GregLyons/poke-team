@@ -4,7 +4,7 @@ import { StatsTable } from "@pkmn/data"
 import { Dex } from "@pkmn/dex"
 import { Sets } from "@pkmn/sets"
 import { EnablesItemEdge, PokemonFormEdge, pokemonFormEdgeToFormDatum, RequiresItemEdge, spreadSummary } from "../Builder/helpers"
-import { BaseStatName, GenerationNum, PokemonIconDatum, StatTable, statTableToPSStatsTable, TypeName } from "../helpers"
+import { BaseStatName, GenNum, PokemonIconDatum, StatTable, statTableToPSStatsTable, TypeName } from "../helpers"
 import { DEFAULT_DV_SPREAD, DEFAULT_EV_SPREAD, DEFAULT_EV_SPREAD_GENS12, DEFAULT_IV_SPREAD, GenderName, hiddenPowerToMaxIVs, MemberEntity, MemberResult, } from "./helpers"
 import { MemberAbility } from "./MemberAbility"
 import { enablesItemEdgeToMemberItem, MemberItem, requiresItemEdgeToMemberItem } from "./MemberItem"
@@ -12,7 +12,7 @@ import { MemberMove } from "./MemberMove"
 import { MemberNature } from "./MemberNature"
 
 export interface MemberPokemonVars {
-  gen: GenerationNum
+  gen: GenNum
   psID: string
 }
 
@@ -42,7 +42,7 @@ export interface MemberPokemonResult extends MemberResult {
 }
 
 export interface MemberPokemonVars {
-  gen: GenerationNum
+  gen: GenNum
   psID: string
 }
 
@@ -170,7 +170,7 @@ export class MemberPokemon extends MemberEntity {
   // For making copy
   private gqlMember: MemberPokemonResult
 
-  constructor(gqlMember: MemberPokemonResult, pokemonIconDatum: PokemonIconDatum, gen: GenerationNum) {
+  constructor(gqlMember: MemberPokemonResult, pokemonIconDatum: PokemonIconDatum, gen: GenNum) {
     super(gqlMember, gen);
 
     const {
@@ -287,7 +287,7 @@ export class MemberPokemon extends MemberEntity {
 
   // #endregion
 
-  public setGen(newGen: GenerationNum) {
+  public setGen(newGen: GenNum) {
     this.gen = newGen;
   }
 

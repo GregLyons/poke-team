@@ -1,5 +1,5 @@
 import { MemberPokemon } from "../../../../../types-queries/Builder/MemberPokemon"
-import { GenerationNum, } from "../../../../../types-queries/helpers"
+import { GenNum, } from "../../../../../types-queries/helpers"
 import ItemIcon from "../../../../Icons/ItemIcon"
 import { MemberDetailsHandlers, ReferencePanelView } from "../../TeamView"
 import MemberDetailBox from "../MemberDetailBox"
@@ -12,7 +12,7 @@ import StatBox from "./StatBox/StatBox"
 type MemberDetailsMainProps = {
   member: MemberPokemon
   handlers: MemberDetailsHandlers
-  gen: GenerationNum
+  gen: GenNum
   view: ReferencePanelView
 }
 

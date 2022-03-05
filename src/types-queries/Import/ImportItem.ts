@@ -1,18 +1,19 @@
 import { gql } from "@apollo/client";
-import { MemberItemQueryResult } from "../Builder/MemberItem";
-import { GenerationNum } from "../helpers";
+import { GenNum } from "../helpers";
+import { MemberItemResult } from "../Member/MemberItem";
+import { ImportVars } from "./helpers";
 
-export type MemberItemFromSetQuery = {
-  itemsByPSID: MemberItemQueryResult[]
+export interface ImportItemQuery {
+  itemsByPSID: MemberItemResult[]
 }
 
-export type MemberItemFromSetQueryVars = {
-  gen: GenerationNum
+export interface ImportItemVars extends ImportVars {
+  gen: GenNum
   psIDs: string[]
 }
 
-export const SET_MEMBERITEM_QUERY = gql`
-  query MemberItemQuery(
+export const IMPORT_ITEM_QUERY = gql`
+  query ImportItemQuery(
     $gen: Int!
     $psIDs: [String!]!
   ) {

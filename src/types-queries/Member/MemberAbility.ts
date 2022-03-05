@@ -1,13 +1,13 @@
 import { gql } from "@apollo/client";
 import { GenerationNum } from "@pkmn/data";
-import { MemberEntity, MemberSpecificEntityVars, MemberResult } from "./helpers";
+import { MemberEntity, MemberSpecificEntityVars, MemberResult, AbilitySlot } from "./helpers";
 
 export interface MemberAbilityQuery {
   pokemonByPSID: {
     abilities: {
       edges: {
         node: MemberAbilityResult
-        slot: 'ONE' | 'TWO' | 'HIDDEN'
+        slot: AbilitySlot
       }[]
     }
   }[]
@@ -58,9 +58,9 @@ export const MEMBER_ABILITY_QUERY = gql`
 `;
 
 export class MemberAbility extends MemberEntity {
-  public slot: 'ONE' | 'TWO' | 'HIDDEN'
+  public slot: AbilitySlot
 
-  constructor(gqlMemberAbility: MemberAbilityResult, gen: GenerationNum, slot: 'ONE' | 'TWO' | 'HIDDEN') {
+  constructor(gqlMemberAbility: MemberAbilityResult, gen: GenerationNum, slot: AbilitySlot) {
     super(gqlMemberAbility, gen);
 
     this.slot = slot;

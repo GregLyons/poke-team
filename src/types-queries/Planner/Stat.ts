@@ -1,10 +1,10 @@
 import {
   gql,
 } from '@apollo/client';
+import { GenNum } from '../entities';
 
 import {
   AbilityIconEdge,
-  GenerationNum,
   IntroductionEdge,
   MoveIconEdge,
   PokemonIconDatum,
@@ -32,7 +32,6 @@ import {
   AuxEntityOnPage,
   AuxToMainConnectionOnPage,
   AuxToAuxConnectionEdge,
-  AuxToAuxConnectionOnPage,
   AuxToItemConnectionOnPage,
   RemovedFromGameQueryVars,
   AuxToIconConnectionEdge,
@@ -60,7 +59,7 @@ export interface StatSearchResult extends AuxEntitySearchResult {
 }
 
 export interface StatSearchVars extends EntitySearchVars {
-  gen: GenerationNum
+  gen: GenNum
   limit: number
   contains: string
   startsWith: string
@@ -128,7 +127,7 @@ export interface StatPageResult extends AuxEntityPageResult {
 }
 
 export interface StatPageQueryVars extends EntityPageVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -231,7 +230,7 @@ export interface StatAbilityEdge extends AbilityIconEdge, AuxToMainConnectionEdg
 }
 
 export interface StatAbilityQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -349,7 +348,7 @@ export interface StatFieldStateEdge extends AuxToIconConnectionEdge, AuxToAuxCon
 }
 
 export interface StatFieldStateQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -433,7 +432,7 @@ export interface StatItemEdge extends AuxToItemConnectionOnPage {
 }
 
 export interface StatItemQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -554,7 +553,7 @@ export interface StatMoveEdge extends MoveIconEdge, AuxToMainConnectionEdge {
 }
 
 export interface StatMoveQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
   removedFromSwSh: false | null
   removedFromBDSP: false | null

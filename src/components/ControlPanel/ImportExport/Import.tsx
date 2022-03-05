@@ -1,7 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { Sets } from '@pkmn/sets';
-import { Dex } from '@pkmn/dex';
-import { PokemonSet } from "@pkmn/data";
+import { useEffect, useMemo, useState } from "react";
 
 import { Team } from "../../../hooks/App/Team";
 import { Dispatches, Filters } from "../../App";
@@ -9,16 +6,12 @@ import Popup from "../../Reusables/Popup/Popup";
 import ImportTextbox from "./ImportTextbox";
 
 import './Import.css';
-import { useDelayedQuery } from "../../../hooks/Searches";
-import { GenerationNum } from "../../../types-queries/helpers";
-import { MemberPokemonFromSetQuery, MemberPokemonFromSetQueryVars, POKEMONSET_TO_MEMBER_QUERY, setsToMembers } from "../../../types-queries/Import/ImportPokemon";
-import { MemberPokemon } from "../../../types-queries/Builder/MemberPokemon";
-import { MemberItemQuery, MemberItemSearchVars, MEMBER_ITEM_QUERY } from "../../../types-queries/Builder/MemberItem";
-import { MemberItemFromSetQuery, MemberItemFromSetQueryVars, SET_MEMBERITEM_QUERY } from "../../../types-queries/Import/ImportItem";
-import { MemberNatureFromSetQuery, MemberNatureFromSetQueryVars, SET_MEMBERNATURE_QUERY } from "../../../types-queries/Import/ImportNature";
+import { ImportMemberQuery, ImportMemberVars, IMPORT_MEMBER_QUERY, setsToMembers } from "../../../types-queries/Import/ImportPokemon";
+import { ImportItemQuery, ImportItemVars, IMPORT_ITEM_QUERY } from "../../../types-queries/Import/ImportItem";
+import { ImportNatureQuery, ImportNatureVars, SET_MEMBERNATURE_QUERY } from "../../../types-queries/Import/ImportNature";
 import { InvalidAbilityError, InvalidItemError, InvalidMoveError, InvalidNatureError, InvalidStatsError, LateIntroductionError, PSIDNotFoundError } from "../../../types-queries/Import/helpers";
 import { useLazyQuery } from "@apollo/client";
-import { useIsFirstRender } from "usehooks-ts";
+import { MemberPokemon } from "../../../types-queries/Member/MemberPokemon";
 
 type ImportProps = {
   dispatches: Dispatches
@@ -47,7 +40,7 @@ const Import = ({
     </>),
   });
 
-  const [execute_pokemon, { data: data_pokemon, loading: loading_pokemon, error: error_pokemon }] = useLazyQuery<MemberPokemonFromSetQuery, MemberPokemonFromSetQueryVars>(POKEMONSET_TO_MEMBER_QUERY,
+  const [execute_pokemon, { data: data_pokemon, loading: loading_pokemon, error: error_pokemon }] = useLazyQuery<ImportMemberQuery, ImportMemberVars>(IMPORT_MEMBER_QUERY,
     {
       variables: {
         gen: filters.genFilter.gen,
@@ -59,7 +52,7 @@ const Import = ({
       }
     });
 
-  const [execute_item, { data: data_item, loading: loading_item, error: error_item }] = useLazyQuery<MemberItemFromSetQuery, MemberItemFromSetQueryVars>(SET_MEMBERITEM_QUERY,
+  const [execute_item, { data: data_item, loading: loading_item, error: error_item }] = useLazyQuery<ImportItemQuery, ImportItemVars>(IMPORT_ITEM_QUERY,
     {
       variables: {
         gen: filters.genFilter.gen,
@@ -71,7 +64,7 @@ const Import = ({
       }
     });
 
-  const [execute_nature, { data: data_nature, loading: loading_nature, error: error_nature }] = useLazyQuery<MemberNatureFromSetQuery, MemberNatureFromSetQueryVars>(SET_MEMBERNATURE_QUERY,
+  const [execute_nature, { data: data_nature, loading: loading_nature, error: error_nature }] = useLazyQuery<ImportNatureQuery, ImportNatureVars>(SET_MEMBERNATURE_QUERY,
     {
       variables: {
         gen: filters.genFilter.gen,
@@ -377,7 +370,7 @@ const Import = ({
             onImport={onImport}
             importState={importState}
           />}
-          orientation="v"
+          orientation="bottom"
         />
       </div>
       {/* <div

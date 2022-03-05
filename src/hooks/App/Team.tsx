@@ -4,7 +4,7 @@ import { MemberItem } from "../../types-queries/Builder/MemberItem";
 import { MemberMove } from "../../types-queries/Builder/MemberMove";
 import { MemberNature } from "../../types-queries/Builder/MemberNature";
 import { GenderName, MemberPokemon, NatureName } from "../../types-queries/Builder/MemberPokemon";
-import { BaseStatName, DUMMY_POKEMON_ICON_DATUM, GenerationNum, PokemonIconDatum } from "../../types-queries/helpers";
+import { BaseStatName, DUMMY_POKEMON_ICON_DATUM, GenNum, PokemonIconDatum } from "../../types-queries/helpers";
 import { omitKeys } from "../../utils/helpers";
 import { BoxInCart } from "./Cart";
 
@@ -28,7 +28,7 @@ export type TeamInGen = {
 }
 
 export type Team = {
-  [gen in GenerationNum]: TeamInGen
+  [gen in GenNum]: TeamInGen
 }
 
 const EMPTY_TEAM_IN_GEN: TeamInGen = {
@@ -54,7 +54,7 @@ export const DEFAULT_TEAM: Team = {
   8: EMPTY_TEAM_IN_GEN,
 }
 
-const stateWithModifiedMember = (state: Team, gen: GenerationNum, modifiedMember: MemberPokemon, idx: number) => {
+const stateWithModifiedMember = (state: Team, gen: GenNum, modifiedMember: MemberPokemon, idx: number) => {
   return {
     ...state,
     [gen]: {
@@ -72,7 +72,7 @@ export type TeamAction =
 | {
     type: 'pin_box',
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       pokemon: PokemonIconDatum[]
       note: string
     }
@@ -81,7 +81,7 @@ export type TeamAction =
 | {
     type: 'unpin_box',
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       note: string,
     }
   }
@@ -89,7 +89,7 @@ export type TeamAction =
 | {
     type: 'toggle_save'
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       pokemon: PokemonIconDatum
     }
   }
@@ -97,7 +97,7 @@ export type TeamAction =
 | {
     type: 'replace_icon'
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       pokemon: PokemonIconDatum
       idx: number
     }
@@ -106,7 +106,7 @@ export type TeamAction =
 | {
     type: 'replace_member'
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       member: MemberPokemon
       idx: number
     }
@@ -115,7 +115,7 @@ export type TeamAction =
 | {
     type: 'remove_member'
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       idx: number
     }
   }
@@ -124,7 +124,7 @@ export type TeamAction =
 | {
     type: 'assign_ability'
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       idx: number,
       ability: MemberAbility
     }
@@ -132,7 +132,7 @@ export type TeamAction =
 | {
     type: 'assign_item'
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       idx: number,
       item: MemberItem
     }
@@ -140,7 +140,7 @@ export type TeamAction =
 | {
     type: 'assign_move'
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       idx: number
       move: MemberMove
       moveIdx: 0 | 1 | 2 | 3
@@ -149,7 +149,7 @@ export type TeamAction =
 | {
     type: 'assign_nickname'
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       idx: number
       nickname: string
     }
@@ -157,7 +157,7 @@ export type TeamAction =
 | {
     type: 'assign_level'
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       idx: number
       newValue: number
     }
@@ -165,7 +165,7 @@ export type TeamAction =
 | {
     type: 'assign_gender'
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       idx: number
       gender: GenderName
     }
@@ -173,14 +173,14 @@ export type TeamAction =
 | {
     type: 'toggle_shiny'
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       idx: number
     }
   }
 | {
     type: 'assign_happiness'
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       idx: number
       newValue: number
     }
@@ -188,7 +188,7 @@ export type TeamAction =
 | {
     type: 'assign_nature'
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       idx: number
       nature: MemberNature
     }
@@ -196,7 +196,7 @@ export type TeamAction =
 | {
     type: 'assign_ev'
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       idx: number
       stat: BaseStatName
       newValue: number
@@ -205,7 +205,7 @@ export type TeamAction =
 | {
     type: 'assign_iv'
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       idx: number
       stat: BaseStatName
       newValue: number
@@ -214,7 +214,7 @@ export type TeamAction =
 | {
     type: 'assign_cosmetic_form'
     payload: {
-      gen: GenerationNum,
+      gen: GenNum,
       idx: number,
       psID: string,
     }
@@ -225,27 +225,27 @@ export type TeamAction =
 | {
     type: 'import'
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       importString: string
     }
   }
 | {
     type: 'clear_import'
     payload: {
-      gen: GenerationNum
+      gen: GenNum
     }
   }
 | {
     type: 'add_imported_members'
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       newMembers: MemberPokemon[]
     }
   }
 // #endregion
 
 export function teamReducer(state: Team, action: TeamAction): Team {
-  let gen: GenerationNum;
+  let gen: GenNum;
   let note: string;
   let pokemon: PokemonIconDatum;
   let member: MemberPokemon;

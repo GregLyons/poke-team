@@ -1,15 +1,13 @@
 import {
   gql,
 } from '@apollo/client';
+import { GenNum, MoveCategory, MoveTargetClass } from '../entities';
 
 import {
   DescriptionEdge,
   DescriptionsEdge,
   CapsTypeName,
-  GenerationNum,
   IntroductionEdge,
-  MoveCategory,
-  MoveTargetClass,
   PokemonIconDatum,
   PokemonIconEdge,
   pokemonIconEdgeToPokemonIconDatum,
@@ -53,7 +51,6 @@ export type MoveSearchQuery = {
 
 export interface MoveSearchResult extends MainEntitySearchResult {
   node: {
-    id: string
     name: string
     formattedName: string
   
@@ -80,14 +77,6 @@ export interface MoveSearchResult extends MainEntitySearchResult {
 }
 
 export interface MoveSearchVars extends EntitySearchVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
-  limit: number
-  contains: string
-  startsWith: string
-
-  removedFromSwSh: false | null
-  removedFromBDSP: false | null
-
   maxAccuracy: number
   minAccuracy: number
   maxPower: number
@@ -305,7 +294,7 @@ export interface MovePageResult extends MainEntityPageResult {
 }
 
 export interface MovePageQueryVars extends EntityPageVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -530,7 +519,7 @@ export interface MoveEffectEdge extends MainToAuxConnectionEdge, DescriptionEdge
 }
 
 export interface MoveEffectQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -600,7 +589,7 @@ export interface MoveFieldStateEdge extends MainToIconConnectionEdge, MainToAuxC
 }
 
 export interface MoveFieldStateQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -698,7 +687,7 @@ export interface MoveStatEdge extends MainToIconConnectionEdge, MainToAuxConnect
 }
 
 export interface MoveStatQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -777,7 +766,7 @@ export interface MoveStatusEdge extends MainToIconConnectionEdge, MainToAuxConne
 }
 
 export interface MoveStatusQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -851,7 +840,7 @@ export interface MoveTypeEdge extends MainToAuxConnectionEdge, TypeIconEdge {
 }
 
 export interface MoveTypeQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -915,7 +904,7 @@ export interface MoveUsageMethodEdge extends MainToIconConnectionEdge, MainToAux
 }
 
 export interface MoveUsageMethodQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 

@@ -1,9 +1,22 @@
-import { GenerationNum, StatTable } from "../helpers";
+import { GenNum, StatTable } from "../helpers";
+
+// Interfaces
+// #region
+
+export interface ImportVars {
+  gen: GenNum
+  psIDs: string[]
+}
+
+// #endregion
+
+// Errors
+// #region
 
 export class LateIntroductionError extends Error {
-  public lateEntities: [string, GenerationNum][]
+  public lateEntities: [string, GenNum][]
 
-  constructor(msg: string, lateEntities: [string, GenerationNum][]) {
+  constructor(msg: string, lateEntities: [string, GenNum][]) {
     super(msg);
     this.lateEntities = lateEntities;
 
@@ -114,10 +127,17 @@ export class PSIDNotFoundError extends Error {
   }
 }
 
+// #endregion
+
+// Functions
+// #region
+
+// Converts strings and numbers to psID format (only alphanumeric characters)
 export const toPSID = (s: string | number) => {
   return ('' + s).toLowerCase().replace(/[^a-z0-9]+/g, '')
 }
 
+// Parses imported stat tables, which may have missing values; in that case, assign them the defaults depending on gen/mode
 export const toStatTable: (
   statTable: {
     hp?: number,
@@ -127,7 +147,7 @@ export const toStatTable: (
     spd?: number,
     spe?: number,
   },
-  gen: GenerationNum, 
+  gen: GenNum, 
   mode: 'ev' | 'iv'
 ) => StatTable = (statTable, gen, mode) => {
   const defaultEV = gen < 3 ? 252 : 0;
@@ -152,3 +172,5 @@ export const toStatTable: (
       : defaultValue,
   };
 };
+
+// #endregion

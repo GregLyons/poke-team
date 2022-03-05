@@ -1,4 +1,4 @@
-import { equateTwoPokemonIconData, GenerationNum, ItemIconDatum, PokemonIconDatum, sortPokemonIconData, } from "../../types-queries/helpers";
+import { equateTwoPokemonIconData, GenNum, ItemIconDatum, PokemonIconDatum, sortPokemonIconData, } from "../../types-queries/helpers";
 import { EntityClass, NUMBER_OF_GENS } from "../../utils/constants";
 import { binaryIncludes, compareStrings, removeDuplicatesFromSortedArray } from "../../utils/helpers";
 
@@ -92,7 +92,7 @@ export type CartInGen = {
 }
 
 export type Cart = {
-  [gen in GenerationNum]: CartInGen
+  [gen in GenNum]: CartInGen
 };
 
 const EMPTY_CART_IN_GEN: CartInGen = {
@@ -406,7 +406,7 @@ export type CartAction =
 | { 
     type: 'add_pokemon',
     payload: {
-      gen: GenerationNum
+      gen: GenNum
       pokemon: PokemonIconDatum[],
       parentEntityClass: EntityClass,
       targetEntityClass: TargetEntityClass,
@@ -416,7 +416,7 @@ export type CartAction =
 | {
     type: 'add_item',
     payload: {
-      gen: GenerationNum,
+      gen: GenNum,
       item: ItemIconDatum,
       requiredPokemon: PokemonIconDatum[],
       parentEntityClass: EntityClass,
@@ -427,7 +427,7 @@ export type CartAction =
 | {
     type: 'delete', 
     payload: {
-      gen: GenerationNum,
+      gen: GenNum,
       parentEntityClass: EntityClass,
       targetEntityClass: EntityClass,
       note: string,
@@ -442,14 +442,14 @@ export type CartAction =
 | {
     type: 'toggle_combo_start',
     payload: {
-        gen: GenerationNum
+        gen: GenNum
         box: BoxInCart
       }
     }
 | {
     type: 'toggle_in_combo_from_cart',
     payload: {
-      gen: GenerationNum,
+      gen: GenNum,
       box: BoxInCart,
       operation: CombinationOperation
     },
@@ -457,48 +457,48 @@ export type CartAction =
 | {
     type: 'toggle_combo_role_from_combo',
     payload: {
-      gen: GenerationNum,
+      gen: GenNum,
       box: BoxInCombination | StartBox
     },
   }
 | {
     type: 'remove_from_combo',
     payload: {
-      gen: GenerationNum,
+      gen: GenNum,
       box: StartBox | BoxInCombination
     },
   }
 | {
     type: 'move_box_up_one',
     payload: {
-      gen: GenerationNum,
+      gen: GenNum,
       box: BoxInCombination
     }
   }
 | {
     type: 'move_box_down_one',
     payload: {
-      gen: GenerationNum,
+      gen: GenNum,
       box: BoxInCombination | StartBox
     }
   }
 | {
     type: 'execute_combination',
     payload: {
-      gen: GenerationNum,
+      gen: GenNum,
     }
   }
 | {
     type: 'add_combination_result',
     payload: {
-      gen: GenerationNum,
+      gen: GenNum,
       note: string,
     }
   }
 | {
     type: 'clear_combination',
     payload: {
-      gen: GenerationNum,
+      gen: GenNum,
     }
   };
 
@@ -576,7 +576,7 @@ const endCombo: (state: Cart) => Cart = (state) => {
 };
 
 // WARNING: DOES NOT WORK WHEN USED TWICE IN THE SAME OBJECT UNPACKING, AS THE RESULTS CAN OVERWRITE EACH OTHER
-const changeRoleOfBox: (state: Cart, gen: GenerationNum, box: BoxInCart | BoxInCombination | StartBox, newRole: CombinationRole) => RoleChangePlanner = (state, gen, box, newRole) => {
+const changeRoleOfBox: (state: Cart, gen: GenNum, box: BoxInCart | BoxInCombination | StartBox, newRole: CombinationRole) => RoleChangePlanner = (state, gen, box, newRole) => {
   const [parentEntityClass, targetEntityClass]: [ParentEntityClass | 'Custom', TargetEntityClass | null] = [box.classification.parentEntityClass, box.classification.targetEntityClass];
 
 
@@ -642,7 +642,7 @@ const changeRoleOfBox: (state: Cart, gen: GenerationNum, box: BoxInCart | BoxInC
 }
 
 export function cartReducer(state: Cart, action: CartAction): Cart {
-  let gen: GenerationNum
+  let gen: GenNum
   let currentCombination: Combination;
   let idx: number;
   let parentEntityClass: ParentEntityClass | 'Custom';

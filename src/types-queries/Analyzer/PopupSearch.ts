@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import { MemberAbilityResult } from "../Member/MemberAbility";
 import { MemberItemQueryResult } from "../Builder/MemberItem";
 import { MemberMoveQueryResult } from "../Builder/MemberMove";
-import { GenerationNum } from "../helpers";
+import { GenNum } from "../helpers";
 import { PopupVars } from "./helpers";
 
 // Ability
@@ -13,14 +13,14 @@ export interface PopupAbilityQuery {
     abilities: {
       edges: {
         node: MemberAbilityResult
-        slot: 'ONE' | 'TWO' | 'HIDDEN'
+        slot: AbilitySlot
       }[]
     }
   }[]
 };
 
 export interface PopupAbilityVars extends PopupVars {
-  gen: GenerationNum
+  gen: GenNum
   psID: string
 
   startsWith: string
@@ -73,7 +73,7 @@ export interface PopupItemQuery {
 };
 
 export interface PopupItemVars extends PopupVars {
-  gen: GenerationNum
+  gen: GenNum
 
   startsWith: string
   limit: number
@@ -131,7 +131,7 @@ export interface PopupMoveQuery {
 };
 
 export interface PopupMoveVars extends PopupVars {
-  gen: GenerationNum
+  gen: GenNum
   psID: string
 
   startsWith: string

@@ -1,15 +1,12 @@
 import {
   NUMBER_OF_GENS,
 } from "../../../utils/constants";
-import {
-  GenerationNum,
-  stringToGenNumber,
-} from "../../../types-queries/helpers";
 import { GenFilter, GenFilterAction } from "../../../hooks/App/GenFilter";
 import Slider from "../../Reusables/Slider/Slider";
 
 import './GenFilterForm.css';
 import Button from "../../Reusables/Button/Button";
+import { toGenNum } from "../../../types-queries/entities";
 
 type GenFilterFormProps = {
   genFilter: GenFilter,
@@ -22,7 +19,7 @@ const GenFilterForm = ({
   const updateGen = (newGen: number) => {
     dispatchGenFilter({
       type: 'set_gen',
-      payload: { gen: stringToGenNumber(newGen + ''), },
+      payload: { gen: toGenNum(newGen + ''), },
     });
   }
 

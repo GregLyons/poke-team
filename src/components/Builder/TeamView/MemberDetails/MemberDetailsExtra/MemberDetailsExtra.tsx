@@ -1,5 +1,5 @@
 import { MemberPokemon } from "../../../../../types-queries/Builder/MemberPokemon";
-import { GenerationNum } from "../../../../../types-queries/helpers";
+import { GenNum } from "../../../../../types-queries/helpers";
 import Slider from "../../../../Reusables/Slider/Slider";
 import TextInput from "../../../../Reusables/TextInput/TextInput";
 import { MemberDetailsHandlers } from "../../TeamView";
@@ -10,7 +10,7 @@ import './MemberDetailsExtra.css';
 type MemberDetailsExtraProps = {
   member: MemberPokemon
   handlers: MemberDetailsHandlers
-  gen: GenerationNum
+  gen: GenNum
 };
 
 const MemberDetailsExtra = ({

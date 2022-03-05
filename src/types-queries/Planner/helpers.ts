@@ -1,7 +1,8 @@
 import {
   gql,
 } from "@apollo/client";
-import { CapsTypeName, GenerationNum, IconDatum, IconEdge, iconEdgeToIconDatum, IntroductionEdge, ItemIconDatum, ItemIconEdge, itemIconEdgeToItemIconDatum, ItemRequiresPokemonEdge, itemRequiresPokemonEdgeToRequiredPokemonIconData, NameEdge, PokemonIconDatum, PokemonIconEdge } from "../helpers";
+import { GenNum } from "../entities";
+import { CapsTypeName, IconDatum, IconEdge, iconEdgeToIconDatum, IntroductionEdge, ItemIconDatum, ItemIconEdge, itemIconEdgeToItemIconDatum, ItemRequiresPokemonEdge, itemRequiresPokemonEdgeToRequiredPokemonIconData, NameEdge, PokemonIconDatum, PokemonIconEdge } from "../helpers";
 
 // Entity in search
 // #region
@@ -10,7 +11,6 @@ export type EntitySearchQueryName = 'abilities' | 'effects' | 'fieldStates' | 'i
 
 export interface MainEntitySearchResult {
   node: {
-    id: string
     name: string
     formattedName: string
     descriptions: {
@@ -29,22 +29,20 @@ export interface AuxEntitySearchResult {
 }
 
 export interface EntitySearchVars {
-  gen: GenerationNum
+  gen: GenNum
   limit: number
   contains: string
   startsWith: string
 }
 
 export abstract class MainEntityInSearch {
-  public id: string
   public name: string
   public formattedName: string
   public description: string
 
   constructor(gqlEntity: MainEntitySearchResult) {
-    const { id, name, formattedName } = gqlEntity.node;
+    const { name, formattedName } = gqlEntity.node;
 
-    this.id = id;
     this.name = name;
     this.formattedName = formattedName;
 
@@ -59,15 +57,13 @@ export abstract class MainEntityInSearch {
 }
 
 export abstract class AuxEntityInSearch {
-  public id: string
   public name: string
   public formattedName: string
   public description: string
 
   constructor(gqlEntity: AuxEntitySearchResult) {
-    const { id, name, formattedName, description } = gqlEntity.node;
+    const { name, formattedName, description } = gqlEntity.node;
 
-    this.id = id;
     this.name = name;
     this.formattedName = formattedName;
     this.description = description || '';
@@ -135,7 +131,7 @@ export interface CountField {
 }
 
 export interface EntityPageVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -145,7 +141,7 @@ export abstract class MainEntityOnPage {
   public formattedName: string
   public descriptions: VersionDependentDescription[]
 
-  public introduced: GenerationNum
+  public introduced: GenNum
 
   constructor(gqlEntity: MainEntityPageResult) {
     const { id, name, formattedName, descriptions } = gqlEntity;
@@ -180,7 +176,7 @@ export abstract class AuxEntityOnPage {
   public formattedName: string
   public description: string
 
-  public introduced: GenerationNum
+  public introduced: GenNum
 
   constructor(gqlEntity: AuxEntityPageResult) {
     const { id, name, formattedName, description, } = gqlEntity;
@@ -272,7 +268,7 @@ export interface AuxToMainConnectionEdge extends NameEdge {
 }
 
 export interface EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 

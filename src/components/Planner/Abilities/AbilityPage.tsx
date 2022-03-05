@@ -42,7 +42,7 @@ import {
 import {
   NUMBER_OF_GENS,
 } from '../../../utils/constants';
-import { GenerationNum } from '../../../types-queries/helpers';
+import { GenNum } from '../../../types-queries/helpers';
 import {
   listRenderAbilityEffect,
   listRenderAbilityFieldState,

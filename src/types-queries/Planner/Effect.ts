@@ -1,11 +1,10 @@
 import {
   gql,
 } from '@apollo/client';
+import { EffectClass, GenNum } from '../entities';
 
 import {
   AbilityIconEdge,
-  EffectClass,
-  GenerationNum,
   IntroductionEdge,
   MoveIconEdge,
   PokemonIconDatum,
@@ -65,7 +64,7 @@ export interface EffectSearchResult extends AuxEntitySearchResult {
 }
 
 export interface EffectSearchVars extends EntitySearchVars {
-  gen: GenerationNum
+  gen: GenNum
   limit: number
   contains: string
   startsWith: string
@@ -141,7 +140,7 @@ export interface EffectPageResult extends AuxEntityPageResult {
 }
 
 export interface EffectPageQueryVars extends EntityPageVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -241,7 +240,7 @@ export interface EffectAbilityEdge extends AbilityIconEdge, AuxToMainConnectionE
 }
 
 export interface EffectAbilityQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -341,7 +340,7 @@ export interface EffectFieldStateEdge extends AuxToIconConnectionEdge, AuxToAuxC
 }
 
 export interface EffectFieldStateQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -406,7 +405,7 @@ export interface EffectItemEdge extends AuxToItemConnectionEdge {
 }
 
 export interface EffectItemQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -508,7 +507,7 @@ export interface EffectMoveEdge extends MoveIconEdge, AuxToMainConnectionEdge {
 }
 
 export interface EffectMoveQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
   removedFromSwSh: false | null
   removedFromBDSP: false | null

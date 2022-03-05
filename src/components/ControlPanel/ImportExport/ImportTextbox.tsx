@@ -1,6 +1,6 @@
 import { ApolloError } from "@apollo/client";
 import { useMemo, useState } from "react";
-import { GenerationNum } from "../../../types-queries/helpers";
+import { GenNum } from "../../../types-queries/helpers";
 import Button from "../../Reusables/Button/Button";
 import { ImportState } from "./Import";
 

@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
-import { CapsTypeName, GenerationNum, NameEdge, PokemonColumnName, PokemonIconDatum, PokemonIconNode, pokemonIconNodeToPokemonIconDatum, SortByEnum, StatTable, StatTableWithBST, TypeName } from "../helpers";
+import { GenNum, StatTableWithBST } from "../entities";
+import { CapsTypeName, NameEdge, PokemonIconDatum, PokemonIconNode, pokemonIconNodeToPokemonIconDatum, } from "../helpers";
 
 export type PokemonQuickSearchQuery = {
   pokemon: {
@@ -31,7 +32,7 @@ export interface PokemonAbilityEdge extends NameEdge {
 }
 
 export interface PokemonQuickSearchVars {
-  gen: GenerationNum
+  gen: GenNum
   contains: string
   startsWith: string
 

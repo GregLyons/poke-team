@@ -1,8 +1,8 @@
 import { MemberNature } from "../../../../../../types-queries/Builder/MemberNature";
-import { BaseStatName, GenerationNum, StatTable, toAbbreviatedBaseStatName } from "../../../../../../types-queries/helpers";
+import { BaseStatName, GenNum, StatTable, toAbbreviatedBaseStatName } from "../../../../../../types-queries/helpers";
 
 type StatGraphProps = {
-  gen: GenerationNum
+  gen: GenNum
   baseStats: StatTable
   level: number
   nature?: MemberNature

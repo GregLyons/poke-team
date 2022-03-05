@@ -1,10 +1,10 @@
 import {
   gql,
 } from '@apollo/client';
+import { FieldStateClass, FieldStateTargetClass, GenNum } from '../entities';
 
 import {
   AbilityIconEdge,
-  GenerationNum,
   IntroductionEdge,
   ItemIconDatum,
   itemIconEdgeToItemIconDatum,
@@ -17,9 +17,6 @@ import {
   TypeNameEdge,
   TypeIconDatum,
   typeIconEdgeToTypeIconDatum,
-  FieldStateClass,
-  FieldStateTargetClass,
-  FieldStateDamagePercent,
 } from '../helpers';
 import {
   EntitySearchQueryName,
@@ -36,7 +33,6 @@ import {
   VersionDependentDescriptionEdge,
   AuxToAuxConnectionEdge,
   AuxToAuxConnectionOnPage,
-  AuxEntityInSearch,
   AuxEntitySearchResult,
   AuxEntityPageResult,
   AuxEntityOnPage,
@@ -75,7 +71,7 @@ export interface FieldStateSearchResult extends AuxEntitySearchResult {
 }
 
 export interface FieldStateSearchVars extends EntitySearchVars {
-  gen: GenerationNum
+  gen: GenNum
   limit: number
   contains: string
   startsWith: string
@@ -205,7 +201,7 @@ export interface FieldStatePageResult extends AuxEntityPageResult {
 }
 
 export interface FieldStatePageQueryVars extends EntityPageVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -432,7 +428,7 @@ export interface FieldStateAbilityEdge extends AbilityIconEdge, AuxToMainConnect
 }
 
 export interface FieldStateAbilityQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -758,7 +754,7 @@ export interface FieldStateEffectEdge extends AuxToAuxConnectionEdge {
 }
 
 export interface FieldStateEffectQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -834,7 +830,7 @@ export interface FieldStateItemEdge extends AuxToItemConnectionEdge {
 }
 
 export interface FieldStateItemQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -1070,7 +1066,7 @@ export interface FieldStateMoveEdge extends MoveIconEdge, AuxToMainConnectionEdg
 }
 
 export interface FieldStateMoveQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
   removedFromSwSh: false | null
   removedFromBDSP: false | null
@@ -1352,7 +1348,7 @@ export interface FieldStateStatEdge extends AuxToIconConnectionEdge, AuxToAuxCon
 }
 
 export interface FieldStateStatQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -1431,7 +1427,7 @@ export interface FieldStateStatusEdge extends AuxToIconConnectionEdge, AuxToAuxC
 }
 
 export interface FieldStateStatusQueryVars extends EntityConnectionVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
 }
 
@@ -1533,7 +1529,7 @@ export interface FieldStateTypeEdge extends AuxToAuxConnectionEdge, TypeIconEdge
 }
 
 export interface FieldStateTypeQueryVars extends EntityConnectionVars, RemovedFromGameQueryVars {
-  gen: GenerationNum
+  gen: GenNum
   name: string
   removedFromSwSh: false | null
   removedFromBDSP: false | null
