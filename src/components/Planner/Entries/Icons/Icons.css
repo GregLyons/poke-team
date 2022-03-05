@@ -104,27 +104,6 @@
 
 /* #endregion */
 
-/* Item icons */
-/* #region */
-
-.planner__item-icon-container {
-  position: relative;
-  margin-left: var(--entry-horizontal-padding);
-  margin-top: 1rem;
-}
-
-.planner__item-icon-background {
-  position: absolute;
-}
-
-.planner__item-icon {
-  position: absolute;
-  background-image: url('../../../../assets/icons/itemicons-sheet.png');
-  background-repeat: no-repeat;
-}
-
-/* #endregion */
-
 /* Link icons cons */
 /* #region */
 
@@ -136,32 +115,6 @@
 
 .planner__icon-background {
   position: absolute;
-}
-
-.planner__fieldState-icon,
-.planner__stat-icon,
-.planner__status-icon,
-.planner__type-icon,
-.planner__usageMethod-icon {
-  position: absolute;
-  background-repeat: no-repeat;
-  overflow: hidden;
-}
-
-.planner__fieldState-icon {
-  background-image: url('../../../../assets/icons/fieldstateicons-sheet.png');
-}
-.planner__stat-icon {
-  background-image: url('../../../../assets/icons/staticons-sheet.png');
-}
-.planner__status-icon {
-  background-image: url('../../../../assets/icons/statusicons-sheet.png');
-}
-.planner__type-icon {
-  background-image: url('../../../../assets/icons/typeicons5-sheet.png');
-}
-.planner__usageMethod-icon {
-  background-image: url('../../../../assets/icons/usagemethodicons-sheet.png');
 }
 
 /* #endregion */

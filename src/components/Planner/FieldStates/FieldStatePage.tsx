@@ -62,6 +62,7 @@ import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 import { Dispatches, Filters } from '../../App';
 import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
+import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
 
 type FieldStatePageProps = {
   dispatches: Dispatches
@@ -79,39 +80,39 @@ const FieldStatePage = ({
   // Connection queries
   // #region 
   
-  const { queryVars: abilityQueryVars, setQueryVars: setAbilityQueryVars, } = useGenConnectedSearchVars<FieldStateAbilityQueryVars>({ defaultSearchVars: {
+  const { queryVars: abilityQueryVars, } = useGenConnectedSearchVars<FieldStateAbilityQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: fieldStateName,
   }, genFilter: filters.genFilter});
 
-  const { queryVars: effectQueryVars, setQueryVars: setEffectQueryVars, } = useGenConnectedSearchVars<FieldStateEffectQueryVars>({ defaultSearchVars: {
+  const { queryVars: effectQueryVars, } = useGenConnectedSearchVars<FieldStateEffectQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: fieldStateName,
   }, genFilter: filters.genFilter});
 
-  const { queryVars: itemQueryVars, setQueryVars: setItemQueryVars, } = useGenConnectedSearchVars<FieldStateItemQueryVars>({ defaultSearchVars: {
+  const { queryVars: itemQueryVars, } = useGenConnectedSearchVars<FieldStateItemQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: fieldStateName,
   }, genFilter: filters.genFilter});
 
-  const { queryVars: moveQueryVars, setQueryVars: setMoveQueryVars, } = useRemovalConnectedSearchVars<FieldStateMoveQueryVars>({ defaultSearchVars: {
+  const { queryVars: moveQueryVars, } = useRemovalConnectedSearchVars<FieldStateMoveQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: fieldStateName,
     removedFromSwSh: removedFromSwSh(filters.genFilter),
     removedFromBDSP: removedFromBDSP(filters.genFilter),
   }, genFilter: filters.genFilter});
 
-  const { queryVars: statQueryVars, setQueryVars: setStatQueryVars, } = useGenConnectedSearchVars<FieldStateStatQueryVars>({ defaultSearchVars: {
+  const { queryVars: statQueryVars, } = useGenConnectedSearchVars<FieldStateStatQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: fieldStateName,
   }, genFilter: filters.genFilter});
 
-  const { queryVars: statusQueryVars, setQueryVars: setStatusQueryVars, } = useGenConnectedSearchVars<FieldStateStatusQueryVars>({ defaultSearchVars: {
+  const { queryVars: statusQueryVars, } = useGenConnectedSearchVars<FieldStateStatusQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: fieldStateName,
   }, genFilter: filters.genFilter});
 
-  const { queryVars: typeQueryVars, setQueryVars: setTypeQueryVars, } = useRemovalConnectedSearchVars<FieldStateTypeQueryVars>({ defaultSearchVars: {
+  const { queryVars: typeQueryVars, } = useRemovalConnectedSearchVars<FieldStateTypeQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: fieldStateName,
     removedFromSwSh: removedFromSwSh(filters.genFilter),
@@ -120,115 +121,25 @@ const FieldStatePage = ({
 
   // #endregion
 
-  const [executeSearch, { loading, error, data }] = useLazyQuery<FieldStatePageQuery, FieldStatePageQueryVars>(
-  FIELDSTATE_PAGE_QUERY);
-  useEffect(() => {
-    executeSearch({
-      variables: {
+  
+  const { data, pageComponent, } = usePageQuery<FieldStatePageQuery, FieldStatePageQueryVars>(
+    FIELDSTATE_PAGE_QUERY,
+      {
         gen: filters.genFilter.gen,
         name: fieldStateName,
         removedFromSwSh: removedFromSwSh(filters.genFilter),
         removedFromBDSP: removedFromBDSP(filters.genFilter),
-      }
-    })
-  }, [filters.genFilter, fieldStateName, executeSearch]);
-      
-  // Before actually getting the move data, we need to check that it's present in the given generation
-  // #region
+      },
+      fieldStateName,
+    );
   
-  const [executeDebutSearch, { loading: loading_introduced, error: error_introduced, data: data_introduced }] = useLazyQuery<IntroductionQuery, IntroductionQueryVars>(INTRODUCTION_QUERY('fieldStateByName'));
-
-  useEffect(() => {
-    console.log('intro queried');
-    executeDebutSearch({
-      variables: {
-        gen: NUMBER_OF_GENS,
-        name: fieldStateName,
-      }
-    });
-  }, [])
-
-  if (loading_introduced) {
-    console.log('loading debut');
-    return (
-      <div>
-        Loading...
-      </div>
-    );
-  }
-
-  if (error_introduced) {
-    console.log('error debut');
-    return (
-      <div>
-        Error for introduction query! {error_introduced.message}
-      </div>
-    );
-  } 
-
-  if (!data_introduced || !data_introduced.fieldStateByName || (data_introduced.fieldStateByName.length === 0)) {
-    console.log('debut data not found');
-    return (
-    <div>
-      Data not found for '{fieldStateName}'.
-    </div>
-    );
-  }
-
-  const debutGen = data_introduced.fieldStateByName[0].introduced.edges[0].node.number;
-
-  if (debutGen > filters.genFilter.gen) return (
-    <div>
-      {fieldStateName} doesn't exist in Generation {filters.genFilter.gen}.
-    </div>
-  );
-
-  // #endregion
+    const debutComponent = useDebutQuery(fieldStateName, 'Field state', filters.genFilter);
   
-  // Now that we know the fieldState exists in this gen, we check the actual data
-  // # region
-
-  if (loading) {
-    console.log('loading');
-    return (
-      <div>
-        Loading...
-      </div>
-    );
-  }
-  else if (error) {
-    console.log('error');
-    return (
-      <div>
-        Error! {error.message}
-      </div>
-    )
-  }
-  else if (!data) {
-    console.log('data not found');
-    return (
-      <div>
-        Data not found for '{fieldStateName}'.
-      </div>
-    );
-  }
-  else if (!data.fieldStateByName) {
-    console.log('invalid query');
-    return (
-      <div>
-        'fieldStateByName' is not a valid query for '{fieldStateName}'.
-      </div>
-    );
-  }
-  else if (data.fieldStateByName.length === 0) {
-    return (
-      <div>
-        Loading...
-      </div>
-    );
-  }
+    if (debutComponent) return debutComponent;
+    if (pageComponent) return pageComponent;
   
-  // #endregion
+    if (!data?.fieldStateByName) return <div>Data not found for '{fieldStateName}'</div>;
+  
 
   const fieldStateResult = new FieldStateOnPage(data.fieldStateByName[0]);
 

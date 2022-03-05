@@ -1,13 +1,7 @@
 import {
-  useEffect,
-} from 'react';
-import {
   Outlet,
   useParams,
 } from 'react-router-dom';
-import {
-  useLazyQuery,
-} from '@apollo/client';
 
 import {
   ABILITY_PAGE_QUERY,
@@ -34,15 +28,6 @@ import {
   AbilityUsageMethodQueryVars,
 } from '../../../types-queries/Planner/Ability';
 import {
-  INTRODUCTION_QUERY,
-  
-  IntroductionQuery,
-  IntroductionQueryVars,
-} from '../../../types-queries/Planner/helpers';
-import {
-  NUMBER_OF_GENS,
-} from '../../../utils/constants';
-import {
   listRenderAbilityEffect,
   listRenderAbilityFieldState,
   listRenderAbilityStat,
@@ -58,6 +43,7 @@ import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
 import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 import { Dispatches, Filters } from '../../App';
+import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
 
 type AbilityPageProps = {
   dispatches: Dispatches
@@ -75,149 +61,56 @@ const AbilityPage = ({
   // Connections
   // #region
 
-  const { queryVars: effectQueryVars, setQueryVars: setEffectQueryVars, } = useGenConnectedSearchVars<AbilityEffectQueryVars>({ defaultSearchVars: {
+  const { queryVars: effectQueryVars, } = useGenConnectedSearchVars<AbilityEffectQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: abilityName,
   }, genFilter: filters.genFilter});
 
-  const { queryVars: fieldStateQueryVars, setQueryVars: setFieldStateQueryVars, } = useGenConnectedSearchVars<AbilityFieldStateQueryVars>({ defaultSearchVars: {
+  const { queryVars: fieldStateQueryVars, } = useGenConnectedSearchVars<AbilityFieldStateQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: abilityName,
   }, genFilter: filters.genFilter});
 
-  const { queryVars: statQueryVars, setQueryVars: setStatQueryVars, } = useGenConnectedSearchVars<AbilityStatQueryVars>({ defaultSearchVars: {
+  const { queryVars: statQueryVars, } = useGenConnectedSearchVars<AbilityStatQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: abilityName,
   }, genFilter: filters.genFilter});
 
-  const { queryVars: statusQueryVars, setQueryVars: setStatusQueryVars, } = useGenConnectedSearchVars<AbilityStatusQueryVars>({ defaultSearchVars: {
+  const { queryVars: statusQueryVars, } = useGenConnectedSearchVars<AbilityStatusQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: abilityName,
   }, genFilter: filters.genFilter});
 
-  const { queryVars: typeQueryVars, setQueryVars: setTypeQueryVars, } = useRemovalConnectedSearchVars<AbilityTypeQueryVars>({ defaultSearchVars: {
+  const { queryVars: typeQueryVars, } = useRemovalConnectedSearchVars<AbilityTypeQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: abilityName,
     removedFromSwSh: removedFromSwSh(filters.genFilter),
     removedFromBDSP: removedFromBDSP(filters.genFilter),
   }, genFilter: filters.genFilter});
 
-  const { queryVars: usageMethodQueryVars, setQueryVars: setUsageMethodQueryVars, } = useGenConnectedSearchVars<AbilityUsageMethodQueryVars>({ defaultSearchVars: {
+  const { queryVars: usageMethodQueryVars, } = useGenConnectedSearchVars<AbilityUsageMethodQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: abilityName,
   }, genFilter: filters.genFilter});
 
   // #endregion
   
-  const [executeSearch, { loading, error, data }] = useLazyQuery<AbilityPageQuery, AbilityPageQueryVars>(
-  ABILITY_PAGE_QUERY);
-
-  useEffect(() => {
-    console.log('queried');
-    executeSearch({
-      variables: {
-        gen: filters.genFilter.gen,
-        name: abilityName,
-      }
-    })
-  }, [filters.genFilter, abilityName, executeSearch]);
-    
-  // Before actually getting the ability data, we need to check that it's present in the given generation
-  // #region
-  
-  const [executeDebutSearch, { loading: loading_introduced, error: error_introduced, data: data_introduced }] = useLazyQuery<IntroductionQuery, IntroductionQueryVars>(INTRODUCTION_QUERY('abilityByName'));
-
-  useEffect(() => {
-    console.log('intro queried');
-    executeDebutSearch({
-      variables: {
-        gen: NUMBER_OF_GENS,
-        name: abilityName,
-      }
-    });
-  }, [])
-
-  if (loading_introduced) {
-    console.log('loading debut');
-    return (
-      <div>
-        Loading...
-      </div>
-    );
-  }
-
-  if (error_introduced) {
-    console.log('error debut');
-    return (
-      <div>
-        Error for introduction query! {error_introduced.message}
-      </div>
-    );
-  } 
-
-  if (!data_introduced || !data_introduced.abilityByName || (data_introduced.abilityByName.length === 0)) {
-    console.log('debut data not found');
-    return (
-    <div>
-      Data not found for '{abilityName}'.
-    </div>
-    );
-  }
-
-  const debutGen = data_introduced.abilityByName[0].introduced.edges[0].node.number;
-
-  if (debutGen > filters.genFilter.gen) return (
-    <div>
-      {abilityName} doesn't exist in Generation {filters.genFilter.gen}.
-    </div>
+  const { data, pageComponent, } = usePageQuery<AbilityPageQuery, AbilityPageQueryVars>(
+  ABILITY_PAGE_QUERY,
+    {
+      gen: filters.genFilter.gen,
+      name: abilityName,
+    },
+    abilityName,
   );
 
-  // #endregion
-  
-  // Now that we know the ability exists in this gen, we check the actual data
-  // # region
+  const debutComponent = useDebutQuery(abilityName, 'Ability', filters.genFilter);
 
-  if (loading) {
-    console.log('loading');
-    return (
-      <div>
-        Loading...
-      </div>
-    );
-  }
-  else if (error) {
-    console.log('error');
-    return (
-      <div>
-        Error! {error.message}
-      </div>
-    )
-  }
-  if (!data) {
-    console.log('data not found');
-    return (
-      <div>
-        Data not found for '{abilityName}'.
-      </div>
-    );
-  }
-  else if (!data.abilityByName) {
-    console.log('invalid query');
-    return (
-      <div>
-        'abilityByName' is not a valid query for '{abilityName}'.
-      </div>
-    );
-  }
-  else if (data.abilityByName.length === 0) {
-    return (
-      <div>
-        Loading...
-      </div>
-    );
-  }
-  
-  // #endregion
+  if (debutComponent) return debutComponent;
+  if (pageComponent) return pageComponent;
+
+  if (!data?.abilityByName) return <div>Data not found for '{abilityName}'</div>;
+
   const abilityResult = new AbilityOnPage(data.abilityByName[0]);
   
   return (

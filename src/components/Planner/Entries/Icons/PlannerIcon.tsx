@@ -1,9 +1,9 @@
-import {
-  getFieldStateIcon,
-  getStatIcon,
-  getStatusIcon,
-  getTypeIcon, getUsageMethodIcon,
-} from "../../../../utils/sprites";
+import FieldStateIcon from "../../../Icons/FieldStateIcon";
+import ItemIcon from "../../../Icons/ItemIcon";
+import StatIcon from "../../../Icons/StatIcon";
+import StatusIcon from "../../../Icons/StatusIcon";
+import TypeIcon from "../../../Icons/TypeIcon";
+import UsageMethodIcon from "../../../Icons/UsageMethodIcon";
 import { LinkIconDatum } from "../../helpers";
 
 import './Icons.css';
@@ -18,54 +18,53 @@ const PlannerIcon = ({
   linkIconDatum
 }: PlannerIconProps) => {
   const { iconClass, iconDatum } = linkIconDatum;
-  let iconGetter;
+  let iconComponent: JSX.Element;
   switch(iconClass) {
     case 'fieldState':
-      iconGetter = getFieldStateIcon;
+      iconComponent = <FieldStateIcon
+        iconDatum={iconDatum}
+      />;
+      break;
+    case 'item':
+      iconComponent = <ItemIcon
+        itemIconDatum={iconDatum}
+      />;
       break;
     case 'stat':
-      iconGetter = getStatIcon;
+      iconComponent = <StatIcon
+        iconDatum={iconDatum}
+      />;
       break;
     case 'status':
-      iconGetter = getStatusIcon;
+      iconComponent = <StatusIcon
+        iconDatum={iconDatum}
+      />;
       break;
     case 'type':
-      iconGetter = getTypeIcon;
+      iconComponent = <TypeIcon
+        typeIconDatum={iconDatum}
+      />;
       break;
     case 'usageMethod':
-      iconGetter = getUsageMethodIcon;
+      iconComponent = <UsageMethodIcon
+        iconDatum={iconDatum}
+      />;
       break;
-    default:
-      iconGetter = getTypeIcon;
   }
 
-  const { left, top, } = iconGetter(iconDatum.name);
-  
   return (
     <div className="planner__icon-container"
       style={{
-        width: '100px',
-        height: '22px',
+        width: iconClass === 'item'
+          ? '24px'
+          : '32px',
+        height: iconClass === 'item'
+          ? '24px'
+          : '12px',
         display: 'inline-block',
       }}
     >
-      <div className="planner__icon-background" 
-        style={{
-          width: '100px',
-          height: '22px',
-        }}
-      />
-      <div
-        className={`planner__${iconClass}-icon`}
-        title={`${iconDatum.formattedName}`}
-        key={key}
-        style={{
-          width: '32px',
-          height: '12px',
-          display: 'inline-block',
-          backgroundPosition: `${left}px ${top}px`,
-        }}
-      />
+      {iconComponent}
     </div>
   );
 };

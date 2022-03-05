@@ -1,20 +1,20 @@
 import { IconDatum } from "../../types-queries/helpers";
-import { getStatusIcon } from "../../utils/sprites";
+import { getFieldStateIcon } from "../../utils/sprites";
 
 import './Icons.css';
 
-type StatusIconProps = {
+type FieldStateIconProps = {
   iconDatum: IconDatum
 }
 
-const StatusIcon = ({
+const FieldStateIcon = ({
   iconDatum,
-}: StatusIconProps) => {
-  const {left, top} = getStatusIcon(iconDatum.name);
+}: FieldStateIconProps) => {
+  const {left, top} = getFieldStateIcon(iconDatum.name);
 
   return (
     <div
-      className="status-icon icon"
+      className="field-state-icon icon"
       title={iconDatum.formattedName}
       style={{
         width: '32px',
@@ -26,4 +26,4 @@ const StatusIcon = ({
   )
 }
 
-export default StatusIcon;
+export default FieldStateIcon;

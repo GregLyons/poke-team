@@ -1,20 +1,20 @@
-import { toFormattedTypeName, TypeName } from "../../types-queries/helpers";
+import { toFormattedTypeName, TypeIconDatum, TypeName } from "../../types-queries/helpers";
 import { getTypeIcon } from "../../utils/sprites";
 
 import './Icons.css';
 
 type TypeIconProps = {
-  typeName: TypeName
+  typeIconDatum: TypeIconDatum
 }
 
 const TypeIcon = ({
-  typeName
+  typeIconDatum,
 }: TypeIconProps) => {
-  const { left, top, } = getTypeIcon(typeName);
+  const { left, top, } = getTypeIcon(typeIconDatum.name);
 
   return (
-    <div className="type-icon"
-      title={toFormattedTypeName(typeName)}
+    <div className="type-icon icon"
+      title={typeIconDatum.formattedName}
       style={{
         width: '32px',
         height: '12px',

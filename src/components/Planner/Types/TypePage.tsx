@@ -1,13 +1,7 @@
 import {
-  useEffect,
-} from 'react';
-import {
   Outlet,
   useParams,
 } from 'react-router-dom';
-import {
-  useLazyQuery,
-} from '@apollo/client';
 
 import {
   TYPE_PAGE_QUERY,
@@ -27,15 +21,6 @@ import {
   TYPE_MOVE_QUERY,
   TypeMoveQueryVars,
 } from '../../../types-queries/Planner/Type';
-import {
-  INTRODUCTION_QUERY,
-  
-  IntroductionQuery,
-  IntroductionQueryVars,
-} from '../../../types-queries/Planner/helpers';
-import {
-  NUMBER_OF_GENS,
-} from '../../../utils/constants';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import {
   listRenderTypeAbility,
@@ -50,6 +35,7 @@ import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 import { Dispatches, Filters } from '../../App';
 import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
+import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
 
 type TypePageProps = {
   dispatches: Dispatches
@@ -67,26 +53,26 @@ const TypePage = ({
   // Connection queries
   // #region 
   
-  const { queryVars: abilityQueryVars, setQueryVars: setAbilityQueryVars, } = useRemovalConnectedSearchVars<TypeAbilityQueryVars>({ defaultSearchVars: {
+  const { queryVars: abilityQueryVars, } = useRemovalConnectedSearchVars<TypeAbilityQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: typeName,
     removedFromSwSh: removedFromSwSh(filters.genFilter),
     removedFromBDSP: removedFromBDSP(filters.genFilter),
   }, genFilter: filters.genFilter});
 
-  const { queryVars: fieldStateQueryVars, setQueryVars: setFieldStateQueryVars, } = useGenConnectedSearchVars<TypeFieldStateQueryVars>({ defaultSearchVars: {
+  const { queryVars: fieldStateQueryVars, } = useGenConnectedSearchVars<TypeFieldStateQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: typeName,
   }, genFilter: filters.genFilter});
 
-  const { queryVars: itemQueryVars, setQueryVars: setItemQueryVars, } = useRemovalConnectedSearchVars<TypeItemQueryVars>({ defaultSearchVars: {
+  const { queryVars: itemQueryVars, } = useRemovalConnectedSearchVars<TypeItemQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: typeName,
     removedFromSwSh: removedFromSwSh(filters.genFilter),
     removedFromBDSP: removedFromBDSP(filters.genFilter),
   }, genFilter: filters.genFilter});
 
-  const { queryVars: moveQueryVars, setQueryVars: setMoveQueryVars, } = useRemovalConnectedSearchVars<TypeMoveQueryVars>({ defaultSearchVars: {
+  const { queryVars: moveQueryVars, } = useRemovalConnectedSearchVars<TypeMoveQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: typeName,
     removedFromSwSh: removedFromSwSh(filters.genFilter),
@@ -94,116 +80,25 @@ const TypePage = ({
   }, genFilter: filters.genFilter});
 
   // #endregion
-
-  const [executeSearch, { loading, error, data }] = useLazyQuery<TypePageQuery, TypePageQueryVars>(
-  TYPE_PAGE_QUERY);
-  useEffect(() => {
-    executeSearch({
-      variables: {
+  
+  const { data, pageComponent, } = usePageQuery<TypePageQuery, TypePageQueryVars>(
+    TYPE_PAGE_QUERY,
+      {
         gen: filters.genFilter.gen,
         name: typeName,
         removedFromSwSh: removedFromSwSh(filters.genFilter),
         removedFromBDSP: removedFromBDSP(filters.genFilter),
-      }
-    })
-  }, [filters.genFilter, typeName, executeSearch]);
-      
-  // Before actually getting the move data, we need to check that it's present in the given generation
-  // #region
+      },
+      typeName,
+    );
   
-  const [executeDebutSearch, { loading: loading_introduced, error: error_introduced, data: data_introduced }] = useLazyQuery<IntroductionQuery, IntroductionQueryVars>(INTRODUCTION_QUERY('typeByName'));
-
-  useEffect(() => {
-    console.log('intro queried');
-    executeDebutSearch({
-      variables: {
-        gen: NUMBER_OF_GENS,
-        name: typeName,
-      }
-    });
-  }, [])
-
-  if (loading_introduced) {
-    console.log('loading debut');
-    return (
-      <div>
-        Loading...
-      </div>
-    );
-  }
-
-  if (error_introduced) {
-    console.log('error debut');
-    return (
-      <div>
-        Error for introduction query! {error_introduced.message}
-      </div>
-    );
-  } 
-
-  if (!data_introduced || !data_introduced.typeByName || (data_introduced.typeByName.length === 0)) {
-    console.log('debut data not found');
-    return (
-    <div>
-      Data not found for '{typeName}'.
-    </div>
-    );
-  }
-
-  const debutGen = data_introduced.typeByName[0].introduced.edges[0].node.number;
-
-  if (debutGen > filters.genFilter.gen) return (
-    <div>
-      {typeName} doesn't exist in Generation {filters.genFilter.gen}.
-    </div>
-  );
-
-  // #endregion
+    const debutComponent = useDebutQuery(typeName, 'Type', filters.genFilter);
   
-  // Now that we know the type exists in this gen, we check the actual data
-  // # region
-
-  if (loading) {
-    console.log('loading');
-    return (
-      <div>
-        Loading...
-      </div>
-    );
-  }
-  else if (error) {
-    console.log('error');
-    return (
-      <div>
-        Error! {error.message}
-      </div>
-    )
-  }
-  else if (!data) {
-    console.log('data not found');
-    return (
-      <div>
-        Data not found for '{typeName}'.
-      </div>
-    );
-  }
-  else if (!data.typeByName) {
-    console.log('invalid query');
-    return (
-      <div>
-        'typeByName' is not a valid query for '{typeName}'.
-      </div>
-    );
-  }
-  else if (data.typeByName.length === 0) {
-    return (
-      <div>
-        Loading...
-      </div>
-    );
-  }
+    if (debutComponent) return debutComponent;
+    if (pageComponent) return pageComponent;
   
-  // #endregion
+    if (!data?.typeByName) return <div>Data not found for '{typeName}'</div>;
+
 
   const typeResult = new TypeOnPage(data.typeByName[0]);
 

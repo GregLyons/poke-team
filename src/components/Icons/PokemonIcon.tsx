@@ -17,7 +17,7 @@ const PokemonIcon = ({
 
   return (
     <div
-      className="pokemon-icon"
+      className="pokemon-icon icon"
       title={pokemonIconDatum.formattedName}
       style={{
         width: '40px',

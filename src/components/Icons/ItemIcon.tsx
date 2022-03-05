@@ -14,7 +14,7 @@ const ItemIcon = ({
 
   return (
     <div
-      className="item-icon"
+      className="item-icon icon"
       title={itemIconDatum.formattedName}
       style={{
         width: '24px',

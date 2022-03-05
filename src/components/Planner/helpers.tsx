@@ -1,4 +1,3 @@
-import { GenFilter } from "../../hooks/App/GenFilter";
 import { IconDatum, ItemIconDatum, PokemonIconDatum, TypeIconDatum } from "../../types-queries/helpers";
 import { Dispatches, Filters } from "../App";
 

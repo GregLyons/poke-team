@@ -1,20 +1,20 @@
 import { IconDatum } from "../../types-queries/helpers";
-import { getStatusIcon } from "../../utils/sprites";
+import { getStatIcon } from "../../utils/sprites";
 
 import './Icons.css';
 
-type StatusIconProps = {
+type StatIconProps = {
   iconDatum: IconDatum
 }
 
-const StatusIcon = ({
+const StatIcon = ({
   iconDatum,
-}: StatusIconProps) => {
-  const {left, top} = getStatusIcon(iconDatum.name);
+}: StatIconProps) => {
+  const {left, top} = getStatIcon(iconDatum.name);
 
   return (
     <div
-      className="status-icon icon"
+      className="stat-icon icon"
       title={iconDatum.formattedName}
       style={{
         width: '32px',
@@ -26,4 +26,4 @@ const StatusIcon = ({
   )
 }
 
-export default StatusIcon;
+export default StatIcon;

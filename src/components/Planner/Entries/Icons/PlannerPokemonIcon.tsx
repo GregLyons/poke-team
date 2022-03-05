@@ -1,36 +1,21 @@
 import {
-  useState,
-} from "react";
-import { TeamAction } from "../../../../hooks/App/Team";
-import {
   PokemonIconDatum,
 } from "../../../../types-queries/helpers";
-import {
-  getPokemonIcon,
-} from "../../../../utils/sprites";
+import PokemonIcon from "../../../Icons/PokemonIcon";
 
 import './../Entries.css';
 
 type PlannerPokemonIconProps = {
-  dispatches: {
-    dispatchTeam: React.Dispatch<TeamAction>
-  }
-  key: string
   pokemonIconDatum: PokemonIconDatum
   selected: boolean
   toggleSelection: (psID: string) => void
 }
 
 const PlannerPokemonIcon = ({
-  dispatches: {
-    dispatchTeam,
-  },
-  key,
   pokemonIconDatum,
   selected,
   toggleSelection,
 }: PlannerPokemonIconProps) => {
-  const {left, top} = getPokemonIcon(pokemonIconDatum);
 
   const onClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
@@ -57,18 +42,10 @@ const PlannerPokemonIcon = ({
           transition: 'background-color 0.2s',
           opacity: '0.8',
         }}
-      />
-      <div
         onClick={onClick}
-        className="planner__pokemon-icon"
-        title={pokemonIconDatum.formattedName}
-        key={key}
-        style={{
-          width: '40px',
-          height: '30px',
-          display: 'inline-block',
-          backgroundPosition: `${left}px ${top}px`,
-        }}              
+      />
+      <PokemonIcon
+        pokemonIconDatum={pokemonIconDatum}
       />
     </div>
   );

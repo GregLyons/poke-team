@@ -1,7 +1,7 @@
 import { useEffect, useRef, } from "react";
 import { displayReason, validatePokemon, ValidationFailureReason } from "../../../../hooks/App/PokemonFilter";
 import { SelectionAction, Selection } from "../../../../hooks/Planner/Selections";
-import { PokemonIconDatum, psID } from "../../../../types-queries/helpers";
+import { PokemonIconDatum, } from "../../../../types-queries/helpers";
 import PlannerPokemonIcon from "./PlannerPokemonIcon";
 import SelectionControls from "./SelectionControls";
 
@@ -57,7 +57,6 @@ const PlannerPokemonIcons = ({
               dispatches={icons.dispatches}
               handleAddToCart={handleAddToCart}
               hasIcon={hasIcon}
-              reason={reason}
             />
           : <div>
               No Pokemon to show.
@@ -108,7 +107,6 @@ const PlannerPokemonIcons = ({
 
           return (
             <PlannerPokemonIcon
-              dispatches={icons.dispatches}
               key={key + '_' + pokemonIconDatum.psID + '_icon'}
               pokemonIconDatum={pokemonIconDatum}
               selected={selection.hasOwnProperty(psID) && (selection[psID] as {

@@ -44,8 +44,7 @@ const Planner = ({
       <div 
         className="nav-bar__ref-container"
       >
-        <PlannerNavBar 
-          dispatchBGManager={dispatchBGManager}
+        <PlannerNavBar
           bgManager={bgManager}
         />
       </div>

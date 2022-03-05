@@ -43,7 +43,7 @@ const StatusControlEntry = ({
   >
     <div className="status-control__icon">
       <StatusIcon
-        statusIconDatum={{
+        iconDatum={{
           name: statusName,
           formattedName: STATUS_MAP.get(statusName) || '',
         }}

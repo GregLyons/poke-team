@@ -1,13 +1,7 @@
 import {
-  useEffect,
-} from 'react';
-import {
   Outlet,
   useParams,
 } from 'react-router-dom';
-import {
-  useLazyQuery,
-} from '@apollo/client';
 
 import {
   USAGEMETHOD_PAGE_QUERY,
@@ -24,15 +18,6 @@ import {
   USAGEMETHOD_MOVE_QUERY,
   UsageMethodMoveQueryVars,
 } from '../../../types-queries/Planner/UsageMethod';
-import {
-  INTRODUCTION_QUERY,
-  
-  IntroductionQuery,
-  IntroductionQueryVars,
-} from '../../../types-queries/Planner/helpers';
-import {
-  NUMBER_OF_GENS,
-} from '../../../utils/constants';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import {
   listRenderUsageMethodAbility,
@@ -45,6 +30,7 @@ import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 import { Dispatches, Filters } from '../../App';
 import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
+import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
 
 type UsageMethodPageProps = {
   dispatches: Dispatches
@@ -62,20 +48,20 @@ const UsageMethodPage = ({
   // Connection queries
   // #region 
   
-  const { queryVars: abilityQueryVars, setQueryVars: setAbilityQueryVars, } = useRemovalConnectedSearchVars<UsageMethodAbilityQueryVars>({ defaultSearchVars: {
+  const { queryVars: abilityQueryVars, } = useRemovalConnectedSearchVars<UsageMethodAbilityQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: usageMethodName,
     removedFromSwSh: removedFromSwSh(filters.genFilter),
     removedFromBDSP: removedFromBDSP(filters.genFilter),
   }, genFilter: filters.genFilter});
-  const { queryVars: itemQueryVars, setQueryVars: setItemQueryVars, } = useRemovalConnectedSearchVars<UsageMethodItemQueryVars>({ defaultSearchVars: {
+  const { queryVars: itemQueryVars, } = useRemovalConnectedSearchVars<UsageMethodItemQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: usageMethodName,
     removedFromSwSh: removedFromSwSh(filters.genFilter),
     removedFromBDSP: removedFromBDSP(filters.genFilter),
   }, genFilter: filters.genFilter});
 
-  const { queryVars: moveQueryVars, setQueryVars: setMoveQueryVars, } = useRemovalConnectedSearchVars<UsageMethodMoveQueryVars>({ defaultSearchVars: {
+  const { queryVars: moveQueryVars, } = useRemovalConnectedSearchVars<UsageMethodMoveQueryVars>({ defaultSearchVars: {
     gen: filters.genFilter.gen,
     name: usageMethodName,
     removedFromSwSh: removedFromSwSh(filters.genFilter),
@@ -83,116 +69,25 @@ const UsageMethodPage = ({
   }, genFilter: filters.genFilter});
 
   // #endregion
-
-  const [executeSearch, { loading, error, data }] = useLazyQuery<UsageMethodPageQuery, UsageMethodPageQueryVars>(
-  USAGEMETHOD_PAGE_QUERY);
-  useEffect(() => {
-    executeSearch({
-      variables: {
+  
+  const { data, pageComponent, } = usePageQuery<UsageMethodPageQuery, UsageMethodPageQueryVars>(
+    USAGEMETHOD_PAGE_QUERY,
+      {
         gen: filters.genFilter.gen,
         name: usageMethodName,
         removedFromSwSh: removedFromSwSh(filters.genFilter),
         removedFromBDSP: removedFromBDSP(filters.genFilter),
-      }
-    })
-  }, [filters.genFilter, usageMethodName, executeSearch]);
-      
-  // Before actually getting the move data, we need to check that it's present in the given generation
-  // #region
+      },
+      usageMethodName,
+    );
   
-  const [executeDebutSearch, { loading: loading_introduced, error: error_introduced, data: data_introduced }] = useLazyQuery<IntroductionQuery, IntroductionQueryVars>(INTRODUCTION_QUERY('usageMethodByName'));
-
-  useEffect(() => {
-    console.log('intro queried');
-    executeDebutSearch({
-      variables: {
-        gen: NUMBER_OF_GENS,
-        name: usageMethodName,
-      }
-    });
-  }, [])
-
-  if (loading_introduced) {
-    console.log('loading debut');
-    return (
-      <div>
-        Loading...
-      </div>
-    );
-  }
-
-  if (error_introduced) {
-    console.log('error debut');
-    return (
-      <div>
-        Error for introduction query! {error_introduced.message}
-      </div>
-    );
-  } 
-
-  if (!data_introduced || !data_introduced.usageMethodByName || (data_introduced.usageMethodByName.length === 0)) {
-    console.log('debut data not found');
-    return (
-    <div>
-      Data not found for '{usageMethodName}'.
-    </div>
-    );
-  }
-
-  const debutGen = data_introduced.usageMethodByName[0].introduced.edges[0].node.number;
-
-  if (debutGen > filters.genFilter.gen) return (
-    <div>
-      {usageMethodName} doesn't exist in Generation {filters.genFilter.gen}.
-    </div>
-  );
-
-  // #endregion
+    const debutComponent = useDebutQuery(usageMethodName, 'Usage method', filters.genFilter);
   
-  // Now that we know the usageMethod exists in this gen, we check the actual data
-  // # region
-
-  if (loading) {
-    console.log('loading');
-    return (
-      <div>
-        Loading...
-      </div>
-    );
-  }
-  else if (error) {
-    console.log('error');
-    return (
-      <div>
-        Error! {error.message}
-      </div>
-    )
-  }
-  else if (!data) {
-    console.log('data not found');
-    return (
-      <div>
-        Data not found for '{usageMethodName}'.
-      </div>
-    );
-  }
-  else if (!data.usageMethodByName) {
-    console.log('invalid query');
-    return (
-      <div>
-        'usageMethodByName' is not a valid query for '{usageMethodName}'.
-      </div>
-    );
-  }
-  else if (data.usageMethodByName.length === 0) {
-    return (
-      <div>
-        Loading...
-      </div>
-    );
-  }
+    if (debutComponent) return debutComponent;
+    if (pageComponent) return pageComponent;
   
-  // #endregion
+    if (!data?.usageMethodByName) return <div>Data not found for '{usageMethodName}'</div>;
+
 
   const usageMethodResult = new UsageMethodOnPage(data.usageMethodByName[0]);
 

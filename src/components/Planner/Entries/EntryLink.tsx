@@ -1,9 +1,7 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { EntityClass, ENTITYCLASS_TO_PLANNERLINK, } from "../../../utils/constants";
-import { Dispatches, Filters } from "../../App";
 import { EntryIconData } from "../helpers";
-import PlannerItemIcon from "./Icons/PlannerItemIcon";
 import PlannerIcon from "./Icons/PlannerIcon";
 
 type EntryLinkProps = {
@@ -13,8 +11,6 @@ type EntryLinkProps = {
   linkName: string
   name: string
   icons?: EntryIconData
-  dispatches?: Dispatches
-  filters?: Filters
 }
 
 const EntryLink = ({
@@ -24,8 +20,6 @@ const EntryLink = ({
   linkName,
   name,
   icons,
-  dispatches,
-  filters,
 }: EntryLinkProps) => {
   const linkRef = useRef<HTMLAnchorElement>(null);
 
@@ -46,15 +40,7 @@ const EntryLink = ({
         </span>}
       </Link>
       <br />
-      {icons?.linkIconDatum?.iconClass === 'item' && icons?.dispatches
-        ? <>
-            <PlannerItemIcon
-              dispatches={icons.dispatches}
-              key={name}
-              itemIconDatum={icons.linkIconDatum.iconDatum}
-            />
-          </>
-        : icons?.linkIconDatum
+      {icons?.linkIconDatum?.iconClass === 'item' && icons?.linkIconDatum
           ? <>
               <PlannerIcon
                 key={name}

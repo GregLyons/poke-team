@@ -1,5 +1,4 @@
-import { BGAction, toggleBGPulse } from "../../../../hooks/App/BGManager";
-import { ValidationFailureReason, } from "../../../../hooks/App/PokemonFilter";
+import { toggleBGPulse } from "../../../../hooks/App/BGManager";
 import { Selection, SelectionAction } from "../../../../hooks/Planner/Selections";
 import { PokemonIconDatum } from "../../../../types-queries/helpers";
 import { Dispatches } from "../../../App";
@@ -11,7 +10,6 @@ type SelectionControlsProps = {
   dispatchSelection: React.Dispatch<SelectionAction>
   handleAddToCart: () => void,
   hasIcon: React.MutableRefObject<boolean>
-  reason: React.MutableRefObject<ValidationFailureReason>
 
   dispatches: Dispatches
 }
@@ -21,7 +19,6 @@ const SelectionControls = ({
   dispatchSelection,
   handleAddToCart,
   hasIcon,
-  reason,
 
   dispatches,
 }: SelectionControlsProps) => {

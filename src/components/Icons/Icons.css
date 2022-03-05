@@ -1,15 +1,33 @@
-.type-icon {
-  background-image: url('../../assets/icons/typeicons5-sheet.png');
-}
-
-.pokemon-icon {
-  background-image: url('../../assets/icons/pokemonicons-sheet.png');
+.field-state-icon {
+  background-image: url('../../assets/icons/fieldstateicons-sheet.png');
 }
 
 .item-icon {
   background-image: url('../../assets/icons/itemicons-sheet.png');
 }
 
+.pokemon-icon {
+  background-image: url('../../assets/icons/pokemonicons-sheet.png');
+}
+
+.type-icon {
+  background-image: url('../../assets/icons/typeicons5-sheet.png');
+}
+
+.stat-icon {
+  background-image: url('../../assets/icons/staticons-sheet.png');
+}
+
 .status-icon {
   background-image: url('../../assets/icons/statusicons-sheet.png');
+}
+
+.usage-method-icon {
+  background-image: url('../../assets/icons/usagemethodicons-sheet.png');
+}
+
+.icon {
+  position: absolute;
+  background-repeat: no-repeat;
+  overflow: hidden;
 }
