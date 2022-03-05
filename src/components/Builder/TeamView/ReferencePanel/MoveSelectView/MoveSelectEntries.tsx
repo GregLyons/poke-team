@@ -47,7 +47,7 @@ const MoveSelectEntries = ({
 
   const originalEntries: MemberMove[] | undefined = useMemo(() => {
     // If not data, do nothing
-    if (!data) return undefined;
+    if (!data || !data.pokemonByPSID[0]) return undefined;
 
     // Find event-only moves
     // #region

@@ -187,7 +187,7 @@ const TeamView = ({
       });
 
       // Setting view to null clears the search bar, so that when we set the view back, the search bar will be cleared
-      setView(null)
+      setView(null);
 
       // No longer selecting abilities
       return setView({

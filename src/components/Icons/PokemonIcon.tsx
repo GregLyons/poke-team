@@ -7,17 +7,27 @@ import './Icons.css';
 type PokemonIconProps = {
   pokemonIconDatum: PokemonIconDatum
   gender?: GenderName
+  planner?: boolean
+  onClick?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 }
 
 const PokemonIcon = ({
   pokemonIconDatum,
+  planner,
   gender,
+  onClick,
 }: PokemonIconProps) => {
   const {left, top} = getPokemonIcon(pokemonIconDatum, gender);
 
   return (
     <div
-      className="pokemon-icon icon"
+      className={`
+        pokemon-icon icon
+        ${planner
+          ? 'planner__pokemon-icon'
+          : ''
+        }
+      `}
       title={pokemonIconDatum.formattedName}
       style={{
         width: '40px',
@@ -25,6 +35,7 @@ const PokemonIcon = ({
         display: 'inline-block',
         backgroundPosition: `${left}px ${top}px`,
       }}
+      onClick={onClick ? onClick : () => {}}
     />
   )
 }

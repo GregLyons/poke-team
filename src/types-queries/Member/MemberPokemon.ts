@@ -52,6 +52,8 @@ export const POKEMONICON_TO_MEMBER_QUERY = gql`
       id
       name
       speciesName
+      psID
+      formattedName
 
       maleRate
       femaleRate

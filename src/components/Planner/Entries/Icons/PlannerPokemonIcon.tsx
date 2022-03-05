@@ -42,10 +42,11 @@ const PlannerPokemonIcon = ({
           transition: 'background-color 0.2s',
           opacity: '0.8',
         }}
-        onClick={onClick}
       />
       <PokemonIcon
         pokemonIconDatum={pokemonIconDatum}
+        planner={true}
+        onClick={onClick}
       />
     </div>
   );
