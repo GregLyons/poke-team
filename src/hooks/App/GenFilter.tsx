@@ -1,4 +1,4 @@
-import { GenNum } from "../../types-queries/helpers";
+import { GenNum } from "../../types-queries/entities"
 
 export type GenFilter = {
   gen: GenNum

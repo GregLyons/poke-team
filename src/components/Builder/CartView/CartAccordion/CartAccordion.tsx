@@ -6,14 +6,13 @@ import TargetEntityAccordion from "./TargetEntityAccordion";
 
 import './CartAccordion.css';
 import { CartAccordionClickHandlers } from "../CartView";
-import { Key, useMemo, useState } from "react";
+import { useMemo, } from "react";
 import BoxAccordion from "./BoxAccordion/BoxAccordion";
 import { Team } from "../../../../hooks/App/Team";
 
 type CartAccordionProps = {
   cart: Cart
   team: Team
-  dispatches: Dispatches
   filters: Filters
   clickHandlers: CartAccordionClickHandlers
 }
@@ -21,7 +20,6 @@ type CartAccordionProps = {
 const CartAccordion = ({
   cart,
   team,
-  dispatches,
   filters,
   clickHandlers
 }: CartAccordionProps) => {
@@ -41,7 +39,6 @@ const CartAccordion = ({
           team={team}
           clickHandlers={clickHandlers}
           parentEntityInCart={value}
-          dispatches={dispatches}
           filters={filters}
         />
       }
@@ -55,14 +52,13 @@ const CartAccordion = ({
         cart={cart}
         team={team}
         targetEntityInCart={cart[filters.genFilter.gen].customBoxes}
-        dispatches={dispatches}
         filters={filters}
         clickHandlers={clickHandlers}
       />
     };
 
     return [...parentEntityData, customBoxAccordionData];
-  }, [cart, team, filters, clickHandlers, dispatches, ]);
+  }, [cart, team, filters, clickHandlers, ]);
 
   return (
     <div className="cart-view-accordion__wrapper">

@@ -1,19 +1,9 @@
 import { HPTypeName } from "@pkmn/data";
 import { Team } from "../../../../hooks/App/Team";
-import { BaseStatName, DUMMY_POKEMON_ICON_DATUM, ivsToHiddenPower, toAbbreviatedBaseStatName, } from "../../../../types-queries/helpers";
 import { Dispatches, Filters } from "../../../App";
-import Slider from "../../../Reusables/Slider/Slider";
-import TextInput from "../../../Reusables/TextInput/TextInput";
-import ItemIcon from "../../../Icons/ItemIcon";
-import PokemonIcon from "../../../Icons/PokemonIcon";
-import TypeIcon from "../../../Icons/TypeIcon";
 import { MemberDetailsHandlers, ReferencePanelView } from "../TeamView";
-import StatGraph from "./MemberDetailsMain/StatBox/StatGraph";
-import CosmeticFormDropdown from "./MemberDetailsCosmetic/CosmeticFormDropdown";
 
 import './MemberDetails.css';
-import MoveSlot from "./MemberDetailsMain/MoveSlot";
-import MemberDetailBox from "./MemberDetailBox";
 import MemberDetailsExtra from "./MemberDetailsExtra/MemberDetailsExtra";
 import MemberDetailsMain from "./MemberDetailsMain/MemberDetailsMain";
 import MemberDetailsCosmetic from "./MemberDetailsCosmetic/MemberDetailsCosmetic";

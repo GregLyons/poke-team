@@ -1,8 +1,6 @@
 import { useRef, useState } from "react";
 import { Team, TeamAction, } from "../../../hooks/App/Team";
-import { MemberPokemon } from "../../../types-queries/Builder/MemberPokemon";
-import { PokemonIconDatum } from "../../../types-queries/helpers";
-import TeamMemberIcon from "./TeamMemberIcon";
+import { MemberPokemon } from "../../../types-queries/Member/MemberPokemon";
 
 type TeamMemberProps = {
   position: number

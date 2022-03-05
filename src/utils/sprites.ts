@@ -1,14 +1,11 @@
 import {
-  Sprites,
   Icons,
 } from '@pkmn/img';
-import { GenderName } from '../types-queries/Builder/MemberPokemon.js';
 import {
-  GenNum,
   ItemIconDatum,
   PokemonIconDatum,
-  TypeName,
 } from '../types-queries/helpers.js';
+import { GenderName } from '../types-queries/Member/helpers.js';
 
 // Get Pokemon sprites
 //#region 
@@ -40,7 +37,7 @@ export const getPokemonIcon = (pokemon: PokemonIconDatum, gender?: GenderName) =
 // #region
 
 export const getItemIcon = (item: ItemIconDatum) => {
-  return Icons.getItem(item.name);
+  return Icons.getItem(item.psID);
 }
 
 // #endregion

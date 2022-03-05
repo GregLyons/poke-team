@@ -1,6 +1,5 @@
 import { PokemonIconDatum } from "../../../../../../types-queries/helpers";
 import { getPokemonIcon } from "../../../../../../utils/sprites";
-import { ReferencePanelView, SavedPokemonClickHandlers } from "../../../TeamView";
 
 type PinnedBoxPokemonIconProps = {
   onPokemonSelect: (e: React.MouseEvent<HTMLElement, MouseEvent>, pokemonIconDatum: PokemonIconDatum) => void

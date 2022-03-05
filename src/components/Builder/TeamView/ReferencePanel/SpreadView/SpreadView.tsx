@@ -1,5 +1,5 @@
 import { spreadSummary } from "../../../../../types-queries/Builder/helpers";
-import { BaseStatName, StatTable, toAbbreviatedBaseStatName, toFormattedBaseStatName } from "../../../../../types-queries/helpers";
+import { BaseStatName, StatTable, toAbbreviatedBaseStatName, toFormattedBaseStatName } from "../../../../../types-queries/entities";
 import Slider from "../../../../Reusables/Slider/Slider";
 import { SpreadHandlers } from "../../TeamView";
 

@@ -1,7 +1,6 @@
 import { useMemo } from "react";
-import { Cart, ParentEntityInCart, TargetEntityClass } from "../../../../hooks/App/Cart";
+import { Cart, ParentEntityInCart, } from "../../../../hooks/App/Cart";
 import { Team } from "../../../../hooks/App/Team";
-import { PokemonIconDatum } from "../../../../types-queries/helpers";
 import { Dispatches, Filters } from "../../../App";
 import Accordion from "../../../Reusables/Accordion/Accordion";
 import { CartAccordionClickHandlers, } from "../CartView";
@@ -13,7 +12,6 @@ type TargetEntityAccordionProps = {
   cart: Cart
   team: Team
   parentEntityInCart: ParentEntityInCart,
-  dispatches: Dispatches,
   filters: Filters,
 
   clickHandlers: CartAccordionClickHandlers
@@ -23,7 +21,6 @@ const TargetEntityAccordion = ({
   cart,
   team,
   parentEntityInCart,
-  dispatches,
   filters,
 
   clickHandlers,
@@ -43,12 +40,11 @@ const TargetEntityAccordion = ({
           team={team}
           clickHandlers={clickHandlers}
           targetEntityInCart={targetEntityInCart}
-          dispatches={dispatches}
           filters={filters}
         />
       }
     });
-  }, [cart, team, filters, clickHandlers, dispatches, ]);
+  }, [cart, team, filters, clickHandlers, ]);
 
   return (
     <Accordion

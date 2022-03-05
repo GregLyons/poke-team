@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { useWindowSize } from "usehooks-ts";
 import { BGAction, BGManager, classWithBGShadow, toggleBGPulse } from "../../hooks/App/BGManager";
 import { useContainerSize } from "../../hooks/App/ContainerSize";
 import AnalyzerNavBar from "./AnalyzerNavBar";
@@ -40,7 +39,6 @@ const Analyzer = ({
         className="nav-bar__ref-container"
       >
         <AnalyzerNavBar
-          dispatchBGManager={dispatchBGManager}
           bgManager={bgManager}
         />
       </div>

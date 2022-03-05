@@ -4,10 +4,7 @@ import {
 import {
   Dex,
 } from "@pkmn/dex";
-import { TierFilter } from "../hooks/App/TierFilter";
-import {
-  GenNum
-} from "../types-queries/helpers";
+import { GenNum } from "../types-queries/entities";
 
 // Tier filtering
 // #region

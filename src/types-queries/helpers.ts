@@ -45,6 +45,9 @@ export interface MovePaginationInput extends PaginationInput {
 // #region
 
 export interface EdgeWithData {
+  node: {
+    name: string
+  }
   chance?: number
   stage?: number
   multiplier?: number
@@ -171,13 +174,13 @@ export const pokemonIconEdgeToPokemonIconDatum: (edge: PokemonIconEdge) => Pokem
 // #region
 
 export type ItemIconDatum = {
-  name: string
+  psID: string
   formattedName: string
 }
 
 export const itemIconEdgeToItemIconDatum: (edge: ItemIconEdge) => ItemIconDatum = (edge) => {
   return {
-    name: edge.node.name,
+    psID: edge.node.name,
     formattedName: edge.node.formattedName,
   };
 }

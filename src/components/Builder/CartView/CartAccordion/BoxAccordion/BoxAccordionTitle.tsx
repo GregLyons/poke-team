@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { toggleBGPulse } from "../../../../../hooks/App/BGManager";
 import { BoxInCart, Cart } from "../../../../../hooks/App/Cart";
 import { GenFilter } from "../../../../../hooks/App/GenFilter";
 import { Dispatches, } from "../../../../App";
@@ -11,7 +10,6 @@ type BoxAccordionTitleProps = {
   box: BoxInCart
   pinned: boolean
 
-  dispatches: Dispatches
   filters: {
     genFilter: GenFilter
   }
@@ -28,7 +26,6 @@ const BoxAccordionTitle = ({
   filters: {
     genFilter,
   },
-  dispatches,
   titleText,
 
   clickHandlers,

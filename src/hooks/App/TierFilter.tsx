@@ -1,4 +1,4 @@
-import { DoublesTier, DOUBLES_TIERS, isSinglesTier, SinglesTier, SINGLES_TIERS } from "../../utils/smogonLogic";
+import { DoublesTier, isSinglesTier, SinglesTier, } from "../../utils/smogonLogic";
 
 export type TierFilter = {
   format: 'singles' | 'doubles'

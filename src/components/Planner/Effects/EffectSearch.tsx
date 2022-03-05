@@ -15,13 +15,11 @@ import { GenFilter } from "../../../hooks/App/GenFilter";
 
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
-import SearchBar from '../../Reusables/SearchBar/SearchBar';
-import { ItemSearchQuery, ItemSearchVars } from '../../../types-queries/Planner/Item';
 import MainSearch from '../Searches/MainSearch';
-import { EffectClass, EFFECT_CLASS_MAP, EFFECT_TITLE_MAP } from '../../../types-queries/helpers';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
 import { listToggleValue } from '../helpers';
 import Button from '../../Reusables/Button/Button';
+import { EffectClass, EFFECT_CLASS_MAP, EFFECT_TITLE_MAP } from '../../../types-queries/entities';
 
 const listRender = ({ data, }: ListRenderArgs<EffectSearchQuery>) => {
   if (!data || !data.effects) return (<div>Data not found for the query 'effects'.</div>);
@@ -35,7 +33,7 @@ const listRender = ({ data, }: ListRenderArgs<EffectSearchQuery>) => {
           <>
             <EntitySearchEntry
               entityClass="Effect"
-              key={'effectEntry_' + effect.id}
+              key={'effectEntry_' + effect.name}
               name={effect.formattedName}
               linkName={effect.name}
               description={effect.description}

@@ -1,19 +1,12 @@
-import { TeamAction } from "../../../../../hooks/App/Team";
 import { PokemonIconDatum } from "../../../../../types-queries/helpers";
 import { getPokemonIcon } from "../../../../../utils/sprites";
 
 type BoxPokemonIconProps = {
-  dispatches: {
-    dispatchTeam: React.Dispatch<TeamAction>
-  }
   key: string
   pokemonIconDatum: PokemonIconDatum
 }
 
 const BoxPokemonIcon = ({
-  dispatches: {
-    dispatchTeam,
-  },
   key,
   pokemonIconDatum,
 }: BoxPokemonIconProps) => {

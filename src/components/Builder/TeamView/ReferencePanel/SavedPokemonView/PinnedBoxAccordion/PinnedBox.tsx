@@ -1,10 +1,8 @@
 import { useEffect, useRef } from "react";
-import { BoxInCart } from "../../../../../../hooks/App/Cart";
 import { validatePokemon, ValidationFailureReason } from "../../../../../../hooks/App/PokemonFilter";
-import { DUMMY_POKEMON_ICON_DATUM, PokemonIconDatum } from "../../../../../../types-queries/helpers";
+import { PokemonIconDatum } from "../../../../../../types-queries/helpers";
 import { Dispatches, Filters } from "../../../../../App";
-import BoxPokemonIcon from "../../../../CartView/CartAccordion/BoxAccordion/BoxPokemonIcon";
-import { ReferencePanelView, SavedPokemonClickHandlers } from "../../../TeamView";
+import { SavedPokemonClickHandlers } from "../../../TeamView";
 import PinnedBoxPokemonIcon from "./PinnedBoxPokemonIcon";
 
 type PinnedBoxProps = {
@@ -13,7 +11,6 @@ type PinnedBoxProps = {
     pokemon: PokemonIconDatum[]
   }
   clickHandlers: SavedPokemonClickHandlers
-  dispatches: Dispatches
   filters: Filters
   key: string
 }
@@ -21,7 +18,6 @@ type PinnedBoxProps = {
 const PinnedBox = ({
   box,
   clickHandlers,
-  dispatches,
   filters,
   key,
 }: PinnedBoxProps) => {

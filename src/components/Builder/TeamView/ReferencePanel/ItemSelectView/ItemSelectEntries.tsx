@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useEventListener } from "usehooks-ts";
-import { MemberItem, MemberItemQuery, MemberItemQueryResult } from "../../../../../types-queries/Builder/MemberItem";
+import { MemberItem, MemberItemQuery, MemberItemResult } from "../../../../../types-queries/Member/MemberItem";
 import { Filters } from "../../../../App";
 import { ItemSelectHandlers } from "../../TeamView";
 import ItemSelectEntry from "./ItemSelectEntry";
@@ -24,7 +24,7 @@ const ItemSelectEntries = ({
     // If not data, do nothing
     if (!data) return undefined;
 
-    return data.items.edges.map((memberItemEdge: { node: MemberItemQueryResult, }) => {
+    return data.items.edges.map((memberItemEdge: { node: MemberItemResult, }) => {
       return new MemberItem(memberItemEdge.node, filters.genFilter.gen);
     });
   }, [data, filters.genFilter, ]);

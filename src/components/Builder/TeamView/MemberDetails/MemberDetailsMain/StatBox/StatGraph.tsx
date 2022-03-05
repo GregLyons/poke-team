@@ -1,5 +1,5 @@
-import { MemberNature } from "../../../../../../types-queries/Builder/MemberNature";
-import { BaseStatName, GenNum, StatTable, toAbbreviatedBaseStatName } from "../../../../../../types-queries/helpers";
+import { BaseStatName, GenNum, StatTable, toAbbreviatedBaseStatName } from "../../../../../../types-queries/entities";
+import { MemberNature } from "../../../../../../types-queries/Member/MemberNature";
 
 type StatGraphProps = {
   gen: GenNum

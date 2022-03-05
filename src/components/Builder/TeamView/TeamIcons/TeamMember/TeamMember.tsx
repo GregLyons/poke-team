@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { MemberPokemon, MemberPokemonFromIconQuery } from "../../../../../types-queries/Builder/MemberPokemon";
 import { PokemonIconDatum } from "../../../../../types-queries/helpers";
+import { MemberPokemon, MemberPokemonQuery } from "../../../../../types-queries/Member/MemberPokemon";
 import { Dispatches, Filters } from "../../../../App";
 import { TeamMembersClickHandlers } from "../../TeamView";
 import AddIcon from "./AddIcon";
@@ -10,7 +10,7 @@ import TeamMemberIcon from "./TeamMemberIcon";
 type TeamMemberProps = {
   selected: boolean
   clickHandlers: TeamMembersClickHandlers
-  data?: MemberPokemonFromIconQuery
+  data?: MemberPokemonQuery
   dispatches: Dispatches
   filters: Filters
   icon: PokemonIconDatum | null

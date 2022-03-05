@@ -1,5 +1,3 @@
-import { DefaultEVSpread, DefaultIVSpread, MemberPokemon } from "../../../../../../types-queries/Builder/MemberPokemon";
-import { GenNum, ivsToHiddenPower, toAbbreviatedBaseStatName } from "../../../../../../types-queries/helpers";
 import TypeIcon from "../../../../../Icons/TypeIcon";
 import { MemberDetailsHandlers, ReferencePanelView } from "../../../TeamView";
 import MemberDetailInnerBox from "../../MemberDetailInnerBox";
@@ -7,6 +5,9 @@ import SpreadTable from "./SpreadTable";
 import StatGraph from "./StatGraph";
 
 import './StatBox.css';
+import { MemberPokemon } from "../../../../../../types-queries/Member/MemberPokemon";
+import { GenNum, ivsToHiddenPower, toAbbreviatedBaseStatName } from "../../../../../../types-queries/entities";
+import { DEFAULT_DV_SPREAD, DEFAULT_EV_SPREAD, DEFAULT_EV_SPREAD_GENS12, DEFAULT_IV_SPREAD } from "../../../../../../types-queries/Member/helpers";
 
 type StatBoxProps = {
   member: MemberPokemon | null
@@ -61,7 +62,7 @@ const StatBox = ({
       forClass="evs"
       header="EVs"
       content={<SpreadTable
-        statTable={member?.evs || DefaultEVSpread}
+        statTable={member?.evs || (gen > 2 ? DEFAULT_EV_SPREAD : DEFAULT_EV_SPREAD_GENS12)}
         tableFor={'ev'}
       />}
 
@@ -78,7 +79,7 @@ const StatBox = ({
       forClass="ivs"
       header={gen < 3 ? 'DVs' : 'IVs'}
       content={<SpreadTable
-        statTable={member?.ivs || DefaultIVSpread}
+        statTable={member?.ivs || (gen > 2 ? DEFAULT_IV_SPREAD : DEFAULT_DV_SPREAD)}
         tableFor={'iv'}
       />}
 
@@ -96,11 +97,11 @@ const StatBox = ({
       >
         <div className="member-details__hidden-power-type">
           <TypeIcon
-            typeName={ivsToHiddenPower(member?.ivs || DefaultIVSpread, gen).type}
+            typeName={ivsToHiddenPower(member?.ivs || (gen > 2 ? DEFAULT_IV_SPREAD : DEFAULT_DV_SPREAD), gen).type}
           />
         </div>
         <div className="member-details__hidden-power-value">
-          {ivsToHiddenPower(member?.ivs || DefaultIVSpread, gen).power}
+          {ivsToHiddenPower(member?.ivs || (gen > 2 ? DEFAULT_IV_SPREAD : DEFAULT_DV_SPREAD), gen).power}
         </div>
       </div>}
 
@@ -124,7 +125,7 @@ const StatBox = ({
             nature={member?.nature}
             evs={member?.evs}
             ivs={member?.ivs}
-            isShedinja={member?.name === 'shedinja'}
+            isShedinja={member?.psID === 'shedinja'}
           />
         : <></>
       }

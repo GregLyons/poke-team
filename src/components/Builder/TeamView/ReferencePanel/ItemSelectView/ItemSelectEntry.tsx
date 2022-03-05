@@ -1,8 +1,5 @@
-import { MemberItem } from "../../../../../types-queries/Builder/MemberItem";
-import { toTypeName } from "../../../../../types-queries/helpers";
-import { ENUMCASE_TO_TITLECASE } from "../../../../../utils/constants";
+import { MemberItem } from "../../../../../types-queries/Member/MemberItem";
 import ItemIcon from "../../../../Icons/ItemIcon";
-import TypeIcon from "../../../../Icons/TypeIcon";
 import { ItemSelectHandlers } from "../../TeamView";
 
 type ItemSelectEntryProps = {

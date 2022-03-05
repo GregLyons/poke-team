@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, } from "react";
 import { Cart, TargetEntityInCart } from "../../../../../hooks/App/Cart";
 import { Dispatches, Filters } from "../../../../App";
 import Accordion from "../../../../Reusables/Accordion/Accordion";
@@ -6,7 +6,6 @@ import Box from "./Box";
 import BoxAccordionTitle from "./BoxAccordionTitle";
 
 import './BoxAccordion.css';
-import { PokemonIconDatum } from "../../../../../types-queries/helpers";
 import { CartAccordionClickHandlers } from "../../CartView";
 import { Team } from "../../../../../hooks/App/Team";
 
@@ -14,7 +13,6 @@ type BoxAccordionProps = {
   cart: Cart
   team: Team
   targetEntityInCart: TargetEntityInCart,
-  dispatches: Dispatches,
   filters: Filters,
 
   clickHandlers: CartAccordionClickHandlers
@@ -24,7 +22,6 @@ const BoxAccordion = ({
   cart,
   team,
   targetEntityInCart,
-  dispatches,
   filters,
 
   clickHandlers,
@@ -45,18 +42,16 @@ const BoxAccordion = ({
           
           clickHandlers={clickHandlers}
           filters={filters}
-          dispatches={dispatches}
           titleText={note}
         />,
         content: <Box
           box={box}
-          dispatches={dispatches}
           filters={filters}
           key={note}
         />
       };
     });
-  }, [cart, team, filters, clickHandlers, dispatches, targetEntityInCart, ]);
+  }, [cart, team, filters, clickHandlers, targetEntityInCart, ]);
 
   return (
     <Accordion

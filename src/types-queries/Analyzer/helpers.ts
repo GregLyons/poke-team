@@ -1,4 +1,5 @@
-import { GenNum, TypeName } from "../helpers";
+import { GenNum } from "../entities";
+import { TypeName } from "../helpers";
 
 // Keys are psIDs of MemberPokemon, values are subsets of psIDs of the MemberPokemon's Ability, Item, Moves, and Types (call them 'entityPSIDs')
 export type MemberPSIDObject = {

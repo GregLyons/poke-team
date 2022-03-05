@@ -42,7 +42,6 @@ import {
 import {
   NUMBER_OF_GENS,
 } from '../../../utils/constants';
-import { GenNum } from '../../../types-queries/helpers';
 import {
   listRenderAbilityEffect,
   listRenderAbilityFieldState,
@@ -55,13 +54,8 @@ import {
 import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
-import { TeamAction } from '../../../hooks/App/Team';
-import { CartAction } from '../../../hooks/App/Cart';
-import { GenFilter, removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
-import { PokemonFilter } from '../../../hooks/App/PokemonFilter';
+import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
-import { TierFilter } from '../../../hooks/App/TierFilter';
-import { BGAction } from '../../../hooks/App/BGManager';
 import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 import { Dispatches, Filters } from '../../App';
 

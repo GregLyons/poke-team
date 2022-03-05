@@ -15,7 +15,6 @@ import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { Dispatches, Filters } from '../../App';
-import SearchBar from '../../Reusables/SearchBar/SearchBar';
 import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Searches';
 import MainSearch from '../Searches/MainSearch';
 
@@ -31,7 +30,7 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeSear
           <>
             <EntitySearchEntry
               entityClass="Type"
-              key={'typeEntry_' + type.id}
+              key={'typeEntry_' + type.name}
               name={type.formattedName}
               linkName={type.name}
               description={type.description}

@@ -1,6 +1,4 @@
 import { SetStateAction, useEffect, useState } from "react";
-import { Filters } from "../../components/App";
-import { PaginationInput } from "../../types-queries/helpers";
 import { GenFilter, removedFromBDSP, removedFromSwSh } from "../App/GenFilter";
 
 export function useFilterConnectedSearchVars<SearchVars>(defaultSearchVars: SearchVars, genFilter: GenFilter,): [SearchVars, React.Dispatch<SetStateAction<SearchVars>>] {

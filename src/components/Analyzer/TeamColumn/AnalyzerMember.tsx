@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { MemberPSIDObject } from "../../../types-queries/Analyzer/helpers";
-import { MemberPokemon } from "../../../types-queries/Builder/MemberPokemon";
 import { DUMMY_POKEMON_ICON_DATUM } from "../../../types-queries/helpers";
+import { MemberPokemon } from "../../../types-queries/Member/MemberPokemon";
 import ItemIcon from "../../Icons/ItemIcon";
 import PokemonIcon from "../../Icons/PokemonIcon";
 import TypeIcon from "../../Icons/TypeIcon";
@@ -49,7 +49,7 @@ const AnalyzerMember = ({
         `}
       >
         {member?.item && <ItemIcon
-          itemIconDatum={{ name: member.item.psID, formattedName: member.item.formattedName}}
+          itemIconDatum={{ psID: member.item.psID, formattedName: member.item.formattedName}}
         />}
       </div>
       <div

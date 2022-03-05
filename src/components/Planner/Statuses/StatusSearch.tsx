@@ -16,7 +16,6 @@ import { GenFilter } from "../../../hooks/App/GenFilter";
 
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 
-import SearchBar from '../../Reusables/SearchBar/SearchBar';
 import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
 import MainSearch from '../Searches/MainSearch';
 
@@ -32,7 +31,7 @@ const listRender = ({ data, }: ListRenderArgs<StatusSearchQuery>) => {
           <>
             <EntitySearchEntry
               entityClass="Status"
-              key={'statusEntry_' + status.id}
+              key={'statusEntry_' + status.name}
               name={status.formattedName}
               linkName={status.name}
               description={status.description}

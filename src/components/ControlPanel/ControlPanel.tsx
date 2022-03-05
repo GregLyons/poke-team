@@ -4,11 +4,7 @@ import GenFilterForm from "./GenFilterForm/GenFilterForm";
 import PokemonTeam from "./PokemonTeam/PokemonTeam";
 import TierFilterForm from "./TierFilterForm/TierFilterForm";
 import PokemonFilterForm from './PokemonFilterForm/PokemonFilterForm';
-import { TierFilter, TierFilterAction } from '../../hooks/App/TierFilter';
-import { PokemonFilter, PokemonFilterAction } from '../../hooks/App/PokemonFilter';
-import { GenFilter, GenFilterAction } from '../../hooks/App/GenFilter';
-import { Team, TeamAction } from '../../hooks/App/Team';
-import { CartAction } from '../../hooks/App/Cart';
+import { Team, } from '../../hooks/App/Team';
 import { BGManager, BGAction, classWithBGShadow, classWithBG } from '../../hooks/App/BGManager';
 import Import from './ImportExport/Import';
 import { Dispatches, Filters } from '../App';
@@ -18,7 +14,6 @@ type ControlPanelProps = {
   filters: Filters
   team: Team
 
-  dispatchBGManager: React.Dispatch<BGAction>
   bgManager: BGManager
 
   headerRef: React.RefObject<HTMLDivElement>
@@ -29,7 +24,6 @@ const ControlPanel = ({
   filters,
   team,
 
-  dispatchBGManager,
   bgManager,
 
   headerRef,

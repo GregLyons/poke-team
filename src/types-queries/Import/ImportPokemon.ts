@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import { PokemonSet } from "@pkmn/sets";
 import { compareNumbers } from "../../utils/helpers";
 import { GenNum } from "../entities";
-import { CapsTypeName, PokemonIconDatum, PokemonIconNode, toTypeName, TypeName } from "../helpers";
+import { PokemonIconDatum, PokemonIconNode, toTypeName, TypeName } from "../helpers";
 import { AbilitySlot, NatureName } from "../Member/helpers";
 import { MemberAbility, MemberAbilityResult } from "../Member/MemberAbility";
 import { MemberItem, MemberItemResult } from "../Member/MemberItem";

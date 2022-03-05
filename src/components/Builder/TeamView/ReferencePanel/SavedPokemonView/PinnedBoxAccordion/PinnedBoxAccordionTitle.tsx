@@ -1,5 +1,5 @@
 import Button from "../../../../../Reusables/Button/Button";
-import { ReferencePanelHandlers, SavedPokemonClickHandlers } from "../../../TeamView";
+import { SavedPokemonClickHandlers } from "../../../TeamView";
 
 type PinnedBoxAccordionTitleProps = {
   titleText: string

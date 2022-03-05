@@ -1,5 +1,5 @@
 import { useDelayedQuery, useGenConnectedSearchVars, } from "../../../../../hooks/Searches";
-import { MemberNatureQuery, MemberNatureSearchVars, MEMBER_NATURE_QUERY } from "../../../../../types-queries/Builder/MemberNature";
+import { MemberNatureQuery, MemberNatureVars, MEMBER_NATURE_QUERY } from "../../../../../types-queries/Member/MemberNature";
 import { Filters } from "../../../../App";
 import { NatureSelectHandlers, } from "../../TeamView";
 import NatureSelectEntries from "./NatureSelectEntries";
@@ -15,7 +15,7 @@ const NatureSelectView = ({
   handlers: clickHandlers,
   filters,
 }: NatureSelectViewProps) => {
-  const { queryVars, searchBar, focusedOnInput, } = useGenConnectedSearchVars<MemberNatureSearchVars>({
+  const { queryVars, searchBar, focusedOnInput, } = useGenConnectedSearchVars<MemberNatureVars>({
     defaultSearchVars: {
       gen: filters.genFilter.gen,
       contains: '',
@@ -28,7 +28,7 @@ const NatureSelectView = ({
     },
   });
 
-  const { data, loading, error } = useDelayedQuery<MemberNatureQuery, MemberNatureSearchVars>({
+  const { data, loading, error } = useDelayedQuery<MemberNatureQuery, MemberNatureVars>({
     query: MEMBER_NATURE_QUERY,
     queryVars,
     // Shorten the delay since users might be rapidly entering searches

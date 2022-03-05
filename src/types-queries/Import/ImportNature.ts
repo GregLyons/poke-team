@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { GenNum } from "../helpers";
+import { GenNum } from "../entities";
 import { MemberNatureResult } from "../Member/MemberNature";
 import { ImportVars } from "./helpers";
 

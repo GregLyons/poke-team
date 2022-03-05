@@ -4,13 +4,12 @@ import { TierFilter, TierFilterAction } from "../../../hooks/App/TierFilter";
 import {
   DoublesTier,
   DOUBLES_TIERS,
-  isSinglesTier,
   SinglesTier,
   SINGLES_TIERS,
 } from "../../../utils/smogonLogic";
 import DropdownMenu from "../../Reusables/DropdownMenu/DropdownMenu";
-import { GenFilter, GenFilterAction } from '../../../hooks/App/GenFilter';
-import { useEffect, useMemo, useState } from 'react';
+import { GenFilter, } from '../../../hooks/App/GenFilter';
+import { useEffect, useMemo, } from 'react';
 import Button from '../../Reusables/Button/Button';
 import { BGManager } from '../../../hooks/App/BGManager';
 

@@ -1,5 +1,5 @@
-import { MemberPokemon } from "../../../../../types-queries/Builder/MemberPokemon";
-import { GenNum } from "../../../../../types-queries/helpers";
+import { GenNum } from "../../../../../types-queries/entities";
+import { MemberPokemon } from "../../../../../types-queries/Member/MemberPokemon";
 import Slider from "../../../../Reusables/Slider/Slider";
 import TextInput from "../../../../Reusables/TextInput/TextInput";
 import { MemberDetailsHandlers } from "../../TeamView";

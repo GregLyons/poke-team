@@ -1,7 +1,7 @@
 // Entity classes
 // #region
 
-import { GenNum } from "../types-queries/helpers";
+import { GenNum } from "../types-queries/entities";
 
 export type EntityClass = 'Ability' | 'Effect' | 'Field state' | 'Item' | 'Move' | 'Stat' | 'Status' | 'Type' | 'Usage method';
 

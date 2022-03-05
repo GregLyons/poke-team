@@ -1,4 +1,5 @@
-import { GenNum, IntroductionEdge, introductionEdgeToGen, StatTable, TypeName } from "../helpers";
+import { GenNum, StatTable } from "../entities";
+import { IntroductionEdge, introductionEdgeToGen, TypeName } from "../helpers";
 
 // Enum types
 // #region

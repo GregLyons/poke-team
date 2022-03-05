@@ -1,5 +1,4 @@
-import { BaseStatName, StatTable, toAbbreviatedBaseStatName } from "../../../../../../types-queries/helpers";
-
+import { BaseStatName, StatTable, toAbbreviatedBaseStatName } from "../../../../../../types-queries/entities";
 
 type SpreadTableProps = {
   statTable: StatTable

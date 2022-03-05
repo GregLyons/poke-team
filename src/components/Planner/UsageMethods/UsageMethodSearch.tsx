@@ -16,7 +16,6 @@ import { GenFilter } from "../../../hooks/App/GenFilter";
 
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 
-import SearchBar from '../../Reusables/SearchBar/SearchBar';
 import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
 import MainSearch from '../Searches/MainSearch';
 
@@ -32,7 +31,7 @@ const listRender = ({ data, }: ListRenderArgs<UsageMethodSearchQuery>) => {
           <>
             <EntitySearchEntry
               entityClass="Usage method"
-              key={'usageMethodEntry_' + usageMethod.id}
+              key={'usageMethodEntry_' + usageMethod.name}
               name={usageMethod.formattedName}
               linkName={usageMethod.name}
               description={usageMethod.description}

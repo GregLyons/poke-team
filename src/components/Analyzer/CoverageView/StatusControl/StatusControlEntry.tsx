@@ -1,9 +1,8 @@
-import { useCallback, useMemo } from "react";
-import { StatusControlSummary, TypeCoverageSummary } from "../../../../types-queries/Analyzer/Coverage";
+import { useCallback, } from "react";
+import { StatusControlSummary, } from "../../../../types-queries/Analyzer/Coverage";
 import { MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
-import { StatusName, STATUS_MAP, TypeName } from "../../../../types-queries/helpers";
+import { StatusName, STATUS_MAP } from "../../../../types-queries/entities";
 import StatusIcon from "../../../Icons/StatusIcon";
-import TypeIcon from "../../../Icons/TypeIcon";
 
 type StatusControlEntryProps = {
   statusName: StatusName
@@ -38,7 +37,10 @@ const StatusControlEntry = ({
   }, []);
 
   return (
-  <div className="status-control__entry">
+  <div
+    className="status-control__entry"
+    onMouseLeave={onMouseLeave}
+  >
     <div className="status-control__icon">
       <StatusIcon
         statusIconDatum={{

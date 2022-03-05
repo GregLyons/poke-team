@@ -2,7 +2,8 @@ import { useState } from "react";
 import { BGManager, classWithBGShadow } from "../../../hooks/App/BGManager";
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { BASE_STAT_NAMES, PokemonFilter, PokemonFilterAction, TYPE_NAMES } from "../../../hooks/App/PokemonFilter";
-import { BaseStatName, toAbbreviatedBaseStatName, toCapsTypeName, toFormattedBaseStatName, toFormattedTypeName, TypeName } from "../../../types-queries/helpers";
+import { BaseStatName, toAbbreviatedBaseStatName, toFormattedBaseStatName } from "../../../types-queries/entities";
+import { toCapsTypeName, toFormattedTypeName, TypeName } from "../../../types-queries/helpers";
 import Button from "../../Reusables/Button/Button";
 import DoubleSlider from "../../Reusables/DoubleSlider/DoubleSlider";
 import DropdownMenu from "../../Reusables/DropdownMenu/DropdownMenu";
@@ -24,8 +25,6 @@ const PokemonFilterForm = ({
 }: PokemonFilterFormProps) => {
   // Types
   // #region
-
-  const [justClicked, setJustClicked] = useState(false);
 
   const handleTypeSelect = (type: TypeName) => {
     dispatchPokemonFilter({

@@ -1,9 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Team } from "../../../hooks/App/Team";
-import { useDelayedQuery } from "../../../hooks/Searches";
 import { AbilityCoverageQuery, ABILITY_COVERAGE_QUERY, CoverageSearchVars, ItemCoverageQuery, ITEM_COVERAGE_QUERY, MoveCoverageQuery, MOVE_COVERAGE_QUERY } from "../../../types-queries/Analyzer/Coverage";
 import { ABILITY_MATCHUP_QUERY, ITEM_MATCHUP_QUERY, MatchupSearchVars, MatchupSearchVarsType, AbilityMatchupQuery, ItemMatchupQuery, TypingMatchupQuery, TYPING_MATCHUP_QUERY } from "../../../types-queries/Analyzer/Matchups";
-import { MemberPokemon } from "../../../types-queries/Builder/MemberPokemon";
 import { CapsTypeName, toCapsTypeName } from "../../../types-queries/helpers";
 import { Filters } from "../../App";
 import FieldControl from "./FieldControl/FieldControl";
@@ -15,7 +13,7 @@ import TypeMatchup from "./TypeMatchup/TypeMatchup";
 import './CoverageView.css';
 import { useQuery } from "@apollo/client";
 import { MemberAndEntityPSIDs, MemberPSIDObject } from "../../../types-queries/Analyzer/helpers";
-import { useWindowSize } from "usehooks-ts";
+import { MemberPokemon } from "../../../types-queries/Member/MemberPokemon";
 
 type CoverageViewProps = {
   filters: Filters

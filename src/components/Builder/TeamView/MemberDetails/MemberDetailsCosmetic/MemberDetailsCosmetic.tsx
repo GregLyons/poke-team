@@ -1,4 +1,4 @@
-import { MemberPokemon } from "../../../../../types-queries/Builder/MemberPokemon";
+import { MemberPokemon } from "../../../../../types-queries/Member/MemberPokemon";
 import PokemonIcon from "../../../../Icons/PokemonIcon";
 import { MemberDetailsHandlers } from "../../TeamView";
 import MemberDetailBox from "../MemberDetailBox";

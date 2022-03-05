@@ -104,14 +104,12 @@ function App() {
             headerRef={controlPanelRef}
             navBarRef={navBarRef}
             bgManager={bgManager}
-            dispatchBGManager={dispatchBGManager}
           />
           <ControlPanel
             dispatches={dispatches}
             filters={filters}
             headerRef={controlPanelRef}
             bgManager={bgManager}
-            dispatchBGManager={dispatchBGManager}
             team={team}
           />
         </header>
@@ -129,9 +127,6 @@ function App() {
             <Route
               index
               element={<AnalyzerHome
-                dispatches={dispatches}
-                filters={filters}
-                bgManager={bgManager}
               />}
             />
             <Route
@@ -154,17 +149,11 @@ function App() {
             <Route
               index
               element={<BuilderHome
-                cart={cart}
-                team={team}
-                dispatches={dispatches}
-                filters={filters}
-                bgManager={bgManager}
               />}
             />
             <Route
               path='cart'
               element={<CartView
-                bgManager={bgManager}
                 cart={cart}
                 team={team}
                 dispatches={dispatches}
@@ -183,7 +172,6 @@ function App() {
             <Route
               path='quickSearch'
               element={<QuickSearch
-                bgManager={bgManager}
                 dispatches={dispatches}
                 filters={filters}
                 team={team}

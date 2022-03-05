@@ -2,7 +2,7 @@ import {
   Outlet,
 } from 'react-router-dom';
 
-import { listToggleValue, rangeSelect, sliderSelect, } from '../helpers';
+import { listToggleValue, rangeSelect, } from '../helpers';
 import {
   FieldStateSearchQuery,
   FieldStateSearchResult,
@@ -16,15 +16,12 @@ import { GenFilter } from "../../../hooks/App/GenFilter";
 
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { ENUMCASE_TO_TITLECASE } from '../../../utils/constants';
-import { Dispatch, SetStateAction } from 'react';
-import SearchBar from '../../Reusables/SearchBar/SearchBar';
-import { FieldStateClass, FieldStateDamagePercent, FieldStateTargetClass, FIELDSTATE_CLASS_MAP, FIELDSTATE_TARGETCLASS_MAP } from '../../../types-queries/helpers';
 import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
 import MainSearch from '../Searches/MainSearch';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
 import Button from '../../Reusables/Button/Button';
 import DoubleSlider from '../../Reusables/DoubleSlider/DoubleSlider';
-import Slider from '../../Reusables/Slider/Slider';
+import { FieldStateClass, FieldStateTargetClass, FIELDSTATE_CLASS_MAP, FIELDSTATE_TARGETCLASS_MAP } from '../../../types-queries/entities';
 
 const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
   if (!data || !data.fieldStates) return (<div>Data not found for the query 'fieldStates'.</div>);
@@ -53,7 +50,7 @@ const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
           <>
             <EntitySearchEntry
               entityClass="Field state"
-              key={'fieldStateEntry_' + fieldState.id}
+              key={'fieldStateEntry_' + fieldState.name}
               name={fieldState.formattedName}
               linkName={fieldState.name}
               data={fieldStateData}

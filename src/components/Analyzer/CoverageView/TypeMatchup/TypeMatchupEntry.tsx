@@ -9,7 +9,6 @@ import { TypeSummary } from "./TypeMatchup";
 type TypeMatchupEntryProps = {
   typeName: TypeName
   summary: TypeSummary
-  damagingMoveCount: number
   
   onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
@@ -18,7 +17,6 @@ type TypeMatchupEntryProps = {
 const TypeMatchupEntry = ({
   typeName,
   summary,
-  damagingMoveCount,
 
   onMouseOver,
   onMouseLeave,

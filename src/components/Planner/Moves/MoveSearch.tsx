@@ -19,14 +19,14 @@ import {
 } from '../../../utils/constants';
 import { listToggleValue, rangeSelect } from '../helpers';
 import { Dispatches, Filters } from '../../App';
-import { CapsTypeName, MoveCategory, MoveTargetClass, MOVE_CATEGORY_MAP, MOVE_TARGETCLASS_MAP, MOVE_TYPE_MAP, toCapsTypeName, toFormattedTypeName, TypeName } from '../../../types-queries/helpers';
+import { CapsTypeName, toCapsTypeName, } from '../../../types-queries/helpers';
 import { TYPE_NAMES } from '../../../hooks/App/PokemonFilter';
-import SearchBar from '../../Reusables/SearchBar/SearchBar';
 import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Searches';
 import MainSearch from '../Searches/MainSearch';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
 import DoubleSlider from '../../Reusables/DoubleSlider/DoubleSlider';
 import Button from '../../Reusables/Button/Button';
+import { MoveCategory, MoveTargetClass, MOVE_CATEGORY_MAP, MOVE_TARGETCLASS_MAP, MOVE_TYPE_MAP } from '../../../types-queries/entities';
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<MoveSearchQuery>) => {
   if (!data || !data.moves) return (<div>Data not found for the query 'moves'.</div>);
@@ -40,7 +40,7 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<MoveSear
           <>
             <EntitySearchEntry
               entityClass="Move"
-              key={'moveEntry_' + move.id}
+              key={'moveEntry_' + move.name}
               name={move.formattedName}
               linkName={move.name}
               description={move.description}

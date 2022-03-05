@@ -1,4 +1,4 @@
-import { BaseStatName, PokemonIconDatum } from "../../../types-queries/helpers";
+import { PokemonIconDatum } from "../../../types-queries/helpers";
 import { DoublesTier, SinglesTier } from "../../../utils/smogonLogic";
 import Button from "../../Reusables/Button/Button";
 import PokemonIcon from "../../Icons/PokemonIcon";

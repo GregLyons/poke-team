@@ -1,7 +1,6 @@
-import { MemberPokemon } from "../../../../../types-queries/Builder/MemberPokemon";
-import { iconEdgeToIconDatum } from "../../../../../types-queries/helpers";
 import DropdownMenu from "../../../../Reusables/DropdownMenu/DropdownMenu";
 import PokemonIcon from "../../../../Icons/PokemonIcon";
+import { MemberPokemon } from "../../../../../types-queries/Member/MemberPokemon";
 
 type CosmeticFormDropdownProps = {
   member: MemberPokemon

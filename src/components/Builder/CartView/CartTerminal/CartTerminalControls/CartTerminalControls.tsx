@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { Dispatches, Filters } from '../../../../App';
 import { CartTerminalControlClickHandlers } from '../CartTerminal';
 import './CartTerminalControls.css';
 

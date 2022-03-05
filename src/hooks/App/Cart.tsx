@@ -1,5 +1,6 @@
-import { equateTwoPokemonIconData, GenNum, ItemIconDatum, PokemonIconDatum, sortPokemonIconData, } from "../../types-queries/helpers";
-import { EntityClass, NUMBER_OF_GENS } from "../../utils/constants";
+import { GenNum } from "../../types-queries/entities";
+import { equateTwoPokemonIconData, ItemIconDatum, PokemonIconDatum, sortPokemonIconData, } from "../../types-queries/helpers";
+import { EntityClass, } from "../../utils/constants";
 import { binaryIncludes, compareStrings, removeDuplicatesFromSortedArray } from "../../utils/helpers";
 
 // Cart setup

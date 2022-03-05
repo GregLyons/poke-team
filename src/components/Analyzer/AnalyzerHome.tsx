@@ -1,16 +1,10 @@
-import { BGManager, classWithBG, classWithBGShadow } from '../../hooks/App/BGManager';
+import { BGManager, } from '../../hooks/App/BGManager';
 import { Dispatches, Filters } from '../App';
 
 type AnalyzerHomeProps = {
-  dispatches: Dispatches
-  filters: Filters
-  bgManager: BGManager
 }
 
 const AnalyzerHome = ({
-  dispatches,
-  filters,
-  bgManager,
 }: AnalyzerHomeProps) => {
 
   return (

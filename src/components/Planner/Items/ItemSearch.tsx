@@ -19,11 +19,10 @@ import {
 import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons, } from '../../../hooks/Searches';
 import { listToggleValue } from '../helpers';
 import { Dispatches, Filters } from '../../App';
-import SearchBar from '../../Reusables/SearchBar/SearchBar';
-import { ItemClass, ITEM_CLASS_MAP } from '../../../types-queries/helpers';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
 import Button from '../../Reusables/Button/Button';
 import MainSearch from '../Searches/MainSearch';
+import { ItemClass, ITEM_CLASS_MAP } from '../../../types-queries/entities';
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<ItemSearchQuery>) => {
   if (!data || !data.items) return (<div>Data not found for the query 'items'.</div>);
@@ -37,7 +36,7 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<ItemSear
           <>
             <EntitySearchEntry
               entityClass="Item"
-              key={'itemEntry_' + item.id}
+              key={'itemEntry_' + item.name}
               name={item.formattedName}
               linkName={item.name}
               data={[

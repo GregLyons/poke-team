@@ -1,9 +1,7 @@
 import { useMemo } from "react";
-import { Team } from "../../../../hooks/App/Team";
-import { computeMemberTypeCoverage, computeTypeCoverage, countDamagingMoves, INITIAL_TYPECOVERAGE_SUMMARY, MoveCoverageQuery, TypeCoverageSummary } from "../../../../types-queries/Analyzer/Coverage";
-import { INITIAL_COVERAGEDATUM, MemberAndEntityPSIDs, MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
+import { computeMemberTypeCoverage, countDamagingMoves, INITIAL_TYPECOVERAGE_SUMMARY, MoveCoverageQuery, TypeCoverageSummary } from "../../../../types-queries/Analyzer/Coverage";
+import { MemberAndEntityPSIDs, MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
 import { AbilityMatchupQuery, computeTypeMatchups, INITIAL_TYPEMATCHUP_SUMMARY, ItemMatchupQuery, TypeMatchupSummary, TypingMatchupQuery, } from "../../../../types-queries/Analyzer/Matchups";
-import { MemberPokemon } from "../../../../types-queries/Builder/MemberPokemon";
 import { TypeName, TYPENAMES } from "../../../../types-queries/helpers";
 import { Filters } from "../../../App";
 
@@ -73,10 +71,6 @@ const TypeMatchup = ({
     return typeSummaryMap;
   }, [filters, abilityData, itemData, typingData, moveData, memberAndEntityPSIDs, ]);
 
-  const damagingMoveCount = useMemo(() => {
-    return countDamagingMoves(moveData.movesByPSID);
-  }, [moveData])
-
   return (
     <div
       className="type-matchup__wrapper"
@@ -121,7 +115,6 @@ const TypeMatchup = ({
             key={`type_matchup_${typeName}`}
             typeName={typeName}
             summary={summary}
-            damagingMoveCount={damagingMoveCount}
 
             onMouseOver={onMouseOver}
             onMouseLeave={onMouseLeave}

@@ -16,7 +16,6 @@ import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons, } from '../../../hooks/Searches';
 import { Dispatches, Filters } from '../../App';
-import SearchBar from '../../Reusables/SearchBar/SearchBar';
 import MainSearch from '../Searches/MainSearch';
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<AbilitySearchQuery>) => {
@@ -31,7 +30,7 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<AbilityS
           <>
             <EntitySearchEntry
               entityClass="Ability"
-              key={'abilityEntry_' + ability.id}
+              key={'abilityEntry_' + ability.name}
               name={ability.formattedName}
               linkName={ability.name}
               description={ability.description}

@@ -1,10 +1,8 @@
-import { useQuery } from "@apollo/client";
 import { useState } from "react";
 import { removedFromBDSP, removedFromSwSh } from "../../../../../hooks/App/GenFilter";
-import { Team } from "../../../../../hooks/App/Team";
 import { useDelayedQuery, useRemovalConnectedSearchVars } from "../../../../../hooks/Searches";
-import { MemberMoveQuery, MemberMoveSearchVars, MEMBER_MOVESET_QUERY } from "../../../../../types-queries/Builder/MemberMove";
 import { MoveColumnName, MovePaginationInput } from "../../../../../types-queries/helpers";
+import { MemberMoveQuery, MemberMoveVars, MEMBER_MOVESET_QUERY } from "../../../../../types-queries/Member/MemberMove";
 import { Filters } from "../../../../App";
 import SortSwitch from "../../../../Reusables/SortSwitch/SortSwitch";
 import { MoveSelectHandlers, } from "../../TeamView";
@@ -28,7 +26,7 @@ const MoveSelectView = ({
     sortBy: 'ASC',
   });
 
-  const { queryVars, searchBar, focusedOnInput, } = useRemovalConnectedSearchVars<MemberMoveSearchVars>({
+  const { queryVars, searchBar, focusedOnInput, } = useRemovalConnectedSearchVars<MemberMoveVars>({
     defaultSearchVars: {
       gen: filters.genFilter.gen,
       psID,
@@ -44,7 +42,7 @@ const MoveSelectView = ({
     },
   });
 
-  const { data, loading, error } = useDelayedQuery<MemberMoveQuery, MemberMoveSearchVars>({
+  const { data, loading, error } = useDelayedQuery<MemberMoveQuery, MemberMoveVars>({
     query: MEMBER_MOVESET_QUERY,
     queryVars,
     // Shorten the delay since users might be rapidly entering searches

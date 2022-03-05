@@ -1,4 +1,4 @@
-import { GenNum } from "../../../../types-queries/helpers"
+import { GenNum } from "../../../../types-queries/entities"
 
 type MemberDetailBoxProps = {
   forClass: string

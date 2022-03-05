@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useEventListener } from "usehooks-ts";
-import { MemberNature, MemberNatureQuery, MemberNatureQueryResult } from "../../../../../types-queries/Builder/MemberNature";
+import { MemberNature, MemberNatureQuery, MemberNatureResult } from "../../../../../types-queries/Member/MemberNature";
 import { Filters } from "../../../../App";
 import { NatureSelectHandlers } from "../../TeamView";
 import NatureSelectEntry from "./NatureSelectEntry";
@@ -18,14 +18,12 @@ const NatureSelectEntries = ({
   filters,
   focusedOnInput,
 }: NatureSelectEntriesProps) => {
-  const [sorted, setSorted] = useState(false);
-
   const originalEntries: MemberNature[] | undefined = useMemo(() => {
     // If not data, do nothing
     if (!data) return undefined;
 
-    return data.natures.edges.map((memberNatureEdge: { node: MemberNatureQueryResult, }) => {
-      return new MemberNature(memberNatureEdge.node);
+    return data.natures.edges.map((memberNatureEdge: { node: MemberNatureResult, }) => {
+      return new MemberNature(memberNatureEdge.node, filters.genFilter.gen);
     });
   }, [data, filters.genFilter, ]);
 

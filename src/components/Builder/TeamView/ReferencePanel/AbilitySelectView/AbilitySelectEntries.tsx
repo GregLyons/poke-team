@@ -1,5 +1,6 @@
 import { useMemo, } from "react";
 import { useEventListener } from "usehooks-ts";
+import { AbilitySlot } from "../../../../../types-queries/Member/helpers";
 import { MemberAbility, MemberAbilityQuery, MemberAbilityResult } from "../../../../../types-queries/Member/MemberAbility";
 import { Filters } from "../../../../App";
 import { AbilitySelectHandlers } from "../../TeamView";

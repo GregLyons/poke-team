@@ -1,6 +1,6 @@
 import { validatePokemon } from "../../../hooks/App/PokemonFilter";
 import { PokemonQuickSearchQuery, PokemonQuickSearchResult, QuickSearchPokemon } from "../../../types-queries/Builder/QuickSearch";
-import { Dispatches, Filters } from "../../App";
+import { Filters } from "../../App";
 import QuickSearchEntry from "./QuickSearchEntry";
 
 import './QuickSearch.css';
@@ -12,7 +12,6 @@ import { useEventListener } from "usehooks-ts";
 
 type QuickSearchEntriesProps = {
   data: PokemonQuickSearchQuery
-  dispatches: Dispatches
   filters: Filters
   pagination: {
     orderBy: QuickSearchPokemonEntryKey
@@ -56,7 +55,6 @@ const sortPokemonByKey: (pagination: PokemonPaginationInput) => ((qspe1: QuickSe
 
 const QuickSearchEntries = ({
   data,
-  dispatches,
   filters,
   pagination,
   onSaveClick,

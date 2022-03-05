@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
-import { DocumentNode } from "graphql";
-import { CapsTypeName, GenNum, TypeName, TYPENAMES } from "../helpers";
+import { GenNum } from "../entities";
+import { CapsTypeName, TypeName, TYPENAMES } from "../helpers";
 import { CoverageDatum, incrementCoverageDatum, INITIAL_COVERAGEDATUM, MemberAndEntityPSIDs } from "./helpers";
 
 export type DefensiveMatchupEdge = {

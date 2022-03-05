@@ -17,7 +17,6 @@ type PinnedBoxAccordion = {
 
 const PinnedBoxAccordion = ({
   clickHandlers,
-  dispatches,
   filters,
   team,
 }: PinnedBoxAccordion) => {
@@ -42,7 +41,6 @@ const PinnedBoxAccordion = ({
             pokemon,
           }}
           clickHandlers={clickHandlers}
-          dispatches={dispatches}
           filters={filters}
           key={note}
         />
@@ -57,12 +55,11 @@ const PinnedBoxAccordion = ({
           pokemon: Object.values(team[filters.genFilter.gen].savedPokemon.quickSearch),
         }}
         clickHandlers={clickHandlers}
-        dispatches={dispatches}
         filters={filters}
         key="From Quick Search"
       />,
     }]);
-  }, [dispatches, filters, team, clickHandlers, ])
+  }, [filters, team, clickHandlers, ])
   return (
     <div className="team-view-accordion__wrapper">
       <Accordion

@@ -1,29 +1,21 @@
-import { useQuery } from '@apollo/client';
 import { useState } from 'react';
-import { BGManager } from '../../../hooks/App/BGManager';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
-import { validatePokemon } from '../../../hooks/App/PokemonFilter';
 import { Team } from '../../../hooks/App/Team';
-import { useFilterConnectedSearchVars } from '../../../hooks/Builder/Searches';
 import { useDelayedQuery, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
-import { PokemonQuickSearchQuery, PokemonQuickSearchResult, PokemonQuickSearchVars, POKEMON_QUICKSEARCH_QUERY, QuickSearchPokemon } from '../../../types-queries/Builder/QuickSearch';
-import { PokemonColumnName, PokemonIconDatum, PokemonPaginationInput, SortByEnum } from '../../../types-queries/helpers';
+import { PokemonQuickSearchQuery, PokemonQuickSearchVars, POKEMON_QUICKSEARCH_QUERY, } from '../../../types-queries/Builder/QuickSearch';
+import { PokemonColumnName, PokemonIconDatum, PokemonPaginationInput, } from '../../../types-queries/helpers';
 import { Dispatches, Filters } from '../../App';
-import SearchBar from '../../Reusables/SearchBar/SearchBar';
 import SortSwitch from '../../Reusables/SortSwitch/SortSwitch';
 import './QuickSearch.css';
 import QuickSearchEntries from './QuickSearchEntries';
-import QuickSearchEntry from './QuickSearchEntry';
 
 type QuickSearchProps = {
-  bgManager: BGManager
   dispatches: Dispatches
   filters: Filters
   team: Team
 };
 
 const QuickSearch = ({
-  bgManager,
   dispatches,
   filters,
   team,
@@ -33,7 +25,7 @@ const QuickSearch = ({
     sortBy: 'ASC',
   });
 
-  const { queryVars, setQueryVars, searchBar, focusedOnInput, }  = useRemovalConnectedSearchVars<PokemonQuickSearchVars>({
+  const { queryVars, searchBar, focusedOnInput, }  = useRemovalConnectedSearchVars<PokemonQuickSearchVars>({
     defaultSearchVars: {
       gen: filters.genFilter.gen,
       startsWith: '',
@@ -213,7 +205,6 @@ const QuickSearch = ({
               data={data}
               team={team}
               filters={filters}
-              dispatches={dispatches}
               pagination={pagination}
               onSaveClick={onSaveClick}
               focusedOnInput={focusedOnInput}

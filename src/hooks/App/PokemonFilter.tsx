@@ -1,5 +1,6 @@
-import { BaseStatName, StatTable, PokemonIconDatum, TypeName } from "../../types-queries/helpers";
-import { DoublesTier, getTier, isSinglesTier, psIDToDoublesTier, psIDToSinglesTier } from "../../utils/smogonLogic";
+import { BaseStatName, StatTable } from "../../types-queries/entities";
+import { PokemonIconDatum, TypeName } from "../../types-queries/helpers";
+import { getTier, isSinglesTier, } from "../../utils/smogonLogic";
 import { GenFilter } from "./GenFilter";
 import { TierFilter } from "./TierFilter";
 

@@ -7,11 +7,10 @@ import MoveSelectView from "./MoveSelectView/MoveSelectView";
 
 import './ReferencePanel.css';
 import SavedPokemonView from "./SavedPokemonView/SavedPokemonView";
-import StatsView from "./NatureSelectView/NatureSelectView";
 import NatureSelectView from "./NatureSelectView/NatureSelectView";
-import { StatTable } from "../../../../types-queries/helpers";
-import { MemberPokemon } from "../../../../types-queries/Builder/MemberPokemon";
 import SpreadView from "./SpreadView/SpreadView";
+import { MemberPokemon } from "../../../../types-queries/Member/MemberPokemon";
+import { StatTable } from "../../../../types-queries/entities";
 
 type ReferencePanelProps = {
   handlers: ReferencePanelHandlers

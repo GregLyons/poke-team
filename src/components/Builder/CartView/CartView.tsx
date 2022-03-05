@@ -1,6 +1,6 @@
-import { Key, useMemo, useState } from "react";
-import { BGManager, classWithBG, classWithBGShadow, toggleBGPulse } from "../../../hooks/App/BGManager";
-import { BoxInCart, BoxInCombination, Cart, CartInGen, ParentEntityClass, StartBox, TargetEntityClass, } from "../../../hooks/App/Cart";
+import { useMemo, } from "react";
+import { toggleBGPulse } from "../../../hooks/App/BGManager";
+import { BoxInCart, BoxInCombination, Cart, StartBox, } from "../../../hooks/App/Cart";
 import { Team } from "../../../hooks/App/Team";
 import { Dispatches, Filters } from "../../App";
 import CartAccordion from "./CartAccordion/CartAccordion";
@@ -9,7 +9,6 @@ import CartTerminal from "./CartTerminal/CartTerminal";
 import './CartView.css';
 
 type CartViewProps = {
-  bgManager: BGManager
   team: Team
   cart: Cart
   dispatches: Dispatches
@@ -37,7 +36,6 @@ export type CartTerminalClickHandlers = {
 // #endregion
 
 const CartView = ({
-  bgManager,
   cart,
   team,
   dispatches,
@@ -165,7 +163,6 @@ const CartView = ({
         <CartAccordion
           cart={cart}
           team={team}
-          dispatches={dispatches}
           filters={filters}
           clickHandlers={cartAccordionClickHandlers}
         />

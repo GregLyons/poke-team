@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
-import { isType } from "graphql";
 import { binarySearchValueByKey, compareNumbers, compareStrings } from "../../utils/helpers";
-import { CausesStatusEdge, ControlFieldStateEdge, EffectClass, EffectClassEdge, FieldStateClass, FieldStateTargetClass, GenNum, ModifiesStatEdge, MoveCategory, ResistsStatusEdge, StatusControlFieldStateEdge, STATUSES, StatusName, TypeName, TYPENAMES } from "../helpers";
+import { EffectClass, FieldStateClass, GenNum, MoveCategory, STATUSES, StatusName } from "../entities";
+import { CausesStatusEdge, ControlFieldStateEdge, EffectClassEdge, ModifiesStatEdge, ResistsStatusEdge, StatusControlFieldStateEdge, TypeName, TYPENAMES } from "../helpers";
 import { CoverageDatum, incrementCoverageDatum, INITIAL_COVERAGEDATUM, MemberAndEntityPSIDs } from "./helpers";
 
 // Queries

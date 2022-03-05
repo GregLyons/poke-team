@@ -1,12 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, } from "react";
 import {
   Outlet,
 } from "react-router-dom";
 
-import SimpleBar from "simplebar-react";
 import 'simplebar/dist/simplebar.min.css';
 
-import { useWindowSize } from "usehooks-ts";
 import { BGAction, BGManager, classWithBGShadow, toggleBGPulse } from "../../hooks/App/BGManager";
 
 import BuilderNavBar from './BuilderNavBar';
@@ -49,8 +47,7 @@ const Builder = ({
       <div
         className="nav-bar__ref-container"
       >
-        <BuilderNavBar 
-          dispatchBGManager={dispatchBGManager}
+        <BuilderNavBar
           bgManager={bgManager}
         />
       </div>

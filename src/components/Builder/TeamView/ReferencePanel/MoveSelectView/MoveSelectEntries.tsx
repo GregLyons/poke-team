@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useEventListener } from "usehooks-ts";
-import { MemberMove, MemberMoveQuery, MemberMoveQueryResult } from "../../../../../types-queries/Builder/MemberMove";
 import { MovePaginationInput } from "../../../../../types-queries/helpers";
+import { MemberMove, MemberMoveQuery, MemberMoveResult } from "../../../../../types-queries/Member/MemberMove";
 import { Filters } from "../../../../App";
 import { MoveSelectHandlers } from "../../TeamView";
 import MoveSelectEntry from "./MoveSelectEntry";
@@ -88,7 +88,7 @@ const MoveSelectEntries = ({
       // Select only the node of the edge
       .map(edge => edge.node)
       // Gather list of Moves, removing duplicates
-      .reduce((acc: MemberMove[], node: MemberMoveQueryResult) => {
+      .reduce((acc: MemberMove[], node: MemberMoveResult) => {
         // Check whether move has 'eventOnly' flag
         const eventOnly = eventOnlyMoves[node.psID] === true;
 

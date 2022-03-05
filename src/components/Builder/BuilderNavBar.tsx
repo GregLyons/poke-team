@@ -1,14 +1,12 @@
-import { BGAction, BGManager, classWithBG, classWithBGShadow } from '../../hooks/App/BGManager';
+import { BGManager, classWithBGShadow } from '../../hooks/App/BGManager';
 import LinkButton from '../Reusables/LinkButton/LinkButton';
 import './../NavBar/NavBar.css';
 
 type BuilderNavBarProps = {
-  dispatchBGManager: React.Dispatch<BGAction>
   bgManager: BGManager
 }
 
 const BuilderNavBar = ({
-  dispatchBGManager,
   bgManager,
 }: BuilderNavBarProps) => {
   return (

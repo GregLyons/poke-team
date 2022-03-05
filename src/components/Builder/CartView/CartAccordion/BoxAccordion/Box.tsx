@@ -1,20 +1,17 @@
 import { useEffect, useRef } from "react";
 import { BoxInCart } from "../../../../../hooks/App/Cart";
 import { validatePokemon, ValidationFailureReason } from "../../../../../hooks/App/PokemonFilter";
-import { PokemonIconDatum } from "../../../../../types-queries/helpers";
-import { Dispatches, Filters } from "../../../../App";
+import { Filters } from "../../../../App";
 import BoxPokemonIcon from "./BoxPokemonIcon";
 
 type BoxProps = {
   box: BoxInCart
-  dispatches: Dispatches
   filters: Filters
   key: string
 }
 
 const Box = ({
   box,
-  dispatches,
   filters,
   key,
 }: BoxProps) => {
@@ -47,7 +44,6 @@ const Box = ({
 
           return (
             <BoxPokemonIcon
-              dispatches={dispatches}
               key={key + '_' + pokemonIconDatum.psID + '_icon'}
               pokemonIconDatum={pokemonIconDatum}
             />

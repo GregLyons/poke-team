@@ -1,7 +1,9 @@
-import { GenNum, StatTable } from "../helpers";
+
 
 // Interfaces
 // #region
+
+import { GenNum, StatTable } from "../entities";
 
 export interface ImportVars {
   gen: GenNum

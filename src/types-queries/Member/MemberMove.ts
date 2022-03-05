@@ -31,7 +31,7 @@ export interface MemberMoveResult extends MemberResult {
   }
 }
 
-export interface MemberMoveSearchVars extends MemberSpecificEntityVars {
+export interface MemberMoveVars extends MemberSpecificEntityVars {
   gen: GenerationNum
   psID: string
 

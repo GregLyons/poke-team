@@ -1,5 +1,5 @@
 import { useDelayedQuery, useGenConnectedSearchVars, } from "../../../../../hooks/Searches";
-import { MemberItemQuery, MemberItemSearchVars, MEMBER_ITEM_QUERY } from "../../../../../types-queries/Builder/MemberItem";
+import { MemberItemQuery, MemberItemVars, MEMBER_ITEM_QUERY } from "../../../../../types-queries/Member/MemberItem";
 import { Filters } from "../../../../App";
 import { ItemSelectHandlers, } from "../../TeamView";
 import ItemSelectEntries from "./ItemSelectEntries";
@@ -15,7 +15,7 @@ const ItemSelectView = ({
   handlers: clickHandlers,
   filters,
 }: ItemSelectViewProps) => {
-  const { queryVars, searchBar, focusedOnInput, } = useGenConnectedSearchVars<MemberItemSearchVars>({
+  const { queryVars, searchBar, focusedOnInput, } = useGenConnectedSearchVars<MemberItemVars>({
     defaultSearchVars: {
       gen: filters.genFilter.gen,
       contains: '',
@@ -28,7 +28,7 @@ const ItemSelectView = ({
     },
   });
 
-  const { data, loading, error } = useDelayedQuery<MemberItemQuery, MemberItemSearchVars>({
+  const { data, loading, error } = useDelayedQuery<MemberItemQuery, MemberItemVars>({
     query: MEMBER_ITEM_QUERY,
     queryVars,
     // Shorten the delay since users might be rapidly entering searches

@@ -1,9 +1,10 @@
 import { gql } from "@apollo/client";
 import { MemberAbilityResult } from "../Member/MemberAbility";
-import { MemberItemQueryResult } from "../Builder/MemberItem";
-import { MemberMoveQueryResult } from "../Builder/MemberMove";
-import { GenNum } from "../helpers";
 import { PopupVars } from "./helpers";
+import { AbilitySlot } from "../Member/helpers";
+import { GenNum } from "../entities";
+import { MemberItemResult } from "../Member/MemberItem";
+import { MemberMoveResult } from "../Member/MemberMove";
 
 // Ability
 // #region
@@ -67,7 +68,7 @@ export const POPUP_ABILITY_QUERY = gql`
 export interface PopupItemQuery {
   items: {
     edges: {
-      node: MemberItemQueryResult
+      node: MemberItemResult
     }[]
   }
 };
@@ -123,7 +124,7 @@ export interface PopupMoveQuery {
   pokemonByPSID: {
     moves: {
       edges: {
-        node: MemberMoveQueryResult
+        node: MemberMoveResult
         learnMethod: string
       }[]
     }
