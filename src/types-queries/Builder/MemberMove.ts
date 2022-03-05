@@ -53,13 +53,13 @@ export type MemberMoveSearchVars = {
 export const MEMBER_MOVESET_QUERY = gql`
   query MemberMovesetQuery(
     $gen: Int! $psID: String!
-    $contains: String $startsWith: String!
+    $contains: String! $startsWith: String!
     $removedFromBDSP: Boolean $removedFromSwSh: Boolean
   ) {
     pokemonByPSID(generation: $gen psID: $psID) {
       id
       moves(filter: {
-        contains: $contains, startsWith: $startsWith, 
+        contains: $contains, startsWith: $startsWith,
         removedFromSwSh: $removedFromSwSh,
         removedFromBDSP: $removedFromBDSP,
       }) {

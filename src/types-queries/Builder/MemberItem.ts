@@ -42,6 +42,7 @@ export const MEMBER_ITEM_QUERY = gql`
         startsWith: $startsWith
       }
     ) {
+      id
       edges {
         node {
           id
