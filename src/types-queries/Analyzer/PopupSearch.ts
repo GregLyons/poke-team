@@ -21,10 +21,7 @@ export interface PopupAbilityQuery {
 };
 
 export interface PopupAbilityVars extends PopupVars {
-  gen: GenNum
   psID: string
-
-  startsWith: string
 };
 
 export const POPUP_ABILITY_QUERY = gql`
@@ -74,10 +71,7 @@ export interface PopupItemQuery {
 };
 
 export interface PopupItemVars extends PopupVars {
-  gen: GenNum
-
-  startsWith: string
-  limit: number
+  psID: string
 };
 
 export const POPUP_ITEM_QUERY = gql`
@@ -132,12 +126,8 @@ export interface PopupMoveQuery {
 };
 
 export interface PopupMoveVars extends PopupVars {
-  gen: GenNum
   psID: string
-
-  startsWith: string
-  limit: number
-
+  
   removedFromSwSh: false | null
   removedFromBDSP: false | null
 };

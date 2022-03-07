@@ -89,16 +89,7 @@ const Popup = ({
   }, [windowWidth, windowHeight, triggerRef, contentRef, setTriggerMainDisplacement, setTriggerAuxDisplacement]);
 
   return (
-    <div
-      className={`
-        popup-wrapper
-        popup-wrapper--${orientation}
-        ${isActive
-          ? `popup-wrapper--active`
-          : ''
-        }
-      `}
-    >
+    <div className="popup-wrapper">
       <div
         className={`
           popup-trigger

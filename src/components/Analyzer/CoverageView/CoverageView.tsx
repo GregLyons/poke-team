@@ -3,7 +3,7 @@ import { Team } from "../../../hooks/App/Team";
 import { AbilityCoverageQuery, ABILITY_COVERAGE_QUERY, CoverageSearchVars, ItemCoverageQuery, ITEM_COVERAGE_QUERY, MoveCoverageQuery, MOVE_COVERAGE_QUERY } from "../../../types-queries/Analyzer/Coverage";
 import { ABILITY_MATCHUP_QUERY, ITEM_MATCHUP_QUERY, MatchupSearchVars, MatchupSearchVarsType, AbilityMatchupQuery, ItemMatchupQuery, TypingMatchupQuery, TYPING_MATCHUP_QUERY } from "../../../types-queries/Analyzer/Matchups";
 import { CapsTypeName, toCapsTypeName } from "../../../types-queries/helpers";
-import { Filters } from "../../App";
+import { Dispatches, Filters } from "../../App";
 import FieldControl from "./FieldControl/FieldControl";
 import SpeedControl from "./SpeedControl/SpeedControl";
 import StatusControl from "./StatusControl/StatusControl";
@@ -16,6 +16,7 @@ import { MemberAndEntityPSIDs, MemberPSIDObject } from "../../../types-queries/A
 import { MemberPokemon } from "../../../types-queries/Member/MemberPokemon";
 
 type CoverageViewProps = {
+  dispatches: Dispatches
   filters: Filters
   team: Team
 };
@@ -34,6 +35,7 @@ type NamesForQueries = {
 }
 
 const CoverageView = ({
+  dispatches,
   filters,
   team,
 }: CoverageViewProps) => {
@@ -197,6 +199,7 @@ const CoverageView = ({
     >
       <div className="team-column__cell">
         <TeamColumn
+          dispatches={dispatches}
           filters={filters}
           team={team}
           relevantNames={relevantNames}

@@ -30,16 +30,7 @@
   padding: 0.25rem;
 }
 
-.analyzer-member__icon,
-.analyzer-member__typing,
-.analyzer-member__item-icon,
-.analyzer-member__name,
-.analyzer-member__ability,
-.analyzer-member__item,
-.analyzer-member__move1,
-.analyzer-member__move2,
-.analyzer-member__move3,
-.analyzer-member__move4 {
+.analyzer-member__text {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

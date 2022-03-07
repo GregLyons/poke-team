@@ -131,8 +131,9 @@ function App() {
             <Route
               path='coverage'
               element={<CoverageView
-                team={team}
+                dispatches={dispatches}
                 filters={filters}
+                team={team}
               />}
             />
           </Route>

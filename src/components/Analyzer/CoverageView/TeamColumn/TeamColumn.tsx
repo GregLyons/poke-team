@@ -1,13 +1,15 @@
 import { useMemo } from "react";
 import { Team } from "../../../../hooks/App/Team";
 import { MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
-import { Filters } from "../../../App";
+import { Dispatches, Filters } from "../../../App";
 import TeamColumnMember from "./TeamColumnMember";
 
 import './TeamColumn.css';
 
 type TeamColumnProps = {
+  dispatches: Dispatches
   filters: Filters
+
   team: Team
   relevantNames: MemberPSIDObject | null
   onEntityClick: (memberPSID: string, entityPSID: string) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
@@ -15,7 +17,9 @@ type TeamColumnProps = {
 };
 
 const TeamColumn = ({
+  dispatches,
   filters,
+
   team,
   relevantNames,
   onEntityClick,
@@ -30,6 +34,8 @@ const TeamColumn = ({
       className="team-column__wrapper"
     >
       {members.map((member, idx) => <TeamColumnMember
+          dispatches={dispatches}
+          filters={filters}
           key={`analyzer_member_${idx}`}
           member={member}
           relevantNames={relevantNames}
