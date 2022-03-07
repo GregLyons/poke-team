@@ -1,15 +1,28 @@
-import { DocumentNode } from "graphql";
-import { MemberResult } from "../../../../types-queries/Member/helpers";
+import { useEventListener } from "usehooks-ts";
 
-type PopupSearchProps = {
-  data: MemberResult[] | undefined
+type PopupSearchProps<ResultEdge> = {
+  data: ResultEdge[] | undefined
+  loading: boolean
   searchBar: JSX.Element
+  focusedOnInput: boolean
+  onSelect: (result: ResultEdge) => (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent) => void
 };
 
-const PopupSearch = ({
+function PopupSearch<Result extends { node: { psID: string, formattedName: string, }}> ({
   data,
+  loading,
   searchBar,
-}: PopupSearchProps) => {
+  focusedOnInput,
+  onSelect,
+}: PopupSearchProps<Result>): JSX.Element {
+
+  // 'Enter' selects first entry
+  const onEnter = (event: KeyboardEvent) => {
+    if (!focusedOnInput) return;
+    if (event.code === 'Enter' && data && data.length > 0) onSelect(data[0])(event);
+  }
+  useEventListener('keydown', onEnter);
+
   return (
     <div
       className={`
@@ -19,14 +32,20 @@ const PopupSearch = ({
       <div className="popup-search__search-bar">
         {searchBar}
       </div>
-      {data && data.map(edge => (<div
-        key={`popup_result_${edge.psID}`}
-        className={`
-          popup-search__result
-        `}
-      >
-        {edge.formattedName}
-      </div>))}
+      <div className="popup-search__results">
+        {loading
+          ? <div>Loading...</div>
+          : data && data.map(edge => (<div
+            key={`popup_result_${edge.node.psID}`}
+            className={`
+              popup-search__result
+            `}
+            onClick={onSelect(edge)}
+          >
+            {edge.node.formattedName}
+          </div>))
+        }
+      </div>
     </div>
   );
 };

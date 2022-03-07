@@ -166,30 +166,41 @@ const CoverageView = ({
 
   // #endregion
 
+  // Keeps track of whether a popup search window has been opened
+  const [isPopupActive, setIsPopupActive] = useState<boolean>(false);
+
   // When hovering over a data point, store the relevant names
   const onMouseOver = (memberPSIDObject: MemberPSIDObject) => {
     return (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.preventDefault();
-      setRelevantNames(memberPSIDObject);
+
+      // If popup window is active, then don't change relevant names; the relevant names of the popup window (member name and entity name) take precedence
+      if (!isPopupActive) setRelevantNames(memberPSIDObject);
     }
   }
 
   // Upon leaving a data point, discard the relevant names
   const onMouseLeave = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    setRelevantNames(null);
+
+    // If popup window is active, then don't change relevant names; the relevant names of the popup window (member name and entity name) take precedence
+    if (!isPopupActive) setRelevantNames(null);
   }
 
+  // When ability, item, or move is clicked, emphasize the entity and member, and set 'isPopupActive' to 'true', as this action will open a pop-up window
   const onEntityClick = (memberPSID: string, entityPSID: string) => {
     return (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.preventDefault();
       setRelevantNames({
         [memberPSID]: [entityPSID],
       });
+      setIsPopupActive(true);
     };
   }
 
-  const onEntityClose = () => {
+  // Once the pop-up window closes, set 'isPopupActive' to 'false', and set 'revantNames' to 'null'
+  const onPopupClose = () => {
+    setIsPopupActive(false);
     return setRelevantNames(null);
   }
 
@@ -204,7 +215,7 @@ const CoverageView = ({
           team={team}
           relevantNames={relevantNames}
           onEntityClick={onEntityClick}
-          onEntityClose={onEntityClose}
+          onPopupClose={onPopupClose}
         />
       </div>
       <div className="type-matchup__cell">

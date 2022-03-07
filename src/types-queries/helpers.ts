@@ -5,6 +5,11 @@ import {
 import { compareStrings, sortArray } from '../utils/helpers';
 import { BaseStatName, EffectClass, FieldStateClass, FieldStateTargetClass, GenNum, GQLBaseStatName, StatModificationRecipientEnum, StatTable } from './entities';
 
+export interface NameSearchVars {
+  startsWith: string
+  contains: string
+}
+
 // Pagination
 // #region
 

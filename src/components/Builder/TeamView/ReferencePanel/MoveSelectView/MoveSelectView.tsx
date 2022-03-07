@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { removedFromBDSP, removedFromSwSh } from "../../../../../hooks/App/GenFilter";
-import { useDelayedQuery, useRemovalConnectedSearchVars } from "../../../../../hooks/Searches";
+import { useDelayedQuery, useRemovalConnectedSearchBar } from "../../../../../hooks/Searches";
 import { MoveColumnName, MovePaginationInput } from "../../../../../types-queries/helpers";
 import { MemberMoveQuery, MemberMoveVars, MEMBER_MOVESET_QUERY } from "../../../../../types-queries/Member/MemberMove";
 import { Filters } from "../../../../App";
@@ -26,7 +26,7 @@ const MoveSelectView = ({
     sortBy: 'ASC',
   });
 
-  const { queryVars, searchBar, focusedOnInput, } = useRemovalConnectedSearchVars<MemberMoveVars>({
+  const { queryVars, searchBar, focusedOnInput, } = useRemovalConnectedSearchBar<MemberMoveVars>({
     defaultSearchVars: {
       gen: filters.genFilter.gen,
       psID,

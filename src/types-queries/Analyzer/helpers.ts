@@ -54,6 +54,7 @@ export type MemberAndEntityPSIDs = {
 export interface PopupVars {
   gen: GenNum
 
+  contains: string
   startsWith: string
   limit: number
 }

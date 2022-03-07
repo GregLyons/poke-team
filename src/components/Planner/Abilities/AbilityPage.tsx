@@ -40,7 +40,7 @@ import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
-import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchBar, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
 import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 import { Dispatches, Filters } from '../../App';
 import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';

@@ -13,7 +13,7 @@ type TeamColumnProps = {
   team: Team
   relevantNames: MemberPSIDObject | null
   onEntityClick: (memberPSID: string, entityPSID: string) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
-  onEntityClose: () => void
+  onPopupClose: () => void
 };
 
 const TeamColumn = ({
@@ -23,7 +23,7 @@ const TeamColumn = ({
   team,
   relevantNames,
   onEntityClick,
-  onEntityClose,
+  onPopupClose,
 }: TeamColumnProps) => {
   const members = useMemo(() => {
     return team[filters.genFilter.gen].members;
@@ -38,9 +38,10 @@ const TeamColumn = ({
           filters={filters}
           key={`analyzer_member_${idx}`}
           member={member}
+          memberIdx={idx}
           relevantNames={relevantNames}
           onEntityClick={onEntityClick}
-          onEntityClose={onEntityClose}
+          onPopupClose={onPopupClose}
         />
       )}
     </div>

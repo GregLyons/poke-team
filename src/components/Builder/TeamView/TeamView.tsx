@@ -13,7 +13,7 @@ import { MemberItem } from "../../../types-queries/Member/MemberItem";
 import { MemberMove } from "../../../types-queries/Member/MemberMove";
 import { MemberNature } from "../../../types-queries/Member/MemberNature";
 import { BaseStatName } from "../../../types-queries/entities";
-import { GenderName } from "../../../types-queries/Member/helpers";
+import { GenderName, MoveSlot } from "../../../types-queries/Member/helpers";
 
 type TeamViewProps = {
   bgManager: BGManager
@@ -93,7 +93,7 @@ export type TeamMembersClickHandlers = {
 export type MemberDetailsHandlers = {
   onAbilityClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onItemClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
-  onMoveClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, moveslot: 0 | 1 | 2 | 3) => void
+  onMoveClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, moveslot: MoveSlot) => void
   onNatureClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onEVsClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onIVsClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
@@ -229,7 +229,7 @@ const TeamView = ({
           gen: filters.genFilter.gen,
           idx: memberSlot,
           move,
-          moveIdx: (view.idx as 0 | 1 | 2 | 3),
+          moveIdx: (view.idx as MoveSlot),
         }
       });
       
@@ -378,7 +378,7 @@ const TeamView = ({
       return setView({ mode: 'ITEM', idx: 0, });
     };
 
-    const onMoveClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, moveslot: 0 | 1 | 2 | 3) => {
+    const onMoveClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, moveslot: MoveSlot) => {
       e.preventDefault();
       if (memberSlot === null) return;
 

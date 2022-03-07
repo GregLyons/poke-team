@@ -5,7 +5,7 @@ import { Sets } from "@pkmn/sets"
 import { EnablesItemEdge, PokemonFormEdge, pokemonFormEdgeToFormDatum, RequiresItemEdge, spreadSummary } from "../Builder/helpers"
 import { BaseStatName, GenNum, StatTable, statTableToPSStatsTable } from "../entities"
 import { PokemonIconDatum, TypeName } from "../helpers"
-import { DEFAULT_DV_SPREAD, DEFAULT_EV_SPREAD, DEFAULT_EV_SPREAD_GENS12, DEFAULT_IV_SPREAD, GenderName, hiddenPowerToMaxIVs, MemberEntity, MemberResult, } from "./helpers"
+import { DEFAULT_DV_SPREAD, DEFAULT_EV_SPREAD, DEFAULT_EV_SPREAD_GENS12, DEFAULT_IV_SPREAD, GenderName, hiddenPowerToMaxIVs, MemberEntity, MemberResult, MoveSlot, } from "./helpers"
 import { MemberAbility } from "./MemberAbility"
 import { enablesItemEdgeToMemberItem, MemberItem, requiresItemEdgeToMemberItem } from "./MemberItem"
 import { MemberMove } from "./MemberMove"
@@ -297,7 +297,7 @@ export class MemberPokemon extends MemberEntity {
     this.ability = newAbility;
   }
 
-  public assignMove(newMove: MemberMove | null, slot: 0 | 1 | 2 | 3) {
+  public assignMove(newMove: MemberMove | null, slot: MoveSlot) {
     this.moveset = this.moveset.map((d, idx) => {
       if (idx === slot) return newMove;
       else return d;
@@ -449,7 +449,7 @@ export class MemberPokemon extends MemberEntity {
   private assignAttributesToCopy(copy: MemberPokemon) {
     this.ability && copy.assignAbility(this.ability);
     this.item && copy.assignItem(this.item);
-    for (let idx of ([0, 1, 2, 3] as (0 | 1 | 2 | 3)[])) {
+    for (let idx of ([0, 1, 2, 3] as (MoveSlot)[])) {
       this.moveset[idx] && copy.assignMove(this.moveset[idx], idx);
     }
 

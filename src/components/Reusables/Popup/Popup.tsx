@@ -7,14 +7,18 @@ type PopupProps = {
   trigger: JSX.Element
   content: JSX.Element
   orientation: 'right' | 'bottom'
+
   onClose?: () => void
+  forceClose?: boolean
 };
 
 const Popup = ({
   trigger,
   content,
   orientation,
+
   onClose,
+  forceClose,
 }: PopupProps) => {
   const triggerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -33,10 +37,15 @@ const Popup = ({
 
   const handleClickOutside = () => {
     // Only want onClose() to activate for currently active Popups.
-    if (onClose && isActive) onClose();
+    if (isActive && onClose) onClose();
     return setIsActive(false);
   }
   useOnClickOutside(contentRef, handleClickOutside);
+
+  // When forceClose is set to 'true' by some other component, close the pop-up window
+  useEffect(() => {
+    if (forceClose && isActive) setIsActive(false);
+  }, [forceClose, isActive, setIsActive]);
 
   // Reset displacement on window resize
   useEffect(() => {
@@ -104,7 +113,7 @@ const Popup = ({
       >
         {trigger}
       </div>
-      <div
+      {isActive && <div
         className={`
           popup-content
           popup-content--${orientation}
@@ -224,19 +233,19 @@ const Popup = ({
           </>)
         }
         {/* div giving padding between border of Popup and the inside content */}
-        <div
-          className={`
-            popup-padder
-            popup-padder--${orientation}
-            ${isActive
-              ? `popup-padder--active`
-              : ''
-            }
-          `}
-        >
-          {content}
-        </div>
-      </div>
+          <div
+            className={`
+              popup-padder
+              popup-padder--${orientation}
+              ${isActive
+                ? `popup-padder--active`
+                : ''
+              }
+            `}
+          >
+            {content}
+          </div>
+      </div>}
     </div>
   );
 };

@@ -6,7 +6,7 @@ import { BaseStatName, GenNum } from "../../types-queries/entities";
 import { MemberItem } from "../../types-queries/Member/MemberItem";
 import { MemberMove } from "../../types-queries/Member/MemberMove";
 import { MemberNature } from "../../types-queries/Member/MemberNature";
-import { GenderName } from "../../types-queries/Member/helpers";
+import { GenderName, MoveSlot } from "../../types-queries/Member/helpers";
 
 // We'll need to quickly reference whether a Pokemon in QuickSearch is saved, so we use an object, rather than an array, for quick look-up
 export type QuickSearchPokemon = {
@@ -143,7 +143,7 @@ export type TeamAction =
       gen: GenNum
       idx: number
       move: MemberMove
-      moveIdx: 0 | 1 | 2 | 3
+      moveIdx: MoveSlot
     }
   }
 | {
@@ -254,7 +254,7 @@ export function teamReducer(state: Team, action: TeamAction): Team {
 
   let idx: number;
   let memberIdx: number;
-  let moveIdx: 0 | 1 | 2 | 3;
+  let moveIdx: MoveSlot;
 
   let modifiedMember: MemberPokemon | undefined
 

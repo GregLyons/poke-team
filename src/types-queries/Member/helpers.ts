@@ -6,6 +6,8 @@ import { IntroductionEdge, introductionEdgeToGen, TypeName } from "../helpers";
 
 export type AbilitySlot = 'ONE' | 'TWO' | 'HIDDEN';
 
+export type MoveSlot = 0 | 1 | 2 | 3
+
 export type GenderName = 'M' | 'F' | 'N';
 
 // Natures

@@ -1,6 +1,7 @@
-import { useDelayedQuery, useGenConnectedSearchVars } from "../../../../hooks/Searches";
+import { useState } from "react";
+import { useDelayedQuery, useGenConnectedSearchBar, useGenConnectedSearchVars } from "../../../../hooks/Searches";
 import { PopupItemQuery, PopupItemVars, POPUP_ITEM_QUERY } from "../../../../types-queries/Analyzer/PopupSearch";
-import { MemberItem } from "../../../../types-queries/Member/MemberItem";
+import { MemberItem, MemberItemResult } from "../../../../types-queries/Member/MemberItem";
 import { MemberPokemon } from "../../../../types-queries/Member/MemberPokemon";
 import { Dispatches, Filters } from "../../../App";
 import Popup from "../../../Reusables/Popup/Popup";
@@ -11,10 +12,12 @@ type TeamColumnItemProps = {
   filters: Filters
 
   member: MemberPokemon | null
+  memberIdx: number
+  
   item: MemberItem | null | undefined
   determineRelevance: (name: string | undefined) => string
   onEntityClick: (memberPSID: string, entityPSID: string) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
-  onEntityClose: () => void
+  onPopupClose: () => void
 };
 
 const TeamColumnItem = ({
@@ -22,16 +25,19 @@ const TeamColumnItem = ({
   filters,
   
   member,
+  memberIdx,
+  
   item,
   determineRelevance,
   onEntityClick,
-  onEntityClose,
+  onPopupClose,
 }: TeamColumnItemProps) => {
-  const { queryVars, searchBar, focusedOnInput, } = useGenConnectedSearchVars<PopupItemVars>({
+  const { queryVars, setQueryVars, searchBar, focusedOnInput, } = useGenConnectedSearchBar<PopupItemVars>({
     defaultSearchVars: {
       gen: filters.genFilter.gen,
       psID: member?.psID || '',
       startsWith: '',
+      contains: '',
       limit: 5,
     },
     genFilter: filters.genFilter,
@@ -45,6 +51,34 @@ const TeamColumnItem = ({
     queryVars,
     delay: 50,
   });
+  const [forceClose, setForceClose] = useState<boolean>(false);
+
+  const addItem = (itemEdge: { node: MemberItemResult, }) => {
+    return (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent) => {
+      e.preventDefault();
+
+      dispatches.dispatchTeam({
+        type: 'assign_item',
+        payload: {
+          gen: filters.genFilter.gen,
+          idx: memberIdx,
+          item: new MemberItem(itemEdge.node, filters.genFilter.gen),
+        },
+      });
+      
+      // Close popup
+      setForceClose(true);
+      setTimeout(() => setForceClose(false));
+      onPopupClose();
+
+      // Clear search term
+      setQueryVars({
+        ...queryVars,
+        startsWith: '',
+        contains: '',
+      });
+    };
+  };
 
   if (error) { return <div>{error.message}</div> };
 
@@ -62,15 +96,17 @@ const TeamColumnItem = ({
           >
             {item?.formattedName || ''}
           </div>}
-        content={loading
-          ? <div>Loading...</div>
-          : <PopupSearch
-              data={data?.items?.edges.map(edge => edge.node)}
-              searchBar={searchBar}
-            />
-        }
+        content={<PopupSearch
+          data={data?.items?.edges.map(edge => edge)}
+          loading={loading}
+          searchBar={searchBar}
+          focusedOnInput={focusedOnInput}
+          onSelect={addItem}
+        />}
         orientation='right'
-        onClose={onEntityClose}
+
+        onClose={onPopupClose}
+        forceClose={forceClose}
       />}
     </>
   );

@@ -27,13 +27,20 @@ export interface PopupAbilityVars extends PopupVars {
 export const POPUP_ABILITY_QUERY = gql`
   query PopupAbilityQuery(
     $gen: Int!, $psID: String!,
-    $startsWith: String!
+    $startsWith: String!, $contains: String!,
+    $limit: Int!,
   ) {
     pokemonByPSID(generation: $gen psID: $psID) {
       id
-      abilities(filter: {
-        startsWith: $startsWith, 
-      }) {
+      abilities(
+        filter: {
+          startsWith: $startsWith,
+          contains: $contains
+        }
+        pagination: {
+          limit: $limit
+        }
+      ) {
         id
         edges {
           node {
@@ -77,12 +84,14 @@ export interface PopupItemVars extends PopupVars {
 export const POPUP_ITEM_QUERY = gql`
   query PopupItemQuery(
     $gen: Int!,
-    $startsWith: String!, $limit: Int!
+    $startsWith: String!, $contains: String!,
+    $limit: Int!
   ) {
     items(
       generation: $gen
       filter: {
         startsWith: $startsWith
+        contains: $contains
       }
       pagination: {
         limit: $limit
@@ -135,13 +144,14 @@ export interface PopupMoveVars extends PopupVars {
 export const POPUP_MOVE_QUERY = gql`
   query PopupMoveQuery(
     $gen: Int!, $psID: String!
-    $startsWith: String!
+    $startsWith: String!, $contains: String!,
     $removedFromBDSP: Boolean $removedFromSwSh: Boolean
   ) {
     pokemonByPSID(generation: $gen, psID: $psID) {
       id
       moves(filter: {
         startsWith: $startsWith,
+        contains: $contains,
         removedFromSwSh: $removedFromSwSh,
         removedFromBDSP: $removedFromBDSP,
       }) {

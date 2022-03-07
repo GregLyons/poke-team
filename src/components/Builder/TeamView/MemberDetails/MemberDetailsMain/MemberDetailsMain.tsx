@@ -1,13 +1,14 @@
 import ItemIcon from "../../../../Icons/ItemIcon"
 import { MemberDetailsHandlers, ReferencePanelView } from "../../TeamView"
 import MemberDetailBox from "../MemberDetailBox"
-import MoveSlot from "./MoveSlot"
 
 import './MemberDetailsMain.css';
 import MemberDetailInnerBox from "../MemberDetailInnerBox"
 import StatBox from "./StatBox/StatBox"
 import { MemberPokemon } from "../../../../../types-queries/Member/MemberPokemon";
 import { GenNum } from "../../../../../types-queries/entities";
+import { MoveSlot } from "../../../../../types-queries/Member/helpers";
+import MemberDetailsMoveSlot from "./MoveSlot";
 
 type MemberDetailsMainProps = {
   member: MemberPokemon
@@ -74,7 +75,7 @@ const MemberDetailsMain = ({
           className="member-details__moveset-wrapper"
         >
           {member.moveset.map((move, idx) => {
-            const moveIdx = (idx as 0 | 1 | 2 | 3);
+            const moveIdx = (idx as MoveSlot);
 
             // Type-guard
             if (moveIdx === undefined) return;
@@ -83,7 +84,7 @@ const MemberDetailsMain = ({
                 key={`move_inner-box_${moveIdx}`}
                 forClass="move"
                 header={`Slot ${moveIdx + 1}`}
-                content={<MoveSlot
+                content={<MemberDetailsMoveSlot
                   move={move}
                 />}
 

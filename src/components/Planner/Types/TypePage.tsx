@@ -30,7 +30,7 @@ import {
 } from './TypeConnections';
 
 import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
-import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchBar, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 import { Dispatches, Filters } from '../../App';

@@ -24,7 +24,7 @@ import {
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import { listRenderStatAbility, listRenderStatFieldState, listRenderStatItem, listRenderStatMove } from './StatConnections';
-import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchBar, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 import { Dispatches, Filters } from '../../App';

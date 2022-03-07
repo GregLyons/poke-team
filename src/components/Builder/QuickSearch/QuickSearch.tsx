@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { Team } from '../../../hooks/App/Team';
-import { useDelayedQuery, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
+import { useDelayedQuery, useRemovalConnectedSearchBar } from '../../../hooks/Searches';
 import { PokemonQuickSearchQuery, PokemonQuickSearchVars, POKEMON_QUICKSEARCH_QUERY, } from '../../../types-queries/Builder/QuickSearch';
 import { PokemonColumnName, PokemonIconDatum, PokemonPaginationInput, } from '../../../types-queries/helpers';
 import { Dispatches, Filters } from '../../App';
@@ -25,7 +25,7 @@ const QuickSearch = ({
     sortBy: 'ASC',
   });
 
-  const { queryVars, searchBar, focusedOnInput, }  = useRemovalConnectedSearchVars<PokemonQuickSearchVars>({
+  const { queryVars, searchBar, focusedOnInput, }  = useRemovalConnectedSearchBar<PokemonQuickSearchVars>({
     defaultSearchVars: {
       gen: filters.genFilter.gen,
       startsWith: '',

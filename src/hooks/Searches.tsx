@@ -3,12 +3,37 @@ import { DocumentNode } from "graphql";
 import { useEffect, useRef, useState } from "react";
 import { Dispatches, Filters } from "../components/App";
 import SearchBar from "../components/Reusables/SearchBar/SearchBar";
+import { NameSearchVars } from "../types-queries/helpers";
 import { GenFilter, removedFromBDSP, removedFromSwSh } from "./App/GenFilter";
 
 export type SearchBarProps = {
   title: string
   placeholder?: string
   backgroundLight: 'red' | 'green' | 'blue'
+}
+
+export function useGenConnectedSearchVars<SearchVars>({
+  defaultSearchVars,
+  genFilter,
+
+}: {
+  defaultSearchVars: SearchVars
+  genFilter: GenFilter
+}): {
+  queryVars: SearchVars,
+  setQueryVars: React.Dispatch<React.SetStateAction<SearchVars>>,
+} {
+  const [queryVars, setQueryVars] = useState<SearchVars>(defaultSearchVars);
+
+  // Update gen when genFilter changes
+  useEffect(() => {
+    setQueryVars({
+      ...queryVars,
+      gen: genFilter.gen,
+    });
+  }, [genFilter]);
+
+  return { queryVars, setQueryVars, };
 }
 
 /*
@@ -18,7 +43,7 @@ export type SearchBarProps = {
     Set queryVars to update when the search mode changes ('startsWith' vs. 'contains')
     Keep track of whether the user is focused on the input field in the search bar
 */
-export function useGenConnectedSearchVars<SearchVars>({
+export function useGenConnectedSearchBar<SearchVars extends NameSearchVars>({
   defaultSearchVars,
   genFilter,
   searchBarProps,
@@ -32,8 +57,7 @@ export function useGenConnectedSearchVars<SearchVars>({
   searchBar: JSX.Element
   focusedOnInput: boolean
 } {
-  const [queryVars, setQueryVars] = useState<SearchVars>(defaultSearchVars);
-  const [searchTerm, setSearchTerm] = useState('');
+  const { queryVars, setQueryVars } = useGenConnectedSearchVars<SearchVars>({ defaultSearchVars, genFilter, });
   const [searchMode, setSearchMode] = useState<'STARTS' | 'CONTAINS'>('STARTS');
   const [focusedOnInput, setFocusedOnInput] = useState<boolean>(false);
 
@@ -41,7 +65,6 @@ export function useGenConnectedSearchVars<SearchVars>({
   const handleSearchTermChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
-    setSearchTerm(e.target.value);
     // Current search mode, new search term
     setQueryVars(searchMode === 'STARTS'
       ? {
@@ -55,7 +78,7 @@ export function useGenConnectedSearchVars<SearchVars>({
           contains: e.target.value,
         }
     );
-  }
+  };
 
   // Update search mode
   const handleSearchModeChange = (e: React.MouseEvent<HTMLElement, MouseEvent>, mode: 'STARTS' | 'CONTAINS') => {
@@ -66,16 +89,16 @@ export function useGenConnectedSearchVars<SearchVars>({
     setQueryVars(mode === 'STARTS'
       ? {
           ...queryVars,
-          startsWith: searchTerm,
+          startsWith: queryVars.contains,
           contains: '',
         }
       : {
           ...queryVars,
           startsWith: '',
-          contains: searchTerm,
+          contains: queryVars.startsWith,
         }
     );
-  }
+  };
 
   // Update gen
   useEffect(() => {
@@ -95,7 +118,7 @@ export function useGenConnectedSearchVars<SearchVars>({
             placeholder={searchBarProps.placeholder || 'ENTER to select first row'}
             backgroundLight={searchBarProps.backgroundLight}
 
-            searchTerm={searchTerm}
+            searchTerm={searchMode === 'STARTS' ? queryVars.startsWith : queryVars.contains}
             handleSearchTermChange={handleSearchTermChange}
             searchMode={searchMode}
             handleSearchModeChange={handleSearchModeChange}
@@ -108,11 +131,38 @@ export function useGenConnectedSearchVars<SearchVars>({
   };
 }
 
+export function useRemovalConnectedSearchVars<SearchVars>({
+  defaultSearchVars,
+  genFilter,
+}: {
+  defaultSearchVars: SearchVars
+  genFilter: GenFilter
+}): {
+  queryVars: SearchVars,
+  setQueryVars: React.Dispatch<React.SetStateAction<SearchVars>>,
+} {
+  const { queryVars, setQueryVars } = useGenConnectedSearchVars<SearchVars>({defaultSearchVars, genFilter,});
+  
+  // Update removal flags; gen already handled
+  useEffect(() => {
+    setQueryVars({
+      ...queryVars,
+      gen: genFilter.gen,
+      removedFromSwSh: removedFromSwSh(genFilter),
+      removedFromBDSP: removedFromBDSP(genFilter),
+    })
+  }, [genFilter]);
+
+  return {
+    queryVars, setQueryVars,
+  };
+}
+
 /*
   Do what useGenConnectedSearchVars does, but also:
     Set queryVars to update when the Sw/Sh and BDSP flags change
 */
-export function useRemovalConnectedSearchVars<SearchVars>({
+export function useRemovalConnectedSearchBar<SearchVars extends NameSearchVars>({
   defaultSearchVars,
   genFilter,
   searchBarProps,
@@ -126,7 +176,7 @@ export function useRemovalConnectedSearchVars<SearchVars>({
   searchBar: JSX.Element
   focusedOnInput: boolean
 } {
-  const { queryVars, setQueryVars, searchBar, focusedOnInput } = useGenConnectedSearchVars<SearchVars>({defaultSearchVars, genFilter, searchBarProps, });
+  const { queryVars, setQueryVars, searchBar, focusedOnInput } = useGenConnectedSearchBar<SearchVars>({defaultSearchVars, genFilter, searchBarProps, });
   
   // Update removal flags; gen already handled
   useEffect(() => {
@@ -163,7 +213,7 @@ export type ListFilterArgs<SearchVars> = {
     Connect the search variables to other parameters, as specified by the listFilter function
     In addition to the search variables, return a JSX Element which serves as the filter form for the user
 */
-export function useListFilter<SearchVars>({
+export function useListFilter<SearchVars extends NameSearchVars>({
   defaultSearchVars,
   genFilter,
   searchBarProps,
@@ -182,7 +232,7 @@ export function useListFilter<SearchVars>({
   filterForm: JSX.Element
   focusedOnInput: boolean
 } {
-  const { queryVars, setQueryVars, searchBar, focusedOnInput, }= useGenConnectedSearchVars({defaultSearchVars, genFilter, searchBarProps, });
+  const { queryVars, setQueryVars, searchBar, focusedOnInput, }= useGenConnectedSearchBar({defaultSearchVars, genFilter, searchBarProps, });
 
   return {
     queryVars,
@@ -198,7 +248,7 @@ export function useListFilter<SearchVars>({
 /*
   Do what useListFilter does, but with useRemovalConnectedSearchVars instead of useGenConnectedSearchVars
 */
-export function useListFilter_removal<SearchVars>({
+export function useListFilter_removal<SearchVars extends NameSearchVars>({
   defaultSearchVars,
   genFilter,
   searchBarProps,
@@ -217,7 +267,7 @@ export function useListFilter_removal<SearchVars>({
   filterForm: JSX.Element
   focusedOnInput: boolean
 } {
-  const { queryVars, setQueryVars, searchBar, focusedOnInput, }= useRemovalConnectedSearchVars({defaultSearchVars, genFilter, searchBarProps, });
+  const { queryVars, setQueryVars, searchBar, focusedOnInput, }= useRemovalConnectedSearchBar({defaultSearchVars, genFilter, searchBarProps, });
 
   return {
     queryVars,

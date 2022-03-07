@@ -2,13 +2,13 @@ import { toFormattedTypeName } from "../../../../../types-queries/helpers";
 import { MemberMove } from "../../../../../types-queries/Member/MemberMove";
 import TypeIcon from "../../../../Icons/TypeIcon";
 
-type MoveSlotProps = {
+type MemberDetailsMoveSlotProps = {
   move: MemberMove | null
 }
 
-const MoveSlot = ({
+const MemberDetailsMoveSlot = ({
   move,
-}: MoveSlotProps) => {
+}: MemberDetailsMoveSlotProps) => {
   return (
     <div
       className="member-details__move-wrapper"
@@ -33,4 +33,4 @@ const MoveSlot = ({
   )
 };
 
-export default MoveSlot;
+export default MemberDetailsMoveSlot;

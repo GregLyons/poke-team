@@ -3,7 +3,7 @@ import { PokemonSet } from "@pkmn/sets";
 import { compareNumbers } from "../../utils/helpers";
 import { GenNum } from "../entities";
 import { PokemonIconDatum, PokemonIconNode, toTypeName, TypeName } from "../helpers";
-import { AbilitySlot, NatureName } from "../Member/helpers";
+import { AbilitySlot, MoveSlot, NatureName } from "../Member/helpers";
 import { MemberAbility, MemberAbilityResult } from "../Member/MemberAbility";
 import { MemberItem, MemberItemResult } from "../Member/MemberItem";
 import { MemberMove, MemberMoveResult } from "../Member/MemberMove";
@@ -353,8 +353,8 @@ export const setsToMembers: (
     // #region
 
     set.moves.map((move, idx) => {
-      // Cast movesetIdx as 0 | 1 | 2 | 3 so that we can assign it later
-      const movesetIdx: 0 | 1 | 2 | 3= (idx as 0 | 1 | 2 | 3);
+      // Cast movesetIdx as MoveSlot so that we can assign it later
+      const movesetIdx: MoveSlot= (idx as MoveSlot);
       // Shouldn't happen
       if (![0, 1, 2, 3].includes(movesetIdx)) throw new InvalidMoveError(move, memberPokemon.formattedName);
 

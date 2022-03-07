@@ -1,7 +1,8 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { removedFromBDSP, removedFromSwSh } from "../../../../hooks/App/GenFilter";
-import { useDelayedQuery, useRemovalConnectedSearchVars } from "../../../../hooks/Searches";
+import { useDelayedQuery, useRemovalConnectedSearchBar } from "../../../../hooks/Searches";
 import { PopupMoveQuery, PopupMoveVars, POPUP_MOVE_QUERY } from "../../../../types-queries/Analyzer/PopupSearch";
+import { MoveSlot } from "../../../../types-queries/Member/helpers";
 import { MemberMove, MemberMoveResult } from "../../../../types-queries/Member/MemberMove";
 import { MemberPokemon } from "../../../../types-queries/Member/MemberPokemon";
 import { Dispatches, Filters } from "../../../App";
@@ -13,11 +14,13 @@ type TeamColumnMoveProps = {
   filters: Filters
 
   member: MemberPokemon | null
+  memberIdx: number
+  
   move: MemberMove | null | undefined
-  moveIdx: 0 | 1 | 2 | 3
+  moveIdx: MoveSlot
   determineRelevance: (name: string | undefined) => string
   onEntityClick: (memberPSID: string, entityPSID: string) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
-  onEntityClose: () => void
+  onPopupClose: () => void
 };
 
 const TeamColumnMove = ({
@@ -25,17 +28,20 @@ const TeamColumnMove = ({
   filters,
 
   member,
+  memberIdx,
+
   move,
   moveIdx,
   determineRelevance,
   onEntityClick,
-  onEntityClose,
+  onPopupClose,
 }: TeamColumnMoveProps) => {
-  const { queryVars, searchBar, focusedOnInput, } = useRemovalConnectedSearchVars<PopupMoveVars>({
+  const { queryVars, setQueryVars, searchBar, focusedOnInput, } = useRemovalConnectedSearchBar<PopupMoveVars>({
     defaultSearchVars: {
       gen: filters.genFilter.gen,
       psID: member?.psID || '',
       startsWith: '',
+      contains: '',
       // Query more moves so that we can remove duplicates and get down to 5 moves; importing Pokemon or using the Builder will already have queried the Pokemon's moves, so they should be in the cache
       limit: 100,
       removedFromSwSh: removedFromSwSh(filters.genFilter),
@@ -53,18 +59,49 @@ const TeamColumnMove = ({
     delay: 50,
   });
 
+  const [forceClose, setForceClose] = useState<boolean>(false);
+  const addMove = (moveEdge: { node: MemberMoveResult, }) => {
+    return (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent) => {
+      e.preventDefault();
+
+      dispatches.dispatchTeam({
+        type: 'assign_move',
+        payload: {
+          gen: filters.genFilter.gen,
+          idx: memberIdx,
+          moveIdx,
+          move: new MemberMove(moveEdge.node, filters.genFilter.gen, false),
+        },
+      });
+      
+      // Close popup
+      setForceClose(true);
+      setTimeout(() => setForceClose(false));
+      onPopupClose();
+
+      // Clear search term
+      setQueryVars({
+        ...queryVars,
+        startsWith: '',
+        contains: '',
+      });
+    };
+  };
+
   // Get up to 5 unique moves from 'data', if it exists; there may be duplicates due to a Pokemon learning the move through different methods
   const dataWithoutDuplicates = useMemo(() => {
     let slicedData: PopupMoveQuery = { pokemonByPSID: [{ moves: { edges: [] }}], };
     if (data && data?.pokemonByPSID?.length > 0) {
       slicedData.pokemonByPSID[0].moves.edges = data.pokemonByPSID[0].moves.edges.reduce((edgesWithoutDuplicateMoves, currentEdge) => {
         // Once we've reached five edges, stop
-        if (edgesWithoutDuplicateMoves.length > 5) return edgesWithoutDuplicateMoves;
+        if (edgesWithoutDuplicateMoves.length > 4) return edgesWithoutDuplicateMoves;
   
         const { psID } = currentEdge.node;
         
         // If move is already present, do nothing
         if (edgesWithoutDuplicateMoves.map(edge => edge.node.psID).includes(psID)) return edgesWithoutDuplicateMoves;
+
+        // TODO: flag event-only moves
   
         // Otherwise, add curr to acc
         return edgesWithoutDuplicateMoves.concat(currentEdge);
@@ -88,15 +125,17 @@ const TeamColumnMove = ({
         >
           {move?.formattedName || ''}
         </div>}
-        content={loading
-          ? <div>Loading...</div>
-          : <PopupSearch
-              data={dataWithoutDuplicates?.pokemonByPSID?.[0]?.moves?.edges.map(edge => edge.node)}
-              searchBar={searchBar}
-            />
-        }
+        content={<PopupSearch
+          data={dataWithoutDuplicates?.pokemonByPSID?.[0]?.moves?.edges.map(edge => edge)}
+          loading={loading}
+          searchBar={searchBar}
+          focusedOnInput={focusedOnInput}
+          onSelect={addMove}
+        />}
         orientation='right'
-        onClose={onEntityClose}
+
+        onClose={onPopupClose}
+        forceClose={forceClose}
       />}
     </>
   );
