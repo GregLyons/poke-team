@@ -11,12 +11,12 @@
   cursor: pointer;
 }
 
-.popup-trigger--v {
+.popup-trigger--bottom {
   padding: 0.125rem 0.25rem 0 0.25rem;
 }
 
 /* Make trigger take on background color when active */
-.popup-trigger--active {
+.popup-trigger--bottom.popup-trigger--active {
   background-color: rgba(var(--dark3-components), 0.6);
   text-decoration: underline;
 }
@@ -40,12 +40,7 @@
 /* Border effects */
 /* #region */
 /* Prevents content from moving when border appears */
-.popup-trigger--h {
-  border-left: 1px solid transparent;
-  border-top: 1px solid transparent;
-  border-bottom: 1px solid transparent;
-}
-.popup-trigger--v {
+.popup-trigger--bottom {
   border-left: 1px solid transparent;
   border-right: 1px solid transparent;
   border-top: 1px solid transparent;
@@ -53,23 +48,16 @@
 
 /* Turn on border when active */
 /* Horizontal */
-.popup-trigger--h.popup-trigger--active {
-  border-left: 1px solid var(--light3);
-  border-top: 1px solid var(--light3);
-  border-bottom: 1px solid var(--light3);
-}
-.popup-content--h.popup-content--active {
-  border-left: 1px solid var(--light3);
-  border-top: 1px solid var(--light3);
-  border-bottom: 1px solid var(--light3);
+.popup-content--right.popup-content--active {
+  border: 1px solid var(--light3);
 }
 /* Vertical */
-.popup-trigger--v.popup-trigger--active {
+.popup-trigger--bottom.popup-trigger--active {
   border-left: 1px solid var(--light3);
   border-right: 1px solid var(--light3);
   border-top: 1px solid var(--light3);
 }
-.popup-content--v.popup-content--active {
+.popup-content--bottom.popup-content--active {
   border-left: 1px solid var(--light3);
   border-right: 1px solid var(--light3);
   border-bottom: 1px solid var(--light3);

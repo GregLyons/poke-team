@@ -7,7 +7,7 @@ import { Filters } from "../../App";
 import FieldControl from "./FieldControl/FieldControl";
 import SpeedControl from "./SpeedControl/SpeedControl";
 import StatusControl from "./StatusControl/StatusControl";
-import TeamColumn from "../TeamColumn/TeamColumn";
+import TeamColumn from "./TeamColumn/TeamColumn";
 import TypeMatchup from "./TypeMatchup/TypeMatchup";
 
 import './CoverageView.css';
@@ -178,6 +178,19 @@ const CoverageView = ({
     setRelevantNames(null);
   }
 
+  const onEntityClick = (memberPSID: string, entityPSID: string) => {
+    return (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      e.preventDefault();
+      setRelevantNames({
+        [memberPSID]: [entityPSID],
+      });
+    };
+  }
+
+  const onEntityClose = () => {
+    return setRelevantNames(null);
+  }
+
   return (
     <div
       className="coverage-view__wrapper"
@@ -187,6 +200,8 @@ const CoverageView = ({
           filters={filters}
           team={team}
           relevantNames={relevantNames}
+          onEntityClick={onEntityClick}
+          onEntityClose={onEntityClose}
         />
       </div>
       <div className="type-matchup__cell">

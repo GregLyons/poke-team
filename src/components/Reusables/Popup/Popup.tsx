@@ -7,12 +7,14 @@ type PopupProps = {
   trigger: JSX.Element
   content: JSX.Element
   orientation: 'right' | 'bottom'
+  onClose?: () => void
 };
 
 const Popup = ({
   trigger,
   content,
   orientation,
+  onClose,
 }: PopupProps) => {
   const triggerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -30,7 +32,9 @@ const Popup = ({
   }
 
   const handleClickOutside = () => {
-    setIsActive(false);
+    // Only want onClose() to activate for currently active Popups.
+    if (onClose && isActive) onClose();
+    return setIsActive(false);
   }
   useOnClickOutside(contentRef, handleClickOutside);
 
@@ -39,7 +43,7 @@ const Popup = ({
     setTimeout(() => {
       // Displace popup to right or bottom of trigger, respectively
       triggerRef.current && setTriggerMainDisplacement(orientation === 'right'
-        ? triggerRef.current.offsetWidth
+        ? triggerRef.current.offsetWidth + 16
         : triggerRef.current.offsetHeight
       );
 
@@ -141,10 +145,10 @@ const Popup = ({
         {orientation === 'right'
           ? (<>
               {/* Below trigger */}
-              <div
+              {/* <div
                 className={`
                   popup-content__before
-                  popup-content__before--h
+                  popup-content__before--right
                   ${isActive
                     ? `popup-content__before--active`
                     : ''
@@ -160,12 +164,12 @@ const Popup = ({
                     ? Math.abs(triggerAuxDisplacement)
                     : '',
                 }}
-              />
+              /> */}
               {/* Above trigger */}
-              <div
+              {/* <div
                 className={`
                   popup-content__after
-                  popup-content__after--h
+                  popup-content__after--right
                   ${isActive
                     ? `popup-content__after--active`
                     : ''
@@ -181,14 +185,14 @@ const Popup = ({
                     ? Math.abs(triggerAuxDisplacement)
                     : '',
                 }}
-              />
+              /> */}
             </>)
           : (<>
             {/* Left of trigger */}
             <div
               className={`
                 popup-content__before
-                popup-content__before--v
+                popup-content__before--bottom
                 ${isActive
                   ? `popup-content__before--active`
                   : ''
@@ -209,7 +213,7 @@ const Popup = ({
             <div
               className={`
                 popup-content__before
-                popup-content__before--v
+                popup-content__before--bottom
                 ${isActive
                   ? `popup-content__before--active`
                   : ''
