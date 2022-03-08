@@ -33,7 +33,7 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<ItemSear
           <>
             <EntitySearchEntry
               entityClass="Item"
-              key={'itemEntry_' + item.name}
+              key={item.name}
               name={item.formattedName}
               linkName={item.name}
               data={[

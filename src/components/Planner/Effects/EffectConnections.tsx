@@ -20,7 +20,7 @@ export const listRenderEffectAbility = ({ data, dispatches, filters, }: ListRend
           <ConnectionAccordionEntry
             parentEntityClass="Effect"
             targetEntityClass="Ability"
-            key={`${parent.id}_${result.id}_ability`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -52,7 +52,7 @@ export const listRenderEffectFieldState = ({ data, }: ListRenderArgs<EffectField
           <ConnectionAccordionEntry
             parentEntityClass="Effect"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -84,7 +84,7 @@ export const listRenderEffectItem = ({ data, dispatches, filters, }: ListRenderA
           <ConnectionAccordionEntry
             parentEntityClass="Effect"
             targetEntityClass="Item"
-            key={`${parent.id}_${result.id}_item`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -120,7 +120,7 @@ export const listRenderEffectMove = ({ data, dispatches, filters, }: ListRenderA
           <ConnectionAccordionEntry
             parentEntityClass="Effect"
             targetEntityClass="Move"
-            key={`${parent.id}_${result.id}_move`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}

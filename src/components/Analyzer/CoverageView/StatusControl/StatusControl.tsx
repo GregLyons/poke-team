@@ -59,7 +59,7 @@ const StatusControl = ({
       </div>
       {Array.from(statusControlMap.entries()).map(([statusName, summary]) => (
         <StatusControlEntry
-          key={`status_control_${statusName}`}
+          key={statusName}
           statusName={statusName}
           summary={summary}
 

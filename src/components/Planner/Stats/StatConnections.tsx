@@ -27,7 +27,7 @@ export const listRenderStatAbility = ({ data, dispatches, filters, }: ListRender
           <ConnectionAccordionEntry
           parentEntityClass="Stat"
             targetEntityClass="Ability"
-            key={`${parent.id}_${result.id}_boost_stage_ability`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -59,7 +59,7 @@ export const listRenderStatAbility = ({ data, dispatches, filters, }: ListRender
           <ConnectionAccordionEntry
           parentEntityClass="Stat"
             targetEntityClass="Ability"
-            key={`${parent.id}_${result.id}_boost_multiplier_ability`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -91,7 +91,7 @@ export const listRenderStatAbility = ({ data, dispatches, filters, }: ListRender
           <ConnectionAccordionEntry
           parentEntityClass="Stat"
             targetEntityClass="Ability"
-            key={`${parent.id}_${result.id}_reduce_stage_ability`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -123,7 +123,7 @@ export const listRenderStatAbility = ({ data, dispatches, filters, }: ListRender
           <ConnectionAccordionEntry
           parentEntityClass="Stat"
             targetEntityClass="Ability"
-            key={`${parent.id}_${result.id}_reduce_multiplier_ability`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -172,7 +172,7 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
           <ConnectionAccordionEntry
           parentEntityClass="Stat"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_boost_stage_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -204,7 +204,7 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
           <ConnectionAccordionEntry
           parentEntityClass="Stat"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_boost_multiplier_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -236,7 +236,7 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
           <ConnectionAccordionEntry
           parentEntityClass="Stat"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_reduce_stage_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -268,7 +268,7 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
           <ConnectionAccordionEntry
           parentEntityClass="Stat"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_reduce_multiplier_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -317,7 +317,7 @@ export const listRenderStatItem = ({ data, dispatches, filters, }: ListRenderArg
           <ConnectionAccordionEntry
           parentEntityClass="Stat"
             targetEntityClass="Item"
-            key={`${parent.id}_${result.id}_boost_stage_item`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -353,7 +353,7 @@ export const listRenderStatItem = ({ data, dispatches, filters, }: ListRenderArg
           <ConnectionAccordionEntry
           parentEntityClass="Stat"
             targetEntityClass="Item"
-            key={`${parent.id}_${result.id}_boost_multiplier_item`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -389,7 +389,7 @@ export const listRenderStatItem = ({ data, dispatches, filters, }: ListRenderArg
           <ConnectionAccordionEntry
           parentEntityClass="Stat"
             targetEntityClass="Item"
-            key={`${parent.id}_${result.id}_reduce_stage_item`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -425,7 +425,7 @@ export const listRenderStatItem = ({ data, dispatches, filters, }: ListRenderArg
           <ConnectionAccordionEntry
           parentEntityClass="Stat"
             targetEntityClass="Item"
-            key={`${parent.id}_${result.id}_reduce_multiplier_item`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -478,7 +478,7 @@ export const listRenderStatMove = ({ data, dispatches, filters, }: ListRenderArg
           <ConnectionAccordionEntry
           parentEntityClass="Stat"
             targetEntityClass="Move"
-            key={`${parent.id}_${result.id}_boost_stage_move`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -514,7 +514,7 @@ export const listRenderStatMove = ({ data, dispatches, filters, }: ListRenderArg
           <ConnectionAccordionEntry
           parentEntityClass="Stat"
             targetEntityClass="Move"
-            key={`${parent.id}_${result.id}_boost_multiplier_move`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -550,7 +550,7 @@ export const listRenderStatMove = ({ data, dispatches, filters, }: ListRenderArg
           <ConnectionAccordionEntry
           parentEntityClass="Stat"
             targetEntityClass="Move"
-            key={`${parent.id}_${result.id}_reduce_stage_move`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -586,7 +586,7 @@ export const listRenderStatMove = ({ data, dispatches, filters, }: ListRenderArg
           <ConnectionAccordionEntry
           parentEntityClass="Stat"
             targetEntityClass="Move"
-            key={`${parent.id}_${result.id}_reduce_multiplier_move`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}

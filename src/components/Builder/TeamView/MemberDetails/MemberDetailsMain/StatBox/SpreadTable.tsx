@@ -36,14 +36,13 @@ const SpreadTable = ({
 
         return (
           <div
-            key={`${tableFor}_${abbrStatName}_wrapper`}
+            key={abbrStatName}
             className={`
               member-details__${tableFor}-wrapper
               member-details__${tableFor}-wrapper--${classSuffix}
             `}
           >
             <div
-              key={`ev_${abbrStatName}_name`}
               className={`
                 member-details__${tableFor}-name
                 member-details__${tableFor}-name--${classSuffix}
@@ -52,7 +51,6 @@ const SpreadTable = ({
               {abbrStatName.length === 3 ? abbrStatName : <>{abbrStatName}&nbsp;</>}
             </div>
             <div
-              key={`${tableFor}_${abbrStatName}_value`}
               className={`
                 member-details__${tableFor}-value
                 member-details__${tableFor}-value--${classSuffix}

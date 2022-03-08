@@ -148,7 +148,7 @@ const QuickSearchEntries = ({
       {entries && entries.map(entry => {
         return (
           <QuickSearchEntry
-            key={`quickSearchEntry_${entry.pokemonIconDatum.psID}_${entry.pokemonIconDatum.formattedName}`}
+            key={entry.pokemonIconDatum.psID}
             pokemon={entry.pokemonIconDatum}
             baseStatTotal={entry.baseStatTotal}
             tier={entry.tier}

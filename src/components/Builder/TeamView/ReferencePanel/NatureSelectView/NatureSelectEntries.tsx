@@ -48,7 +48,7 @@ const NatureSelectEntries = ({
       {entries && entries.map(entry => {
         return (
           <NatureSelectEntry
-            key={`natureSelectEntry_${entry.name}`}
+            key={entry.name}
             clickHandlers={clickHandlers}
             nature={entry}
           />

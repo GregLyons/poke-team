@@ -88,7 +88,7 @@ const TeamColumnMember = ({
         `}
       >
         {member && member.typing.map(typeName => <TypeIcon
-          key={`analyzer_${member.psID}_${typeName}`}
+          key={typeName}
           typeIconDatum={{
             name: typeName,
             formattedName: toFormattedTypeName(typeName)
@@ -129,7 +129,7 @@ const TeamColumnMember = ({
         `}
       >
         <TeamColumnMove
-          key={`member_moveslot_${member?.psID}_${idx}`}
+          key={idx}
 
           dispatches={dispatches}
           filters={filters}

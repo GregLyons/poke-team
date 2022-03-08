@@ -26,7 +26,7 @@ const TeamMembers = ({
           <TeamMemberHolder
             clickHandlers={clickHandlers}
             // Use idx in key since we won't be changing size of array, or permuting its elements
-            key={`teamMember_${idx}`}
+            key={idx}
             dispatches={dispatches}
             filters={filters}
             icon={icon}

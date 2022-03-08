@@ -145,7 +145,7 @@ const MoveSelectEntries = ({
       {entries && entries.map(entry => {
         return (
           <MoveSelectEntry
-            key={`moveSelectEntry_${entry.psID}`}
+            key={entry.psID}
             clickHandlers={clickHandlers}
             move={entry}
           />

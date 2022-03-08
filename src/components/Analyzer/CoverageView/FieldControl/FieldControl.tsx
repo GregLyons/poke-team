@@ -57,7 +57,7 @@ const FieldControl = ({
       </div>
       {Array.from(fieldControlMap.entries()).map(([fieldStateClass, summary]) => (
         <FieldControlEntry
-          key={`field_control_${fieldStateClass}`}
+          key={fieldStateClass}
           fieldStateClass={fieldStateClass}
           summary={summary}
 

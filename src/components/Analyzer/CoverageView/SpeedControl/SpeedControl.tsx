@@ -60,7 +60,7 @@ const SpeedControl = ({
       </div>
       {(Object.entries(speedControlMap)).map(([speedControlKey, coverageDatum]) => (
         <SpeedControlEntry
-          key={`speed_control_${speedControlKey}`}
+          key={speedControlKey}
           speedControlKey={speedControlKey}
           coverageDatum={coverageDatum}
 

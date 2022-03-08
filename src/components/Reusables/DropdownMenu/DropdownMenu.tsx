@@ -122,11 +122,11 @@ function DropdownMenu<E extends Item<F>, F>({
             gridTemplateColumns: `repeat(auto-fit, minmax(${itemWidth}, 1fr))`,
           }}
         >
-          {items.map(item => {
+          {items.map((item, idx) => {
             return (
               <li
                 className="dropdown__option"
-                key={`dropdown_${title}_${item.id}`}
+                key={`${item.id}`}
               >
                 {/* Match clicking range to content */}
                 <span

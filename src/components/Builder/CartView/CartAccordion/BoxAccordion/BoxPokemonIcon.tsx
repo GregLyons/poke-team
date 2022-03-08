@@ -2,12 +2,10 @@ import { PokemonIconDatum } from "../../../../../types-queries/helpers";
 import { getPokemonIcon } from "../../../../../utils/sprites";
 
 type BoxPokemonIconProps = {
-  key: string
   pokemonIconDatum: PokemonIconDatum
 }
 
 const BoxPokemonIcon = ({
-  key,
   pokemonIconDatum,
 }: BoxPokemonIconProps) => {
   const {left, top} = getPokemonIcon(pokemonIconDatum);
@@ -33,7 +31,6 @@ const BoxPokemonIcon = ({
       <div
         className="planner__pokemon-icon"
         title={`${pokemonIconDatum.formattedName}`}
-        key={key}
         style={{
           width: '40px',
           height: '30px',

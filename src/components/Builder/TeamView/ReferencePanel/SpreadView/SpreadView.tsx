@@ -2,8 +2,8 @@ import { spreadSummary } from "../../../../../types-queries/Builder/helpers";
 import { BaseStatName, StatTable, toAbbreviatedBaseStatName, toFormattedBaseStatName } from "../../../../../types-queries/entities";
 import Slider from "../../../../Reusables/Slider/Slider";
 import { SpreadHandlers } from "../../TeamView";
-
 import './SpreadView.css';
+
 
 type SpreadViewProps = {
   handlers: SpreadHandlers
@@ -46,7 +46,7 @@ const SpreadView = ({
           
           return (
             <div
-              key={`${statName}_${spreadFor}_slider_wrapper`}
+              key={statName}
               className={`spread-view__slider-wrapper`}
             >
               <div className="spread-view__slider-label">
@@ -57,7 +57,6 @@ const SpreadView = ({
               </div>
               <div className="spread-view__slider">
                 <Slider
-                  key={`${statName}_slider_${spreadFor}`}
                   titleFor={formStatName + ' ' + spreadFor}
                   min={min}
                   max={max}

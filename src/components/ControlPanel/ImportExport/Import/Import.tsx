@@ -260,7 +260,7 @@ const Import = ({
             messageComponent: (<ul>
               {e.lateEntities.map((d, idx) => (
                 <li
-                  key={`late_introduction_${d[0]}_${d[1]}_${idx}`}
+                  key={idx}
                 >
                   {d[0]} introduced in Gen {d[1]}.
                 </li>
@@ -272,7 +272,7 @@ const Import = ({
           setImportState({
             key: 'error',
             messageComponent: (<>
-              {e.memberName} does not have the ability '{e.message}'.
+              {e.memberName} does not have the ability '{e.message}' in Gen {filters.genFilter.gen}.
             </>)
           });
         }
@@ -288,7 +288,7 @@ const Import = ({
           setImportState({
             key: 'error',
             messageComponent: (<>
-              {e.memberName} does not have the move '{e.message}'.
+              {e.memberName} does not have the move '{e.message}' in Gen {filters.genFilter.gen}.
             </>)
           });
         }

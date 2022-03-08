@@ -31,7 +31,7 @@ export const listRenderFieldStateAbility = ({ data, dispatches, filters, }: List
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Ability"
-            key={`${parent.id}_${result.id}_activate_ability`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -52,7 +52,7 @@ export const listRenderFieldStateAbility = ({ data, dispatches, filters, }: List
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Ability"
-            key={`${parent.id}_${result.id}_create_ability`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -77,7 +77,7 @@ export const listRenderFieldStateAbility = ({ data, dispatches, filters, }: List
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Ability"
-            key={`${parent.id}_${result.id}_ignore_ability`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -101,7 +101,7 @@ export const listRenderFieldStateAbility = ({ data, dispatches, filters, }: List
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Ability"
-            key={`${parent.id}_${result.id}_prevent_ability`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -125,7 +125,7 @@ export const listRenderFieldStateAbility = ({ data, dispatches, filters, }: List
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Ability"
-            key={`${parent.id}_${result.id}_remove_ability`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -149,7 +149,7 @@ export const listRenderFieldStateAbility = ({ data, dispatches, filters, }: List
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Ability"
-            key={`${parent.id}_${result.id}_suppress_ability`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -181,7 +181,7 @@ export const listRenderFieldStateEffect = ({ data, }: ListRenderArgs<FieldStateE
             <ConnectionAccordionEntry
               parentEntityClass="Field state"
               targetEntityClass="Effect"
-              key={`${parent.id}_${result.id}_effect`}
+              key={result.id}
               name={result.formattedName}
               linkName={result.name}
               description={result.description}
@@ -212,7 +212,7 @@ export const listRenderFieldStateItem = ({ data, dispatches, filters, }: ListRen
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Item"
-            key={`${parent.id}_${result.id}_activate_item`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -240,7 +240,7 @@ export const listRenderFieldStateItem = ({ data, dispatches, filters, }: ListRen
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Item"
-            key={`${parent.id}_${result.id}_extend_item`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -269,7 +269,7 @@ export const listRenderFieldStateItem = ({ data, dispatches, filters, }: ListRen
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Item"
-            key={`${parent.id}_${result.id}_ignore_item`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -297,7 +297,7 @@ export const listRenderFieldStateItem = ({ data, dispatches, filters, }: ListRen
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Item"
-            key={`${parent.id}_${result.id}_resist_item`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -338,7 +338,7 @@ export const listRenderFieldStateMove = ({ data, dispatches, filters, }: ListRen
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Move"
-            key={`${parent.id}_${result.id}_create_move`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -367,7 +367,7 @@ export const listRenderFieldStateMove = ({ data, dispatches, filters, }: ListRen
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Move"
-            key={`${parent.id}_${result.id}_enhance_move`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -395,7 +395,7 @@ export const listRenderFieldStateMove = ({ data, dispatches, filters, }: ListRen
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Move"
-            key={`${parent.id}_${result.id}_hinder_move`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -420,7 +420,7 @@ export const listRenderFieldStateMove = ({ data, dispatches, filters, }: ListRen
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Move"
-            key={`${parent.id}_${result.id}_remove_move`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -462,7 +462,7 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Stat"
-            key={`${parent.id}_${result.id}_boost_stage_stat`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'stat',
@@ -494,7 +494,7 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Stat"
-            key={`${parent.id}_${result.id}_boost_multiplier_stat`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'stat',
@@ -526,7 +526,7 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Stat"
-            key={`${parent.id}_${result.id}_reduce_stage_stat`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'stat',
@@ -558,7 +558,7 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Stat"
-            key={`${parent.id}_${result.id}_reduce_multiplier_stat`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'stat',
@@ -605,7 +605,7 @@ export const listRenderFieldStateStatus = ({ data, }: ListRenderArgs<FieldStateS
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Status"
-            key={`${parent.id}_${result.id}_cause_status`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'status',
@@ -630,7 +630,7 @@ export const listRenderFieldStateStatus = ({ data, }: ListRenderArgs<FieldStateS
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Status"
-            key={`${parent.id}_${result.id}_resist_status`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'status',
@@ -677,7 +677,7 @@ export const listRenderFieldStateType = ({ data, dispatches, filters, }: ListRen
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Type"
-            key={`${parent.id}_${result.id}_boost_type`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -706,7 +706,7 @@ export const listRenderFieldStateType = ({ data, dispatches, filters, }: ListRen
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Type"
-            key={`${parent.id}_${result.id}_weaken_type`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -735,7 +735,7 @@ export const listRenderFieldStateType = ({ data, dispatches, filters, }: ListRen
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Type"
-            key={`${parent.id}_${result.id}_resist_type`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -764,7 +764,7 @@ export const listRenderFieldStateType = ({ data, dispatches, filters, }: ListRen
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Type"
-            key={`${parent.id}_${result.id}_weather_ball_type`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -792,7 +792,7 @@ export const listRenderFieldStateType = ({ data, dispatches, filters, }: ListRen
             <ConnectionAccordionEntry
           parentEntityClass="Field state"
               targetEntityClass="Type"
-              key={`${parent.id}_${result.id}_ignore_type`}
+              key={result.id}
               name={result.formattedName}
               linkName={result.name}
               description={result.description}
@@ -820,7 +820,7 @@ export const listRenderFieldStateType = ({ data, dispatches, filters, }: ListRen
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Type"
-            key={`${parent.id}_${result.id}_remove_type`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -848,7 +848,7 @@ export const listRenderFieldStateType = ({ data, dispatches, filters, }: ListRen
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
             targetEntityClass="Type"
-            key={`${parent.id}_${result.id}_resist_type`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}

@@ -91,7 +91,7 @@ const ReferencePanel = ({
           />}
           {(view?.mode === 'MOVE' && psID !== undefined) && <MoveSelectView
             // Key attribute forces re-render on index change,
-            key={'moveSelectView_' + view.idx}
+            key={view.idx}
             handlers={handlers.moveSelectHandlers}
             filters={filters}
             psID={psID}

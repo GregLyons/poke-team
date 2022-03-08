@@ -25,7 +25,7 @@ export const listRenderUsageMethodAbility = ({ data, dispatches, filters, }: Lis
           <ConnectionAccordionEntry
           parentEntityClass="Usage method"
             targetEntityClass="Ability"
-            key={`${parent.id}_${result.id}_activate_ability`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -46,7 +46,7 @@ export const listRenderUsageMethodAbility = ({ data, dispatches, filters, }: Lis
           <ConnectionAccordionEntry
           parentEntityClass="Usage method"
             targetEntityClass="Ability"
-            key={`${parent.id}_${result.id}_boost_ability`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -71,7 +71,7 @@ export const listRenderUsageMethodAbility = ({ data, dispatches, filters, }: Lis
           <ConnectionAccordionEntry
           parentEntityClass="Usage method"
             targetEntityClass="Ability"
-            key={`${parent.id}_${result.id}_prevent_ability`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -92,7 +92,7 @@ export const listRenderUsageMethodAbility = ({ data, dispatches, filters, }: Lis
           <ConnectionAccordionEntry
           parentEntityClass="Usage method"
             targetEntityClass="Ability"
-            key={`${parent.id}_${result.id}_resist_ability`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -129,7 +129,7 @@ export const listRenderUsageMethodItem = ({ data, dispatches, filters, }: ListRe
           <ConnectionAccordionEntry
           parentEntityClass="Usage method"
             targetEntityClass="Item"
-            key={`${parent.id}_${result.id}_activate_item`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -154,7 +154,7 @@ export const listRenderUsageMethodItem = ({ data, dispatches, filters, }: ListRe
           <ConnectionAccordionEntry
           parentEntityClass="Usage method"
             targetEntityClass="Item"
-            key={`${parent.id}_${result.id}_boost_item`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -180,7 +180,7 @@ export const listRenderUsageMethodItem = ({ data, dispatches, filters, }: ListRe
           <ConnectionAccordionEntry
           parentEntityClass="Usage method"
             targetEntityClass="Item"
-            key={`${parent.id}_${result.id}_resist_item`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -220,7 +220,7 @@ export const listRenderUsageMethodMove = ({ data, dispatches, filters, }: ListRe
           <ConnectionAccordionEntry
           parentEntityClass="Usage method"
             targetEntityClass="Move"
-            key={`${parent.id}_${result.id}_has_move`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -248,7 +248,7 @@ export const listRenderUsageMethodMove = ({ data, dispatches, filters, }: ListRe
           <ConnectionAccordionEntry
           parentEntityClass="Usage method"
             targetEntityClass="Move"
-            key={`${parent.id}_${result.id}_prevent_move`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}

@@ -39,12 +39,12 @@ const Export = ({
           {/* Iterate over member strings */}
           {exportText.map((memberString, memberIdx) => (<div
             className="export__member"
-            key={`exportMember_${memberIdx}`}
+            key={memberIdx}
           >
             {/* Iterate over pieces of member string, e.g. move piece, ability piece */}
             {memberString.split('\n').map((memberStringPiece, pieceIdx) => (<div
               className="export__member-piece"
-              key={`exportMemberPiece_${memberIdx}_${pieceIdx}_${memberStringPiece}`}
+              key={pieceIdx}
             >
               {pieceIdx === 0
                 // Extract name from string

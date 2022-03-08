@@ -47,7 +47,7 @@ const QuickSearchEntry = ({
       <div className="quick-search__typing">
         {pokemon.typing.map(typeName => (
           <TypeIcon 
-            key={pokemon.psID + typeName}
+            key={typeName}
             typeIconDatum={{
               name: typeName,
               formattedName: toFormattedTypeName(typeName),
@@ -91,7 +91,7 @@ const QuickSearchEntry = ({
 
           return (
             <div
-              key={pokemon.psID + key}
+              key={pokemon.psID}
               className={`
                 quick-search__stat
                 ${rating}

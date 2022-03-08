@@ -11,7 +11,6 @@ import SelectionControls from "./SelectionControls";
 
 type PlannerPokemonIconsProps = {
   context: 'search' | 'accordion'
-  key: string
   selection: Selection
   expand: boolean
   dispatchSelection: React.Dispatch<SelectionAction>
@@ -26,7 +25,6 @@ type PlannerPokemonIconsProps = {
 
 const PlannerPokemonIcons = ({
   context,
-  key,
   expandListeners,
   selection,
   expand,
@@ -107,7 +105,7 @@ const PlannerPokemonIcons = ({
 
           return (
             <PlannerPokemonIcon
-              key={key + '_' + pokemonIconDatum.psID + '_icon'}
+              key={pokemonIconDatum.psID}
               pokemonIconDatum={pokemonIconDatum}
               selected={selection.hasOwnProperty(psID) && (selection[psID] as {
                 nameData: PokemonIconDatum,

@@ -56,7 +56,6 @@ const PinnedBoxAccordion = ({
         }}
         clickHandlers={clickHandlers}
         filters={filters}
-        key="From Quick Search"
       />,
     }]);
   }, [filters, team, clickHandlers, ])

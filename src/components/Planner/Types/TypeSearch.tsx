@@ -27,7 +27,7 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeSear
           <>
             <EntitySearchEntry
               entityClass="Type"
-              key={'typeEntry_' + type.name}
+              key={type.name}
               name={type.formattedName}
               linkName={type.name}
               description=''

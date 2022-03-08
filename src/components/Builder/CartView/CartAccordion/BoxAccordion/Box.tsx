@@ -7,13 +7,11 @@ import BoxPokemonIcon from "./BoxPokemonIcon";
 type BoxProps = {
   box: BoxInCart
   filters: Filters
-  key: string
 }
 
 const Box = ({
   box,
   filters,
-  key,
 }: BoxProps) => {
   const reason = useRef<ValidationFailureReason>('');
   const hasIcon = useRef(false);
@@ -44,7 +42,7 @@ const Box = ({
 
           return (
             <BoxPokemonIcon
-              key={key + '_' + pokemonIconDatum.psID + '_icon'}
+              key={pokemonIconDatum.psID}
               pokemonIconDatum={pokemonIconDatum}
             />
           )

@@ -112,7 +112,7 @@ const TypeMatchup = ({
       </div>
       {Array.from(typeSummaryMap.entries()).map(([typeName, summary]) => (
           <TypeMatchupEntry
-            key={`type_matchup_${typeName}`}
+            key={typeName}
             typeName={typeName}
             summary={summary}
 

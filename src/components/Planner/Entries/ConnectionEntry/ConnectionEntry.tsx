@@ -11,13 +11,9 @@ import EntryLink from "../EntryLink";
 import PlannerPokemonIcons from "../Icons/PlannerPokemonIcons";
 import './ConnectionEntry.css';
 
-
-
-
 type ConnectionAccordionEntryProps = {
   parentEntityClass: EntityClass
   targetEntityClass: EntityClass
-  key: string
   name: string
   linkName: string
   description: string
@@ -32,7 +28,6 @@ type ConnectionAccordionEntryProps = {
 const ConnectionAccordionEntry = ({
   parentEntityClass,
   targetEntityClass,
-  key,
   name,
   linkName,
   description,
@@ -112,7 +107,6 @@ const ConnectionAccordionEntry = ({
           : ''
         }
       `}
-      key={key}
     >
       <EntryLink
         hover={entryHover}
@@ -158,8 +152,7 @@ const ConnectionAccordionEntry = ({
       </div>
 
       {icons && <PlannerPokemonIcons
-        context="accordion" 
-        key={key}
+        context="accordion"
         expandListeners={expandListeners}
         expand={expand}
         selection={selection}

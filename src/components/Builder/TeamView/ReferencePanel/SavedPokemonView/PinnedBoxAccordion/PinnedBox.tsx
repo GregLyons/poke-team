@@ -12,14 +12,12 @@ type PinnedBoxProps = {
   }
   clickHandlers: SavedPokemonClickHandlers
   filters: Filters
-  key: string
 }
 
 const PinnedBox = ({
   box,
   clickHandlers,
   filters,
-  key,
 }: PinnedBoxProps) => {
   const reason = useRef<ValidationFailureReason>('');
   const hasIcon = useRef(false);
@@ -52,7 +50,7 @@ const PinnedBox = ({
           return (
             <PinnedBoxPokemonIcon
               onPokemonSelect={clickHandlers.onPokemonSelect}
-              key={key + '_' + pokemonIconDatum.psID + '_pinned-box_icon'}
+              key={pokemonIconDatum.psID}
               pokemonIconDatum={pokemonIconDatum}
             />
           )

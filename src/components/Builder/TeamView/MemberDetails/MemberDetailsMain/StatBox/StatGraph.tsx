@@ -133,7 +133,7 @@ const StatGraph = ({
         return (
           <div
             className="member-details__graph-row-wrapper"
-            key={`statGraph_${statName}_wrapper`}
+            key={statName}
           >
             <div className="member-details__graph-name">
               {statName === 'hp'

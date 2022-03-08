@@ -47,7 +47,7 @@ const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
           <>
             <EntitySearchEntry
               entityClass="Field state"
-              key={'fieldStateEntry_' + fieldState.name}
+              key={fieldState.name}
               name={fieldState.formattedName}
               linkName={fieldState.name}
               data={fieldStateData}

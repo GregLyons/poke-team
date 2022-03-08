@@ -23,7 +23,7 @@ export const listRenderStatusAbility = ({ data, dispatches, filters, }: ListRend
           <ConnectionAccordionEntry
           parentEntityClass="Status"
             targetEntityClass="Ability"
-            key={`${parent.id}_${result.id}_cause_ability`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -48,7 +48,7 @@ export const listRenderStatusAbility = ({ data, dispatches, filters, }: ListRend
           <ConnectionAccordionEntry
           parentEntityClass="Status"
             targetEntityClass="Ability"
-            key={`${parent.id}_${result.id}_resist_ability`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -83,7 +83,7 @@ export const listRenderStatusFieldState = ({ data, }: ListRenderArgs<StatusField
           <ConnectionAccordionEntry
           parentEntityClass="Status"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_cause_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -108,7 +108,7 @@ export const listRenderStatusFieldState = ({ data, }: ListRenderArgs<StatusField
           <ConnectionAccordionEntry
           parentEntityClass="Status"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_resist_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -143,7 +143,7 @@ export const listRenderStatusItem = ({ data, dispatches, filters, }: ListRenderA
           <ConnectionAccordionEntry
           parentEntityClass="Status"
             targetEntityClass="Item"
-            key={`${parent.id}_${result.id}_cause_item`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -172,7 +172,7 @@ export const listRenderStatusItem = ({ data, dispatches, filters, }: ListRenderA
           <ConnectionAccordionEntry
           parentEntityClass="Status"
             targetEntityClass="Item"
-            key={`${parent.id}_${result.id}_resist_item`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -211,7 +211,7 @@ export const listRenderStatusMove = ({ data, dispatches, filters, }: ListRenderA
           <ConnectionAccordionEntry
           parentEntityClass="Status"
             targetEntityClass="Move"
-            key={`${parent.id}_${result.id}_cause_move`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -240,7 +240,7 @@ export const listRenderStatusMove = ({ data, dispatches, filters, }: ListRenderA
           <ConnectionAccordionEntry
           parentEntityClass="Status"
             targetEntityClass="Move"
-            key={`${parent.id}_${result.id}_resist_move`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}

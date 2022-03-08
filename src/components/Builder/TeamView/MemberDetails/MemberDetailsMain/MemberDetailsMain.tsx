@@ -81,7 +81,7 @@ const MemberDetailsMain = ({
             if (moveIdx === undefined) return;
             return (
               <MemberDetailInnerBox
-                key={`move_inner-box_${moveIdx}`}
+                key={moveIdx}
                 forClass="move"
                 header={`Slot ${moveIdx + 1}`}
                 content={<MemberDetailsMoveSlot

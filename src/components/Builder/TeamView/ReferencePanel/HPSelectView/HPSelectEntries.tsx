@@ -52,7 +52,7 @@ const HPSelectEntries = ({
       {entries && entries.map(typeName => {
         return (
           <HPSelectEntry
-            key={`hpSelectEntry_${typeName}`}
+            key={typeName}
             clickHandlers={clickHandlers}
             typeName={typeName}
             defaultIV={filters.genFilter.gen > 2 ? 31 : 15}

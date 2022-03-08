@@ -36,7 +36,7 @@ function PopupSearch<Result extends { node: { psID: string, formattedName: strin
         {loading
           ? <div>Loading...</div>
           : data && data.map(edge => (<div
-            key={`popup_result_${edge.node.psID}`}
+            key={edge.node.psID}
             className={`
               popup-search__result
             `}

@@ -42,7 +42,7 @@ const AbilitySelectEntries = ({
       {entries && entries.map(entry => {
         return (
           <AbilitySelectEntry
-            key={`abilitySelectEntry_${entry.psID}`}
+            key={entry.psID}
             clickHandlers={clickHandlers}
             ability={entry}
           />

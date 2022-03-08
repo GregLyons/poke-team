@@ -37,7 +37,7 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<MoveSear
           <>
             <EntitySearchEntry
               entityClass="Move"
-              key={'moveEntry_' + move.name}
+              key={move.name}
               name={move.formattedName}
               linkName={move.name}
               description={move.description}

@@ -50,7 +50,7 @@ const ItemSelectEntries = ({
       {entries && entries.map(entry => {
         return (
           <ItemSelectEntry
-            key={`itemSelectEntry_${entry.psID}`}
+            key={entry.psID}
             clickHandlers={clickHandlers}
             item={entry}
           />

@@ -25,7 +25,7 @@ export const listRenderMoveEffect = ({ data, }: ListRenderArgs<MoveEffectQuery>)
           <ConnectionAccordionEntry
             parentEntityClass="Move"
             targetEntityClass="Effect"
-            key={`${parent.id}_${result.id}_effect`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -56,7 +56,7 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
           <ConnectionAccordionEntry
           parentEntityClass="Move"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_create_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -78,7 +78,7 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
           <ConnectionAccordionEntry
           parentEntityClass="Move"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_enhance_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -99,7 +99,7 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
           <ConnectionAccordionEntry
           parentEntityClass="Move"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_hinder_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -120,7 +120,7 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
           <ConnectionAccordionEntry
           parentEntityClass="Move"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_remove_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -158,7 +158,7 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
           <ConnectionAccordionEntry
           parentEntityClass="Move"
             targetEntityClass="Stat"
-            key={`${parent.id}_${result.id}_boost_stage_stat`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'stat',
@@ -190,7 +190,7 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
           <ConnectionAccordionEntry
           parentEntityClass="Move"
             targetEntityClass="Stat"
-            key={`${parent.id}_${result.id}_boost_multiplier_stat`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'stat',
@@ -222,7 +222,7 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
           <ConnectionAccordionEntry
           parentEntityClass="Move"
             targetEntityClass="Stat"
-            key={`${parent.id}_${result.id}_reduce_stage_stat`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'stat',
@@ -254,7 +254,7 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
           <ConnectionAccordionEntry
           parentEntityClass="Move"
             targetEntityClass="Stat"
-            key={`${parent.id}_${result.id}_reduce_multiplier_stat`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'stat',
@@ -300,7 +300,7 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
           <ConnectionAccordionEntry
           parentEntityClass="Move"
             targetEntityClass="Status"
-            key={`${parent.id}_${result.id}_cause_status`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'status',
@@ -325,7 +325,7 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
           <ConnectionAccordionEntry
           parentEntityClass="Move"
             targetEntityClass="Status"
-            key={`${parent.id}_${result.id}_resist_status`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'status',
@@ -361,7 +361,7 @@ export const listRenderMoveType = ({ data, dispatches, filters, }: ListRenderArg
           <ConnectionAccordionEntry
           parentEntityClass="Move"
             targetEntityClass="Type"
-            key={`${parent.id}_${result.id}_require_type`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -400,7 +400,7 @@ export const listRenderMoveUsageMethod = ({ data, }: ListRenderArgs<MoveUsageMet
           <ConnectionAccordionEntry
           parentEntityClass="Move"
             targetEntityClass="Usage method"
-            key={`${parent.id}_${result.id}_has_usageMethod`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'usageMethod',
@@ -424,7 +424,7 @@ export const listRenderMoveUsageMethod = ({ data, }: ListRenderArgs<MoveUsageMet
           <ConnectionAccordionEntry
           parentEntityClass="Move"
             targetEntityClass="Usage method"
-            key={`${parent.id}_${result.id}_prevent_usageMethod`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'usageMethod',

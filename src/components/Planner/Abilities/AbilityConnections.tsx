@@ -33,7 +33,7 @@ export const listRenderAbilityEffect = ({ data, }: ListRenderArgs<AbilityEffectQ
           <ConnectionAccordionEntry
             parentEntityClass="Ability"
             targetEntityClass="Effect"
-            key={`${parent.id}_${result.id}_effect`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -64,9 +64,9 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
         <h3 className="planner-accordion__subitem-header">Activated by field state</h3>
         {activatedByResults.map(result => (
           <ConnectionAccordionEntry
-          parentEntityClass="Ability"
+            parentEntityClass="Ability"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_activate_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -87,7 +87,7 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_create_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -112,7 +112,7 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_ignore_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -136,7 +136,7 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_prevent_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -160,7 +160,7 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_remove_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -184,7 +184,7 @@ export const listRenderAbilityFieldState = ({ data, }: ListRenderArgs<AbilityFie
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_suppress_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -222,7 +222,7 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
             targetEntityClass="Stat"
-            key={`${parent.id}_${result.id}_boost_stage_stat`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'stat',
@@ -254,7 +254,7 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
             targetEntityClass="Stat"
-            key={`${parent.id}_${result.id}_boost_multiplier_stat`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'stat',
@@ -286,7 +286,7 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
             targetEntityClass="Stat"
-            key={`${parent.id}_${result.id}_reduce_stage_stat`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'stat',
@@ -318,7 +318,7 @@ export const listRenderAbilityStat = ({ data, }: ListRenderArgs<AbilityStatQuery
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
             targetEntityClass="Stat"
-            key={`${parent.id}_${result.id}_reduce_multiplier_stat`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'stat',
@@ -364,7 +364,7 @@ export const listRenderAbilityStatus = ({ data, }: ListRenderArgs<AbilityStatusQ
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
             targetEntityClass="Status"
-            key={`${parent.id}_${result.id}_cause_status`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'status',
@@ -389,7 +389,7 @@ export const listRenderAbilityStatus = ({ data, }: ListRenderArgs<AbilityStatusQ
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
             targetEntityClass="Status"
-            key={`${parent.id}_${result.id}_resist_status`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'status',
@@ -427,7 +427,7 @@ export const listRenderAbilityType = ({ data, dispatches, filters, }: ListRender
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
             targetEntityClass="Type"
-            key={`${parent.id}_${result.id}_boost_type`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -456,7 +456,7 @@ export const listRenderAbilityType = ({ data, dispatches, filters, }: ListRender
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
             targetEntityClass="Type"
-            key={`${parent.id}_${result.id}_resist_type`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -498,7 +498,7 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
           <ConnectionAccordionEntry
             parentEntityClass="Ability"
             targetEntityClass="Usage method"
-            key={`${parent.id}_${result.id}_activate_usageMethod`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'usageMethod',
@@ -522,7 +522,7 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
             targetEntityClass="Usage method"
-            key={`${parent.id}_${result.id}_boost_usageMethod`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'usageMethod',
@@ -547,7 +547,7 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
             targetEntityClass="Usage method"
-            key={`${parent.id}_${result.id}_prevent_usageMethod`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'usageMethod',
@@ -571,7 +571,7 @@ export const listRenderAbilityUsageMethod = ({ data, }: ListRenderArgs<AbilityUs
           <ConnectionAccordionEntry
           parentEntityClass="Ability"
             targetEntityClass="Usage method"
-            key={`${parent.id}_${result.id}_resist_usageMethod`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'usageMethod',

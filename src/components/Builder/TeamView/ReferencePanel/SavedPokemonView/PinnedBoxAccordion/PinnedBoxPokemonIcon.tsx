@@ -3,13 +3,11 @@ import { getPokemonIcon } from "../../../../../../utils/sprites";
 
 type PinnedBoxPokemonIconProps = {
   onPokemonSelect: (e: React.MouseEvent<HTMLElement, MouseEvent>, pokemonIconDatum: PokemonIconDatum) => void
-  key: string
   pokemonIconDatum: PokemonIconDatum
 }
 
 const PinnedBoxPokemonIcon = ({
   onPokemonSelect,
-  key,
   pokemonIconDatum,
 }: PinnedBoxPokemonIconProps) => {
   const {left, top} = getPokemonIcon(pokemonIconDatum);
@@ -36,7 +34,6 @@ const PinnedBoxPokemonIcon = ({
         className="planner__pokemon-icon"
         onClick={e => onPokemonSelect(e, pokemonIconDatum)}
         title={`${pokemonIconDatum.formattedName}`}
-        key={key}
         style={{
           width: '40px',
           height: '30px',

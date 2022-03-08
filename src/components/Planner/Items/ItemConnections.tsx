@@ -22,7 +22,7 @@ export const listRenderItemEffect = ({ data, }: ListRenderArgs<ItemEffectQuery>)
           <ConnectionAccordionEntry
             parentEntityClass="Item"
             targetEntityClass="Effect"
-            key={`${parent.id}_${result.id}_effect`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -53,7 +53,7 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
           <ConnectionAccordionEntry
           parentEntityClass="Item"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_activate_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -77,7 +77,7 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
           <ConnectionAccordionEntry
           parentEntityClass="Item"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_extend_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -102,7 +102,7 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
           <ConnectionAccordionEntry
           parentEntityClass="Item"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_ignore_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -126,7 +126,7 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
           <ConnectionAccordionEntry
           parentEntityClass="Item"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_resist_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -164,7 +164,7 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
           <ConnectionAccordionEntry
           parentEntityClass="Item"
             targetEntityClass="Stat"
-            key={`${parent.id}_${result.id}_boost_stage_stat`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'stat',
@@ -196,7 +196,7 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
           <ConnectionAccordionEntry
           parentEntityClass="Item"
             targetEntityClass="Stat"
-            key={`${parent.id}_${result.id}_boost_multiplier_stat`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'stat',
@@ -228,7 +228,7 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
           <ConnectionAccordionEntry
           parentEntityClass="Item"
             targetEntityClass="Stat"
-            key={`${parent.id}_${result.id}_reduce_stage_stat`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'stat',
@@ -260,7 +260,7 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
           <ConnectionAccordionEntry
           parentEntityClass="Item"
             targetEntityClass="Stat"
-            key={`${parent.id}_${result.id}_reduce_multiplier_stat`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'stat',
@@ -306,7 +306,7 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
           <ConnectionAccordionEntry
           parentEntityClass="Item"
             targetEntityClass="Status"
-            key={`${parent.id}_${result.id}_cause_status`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'status',
@@ -331,7 +331,7 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
           <ConnectionAccordionEntry
           parentEntityClass="Item"
             targetEntityClass="Status"
-            key={`${parent.id}_${result.id}_resist_status`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'status',
@@ -370,7 +370,7 @@ export const listRenderItemType = ({ data, dispatches, filters, }: ListRenderArg
           <ConnectionAccordionEntry
           parentEntityClass="Item"
             targetEntityClass="Type"
-            key={`${parent.id}_${result.id}_boost_type`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -399,7 +399,7 @@ export const listRenderItemType = ({ data, dispatches, filters, }: ListRenderArg
           <ConnectionAccordionEntry
           parentEntityClass="Item"
             targetEntityClass="Type"
-            key={`${parent.id}_${result.id}_naturalGift_type`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -428,7 +428,7 @@ export const listRenderItemType = ({ data, dispatches, filters, }: ListRenderArg
           <ConnectionAccordionEntry
           parentEntityClass="Item"
             targetEntityClass="Type"
-            key={`${parent.id}_${result.id}_resist_type`}
+            key={result.id}
             name={result.formattedName}
             linkName={result.name}
             description={result.description}
@@ -469,7 +469,7 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
           <ConnectionAccordionEntry
           parentEntityClass="Item"
             targetEntityClass="Field state"
-            key={`${parent.id}_${result.id}_activate_fieldState`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'fieldState',
@@ -493,7 +493,7 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
           <ConnectionAccordionEntry
           parentEntityClass="Item"
             targetEntityClass="Usage method"
-            key={`${parent.id}_${result.id}_boost_usageMethod`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'usageMethod',
@@ -518,7 +518,7 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
           <ConnectionAccordionEntry
           parentEntityClass="Item"
             targetEntityClass="Usage method"
-            key={`${parent.id}_${result.id}_resist_usageMethod`}
+            key={result.id}
             icons={{
               linkIconDatum: {
                 iconClass: 'usageMethod',
