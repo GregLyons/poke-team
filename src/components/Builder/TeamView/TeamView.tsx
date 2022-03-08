@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { BGManager, toggleBGPulse } from "../../../hooks/App/BGManager";
 import { Team } from "../../../hooks/App/Team";
 import { BaseStatName } from "../../../types-queries/entities";
-import { PokemonIconDatum } from "../../../types-queries/helpers";
+import { PokemonIconDatum, TypeName } from "../../../types-queries/helpers";
 import { GenderName, MoveSlot } from "../../../types-queries/Member/helpers";
 import { MemberAbility } from "../../../types-queries/Member/MemberAbility";
 import { MemberItem } from "../../../types-queries/Member/MemberItem";
@@ -33,6 +33,7 @@ export type ReferencePanelMode =
 | 'NATURE'
 | 'EV'
 | 'IV'
+| 'HP'
 
 export type ReferencePanelView = {
   mode: ReferencePanelMode
@@ -66,6 +67,10 @@ export type SpreadHandlers = {
   updateIV: (statName: BaseStatName, newValue: number) => void
 }
 
+export type HPSelectHandlers = {
+  onHPSelect: (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, typeName: TypeName) => void
+}
+
 export type ReferencePanelHandlers = {
   savedPokemonClickHandlers: SavedPokemonClickHandlers
   abilitySelectHandlers: AbilitySelectHandlers
@@ -73,6 +78,7 @@ export type ReferencePanelHandlers = {
   moveSelectHandlers: MoveSelectHandlers
   natureSelectHandlers: NatureSelectHandlers
   spreadHandlers: SpreadHandlers
+  hpSelectHandlers: HPSelectHandlers
 }
 
 // #endregion
@@ -97,6 +103,7 @@ export type MemberDetailsHandlers = {
   onNatureClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onEVsClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onIVsClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onHPClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 
   updateNickname: (e: React.ChangeEvent<HTMLInputElement>) => void
   updateLevel: (newValue: number) => void
@@ -301,6 +308,25 @@ const TeamView = ({
       });
     };
 
+    const onHPSelect = (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, typeName: TypeName) => {
+      if (memberSlot === null) return;
+
+      dispatches.dispatchTeam({
+        type: 'assign_hp_type',
+        payload: {
+          gen: filters.genFilter.gen,
+          idx: memberSlot,
+          typeName,
+        }
+      });
+
+      // Move on to EV
+      return setView({
+        mode: 'EV',
+        idx: 0,
+      });
+    };
+
     // #endregion
 
     return {
@@ -324,7 +350,10 @@ const TeamView = ({
       spreadHandlers: {
         updateEV,
         updateIV,
-      }
+      },
+      hpSelectHandlers: {
+        onHPSelect,
+      },
     };
   }, [dispatches, filters, team, memberSlot, setMemberSlot, view, setView, ]);
 
@@ -411,6 +440,13 @@ const TeamView = ({
       if (memberSlot === null) return;
       
       return setView({ mode: 'IV', idx: 0, });
+    }
+
+    const onHPClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      e.preventDefault();
+      if (memberSlot === null) return;
+      
+      return setView({ mode: 'HP', idx: 0, });
     }
 
     // TODO: connect to ability
@@ -500,6 +536,7 @@ const TeamView = ({
       onNatureClick,
       onEVsClick,
       onIVsClick,
+      onHPClick,
 
       updateNickname,
       updateLevel,

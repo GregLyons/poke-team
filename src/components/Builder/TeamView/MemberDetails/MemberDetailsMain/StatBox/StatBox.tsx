@@ -114,7 +114,7 @@ const StatBox = ({
       </div>}
 
       active={false}
-      onContentClick={() => {}}
+      onContentClick={handlers.onHPClick}
       interactive={true}
 
       gen={gen}

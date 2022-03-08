@@ -11,10 +11,6 @@ import { enablesItemEdgeToMemberItem, MemberItem, requiresItemEdgeToMemberItem }
 import { MemberMove } from "./MemberMove"
 import { MemberNature } from "./MemberNature"
 
-export interface MemberPokemonVars {
-  gen: GenNum
-  psID: string
-}
 
 export interface MemberPokemonQuery {
   pokemonByPSID: MemberPokemonResult[]
@@ -440,6 +436,7 @@ export class MemberPokemon extends MemberEntity {
 
     this.hpType = newHPType;
     this.ivs = hiddenPowerToMaxIVs(newHPType);
+    console.log(this.ivs);
   }
 
   public evsSummary() {
@@ -526,3 +523,50 @@ export class MemberPokemon extends MemberEntity {
     return cosmeticForm;
   }
 }
+
+// Hidden power interfaces and query
+// #region
+
+export interface HPTypeQuery {
+  types: {
+    edges: HPTypeResult[]
+  }
+}
+
+export interface HPTypeResult {
+  node: {
+    name: TypeName
+  }
+}
+
+export interface HPTypeVars {
+  gen: GenNum
+  
+  startsWith: string
+  contains: string
+}
+
+export const HPTYPE_QUERY = gql`
+  query HPTypeQuery(
+    $gen: Int!,
+    $startsWith: String!, $contains: String!
+  ) {
+    types(
+      generation: $gen,
+      filter: {
+        startsWith: $startsWith
+        contains: $contains
+      }
+    ) {
+      id
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+// #endregion

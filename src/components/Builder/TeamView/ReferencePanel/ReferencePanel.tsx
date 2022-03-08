@@ -4,6 +4,7 @@ import { MemberPokemon } from "../../../../types-queries/Member/MemberPokemon";
 import { Dispatches, Filters } from "../../../App";
 import { ReferencePanelHandlers, ReferencePanelView } from "../TeamView";
 import AbilitySelectView from "./AbilitySelectView/AbilitySelectView";
+import HPSelectView from "./HPSelectView/HPSelectView";
 import ItemSelectView from "./ItemSelectView/ItemSelectView";
 import MoveSelectView from "./MoveSelectView/MoveSelectView";
 import NatureSelectView from "./NatureSelectView/NatureSelectView";
@@ -61,6 +62,10 @@ const ReferencePanel = ({
       viewPanelMessage = filters.genFilter.gen > 2 ? viewPanelMessage = 'Set IVs' : 'Set DVs';
       break;
 
+    case 'HP':
+      viewPanelMessage = 'Select HP Type';
+      break;
+
     default: 
       viewPanelMessage = 'Saved Pokemon';
   }
@@ -116,6 +121,10 @@ const ReferencePanel = ({
                 : 'DV'
             }
           />}
+          {(view?.mode === 'HP' && <HPSelectView
+            handlers={handlers.hpSelectHandlers}
+            filters={filters}
+          />)}
         </div>
       </div>
     </div>

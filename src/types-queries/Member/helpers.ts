@@ -121,12 +121,12 @@ export const DEFAULT_DV_SPREAD: StatTable = {
 }
 
 // Constants for computing hidden power; the entries of each array are the hidden power types for which the corresponding stat must be 30
-const THIRTY_HP: TypeName[] = ['dragon', 'grass', 'psychic'];
-const THIRTY_ATTACK: TypeName[] = ['fire', 'ghost'];
-const THIRTY_DEFENSE: TypeName[] = ['fighting', 'poison', 'rock'];
-const THIRTY_SPECIALATTACK: TypeName[] = ['electric', 'fire', 'flying', 'flying'];
-const THIRTY_SPECIALDEFENSE: TypeName[] = ['bug', 'fighting', 'flying', 'ghost', 'ground',  'poison', 'rock', 'steel']; 
-const THIRTY_SPEED: TypeName[] = ['bug', 'fighting', 'fire', 'flying', 'ice', 'psychic', 'rock', 'steel'];
+const THIRTY_HP: TypeName[] = ['dragon', 'grass', 'psychic', ];
+const THIRTY_ATTACK: TypeName[] = ['fire', 'ghost', ];
+const THIRTY_DEFENSE: TypeName[] = ['fighting', 'poison', 'rock', ];
+const THIRTY_SPECIALATTACK: TypeName[] = ['electric', 'fire', 'flying', 'grass', 'fighting', 'poison', 'ground', 'water', ];
+const THIRTY_SPECIALDEFENSE: TypeName[] = ['bug', 'fighting', 'flying', 'ghost', 'ground',  'poison', 'rock', 'steel', ]; 
+const THIRTY_SPEED: TypeName[] = ['bug', 'fighting', 'fire', 'flying', 'ice', 'psychic', 'rock', 'water', ];
 
 // #endregion
 

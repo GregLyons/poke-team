@@ -35,7 +35,8 @@
 .ability-select__entry:first-of-type,
 .item-select__entry:first-of-type,
 .move-select__entry:first-of-type,
-.nature-select__entry:first-of-type {
+.nature-select__entry:first-of-type,
+.hp-select__entry:first-of-type {
   background-color: var(--dark1);
   border-top: 1px solid var(--light3);
   border-bottom: 1px solid var(--light3);

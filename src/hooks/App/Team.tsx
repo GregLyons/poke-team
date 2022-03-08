@@ -1,6 +1,6 @@
 import { PokemonSet, Sets } from "@pkmn/sets";
 import { BaseStatName, GenNum } from "../../types-queries/entities";
-import { PokemonIconDatum } from "../../types-queries/helpers";
+import { PokemonIconDatum, TypeName } from "../../types-queries/helpers";
 import { GenderName, MoveSlot } from "../../types-queries/Member/helpers";
 import { MemberAbility } from "../../types-queries/Member/MemberAbility";
 import { MemberItem } from "../../types-queries/Member/MemberItem";
@@ -217,6 +217,14 @@ export type TeamAction =
       gen: GenNum,
       idx: number,
       psID: string,
+    }
+  }
+| {
+  type: 'assign_hp_type'
+  payload: {
+      gen: GenNum,
+      idx: number,
+      typeName: TypeName
     }
   }
 // #endregion
@@ -527,6 +535,24 @@ export function teamReducer(state: Team, action: TeamAction): Team {
       
       // Replace member data
       return stateWithModifiedMember(stateWithNewIconDatum, gen, modifiedMember, idx);
+
+    case 'assign_hp_type':
+      gen = action.payload.gen;
+      idx = action.payload.idx;
+      const hpType = action.payload.typeName;
+
+      modifiedMember = state[gen].members[idx]?.copy();
+      if (!modifiedMember) return state;
+
+      try {
+        modifiedMember.assignHPType(hpType);
+      }
+      catch {
+        return state;
+      }
+
+      return stateWithModifiedMember(state, gen, modifiedMember, idx);
+      
 
     // #endregion 
 
