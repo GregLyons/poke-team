@@ -1,0 +1,5 @@
+# General structure
+
+The `GenFilterForm`, `PokemonFilterForm`, and `TierFilterForm` components are used to control various filters for Pokemon in searches. They do so through the appropriate dispatches, which are passed down from the `App` component through the `ControlPanel` component, the latter of which serves as a layout component for all the forms. 
+
+The `ImportExport` component handles importing and exporting teams. The app stores more information on the Pokemon than can be represented in the usual exportable format for Pokemon (which just consists of Pokemon names, ability/item/move names, stat info, etc). For example, we need to keep track of what items are required in order to use certain Pokemon, if any. We need to handle this by executing the appropriate GraphQL queries when importing teams. On the other hand, exporting teams is quite simple, as we can easily construct the export string from our Pokemon.
