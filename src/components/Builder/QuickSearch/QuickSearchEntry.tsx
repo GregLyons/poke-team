@@ -1,8 +1,8 @@
 import { PokemonIconDatum, toFormattedTypeName } from "../../../types-queries/helpers";
 import { DoublesTier, SinglesTier } from "../../../utils/smogonLogic";
-import Button from "../../Reusables/Button/Button";
 import PokemonIcon from "../../Icons/PokemonIcon";
 import TypeIcon from "../../Icons/TypeIcon";
+import Button from "../../Reusables/Button/Button";
 
 type QuickSearchEntryProps = {
   pokemon: PokemonIconDatum

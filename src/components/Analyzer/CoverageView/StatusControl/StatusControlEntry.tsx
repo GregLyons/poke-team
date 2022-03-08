@@ -1,5 +1,5 @@
-import { useCallback, } from "react";
-import { StatusControlSummary, } from "../../../../types-queries/Analyzer/Coverage";
+import { useCallback } from "react";
+import { StatusControlSummary } from "../../../../types-queries/Analyzer/Coverage";
 import { MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
 import { StatusName, STATUS_MAP } from "../../../../types-queries/entities";
 import StatusIcon from "../../../Icons/StatusIcon";

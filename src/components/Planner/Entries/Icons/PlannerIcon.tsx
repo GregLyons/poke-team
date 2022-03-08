@@ -6,8 +6,8 @@ import StatusIcon from "../../../Icons/StatusIcon";
 import TypeIcon from "../../../Icons/TypeIcon";
 import UsageMethodIcon from "../../../Icons/UsageMethodIcon";
 import { LinkIconDatum } from "../../helpers";
-
 import './Icons.css';
+
 
 type PlannerIconProps = {
   linkIconDatum: LinkIconDatum

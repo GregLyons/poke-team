@@ -4,9 +4,9 @@ import { Dispatches, Filters } from "../../../../../App";
 import Accordion from "../../../../../Reusables/Accordion/Accordion";
 import { SavedPokemonClickHandlers } from "../../../TeamView";
 import PinnedBox from "./PinnedBox";
+import './PinnedBoxAccordion.css';
 import PinnedBoxAccordionTitle from "./PinnedBoxAccordionTitle";
 
-import './PinnedBoxAccordion.css';
 
 type PinnedBoxAccordion = {
   clickHandlers: SavedPokemonClickHandlers

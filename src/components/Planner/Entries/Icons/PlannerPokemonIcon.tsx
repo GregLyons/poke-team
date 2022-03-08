@@ -1,9 +1,9 @@
 import {
-  PokemonIconDatum,
+  PokemonIconDatum
 } from "../../../../types-queries/helpers";
 import PokemonIcon from "../../../Icons/PokemonIcon";
-
 import './../Entries.css';
+
 
 type PlannerPokemonIconProps = {
   pokemonIconDatum: PokemonIconDatum

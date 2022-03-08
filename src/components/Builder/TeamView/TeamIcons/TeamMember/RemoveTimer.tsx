@@ -1,4 +1,4 @@
-import { useState, } from "react";
+import { useState } from "react";
 import { useInterval } from "usehooks-ts";
 
 type RemoveTimerProps = {

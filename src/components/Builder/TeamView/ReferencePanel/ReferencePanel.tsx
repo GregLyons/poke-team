@@ -1,16 +1,16 @@
 import { Team } from "../../../../hooks/App/Team";
+import { StatTable } from "../../../../types-queries/entities";
+import { MemberPokemon } from "../../../../types-queries/Member/MemberPokemon";
 import { Dispatches, Filters } from "../../../App";
-import { ReferencePanelHandlers, ReferencePanelView, } from "../TeamView";
+import { ReferencePanelHandlers, ReferencePanelView } from "../TeamView";
 import AbilitySelectView from "./AbilitySelectView/AbilitySelectView";
 import ItemSelectView from "./ItemSelectView/ItemSelectView";
 import MoveSelectView from "./MoveSelectView/MoveSelectView";
-
+import NatureSelectView from "./NatureSelectView/NatureSelectView";
 import './ReferencePanel.css';
 import SavedPokemonView from "./SavedPokemonView/SavedPokemonView";
-import NatureSelectView from "./NatureSelectView/NatureSelectView";
 import SpreadView from "./SpreadView/SpreadView";
-import { MemberPokemon } from "../../../../types-queries/Member/MemberPokemon";
-import { StatTable } from "../../../../types-queries/entities";
+
 
 type ReferencePanelProps = {
   handlers: ReferencePanelHandlers

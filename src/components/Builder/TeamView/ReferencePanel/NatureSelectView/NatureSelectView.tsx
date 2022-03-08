@@ -1,10 +1,10 @@
-import { useDelayedQuery, useGenConnectedSearchBar, useGenConnectedSearchVars, } from "../../../../../hooks/Searches";
+import { useDelayedQuery, useGenConnectedSearchBar } from "../../../../../hooks/Searches";
 import { MemberNatureQuery, MemberNatureVars, MEMBER_NATURE_QUERY } from "../../../../../types-queries/Member/MemberNature";
 import { Filters } from "../../../../App";
-import { NatureSelectHandlers, } from "../../TeamView";
+import { NatureSelectHandlers } from "../../TeamView";
 import NatureSelectEntries from "./NatureSelectEntries";
-
 import './NatureSelectView.css';
+
 
 type NatureSelectViewProps = {
   handlers: NatureSelectHandlers

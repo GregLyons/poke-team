@@ -1,13 +1,13 @@
-import { useEffect, useRef, } from "react";
+import { useEffect, useRef } from "react";
 import { displayReason, validatePokemon, ValidationFailureReason } from "../../../../hooks/App/PokemonFilter";
-import { SelectionAction, Selection } from "../../../../hooks/Planner/Selections";
-import { PokemonIconDatum, } from "../../../../types-queries/helpers";
+import { Selection, SelectionAction } from "../../../../hooks/Planner/Selections";
+import { PokemonIconDatum } from "../../../../types-queries/helpers";
+import Button from "../../../Reusables/Button/Button";
+import { EntryIconData } from "../../helpers";
+import './Icons.css';
 import PlannerPokemonIcon from "./PlannerPokemonIcon";
 import SelectionControls from "./SelectionControls";
 
-import './Icons.css';
-import { EntryIconData } from "../../helpers";
-import Button from "../../../Reusables/Button/Button";
 
 type PlannerPokemonIconsProps = {
   context: 'search' | 'accordion'

@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { SortByEnum } from '../../../types-queries/helpers';
 import './SortSwitch.css';
 

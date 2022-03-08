@@ -1,16 +1,16 @@
-import { useEffect, } from "react";
+import { useEffect } from "react";
 import {
-  Outlet,
+  Outlet
 } from "react-router-dom";
-
 import 'simplebar/dist/simplebar.min.css';
-
 import { BGAction, BGManager, classWithBGShadow, toggleBGPulse } from "../../hooks/App/BGManager";
-
+import { useContainerSize } from "../../hooks/App/ContainerSize";
+import './Builder.css';
 import BuilderNavBar from './BuilderNavBar';
 
-import './Builder.css';
-import { useContainerSize } from "../../hooks/App/ContainerSize";
+
+
+
 
 type BuilderProps = {
   dispatchBGManager: React.Dispatch<BGAction>

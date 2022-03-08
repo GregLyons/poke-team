@@ -1,41 +1,27 @@
 import {
   Outlet,
-  useParams,
+  useParams
 } from 'react-router-dom';
-
-import {
-  TYPE_PAGE_QUERY,
-  TypePageQuery,
-  TypePageQueryVars,
-  TypeOnPage,
-
-  TYPE_ABILITY_QUERY,
-  TypeAbilityQueryVars,
-
-  TYPE_FIELDSTATE_QUERY,
-  TypeFieldStateQueryVars,
-
-  TYPE_ITEM_QUERY,
-  TypeItemQueryVars,
-
-  TYPE_MOVE_QUERY,
-  TypeMoveQueryVars,
-} from '../../../types-queries/Planner/Type';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
+import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
+import {
+  TypeAbilityQueryVars, TypeFieldStateQueryVars, TypeItemQueryVars, TypeMoveQueryVars, TypeOnPage, TypePageQuery,
+  TypePageQueryVars, TYPE_ABILITY_QUERY, TYPE_FIELDSTATE_QUERY, TYPE_ITEM_QUERY, TYPE_MOVE_QUERY, TYPE_PAGE_QUERY
+} from '../../../types-queries/Planner/Type';
+import { Dispatches, Filters } from '../../App';
+import Accordion from '../../Reusables/Accordion/Accordion';
+import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
+import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
+import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 import {
   listRenderTypeAbility,
   listRenderTypeFieldState,
   listRenderTypeItem,
-  listRenderTypeMove,
+  listRenderTypeMove
 } from './TypeConnections';
 
-import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
-import { useGenConnectedSearchVars, useRemovalConnectedSearchBar, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
-import Accordion from '../../Reusables/Accordion/Accordion';
-import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
-import { Dispatches, Filters } from '../../App';
-import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
-import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
+
 
 type TypePageProps = {
   dispatches: Dispatches

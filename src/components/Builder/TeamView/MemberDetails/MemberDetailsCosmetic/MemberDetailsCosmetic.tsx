@@ -3,8 +3,8 @@ import PokemonIcon from "../../../../Icons/PokemonIcon";
 import { MemberDetailsHandlers } from "../../TeamView";
 import MemberDetailBox from "../MemberDetailBox";
 import CosmeticFormDropdown from "./CosmeticFormDropdown";
-
 import './MemberDetailsCosmetic.css';
+
 
 type MemberDetailsCosmeticProps = {
   member: MemberPokemon

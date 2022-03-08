@@ -1,5 +1,3 @@
-import { BGManager, } from '../../hooks/App/BGManager';
-import { Dispatches, Filters } from '../App';
 
 type AnalyzerHomeProps = {
 }

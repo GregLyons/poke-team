@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import { GenerationNum } from "@pkmn/data";
 import { RequiresItemEdge } from "../Builder/helpers";
 import { CapsTypeName, toTypeName, TypeName } from "../helpers";
-import { MemberEntity, MemberSpecificEntityVars, MemberResult, } from "./helpers";
+import { MemberEntity, MemberResult, MemberSpecificEntityVars } from "./helpers";
 import { MemberItem, requiresItemEdgeToMemberItem } from "./MemberItem";
 
 export interface MemberMoveQuery {

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import FontAwesome from "react-fontawesome";
 import { useOnClickOutside, useWindowSize } from "usehooks-ts";
-import { BGManager, classWithBGControl } from "../../../hooks/App/BGManager";
+import { classWithBGControl } from "../../../hooks/App/BGManager";
 import './DropdownMenu.css';
 
 type Item<F> = {

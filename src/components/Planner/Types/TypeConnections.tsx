@@ -1,19 +1,9 @@
 import { ListRenderArgs, ListRenderArgsIcons } from "../../../hooks/Searches";
 import {
-  TypeAbilityResult,
-  TypeAbilityQuery,
-
-  TypeFieldStateResult,
-  TypeFieldStateQuery,
-
-  TypeItemResult,
-  TypeItemQuery,
-
-  TypeMoveResult,
-  TypeMoveQuery,
+  TypeAbilityQuery, TypeAbilityResult, TypeFieldStateQuery, TypeFieldStateResult, TypeItemQuery, TypeItemResult, TypeMoveQuery, TypeMoveResult
 } from "../../../types-queries/Planner/Type";
-
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
+
 
 export const listRenderTypeAbility = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeAbilityQuery>) => {
   if (!data || !data.typeByName) return (<div>Data not found for the query 'typeByName'.</div>);

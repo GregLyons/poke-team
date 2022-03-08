@@ -1,13 +1,13 @@
+import { useEffect } from "react";
 import {
-  Outlet,
+  Outlet
 } from "react-router-dom";
-import './Planner.css';
-import './Entries/Entries.css';
-
-import PlannerNavBar from './PlannerNavBar';
 import { BGAction, BGManager, classWithBGShadow, toggleBGPulse } from "../../hooks/App/BGManager";
-import { useEffect, } from "react";
 import { useContainerSize } from "../../hooks/App/ContainerSize";
+import './Entries/Entries.css';
+import './Planner.css';
+import PlannerNavBar from './PlannerNavBar';
+
 
 
 type PlannerProps = {

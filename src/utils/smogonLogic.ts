@@ -1,8 +1,8 @@
 import {
-  Generations,
+  Generations
 } from "@pkmn/data";
 import {
-  Dex,
+  Dex
 } from "@pkmn/dex";
 import { GenNum } from "../types-queries/entities";
 

@@ -1,5 +1,5 @@
-import { useCallback, } from "react";
-import { FieldControlSummary, } from "../../../../types-queries/Analyzer/Coverage";
+import { useCallback } from "react";
+import { FieldControlSummary } from "../../../../types-queries/Analyzer/Coverage";
 import { MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
 import { FieldStateClass, FIELDSTATE_CLASS_MAP } from "../../../../types-queries/entities";
 

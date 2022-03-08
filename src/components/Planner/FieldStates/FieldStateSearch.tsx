@@ -1,27 +1,24 @@
 import {
-  Outlet,
+  Outlet
 } from 'react-router-dom';
-
-import { listToggleValue, rangeSelect, } from '../helpers';
-import {
-  FieldStateSearchQuery,
-  FieldStateSearchResult,
-  FieldStateSearchVars,
-  FieldStateInSearch,
-
-  FIELDSTATE_SEARCH_QUERY,
-} from '../../../types-queries/Planner/FieldState';
-
 import { GenFilter } from "../../../hooks/App/GenFilter";
-
-import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
-import { ENUMCASE_TO_TITLECASE } from '../../../utils/constants';
 import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
-import MainSearch from '../MainSearch/MainSearch';
-import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
+import { FieldStateClass, FieldStateTargetClass, FIELDSTATE_CLASS_MAP, FIELDSTATE_TARGETCLASS_MAP } from '../../../types-queries/entities';
+import {
+  FieldStateInSearch, FieldStateSearchQuery,
+  FieldStateSearchResult,
+  FieldStateSearchVars, FIELDSTATE_SEARCH_QUERY
+} from '../../../types-queries/Planner/FieldState';
+import { ENUMCASE_TO_TITLECASE } from '../../../utils/constants';
 import Button from '../../Reusables/Button/Button';
 import DoubleSlider from '../../Reusables/DoubleSlider/DoubleSlider';
-import { FieldStateClass, FieldStateTargetClass, FIELDSTATE_CLASS_MAP, FIELDSTATE_TARGETCLASS_MAP } from '../../../types-queries/entities';
+import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
+import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
+import { listToggleValue, rangeSelect } from '../helpers';
+import MainSearch from '../MainSearch/MainSearch';
+
+
+
 
 const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
   if (!data || !data.fieldStates) return (<div>Data not found for the query 'fieldStates'.</div>);

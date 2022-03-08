@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { EntityClass, ENTITYCLASS_TO_PLANNERLINK, } from "../../../utils/constants";
+import { EntityClass, ENTITYCLASS_TO_PLANNERLINK } from "../../../utils/constants";
 import { EntryIconData } from "../helpers";
 import PlannerIcon from "./Icons/PlannerIcon";
 

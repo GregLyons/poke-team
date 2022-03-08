@@ -1,7 +1,7 @@
 import { useState } from "react";
-import DoubleSliderBase from "./DoubleSliderBase"
-import './DoubleSlider.css';
 import NumericalInput from "../NumericalInput/NumericalInput";
+import './DoubleSlider.css';
+import DoubleSliderBase from "./DoubleSliderBase";
 
 type DoubleSliderProps = {
   titleFor: string

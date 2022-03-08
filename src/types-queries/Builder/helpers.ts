@@ -1,5 +1,5 @@
 import { BaseStatName, StatTable, toAbbreviatedBaseStatName } from "../entities";
-import { IntroductionEdge, NameEdge, } from "../helpers";
+import { IntroductionEdge, NameEdge } from "../helpers";
 
 // Formatting spreads 
 // #region

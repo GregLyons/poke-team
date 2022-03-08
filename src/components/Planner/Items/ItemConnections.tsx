@@ -1,27 +1,11 @@
 import { ListRenderArgs, ListRenderArgsIcons } from "../../../hooks/Searches";
-import {
-  ItemEffectResult,
-  ItemEffectQuery,
-
-  ItemFieldStateResult,
-  ItemFieldStateQuery,
-  
-  ItemStatResult,
-  ItemStatQuery,
-
-  ItemStatusResult,
-  ItemStatusQuery,
-
-  ItemTypeResult,
-  ItemTypeQuery,
-
-  ItemUsageMethodResult,
-  ItemUsageMethodQuery,
-} from "../../../types-queries/Planner/Item";
-
-import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 import { DUMMY_POKEMON_ICON_DATUM } from "../../../types-queries/helpers";
+import {
+  ItemEffectQuery, ItemEffectResult, ItemFieldStateQuery, ItemFieldStateResult, ItemStatQuery, ItemStatResult, ItemStatusQuery, ItemStatusResult, ItemTypeQuery, ItemTypeResult, ItemUsageMethodQuery, ItemUsageMethodResult
+} from "../../../types-queries/Planner/Item";
 import { ENUMCASE_TO_TITLECASE } from "../../../utils/constants";
+import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
+
 
 export const listRenderItemEffect = ({ data, }: ListRenderArgs<ItemEffectQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);

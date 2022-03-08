@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import FontAwesome from "react-fontawesome";
 
 type AccordionItemProps = {

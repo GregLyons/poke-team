@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDelayedQuery, useGenConnectedSearchBar, useGenConnectedSearchVars } from "../../../../hooks/Searches";
+import { useDelayedQuery, useGenConnectedSearchBar } from "../../../../hooks/Searches";
 import { PopupItemQuery, PopupItemVars, POPUP_ITEM_QUERY } from "../../../../types-queries/Analyzer/PopupSearch";
 import { MemberItem, MemberItemResult } from "../../../../types-queries/Member/MemberItem";
 import { MemberPokemon } from "../../../../types-queries/Member/MemberPokemon";

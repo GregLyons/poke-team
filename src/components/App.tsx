@@ -1,53 +1,53 @@
 import {
   useMemo,
   useReducer,
-  useRef,
+  useRef
 } from 'react';
 import {
   Route,
-  Routes,
+  Routes
 } from 'react-router-dom';
-import './App.css';
-
-import NavBar from './NavBar/NavBar';
-
-import Analyzer from './Analyzer/Analyzer';
-import Builder from './Builder/Builder';
-import BuilderHome from './Builder/BuilderHome';
-import Planner from './Planner/Planner';
-import PlannerHome from './Planner/PlannerHome';
-
-import AbilityPage from './Planner/Abilities/AbilityPage';
-import EffectPage from './Planner/Effects/EffectPage';
-import FieldStatePage from './Planner/FieldStates/FieldStatePage';
-import ItemPage from './Planner/Items/ItemPage';
-import MovePage from './Planner/Moves/MovePage';
-import StatPage from './Planner/Stats/StatPage';
-import StatusPage from './Planner/Statuses/StatusPage';
-import TypePage from './Planner/Types/TypePage';
-import UsageMethodPage from './Planner/UsageMethods/UsageMethodPage';
-
-import ControlPanel from './ControlPanel/ControlPanel';
-import { DEFAULT_GEN_FILTER, GenFilter, GenFilterAction, genReducer } from '../hooks/App/GenFilter';
-import { DEFAULT_TIER_FILTER, TierFilter, TierFilterAction, tierReducer } from '../hooks/App/TierFilter';
-import { DEFAULT_POKEMON_FILTER, PokemonFilter, PokemonFilterAction, pokemonReducer } from '../hooks/App/PokemonFilter';
-import { CartAction, cartReducer, DEFAULT_CART } from '../hooks/App/Cart';
-import { DEFAULT_TEAM, TeamAction, teamReducer } from '../hooks/App/Team';
 import { BGAction, bgReducer, classWithBG, classWithBGShadow, DEFAULT_BACKGROUND } from '../hooks/App/BGManager';
-import CartView from './Builder/CartView/CartView';
-import TeamView from './Builder/TeamView/TeamView';
-import QuickSearch from './Builder/QuickSearch/QuickSearch';
+import { CartAction, cartReducer, DEFAULT_CART } from '../hooks/App/Cart';
+import { DEFAULT_GEN_FILTER, GenFilter, GenFilterAction, genReducer } from '../hooks/App/GenFilter';
+import { DEFAULT_POKEMON_FILTER, PokemonFilter, PokemonFilterAction, pokemonReducer } from '../hooks/App/PokemonFilter';
+import { DEFAULT_TEAM, TeamAction, teamReducer } from '../hooks/App/Team';
+import { DEFAULT_TIER_FILTER, TierFilter, TierFilterAction, tierReducer } from '../hooks/App/TierFilter';
+import Analyzer from './Analyzer/Analyzer';
 import AnalyzerHome from './Analyzer/AnalyzerHome';
 import CoverageView from './Analyzer/CoverageView/CoverageView';
+import './App.css';
+import Builder from './Builder/Builder';
+import BuilderHome from './Builder/BuilderHome';
+import CartView from './Builder/CartView/CartView';
+import QuickSearch from './Builder/QuickSearch/QuickSearch';
+import TeamView from './Builder/TeamView/TeamView';
+import ControlPanel from './ControlPanel/ControlPanel';
+import NavBar from './NavBar/NavBar';
+import AbilityPage from './Planner/Abilities/AbilityPage';
 import AbilitySearch from './Planner/Abilities/AbilitySearch';
-import ItemSearch from './Planner/Items/ItemSearch';
-import MoveSearch from './Planner/Moves/MoveSearch';
+import EffectPage from './Planner/Effects/EffectPage';
 import EffectSearch from './Planner/Effects/EffectSearch';
+import FieldStatePage from './Planner/FieldStates/FieldStatePage';
 import FieldStateSearch from './Planner/FieldStates/FieldStateSearch';
+import ItemPage from './Planner/Items/ItemPage';
+import ItemSearch from './Planner/Items/ItemSearch';
+import MovePage from './Planner/Moves/MovePage';
+import MoveSearch from './Planner/Moves/MoveSearch';
+import Planner from './Planner/Planner';
+import PlannerHome from './Planner/PlannerHome';
+import StatPage from './Planner/Stats/StatPage';
 import StatSearch from './Planner/Stats/StatSearch';
+import StatusPage from './Planner/Statuses/StatusPage';
 import StatusSearch from './Planner/Statuses/StatusSearch';
+import TypePage from './Planner/Types/TypePage';
 import TypeSearch from './Planner/Types/TypeSearch';
+import UsageMethodPage from './Planner/UsageMethods/UsageMethodPage';
 import UsageMethodSearch from './Planner/UsageMethods/UsageMethodSearch';
+
+
+
+
 
 export type Dispatches = {
   dispatchCart: React.Dispatch<CartAction>

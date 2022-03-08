@@ -1,18 +1,18 @@
 import {
-  useRef,
+  useRef
 } from "react";
-
-import {
-  EntityClass,
-} from "../../../../utils/constants";
-
-import EntryLink from "../EntryLink";
-import { EntryIconData } from "../../helpers";
-import PlannerPokemonIcons from "../Icons/PlannerPokemonIcons";
 import { useEntryExpand } from "../../../../hooks/Planner/Entries";
-import { selectionToPokemonIconData, useSelection, } from "../../../../hooks/Planner/Selections";
-
+import { selectionToPokemonIconData, useSelection } from "../../../../hooks/Planner/Selections";
+import {
+  EntityClass
+} from "../../../../utils/constants";
+import { EntryIconData } from "../../helpers";
+import EntryLink from "../EntryLink";
+import PlannerPokemonIcons from "../Icons/PlannerPokemonIcons";
 import './ConnectionEntry.css';
+
+
+
 
 type ConnectionAccordionEntryProps = {
   parentEntityClass: EntityClass

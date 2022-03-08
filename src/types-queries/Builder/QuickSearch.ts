@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { GenNum, StatTableWithBST } from "../entities";
-import { CapsTypeName, NameEdge, PokemonIconDatum, PokemonIconNode, pokemonIconNodeToPokemonIconDatum, } from "../helpers";
+import { CapsTypeName, NameEdge, PokemonIconDatum, PokemonIconNode, pokemonIconNodeToPokemonIconDatum } from "../helpers";
 
 export type PokemonQuickSearchQuery = {
   pokemon: {

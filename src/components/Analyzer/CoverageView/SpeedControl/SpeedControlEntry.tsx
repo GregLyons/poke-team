@@ -1,5 +1,4 @@
-import { useCallback, useMemo } from "react";
-import { SpeedControlKey, SpeedControlSummary, TypeCoverageSummary } from "../../../../types-queries/Analyzer/Coverage";
+import { useCallback } from "react";
 import { CoverageDatum, MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
 
 type SpeedControlEntryProps = {

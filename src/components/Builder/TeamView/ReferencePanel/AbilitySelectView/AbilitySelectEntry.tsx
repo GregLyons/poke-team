@@ -1,7 +1,5 @@
 import { MemberAbility } from "../../../../../types-queries/Member/MemberAbility";
-import { toTypeName } from "../../../../../types-queries/helpers";
 import { ENUMCASE_TO_TITLECASE } from "../../../../../utils/constants";
-import TypeIcon from "../../../../Icons/TypeIcon";
 import { AbilitySelectHandlers } from "../../TeamView";
 
 type AbilitySelectEntryProps = {

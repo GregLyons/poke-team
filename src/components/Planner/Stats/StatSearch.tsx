@@ -1,23 +1,20 @@
 import {
-  Outlet,
+  Outlet
 } from 'react-router-dom';
-
-
-import {
-  StatSearchQuery,
-  StatSearchResult,
-  StatSearchVars,
-  StatInSearch,
-
-  STAT_SEARCH_QUERY,
-} from '../../../types-queries/Planner/Stat';
-
 import { GenFilter } from "../../../hooks/App/GenFilter";
-
-import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
-
 import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
+import {
+  StatInSearch, StatSearchQuery,
+  StatSearchResult,
+  StatSearchVars, STAT_SEARCH_QUERY
+} from '../../../types-queries/Planner/Stat';
+import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import MainSearch from '../MainSearch/MainSearch';
+
+
+
+
+
 
 const listRender = ({ data, }: ListRenderArgs<StatSearchQuery>) => {
   if (!data || !data.stats) return (<div>Data not found for the query 'stats'.</div>);

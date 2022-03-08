@@ -1,8 +1,8 @@
-import { PokemonIconDatum } from "../../types-queries/helpers"
+import { PokemonIconDatum } from "../../types-queries/helpers";
 import { GenderName } from "../../types-queries/Member/helpers";
 import { getPokemonIcon } from "../../utils/sprites";
-
 import './Icons.css';
+
 
 type PokemonIconProps = {
   pokemonIconDatum: PokemonIconDatum

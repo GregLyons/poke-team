@@ -1,5 +1,5 @@
 import {
-  gql,
+  gql
 } from '@apollo/client';
 import { GenNum } from '../entities';
 import {
@@ -13,28 +13,15 @@ import {
   TypeIconDatum,
   typeIconEdgeToTypeIconDatum,
   TypeName, TypeNameEdge,
-  typeNameEdgeToTypeName,
+  typeNameEdgeToTypeName
 } from '../helpers';
 import {
-  EntitySearchVars,
-  
-  EntityPageQueryName,
-  EntityPageVars,
-  CountField,
-  
-  EntityConnectionVars,
+  AuxEntityOnPage, AuxEntityPageResult, AuxToAuxConnectionEdge, AuxToIconConnectionEdge,
+  AuxToIconConnectionOnPage, AuxToItemConnectionEdge,
+  AuxToItemConnectionOnPage, AuxToMainConnectionEdge, AuxToMainConnectionOnPage, CountField,
 
-  VersionDependentDescriptionEdge,
-  AuxToMainConnectionEdge,
-  AuxEntityPageResult,
-  AuxEntityOnPage,
-  AuxToMainConnectionOnPage,
-  AuxToAuxConnectionEdge,
-  AuxToItemConnectionEdge,
-  AuxToItemConnectionOnPage,
-  RemovedFromGameQueryVars,
-  AuxToIconConnectionEdge,
-  AuxToIconConnectionOnPage,
+  EntityConnectionVars, EntityPageQueryName,
+  EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
 } from './helpers';
 
 // Type in main search

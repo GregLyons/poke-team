@@ -1,6 +1,6 @@
 import { useState } from "react";
-
 import './Button.css';
+
 
 type ButtonProps = {
   title: string

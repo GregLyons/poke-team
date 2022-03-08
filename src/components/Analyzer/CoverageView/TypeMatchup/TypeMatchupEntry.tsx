@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import { TypeCoverageSummary } from "../../../../types-queries/Analyzer/Coverage";
 import { MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
 import { TypeMatchupSummary } from "../../../../types-queries/Analyzer/Matchups";

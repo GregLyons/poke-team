@@ -1,10 +1,9 @@
-import { useEffect, useRef } from "react";
 import { CartAction } from "../../../hooks/App/Cart";
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { Team, TeamAction } from "../../../hooks/App/Team";
-
 import './PokemonTeam.css';
 import TeamMember from "./TeamMember";
+
 
 type PokemonTeamProps = {
   dispatchCart: React.Dispatch<CartAction>

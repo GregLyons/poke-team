@@ -1,12 +1,12 @@
-import {
-  NUMBER_OF_GENS,
-} from "../../../utils/constants";
 import { GenFilter, GenFilterAction } from "../../../hooks/App/GenFilter";
-import Slider from "../../Reusables/Slider/Slider";
-
-import './GenFilterForm.css';
-import Button from "../../Reusables/Button/Button";
 import { toGenNum } from "../../../types-queries/entities";
+import {
+  NUMBER_OF_GENS
+} from "../../../utils/constants";
+import Button from "../../Reusables/Button/Button";
+import Slider from "../../Reusables/Slider/Slider";
+import './GenFilterForm.css';
+
 
 type GenFilterFormProps = {
   genFilter: GenFilter,

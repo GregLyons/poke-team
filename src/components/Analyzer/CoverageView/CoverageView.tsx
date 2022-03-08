@@ -1,19 +1,19 @@
+import { useQuery } from "@apollo/client";
 import { useMemo, useState } from "react";
 import { Team } from "../../../hooks/App/Team";
 import { AbilityCoverageQuery, ABILITY_COVERAGE_QUERY, CoverageSearchVars, ItemCoverageQuery, ITEM_COVERAGE_QUERY, MoveCoverageQuery, MOVE_COVERAGE_QUERY } from "../../../types-queries/Analyzer/Coverage";
-import { ABILITY_MATCHUP_QUERY, ITEM_MATCHUP_QUERY, MatchupSearchVars, MatchupSearchVarsType, AbilityMatchupQuery, ItemMatchupQuery, TypingMatchupQuery, TYPING_MATCHUP_QUERY } from "../../../types-queries/Analyzer/Matchups";
+import { MemberAndEntityPSIDs, MemberPSIDObject } from "../../../types-queries/Analyzer/helpers";
+import { AbilityMatchupQuery, ABILITY_MATCHUP_QUERY, ItemMatchupQuery, ITEM_MATCHUP_QUERY, MatchupSearchVars, MatchupSearchVarsType, TypingMatchupQuery, TYPING_MATCHUP_QUERY } from "../../../types-queries/Analyzer/Matchups";
 import { CapsTypeName, toCapsTypeName } from "../../../types-queries/helpers";
+import { MemberPokemon } from "../../../types-queries/Member/MemberPokemon";
 import { Dispatches, Filters } from "../../App";
+import './CoverageView.css';
 import FieldControl from "./FieldControl/FieldControl";
 import SpeedControl from "./SpeedControl/SpeedControl";
 import StatusControl from "./StatusControl/StatusControl";
 import TeamColumn from "./TeamColumn/TeamColumn";
 import TypeMatchup from "./TypeMatchup/TypeMatchup";
 
-import './CoverageView.css';
-import { useQuery } from "@apollo/client";
-import { MemberAndEntityPSIDs, MemberPSIDObject } from "../../../types-queries/Analyzer/helpers";
-import { MemberPokemon } from "../../../types-queries/Member/MemberPokemon";
 
 type CoverageViewProps = {
   dispatches: Dispatches

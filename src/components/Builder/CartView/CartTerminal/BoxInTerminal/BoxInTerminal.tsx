@@ -1,4 +1,4 @@
-import { BoxInCombination, } from "../../../../../hooks/App/Cart";
+import { BoxInCombination } from "../../../../../hooks/App/Cart";
 import { CartTerminalClickHandlers } from "../../CartView";
 
 type BoxInTerminalProps = {

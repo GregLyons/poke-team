@@ -1,28 +1,25 @@
 import {
-  Outlet,
+  Outlet
 } from 'react-router-dom';
-
-import {
-  ItemSearchQuery,
-  ItemSearchResult,
-  ItemSearchVars,
-  ItemInSearch,
-
-  ITEM_SEARCH_QUERY,
-} from '../../../types-queries/Planner/Item';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
-
-import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
-import {
-  ENUMCASE_TO_TITLECASE,
-} from '../../../utils/constants';
-import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons, } from '../../../hooks/Searches';
-import { listToggleValue } from '../helpers';
-import { Dispatches, Filters } from '../../App';
-import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
-import Button from '../../Reusables/Button/Button';
-import MainSearch from '../MainSearch/MainSearch';
+import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Searches';
 import { ItemClass, ITEM_CLASS_MAP } from '../../../types-queries/entities';
+import {
+  ItemInSearch, ItemSearchQuery,
+  ItemSearchResult,
+  ItemSearchVars, ITEM_SEARCH_QUERY
+} from '../../../types-queries/Planner/Item';
+import {
+  ENUMCASE_TO_TITLECASE
+} from '../../../utils/constants';
+import { Dispatches, Filters } from '../../App';
+import Button from '../../Reusables/Button/Button';
+import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
+import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
+import { listToggleValue } from '../helpers';
+import MainSearch from '../MainSearch/MainSearch';
+
+
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<ItemSearchQuery>) => {
   if (!data || !data.items) return (<div>Data not found for the query 'items'.</div>);

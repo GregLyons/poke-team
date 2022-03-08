@@ -1,9 +1,9 @@
-// Effects
-// #region
-
 import { StatsTable } from "@pkmn/data";
 import { NUMBER_OF_GENS } from "../utils/constants";
 import { CapsTypeName, FormattedTypeName, TypeName } from "./helpers";
+
+// Effects
+// #region
 
 export type EffectClass =
 | 'ABILITY'

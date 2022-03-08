@@ -1,7 +1,7 @@
 import { IconDatum } from "../../types-queries/helpers";
 import { getFieldStateIcon } from "../../utils/sprites";
-
 import './Icons.css';
+
 
 type FieldStateIconProps = {
   iconDatum: IconDatum

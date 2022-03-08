@@ -1,25 +1,22 @@
 import {
-  Outlet,
+  Outlet
 } from 'react-router-dom';
-
-import {
-  EffectSearchQuery,
-  EffectSearchResult,
-  EffectSearchVars,
-  EffectInSearch,
-
-  EFFECT_SEARCH_QUERY,
-} from '../../../types-queries/Planner/Effect';
-
 import { GenFilter } from "../../../hooks/App/GenFilter";
-
-import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
-import MainSearch from '../MainSearch/MainSearch';
-import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
-import { listToggleValue } from '../helpers';
-import Button from '../../Reusables/Button/Button';
 import { EffectClass, EFFECT_CLASS_MAP, EFFECT_TITLE_MAP } from '../../../types-queries/entities';
+import {
+  EffectInSearch, EffectSearchQuery,
+  EffectSearchResult,
+  EffectSearchVars, EFFECT_SEARCH_QUERY
+} from '../../../types-queries/Planner/Effect';
+import Button from '../../Reusables/Button/Button';
+import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
+import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
+import { listToggleValue } from '../helpers';
+import MainSearch from '../MainSearch/MainSearch';
+
+
+
 
 const listRender = ({ data, }: ListRenderArgs<EffectSearchQuery>) => {
   if (!data || !data.effects) return (<div>Data not found for the query 'effects'.</div>);

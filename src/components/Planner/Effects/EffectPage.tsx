@@ -1,37 +1,23 @@
 import {
   Outlet,
-  useParams,
+  useParams
 } from 'react-router-dom';
-
-import {
-  EFFECT_PAGE_QUERY,
-  EffectPageQuery,
-  EffectPageQueryVars,
-  EffectOnPage,
-
-  EFFECT_ABILITY_QUERY,
-  EffectAbilityQueryVars,
-
-  EFFECT_FIELDSTATE_QUERY,
-  EffectFieldStateQueryVars,
-
-  EFFECT_ITEM_QUERY,
-  EffectItemQueryVars,
-
-  EFFECT_MOVE_QUERY,
-  EffectMoveQueryVars,
-} from '../../../types-queries/Planner/Effect';
-
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
-
-import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
-import { listRenderEffectAbility, listRenderEffectFieldState, listRenderEffectItem, listRenderEffectMove } from './EffectConnections';
-import { useGenConnectedSearchVars, useRemovalConnectedSearchBar, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
+import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
+import {
+  EffectAbilityQueryVars, EffectFieldStateQueryVars, EffectItemQueryVars, EffectMoveQueryVars, EffectOnPage, EffectPageQuery,
+  EffectPageQueryVars, EFFECT_ABILITY_QUERY, EFFECT_FIELDSTATE_QUERY, EFFECT_ITEM_QUERY, EFFECT_MOVE_QUERY, EFFECT_PAGE_QUERY
+} from '../../../types-queries/Planner/Effect';
+import { Dispatches, Filters } from '../../App';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
-import { Dispatches, Filters } from '../../App';
+import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
-import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
+import { listRenderEffectAbility, listRenderEffectFieldState, listRenderEffectItem, listRenderEffectMove } from './EffectConnections';
+
+
+
 
 type EffectPageProps = {
   dispatches: Dispatches

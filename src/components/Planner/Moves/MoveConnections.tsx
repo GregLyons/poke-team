@@ -1,23 +1,11 @@
 import { ListRenderArgs, ListRenderArgsIcons } from "../../../hooks/Searches";
 import { DUMMY_POKEMON_ICON_DATUM } from "../../../types-queries/helpers";
 import {
-  MoveEffectResult,
-  MoveEffectQuery,
-
-  MoveFieldStateResult,
-  MoveFieldStateQuery,
-  
-  MoveStatResult,
-  MoveStatQuery,
-
-  MoveStatusResult,
-  MoveStatusQuery,
-
-  MoveTypeQuery,
+  MoveEffectQuery, MoveEffectResult, MoveFieldStateQuery, MoveFieldStateResult, MoveStatQuery, MoveStatResult, MoveStatusQuery, MoveStatusResult, MoveTypeQuery,
   MoveTypeResult,
 
   MoveUsageMethodQuery,
-  MoveUsageMethodResult,
+  MoveUsageMethodResult
 } from "../../../types-queries/Planner/Move";
 import { ENUMCASE_TO_TITLECASE } from "../../../utils/constants";
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";

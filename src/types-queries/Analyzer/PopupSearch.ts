@@ -1,10 +1,9 @@
 import { gql } from "@apollo/client";
-import { MemberAbilityResult } from "../Member/MemberAbility";
-import { PopupVars } from "./helpers";
 import { AbilitySlot } from "../Member/helpers";
-import { GenNum } from "../entities";
+import { MemberAbilityResult } from "../Member/MemberAbility";
 import { MemberItemResult } from "../Member/MemberItem";
 import { MemberMoveResult } from "../Member/MemberMove";
+import { PopupVars } from "./helpers";
 
 // Ability
 // #region

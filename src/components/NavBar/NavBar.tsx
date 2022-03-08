@@ -1,8 +1,8 @@
 import { BGManager, classWithBGShadow } from '../../hooks/App/BGManager';
 import { useContainerSize } from '../../hooks/App/ContainerSize';
 import LinkButton from '../Reusables/LinkButton/LinkButton';
-
 import './NavBar.css';
+
 
 type NavBarProps = {
   bgManager: BGManager

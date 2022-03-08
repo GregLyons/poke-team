@@ -1,41 +1,27 @@
 import {
-  gql,
+  gql
 } from '@apollo/client';
 import { GenNum, MoveCategory, MoveTargetClass } from '../entities';
-
 import {
-  DescriptionEdge,
-  DescriptionsEdge,
-  CapsTypeName,
-  IntroductionEdge,
+  CapsTypeName, DescriptionEdge,
+  DescriptionsEdge, IntroductionEdge,
   PokemonIconDatum,
   PokemonIconEdge,
   pokemonIconEdgeToPokemonIconDatum,
   TypeIconDatum,
   TypeIconEdge,
   typeIconEdgeToTypeIconDatum,
-  TypeName, 
+  TypeName,
   TypeNameEdge,
-  typeNameEdgeToTypeName,
+  typeNameEdgeToTypeName
 } from '../helpers';
 import {
-  MainEntitySearchResult,
-  EntitySearchVars,
-  MainEntityInSearch,
-  
-  EntityPageQueryName,
-  MainEntityOnPage,
-  MainEntityPageResult,
-  EntityPageVars,
-  CountField,
-  
-  MainToAuxConnectionEdge,
-  EntityConnectionVars,
-  MainToAuxConnectionOnPage,
-  RemovedFromGameQueryVars,
-  MainToIconConnectionEdge,
-  MainToIconConnectionOnPage,
+  CountField, EntityConnectionVars, EntityPageQueryName, EntityPageVars, EntitySearchVars,
+  MainEntityInSearch, MainEntityOnPage,
+  MainEntityPageResult, MainEntitySearchResult, MainToAuxConnectionEdge, MainToAuxConnectionOnPage, MainToIconConnectionEdge,
+  MainToIconConnectionOnPage, RemovedFromGameQueryVars
 } from './helpers';
+
 
 // Move in main search
 // #region

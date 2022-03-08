@@ -1,35 +1,21 @@
 import {
   Outlet,
-  useParams,
+  useParams
 } from 'react-router-dom';
-
-import {
-  STAT_PAGE_QUERY,
-  StatPageQuery,
-  StatPageQueryVars,
-  StatOnPage,
-
-  STAT_ABILITY_QUERY,
-  StatAbilityQueryVars,
-
-  STAT_FIELDSTATE_QUERY,
-  StatFieldStateQueryVars,
-
-  STAT_ITEM_QUERY,
-  StatItemQueryVars,
-
-  STAT_MOVE_QUERY,
-  StatMoveQueryVars,
-} from '../../../types-queries/Planner/Stat';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
-import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
-import { listRenderStatAbility, listRenderStatFieldState, listRenderStatItem, listRenderStatMove } from './StatConnections';
-import { useGenConnectedSearchVars, useRemovalConnectedSearchBar, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
+import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
+import {
+  StatAbilityQueryVars, StatFieldStateQueryVars, StatItemQueryVars, StatMoveQueryVars, StatOnPage, StatPageQuery,
+  StatPageQueryVars, STAT_ABILITY_QUERY, STAT_FIELDSTATE_QUERY, STAT_ITEM_QUERY, STAT_MOVE_QUERY, STAT_PAGE_QUERY
+} from '../../../types-queries/Planner/Stat';
+import { Dispatches, Filters } from '../../App';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
-import { Dispatches, Filters } from '../../App';
+import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
-import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
+import { listRenderStatAbility, listRenderStatFieldState, listRenderStatItem, listRenderStatMove } from './StatConnections';
+
 
 type StatPageProps = {
   dispatches: Dispatches

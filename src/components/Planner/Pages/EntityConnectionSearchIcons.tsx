@@ -1,13 +1,13 @@
 import {
-  DocumentNode,
-} from 'graphql';
-import {
-  useQuery,
+  useQuery
 } from "@apollo/client";
-
-import './Pages.css';
-import { Dispatches, Filters } from '../../App';
+import {
+  DocumentNode
+} from 'graphql';
 import { ListRenderArgsIcons } from '../../../hooks/Searches';
+import { Dispatches, Filters } from '../../App';
+import './Pages.css';
+
 
 
 interface EntityConnectionSearchIconsProps<SearchQuery, SearchQueryVars> {

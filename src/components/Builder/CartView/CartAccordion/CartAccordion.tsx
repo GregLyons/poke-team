@@ -1,14 +1,14 @@
-import { Cart, } from "../../../../hooks/App/Cart";
-import { Dispatches, Filters } from "../../../App";
+import { useMemo } from "react";
+import { Cart } from "../../../../hooks/App/Cart";
+import { Team } from "../../../../hooks/App/Team";
+import { Filters } from "../../../App";
 import Accordion from "../../../Reusables/Accordion/Accordion";
+import { CartAccordionClickHandlers } from "../CartView";
+import BoxAccordion from "./BoxAccordion/BoxAccordion";
+import './CartAccordion.css';
 import ParentEntityAccordionTitle from "./ParentEntityAccordionTitle";
 import TargetEntityAccordion from "./TargetEntityAccordion";
 
-import './CartAccordion.css';
-import { CartAccordionClickHandlers } from "../CartView";
-import { useMemo, } from "react";
-import BoxAccordion from "./BoxAccordion/BoxAccordion";
-import { Team } from "../../../../hooks/App/Team";
 
 type CartAccordionProps = {
   cart: Cart

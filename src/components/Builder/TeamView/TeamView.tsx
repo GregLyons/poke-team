@@ -1,19 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
 import { BGManager, toggleBGPulse } from "../../../hooks/App/BGManager";
 import { Team } from "../../../hooks/App/Team";
-import { Dispatches, Filters } from "../../App";
-import ReferencePanel from "./ReferencePanel/ReferencePanel";
-import MemberDetails from "./MemberDetails/MemberDetails";
-import TeamMembers from "./TeamIcons/TeamMembers";
-
-import './TeamView.css';
-import { PokemonIconDatum, } from "../../../types-queries/helpers";
+import { BaseStatName } from "../../../types-queries/entities";
+import { PokemonIconDatum } from "../../../types-queries/helpers";
+import { GenderName, MoveSlot } from "../../../types-queries/Member/helpers";
 import { MemberAbility } from "../../../types-queries/Member/MemberAbility";
 import { MemberItem } from "../../../types-queries/Member/MemberItem";
 import { MemberMove } from "../../../types-queries/Member/MemberMove";
 import { MemberNature } from "../../../types-queries/Member/MemberNature";
-import { BaseStatName } from "../../../types-queries/entities";
-import { GenderName, MoveSlot } from "../../../types-queries/Member/helpers";
+import { Dispatches, Filters } from "../../App";
+import MemberDetails from "./MemberDetails/MemberDetails";
+import ReferencePanel from "./ReferencePanel/ReferencePanel";
+import TeamMembers from "./TeamIcons/TeamMembers";
+import './TeamView.css';
+
 
 type TeamViewProps = {
   bgManager: BGManager

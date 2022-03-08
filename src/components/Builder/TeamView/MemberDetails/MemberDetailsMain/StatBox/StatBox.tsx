@@ -1,15 +1,15 @@
+import { useMemo } from "react";
+import { GenNum, ivsToHiddenPower, toAbbreviatedBaseStatName } from "../../../../../../types-queries/entities";
+import { toFormattedTypeName, TypeName } from "../../../../../../types-queries/helpers";
+import { DEFAULT_DV_SPREAD, DEFAULT_EV_SPREAD, DEFAULT_EV_SPREAD_GENS12, DEFAULT_IV_SPREAD } from "../../../../../../types-queries/Member/helpers";
+import { MemberPokemon } from "../../../../../../types-queries/Member/MemberPokemon";
 import TypeIcon from "../../../../../Icons/TypeIcon";
 import { MemberDetailsHandlers, ReferencePanelView } from "../../../TeamView";
 import MemberDetailInnerBox from "../../MemberDetailInnerBox";
 import SpreadTable from "./SpreadTable";
+import './StatBox.css';
 import StatGraph from "./StatGraph";
 
-import './StatBox.css';
-import { MemberPokemon } from "../../../../../../types-queries/Member/MemberPokemon";
-import { GenNum, ivsToHiddenPower, toAbbreviatedBaseStatName } from "../../../../../../types-queries/entities";
-import { DEFAULT_DV_SPREAD, DEFAULT_EV_SPREAD, DEFAULT_EV_SPREAD_GENS12, DEFAULT_IV_SPREAD } from "../../../../../../types-queries/Member/helpers";
-import { useMemo } from "react";
-import { toFormattedTypeName, TypeName } from "../../../../../../types-queries/helpers";
 
 type StatBoxProps = {
   member: MemberPokemon | null

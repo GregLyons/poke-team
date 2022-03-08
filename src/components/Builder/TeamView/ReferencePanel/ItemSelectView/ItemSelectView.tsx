@@ -1,10 +1,10 @@
-import { useDelayedQuery, useGenConnectedSearchBar, useGenConnectedSearchVars, } from "../../../../../hooks/Searches";
+import { useDelayedQuery, useGenConnectedSearchBar } from "../../../../../hooks/Searches";
 import { MemberItemQuery, MemberItemVars, MEMBER_ITEM_QUERY } from "../../../../../types-queries/Member/MemberItem";
 import { Filters } from "../../../../App";
-import { ItemSelectHandlers, } from "../../TeamView";
+import { ItemSelectHandlers } from "../../TeamView";
 import ItemSelectEntries from "./ItemSelectEntries";
-
 import './ItemSelectView.css';
+
 
 type ItemSelectViewProps = {
   handlers: ItemSelectHandlers

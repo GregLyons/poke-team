@@ -1,18 +1,18 @@
-import { 
+import {
   useEffect,
-  useRef,
+  useRef
 } from "react";
 import { useEntryExpand } from "../../../../hooks/Planner/Entries";
 import { selectionToPokemonIconData, useSelection } from "../../../../hooks/Planner/Selections";
 import {
-  EntityClass,
+  EntityClass
 } from '../../../../utils/constants';
-
-import EntryLink from "../EntryLink";
 import { EntryIconData } from "../../helpers";
+import EntryLink from "../EntryLink";
 import PlannerPokemonIcons from "../Icons/PlannerPokemonIcons";
-
 import './SearchEntry.css';
+
+
 
 type EntitySearchEntryProps = {
   entityClass: EntityClass

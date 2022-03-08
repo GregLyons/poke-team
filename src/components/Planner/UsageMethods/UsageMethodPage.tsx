@@ -1,36 +1,25 @@
 import {
   Outlet,
-  useParams,
+  useParams
 } from 'react-router-dom';
-
-import {
-  USAGEMETHOD_PAGE_QUERY,
-  UsageMethodPageQuery,
-  UsageMethodPageQueryVars,
-  UsageMethodOnPage,
-
-  USAGEMETHOD_ABILITY_QUERY,
-  UsageMethodAbilityQueryVars,
-
-  USAGEMETHOD_ITEM_QUERY,
-  UsageMethodItemQueryVars,
-
-  USAGEMETHOD_MOVE_QUERY,
-  UsageMethodMoveQueryVars,
-} from '../../../types-queries/Planner/UsageMethod';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
+import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
+import { useRemovalConnectedSearchVars } from '../../../hooks/Searches';
+import {
+  UsageMethodAbilityQueryVars, UsageMethodItemQueryVars, UsageMethodMoveQueryVars, UsageMethodOnPage, UsageMethodPageQuery,
+  UsageMethodPageQueryVars, USAGEMETHOD_ABILITY_QUERY, USAGEMETHOD_ITEM_QUERY, USAGEMETHOD_MOVE_QUERY, USAGEMETHOD_PAGE_QUERY
+} from '../../../types-queries/Planner/UsageMethod';
+import { Dispatches, Filters } from '../../App';
+import Accordion from '../../Reusables/Accordion/Accordion';
+import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
+import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 import {
   listRenderUsageMethodAbility,
   listRenderUsageMethodItem,
-  listRenderUsageMethodMove,
+  listRenderUsageMethodMove
 } from './UsageMethodConnections';
 
-import { useRemovalConnectedSearchBar, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
-import Accordion from '../../Reusables/Accordion/Accordion';
-import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
-import { Dispatches, Filters } from '../../App';
-import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
-import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
+
 
 type UsageMethodPageProps = {
   dispatches: Dispatches

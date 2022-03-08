@@ -1,8 +1,7 @@
 import {
-  gql,
+  gql
 } from '@apollo/client';
 import { EffectClass, GenNum } from '../entities';
-
 import {
   AbilityIconEdge,
   IntroductionEdge,
@@ -14,31 +13,17 @@ import {
   TypeIconEdge,
   typeIconEdgeToTypeIconDatum,
   TypeName,
-  typeNameEdgeToTypeName,
+  typeNameEdgeToTypeName
 } from '../helpers';
 import {
-  EntitySearchVars,
-  
-  EntityPageQueryName,
-  EntityPageVars,
-  CountField,
-  
-  EntityConnectionVars,
+  AuxEntityInSearch, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToAuxConnectionEdge, AuxToIconConnectionEdge,
+  AuxToIconConnectionOnPage, AuxToItemConnectionEdge,
+  AuxToItemConnectionOnPage, AuxToMainConnectionEdge, AuxToMainConnectionOnPage, CountField,
 
-  VersionDependentDescriptionEdge,
-  AuxToMainConnectionEdge,
-  AuxEntityInSearch,
-  AuxEntitySearchResult,
-  AuxEntityPageResult,
-  AuxEntityOnPage,
-  AuxToMainConnectionOnPage,
-  AuxToAuxConnectionEdge,
-  AuxToItemConnectionEdge,
-  AuxToItemConnectionOnPage,
-  RemovedFromGameQueryVars,
-  AuxToIconConnectionEdge,
-  AuxToIconConnectionOnPage,
+  EntityConnectionVars, EntityPageQueryName,
+  EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
 } from './helpers';
+
 
 // Effect in main search
 // #region

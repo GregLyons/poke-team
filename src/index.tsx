@@ -1,21 +1,17 @@
+import {
+  ApolloClient, ApolloProvider, createHttpLink,
+  InMemoryCache
+} from '@apollo/client';
 import ReactDOM from 'react-dom';
 import {
-  BrowserRouter,
+  BrowserRouter
 } from 'react-router-dom';
+import App from './components/App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
-import App from './components/App';
-
 // Set up ApolloClient
 //#region
-
-import {
-  ApolloProvider,
-  ApolloClient,
-  createHttpLink,
-  InMemoryCache,
-} from '@apollo/client';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:4000',

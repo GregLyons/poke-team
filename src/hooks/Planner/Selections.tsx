@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { DUMMY_POKEMON_ICON_DATUM, PokemonIconDatum, psID } from "../../types-queries/helpers";
+import { DUMMY_POKEMON_ICON_DATUM, PokemonIconDatum } from "../../types-queries/helpers";
 
 export const useSelection = (iconData: PokemonIconDatum[] | undefined): [Selection, React.Dispatch<SelectionAction>] => {
   const initialSelection = iconData

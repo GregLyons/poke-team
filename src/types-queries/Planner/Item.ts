@@ -1,8 +1,7 @@
 import {
-  gql,
+  gql
 } from '@apollo/client';
 import { GenNum, ItemClass } from '../entities';
-
 import {
   DescriptionEdge,
   DescriptionsEdge,
@@ -16,27 +15,15 @@ import {
   TypeIconDatum,
   TypeIconEdge,
   typeIconEdgeToTypeIconDatum,
-  TypeName,
+  TypeName
 } from '../helpers';
 import {
-  MainEntitySearchResult,
-  EntitySearchVars,
-  MainEntityInSearch,
-  
-  EntityPageQueryName,
-  MainEntityOnPage,
-  MainEntityPageResult,
-  EntityPageVars,
-  CountField,
-
-  MainToAuxConnectionEdge,
-  EntityConnectionVars,
-  MainToAuxConnectionOnPage,
-  VersionDependentDescriptionEdge,
-  RemovedFromGameQueryVars,
-  MainToIconConnectionEdge,
-  MainToIconConnectionOnPage,
+  CountField, EntityConnectionVars, EntityPageQueryName, EntityPageVars, EntitySearchVars,
+  MainEntityInSearch, MainEntityOnPage,
+  MainEntityPageResult, MainEntitySearchResult, MainToAuxConnectionEdge, MainToAuxConnectionOnPage, MainToIconConnectionEdge,
+  MainToIconConnectionOnPage, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
 } from './helpers';
+
 
 // Item in main search
 // #region

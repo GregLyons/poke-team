@@ -1,12 +1,12 @@
-import { BoxInCombination, Cart, findBoxInArray, } from '../../../../hooks/App/Cart';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { BoxInCombination, Cart, findBoxInArray } from '../../../../hooks/App/Cart';
 import { Dispatches, Filters } from '../../../App';
 import { CartTerminalClickHandlers } from '../CartView';
 import BoxInTerminal from './BoxInTerminal/BoxInTerminal';
-import './CartTerminal.css';
 import './BoxInTerminal/BoxInTerminal.css';
-import CartTerminalControls from './CartTerminalControls/CartTerminalControls';
 import StartBoxInTerminal from './BoxInTerminal/StartBoxInTerminal';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import './CartTerminal.css';
+import CartTerminalControls from './CartTerminalControls/CartTerminalControls';
 
 type CartTerminalProps = {
   cart: Cart

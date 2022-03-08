@@ -1,8 +1,8 @@
 import {
-  gql,
+  gql
 } from "@apollo/client";
 import { GenNum } from "../entities";
-import { CapsTypeName, IconDatum, IconEdge, iconEdgeToIconDatum, IntroductionEdge, ItemIconEdge, itemIconEdgeToItemIconDatum, ItemRequiresPokemonEdge, itemRequiresPokemonEdgeToRequiredPokemonIconData, NameEdge, PokemonIconDatum, PokemonIconEdge, } from "../helpers";
+import { CapsTypeName, IconDatum, IconEdge, iconEdgeToIconDatum, IntroductionEdge, ItemIconEdge, itemIconEdgeToItemIconDatum, ItemRequiresPokemonEdge, itemRequiresPokemonEdgeToRequiredPokemonIconData, NameEdge, PokemonIconDatum, PokemonIconEdge } from "../helpers";
 
 // Entity in search
 // #region

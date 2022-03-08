@@ -1,13 +1,13 @@
+import { BGManager, classWithBG, classWithBGShadow } from '../../hooks/App/BGManager';
+import { Team } from '../../hooks/App/Team';
+import { Dispatches, Filters } from '../App';
 import './ControlPanel.css';
-
 import GenFilterForm from "./GenFilterForm/GenFilterForm";
+import Import from './ImportExport/Import';
+import PokemonFilterForm from './PokemonFilterForm/PokemonFilterForm';
 import PokemonTeam from "./PokemonTeam/PokemonTeam";
 import TierFilterForm from "./TierFilterForm/TierFilterForm";
-import PokemonFilterForm from './PokemonFilterForm/PokemonFilterForm';
-import { Team, } from '../../hooks/App/Team';
-import { BGManager, BGAction, classWithBGShadow, classWithBG } from '../../hooks/App/BGManager';
-import Import from './ImportExport/Import';
-import { Dispatches, Filters } from '../App';
+
 
 type ControlPanelProps = {
   dispatches: Dispatches

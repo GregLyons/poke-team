@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import './Accordion.css';
 import AccordionItem from "./AccordionItem";
 
-import './Accordion.css';
 
 type AccordionProps = {
   optionsInTitle?: boolean

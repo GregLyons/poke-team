@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { validatePokemon, ValidationFailureReason } from "../../../../../../hooks/App/PokemonFilter";
 import { PokemonIconDatum } from "../../../../../../types-queries/helpers";
-import { Dispatches, Filters } from "../../../../../App";
+import { Filters } from "../../../../../App";
 import { SavedPokemonClickHandlers } from "../../../TeamView";
 import PinnedBoxPokemonIcon from "./PinnedBoxPokemonIcon";
 

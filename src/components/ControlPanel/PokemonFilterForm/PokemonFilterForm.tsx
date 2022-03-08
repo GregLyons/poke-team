@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BGManager, classWithBGShadow } from "../../../hooks/App/BGManager";
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { BASE_STAT_NAMES, PokemonFilter, PokemonFilterAction, TYPE_NAMES } from "../../../hooks/App/PokemonFilter";
@@ -7,8 +6,8 @@ import { toCapsTypeName, toFormattedTypeName, TypeName } from "../../../types-qu
 import Button from "../../Reusables/Button/Button";
 import DoubleSlider from "../../Reusables/DoubleSlider/DoubleSlider";
 import DropdownMenu from "../../Reusables/DropdownMenu/DropdownMenu";
-
 import './PokemonFilterForm.css';
+
 
 type PokemonFilterFormProps = {
   dispatchPokemonFilter: React.Dispatch<PokemonFilterAction>

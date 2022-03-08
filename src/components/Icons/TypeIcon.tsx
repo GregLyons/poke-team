@@ -1,7 +1,7 @@
-import { toFormattedTypeName, TypeIconDatum, TypeName } from "../../types-queries/helpers";
+import { TypeIconDatum } from "../../types-queries/helpers";
 import { getTypeIcon } from "../../utils/sprites";
-
 import './Icons.css';
+
 
 type TypeIconProps = {
   typeIconDatum: TypeIconDatum

@@ -1,14 +1,14 @@
+import { useEffect, useMemo, useState } from "react";
+import { useEventListener } from "usehooks-ts";
 import { validatePokemon } from "../../../hooks/App/PokemonFilter";
+import { Team } from "../../../hooks/App/Team";
 import { PokemonQuickSearchQuery, PokemonQuickSearchResult, QuickSearchPokemon } from "../../../types-queries/Builder/QuickSearch";
+import { PokemonIconDatum, PokemonPaginationInput } from "../../../types-queries/helpers";
+import { compareTiers, DoublesTier, getTier, SinglesTier } from "../../../utils/smogonLogic";
 import { Filters } from "../../App";
+import './QuickSearch.css';
 import QuickSearchEntry from "./QuickSearchEntry";
 
-import './QuickSearch.css';
-import { compareTiers, DoublesTier, getTier, SinglesTier } from "../../../utils/smogonLogic";
-import { PokemonIconDatum, PokemonPaginationInput } from "../../../types-queries/helpers";
-import { useEffect, useMemo, useState } from "react";
-import { Team } from "../../../hooks/App/Team";
-import { useEventListener } from "usehooks-ts";
 
 type QuickSearchEntriesProps = {
   data: PokemonQuickSearchQuery

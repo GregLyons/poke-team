@@ -1,47 +1,25 @@
 import {
-  gql,
+  gql
 } from '@apollo/client';
 import { FieldStateClass, FieldStateTargetClass, GenNum } from '../entities';
-
 import {
-  AbilityIconEdge,
-  IntroductionEdge,
-  IconDatum,
-  itemIconEdgeToItemIconDatum,
+  AbilityIconEdge, IconDatum, IntroductionEdge, itemIconEdgeToItemIconDatum,
   MoveIconEdge,
   PokemonIconDatum,
   PokemonIconEdge,
-  pokemonIconEdgeToPokemonIconDatum,
-  TypeIconEdge,
-  TypeName, 
-  TypeNameEdge,
-  TypeIconDatum,
-  typeIconEdgeToTypeIconDatum,
+  pokemonIconEdgeToPokemonIconDatum, TypeIconDatum, TypeIconEdge, typeIconEdgeToTypeIconDatum, TypeName,
+  TypeNameEdge
 } from '../helpers';
 import {
-  EntitySearchVars,
-  
-  EntityPageQueryName,
-  EntityPageVars,
-  CountField,
-  
-  EntityConnectionVars,
+  AuxEntityInSearchWithIcon, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToAuxConnectionEdge,
+  AuxToAuxConnectionOnPage, AuxToIconConnectionEdge,
+  AuxToIconConnectionOnPage, AuxToItemConnectionEdge, AuxToItemConnectionOnPage, AuxToMainConnectionEdge,
+  AuxToMainConnectionOnPage, CountField,
 
-  AuxToMainConnectionEdge,
-  AuxToMainConnectionOnPage,
-  VersionDependentDescriptionEdge,
-  AuxToAuxConnectionEdge,
-  AuxToAuxConnectionOnPage,
-  AuxEntitySearchResult,
-  AuxEntityPageResult,
-  AuxEntityOnPage,
-  AuxToItemConnectionOnPage,
-  AuxToItemConnectionEdge,
-  RemovedFromGameQueryVars,
-  AuxToIconConnectionEdge,
-  AuxToIconConnectionOnPage,
-  AuxEntityInSearchWithIcon,
+  EntityConnectionVars, EntityPageQueryName,
+  EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
 } from './helpers';
+
 
 // FieldState in main search
 // #region

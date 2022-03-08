@@ -2,8 +2,8 @@ import { Team } from "../../../../../hooks/App/Team";
 import { Dispatches, Filters } from "../../../../App";
 import { SavedPokemonClickHandlers } from "../../TeamView";
 import PinnedBoxAccordion from "./PinnedBoxAccordion/PinnedBoxAccordion";
-
 import './SavedPokemonView.css';
+
 
 type SavedPokemonViewProps = {
   clickHandlers: SavedPokemonClickHandlers

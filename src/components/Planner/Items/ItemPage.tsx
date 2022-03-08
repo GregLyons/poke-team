@@ -1,50 +1,30 @@
 import {
   Outlet,
-  useParams,
+  useParams
 } from 'react-router-dom';
-
+import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
+import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
+import { useGenConnectedSearchVars } from '../../../hooks/Searches';
 import {
-  ITEM_PAGE_QUERY,
-  ItemPageQuery,
-  ItemPageQueryVars,
-  ItemOnPage,
-  
-  ITEM_EFFECT_QUERY,
-  ItemEffectQueryVars,
-
-  ITEM_FIELDSTATE_QUERY,
-  ItemFieldStateQueryVars,
-
-  ITEM_STAT_QUERY,
-  ItemStatQueryVars,
-
-  ITEM_STATUS_QUERY,
-  ItemStatusQueryVars,
-
-  ITEM_TYPE_QUERY,
-  ItemTypeQueryVars,
-
-  ITEM_USAGEMETHOD_QUERY,
-  ItemUsageMethodQueryVars,
+  ItemEffectQueryVars, ItemFieldStateQueryVars, ItemOnPage, ItemPageQuery,
+  ItemPageQueryVars, ItemStatQueryVars, ItemStatusQueryVars, ItemTypeQueryVars, ItemUsageMethodQueryVars, ITEM_EFFECT_QUERY, ITEM_FIELDSTATE_QUERY, ITEM_PAGE_QUERY, ITEM_STATUS_QUERY, ITEM_STAT_QUERY, ITEM_TYPE_QUERY, ITEM_USAGEMETHOD_QUERY
 } from '../../../types-queries/Planner/Item';
+import { Dispatches, Filters } from '../../App';
+import Accordion from '../../Reusables/Accordion/Accordion';
+import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
+import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
+import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 import {
   listRenderItemEffect,
   listRenderItemFieldState,
   listRenderItemStat,
   listRenderItemStatus,
   listRenderItemType,
-  listRenderItemUsageMethod,
+  listRenderItemUsageMethod
 } from './ItemConnections';
 
-import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 
-import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
-import { useGenConnectedSearchVars } from '../../../hooks/Searches';
-import Accordion from '../../Reusables/Accordion/Accordion';
-import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
-import { Dispatches, Filters } from '../../App';
-import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
-import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
+
 
 type ItemPageProps = {
   dispatches: Dispatches

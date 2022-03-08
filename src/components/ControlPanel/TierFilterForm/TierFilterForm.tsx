@@ -1,17 +1,17 @@
-import './TierFilterForm.css';
-
+import { useEffect, useMemo } from 'react';
+import { BGManager } from '../../../hooks/App/BGManager';
+import { GenFilter } from '../../../hooks/App/GenFilter';
 import { TierFilter, TierFilterAction } from "../../../hooks/App/TierFilter";
 import {
   DoublesTier,
   DOUBLES_TIERS,
   SinglesTier,
-  SINGLES_TIERS,
+  SINGLES_TIERS
 } from "../../../utils/smogonLogic";
-import DropdownMenu from "../../Reusables/DropdownMenu/DropdownMenu";
-import { GenFilter, } from '../../../hooks/App/GenFilter';
-import { useEffect, useMemo, } from 'react';
 import Button from '../../Reusables/Button/Button';
-import { BGManager } from '../../../hooks/App/BGManager';
+import DropdownMenu from "../../Reusables/DropdownMenu/DropdownMenu";
+import './TierFilterForm.css';
+
 
 type TierFilterFormProps = {
   genFilter: GenFilter

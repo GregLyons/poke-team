@@ -1,12 +1,12 @@
 import { PokemonSet, Sets } from "@pkmn/sets";
-import { MemberAbility } from "../../types-queries/Member/MemberAbility";
-import { PokemonIconDatum } from "../../types-queries/helpers";
-import { MemberPokemon } from "../../types-queries/Member/MemberPokemon";
 import { BaseStatName, GenNum } from "../../types-queries/entities";
+import { PokemonIconDatum } from "../../types-queries/helpers";
+import { GenderName, MoveSlot } from "../../types-queries/Member/helpers";
+import { MemberAbility } from "../../types-queries/Member/MemberAbility";
 import { MemberItem } from "../../types-queries/Member/MemberItem";
 import { MemberMove } from "../../types-queries/Member/MemberMove";
 import { MemberNature } from "../../types-queries/Member/MemberNature";
-import { GenderName, MoveSlot } from "../../types-queries/Member/helpers";
+import { MemberPokemon } from "../../types-queries/Member/MemberPokemon";
 
 // We'll need to quickly reference whether a Pokemon in QuickSearch is saved, so we use an object, rather than an array, for quick look-up
 export type QuickSearchPokemon = {

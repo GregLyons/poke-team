@@ -2,9 +2,9 @@ import { useMemo } from "react";
 import { AbilityCoverageQuery, computeFieldControl, ItemCoverageQuery, MoveCoverageQuery } from "../../../../types-queries/Analyzer/Coverage";
 import { MemberAndEntityPSIDs, MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
 import { Filters } from "../../../App";
-
 import './FieldControl.css';
 import FieldControlEntry from "./FieldControlEntry";
+
 
 type FieldControlProps = {
   filters: Filters

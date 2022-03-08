@@ -5,10 +5,10 @@ import { MoveColumnName, MovePaginationInput } from "../../../../../types-querie
 import { MemberMoveQuery, MemberMoveVars, MEMBER_MOVESET_QUERY } from "../../../../../types-queries/Member/MemberMove";
 import { Filters } from "../../../../App";
 import SortSwitch from "../../../../Reusables/SortSwitch/SortSwitch";
-import { MoveSelectHandlers, } from "../../TeamView";
+import { MoveSelectHandlers } from "../../TeamView";
 import MoveSelectEntries from "./MoveSelectEntries";
-
 import './MoveSelectView.css';
+
 
 type MoveSelectViewProps = {
   handlers: MoveSelectHandlers

@@ -2,9 +2,9 @@ import { useMemo } from "react";
 import { Team } from "../../../../hooks/App/Team";
 import { MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
 import { Dispatches, Filters } from "../../../App";
+import './TeamColumn.css';
 import TeamColumnMember from "./TeamColumnMember";
 
-import './TeamColumn.css';
 
 type TeamColumnProps = {
   dispatches: Dispatches

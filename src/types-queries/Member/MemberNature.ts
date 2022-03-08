@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { BaseStatName, GenNum, toBaseStatName } from "../entities";
 import { IntroductionEdge, introductionEdgeToGen, ModifiesBaseStatEdge } from "../helpers";
-import { FormattedNatureName, MemberEntityVars, NatureName, natureNameToFormattedNatureName, } from "./helpers";
+import { FormattedNatureName, MemberEntityVars, NatureName, natureNameToFormattedNatureName } from "./helpers";
 
 export interface MemberNatureQuery {
   natures: {

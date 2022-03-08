@@ -2,9 +2,9 @@ import { useCallback, useMemo } from "react";
 import { AbilityCoverageQuery, computeSpeedControl, ItemCoverageQuery, MoveCoverageQuery } from "../../../../types-queries/Analyzer/Coverage";
 import { MemberAndEntityPSIDs, MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
 import { Filters } from "../../../App";
+import './SpeedControl.css';
 import SpeedControlEntry from "./SpeedControlEntry";
 
-import './SpeedControl.css';
 
 type SpeedControlProps = {
   filters: Filters

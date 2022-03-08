@@ -1,7 +1,7 @@
 import { IconDatum } from "../../types-queries/helpers";
 import { getStatIcon } from "../../utils/sprites";
-
 import './Icons.css';
+
 
 type StatIconProps = {
   iconDatum: IconDatum

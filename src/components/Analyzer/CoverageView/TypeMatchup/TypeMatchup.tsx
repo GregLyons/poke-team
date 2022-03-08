@@ -1,12 +1,12 @@
 import { useMemo } from "react";
-import { computeMemberTypeCoverage, countDamagingMoves, INITIAL_TYPECOVERAGE_SUMMARY, MoveCoverageQuery, TypeCoverageSummary } from "../../../../types-queries/Analyzer/Coverage";
+import { computeMemberTypeCoverage, INITIAL_TYPECOVERAGE_SUMMARY, MoveCoverageQuery, TypeCoverageSummary } from "../../../../types-queries/Analyzer/Coverage";
 import { MemberAndEntityPSIDs, MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
-import { AbilityMatchupQuery, computeTypeMatchups, INITIAL_TYPEMATCHUP_SUMMARY, ItemMatchupQuery, TypeMatchupSummary, TypingMatchupQuery, } from "../../../../types-queries/Analyzer/Matchups";
+import { AbilityMatchupQuery, computeTypeMatchups, INITIAL_TYPEMATCHUP_SUMMARY, ItemMatchupQuery, TypeMatchupSummary, TypingMatchupQuery } from "../../../../types-queries/Analyzer/Matchups";
 import { TypeName, TYPENAMES } from "../../../../types-queries/helpers";
 import { Filters } from "../../../App";
-
 import './TypeMatchup.css';
 import TypeMatchupEntry from "./TypeMatchupEntry";
+
 
 type TypeMatchupProps = {
   filters: Filters

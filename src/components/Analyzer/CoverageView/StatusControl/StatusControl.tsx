@@ -2,9 +2,9 @@ import { useMemo } from "react";
 import { AbilityCoverageQuery, computeStatusControl, ItemCoverageQuery, MoveCoverageQuery } from "../../../../types-queries/Analyzer/Coverage";
 import { MemberAndEntityPSIDs, MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
 import { Filters } from "../../../App";
+import './StatusControl.css';
 import StatusControlEntry from "./StatusControlEntry";
 
-import './StatusControl.css';
 
 type StatusControlProps = {
   filters: Filters

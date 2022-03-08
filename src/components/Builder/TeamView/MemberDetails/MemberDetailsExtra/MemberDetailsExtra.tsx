@@ -4,8 +4,8 @@ import Slider from "../../../../Reusables/Slider/Slider";
 import TextInput from "../../../../Reusables/TextInput/TextInput";
 import { MemberDetailsHandlers } from "../../TeamView";
 import MemberDetailBox from "../MemberDetailBox";
-
 import './MemberDetailsExtra.css';
+
 
 type MemberDetailsExtraProps = {
   member: MemberPokemon

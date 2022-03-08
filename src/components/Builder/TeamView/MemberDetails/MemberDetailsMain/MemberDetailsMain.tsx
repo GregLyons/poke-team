@@ -1,14 +1,14 @@
-import ItemIcon from "../../../../Icons/ItemIcon"
-import { MemberDetailsHandlers, ReferencePanelView } from "../../TeamView"
-import MemberDetailBox from "../MemberDetailBox"
-
-import './MemberDetailsMain.css';
-import MemberDetailInnerBox from "../MemberDetailInnerBox"
-import StatBox from "./StatBox/StatBox"
-import { MemberPokemon } from "../../../../../types-queries/Member/MemberPokemon";
 import { GenNum } from "../../../../../types-queries/entities";
 import { MoveSlot } from "../../../../../types-queries/Member/helpers";
+import { MemberPokemon } from "../../../../../types-queries/Member/MemberPokemon";
+import ItemIcon from "../../../../Icons/ItemIcon";
+import { MemberDetailsHandlers, ReferencePanelView } from "../../TeamView";
+import MemberDetailBox from "../MemberDetailBox";
+import MemberDetailInnerBox from "../MemberDetailInnerBox";
+import './MemberDetailsMain.css';
 import MemberDetailsMoveSlot from "./MoveSlot";
+import StatBox from "./StatBox/StatBox";
+
 
 type MemberDetailsMainProps = {
   member: MemberPokemon

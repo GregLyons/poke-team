@@ -1,9 +1,9 @@
-import { MemberEntityVars, MemberResult, MemberEntity, } from "./helpers"
-
 import { gql } from "@apollo/client";
 import { GenerationNum } from "@pkmn/data";
-import { IntroductionEdge, } from "../helpers";
 import { EnablesItemEdge, RequiresItemEdge } from "../Builder/helpers";
+import { IntroductionEdge } from "../helpers";
+import { MemberEntity, MemberEntityVars, MemberResult } from "./helpers";
+
 
 export interface MemberItemQuery {
   items: {

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import NumericalInput from "../NumericalInput/NumericalInput";
+import './Slider.css';
 import SliderBase from "./SliderBase";
 
-import './Slider.css';
 
 type SliderProps = {
   titleFor: string

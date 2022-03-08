@@ -1,32 +1,29 @@
 import {
-  Outlet,
+  Outlet
 } from 'react-router-dom';
-
-import {
-  MoveSearchQuery,
-  MoveSearchResult,
-  MoveSearchVars,
-  MoveInSearch,
-
-  MOVE_SEARCH_QUERY,
-} from '../../../types-queries/Planner/Move';
-
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
-
-import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
-import {
-  ENUMCASE_TO_TITLECASE,
-} from '../../../utils/constants';
-import { listToggleValue, rangeSelect } from '../helpers';
-import { Dispatches, Filters } from '../../App';
-import { CapsTypeName, toCapsTypeName, } from '../../../types-queries/helpers';
 import { TYPE_NAMES } from '../../../hooks/App/PokemonFilter';
 import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Searches';
-import MainSearch from '../MainSearch/MainSearch';
-import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
-import DoubleSlider from '../../Reusables/DoubleSlider/DoubleSlider';
-import Button from '../../Reusables/Button/Button';
 import { MoveCategory, MoveTargetClass, MOVE_CATEGORY_MAP, MOVE_TARGETCLASS_MAP, MOVE_TYPE_MAP } from '../../../types-queries/entities';
+import { CapsTypeName, toCapsTypeName } from '../../../types-queries/helpers';
+import {
+  MoveInSearch, MoveSearchQuery,
+  MoveSearchResult,
+  MoveSearchVars, MOVE_SEARCH_QUERY
+} from '../../../types-queries/Planner/Move';
+import {
+  ENUMCASE_TO_TITLECASE
+} from '../../../utils/constants';
+import { Dispatches, Filters } from '../../App';
+import Button from '../../Reusables/Button/Button';
+import DoubleSlider from '../../Reusables/DoubleSlider/DoubleSlider';
+import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
+import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
+import { listToggleValue, rangeSelect } from '../helpers';
+import MainSearch from '../MainSearch/MainSearch';
+
+
+
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<MoveSearchQuery>) => {
   if (!data || !data.moves) return (<div>Data not found for the query 'moves'.</div>);

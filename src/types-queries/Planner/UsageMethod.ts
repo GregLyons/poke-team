@@ -1,8 +1,7 @@
 import {
-  gql,
+  gql
 } from '@apollo/client';
 import { GenNum } from '../entities';
-
 import {
   AbilityIconEdge,
   IntroductionEdge,
@@ -12,28 +11,16 @@ import {
   pokemonIconEdgeToPokemonIconDatum,
   TypeIconDatum,
   TypeIconEdge,
-  typeIconEdgeToTypeIconDatum,
+  typeIconEdgeToTypeIconDatum
 } from '../helpers';
 import {
-  EntitySearchVars,
-  
-  EntityPageQueryName,
-  EntityPageVars,
-  CountField,
-  
-  EntityConnectionVars,
+  AuxEntityInSearchWithIcon, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToItemConnectionEdge,
+  AuxToItemConnectionOnPage, AuxToMainConnectionEdge, AuxToMainConnectionOnPage, CountField,
 
-  VersionDependentDescriptionEdge,
-  AuxToMainConnectionEdge,
-  AuxEntityInSearchWithIcon,
-  AuxEntitySearchResult,
-  AuxEntityPageResult,
-  AuxEntityOnPage,
-  AuxToMainConnectionOnPage,
-  AuxToItemConnectionEdge,
-  AuxToItemConnectionOnPage,
-  RemovedFromGameQueryVars,
+  EntityConnectionVars, EntityPageQueryName,
+  EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
 } from './helpers';
+
 
 // UsageMethod in main search
 // #region

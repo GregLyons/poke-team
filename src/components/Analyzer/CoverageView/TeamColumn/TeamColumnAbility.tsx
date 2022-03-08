@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDelayedQuery, useGenConnectedSearchBar, useGenConnectedSearchVars } from "../../../../hooks/Searches";
+import { useDelayedQuery, useGenConnectedSearchBar } from "../../../../hooks/Searches";
 import { PopupAbilityQuery, PopupAbilityVars, POPUP_ABILITY_QUERY } from "../../../../types-queries/Analyzer/PopupSearch";
 import { AbilitySlot } from "../../../../types-queries/Member/helpers";
 import { MemberAbility, MemberAbilityResult } from "../../../../types-queries/Member/MemberAbility";

@@ -1,20 +1,10 @@
-import {
-  StatAbilityResult,
-  StatAbilityQuery,
-
-  StatFieldStateResult,
-  StatFieldStateQuery,
-
-  StatItemResult,
-  StatItemQuery,
-
-  StatMoveResult,
-  StatMoveQuery
-} from "../../../types-queries/Planner/Stat";
-
-import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
-import { ENUMCASE_TO_TITLECASE } from "../../../utils/constants";
 import { ListRenderArgs, ListRenderArgsIcons } from "../../../hooks/Searches";
+import {
+  StatAbilityQuery, StatAbilityResult, StatFieldStateQuery, StatFieldStateResult, StatItemQuery, StatItemResult, StatMoveQuery, StatMoveResult
+} from "../../../types-queries/Planner/Stat";
+import { ENUMCASE_TO_TITLECASE } from "../../../utils/constants";
+import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
+
 
 export const listRenderStatAbility = ({ data, dispatches, filters, }: ListRenderArgsIcons<StatAbilityQuery>) => {
   if (!data || !data.statByName) return (<div>Data not found for the query 'statByName'.</div>);

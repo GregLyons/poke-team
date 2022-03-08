@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Team, TeamAction, } from "../../../hooks/App/Team";
+import { Team, TeamAction } from "../../../hooks/App/Team";
 import { MemberPokemon } from "../../../types-queries/Member/MemberPokemon";
 
 type TeamMemberProps = {

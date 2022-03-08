@@ -2,11 +2,11 @@ import { HPTypeName } from "@pkmn/data";
 import { Team } from "../../../../hooks/App/Team";
 import { Dispatches, Filters } from "../../../App";
 import { MemberDetailsHandlers, ReferencePanelView } from "../TeamView";
-
 import './MemberDetails.css';
+import MemberDetailsCosmetic from "./MemberDetailsCosmetic/MemberDetailsCosmetic";
 import MemberDetailsExtra from "./MemberDetailsExtra/MemberDetailsExtra";
 import MemberDetailsMain from "./MemberDetailsMain/MemberDetailsMain";
-import MemberDetailsCosmetic from "./MemberDetailsCosmetic/MemberDetailsCosmetic";
+
 
 type MemberDetailsProps = {
   dispatches: Dispatches

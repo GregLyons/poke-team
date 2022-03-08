@@ -1,51 +1,19 @@
 import {
-  useEffect,
-} from 'react';
-import {
   Outlet,
-  useParams,
+  useParams
 } from 'react-router-dom';
-import {
-  useLazyQuery,
-} from '@apollo/client';
-
-import {
-  FIELDSTATE_PAGE_QUERY,
-  FieldStatePageQuery,
-  FieldStatePageQueryVars,
-  FieldStateOnPage,
-
-  FIELDSTATE_ABILITY_QUERY,
-  FieldStateAbilityQueryVars,
-
-  FIELDSTATE_EFFECT_QUERY,
-  FieldStateEffectQueryVars,
-
-  FIELDSTATE_ITEM_QUERY,
-  FieldStateItemQueryVars,
-
-  FIELDSTATE_MOVE_QUERY,
-  FieldStateMoveQueryVars,
-
-  FIELDSTATE_STAT_QUERY,
-  FieldStateStatQueryVars,
-
-  FIELDSTATE_STATUS_QUERY,
-  FieldStateStatusQueryVars,
-
-  FIELDSTATE_TYPE_QUERY,
-  FieldStateTypeQueryVars,
-} from '../../../types-queries/Planner/FieldState';
-import {
-  INTRODUCTION_QUERY,
-  
-  IntroductionQuery,
-  IntroductionQueryVars,
-} from '../../../types-queries/Planner/helpers';
-import {
-  NUMBER_OF_GENS,
-} from '../../../utils/constants';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
+import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
+import {
+  FieldStateAbilityQueryVars, FieldStateEffectQueryVars, FieldStateItemQueryVars, FieldStateMoveQueryVars, FieldStateOnPage, FieldStatePageQuery,
+  FieldStatePageQueryVars, FieldStateStatQueryVars, FieldStateStatusQueryVars, FieldStateTypeQueryVars, FIELDSTATE_ABILITY_QUERY, FIELDSTATE_EFFECT_QUERY, FIELDSTATE_ITEM_QUERY, FIELDSTATE_MOVE_QUERY, FIELDSTATE_PAGE_QUERY, FIELDSTATE_STATUS_QUERY, FIELDSTATE_STAT_QUERY, FIELDSTATE_TYPE_QUERY
+} from '../../../types-queries/Planner/FieldState';
+import { Dispatches, Filters } from '../../App';
+import Accordion from '../../Reusables/Accordion/Accordion';
+import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
+import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
+import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 import {
   listRenderFieldStateAbility,
   listRenderFieldStateEffect,
@@ -53,16 +21,10 @@ import {
   listRenderFieldStateMove,
   listRenderFieldStateStat,
   listRenderFieldStateStatus,
-  listRenderFieldStateType,
+  listRenderFieldStateType
 } from './FieldStateConnections';
 
-import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
-import { useGenConnectedSearchVars, useRemovalConnectedSearchBar, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
-import Accordion from '../../Reusables/Accordion/Accordion';
-import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
-import { Dispatches, Filters } from '../../App';
-import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
-import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
+
 
 type FieldStatePageProps = {
   dispatches: Dispatches

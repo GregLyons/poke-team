@@ -1,49 +1,29 @@
 import {
   Outlet,
-  useParams,
+  useParams
 } from 'react-router-dom';
-
+import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
+import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
+import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
 import {
-  ABILITY_PAGE_QUERY,
-  AbilityPageQuery,
-  AbilityPageQueryVars,
-  AbilityOnPage,
-  
-  ABILITY_EFFECT_QUERY,
-  AbilityEffectQueryVars,
-
-  ABILITY_FIELDSTATE_QUERY,
-  AbilityFieldStateQueryVars,
-
-  ABILITY_STAT_QUERY,
-  AbilityStatQueryVars,
-
-  ABILITY_STATUS_QUERY,
-  AbilityStatusQueryVars,
-
-  ABILITY_TYPE_QUERY,
-  AbilityTypeQueryVars,
-
-  ABILITY_USAGEMETHOD_QUERY,
-  AbilityUsageMethodQueryVars,
+  AbilityEffectQueryVars, AbilityFieldStateQueryVars, AbilityOnPage, AbilityPageQuery,
+  AbilityPageQueryVars, AbilityStatQueryVars, AbilityStatusQueryVars, AbilityTypeQueryVars, AbilityUsageMethodQueryVars, ABILITY_EFFECT_QUERY, ABILITY_FIELDSTATE_QUERY, ABILITY_PAGE_QUERY, ABILITY_STATUS_QUERY, ABILITY_STAT_QUERY, ABILITY_TYPE_QUERY, ABILITY_USAGEMETHOD_QUERY
 } from '../../../types-queries/Planner/Ability';
+import { Dispatches, Filters } from '../../App';
+import Accordion from '../../Reusables/Accordion/Accordion';
+import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
+import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
+import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 import {
   listRenderAbilityEffect,
   listRenderAbilityFieldState,
   listRenderAbilityStat,
   listRenderAbilityStatus,
   listRenderAbilityType,
-  listRenderAbilityUsageMethod,
+  listRenderAbilityUsageMethod
 } from './AbilityConnections';
 
-import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
-import Accordion from '../../Reusables/Accordion/Accordion';
-import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
-import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
-import { useGenConnectedSearchVars, useRemovalConnectedSearchBar, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
-import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
-import { Dispatches, Filters } from '../../App';
-import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
+
 
 type AbilityPageProps = {
   dispatches: Dispatches

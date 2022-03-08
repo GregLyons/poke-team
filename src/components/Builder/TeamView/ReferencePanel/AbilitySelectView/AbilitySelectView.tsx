@@ -1,10 +1,10 @@
-import { useDelayedQuery, useGenConnectedSearchBar, useGenConnectedSearchVars, } from "../../../../../hooks/Searches";
+import { useDelayedQuery, useGenConnectedSearchBar } from "../../../../../hooks/Searches";
 import { MemberAbilityQuery, MemberAbilitySearchVars, MEMBER_ABILITY_QUERY } from "../../../../../types-queries/Member/MemberAbility";
 import { Dispatches, Filters } from "../../../../App";
-import { AbilitySelectHandlers, ReferencePanelView, } from "../../TeamView";
+import { AbilitySelectHandlers, ReferencePanelView } from "../../TeamView";
 import AbilitySelectEntries from "./AbilitySelectEntries";
-
 import './AbilitySelectView.css';
+
 
 type AbilitySelectViewProps = {
   handlers: AbilitySelectHandlers

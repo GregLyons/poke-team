@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useOnClickOutside, useWindowSize } from "usehooks-ts";
-
 import './Popup.css';
+
 
 type PopupProps = {
   trigger: JSX.Element

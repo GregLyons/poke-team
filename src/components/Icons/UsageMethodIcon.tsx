@@ -1,7 +1,7 @@
 import { IconDatum } from "../../types-queries/helpers";
 import { getUsageMethodIcon } from "../../utils/sprites";
-
 import './Icons.css';
+
 
 type UsageMethodIconProps = {
   iconDatum: IconDatum

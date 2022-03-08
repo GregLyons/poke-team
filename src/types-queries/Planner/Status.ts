@@ -1,8 +1,7 @@
 import {
-  gql,
+  gql
 } from '@apollo/client';
 import { GenNum } from '../entities';
-
 import {
   AbilityIconEdge,
   IntroductionEdge,
@@ -14,31 +13,17 @@ import {
   TypeIconEdge,
   typeIconEdgeToTypeIconDatum,
   TypeName,
-  typeNameEdgeToTypeName,
+  typeNameEdgeToTypeName
 } from '../helpers';
 import {
-  EntitySearchVars,
-  
-  EntityPageQueryName,
-  EntityPageVars,
-  CountField,
+  AuxEntityInSearchWithIcon, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToAuxConnectionEdge, AuxToIconConnectionEdge,
+  AuxToIconConnectionOnPage, AuxToItemConnectionEdge,
+  AuxToItemConnectionOnPage, AuxToMainConnectionEdge, AuxToMainConnectionOnPage, CountField,
 
-  EntityConnectionVars,
-
-  VersionDependentDescriptionEdge,
-  AuxToMainConnectionEdge,
-  AuxEntityInSearchWithIcon,
-  AuxEntitySearchResult,
-  AuxEntityPageResult,
-  AuxEntityOnPage,
-  AuxToMainConnectionOnPage,
-  AuxToAuxConnectionEdge,
-  AuxToItemConnectionEdge,
-  AuxToItemConnectionOnPage,
-  RemovedFromGameQueryVars,
-  AuxToIconConnectionEdge,
-  AuxToIconConnectionOnPage,
+  EntityConnectionVars, EntityPageQueryName,
+  EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
 } from './helpers';
+
 
 // Status in main search
 // #region

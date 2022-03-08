@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { GenerationNum } from "@pkmn/data";
-import { MemberEntity, MemberSpecificEntityVars, MemberResult, AbilitySlot } from "./helpers";
+import { AbilitySlot, MemberEntity, MemberResult, MemberSpecificEntityVars } from "./helpers";
 
 export interface MemberAbilityQuery {
   pokemonByPSID: {

@@ -1,9 +1,9 @@
 import {
-  Icons,
+  Icons
 } from '@pkmn/img';
 import {
   IconDatum,
-  PokemonIconDatum,
+  PokemonIconDatum
 } from '../types-queries/helpers.js';
 import { GenderName } from '../types-queries/Member/helpers.js';
 
