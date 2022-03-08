@@ -1,9 +1,5 @@
-import { StatsTable } from '@pkmn/data';
-import {
-  NUMBER_OF_GENS,
-} from '../utils/constants';
 import { compareStrings, sortArray } from '../utils/helpers';
-import { BaseStatName, EffectClass, FieldStateClass, FieldStateTargetClass, GenNum, GQLBaseStatName, StatModificationRecipientEnum, StatTable } from './entities';
+import { EffectClass, FieldStateClass, FieldStateTargetClass, GenNum, GQLBaseStatName, StatModificationRecipientEnum, StatTable } from './entities';
 
 export interface NameSearchVars {
   startsWith: string
@@ -300,7 +296,7 @@ export const toTypeName: (enumTypeName: CapsTypeName | FormattedTypeName) => Typ
 // // #endregion 
 
 // Edges for queries
-// #region
+  // #region
 
 
 export type Edge = { node: any }

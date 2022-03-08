@@ -17,7 +17,7 @@ import { GenFilter } from "../../../hooks/App/GenFilter";
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { ENUMCASE_TO_TITLECASE } from '../../../utils/constants';
 import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
-import MainSearch from '../Searches/MainSearch';
+import MainSearch from '../MainSearch/MainSearch';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
 import Button from '../../Reusables/Button/Button';
 import DoubleSlider from '../../Reusables/DoubleSlider/DoubleSlider';

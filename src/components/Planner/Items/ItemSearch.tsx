@@ -21,7 +21,7 @@ import { listToggleValue } from '../helpers';
 import { Dispatches, Filters } from '../../App';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
 import Button from '../../Reusables/Button/Button';
-import MainSearch from '../Searches/MainSearch';
+import MainSearch from '../MainSearch/MainSearch';
 import { ItemClass, ITEM_CLASS_MAP } from '../../../types-queries/entities';
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<ItemSearchQuery>) => {

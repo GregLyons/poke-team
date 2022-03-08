@@ -1,6 +1,6 @@
 # Introduction
 
-As with [`poke-db`](https://github.com/GregLyons/poke-db) and [`poke-gql`](https://github.com/GregLyons/poke-gql), we provide `README.md` files for many of the folders to give a high-level explanation of the code therein. 
+As with [`poke-db`](https://github.com/GregLyons/poke-db) and [`poke-gql`](https://github.com/GregLyons/poke-gql), we provide `README.md` files for many of the folders to give a high-level explanation of the code therein.
 
 # General structure
 

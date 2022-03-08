@@ -15,7 +15,7 @@ import { GenFilter } from "../../../hooks/App/GenFilter";
 
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
-import MainSearch from '../Searches/MainSearch';
+import MainSearch from '../MainSearch/MainSearch';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
 import { listToggleValue } from '../helpers';
 import Button from '../../Reusables/Button/Button';

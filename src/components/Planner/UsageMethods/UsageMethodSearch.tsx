@@ -17,7 +17,7 @@ import { GenFilter } from "../../../hooks/App/GenFilter";
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 
 import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
-import MainSearch from '../Searches/MainSearch';
+import MainSearch from '../MainSearch/MainSearch';
 
 const listRender = ({ data, }: ListRenderArgs<UsageMethodSearchQuery>) => {
   if (!data || !data.usageMethods) return (<div>Data not found for the query 'usageMethods'.</div>);

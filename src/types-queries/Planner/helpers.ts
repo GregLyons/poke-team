@@ -76,7 +76,6 @@ export abstract class MainEntityInSearch {
   public description: string
 
   constructor(gqlEntity: MainEntitySearchResult) {
-    console.log(gqlEntity);
     const { name, formattedName, } = gqlEntity.node;
 
     this.name = name;

@@ -62,6 +62,7 @@ export class MissingPokemonFilterError extends Error {
 }
 
 export type EntryIconData = {
+  // Pokemon icons displayed, when relevant, on the right side of the entry
   pokemonIconData?: PokemonIconDatum[]
   linkIconDatum?: LinkIconDatum
   dispatches?: Dispatches
@@ -69,6 +70,7 @@ export type EntryIconData = {
   cartNote?: string
 }
 
+// Icons displayed on the left sider of the entry under the page link
 export type LinkIconDatum = {
   iconClass: 'type'
   iconDatum: TypeIconDatum
@@ -82,7 +84,7 @@ export type LinkIconDatum = {
 // Filtering
 // #region
 
-
+// Dropdowns
 export function listToggleValue<SearchVars extends { [Property in keyof SearchVars]: any }, ValueType> (
   queryVars: SearchVars,
   setQueryVars: React.Dispatch<React.SetStateAction<SearchVars>>,
@@ -110,6 +112,7 @@ export function listToggleValue<SearchVars extends { [Property in keyof SearchVa
   }
 }
 
+// Sliders
 export function sliderSelect<SearchVars extends { [Property in keyof SearchVars]: any }> (
   queryVars: SearchVars,
   setQueryVars: React.Dispatch<React.SetStateAction<SearchVars>>,
@@ -128,6 +131,7 @@ export function sliderSelect<SearchVars extends { [Property in keyof SearchVars]
   return { updateValue };
 }
 
+// Double sliders
 export function rangeSelect<SearchVars extends { [Property in keyof SearchVars]: any }> (
   queryVars: SearchVars,
   setQueryVars: React.Dispatch<React.SetStateAction<SearchVars>>,

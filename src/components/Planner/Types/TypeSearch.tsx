@@ -16,7 +16,7 @@ import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { Dispatches, Filters } from '../../App';
 import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Searches';
-import MainSearch from '../Searches/MainSearch';
+import MainSearch from '../MainSearch/MainSearch';
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeSearchQuery>) => {
   if (!data || !data.types) return (<div>Data not found for the query 'types'.</div>);

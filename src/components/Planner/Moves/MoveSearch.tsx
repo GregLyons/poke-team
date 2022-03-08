@@ -22,7 +22,7 @@ import { Dispatches, Filters } from '../../App';
 import { CapsTypeName, toCapsTypeName, } from '../../../types-queries/helpers';
 import { TYPE_NAMES } from '../../../hooks/App/PokemonFilter';
 import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Searches';
-import MainSearch from '../Searches/MainSearch';
+import MainSearch from '../MainSearch/MainSearch';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
 import DoubleSlider from '../../Reusables/DoubleSlider/DoubleSlider';
 import Button from '../../Reusables/Button/Button';

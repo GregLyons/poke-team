@@ -196,6 +196,7 @@ export const IMPORT_MEMBER_QUERY = gql`
   }
 `;
 
+// Converts PokemonSets and GraphQL results to MemberPokemon.
 export const setsToMembers: (
   sets: PokemonSet[],
   results: ImportMemberResult[],
