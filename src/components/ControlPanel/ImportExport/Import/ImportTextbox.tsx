@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import Button from "../../Reusables/Button/Button";
+import Button from "../../../Reusables/Button/Button";
 import { ImportState } from "./Import";
 
 type ImportTextboxProps = {
@@ -30,9 +30,9 @@ const ImportTextbox = ({
   }, [importState, ]);
 
   return (
-    <div className="import-textbox__wrapper">
+    <div className="import__textbox-wrapper">
       <textarea
-        className="import-textbox__input"
+        className="import__input"
         name="import-team"
         id=""
         cols={40}
@@ -41,9 +41,9 @@ const ImportTextbox = ({
         value={importString}
         onChange={e => setImportString(e.target.value)}
       />
-      <div className="import-textbox__bottom-wrapper">
+      <div className="import__bottom-wrapper">
         {messageDisplay}
-        <div className="import-textbox__button">
+        <div className="import__button">
           <Button
             title="Import Pokemon."
             label="IMPORT"

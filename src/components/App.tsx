@@ -114,7 +114,7 @@ function App() {
         </header>
         <Routes>
           {/* Routing for Home */}
-          <Route path="/" element={<div>Yo</div>} />
+          <Route path="/" element={<div>Welcome to Bill's PC!</div>} />
 
           {/* Routing for Analyzer */}
           <Route path="/analyzer" element={<Analyzer

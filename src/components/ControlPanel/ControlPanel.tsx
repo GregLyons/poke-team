@@ -3,7 +3,7 @@ import { Team } from '../../hooks/App/Team';
 import { Dispatches, Filters } from '../App';
 import './ControlPanel.css';
 import GenFilterForm from "./GenFilterForm/GenFilterForm";
-import Import from './ImportExport/Import';
+import ImportExport from './ImportExport/ImportExport';
 import PokemonFilterForm from './PokemonFilterForm/PokemonFilterForm';
 import PokemonTeam from "./PokemonTeam/PokemonTeam";
 import TierFilterForm from "./TierFilterForm/TierFilterForm";
@@ -56,7 +56,7 @@ const ControlPanel = ({
         />
       </div>
       <div className={classWithBGShadow("import-export__cell", bgManager)}>
-        <Import
+        <ImportExport
           dispatches={dispatches}
           filters={filters}
           team={team}

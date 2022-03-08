@@ -1,10 +1,9 @@
-/* Import textbox */
-/* #region */
-
-.import-textbox__wrapper {
+.import__textbox-wrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+
+  position: relative;
 
   background-color: rgba(var(--dark3-components), 0.7);
   box-shadow: var(--control-shadow);
@@ -12,7 +11,7 @@
   padding: 1rem;
 }
 
-.import-textbox__input {
+.import__input {
   border: 1px solid var(--light3);
   background-color: var(--dark3);
   color: var(--light1);
@@ -20,14 +19,14 @@
 
   transition: 0.5s ease;
 }
-.import-textbox__input:hover,
-.import-textbox__input:focus {
+.import__input:hover,
+.import__input:focus {
   border: 1px solid var(--blue1);
   box-shadow: inset 0 0 2px 1px var(--blue1);
   filter: brightness(1.1);
 }
 
-.import-textbox__bottom-wrapper {
+.import__bottom-wrapper {
   display: flex;
   justify-content: space-between;
 
@@ -35,11 +34,11 @@
   margin-top: 0.5rem;
 }
 
-.import-textbox__message {
+.import__message {
   justify-self: flex-start;
   color: var(--red1);
 }
-.import-textbox__button {
+.import__button {
   justify-self: flex-end;
 
   background-color: var(--dark2);
@@ -47,5 +46,3 @@
   padding: 0 1rem 0 1rem;
   border-radius: 0.5rem;
 }
-
-/* #endregion */

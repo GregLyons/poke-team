@@ -3,7 +3,7 @@ import { PokemonSet } from "@pkmn/data"
 import { Dex } from "@pkmn/dex"
 import { Sets } from "@pkmn/sets"
 import { EnablesItemEdge, PokemonFormEdge, pokemonFormEdgeToFormDatum, RequiresItemEdge, spreadSummary } from "../Builder/helpers"
-import { BaseStatName, GenNum, StatTable, statTableToPSStatsTable } from "../entities"
+import { BaseStatName, GenNum, ivsToHiddenPower, StatTable, statTableToPSStatsTable } from "../entities"
 import { PokemonIconDatum, TypeName } from "../helpers"
 import { DEFAULT_DV_SPREAD, DEFAULT_EV_SPREAD, DEFAULT_EV_SPREAD_GENS12, DEFAULT_IV_SPREAD, GenderName, hiddenPowerToMaxIVs, MemberEntity, MemberResult, MoveSlot } from "./helpers"
 import { MemberAbility } from "./MemberAbility"
@@ -371,6 +371,11 @@ export class MemberPokemon extends MemberEntity {
         specialAttack: newValue,
       }
     }
+
+    // Change 'this.hpType' to match with 'this.ivs'
+    if (this.gen > 1) {
+      this.hpType = ivsToHiddenPower(this.ivs, this.gen).type;
+    }
   }
 
   public assignIVs(newIVs: StatTable) {
@@ -381,6 +386,11 @@ export class MemberPokemon extends MemberEntity {
       if (!statName) return;
 
       this.assignIV(statName, value);
+
+      // Change 'this.hpType' to match with 'this.ivs'
+      if (this.gen > 1) {
+        this.hpType = ivsToHiddenPower(this.ivs, this.gen).type;
+      }
     });
   }
 
@@ -424,6 +434,7 @@ export class MemberPokemon extends MemberEntity {
     this.pokeball = newPokeball;
   }
 
+  // Will change 'this.ivs' to be the DVs/IVs which given the maximal power for the given type.
   public assignHPType(newHPType?: TypeName) {
     if (!newHPType || ['fairy', 'normal'].includes(newHPType)) return;
 
