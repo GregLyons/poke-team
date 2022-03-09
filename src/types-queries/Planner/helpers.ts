@@ -179,16 +179,15 @@ export abstract class MainEntityOnPage {
   public introduced: GenNum
 
   constructor(gqlEntity: MainEntityPageResult) {
-    console.log(gqlEntity);
-    const { id, name, formattedName, descriptions } = gqlEntity;
+    const { id, name, formattedName, descriptions, introduced } = gqlEntity;
 
     this.id = id;
     this.name = name;
     this.formattedName = formattedName;
 
     // TODO: Bulbapedia doesn't list all items, so there will be missing descriptions
-    if (gqlEntity.descriptions.edges.length > 0) {
-      this.descriptions = gqlEntity.descriptions.edges.map(edge => {
+    if (descriptions.edges.length > 0) {
+      this.descriptions = descriptions.edges.map(edge => {
         return {
           text: edge.node.text,
           code: edge.versionGroupCode,
@@ -202,7 +201,7 @@ export abstract class MainEntityOnPage {
       }];
     }
 
-    this.introduced = gqlEntity.introduced.edges[0].node.number;
+    this.introduced = introduced.edges[0].node.number;
   }
 }
 
@@ -418,6 +417,7 @@ export const INTRODUCTION_QUERY = (queryName: EntityPageQueryName) => gql`
     ${queryName}(generation: $gen, name: $name) {
       id
       introduced {
+        id
         edges {
           node {
             number

@@ -11,7 +11,7 @@ import {
 } from '../../../types-queries/Planner/Effect';
 import Button from '../../Reusables/Button/Button';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
-import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
+import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { listToggleValue } from '../helpers';
 import MainSearch from '../MainSearch/MainSearch';
 
@@ -27,15 +27,13 @@ const listRender = ({ data, }: ListRenderArgs<EffectSearchQuery>) => {
         const effect = new EffectInSearch(effectSearchResult);
 
         return (
-          <>
-            <EntitySearchEntry
-              entityClass="Effect"
-              key={effect.name}
-              name={effect.formattedName}
-              linkName={effect.name}
-              description={effect.description}
-            />
-          </>
+          <SearchEntry
+            entityClass="Effect"
+            key={effect.name}
+            name={effect.formattedName}
+            linkName={effect.name}
+            description={effect.description}
+          />
         );
       })}
     </>
@@ -61,6 +59,7 @@ const listFilter = ({
             id: key,
             label: (
               <Button
+                key={key}
                 title={selected
                   ? `Exclude ${EFFECT_TITLE_MAP.get(key)}.`
                   : `Include ${EFFECT_TITLE_MAP.get(key)}.`

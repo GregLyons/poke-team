@@ -19,6 +19,7 @@ export const SET_MEMBERNATURE_QUERY = gql`
       name
       formattedName
       modifiesStat {
+        id
         edges {
           node {
             id
@@ -30,6 +31,7 @@ export const SET_MEMBERNATURE_QUERY = gql`
       }
 
       introduced {
+        id
         edges {
           node {
             number

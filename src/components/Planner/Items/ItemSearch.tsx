@@ -1,21 +1,21 @@
 import {
-  Outlet
+    Outlet
 } from 'react-router-dom';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Searches';
 import { ItemClass, ITEM_CLASS_MAP } from '../../../types-queries/entities';
 import {
-  ItemInSearch, ItemSearchQuery,
-  ItemSearchResult,
-  ItemSearchVars, ITEM_SEARCH_QUERY
+    ItemInSearch, ItemSearchQuery,
+    ItemSearchResult,
+    ItemSearchVars, ITEM_SEARCH_QUERY
 } from '../../../types-queries/Planner/Item';
 import {
-  ENUMCASE_TO_TITLECASE
+    ENUMCASE_TO_TITLECASE
 } from '../../../utils/constants';
 import { Dispatches, Filters } from '../../App';
 import Button from '../../Reusables/Button/Button';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
-import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
+import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { listToggleValue } from '../helpers';
 import MainSearch from '../MainSearch/MainSearch';
 
@@ -30,30 +30,28 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<ItemSear
         const item = new ItemInSearch(itemSearchResult);
 
         return (
-          <>
-            <EntitySearchEntry
-              entityClass="Item"
-              key={item.name}
-              name={item.formattedName}
-              linkName={item.name}
-              data={[
-                {
-                  key: 'CLASS', title: 'Item class', value: ENUMCASE_TO_TITLECASE(item.itemClass),
-                },
-              ]}
-              description={item.description}
-              icons={{
-                pokemonIconData: item.requiredPokemonIconData,
-                linkIconDatum: {
-                  iconClass: 'item',
-                  iconDatum: item.itemIconDatum,
-                },
-                dispatches,
-                filters,
-                cartNote: `Pokemon who have '${item.formattedName}'.`
-              }}
-            />
-          </>
+          <SearchEntry
+            entityClass="Item"
+            key={item.name}
+            name={item.formattedName}
+            linkName={item.name}
+            data={[
+              {
+                key: 'CLASS', title: 'Item class', value: ENUMCASE_TO_TITLECASE(item.itemClass),
+              },
+            ]}
+            description={item.description}
+            icons={{
+              pokemonIconData: item.requiredPokemonIconData,
+              linkIconDatum: {
+                iconClass: 'item',
+                iconDatum: item.itemIconDatum,
+              },
+              dispatches,
+              filters,
+              cartNote: `Pokemon who have '${item.formattedName}'.`
+            }}
+          />
         );
       })}
     </>
@@ -79,6 +77,7 @@ const listFilter = ({
             id: key,
             label: (
               <Button
+                key={key}
                 title={selected
                   ? `Exclude ${value} items.`
                   : `Include ${value} items.`

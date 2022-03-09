@@ -317,8 +317,6 @@ const Import = ({
           })
         }
         else {
-          console.log('thrown');
-          console.log(e);
           throw e;
         }
       }

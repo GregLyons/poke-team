@@ -1,5 +1,5 @@
 import {
-  Outlet
+    Outlet
 } from 'react-router-dom';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { TYPE_NAMES } from '../../../hooks/App/PokemonFilter';
@@ -7,18 +7,18 @@ import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRend
 import { MoveCategory, MoveTargetClass, MOVE_CATEGORY_MAP, MOVE_TARGETCLASS_MAP, MOVE_TYPE_MAP } from '../../../types-queries/entities';
 import { CapsTypeName, toCapsTypeName } from '../../../types-queries/helpers';
 import {
-  MoveInSearch, MoveSearchQuery,
-  MoveSearchResult,
-  MoveSearchVars, MOVE_SEARCH_QUERY
+    MoveInSearch, MoveSearchQuery,
+    MoveSearchResult,
+    MoveSearchVars, MOVE_SEARCH_QUERY
 } from '../../../types-queries/Planner/Move';
 import {
-  ENUMCASE_TO_TITLECASE
+    ENUMCASE_TO_TITLECASE
 } from '../../../utils/constants';
 import { Dispatches, Filters } from '../../App';
 import Button from '../../Reusables/Button/Button';
 import DoubleSlider from '../../Reusables/DoubleSlider/DoubleSlider';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
-import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
+import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { listToggleValue, rangeSelect } from '../helpers';
 import MainSearch from '../MainSearch/MainSearch';
 
@@ -34,48 +34,46 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<MoveSear
         const move = new MoveInSearch(moveSearchResult);
 
         return (
-          <>
-            <EntitySearchEntry
-              entityClass="Move"
-              key={move.name}
-              name={move.formattedName}
-              linkName={move.name}
-              description={move.description}
-              data={[
-                {
-                  key: 'POW', title: 'Power', value: move.power,
-                },
-                {
-                  key: 'PP', title: 'PP', value: move.pp === 0 ? '--': move.pp,
-                },
-                {
-                  key: 'ACC', title: 'Accuracy', value: move.accuracy === 0 ? '--' : move.accuracy,
-                },
-                {
-                  key: 'CAT', title: 'Damage category', value: ENUMCASE_TO_TITLECASE(move.category),
-                },
-                {
-                  key: 'CON', title: 'Makes contact', value: move.contact ? 'Yes' : 'No'
-                },
-                {
-                  key: 'PRI', title: 'Priority', value: move.priority,
-                },
-                {
-                  key: 'TAR', title: 'Target', value: ENUMCASE_TO_TITLECASE(move.target).replace('adjacent', 'adj.'),
-                },
-              ]}
-              icons={{
-                pokemonIconData: move.pokemonIconData,
-                linkIconDatum: {
-                  iconClass: 'type',
-                  iconDatum: move.typeIconDatum,
-                },
-                dispatches,
-                filters,
-                cartNote: `Pokemon who learn '${move.formattedName}'.`
-              }}
-            />
-          </>
+          <SearchEntry
+            entityClass="Move"
+            key={move.name}
+            name={move.formattedName}
+            linkName={move.name}
+            description={move.description}
+            data={[
+              {
+                key: 'POW', title: 'Power', value: move.power,
+              },
+              {
+                key: 'PP', title: 'PP', value: move.pp === 0 ? '--': move.pp,
+              },
+              {
+                key: 'ACC', title: 'Accuracy', value: move.accuracy === 0 ? '--' : move.accuracy,
+              },
+              {
+                key: 'CAT', title: 'Damage category', value: ENUMCASE_TO_TITLECASE(move.category),
+              },
+              {
+                key: 'CON', title: 'Makes contact', value: move.contact ? 'Yes' : 'No'
+              },
+              {
+                key: 'PRI', title: 'Priority', value: move.priority,
+              },
+              {
+                key: 'TAR', title: 'Target', value: ENUMCASE_TO_TITLECASE(move.target).replace('adjacent', 'adj.'),
+              },
+            ]}
+            icons={{
+              pokemonIconData: move.pokemonIconData,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: move.typeIconDatum,
+              },
+              dispatches,
+              filters,
+              cartNote: `Pokemon who learn '${move.formattedName}'.`
+            }}
+          />
         );
       })}
     </>
@@ -171,6 +169,7 @@ const listFilter = ({
                   {attributeName.slice(0, 3)}
                 </div>
                 <DoubleSlider
+                  key={attributeName}
                   titleFor={attributeName}
                   min={min}
                   minValue={queryVars[minKey]}
@@ -205,6 +204,7 @@ const listFilter = ({
             id: key,
             label: (
               <Button
+                key={key}
                 title={selected
                   ? `Exclude moves ${titleString}.`
                   : `Include moves ${titleString}.`
@@ -233,6 +233,7 @@ const listFilter = ({
             id: key,
             label: (
               <Button
+                key={key}
                 title={selected
                   ? `Exclude ${value}-type Moves.`
                   : `Include ${value}-type Moves.`
@@ -261,6 +262,7 @@ const listFilter = ({
             id: key,
             label: (
               <Button
+                key={key}
                 title={selected
                   ? `Exclude moves which target ${value}.`
                   : `Include moves which target ${value}.`

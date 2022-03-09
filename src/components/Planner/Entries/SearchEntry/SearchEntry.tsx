@@ -14,9 +14,8 @@ import './SearchEntry.css';
 
 
 
-type EntitySearchEntryProps = {
+type SearchEntry = {
   entityClass: EntityClass
-  key: string
   name: string
   linkName: string
   description: string
@@ -28,15 +27,14 @@ type EntitySearchEntryProps = {
   icons?: EntryIconData
 }
 
-const EntitySearchEntry = ({
+const SearchEntry = ({
   entityClass,
-  key,
   name,
   linkName,
   description,
   data,
   icons,
-}: EntitySearchEntryProps) => {
+}: SearchEntry) => {
   // Changing scroll height 
   // #region
 
@@ -115,7 +113,6 @@ const EntitySearchEntry = ({
           : ''
         }
       `}
-      key={key}
     >
       <EntryLink
         hover={entryHover}
@@ -134,17 +131,22 @@ const EntitySearchEntry = ({
         className="planner-search__entry-data"
       >
         {data && data.map(({key, title, value}) => (
-          <>
+          <div
+            key={key}
+            className="planner-search__entry-data-row"
+          >
             <b
               className="planner-search__entry-data-key"
               title={title}
             >
               {key}
             </b>
-            <div className="planner-search__entry-data-value">
+            <div
+              className="planner-search__entry-data-value"
+            >
               {value}
             </div>
-          </>
+          </div>
         ))}
       </div>
       <div 
@@ -159,7 +161,6 @@ const EntitySearchEntry = ({
       </div>
       {icons && <PlannerPokemonIcons
         context="search"
-        key={key}
         expandListeners={expandListeners}
         expand={expand}
         selection={selection}
@@ -172,4 +173,4 @@ const EntitySearchEntry = ({
   )
 }
 
-export default EntitySearchEntry;
+export default SearchEntry;

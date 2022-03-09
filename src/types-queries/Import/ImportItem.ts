@@ -24,6 +24,7 @@ export const IMPORT_ITEM_QUERY = gql`
       psID
 
       introduced {
+        id
         edges {
           node {
             number

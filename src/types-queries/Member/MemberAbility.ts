@@ -43,6 +43,7 @@ export const MEMBER_ABILITY_QUERY = gql`
             psID
 
             introduced {
+              id
               edges {
                 node {
                   number

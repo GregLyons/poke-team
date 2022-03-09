@@ -187,6 +187,7 @@ export const ABILITY_PAGE_QUERY = gql`
       formattedName
 
       introduced {
+        id
         edges {
           node {
             number
@@ -195,6 +196,7 @@ export const ABILITY_PAGE_QUERY = gql`
       }
 
       descriptions {
+        id
         edges {
           node {
             text
@@ -204,54 +206,71 @@ export const ABILITY_PAGE_QUERY = gql`
       }
 
       activatedByFieldState {
+        id
         count
       }
       activatedByUsageMethod {
+        id
         count
       }
       boostsType {
+        id
         count
       }
       boostsUsageMethod {
+        id
         count
       }
       causesStatus {
+        id
         count
       }
       createsFieldState {
+        id
         count
       }
       effects {
+        id
         count
       }
       ignoresFieldState {
+        id
         count
       }
       modifiesStat {
+        id
         count
       }
       pokemon {
+        id
         count
       }
       preventsFieldState {
+        id
         count
       }
       preventsUsageMethod {
+        id
         count
       }
       removesFieldState {
+        id
         count
       }
       resistsStatus {
+        id
         count
       }
       resistsType {
+        id
         count
       }
       resistsUsageMethod {
+        id
         count
       }
       suppressesFieldState {
+        id
         count
       }
     }
@@ -358,6 +377,7 @@ export const ABILITY_EFFECT_QUERY = gql`
       formattedName
       
       effects {
+        id
         edges {
           node {
             id
@@ -431,6 +451,7 @@ export const ABILITY_FIELDSTATE_QUERY = gql`
       formattedName
       
       activatedByFieldState {
+        id
         edges {
           node {
             id
@@ -441,6 +462,7 @@ export const ABILITY_FIELDSTATE_QUERY = gql`
         }
       }
       createsFieldState {
+        id
         edges {
           node {
             id
@@ -452,6 +474,7 @@ export const ABILITY_FIELDSTATE_QUERY = gql`
         }
       }
       ignoresFieldState {
+        id
         edges {
           node {
             id
@@ -462,6 +485,7 @@ export const ABILITY_FIELDSTATE_QUERY = gql`
         }
       }
       preventsFieldState {
+        id
         edges {
           node {
             id
@@ -472,6 +496,7 @@ export const ABILITY_FIELDSTATE_QUERY = gql`
         }
       }
       removesFieldState {
+        id
         edges {
           node {
             id
@@ -482,6 +507,7 @@ export const ABILITY_FIELDSTATE_QUERY = gql`
         }
       }
       suppressesFieldState {
+        id
         edges {
           node {
             id
@@ -549,6 +575,7 @@ export const ABILITY_STAT_QUERY = gql`
       formattedName
       
       modifiesStat {
+        id
         edges {
           node {
             id
@@ -628,6 +655,7 @@ export const ABILITY_STATUS_QUERY = gql`
       formattedName
       
       causesStatus {
+        id
         edges {
           node {
             id
@@ -640,6 +668,7 @@ export const ABILITY_STATUS_QUERY = gql`
         }
       }
       resistsStatus {
+        id
         edges {
           node {
             id
@@ -713,6 +742,7 @@ export const ABILITY_TYPE_QUERY = gql`
       formattedName
       
       boostsType {
+        id
         edges {
           node {
             id
@@ -723,6 +753,7 @@ export const ABILITY_TYPE_QUERY = gql`
         }
       }
       resistsType {
+        id
         edges {
           node {
             id
@@ -802,6 +833,7 @@ export const ABILITY_USAGEMETHOD_QUERY = gql`
       formattedName
       
       activatedByUsageMethod {
+        id
         edges {
           node {
             id
@@ -812,6 +844,7 @@ export const ABILITY_USAGEMETHOD_QUERY = gql`
         }
       }
       boostsUsageMethod {
+        id
         edges {
           node {
             id
@@ -823,6 +856,7 @@ export const ABILITY_USAGEMETHOD_QUERY = gql`
         }
       }
       preventsUsageMethod {
+        id
         edges {
           node {
             id
@@ -833,6 +867,7 @@ export const ABILITY_USAGEMETHOD_QUERY = gql`
         }
       }
       resistsUsageMethod {
+        id
         edges {
           node {
             id

@@ -71,6 +71,7 @@ export const POKEMONICON_TO_MEMBER_QUERY = gql`
       }
 
       introduced {
+        id
         edges {
           node {
             number
@@ -88,6 +89,7 @@ export const POKEMONICON_TO_MEMBER_QUERY = gql`
             psID
 
             introduced {
+              id
               edges {
                 node {
                   number
@@ -107,6 +109,7 @@ export const POKEMONICON_TO_MEMBER_QUERY = gql`
             psID
 
             introduced {
+              id
               edges {
                 node {
                   number
@@ -436,7 +439,6 @@ export class MemberPokemon extends MemberEntity {
 
     this.hpType = newHPType;
     this.ivs = hiddenPowerToMaxIVs(newHPType);
-    console.log(this.ivs);
   }
 
   public evsSummary() {

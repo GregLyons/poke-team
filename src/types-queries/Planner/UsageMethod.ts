@@ -138,6 +138,7 @@ export const USAGEMETHOD_PAGE_QUERY = gql`
       description
 
       introduced {
+        id
         edges {
           node {
             number
@@ -146,36 +147,45 @@ export const USAGEMETHOD_PAGE_QUERY = gql`
       }
 
       activatesAbility {
+        id
         count
       }
       activatesItem {
+        id
         count
       }
       boostedByAbility {
+        id
         count
       }
       boostedByItem {
+        id
         count
       }
       preventedByAbility {
+        id
         count
       }
       preventedByMove(filter: {
         removedFromSwSh: $removedFromSwSh,
         removedFromBDSP: $removedFromBDSP
       }) {
+        id
         count
       }
       resistedByAbility {
+        id
         count
       }
       resistedByItem {
+        id
         count
       }
       moves(filter: {
         removedFromSwSh: $removedFromSwSh,
         removedFromBDSP: $removedFromBDSP
       }) {
+        id
         count
       }
     }
@@ -278,6 +288,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
       formattedName
        
       activatesAbility {
+        id
         edges {
           node {
             id
@@ -285,6 +296,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1})  {
+              id
               edges {
                 node {
                   text
@@ -297,6 +309,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -323,6 +336,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
         }
       }
       boostedByAbility {
+        id
         edges {
           node {
             id
@@ -330,6 +344,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -342,6 +357,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -369,6 +385,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
         }
       }
       preventedByAbility {
+        id
         edges {
           node {
             id
@@ -376,6 +393,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -388,6 +406,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -414,6 +433,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
         }
       }
       resistedByAbility {
+        id
         edges {
           node {
             id
@@ -421,6 +441,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -433,6 +454,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -532,12 +554,14 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
       formattedName
        
       activatesItem {
+        id
         edges {
           node {
             id
             name
             formattedName
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -546,6 +570,7 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
             }
 
             requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+              id
               edges {
                 node {
                   id
@@ -572,6 +597,7 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
         }
       }
       boostedByItem {
+        id
         edges {
           node {
             id
@@ -579,6 +605,7 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -587,6 +614,7 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
             }
 
             requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+              id
               edges {
                 node {
                   id
@@ -614,6 +642,7 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
         }
       }
       resistedByItem {
+        id
         edges {
           node {
             id
@@ -621,6 +650,7 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -629,6 +659,7 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
             }
 
             requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+              id
               edges {
                 node {
                   id
@@ -728,6 +759,7 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
         removedFromSwSh: $removedFromSwSh,
         removedFromBDSP: $removedFromBDSP
       }) {
+        id
         edges {
           node {
             id
@@ -735,6 +767,7 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
             formattedName
 
             descriptions {
+              id
               edges {
                 node {
                   text
@@ -743,6 +776,7 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
             }
             
             type {
+              id
               edges {
                 node {
                   id
@@ -757,6 +791,7 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -786,12 +821,14 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
         removedFromSwSh: $removedFromSwSh,
         removedFromBDSP: $removedFromBDSP
       }) {
+        id
         edges {
           node {
             id
             name
             formattedName
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -800,6 +837,7 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
             }
 
             type {
+              id
               edges {
                 node {
                   id
@@ -814,6 +852,7 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id

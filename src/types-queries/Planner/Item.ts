@@ -86,6 +86,7 @@ export const ITEM_SEARCH_QUERY = gql`
             removedFromSwSh: $removedFromSwSh,
             removedFromBDSP: $removedFromBDSP,
           }) {
+            id
             edges {
               node {
                 id
@@ -187,6 +188,7 @@ export const ITEM_PAGE_QUERY = gql`
       formattedName
 
       introduced {
+        id
         edges {
           node {
             number
@@ -195,6 +197,7 @@ export const ITEM_PAGE_QUERY = gql`
       }
 
       descriptions {
+        id
         edges {
           node {
             text
@@ -204,54 +207,71 @@ export const ITEM_PAGE_QUERY = gql`
       }
 
       activatedByFieldState {
+        id
         count
       }
       activatedByUsageMethod {
+        id
         count
       }
       boostsType {
+        id
         count
       }
       boostsUsageMethod {
+        id
         count
       }
       causesStatus {
+        id
         count
       }
       effects {
+        id
         count
       }
       enablesMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         count
       }
       enablesPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         count
       }
       extendsFieldState {
+        id
         count
       }
       ignoresFieldState {
+        id
         count
       }
       modifiesStat {
+        id
         count
       }
       naturalGift {
+        id
         count
       }
       requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         count
       }
       resistsFieldState {
+        id
         count
       }
       resistsStatus {
+        id
         count
       }
       resistsType {
+        id
         count
       }
       resistsUsageMethod {
+        id
         count
       }
     }
@@ -358,6 +378,7 @@ export const ITEM_EFFECT_QUERY = gql`
       formattedName
       
       effects {
+        id
         edges {
           node {
             id
@@ -428,6 +449,7 @@ export const ITEM_FIELDSTATE_QUERY = gql`
       formattedName
       
       activatedByFieldState {
+        id
         edges {
           node {
             id
@@ -438,6 +460,7 @@ export const ITEM_FIELDSTATE_QUERY = gql`
         }
       }
       extendsFieldState {
+        id
         edges {
           node {
             id
@@ -449,6 +472,7 @@ export const ITEM_FIELDSTATE_QUERY = gql`
         }
       }
       ignoresFieldState {
+        id
         edges {
           node {
             id
@@ -459,6 +483,7 @@ export const ITEM_FIELDSTATE_QUERY = gql`
         }
       }
       resistsFieldState {
+        id
         edges {
           node {
             id
@@ -526,6 +551,7 @@ export const ITEM_STAT_QUERY = gql`
       formattedName
       
       modifiesStat {
+        id
         edges {
           node {
             id
@@ -605,6 +631,7 @@ export const ITEM_STATUS_QUERY = gql`
       formattedName
       
       causesStatus {
+        id
         edges {
           node {
             id
@@ -619,6 +646,7 @@ export const ITEM_STATUS_QUERY = gql`
         
       }
       resistsStatus {
+        id
         edges {
           node {
             id
@@ -699,6 +727,7 @@ export const ITEM_TYPE_QUERY = gql`
       formattedName
       
       boostsType {
+        id
         edges {
           node {
             id
@@ -709,6 +738,7 @@ export const ITEM_TYPE_QUERY = gql`
         }
       }
       naturalGift {
+        id
         edges {
           node {
             id
@@ -719,6 +749,7 @@ export const ITEM_TYPE_QUERY = gql`
         }
       }
       resistsType {
+        id
         edges {
           node {
             id
@@ -796,6 +827,7 @@ export const ITEM_USAGEMETHOD_QUERY = gql`
       formattedName
       
       activatedByUsageMethod {
+        id
         edges {
           node {
             id
@@ -806,6 +838,7 @@ export const ITEM_USAGEMETHOD_QUERY = gql`
         }
       }
       boostsUsageMethod {
+        id
         edges {
           node {
             id
@@ -817,6 +850,7 @@ export const ITEM_USAGEMETHOD_QUERY = gql`
         }
       }
       resistsUsageMethod {
+        id
         edges {
           node {
             id

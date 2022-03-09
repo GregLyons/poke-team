@@ -110,7 +110,6 @@
 .planner__icon-container {
   position: relative;
   margin-left: var(--entry-horizontal-padding);
-  margin-top: 1rem;
 }
 
 .planner__icon-background {

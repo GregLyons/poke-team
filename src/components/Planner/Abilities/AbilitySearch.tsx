@@ -1,15 +1,15 @@
 import {
-  Outlet
+    Outlet
 } from 'react-router-dom';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Searches';
 import {
-  AbilityInSearch, AbilitySearchQuery,
-  AbilitySearchResult,
-  AbilitySearchVars, ABILITY_SEARCH_QUERY
+    AbilityInSearch, AbilitySearchQuery,
+    AbilitySearchResult,
+    AbilitySearchVars, ABILITY_SEARCH_QUERY
 } from '../../../types-queries/Planner/Ability';
 import { Dispatches, Filters } from '../../App';
-import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
+import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import MainSearch from '../MainSearch/MainSearch';
 
 
@@ -24,21 +24,19 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<AbilityS
         const ability = new AbilityInSearch(abilitySearchResult);
 
         return (
-          <>
-            <EntitySearchEntry
-              entityClass="Ability"
-              key={'abilityEntry_' + ability.name}
-              name={ability.formattedName}
-              linkName={ability.name}
-              description={ability.description}
-              icons={{
-                pokemonIconData: ability.pokemonIconData,
-                dispatches,
-                filters,
-                cartNote: `Pokemon who have '${ability.formattedName}'.`
-              }}
-            />
-          </>
+          <SearchEntry
+            entityClass="Ability"
+            key={ability.name}
+            name={ability.formattedName}
+            linkName={ability.name}
+            description={ability.description}
+            icons={{
+              pokemonIconData: ability.pokemonIconData,
+              dispatches,
+              filters,
+              cartNote: `Pokemon who have '${ability.formattedName}'.`
+            }}
+          />
         );
       })}
     </>

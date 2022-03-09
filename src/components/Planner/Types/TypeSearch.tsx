@@ -1,15 +1,15 @@
 import {
-  Outlet
+    Outlet
 } from 'react-router-dom';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Searches';
 import {
-  TypeInSearch, TypeSearchQuery,
-  TypeSearchResult,
-  TypeSearchVars, TYPE_SEARCH_QUERY
+    TypeInSearch, TypeSearchQuery,
+    TypeSearchResult,
+    TypeSearchVars, TYPE_SEARCH_QUERY
 } from '../../../types-queries/Planner/Type';
 import { Dispatches, Filters } from '../../App';
-import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
+import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import MainSearch from '../MainSearch/MainSearch';
 
 
@@ -24,25 +24,23 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeSear
         const type = new TypeInSearch(typeSearchResult);
         
         return (
-          <>
-            <EntitySearchEntry
-              entityClass="Type"
-              key={type.name}
-              name={type.formattedName}
-              linkName={type.name}
-              description=''
-              icons={{
-                pokemonIconData: type.pokemonIconData,
-                linkIconDatum: {
-                  iconClass: 'type',
-                  iconDatum: type.typeIconDatum,
-                },
-                dispatches,
-                filters,
-                cartNote: `Pokemon with the Type '${type.formattedName}'.`
-              }}
-            />
-          </>
+          <SearchEntry
+            entityClass="Type"
+            key={type.name}
+            name={type.formattedName}
+            linkName={type.name}
+            description=''
+            icons={{
+              pokemonIconData: type.pokemonIconData,
+              linkIconDatum: {
+                iconClass: 'type',
+                iconDatum: type.typeIconDatum,
+              },
+              dispatches,
+              filters,
+              cartNote: `Pokemon with the Type '${type.formattedName}'.`
+            }}
+          />
         );
       })}
     </>

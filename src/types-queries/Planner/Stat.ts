@@ -1,24 +1,24 @@
 import {
-  gql
+    gql
 } from '@apollo/client';
 import { GenNum } from '../entities';
 import {
-  AbilityIconEdge,
-  IntroductionEdge,
-  MoveIconEdge,
-  PokemonIconDatum,
-  PokemonIconEdge,
-  pokemonIconEdgeToPokemonIconDatum,
-  TypeIconDatum,
-  TypeIconEdge,
-  typeIconEdgeToTypeIconDatum
+    AbilityIconEdge,
+    IntroductionEdge,
+    MoveIconEdge,
+    PokemonIconDatum,
+    PokemonIconEdge,
+    pokemonIconEdgeToPokemonIconDatum,
+    TypeIconDatum,
+    TypeIconEdge,
+    typeIconEdgeToTypeIconDatum
 } from '../helpers';
 import {
-  AuxEntityInSearchWithIcon, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToAuxConnectionEdge, AuxToIconConnectionEdge,
-  AuxToIconConnectionOnPage, AuxToItemConnectionOnPage, AuxToMainConnectionEdge, AuxToMainConnectionOnPage, CountField,
+    AuxEntityInSearchWithIcon, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToAuxConnectionEdge, AuxToIconConnectionEdge,
+    AuxToIconConnectionOnPage, AuxToItemConnectionOnPage, AuxToMainConnectionEdge, AuxToMainConnectionOnPage, CountField,
 
-  EntityConnectionVars, EntityPageQueryName,
-  EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
+    EntityConnectionVars, EntityPageQueryName,
+    EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
 } from './helpers';
 
 
@@ -128,6 +128,7 @@ export const STAT_PAGE_QUERY = gql`
       description
 
       introduced {
+        id
         edges {
           node {
             number
@@ -136,18 +137,22 @@ export const STAT_PAGE_QUERY = gql`
       }
       
       modifiedByAbility {
+        id
         count
       }
 
       modifiedByFieldState {
+        id
         count
       }
 
       modifiedByItem {
+        id
         count
       }
 
       modifiedByMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         count
       }
     }
@@ -226,6 +231,7 @@ export const STAT_ABILITY_QUERY = gql`
       formattedName
        
       modifiedByAbility {
+        id
         edges {
           node {
             id
@@ -233,6 +239,7 @@ export const STAT_ABILITY_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -245,6 +252,7 @@ export const STAT_ABILITY_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -342,6 +350,7 @@ export const STAT_FIELDSTATE_QUERY = gql`
       formattedName
        
       modifiedByFieldState {
+        id
         edges {
           node {
             id
@@ -428,6 +437,7 @@ export const STAT_ITEM_QUERY = gql`
       formattedName
        
       modifiedByItem {
+        id
         edges {
           node {
             id
@@ -435,6 +445,7 @@ export const STAT_ITEM_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -443,6 +454,7 @@ export const STAT_ITEM_QUERY = gql`
             }
 
             requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+              id
               edges {
                 node {
                   id
@@ -549,6 +561,7 @@ export const STAT_MOVE_QUERY = gql`
       formattedName
        
       modifiedByMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         edges {
           node {
             id
@@ -556,6 +569,7 @@ export const STAT_MOVE_QUERY = gql`
             formattedName
 
             descriptions {
+              id
               edges {
                 node {
                   text
@@ -564,6 +578,7 @@ export const STAT_MOVE_QUERY = gql`
             }
             
             type {
+              id
               edges {
                 node {
                   id
@@ -578,6 +593,7 @@ export const STAT_MOVE_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id

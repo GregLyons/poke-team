@@ -11,9 +11,9 @@ const MainSearch = ({
 }: MainSearchProps) => {
   return (
     <div className="planner-search__wrapper">
-      <form>
+      <div className="planner-search__filter">
         {filterForm}
-      </form>
+      </div>
       <div className="planner-search__results">
         {results}
       </div>

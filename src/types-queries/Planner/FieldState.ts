@@ -1,23 +1,23 @@
 import {
-  gql
+    gql
 } from '@apollo/client';
 import { FieldStateClass, FieldStateTargetClass, GenNum } from '../entities';
 import {
-  AbilityIconEdge, IconDatum, IntroductionEdge, itemIconEdgeToItemIconDatum,
-  MoveIconEdge,
-  PokemonIconDatum,
-  PokemonIconEdge,
-  pokemonIconEdgeToPokemonIconDatum, TypeIconDatum, TypeIconEdge, typeIconEdgeToTypeIconDatum, TypeName,
-  TypeNameEdge
+    AbilityIconEdge, IconDatum, IntroductionEdge, itemIconEdgeToItemIconDatum,
+    MoveIconEdge,
+    PokemonIconDatum,
+    PokemonIconEdge,
+    pokemonIconEdgeToPokemonIconDatum, TypeIconDatum, TypeIconEdge, typeIconEdgeToTypeIconDatum, TypeName,
+    TypeNameEdge
 } from '../helpers';
 import {
-  AuxEntityInSearchWithIcon, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToAuxConnectionEdge,
-  AuxToAuxConnectionOnPage, AuxToIconConnectionEdge,
-  AuxToIconConnectionOnPage, AuxToItemConnectionEdge, AuxToItemConnectionOnPage, AuxToMainConnectionEdge,
-  AuxToMainConnectionOnPage, CountField,
+    AuxEntityInSearchWithIcon, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToAuxConnectionEdge,
+    AuxToAuxConnectionOnPage, AuxToIconConnectionEdge,
+    AuxToIconConnectionOnPage, AuxToItemConnectionEdge, AuxToItemConnectionOnPage, AuxToMainConnectionEdge,
+    AuxToMainConnectionOnPage, CountField,
 
-  EntityConnectionVars, EntityPageQueryName,
-  EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
+    EntityConnectionVars, EntityPageQueryName,
+    EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
 } from './helpers';
 
 
@@ -194,6 +194,7 @@ export const FIELDSTATE_PAGE_QUERY = gql`
       description
 
       introduced {
+        id
         edges {
           node {
             number
@@ -202,75 +203,99 @@ export const FIELDSTATE_PAGE_QUERY = gql`
       }
       
       activatesAbility {
+        id
         count
       }
       activatesItem {
+        id
         count
       }
       boostsType {
+        id
         count
       }
       causesStatus {
+        id
         count
       }
       createdByAbility {
+        id
         count
       }
       createdByMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         count
       }
       effects {
+        id
         count
       }
       enhancesMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         count
       }
       extendedByItem {
+        id
         count
       }
       hindersMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         count
       }
       ignoredByAbility {
+        id
         count
       }
       ignoredByItem {
+        id
         count
       }
       ignoredByType {
+        id
         count
       }
       modifiesStat {
+        id
         count
       }
       preventedByAbility {
+        id
         count
       }
       removedByAbility {
+        id
         count
       }
       removedByMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         count
       }
       removedByType {
+        id
         count
       }
       resistedByItem {
+        id
         count
       }
       resistedByType {
+        id
         count
       }
       resistsStatus {
+        id
         count
       }
       weakensType {
+        id
         count
       }
       suppressedByAbility {
+        id
         count
       }
       weatherBall {
+        id
         count
       }
     }
@@ -415,6 +440,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
       formattedName
        
       activatesAbility {
+        id
         edges {
           node {
             id
@@ -422,6 +448,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1})  {
+              id
               edges {
                 node {
                   text
@@ -434,6 +461,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -460,6 +488,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
         }
       }
       createdByAbility {
+        id
         edges {
           node {
             id
@@ -467,6 +496,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -479,6 +509,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -506,6 +537,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
         }
       }
       ignoredByAbility {
+        id
         edges {
           node {
             id
@@ -513,6 +545,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -525,6 +558,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -551,6 +585,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
         }
       }
       preventedByAbility {
+        id
         edges {
           node {
             id
@@ -558,6 +593,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -570,6 +606,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -596,6 +633,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
         }
       }
       removedByAbility {
+        id
         edges {
           node {
             id
@@ -603,6 +641,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -615,6 +654,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -641,6 +681,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
         }
       }
       suppressedByAbility {
+        id
         edges {
           node {
             id
@@ -648,6 +689,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -660,6 +702,7 @@ export const FIELDSTATE_ABILITY_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -741,6 +784,7 @@ export const FIELDSTATE_EFFECT_QUERY = gql`
       formattedName
       
       effects {
+        id
         edges {
           node {
             id
@@ -817,12 +861,14 @@ export const FIELDSTATE_ITEM_QUERY = gql`
       formattedName
        
       activatesItem {
+        id
         edges {
           node {
             id
             name
             formattedName
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -831,6 +877,7 @@ export const FIELDSTATE_ITEM_QUERY = gql`
             }
 
             requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+              id
               edges {
                 node {
                   id
@@ -857,12 +904,14 @@ export const FIELDSTATE_ITEM_QUERY = gql`
         }
       }
       extendedByItem {
+        id
         edges {
           node {
             id
             name
             formattedName
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -871,6 +920,7 @@ export const FIELDSTATE_ITEM_QUERY = gql`
             }
 
             requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+              id
               edges {
                 node {
                   id
@@ -898,12 +948,14 @@ export const FIELDSTATE_ITEM_QUERY = gql`
         }
       }
       ignoredByItem {
+        id
         edges {
           node {
             id
             name
             formattedName
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -912,6 +964,7 @@ export const FIELDSTATE_ITEM_QUERY = gql`
             }
 
             requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+              id
               edges {
                 node {
                   id
@@ -938,12 +991,14 @@ export const FIELDSTATE_ITEM_QUERY = gql`
         }
       }
       resistedByItem {
+        id
         edges {
           node {
             id
             name
             formattedName
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -952,6 +1007,7 @@ export const FIELDSTATE_ITEM_QUERY = gql`
             }
 
             requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+              id
               edges {
                 node {
                   id
@@ -1055,12 +1111,14 @@ export const FIELDSTATE_MOVE_QUERY = gql`
       formattedName
        
       createdByMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         edges {
           node {
             id
             name
             formattedName
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -1069,6 +1127,7 @@ export const FIELDSTATE_MOVE_QUERY = gql`
             }
 
             type {
+              id
               edges {
                 node {
                   id
@@ -1083,6 +1142,7 @@ export const FIELDSTATE_MOVE_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -1110,12 +1170,14 @@ export const FIELDSTATE_MOVE_QUERY = gql`
         }
       }
       enhancesMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         edges {
           node {
             id
             name
             formattedName
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -1124,6 +1186,7 @@ export const FIELDSTATE_MOVE_QUERY = gql`
             }
 
             type {
+              id
               edges {
                 node {
                   id
@@ -1138,6 +1201,7 @@ export const FIELDSTATE_MOVE_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -1164,12 +1228,14 @@ export const FIELDSTATE_MOVE_QUERY = gql`
         }
       }
       hindersMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         edges {
           node {
             id
             name
             formattedName
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -1178,6 +1244,7 @@ export const FIELDSTATE_MOVE_QUERY = gql`
             }
 
             type {
+              id
               edges {
                 node {
                   id
@@ -1192,6 +1259,7 @@ export const FIELDSTATE_MOVE_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -1218,12 +1286,14 @@ export const FIELDSTATE_MOVE_QUERY = gql`
         }
       }
       removedByMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         edges {
           node {
             id
             name
             formattedName
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -1232,6 +1302,7 @@ export const FIELDSTATE_MOVE_QUERY = gql`
             }
 
             type {
+              id
               edges {
                 node {
                   id
@@ -1246,6 +1317,7 @@ export const FIELDSTATE_MOVE_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -1335,6 +1407,7 @@ export const FIELDSTATE_STAT_QUERY = gql`
       formattedName
       
       modifiesStat {
+        id
         edges {
           node {
             id
@@ -1414,6 +1487,7 @@ export const FIELDSTATE_STATUS_QUERY = gql`
       formattedName
       
       causesStatus {
+        id
         edges {
           node {
             id
@@ -1428,6 +1502,7 @@ export const FIELDSTATE_STATUS_QUERY = gql`
         
       }
       resistsStatus {
+        id
         edges {
           node {
             id
@@ -1518,6 +1593,7 @@ export const FIELDSTATE_TYPE_QUERY = gql`
       formattedName
       
       boostsType {
+        id
         edges {
           node {
             id
@@ -1528,6 +1604,7 @@ export const FIELDSTATE_TYPE_QUERY = gql`
         }
       }
       ignoredByType {
+        id
         edges {
           node {
             id
@@ -1539,6 +1616,7 @@ export const FIELDSTATE_TYPE_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -1565,6 +1643,7 @@ export const FIELDSTATE_TYPE_QUERY = gql`
         }
       }
       removedByType {
+        id
         edges {
           node {
             id
@@ -1576,6 +1655,7 @@ export const FIELDSTATE_TYPE_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -1602,6 +1682,7 @@ export const FIELDSTATE_TYPE_QUERY = gql`
         }
       }
       resistedByType {
+        id
         edges {
           node {
             id
@@ -1613,6 +1694,7 @@ export const FIELDSTATE_TYPE_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -1640,6 +1722,7 @@ export const FIELDSTATE_TYPE_QUERY = gql`
         }
       }
       weakensType {
+        id
         edges {
           node {
             id
@@ -1650,6 +1733,7 @@ export const FIELDSTATE_TYPE_QUERY = gql`
         }
       }
       weatherBall {
+        id
         edges {
           node {
             id

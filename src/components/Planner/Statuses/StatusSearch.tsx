@@ -1,14 +1,14 @@
 import {
-  Outlet
+    Outlet
 } from 'react-router-dom';
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
 import {
-  StatusInSearch, StatusSearchQuery,
-  StatusSearchResult,
-  StatusSearchVars, STATUS_SEARCH_QUERY
+    StatusInSearch, StatusSearchQuery,
+    StatusSearchResult,
+    StatusSearchVars, STATUS_SEARCH_QUERY
 } from '../../../types-queries/Planner/Status';
-import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
+import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import MainSearch from '../MainSearch/MainSearch';
 
 
@@ -25,26 +25,24 @@ const listRender = ({ data, }: ListRenderArgs<StatusSearchQuery>) => {
         const status = new StatusInSearch(statusSearchResult);
 
         return (
-          <>
-            <EntitySearchEntry
-              entityClass="Status"
-              key={status.name}
-              name={status.formattedName}
-              linkName={status.name}
-              description={status.description}
-              icons={{
-                linkIconDatum: {
-                  iconClass: 'status',
-                  iconDatum: status.iconDatum,
-                }
-              }}
-              data={[
-                {
-                  key: 'VOL', title: 'Is a volatile status effect', value: status.volatile ? 'Yes' : 'No'
-                },
-              ]}
-            />
-          </>
+          <SearchEntry
+            entityClass="Status"
+            key={status.name}
+            name={status.formattedName}
+            linkName={status.name}
+            description={status.description}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'status',
+                iconDatum: status.iconDatum,
+              }
+            }}
+            data={[
+              {
+                key: 'VOL', title: 'Is a volatile status effect', value: status.volatile ? 'Yes' : 'No'
+              },
+            ]}
+          />
         );
       })}
     </>

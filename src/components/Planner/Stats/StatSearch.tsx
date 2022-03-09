@@ -1,14 +1,14 @@
 import {
-  Outlet
+    Outlet
 } from 'react-router-dom';
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
 import {
-  StatInSearch, StatSearchQuery,
-  StatSearchResult,
-  StatSearchVars, STAT_SEARCH_QUERY
+    StatInSearch, StatSearchQuery,
+    StatSearchResult,
+    StatSearchVars, STAT_SEARCH_QUERY
 } from '../../../types-queries/Planner/Stat';
-import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
+import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import MainSearch from '../MainSearch/MainSearch';
 
 
@@ -25,21 +25,19 @@ const listRender = ({ data, }: ListRenderArgs<StatSearchQuery>) => {
         const stat = new StatInSearch(statSearchResult);
 
         return (
-          <>
-            <EntitySearchEntry
-              entityClass="Stat"
-              key={stat.name}
-              name={stat.formattedName}
-              linkName={stat.name}
-              description={stat.description}
-              icons={{
-                linkIconDatum: {
-                  iconClass: 'stat',
-                  iconDatum: stat.iconDatum,
-                },
-              }}
-            />
-          </>
+          <SearchEntry
+            entityClass="Stat"
+            key={stat.name}
+            name={stat.formattedName}
+            linkName={stat.name}
+            description={stat.description}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'stat',
+                iconDatum: stat.iconDatum,
+              },
+            }}
+          />
         );
       })}
     </>

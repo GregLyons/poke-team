@@ -275,6 +275,7 @@ export const TYPE_PAGE_QUERY = gql`
       formattedName
 
       introduced {
+        id
         edges {
           node {
             number
@@ -283,6 +284,7 @@ export const TYPE_PAGE_QUERY = gql`
       }
 
       defensiveMatchups {
+        id
         edges {
           node {
             id
@@ -294,6 +296,7 @@ export const TYPE_PAGE_QUERY = gql`
       }
 
       offensiveMatchups {
+        id
         edges {
           node {
             id
@@ -305,42 +308,55 @@ export const TYPE_PAGE_QUERY = gql`
       }
 
       boostedByAbility {
+        id
         count
       }
       boostedByFieldState {
+        id
         count
       }
       boostedByItem {
+        id
         count
       }
       enablesMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         count
       }
       ignoresFieldState {
+        id
         count
       }
       moves(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         count
       }
       naturalGift {
+        id
         count
       }
       removesFieldState {
+        id
         count
       }
       resistedByAbility {
+        id
         count
       }
       weakenedByFieldState {
+        id
         count
       }
       resistedByItem {
+        id
         count
       }
       resistsFieldState {
+        id
         count
       }
       weatherBall {
+        id
         count
       }
     }
@@ -453,6 +469,7 @@ export const TYPE_ABILITY_QUERY = gql`
       formattedName
        
       boostedByAbility {
+        id
         edges {
           node {
             id
@@ -460,6 +477,7 @@ export const TYPE_ABILITY_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -472,6 +490,7 @@ export const TYPE_ABILITY_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -499,6 +518,7 @@ export const TYPE_ABILITY_QUERY = gql`
         }
       }
       resistedByAbility {
+        id
         edges {
           node {
             id
@@ -506,6 +526,7 @@ export const TYPE_ABILITY_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -518,6 +539,7 @@ export const TYPE_ABILITY_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -618,6 +640,7 @@ export const TYPE_FIELDSTATE_QUERY = gql`
       formattedName
        
       boostedByFieldState {
+        id
         edges {
           node {
             id
@@ -630,6 +653,7 @@ export const TYPE_FIELDSTATE_QUERY = gql`
         }
       }
       ignoresFieldState {
+        id
         edges {
           node {
             id
@@ -641,6 +665,7 @@ export const TYPE_FIELDSTATE_QUERY = gql`
         }
       }
       removesFieldState {
+        id
         edges {
           node {
             id
@@ -652,6 +677,7 @@ export const TYPE_FIELDSTATE_QUERY = gql`
         }
       }
       weakenedByFieldState {
+        id
         edges {
           node {
             id
@@ -664,6 +690,7 @@ export const TYPE_FIELDSTATE_QUERY = gql`
         }
       }
       resistsFieldState {
+        id
         edges {
           node {
             id
@@ -676,6 +703,7 @@ export const TYPE_FIELDSTATE_QUERY = gql`
         }
       }
       weatherBall {
+        id
         edges {
           node {
             id
@@ -757,6 +785,7 @@ export const TYPE_ITEM_QUERY = gql`
       formattedName
        
       boostedByItem {
+        id
         edges {
           node {
             id
@@ -764,6 +793,7 @@ export const TYPE_ITEM_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -772,6 +802,7 @@ export const TYPE_ITEM_QUERY = gql`
             }
 
             requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+              id
               edges {
                 node {
                   id
@@ -799,6 +830,7 @@ export const TYPE_ITEM_QUERY = gql`
         }
       }
       naturalGift {
+        id
         edges {
           node {
             id
@@ -806,6 +838,7 @@ export const TYPE_ITEM_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -814,6 +847,7 @@ export const TYPE_ITEM_QUERY = gql`
             }
 
             requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+              id
               edges {
                 node {
                   id
@@ -841,6 +875,7 @@ export const TYPE_ITEM_QUERY = gql`
         }
       }
       resistedByItem {
+        id
         edges {
           node {
             id
@@ -848,6 +883,7 @@ export const TYPE_ITEM_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -856,6 +892,7 @@ export const TYPE_ITEM_QUERY = gql`
             }
 
             requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+              id
               edges {
                 node {
                   id
@@ -957,6 +994,7 @@ export const TYPE_MOVE_QUERY = gql`
         removedFromSwSh: $removedFromSwSh,
         removedFromBDSP: $removedFromBDSP
       }) {
+        id
         edges {
           node {
             id
@@ -964,6 +1002,7 @@ export const TYPE_MOVE_QUERY = gql`
             formattedName
 
             descriptions {
+              id
               edges {
                 node {
                   text
@@ -972,6 +1011,7 @@ export const TYPE_MOVE_QUERY = gql`
             }
             
             type {
+              id
               edges {
                 node {
                   id
@@ -986,64 +1026,7 @@ export const TYPE_MOVE_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
-              edges {
-                node {
-                  id
-                  formattedName
-                  psID
-
-                  removedFromSwSh
-                  removedFromBDSP
-
-                  typeNames 
-
-                  baseStats {
-                    hp
-                    attack
-                    defense
-                    specialAttack
-                    specialDefense
-                    speed
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-      moves(filter: {
-        removedFromSwSh: $removedFromSwSh,
-        removedFromBDSP: $removedFromBDSP
-      }) {
-        edges {
-          node {
-            id
-            name
-            formattedName
-
-            descriptions {
-              edges {
-                node {
-                  text
-                }
-              }
-            }
-            
-            type {
-              edges {
-                node {
-                  id
-                  name
-                  formattedName
-                }
-              }
-            }
-
-            pokemon(filter: {
-              formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
-              removedFromSwSh: $removedFromSwSh,
-              removedFromBDSP: $removedFromBDSP
-            }) {
+              id
               edges {
                 node {
                   id

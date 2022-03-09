@@ -1,27 +1,27 @@
 import {
-  gql
+    gql
 } from '@apollo/client';
 import { GenNum } from '../entities';
 import {
-  AbilityIconEdge,
-  IntroductionEdge,
-  MoveIconEdge,
-  PokemonIconDatum,
-  PokemonIconEdge,
-  pokemonIconEdgeToPokemonIconDatum,
-  TypeIconDatum,
-  TypeIconEdge,
-  typeIconEdgeToTypeIconDatum,
-  TypeName,
-  typeNameEdgeToTypeName
+    AbilityIconEdge,
+    IntroductionEdge,
+    MoveIconEdge,
+    PokemonIconDatum,
+    PokemonIconEdge,
+    pokemonIconEdgeToPokemonIconDatum,
+    TypeIconDatum,
+    TypeIconEdge,
+    typeIconEdgeToTypeIconDatum,
+    TypeName,
+    typeNameEdgeToTypeName
 } from '../helpers';
 import {
-  AuxEntityInSearchWithIcon, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToAuxConnectionEdge, AuxToIconConnectionEdge,
-  AuxToIconConnectionOnPage, AuxToItemConnectionEdge,
-  AuxToItemConnectionOnPage, AuxToMainConnectionEdge, AuxToMainConnectionOnPage, CountField,
+    AuxEntityInSearchWithIcon, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToAuxConnectionEdge, AuxToIconConnectionEdge,
+    AuxToIconConnectionOnPage, AuxToItemConnectionEdge,
+    AuxToItemConnectionOnPage, AuxToMainConnectionEdge, AuxToMainConnectionOnPage, CountField,
 
-  EntityConnectionVars, EntityPageQueryName,
-  EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
+    EntityConnectionVars, EntityPageQueryName,
+    EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
 } from './helpers';
 
 
@@ -145,6 +145,7 @@ export const STATUS_PAGE_QUERY = gql`
       description
 
       introduced {
+        id
         edges {
           node {
             number
@@ -153,27 +154,35 @@ export const STATUS_PAGE_QUERY = gql`
       }
       
       causedByAbility {
+        id
         count
       }
       causedByFieldState {
+        id
         count
       }
       causedByItem {
+        id
         count
       }
       causedByMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         count
       }
       resistedByAbility {
+        id
         count
       }
       resistedByFieldState {
+        id
         count
       }
       resistedByItem {
+        id
         count
       }
       resistedByMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         count
       }
     }
@@ -270,6 +279,7 @@ export const STATUS_ABILITY_QUERY = gql`
       formattedName
        
       causedByAbility {
+        id
         edges {
           node {
             id
@@ -277,6 +287,7 @@ export const STATUS_ABILITY_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -289,6 +300,7 @@ export const STATUS_ABILITY_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -316,6 +328,7 @@ export const STATUS_ABILITY_QUERY = gql`
         }
       }
       resistedByAbility {
+        id
         edges {
           node {
             id
@@ -323,6 +336,7 @@ export const STATUS_ABILITY_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -335,6 +349,7 @@ export const STATUS_ABILITY_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -420,6 +435,7 @@ export const STATUS_FIELDSTATE_QUERY = gql`
       formattedName
        
       causedByFieldState {
+        id
         edges {
           node {
             id
@@ -432,6 +448,7 @@ export const STATUS_FIELDSTATE_QUERY = gql`
         }
       }
       resistedByFieldState {
+        id
         edges {
           node {
             id
@@ -508,6 +525,7 @@ export const STATUS_ITEM_QUERY = gql`
       formattedName
        
       causedByItem {
+        id
         edges {
           node {
             id
@@ -515,6 +533,7 @@ export const STATUS_ITEM_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -523,6 +542,7 @@ export const STATUS_ITEM_QUERY = gql`
             }
 
             requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+              id
               edges {
                 node {
                   id
@@ -550,6 +570,7 @@ export const STATUS_ITEM_QUERY = gql`
         }
       }
       resistedByItem {
+        id
         edges {
           node {
             id
@@ -557,6 +578,7 @@ export const STATUS_ITEM_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -565,6 +587,7 @@ export const STATUS_ITEM_QUERY = gql`
             }
 
             requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+              id
               edges {
                 node {
                   id
@@ -660,6 +683,7 @@ export const STATUS_MOVE_QUERY = gql`
       formattedName
        
       causedByMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         edges {
           node {
             id
@@ -667,6 +691,7 @@ export const STATUS_MOVE_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -675,6 +700,7 @@ export const STATUS_MOVE_QUERY = gql`
             }
             
             type {
+              id
               edges {
                 node {
                   id
@@ -689,6 +715,7 @@ export const STATUS_MOVE_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -716,6 +743,7 @@ export const STATUS_MOVE_QUERY = gql`
         }
       }
       resistedByMove(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         edges {
           node {
             id
@@ -723,6 +751,7 @@ export const STATUS_MOVE_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -731,6 +760,7 @@ export const STATUS_MOVE_QUERY = gql`
             }
             
             type {
+              id
               edges {
                 node {
                   id
@@ -745,6 +775,7 @@ export const STATUS_MOVE_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id

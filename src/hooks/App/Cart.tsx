@@ -1038,7 +1038,6 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
     }
   }
   catch (e) {
-    console.log(e);
     // Index out of bounds
     if (e instanceof RangeError) return state;
     else throw new Error();

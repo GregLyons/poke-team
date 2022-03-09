@@ -82,6 +82,7 @@ export const IMPORT_MEMBER_QUERY = gql`
       }
 
       introduced {
+        id
         edges {
           node {
             number
@@ -99,6 +100,7 @@ export const IMPORT_MEMBER_QUERY = gql`
             psID
 
             introduced {
+              id
               edges {
                 node {
                   number
@@ -118,6 +120,7 @@ export const IMPORT_MEMBER_QUERY = gql`
             psID
 
             introduced {
+              id
               edges {
                 node {
                   number
@@ -139,6 +142,7 @@ export const IMPORT_MEMBER_QUERY = gql`
             psID
 
             introduced {
+              id
               edges {
                 node {
                   number
@@ -161,6 +165,7 @@ export const IMPORT_MEMBER_QUERY = gql`
             psID
 
             introduced {
+              id
               edges {
                 node {
                   number
@@ -433,7 +438,6 @@ export const setsToMembers: (
       set.hpType !== undefined && memberPokemon.assignHPType(set.hpType as TypeName);
     }
     catch (e) {
-      console.log(e);
       throw new InvalidStatsError('', memberPokemon.formattedName);
     }
 

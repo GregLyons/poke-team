@@ -126,7 +126,10 @@ const ConnectionAccordionEntry = ({
         className="planner-accordion__entry-data"
       >
         {data && data.map(({key, title, value}) => (
-          <>
+          <div
+            key={key}
+            className="planner-accordion__entry-data-row"
+          >
             <b 
               className="planner-accordion__entry-data-key"
               title={title}
@@ -136,7 +139,7 @@ const ConnectionAccordionEntry = ({
             <div className="planner-accordion__entry-data-value">
               {value}
             </div>
-          </>
+          </div>
         ))}
       </div>
 

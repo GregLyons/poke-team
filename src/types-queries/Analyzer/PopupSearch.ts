@@ -49,6 +49,7 @@ export const POPUP_ABILITY_QUERY = gql`
             psID
 
             introduced {
+              id
               edges {
                 node {
                   number
@@ -163,6 +164,7 @@ export const POPUP_MOVE_QUERY = gql`
             psID
 
             introduced {
+              id
               edges {
                 node {
                   number

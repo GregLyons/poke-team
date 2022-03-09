@@ -1,27 +1,27 @@
 import {
-  gql
+    gql
 } from '@apollo/client';
 import { EffectClass, GenNum } from '../entities';
 import {
-  AbilityIconEdge,
-  IntroductionEdge,
-  MoveIconEdge,
-  PokemonIconDatum,
-  PokemonIconEdge,
-  pokemonIconEdgeToPokemonIconDatum,
-  TypeIconDatum,
-  TypeIconEdge,
-  typeIconEdgeToTypeIconDatum,
-  TypeName,
-  typeNameEdgeToTypeName
+    AbilityIconEdge,
+    IntroductionEdge,
+    MoveIconEdge,
+    PokemonIconDatum,
+    PokemonIconEdge,
+    pokemonIconEdgeToPokemonIconDatum,
+    TypeIconDatum,
+    TypeIconEdge,
+    typeIconEdgeToTypeIconDatum,
+    TypeName,
+    typeNameEdgeToTypeName
 } from '../helpers';
 import {
-  AuxEntityInSearch, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToAuxConnectionEdge, AuxToIconConnectionEdge,
-  AuxToIconConnectionOnPage, AuxToItemConnectionEdge,
-  AuxToItemConnectionOnPage, AuxToMainConnectionEdge, AuxToMainConnectionOnPage, CountField,
+    AuxEntityInSearch, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToAuxConnectionEdge, AuxToIconConnectionEdge,
+    AuxToIconConnectionOnPage, AuxToItemConnectionEdge,
+    AuxToItemConnectionOnPage, AuxToMainConnectionEdge, AuxToMainConnectionOnPage, CountField,
 
-  EntityConnectionVars, EntityPageQueryName,
-  EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
+    EntityConnectionVars, EntityPageQueryName,
+    EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
 } from './helpers';
 
 
@@ -57,7 +57,7 @@ export const EFFECT_SEARCH_QUERY = gql`
   query EffectSearchQuery($gen: Int! $limit: Int! $contains: String $startsWith: String $effectClass: [EffectClass!]) {
     effects(
       generation: $gen
-      filter: { contains: $contains, startsWith: $startsWith, effectClass: $effectClass }
+      filter: { contains: $contains, startsWith: $startsWith, class: $effectClass }
       pagination: { limit: $limit }
     ) {
       id
@@ -140,6 +140,7 @@ export const EFFECT_PAGE_QUERY = gql`
       description
 
       introduced {
+        id
         edges {
           node {
             number
@@ -148,18 +149,22 @@ export const EFFECT_PAGE_QUERY = gql`
       }
       
       abilities {
+        id
         count
       }
 
       fieldStates {
+        id
         count
       }
 
       items {
+        id
         count
       }
 
       moves(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+        id
         count
       }
 
@@ -235,6 +240,7 @@ export const EFFECT_ABILITY_QUERY = gql`
       formattedName
        
       abilities {
+        id
         edges {
           node {
             id
@@ -242,6 +248,7 @@ export const EFFECT_ABILITY_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -254,6 +261,7 @@ export const EFFECT_ABILITY_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id
@@ -333,6 +341,7 @@ export const EFFECT_FIELDSTATE_QUERY = gql`
       formattedName
        
       fieldStates {
+        id
         edges {
           node {
             id
@@ -400,6 +409,7 @@ export const EFFECT_ITEM_QUERY = gql`
       formattedName
        
       items {
+        id
         edges {
           node {
             id
@@ -407,6 +417,7 @@ export const EFFECT_ITEM_QUERY = gql`
             formattedName
 
             descriptions(pagination: {limit: 1}) {
+              id
               edges {
                 node {
                   text
@@ -415,6 +426,7 @@ export const EFFECT_ITEM_QUERY = gql`
             }
 
             requiresPokemon(filter: {removedFromSwSh: $removedFromSwSh, removedFromBDSP: $removedFromBDSP}) {
+              id
               edges {
                 node {
                   id
@@ -505,6 +517,7 @@ export const EFFECT_MOVE_QUERY = gql`
         removedFromSwSh: $removedFromSwSh,
         removedFromBDSP: $removedFromBDSP
       }) {
+        id
         edges {
           node {
             id
@@ -512,6 +525,7 @@ export const EFFECT_MOVE_QUERY = gql`
             formattedName
 
             descriptions {
+              id
               edges {
                 node {
                   text
@@ -520,6 +534,7 @@ export const EFFECT_MOVE_QUERY = gql`
             }
             
             type {
+              id
               edges {
                 node {
                   id
@@ -534,6 +549,7 @@ export const EFFECT_MOVE_QUERY = gql`
               removedFromSwSh: $removedFromSwSh,
               removedFromBDSP: $removedFromBDSP
             }) {
+              id
               edges {
                 node {
                   id

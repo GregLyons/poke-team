@@ -78,6 +78,7 @@ export const ABILITY_MATCHUP_QUERY = gql`
       id
       psID
       resistsType {
+        id
         edges {
           node {
             id

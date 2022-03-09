@@ -50,13 +50,19 @@
 .planner-accordion__entry-data {
   grid-column: 2 / 3;
 
-  display: grid;
-  grid-template-columns: 1fr 5ch 1fr 5fr;
+  display: flex;
+  flex-direction: column;
 
   height: fit-content;
   
   padding-left: var(--entry-horizontal-padding);
   padding-right: var(--entry-horizontal-padding);
+}
+
+.planner-search__entry-data-row,
+.planner-accordion__entry-data-row {
+  display: grid;
+  grid-template-columns: 1fr 5ch 1fr 5fr;
 }
 
 .planner-search__entry-data-key,

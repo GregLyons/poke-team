@@ -1,10 +1,10 @@
-type FocusProps = {
-
+type VersusProps = {
+  
 };
 
-const Focus = ({
+const Versus = ({
 
-}: FocusProps) => {
+}: VersusProps) => {
   return (
     <div>
       yo
@@ -12,4 +12,4 @@ const Focus = ({
   );
 };
 
-export default Focus;
+export default Versus;

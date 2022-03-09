@@ -1,14 +1,14 @@
 import {
-  Outlet
+    Outlet
 } from 'react-router-dom';
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
 import {
-  UsageMethodInSearch, UsageMethodSearchQuery,
-  UsageMethodSearchResult,
-  UsageMethodSearchVars, USAGEMETHOD_SEARCH_QUERY
+    UsageMethodInSearch, UsageMethodSearchQuery,
+    UsageMethodSearchResult,
+    UsageMethodSearchVars, USAGEMETHOD_SEARCH_QUERY
 } from '../../../types-queries/Planner/UsageMethod';
-import EntitySearchEntry from '../Entries/SearchEntry/SearchEntry';
+import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import MainSearch from '../MainSearch/MainSearch';
 
 
@@ -25,21 +25,19 @@ const listRender = ({ data, }: ListRenderArgs<UsageMethodSearchQuery>) => {
         const usageMethod = new UsageMethodInSearch(usageMethodSearchResult);
         
         return (
-          <>
-            <EntitySearchEntry
-              entityClass="Usage method"
-              key={usageMethod.name}
-              name={usageMethod.formattedName}
-              linkName={usageMethod.name}
-              description={usageMethod.description}
-              icons={{
-                linkIconDatum: {
-                  iconClass: 'usageMethod',
-                  iconDatum: usageMethod.iconDatum,
-                }
-              }}
-            />
-          </>
+          <SearchEntry
+            entityClass="Usage method"
+            key={usageMethod.name}
+            name={usageMethod.formattedName}
+            linkName={usageMethod.name}
+            description={usageMethod.description}
+            icons={{
+              linkIconDatum: {
+                iconClass: 'usageMethod',
+                iconDatum: usageMethod.iconDatum,
+              }
+            }}
+          />
         );
       })}
     </>
