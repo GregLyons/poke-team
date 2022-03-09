@@ -61,6 +61,7 @@ export const MEMBER_NATURE_QUERY = gql`
         node {
           id
           name
+          
           modifiesStat {
             edges {
               node {

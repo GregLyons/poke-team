@@ -481,6 +481,91 @@ export const statTableToPSStatsTable: (statTable: StatTable) => StatsTable<numbe
     spd: statTable.specialDefense,
     spe: statTable.speed,
   };
+};
+
+export function computeStat ({
+  statName,
+  level,
+  base,
+  natureModifiesStat,
+  ev,
+  ivOrDV,
+  gen,
+  isShedinja,
+}: {
+  statName: BaseStatName
+  level: number
+  base: number
+  natureModifiesStat: {
+    boosts: BaseStatName | null | undefined
+    reduces: BaseStatName | null | undefined
+  } | undefined
+  ev: number
+  ivOrDV: number
+  gen: GenNum
+  isShedinja: boolean
+}): number {
+  const natureMod = gen > 2
+    // Gen 3 onward
+    ? natureModifiesStat?.boosts === statName
+      // Nature boosts stat
+      ? 1.1
+      : natureModifiesStat?.reduces === statName
+        // Nature reduces stat
+        ? 0.9
+        // Nature doesn't modify stat
+        : 1.0
+    // Gens 1 and 2
+    : 1.0;
+    
+  let iv = gen > 2
+    // Gen 3 onward
+    ? ivOrDV
+    // Gens 1 and 2, same as DV * 2--except for IV of 31 
+    : ivOrDV * 2;
+
+  if (statName === 'hp') {
+    if (isShedinja) return 1;
+
+    else return Math.floor(Math.floor(
+      ((2 * base + iv + Math.floor(ev / 4)) * level) / 100
+    ) + level + 10);
+  }
+
+  else return Math.floor((Math.floor(
+    ((2 * base + iv + Math.floor(ev / 4)) * level) / 100
+  ) + 5) * natureMod);
+};
+
+export function computeMaxStat ({
+  statName,
+  gen,
+  isShedinja,
+}: {
+  statName: BaseStatName
+  gen: GenNum
+  isShedinja: boolean
+}): number {
+  const maxBase = 255;
+  const maxNatureMod = gen > 2
+    ? statName === 'hp'
+      ? 1.0
+      : 1.1
+    : 1.0;
+  const maxEV = 252;
+  const maxIV = gen > 2 ? 31 : 30;
+
+  if (statName === 'hp') {
+    if (isShedinja) return 1;
+
+    else return Math.floor(Math.floor(
+      ((2 * maxBase + maxIV + Math.floor(maxEV / 4)) * 100) / 100
+    ) + 100 + 10);
+  }
+
+  else return Math.floor((Math.floor(
+    ((2 * maxBase + maxIV + Math.floor(maxEV / 4)) * 100) / 100
+  ) + 5) * maxNatureMod);
 }
 
 // #endregion

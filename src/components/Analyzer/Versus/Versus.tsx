@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Team } from "../../../hooks/App/Team";
 import { MemberPSIDObject } from "../../../types-queries/Analyzer/helpers";
 import { Dispatches, Filters } from "../../App";
+import Import from "../../ControlPanel/ImportExport/Import/Import";
 import TeamColumn from "../TeamColumn/TeamColumn";
 import './Versus.css';
 
@@ -27,7 +28,7 @@ const Versus = ({
     return (memberPSID: string, entityPSID: string) => {
       return (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
         e.preventDefault();
-        if (whichTeam === 'user') {
+        if (whichTeam === 'enemy') {
           setRelevantNames({
             user: {
               ...relevantNames?.user,
@@ -80,7 +81,7 @@ const Versus = ({
         versus__wrapper
       `}
     >
-      <div className="versus__user-team-wrapper">
+      <div className="versus__user-team-cell">
         <TeamColumn
           teamDispatch={dispatches.dispatchTeam}
           filters={filters}
@@ -92,21 +93,32 @@ const Versus = ({
           onPopupClose={onPopupClose}
         />
       </div>
-      <div
-        className="versus__user-mode-toggle"
-        onClick={toggleMode('user')}
-      >
-        {userMode}
+      <div className="versus__matchup-cell">
+        <div className="versus__controls">
+          <div
+            className="versus__user-mode-toggle"
+            onClick={toggleMode('user')}
+          >
+            {userMode}
+          </div>
+          <div className="versus__import">
+            <Import
+              teamDispatch={dispatches.dispatchEnemyTeam}
+              filters={filters}
+              team={enemyTeam}
+            />
+          </div>
+          <div
+            className="versus__enemy-mode-toggle"
+            onClick={toggleMode('enemy')}
+          >
+            {enemyMode}
+          </div>
+        </div>
       </div>
-      <div
-        className="versus__enemy-mode-toggle"
-        onClick={toggleMode('enemy')}
-      >
-        {userMode}
-      </div>
-      <div className="versus__enemy-team-wrapper">
+      <div className="versus__enemy-team-cell">
         <TeamColumn
-          teamDispatch={dispatches.dispatchTeam}
+          teamDispatch={dispatches.dispatchEnemyTeam}
           filters={filters}
 
           team={enemyTeam}

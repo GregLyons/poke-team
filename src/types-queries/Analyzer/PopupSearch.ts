@@ -246,6 +246,17 @@ export const POPUP_NATURE_QUERY = gql`
           id
           name
 
+          modifiesStat {
+            edges {
+              node {
+                id
+                name
+                name
+              }
+              multiplier
+            }
+          }
+          
           introduced {
             edges {
               node {

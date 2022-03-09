@@ -152,35 +152,73 @@ const TeamColumnMember = ({
         </div>))}
       </>}
       {mode === 'stat' && <>
-          <div className="team-column__nature-wrapper">
-            {member && <TeamColumnNature
+        <div className="team-column__nature">
+          {member && <TeamColumnNature
+            teamDispatch={teamDispatch}
+            filters={filters}
+
+            member={member}
+            memberIdx={memberIdx}
+
+            nature={member?.nature}
+            determineRelevance={determineRelevance}
+            onEntityClick={onEntityClick}
+            onPopupClose={onPopupClose}
+          />}
+        </div>
+        <div className="team-column__spread">
+          {member && <>
+            <TeamColumnSpread
               teamDispatch={teamDispatch}
               filters={filters}
-
+  
               member={member}
               memberIdx={memberIdx}
-
-              nature={member?.nature}
+  
+              statTable={member.evs}
+              spreadMode={'ev'}
               determineRelevance={determineRelevance}
               onEntityClick={onEntityClick}
               onPopupClose={onPopupClose}
-            />}
-          </div>
-          <div className="team-column__spread-wrapper">
-            {member && <TeamColumnSpread
+            />
+            <TeamColumnSpread
               teamDispatch={teamDispatch}
               filters={filters}
-
+  
               member={member}
               memberIdx={memberIdx}
-
-              evs={member.evs}
-              ivs={member.ivs}
+  
+              statTable={member.ivs}
+              spreadMode={'iv'}
               determineRelevance={determineRelevance}
               onEntityClick={onEntityClick}
               onPopupClose={onPopupClose}
-            />}
-          </div>
+            />
+          </>
+          }
+        </div>
+        <div className="team-column__stats">
+          {member && <>
+            <div className="team-column__stat-wrapper">
+              HP&nbsp; <span className="team-column__stat-name">{member.computeHP()}</span>
+            </div>
+            <div className="team-column__stat-wrapper">
+              Def <span className="team-column__stat-name">{member.computeDefense()}</span>
+            </div>
+            <div className="team-column__stat-wrapper">
+              SpD <span className="team-column__stat-name">{member.computeSpecialDefense()}</span>
+            </div>
+            <div className="team-column__stat-wrapper">
+              Atk <span className="team-column__stat-name">{member.computeAttack()}</span>
+            </div>
+            <div className="team-column__stat-wrapper">
+              SpA <span className="team-column__stat-name">{member.computeSpecialAttack()}</span>
+            </div>
+            <div className="team-column__stat-wrapper">
+              Spe <span className="team-column__stat-name">{member.computeSpeed()}</span>
+            </div>
+          </>}
+        </div>
       </>}
     </div>
   )

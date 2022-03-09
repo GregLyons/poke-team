@@ -1,4 +1,4 @@
-import { BaseStatName, GenNum, StatTable, toAbbreviatedBaseStatName } from "../../../../../../types-queries/entities";
+import { BaseStatName, computeMaxStat, computeStat, GenNum, StatTable, toAbbreviatedBaseStatName } from "../../../../../../types-queries/entities";
 import { MemberNature } from "../../../../../../types-queries/Member/MemberNature";
 
 type StatGraphProps = {
@@ -34,67 +34,87 @@ const StatGraph = ({
     // Compute relevant factors 
     // #region 
 
-    const base = baseStats[statName];
-    const maxBase = 255;
+    // const base = baseStats[statName];
+    // const maxBase = 255;
 
-    const natureMod = gen > 2
-      // Gen 3 onward
-      ? nature?.modifiesStat.boosts === statName
-        // Nature boosts stat
-        ? 1.1
-        : nature?.modifiesStat.reduces === statName
-          // Nature reduces stat
-          ? 0.9
-          // Nature doesn't modify stat
-          : 1.0
-      // Gens 1 and 2
-      : 1.0;
-    const maxNatureMod = statName === 'hp' ? 1.0 : 1.1;
+    // const natureMod = gen > 2
+    //   // Gen 3 onward
+    //   ? nature?.modifiesStat.boosts === statName
+    //     // Nature boosts stat
+    //     ? 1.1
+    //     : nature?.modifiesStat.reduces === statName
+    //       // Nature reduces stat
+    //       ? 0.9
+    //       // Nature doesn't modify stat
+    //       : 1.0
+    //   // Gens 1 and 2
+    //   : 1.0;
+    // const maxNatureMod = gen > 2
+    //   ? statName === 'hp'
+    //     ? 1.0
+    //     : 1.1
+    //   : 1.0;
 
-    const ev = gen > 2
-      // Gen 3 onward
-      ? evs[statName]
-      // Gens 1 and 2, same as max StatExp
-      : 252;
-    const maxEV = 252;
+    // const ev = gen > 2
+    //   // Gen 3 onward
+    //   ? evs[statName]
+    //   // Gens 1 and 2, same as max StatExp
+    //   : 252;
+    // const maxEV = 252;
     
-    const iv = gen > 2
-      // Gen 3 onward
-      ? ivs[statName]
-      // Gens 1 and 2, same as DV * 2--except for IV of 31 
-      : ivs[statName] * 2;
-    const maxIV = gen > 2 ? 31 : 30;
+    // const iv = gen > 2
+    //   // Gen 3 onward
+    //   ? ivs[statName]
+    //   // Gens 1 and 2, same as DV * 2--except for IV of 31 
+    //   : ivs[statName] * 2;
+    // const maxIV = gen > 2 ? 31 : 30;
 
-    // #endregion
+    // // #endregion
 
-    // Compute stats themselves
-    // #region
+    // // Compute stats themselves
+    // // #region
 
-    // HP stat uses different formula
-    if (statName === 'hp') {
-      // Shedinja always has 1 hp
-      if (isShedinja) {
-        statObj[statName] = 1;
-        maxStatObj[statName] = 1;
-      }
-      else {
-        statObj[statName] = Math.floor(
-          ((2 * base + iv + Math.floor(ev / 4)) * level) / 100
-        ) + level + 10;
-        maxStatObj[statName] = Math.floor(
-          ((2 * maxBase + maxIV + Math.floor(maxEV / 4)) * 100) / 100
-        ) + 100 + 10;
-      }
-    }
-    // Other stats all use same formula
-    else {
-      statObj[statName] = (Math.floor(
-        ((2 * base + iv + Math.floor(ev / 4)) * level) / 100
-      ) + 5) * natureMod;
-      maxStatObj[statName] = (Math.floor(
-        ((2 * maxBase + maxIV + Math.floor(maxEV / 4)) * 100) / 100
-      ) + 5) * maxNatureMod;
-    }
+    // // HP stat uses different formula
+    // if (statName === 'hp') {
+    //   // Shedinja always has 1 hp
+    //   if (isShedinja) {
+    //     statObj[statName] = 1;
+    //     maxStatObj[statName] = 1;
+    //   }
+    //   else {
+    //     statObj[statName] = Math.floor(
+    //       ((2 * base + iv + Math.floor(ev / 4)) * level) / 100
+    //     ) + level + 10;
+    //     maxStatObj[statName] = Math.floor(
+    //       ((2 * maxBase + maxIV + Math.floor(maxEV / 4)) * 100) / 100
+    //     ) + 100 + 10;
+    //   }
+    // }
+    // // Other stats all use same formula
+    // else {
+    //   statObj[statName] = (Math.floor(
+    //     ((2 * base + iv + Math.floor(ev / 4)) * level) / 100
+    //   ) + 5) * natureMod;
+    //   maxStatObj[statName] = (Math.floor(
+    //     ((2 * maxBase + maxIV + Math.floor(maxEV / 4)) * 100) / 100
+    //   ) + 5) * maxNatureMod;
+    // }
+
+    statObj[statName] = computeStat({
+      statName,
+      level,
+      base: baseStats[statName],
+      natureModifiesStat: nature?.modifiesStat,
+      ev: evs[statName],
+      ivOrDV: ivs[statName],
+      gen,
+      isShedinja,
+    });
+    maxStatObj[statName] = computeMaxStat({
+      statName,
+      gen,
+      isShedinja,
+    });
 
     // #endregion
 

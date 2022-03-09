@@ -10,19 +10,37 @@ type TeamColumnSpreadProps = {
   member: MemberPokemon | null
   memberIdx: number
   
-  evs: StatTable
-  ivs: StatTable
+  statTable: StatTable
+  spreadMode: 'ev' | 'iv'
+
   determineRelevance: (name: string | undefined) => string
   onEntityClick: (memberPSID: string, entityPSID: string) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onPopupClose: () => void
 };
 
 const TeamColumnSpread = ({
+  teamDispatch,
+  filters,
 
+  member,
+  memberIdx,
+
+  statTable,
+  spreadMode,
+
+  determineRelevance,
+  onEntityClick,
+  onPopupClose,
 }: TeamColumnSpreadProps) => {
+  const gen = filters.genFilter.gen;
   return (
     <div>
-      yo
+      {spreadMode === 'ev'
+        ? 'EVs'
+        : gen > 2
+          ? 'IVs'
+          : 'DVs'
+      }
     </div>
   );
 };

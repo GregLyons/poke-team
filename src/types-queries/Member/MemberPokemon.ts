@@ -3,7 +3,7 @@ import { PokemonSet } from "@pkmn/data"
 import { Dex } from "@pkmn/dex"
 import { Sets } from "@pkmn/sets"
 import { EnablesItemEdge, PokemonFormEdge, pokemonFormEdgeToFormDatum, RequiresItemEdge, spreadSummary } from "../Builder/helpers"
-import { BaseStatName, GenNum, ivsToHiddenPower, StatTable, statTableToPSStatsTable } from "../entities"
+import { BaseStatName, computeStat, GenNum, ivsToHiddenPower, StatTable, statTableToPSStatsTable } from "../entities"
 import { PokemonIconDatum, TypeName } from "../helpers"
 import { DEFAULT_DV_SPREAD, DEFAULT_EV_SPREAD, DEFAULT_EV_SPREAD_GENS12, DEFAULT_IV_SPREAD, GenderName, hiddenPowerToMaxIVs, MemberEntity, MemberResult, MoveSlot } from "./helpers"
 import { MemberAbility } from "./MemberAbility"
@@ -256,6 +256,89 @@ export class MemberPokemon extends MemberEntity {
         };
       });
   }
+
+  // Get computed stats
+  // #region
+
+  public computeHP() {
+    return computeStat({
+      statName: 'hp',
+      level: this.level,
+      base: this.baseStats.hp,
+      natureModifiesStat: this.nature?.modifiesStat,
+      ev: this.evs.hp,
+      ivOrDV: this.ivs.hp,
+      gen: this.gen,
+      isShedinja: this.psID === 'shedinja',
+    });
+  }
+
+  public computeAttack() {
+    return computeStat({
+      statName: 'attack',
+      level: this.level,
+      base: this.baseStats.attack,
+      natureModifiesStat: this.nature?.modifiesStat,
+      ev: this.evs.attack,
+      ivOrDV: this.ivs.attack,
+      gen: this.gen,
+      isShedinja: this.psID === 'shedinja',
+    });
+  }
+
+  public computeDefense() {
+    return computeStat({
+      statName: 'defense',
+      level: this.level,
+      base: this.baseStats.defense,
+      natureModifiesStat: this.nature?.modifiesStat,
+      ev: this.evs.defense,
+      ivOrDV: this.ivs.defense,
+      gen: this.gen,
+      isShedinja: this.psID === 'shedinja',
+    });
+  }
+
+  public computeSpecialAttack() {
+    return computeStat({
+      statName: 'specialAttack',
+      level: this.level,
+      base: this.baseStats.specialAttack,
+      natureModifiesStat: this.nature?.modifiesStat,
+      ev: this.evs.specialAttack,
+      ivOrDV: this.ivs.specialAttack,
+      gen: this.gen,
+      isShedinja: this.psID === 'shedinja',
+    });
+  }
+
+  public computeSpecialDefense() {
+    return computeStat({
+      statName: 'specialDefense',
+      level: this.level,
+      base: this.baseStats.specialDefense,
+      natureModifiesStat: this.nature?.modifiesStat,
+      ev: this.evs.specialDefense,
+      ivOrDV: this.ivs.specialDefense,
+      gen: this.gen,
+      isShedinja: this.psID === 'shedinja',
+    });
+  }
+
+  public computeSpeed() {
+    return computeStat({
+      statName: 'speed',
+      level: this.level,
+      base: this.baseStats.speed,
+      natureModifiesStat: this.nature?.modifiesStat,
+      ev: this.evs.speed,
+      ivOrDV: this.ivs.speed,
+      gen: this.gen,
+      isShedinja: this.psID === 'shedinja',
+    });
+  }
+
+  // #endregion
 
   // Exporting as PokemonSet
   // #region

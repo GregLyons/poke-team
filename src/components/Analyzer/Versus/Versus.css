@@ -1,6 +1,6 @@
 .versus__wrapper {
   display: grid;
-  grid-template-columns: 25% auto auto 1fr;
+  grid-template-columns: auto 1fr auto;
   grid-template-rows: repeat(6, 1fr);
   grid-auto-flow: row;
   gap: 1rem;
@@ -10,4 +10,32 @@
   height: 100%;
 
   font-family: var(--monospace);
+}
+
+.versus__user-team-cell {
+  grid-row: 1 / 7;
+  grid-column: 1 / 2;
+}
+
+.versus__enemy-team-cell {
+  grid-row: 1 / 7;
+  grid-column: 3 / 4;
+}
+
+.versus__matchup-cell {
+  grid-row: 1 / 7;
+  grid-column: 2 / 3;
+
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.versus__controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

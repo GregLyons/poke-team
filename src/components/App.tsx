@@ -55,6 +55,7 @@ export type Dispatches = {
   dispatchGenFilter: React.Dispatch<GenFilterAction>
   dispatchPokemonFilter: React.Dispatch<PokemonFilterAction>
   dispatchTeam: React.Dispatch<TeamAction>
+  dispatchEnemyTeam: React.Dispatch<TeamAction>
   dispatchTierFilter: React.Dispatch<TierFilterAction>
   dispatchBGManager: React.Dispatch<BGAction>
 }
