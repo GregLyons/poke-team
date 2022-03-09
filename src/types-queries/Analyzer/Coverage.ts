@@ -912,7 +912,6 @@ export const computeMemberTypeCoverage: (
     // Type-guard
     if (!memberResults) continue;
 
-
     // Iterate over member's moves to fill out memberRankMap
     for (let memberResult of memberResults) {
       const { psID: movePSID } = memberResult;
@@ -927,7 +926,8 @@ export const computeMemberTypeCoverage: (
       for (let moveTypeEdge of memberResult.type.edges) {
         // Iterate over matchup edges for the move's type
         for (let matchupEdge of moveTypeEdge.node.offensiveMatchups.edges) {
-          const typeName = matchupEdge.node.name;
+          let typeName = matchupEdge.node.name;
+
           const { multiplier } = matchupEdge;
           
           let moveRank: keyof TypeCoverageSummary;

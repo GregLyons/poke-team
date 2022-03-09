@@ -7,11 +7,11 @@ import { AbilityMatchupQuery, ABILITY_MATCHUP_QUERY, ItemMatchupQuery, ITEM_MATC
 import { CapsTypeName, toCapsTypeName } from "../../../types-queries/helpers";
 import { MemberPokemon } from "../../../types-queries/Member/MemberPokemon";
 import { Dispatches, Filters } from "../../App";
+import TeamColumn from "../TeamColumn/TeamColumn";
 import './CoverageView.css';
 import FieldControl from "./FieldControl/FieldControl";
 import SpeedControl from "./SpeedControl/SpeedControl";
 import StatusControl from "./StatusControl/StatusControl";
-import TeamColumn from "./TeamColumn/TeamColumn";
 import TypeMatchup from "./TypeMatchup/TypeMatchup";
 
 
@@ -210,9 +210,10 @@ const CoverageView = ({
     >
       <div className="team-column__cell">
         <TeamColumn
-          dispatches={dispatches}
+          teamDispatch={dispatches.dispatchTeam}
           filters={filters}
           team={team}
+          mode={'normal'}
           relevantNames={relevantNames}
           onEntityClick={onEntityClick}
           onPopupClose={onPopupClose}

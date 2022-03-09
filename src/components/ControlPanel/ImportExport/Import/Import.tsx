@@ -1,20 +1,19 @@
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useMemo, useState } from "react";
-import { Team } from "../../../../hooks/App/Team";
+import { Team, TeamAction } from "../../../../hooks/App/Team";
 import { InvalidAbilityError, InvalidItemError, InvalidMoveError, InvalidNatureError, InvalidStatsError, LateIntroductionError, PSIDNotFoundError } from "../../../../types-queries/Import/helpers";
 import { ImportItemQuery, ImportItemVars, IMPORT_ITEM_QUERY } from "../../../../types-queries/Import/ImportItem";
 import { ImportNatureQuery, ImportNatureVars, SET_MEMBERNATURE_QUERY } from "../../../../types-queries/Import/ImportNature";
 import { ImportMemberQuery, ImportMemberVars, IMPORT_MEMBER_QUERY, setsToMembers } from "../../../../types-queries/Import/ImportPokemon";
 import { MemberPokemon } from "../../../../types-queries/Member/MemberPokemon";
-import { Dispatches, Filters } from "../../../App";
+import { Filters } from "../../../App";
 import Popup from "../../../Reusables/Popup/Popup";
 import './Import.css';
 import ImportTextbox from "./ImportTextbox";
 
-
-
+// By isolating teamDispatch, we can use both dispatchTeam and dispatchEnemyTeam
 type ImportProps = {
-  dispatches: Dispatches
+  teamDispatch: React.Dispatch<TeamAction>
   filters: Filters
   team: Team
 };
@@ -25,7 +24,7 @@ export type ImportState = {
 };
 
 const Import = ({
-  dispatches,
+  teamDispatch,
   filters,
   team,
 }: ImportProps) => {
@@ -81,7 +80,7 @@ const Import = ({
     return e => {
       e.preventDefault();
       
-      dispatches.dispatchTeam({
+      teamDispatch({
         type: 'import',
         payload: {
           gen: filters.genFilter.gen,
@@ -113,7 +112,7 @@ const Import = ({
         </>)
       });
 
-      return dispatches.dispatchTeam({
+      return teamDispatch({
         type: 'clear_import',
         payload: {
           gen: filters.genFilter.gen,
@@ -130,7 +129,7 @@ const Import = ({
         </>),
       });
 
-      return dispatches.dispatchTeam({
+      return teamDispatch({
         type: 'clear_import',
         payload: {
           gen: filters.genFilter.gen,
@@ -147,7 +146,7 @@ const Import = ({
         </>),
       });
 
-      return dispatches.dispatchTeam({
+      return teamDispatch({
         type: 'clear_import',
         payload: {
           gen: filters.genFilter.gen,
@@ -161,7 +160,7 @@ const Import = ({
     execute_pokemon();
     execute_item();
     execute_nature();
-  }, [filters, team, dispatches, importState, execute_pokemon, execute_item, execute_nature]);
+  }, [filters, team, teamDispatch, importState, execute_pokemon, execute_item, execute_nature]);
 
   // Handles import state, and attempts to add imported members to the team
   useEffect(() => {
@@ -180,7 +179,7 @@ const Import = ({
         </>)
       });
 
-      return dispatches.dispatchTeam({
+      return teamDispatch({
         type: 'clear_import',
         payload: {
           gen: filters.genFilter.gen,
@@ -197,7 +196,7 @@ const Import = ({
         </>)
       });
 
-      return dispatches.dispatchTeam({
+      return teamDispatch({
         type: 'clear_import',
         payload: {
           gen: filters.genFilter.gen,
@@ -214,7 +213,7 @@ const Import = ({
         </>)
       });
 
-      return dispatches.dispatchTeam({
+      return teamDispatch({
         type: 'clear_import',
         payload: {
           gen: filters.genFilter.gen,
@@ -323,7 +322,7 @@ const Import = ({
       finally {
         // If no newMembers could be added due to an error above, return
         if (newMembers.length === 0) {
-          return dispatches.dispatchTeam({
+          return teamDispatch({
             type: 'clear_import',
             payload: {
               gen: filters.genFilter.gen,
@@ -339,7 +338,7 @@ const Import = ({
           </>),
         });
 
-        return dispatches.dispatchTeam({
+        return teamDispatch({
           type: 'add_imported_members',
           payload: {
             gen: filters.genFilter.gen,
@@ -352,7 +351,7 @@ const Import = ({
     error_pokemon, error_item, error_nature,
     loading_pokemon, loading_item, loading_nature,
     data_pokemon, data_item, data_nature,
-    team, filters, dispatches,
+    team, filters, teamDispatch,
     numOpenSlots, importState,
   ]);
 

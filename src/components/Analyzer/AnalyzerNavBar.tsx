@@ -21,23 +21,11 @@ const AnalyzerNavBar = ({
             end={true}
           />
         </li>
-      </nav>
-      <nav className="nav-bar">
         <li className="nav-item">
           <LinkButton
-            to="6v1"
-            title="See how your team fares against a single Pokemon"
-            label="6v1"
-            end={true}
-          />
-        </li>
-      </nav>
-      <nav className="nav-bar">
-        <li className="nav-item">
-          <LinkButton
-            to="thresholds"
-            title="Calculate speed tiers and KO ranges for your team compared to common Pokemon in the given tier"
-            label="Thresholds"
+            to="Versus"
+            title="See how your team fares against another, imported team"
+            label="Versus"
             end={true}
           />
         </li>

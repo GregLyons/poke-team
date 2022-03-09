@@ -3,6 +3,7 @@ import { AbilitySlot } from "../Member/helpers";
 import { MemberAbilityResult } from "../Member/MemberAbility";
 import { MemberItemResult } from "../Member/MemberItem";
 import { MemberMoveResult } from "../Member/MemberMove";
+import { MemberNatureResult } from "../Member/MemberNature";
 import { PopupVars } from "./helpers";
 
 // Ability
@@ -78,7 +79,6 @@ export interface PopupItemQuery {
 };
 
 export interface PopupItemVars extends PopupVars {
-  psID: string
 };
 
 export const POPUP_ITEM_QUERY = gql`
@@ -202,6 +202,57 @@ export const POPUP_MOVE_QUERY = gql`
             }
           }
           learnMethod
+        }
+      }
+    }
+  }
+`;
+
+// #endregion
+
+// Nature
+// #region
+
+export interface PopupNatureQuery {
+  natures: {
+    edges: {
+      node: MemberNatureResult
+    }[]
+  }
+};
+
+export interface PopupNatureVars extends PopupVars {
+};
+
+export const POPUP_NATURE_QUERY = gql`
+  query PopupItemQuery(
+    $gen: Int!,
+    $startsWith: String!, $contains: String!,
+    $limit: Int!
+  ) {
+    natures(
+      generation: $gen
+      filter: {
+        startsWith: $startsWith
+        contains: $contains
+      }
+      pagination: {
+        limit: $limit
+      }
+    ) {
+      id
+      edges {
+        node {
+          id
+          name
+
+          introduced {
+            edges {
+              node {
+                number
+              }
+            }
+          }
         }
       }
     }

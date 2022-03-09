@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { useDelayedQuery, useGenConnectedSearchBar } from "../../../../hooks/Searches";
-import { PopupItemQuery, PopupItemVars, POPUP_ITEM_QUERY } from "../../../../types-queries/Analyzer/PopupSearch";
-import { MemberItem, MemberItemResult } from "../../../../types-queries/Member/MemberItem";
-import { MemberPokemon } from "../../../../types-queries/Member/MemberPokemon";
-import { Dispatches, Filters } from "../../../App";
-import Popup from "../../../Reusables/Popup/Popup";
+import { TeamAction } from "../../../hooks/App/Team";
+import { useDelayedQuery, useGenConnectedSearchBar } from "../../../hooks/Searches";
+import { PopupItemQuery, PopupItemVars, POPUP_ITEM_QUERY } from "../../../types-queries/Analyzer/PopupSearch";
+import { MemberItem, MemberItemResult } from "../../../types-queries/Member/MemberItem";
+import { MemberPokemon } from "../../../types-queries/Member/MemberPokemon";
+import { Filters } from "../../App";
+import Popup from "../../Reusables/Popup/Popup";
 import PopupSearch from "./PopupSearch";
 
 type TeamColumnItemProps = {
-  dispatches: Dispatches
+  teamDispatch: React.Dispatch<TeamAction>
   filters: Filters
 
   member: MemberPokemon | null
@@ -21,7 +22,7 @@ type TeamColumnItemProps = {
 };
 
 const TeamColumnItem = ({
-  dispatches,
+  teamDispatch,
   filters,
   
   member,
@@ -35,7 +36,6 @@ const TeamColumnItem = ({
   const { queryVars, setQueryVars, searchBar, focusedOnInput, } = useGenConnectedSearchBar<PopupItemVars>({
     defaultSearchVars: {
       gen: filters.genFilter.gen,
-      psID: member?.psID || '',
       startsWith: '',
       contains: '',
       limit: 5,
@@ -57,7 +57,7 @@ const TeamColumnItem = ({
     return (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent) => {
       e.preventDefault();
 
-      dispatches.dispatchTeam({
+      teamDispatch({
         type: 'assign_item',
         payload: {
           gen: filters.genFilter.gen,
@@ -89,7 +89,7 @@ const TeamColumnItem = ({
         trigger={
           <div
             className={`
-                analyzer-member__text
+                team-column__text
               ${determineRelevance(item?.psID)}
             `}
             onClick={onEntityClick(member?.psID || 'a', member?.item?.psID || 'a')}

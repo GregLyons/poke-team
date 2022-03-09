@@ -106,14 +106,14 @@ const EMPTY_CART_IN_GEN: CartInGen = {
 }
 
 export const DEFAULT_CART: Cart = {
-  1: EMPTY_CART_IN_GEN,
-  2: EMPTY_CART_IN_GEN,
-  3: EMPTY_CART_IN_GEN,
-  4: EMPTY_CART_IN_GEN,
-  5: EMPTY_CART_IN_GEN,
-  6: EMPTY_CART_IN_GEN,
-  7: EMPTY_CART_IN_GEN,
-  8: EMPTY_CART_IN_GEN,
+  1: { ...EMPTY_CART_IN_GEN, },
+  2: { ...EMPTY_CART_IN_GEN, },
+  3: { ...EMPTY_CART_IN_GEN, },
+  4: { ...EMPTY_CART_IN_GEN, },
+  5: { ...EMPTY_CART_IN_GEN, },
+  6: { ...EMPTY_CART_IN_GEN, },
+  7: { ...EMPTY_CART_IN_GEN, },
+  8: { ...EMPTY_CART_IN_GEN, },
 }
 
 // #endregion

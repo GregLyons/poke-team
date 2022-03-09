@@ -1,26 +1,28 @@
 import { useMemo } from "react";
-import { Team } from "../../../../hooks/App/Team";
-import { MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
-import { Dispatches, Filters } from "../../../App";
+import { Team, TeamAction } from "../../../hooks/App/Team";
+import { MemberPSIDObject } from "../../../types-queries/Analyzer/helpers";
+import { Filters } from "../../App";
 import './TeamColumn.css';
 import TeamColumnMember from "./TeamColumnMember";
 
 
 type TeamColumnProps = {
-  dispatches: Dispatches
+  teamDispatch: React.Dispatch<TeamAction>
   filters: Filters
 
   team: Team
+  mode: 'normal' | 'stat'
   relevantNames: MemberPSIDObject | null
   onEntityClick: (memberPSID: string, entityPSID: string) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onPopupClose: () => void
 };
 
 const TeamColumn = ({
-  dispatches,
+  teamDispatch,
   filters,
 
   team,
+  mode,
   relevantNames,
   onEntityClick,
   onPopupClose,
@@ -34,11 +36,12 @@ const TeamColumn = ({
       className="team-column__wrapper"
     >
       {members.map((member, idx) => <TeamColumnMember
-          dispatches={dispatches}
+          teamDispatch={teamDispatch}
           filters={filters}
           key={idx}
           member={member}
           memberIdx={idx}
+          mode={mode}
           relevantNames={relevantNames}
           onEntityClick={onEntityClick}
           onPopupClose={onPopupClose}

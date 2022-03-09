@@ -19,7 +19,7 @@ const ImportExport = ({
       className="import-export__wrapper"
     >
       <Import
-        dispatches={dispatches}
+        teamDispatch={dispatches.dispatchTeam}
         filters={filters}
         team={team}
       />

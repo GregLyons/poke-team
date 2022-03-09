@@ -44,14 +44,14 @@ const EMPTY_TEAM_IN_GEN: TeamInGen = {
 }
 
 export const DEFAULT_TEAM: Team = {
-  1: EMPTY_TEAM_IN_GEN,
-  2: EMPTY_TEAM_IN_GEN,
-  3: EMPTY_TEAM_IN_GEN,
-  4: EMPTY_TEAM_IN_GEN,
-  5: EMPTY_TEAM_IN_GEN,
-  6: EMPTY_TEAM_IN_GEN,
-  7: EMPTY_TEAM_IN_GEN,
-  8: EMPTY_TEAM_IN_GEN,
+  1: { ...EMPTY_TEAM_IN_GEN, },
+  2: { ...EMPTY_TEAM_IN_GEN, },
+  3: { ...EMPTY_TEAM_IN_GEN, },
+  4: { ...EMPTY_TEAM_IN_GEN, },
+  5: { ...EMPTY_TEAM_IN_GEN, },
+  6: { ...EMPTY_TEAM_IN_GEN, },
+  7: { ...EMPTY_TEAM_IN_GEN, },
+  8: { ...EMPTY_TEAM_IN_GEN, },
 }
 
 const stateWithModifiedMember = (state: Team, gen: GenNum, modifiedMember: MemberPokemon, idx: number) => {

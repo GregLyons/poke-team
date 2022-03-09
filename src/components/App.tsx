@@ -16,6 +16,7 @@ import { DEFAULT_TIER_FILTER, TierFilter, TierFilterAction, tierReducer } from '
 import Analyzer from './Analyzer/Analyzer';
 import AnalyzerHome from './Analyzer/AnalyzerHome';
 import CoverageView from './Analyzer/CoverageView/CoverageView';
+import Versus from './Analyzer/Versus/Versus';
 import './App.css';
 import Builder from './Builder/Builder';
 import BuilderHome from './Builder/BuilderHome';
@@ -68,9 +69,10 @@ function App() {
   const [genFilter, dispatchGenFilter] = useReducer(genReducer, DEFAULT_GEN_FILTER);
   const [tierFilter, dispatchTierFilter] = useReducer(tierReducer, DEFAULT_TIER_FILTER);
   const [pokemonFilter, dispatchPokemonFilter] = useReducer(pokemonReducer, DEFAULT_POKEMON_FILTER);
-  const [cart, dispatchCart] = useReducer(cartReducer, DEFAULT_CART);
-  const [team, dispatchTeam] = useReducer(teamReducer, DEFAULT_TEAM);
-  const [bgManager, dispatchBGManager] = useReducer(bgReducer, DEFAULT_BACKGROUND);
+  const [cart, dispatchCart] = useReducer(cartReducer, { ...DEFAULT_CART, });
+  const [team, dispatchTeam] = useReducer(teamReducer, { ...DEFAULT_TEAM, });
+  const [enemyTeam, dispatchEnemyTeam] = useReducer(teamReducer, { ...DEFAULT_TEAM, });
+  const [bgManager, dispatchBGManager] = useReducer(bgReducer, { ...DEFAULT_BACKGROUND, });
 
   const controlPanelRef = useRef<HTMLDivElement>(null);
   const navBarRef = useRef<HTMLDivElement>(null);
@@ -81,10 +83,11 @@ function App() {
       dispatchGenFilter,
       dispatchPokemonFilter,
       dispatchTeam,
+      dispatchEnemyTeam,
       dispatchTierFilter,
       dispatchBGManager,
     }
-  }, [dispatchCart, dispatchGenFilter, dispatchPokemonFilter, dispatchTeam, dispatchTierFilter, dispatchBGManager]);
+  }, [dispatchCart, dispatchGenFilter, dispatchPokemonFilter, dispatchTeam, dispatchEnemyTeam, dispatchTierFilter, dispatchBGManager]);
 
   const filters: Filters = useMemo(() => {
     return {
@@ -135,6 +138,15 @@ function App() {
                 filters={filters}
                 team={team}
               />}
+            />
+            <Route
+              path='versus'
+              element={<Versus
+                dispatches={dispatches}
+                filters={filters}
+                team={team}
+                enemyTeam={enemyTeam}
+                />}
             />
           </Route>
 

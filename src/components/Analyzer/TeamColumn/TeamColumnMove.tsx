@@ -1,16 +1,17 @@
 import { useMemo, useState } from "react";
-import { removedFromBDSP, removedFromSwSh } from "../../../../hooks/App/GenFilter";
-import { useDelayedQuery, useRemovalConnectedSearchBar } from "../../../../hooks/Searches";
-import { PopupMoveQuery, PopupMoveVars, POPUP_MOVE_QUERY } from "../../../../types-queries/Analyzer/PopupSearch";
-import { MoveSlot } from "../../../../types-queries/Member/helpers";
-import { MemberMove, MemberMoveResult } from "../../../../types-queries/Member/MemberMove";
-import { MemberPokemon } from "../../../../types-queries/Member/MemberPokemon";
-import { Dispatches, Filters } from "../../../App";
-import Popup from "../../../Reusables/Popup/Popup";
+import { removedFromBDSP, removedFromSwSh } from "../../../hooks/App/GenFilter";
+import { TeamAction } from "../../../hooks/App/Team";
+import { useDelayedQuery, useRemovalConnectedSearchBar } from "../../../hooks/Searches";
+import { PopupMoveQuery, PopupMoveVars, POPUP_MOVE_QUERY } from "../../../types-queries/Analyzer/PopupSearch";
+import { MoveSlot } from "../../../types-queries/Member/helpers";
+import { MemberMove, MemberMoveResult } from "../../../types-queries/Member/MemberMove";
+import { MemberPokemon } from "../../../types-queries/Member/MemberPokemon";
+import { Filters } from "../../App";
+import Popup from "../../Reusables/Popup/Popup";
 import PopupSearch from "./PopupSearch";
 
 type TeamColumnMoveProps = {
-  dispatches: Dispatches
+  teamDispatch: React.Dispatch<TeamAction>
   filters: Filters
 
   member: MemberPokemon | null
@@ -24,7 +25,7 @@ type TeamColumnMoveProps = {
 };
 
 const TeamColumnMove = ({
-  dispatches,
+  teamDispatch,
   filters,
 
   member,
@@ -64,7 +65,7 @@ const TeamColumnMove = ({
     return (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent) => {
       e.preventDefault();
 
-      dispatches.dispatchTeam({
+      teamDispatch({
         type: 'assign_move',
         payload: {
           gen: filters.genFilter.gen,
@@ -118,7 +119,7 @@ const TeamColumnMove = ({
       {member?.moveset[moveIdx] && <Popup
         trigger={<div
           className={`
-          analyzer-member__text
+          team-column__text
             ${determineRelevance(move?.psID)}
           `}
           onClick={onEntityClick(member?.psID || 'a', member?.moveset[moveIdx]?.psID || 'a')}

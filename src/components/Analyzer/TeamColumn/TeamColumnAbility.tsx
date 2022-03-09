@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { useDelayedQuery, useGenConnectedSearchBar } from "../../../../hooks/Searches";
-import { PopupAbilityQuery, PopupAbilityVars, POPUP_ABILITY_QUERY } from "../../../../types-queries/Analyzer/PopupSearch";
-import { AbilitySlot } from "../../../../types-queries/Member/helpers";
-import { MemberAbility, MemberAbilityResult } from "../../../../types-queries/Member/MemberAbility";
-import { MemberPokemon } from "../../../../types-queries/Member/MemberPokemon";
-import { Dispatches, Filters } from "../../../App";
-import Popup from "../../../Reusables/Popup/Popup";
+import { TeamAction } from "../../../hooks/App/Team";
+import { useDelayedQuery, useGenConnectedSearchBar } from "../../../hooks/Searches";
+import { PopupAbilityQuery, PopupAbilityVars, POPUP_ABILITY_QUERY } from "../../../types-queries/Analyzer/PopupSearch";
+import { AbilitySlot } from "../../../types-queries/Member/helpers";
+import { MemberAbility, MemberAbilityResult } from "../../../types-queries/Member/MemberAbility";
+import { MemberPokemon } from "../../../types-queries/Member/MemberPokemon";
+import { Filters } from "../../App";
+import Popup from "../../Reusables/Popup/Popup";
 import PopupSearch from "./PopupSearch";
 
 type TeamColumnAbilityProps = {
-  dispatches: Dispatches
+  teamDispatch: React.Dispatch<TeamAction>
   filters: Filters
 
   member: MemberPokemon | null
@@ -22,7 +23,7 @@ type TeamColumnAbilityProps = {
 };
 
 const TeamColumnAbility = ({
-  dispatches,
+  teamDispatch,
   filters,
 
   member,
@@ -59,7 +60,7 @@ const TeamColumnAbility = ({
     return (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent) => {
       e.preventDefault();
 
-      dispatches.dispatchTeam({
+      teamDispatch({
         type: 'assign_ability',
         payload: {
           gen: filters.genFilter.gen,
@@ -90,7 +91,7 @@ const TeamColumnAbility = ({
         trigger={
           <div
             className={`
-              analyzer-member__text
+              team-column__text
               ${determineRelevance(ability?.psID)}
             `}
             onClick={onEntityClick(member?.psID || 'a', member?.ability?.psID || 'a')}

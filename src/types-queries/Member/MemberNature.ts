@@ -23,6 +23,20 @@ export interface MemberNatureResult {
   }
 }
 
+// uses 'psID' instead of 'name', add 'formattedName'
+export interface MemberNatureResult_psID {
+  psID: NatureName
+  formattedName: FormattedNatureName
+
+  introduced: {
+    edges: IntroductionEdge[]
+  }
+
+  modifiesStat: {
+    edges: ModifiesBaseStatEdge[]
+  }
+}
+
 export interface MemberNatureVars extends MemberEntityVars {
   gen: GenNum
 
