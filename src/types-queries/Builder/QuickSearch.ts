@@ -67,7 +67,8 @@ export const POKEMON_QUICKSEARCH_QUERY = gql`
     pokemon(
       generation: $gen,
       filter: {
-        formClass: [ALOLA, BASE, GALAR, GMAX, HISUI, MEGA, OTHER],
+        # Bring in battle forms
+        formClass: [ALOLA, BASE, BATTLE, GALAR, GMAX, HISUI, MEGA, OTHER],
         contains: $contains, startsWith: $startsWith, 
         removedFromSwSh: $removedFromSwSh,
         removedFromBDSP: $removedFromBDSP,

@@ -39,6 +39,7 @@ export const formattedNatureNameToNatureName = (formattedNatureName: FormattedNa
 export interface MemberResult {
   formattedName: string
   psID: string
+  formattedPSID: string
 
   introduced: {
     edges: IntroductionEdge[]
@@ -63,16 +64,18 @@ export interface MemberSpecificEntityVars extends MemberEntityVars {
 
 export abstract class MemberEntity {
   public formattedName: string
+  public formattedPSID: string
   public psID: string
 
   public gen: GenNum
   public introduced: GenNum
 
   constructor(memberSpecificResult: MemberResult, gen: GenNum) {
-    const { formattedName, psID, introduced} = memberSpecificResult;
+    const { formattedName, psID, introduced, formattedPSID, } = memberSpecificResult;
 
     this.formattedName = formattedName;
     this.psID = psID;
+    this.formattedPSID = formattedPSID;
 
     this.gen = gen;
     this.introduced = introductionEdgeToGen(introduced.edges[0]);

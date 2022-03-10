@@ -30,6 +30,7 @@ export interface EnablesItemEdge extends NameEdge {
     name: string
     formattedName: string
     psID: string
+    formattedPSID: string
 
     introduced: {
       edges: IntroductionEdge[]
@@ -43,6 +44,7 @@ export interface RequiresItemEdge extends NameEdge {
     name: string
     formattedName: string
     psID: string
+    formattedPSID: string
 
     introduced: {
       edges: IntroductionEdge[]

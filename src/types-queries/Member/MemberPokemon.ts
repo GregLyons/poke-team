@@ -18,6 +18,7 @@ export interface MemberPokemonQuery {
 
 export interface MemberPokemonResult extends MemberResult {
   speciesName: string
+  formattedPSID: string
 
   maleRate: number
   femaleRate: number
@@ -50,6 +51,7 @@ export const POKEMONICON_TO_MEMBER_QUERY = gql`
       speciesName
       psID
       formattedName
+      formattedPSID
 
       maleRate
       femaleRate
@@ -65,6 +67,7 @@ export const POKEMONICON_TO_MEMBER_QUERY = gql`
             speciesName
             formattedName
             psID
+            formattedPSID
           }
           class
         }
@@ -87,6 +90,7 @@ export const POKEMONICON_TO_MEMBER_QUERY = gql`
             name
             formattedName
             psID
+            formattedPSID
 
             introduced {
               id
@@ -107,6 +111,7 @@ export const POKEMONICON_TO_MEMBER_QUERY = gql`
             name
             formattedName
             psID
+            formattedPSID
 
             introduced {
               id
@@ -125,6 +130,7 @@ export const POKEMONICON_TO_MEMBER_QUERY = gql`
 
 export class MemberPokemon extends MemberEntity {
   public speciesName: string
+
   public typing: TypeName[]
   public baseStats: StatTable
 

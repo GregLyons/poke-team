@@ -48,6 +48,7 @@ export const IMPORT_MEMBER_QUERY = gql`
       formattedName
       speciesName
       psID
+      formattedPSID
 
       removedFromSwSh
       removedFromBDSP
@@ -76,6 +77,7 @@ export const IMPORT_MEMBER_QUERY = gql`
             speciesName
             formattedName
             psID
+            formattedPSID
           }
           class
         }
@@ -98,6 +100,7 @@ export const IMPORT_MEMBER_QUERY = gql`
             name
             formattedName
             psID
+            formattedPSID
 
             introduced {
               id
@@ -118,6 +121,7 @@ export const IMPORT_MEMBER_QUERY = gql`
             name
             formattedName
             psID
+            formattedPSID
 
             introduced {
               id
@@ -140,6 +144,7 @@ export const IMPORT_MEMBER_QUERY = gql`
             name
             formattedName
             psID
+            formattedPSID
 
             introduced {
               id
@@ -163,6 +168,7 @@ export const IMPORT_MEMBER_QUERY = gql`
             name
             formattedName
             psID
+            formattedPSID
 
             introduced {
               id
@@ -190,6 +196,7 @@ export const IMPORT_MEMBER_QUERY = gql`
                   name
                   formattedName
                   psID
+                  formattedPSID
                 }
               }
             }

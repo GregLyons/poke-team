@@ -41,6 +41,7 @@ export const MEMBER_ABILITY_QUERY = gql`
             name
             formattedName
             psID
+            formattedPSID
 
             introduced {
               id

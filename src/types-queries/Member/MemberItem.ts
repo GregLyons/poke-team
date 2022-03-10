@@ -16,6 +16,7 @@ export interface MemberItemQuery {
 export interface MemberItemResult extends MemberResult {
   formattedName: string
   psID: string
+  formattedPSID: string
 
   introduced: {
     edges: IntroductionEdge[]
@@ -48,6 +49,7 @@ export const MEMBER_ITEM_QUERY = gql`
           name
           formattedName
           psID
+          formattedPSID
 
           introduced {
             edges {

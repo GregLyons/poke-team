@@ -22,6 +22,7 @@ export const IMPORT_ITEM_QUERY = gql`
       name
       formattedName
       psID
+      formattedPSID
 
       introduced {
         id

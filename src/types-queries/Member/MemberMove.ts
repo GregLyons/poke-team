@@ -89,6 +89,7 @@ export const MEMBER_MOVESET_QUERY = gql`
                   name
                   formattedName
                   psID
+                  formattedPSID
 
                   introduced {
                     edges {

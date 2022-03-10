@@ -160,7 +160,11 @@ const Import = ({
     execute_pokemon();
     execute_item();
     execute_nature();
-  }, [filters, team, teamDispatch, importState, execute_pokemon, execute_item, execute_nature]);
+  }, [
+    filters, team[filters.genFilter.gen].importedMembers, team[filters.genFilter.gen].failedImport, teamDispatch,
+    importState.key, numOpenSlots,
+    execute_pokemon, execute_item, execute_nature,
+  ]);
 
   // Handles import state, and attempts to add imported members to the team
   useEffect(() => {
@@ -348,11 +352,11 @@ const Import = ({
       }
     }
   }, [
-    error_pokemon, error_item, error_nature,
-    loading_pokemon, loading_item, loading_nature,
+    team[filters.genFilter.gen].importedMembers, filters, teamDispatch,
+    numOpenSlots, importState.key,
     data_pokemon, data_item, data_nature,
-    team, filters, teamDispatch,
-    numOpenSlots, importState,
+    loading_pokemon, loading_item, loading_nature,
+    error_pokemon, error_item, error_nature,
   ]);
 
   return (

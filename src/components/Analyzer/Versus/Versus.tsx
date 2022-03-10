@@ -5,6 +5,7 @@ import { Dispatches, Filters } from "../../App";
 import Import from "../../ControlPanel/ImportExport/Import/Import";
 import TeamColumn from "../TeamColumn/TeamColumn";
 import './Versus.css';
+import VersusMatchup from "./VersusMatchup/VersusMatchup";
 
 
 type VersusProps = {
@@ -114,6 +115,9 @@ const Versus = ({
           >
             {enemyMode}
           </div>
+          <VersusMatchup
+
+          />
         </div>
       </div>
       <div className="versus__enemy-team-cell">
