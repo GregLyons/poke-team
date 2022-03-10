@@ -143,7 +143,7 @@ export function calcDamageMatchup ({
             }
           }
         }
-        // Occurs as a result of kochance() when move does no damage
+        // Occurs as a result of kochance() when move does little-to-no damage
         catch (e) {
         }
       }
@@ -184,7 +184,7 @@ export function calcDamageMatchup ({
             }
           }
         }
-        // Occurs when move does no damage
+        // Occurs when move does little-to-no damage
         catch (e) {
         }
       }

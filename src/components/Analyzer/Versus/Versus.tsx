@@ -24,41 +24,42 @@ const Versus = ({
   const [relevantNames, setRelevantNames] = useState<{ user: MemberPSIDObject, enemy: MemberPSIDObject, } | null>(null);
   const [isPopupActive, setIsPopupActive] = useState<boolean>(false);
 
+  // Helper function so that we don't have to keep checking 'whichTeam' parameter in our other functions that update relevantNames
+  const updateRelevantNames = (whichTeam: 'user' | 'enemy', memberPSIDObject: MemberPSIDObject) => {
+    if (whichTeam === 'enemy') {
+      return setRelevantNames({
+        user: {
+          ...relevantNames?.user,
+        },
+        enemy: memberPSIDObject,
+      });
+    }
+    else {
+      return setRelevantNames({
+        enemy: {
+          ...relevantNames?.enemy,
+        },
+        user: memberPSIDObject,
+      });
+    }
+  };
+
   // When ability, item, or move is clicked, emphasize the entity and member, and set 'isPopupActive' to 'true', as this action will open a pop-up window
   const onEntityClick = (whichTeam: 'user' | 'enemy') => {
     return (memberPSID: string, entityPSID: string) => {
       return (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
         e.preventDefault();
-        if (whichTeam === 'enemy') {
-          setRelevantNames({
-            user: {
-              ...relevantNames?.user,
-            },
-            enemy: {
-              [memberPSID]: [entityPSID],
-            },
-          });
-        }
-        else {
-          setRelevantNames({
-            enemy: {
-              ...relevantNames?.enemy,
-            },
-            user: {
-              [memberPSID]: [entityPSID],
-            },
-          });
-        }
-        setIsPopupActive(true);
+        updateRelevantNames(whichTeam, { [memberPSID]: [entityPSID], })
+        return setIsPopupActive(true);
       };
-    }
-  } 
+    };
+  };
 
   // Once the pop-up window closes, set 'isPopupActive' to 'false', and set 'revantNames' to 'null'
   const onPopupClose = () => {
     setIsPopupActive(false);
     return setRelevantNames(null);
-  }
+  };
 
   const [userMode, setUserMode] = useState<'normal' | 'stat'>('normal');
   const [enemyMode, setEnemyMode] = useState<'normal' | 'stat'>('normal');
@@ -73,8 +74,17 @@ const Versus = ({
         : enemyMode === 'normal'
           ? setEnemyMode('stat')
           : setEnemyMode('normal');
-    }
+    };
   };
+
+  const onMouseOver = (newRelevantNames: { user: MemberPSIDObject, enemy: MemberPSIDObject, } | null) => {
+    return (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLDivElement, Element>) => {
+      e.preventDefault();
+      if (!isPopupActive && newRelevantNames !== null) return setRelevantNames(newRelevantNames);
+    };
+  };
+
+  const onMouseLeave = () => setRelevantNames(null);
 
   return (
     <div
@@ -120,6 +130,8 @@ const Versus = ({
           userPokemon={team[filters.genFilter.gen].members}
           enemyPokemon={enemyTeam[filters.genFilter.gen].members}
           gen={filters.genFilter.gen}
+          onMouseOver={onMouseOver}
+          onMouseLeave={onMouseLeave}
         />
       </div>
       <div className="versus__enemy-team-cell">

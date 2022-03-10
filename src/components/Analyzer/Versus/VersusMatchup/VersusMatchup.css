@@ -27,3 +27,13 @@
 .versus-matchup__cell {
   background-color: blue;
 }
+
+/* Emphasis effects */
+.versus-matchup__cell,
+.versus-matchup__icon {
+}
+.versus-matchup__cell.--emph,
+.versus-matchup__icon.--emph {
+  filter: brightness(1.1);
+  background-color: purple;
+}
