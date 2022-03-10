@@ -21,6 +21,7 @@ export interface MemberMoveResult extends MemberResult {
   pp: number
   accuracy: number | null
   category: 'PHYSICAL' | 'SPECIAL' | 'STATUS' | 'VARIES'
+  priority: number
   typeName: CapsTypeName
 
   removedFromSwSh: boolean
@@ -75,6 +76,7 @@ export const MEMBER_MOVESET_QUERY = gql`
             power
             pp
             accuracy
+            priority
             category
             typeName
 
@@ -118,6 +120,7 @@ export class MemberMove extends MemberEntity {
   public power: number
   public pp: number
   public accuracy: number | null
+  public priority: number
   public category: 'PHYSICAL' | 'SPECIAL' | 'STATUS' | 'VARIES'
 
   public requiresItem: MemberItem[]
@@ -129,7 +132,7 @@ export class MemberMove extends MemberEntity {
     const {
       typeName: enumTypeName,
       removedFromSwSh, removedFromBDSP,
-      power, pp, accuracy, category,
+      power, pp, accuracy, category, priority,
       requiresItem,
     } = gqlMemberMove;
     this.type = toTypeName(enumTypeName);
@@ -140,6 +143,7 @@ export class MemberMove extends MemberEntity {
     this.power = power;
     this.pp = pp;
     this.accuracy = accuracy;
+    this.priority = priority;
     this.category = category;
 
     this.requiresItem = requiresItem.edges.map(edge => requiresItemEdgeToMemberItem(edge, gen));

@@ -1,4 +1,5 @@
 import { StatsTable } from "@pkmn/data";
+import { Terrain, Weather } from "@smogon/calc/dist/data/interface";
 import { NUMBER_OF_GENS } from "../utils/constants";
 import { CapsTypeName, FormattedTypeName, TypeName } from "./helpers";
 
@@ -97,6 +98,23 @@ export const FIELDSTATE_TARGETCLASS_MAP = new Map<FieldStateTargetClass, string>
   ['ALL', 'All'],
   ['ALL_ALLIES', 'All allies'],
   ['ALL_FOES', 'All foes'],
+]);
+
+// Converting from field states to @pkmn/data field types
+export const FIELDSTATE_WEATHER_MAP = new Map<string, Weather>([
+  ['sandstorm', 'Sand'],
+  ['harsh_sunlight', 'Sun'],
+  ['extremely_harsh_sunlight', 'Harsh Sunshine'],
+  ['rain', 'Rain'],
+  ['heavy_rain', 'Heavy Rain'],
+  ['hail', 'Hail'],
+  ['strong_winds', 'Strong Winds'],
+]);
+export const FIELDSTATE_TERRAIN_MAP = new Map<string, Terrain>([
+  ['electric_terrain', 'Electric'],
+  ['grassy_terrain', 'Grassy'],
+  ['psychic_terrain', 'Psychic'],
+  ['misty_terrain', 'Misty'],
 ]);
 
 // #endregion
@@ -283,7 +301,9 @@ export type FormattedBaseStatName = 'HP' | 'Attack' | 'Defense' | 'Special Attac
 
 export type AbbreviatedBaseStatName = 'HP' | 'Atk' | 'Def' | 'SpA' | 'SpD' | 'Spe';
 
-export const toBaseStatName: (baseStatName: FormattedBaseStatName | AbbreviatedBaseStatName | GQLBaseStatName ) => BaseStatName = baseStateName => {
+export type SmogonBaseStatName = 'hp' | 'atk' | 'def' | 'spa' | 'spd' | 'spe';
+
+export const toBaseStatName: (baseStatName: FormattedBaseStatName | AbbreviatedBaseStatName | GQLBaseStatName | SmogonBaseStatName | BaseStatName) => BaseStatName = baseStateName => {
   switch(baseStateName) {
     case 'HP':
     case 'hp':
@@ -291,81 +311,128 @@ export const toBaseStatName: (baseStatName: FormattedBaseStatName | AbbreviatedB
     case 'Attack':
     case 'Atk':
     case 'attack':
+    case 'atk':
       return 'attack';
     case 'Defense':
     case 'Def':
     case 'defense':
+    case 'def':
       return 'defense';
     case 'Special Attack':
     case 'SpA':
     case 'special_attack':
+    case 'spa':
+    case 'specialAttack':
       return 'specialAttack';
     case 'Special Defense':
     case 'SpD':
     case 'special_defense':
+    case 'spd':
+    case 'specialDefense':
       return 'specialDefense';
     case 'Speed':
     case 'Spe':
     case 'speed':
+    case 'spe':
       return 'speed';
     default:
       throw Error();
   }
 };
 
-export const toFormattedBaseStatName: (baseStatName: BaseStatName | AbbreviatedBaseStatName | GQLBaseStatName) => FormattedBaseStatName = baseStateName => {
+export const toFormattedBaseStatName: (baseStatName: BaseStatName | AbbreviatedBaseStatName | GQLBaseStatName | SmogonBaseStatName | FormattedBaseStatName) => FormattedBaseStatName = baseStateName => {
   switch(baseStateName) {
     case 'hp':
     case 'HP':
       return 'HP';
     case 'attack':
     case 'Atk':
+    case 'atk':
+    case 'Attack':
       return 'Attack';
     case 'defense':
     case 'Def':
+    case 'def':
+    case 'Defense':
       return 'Defense';
     case 'specialAttack':
     case 'special_attack':
     case 'SpA':
+    case 'spa':
+    case 'Special Attack':
       return 'Special Attack';
     case 'specialDefense':
     case 'special_defense':
     case 'SpD':
+    case 'spd':
+    case 'Special Defense':
       return 'Special Defense';
     case 'speed':
     case 'Spe':
+    case 'spe':
+    case 'Speed':
       return 'Speed';
     default:
       throw Error();
   }
 }
 
-export const toAbbreviatedBaseStatName: (baseStatName: BaseStatName | FormattedBaseStatName | GQLBaseStatName) => AbbreviatedBaseStatName = baseStatName => {
+export const toAbbreviatedBaseStatName: (baseStatName: BaseStatName | FormattedBaseStatName | GQLBaseStatName | SmogonBaseStatName | AbbreviatedBaseStatName) => AbbreviatedBaseStatName = baseStatName => {
   switch(baseStatName) {
     case 'HP':
     case 'hp':
       return 'HP';
     case 'attack':
     case 'Attack':
+    case 'atk':
+    case 'Atk':
       return 'Atk';
     case 'defense':
     case 'Defense':
+    case 'def':
+    case 'Def':
       return 'Def';
     case 'specialAttack':
     case 'Special Attack':
     case 'special_attack':
+    case 'spa':
+    case 'SpA':
       return 'SpA';
     case 'specialDefense':
     case 'Special Defense':
     case 'special_defense':
+    case 'spd':
+    case 'SpD':
       return 'SpD';
     case 'speed':
     case 'Speed':
+    case 'spe':
+    case 'Spe':
       return 'Spe';
     default:
       throw Error();
   }
 }
+
+export const toSmogonBaseStatName: (baseStatName: BaseStatName | FormattedBaseStatName | GQLBaseStatName | AbbreviatedBaseStatName) => SmogonBaseStatName = baseStatName => {
+  const normalizedStatName = toBaseStatName(baseStatName);
+  switch(normalizedStatName) {
+    case 'hp':
+      return 'hp';
+    case 'attack':
+      return 'atk'
+    case 'defense':
+      return 'def';
+    case 'specialAttack':
+      return 'spa';
+    case 'specialDefense':
+      return 'spd';
+    case 'speed':
+      return 'spe';
+    default:
+      throw Error();
+  }
+};
 
 export type StatTable = {
   [baseStatName in BaseStatName]: number

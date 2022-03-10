@@ -183,6 +183,7 @@ export const IMPORT_MEMBER_QUERY = gql`
             pp
             accuracy
             category
+            priority
             typeName
 
             removedFromSwSh

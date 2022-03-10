@@ -116,7 +116,9 @@ const Versus = ({
             {enemyMode}
           </div>
           <VersusMatchup
-
+            userPokemon={team[filters.genFilter.gen].members}
+            enemyPokemon={enemyTeam[filters.genFilter.gen].members}
+            gen={filters.genFilter.gen}
           />
         </div>
       </div>

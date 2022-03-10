@@ -3,10 +3,10 @@ Ability: Poison Heal
 EVs: 48 Atk / 200 Def / 224 SpA / 36 SpD  
 Quirky Nature  
 IVs: 23 Def / 25 Spe  
-- Toxic  
 - Acrobatics  
 - Earthquake  
 - Protect  
+- Toxic  
 
 Heatran @ Air Balloon  
 Ability: Flash Fire  
