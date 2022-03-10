@@ -1,6 +1,10 @@
+import { useMemo } from "react";
 import { GenNum } from "../../../../types-queries/entities";
 import { MemberPokemon } from "../../../../types-queries/Member/MemberPokemon";
 import { calcDamageMatchup } from "../../../../utils/damageCalc";
+import './VersusMatchup.css';
+import VersusMatchupHeader from "./VersusMatchupHeader";
+import VersusMatchupRow from "./VersusMatchupRow";
 
 
 type VersusMatchupProps = {
@@ -29,15 +33,22 @@ const VersusMatchup = ({
   //   new Move(gen, 'shadowball')
   // ).fullDesc();
   
-  console.log(calcDamageMatchup({
+  const damageMatchup = useMemo(() => calcDamageMatchup({
     userPokemon,
     enemyPokemon,
     gen,
-  }));
+  }), [userPokemon, enemyPokemon, gen]);
 
   return (
-    <div>
-      yo
+    <div className="versus-matchup__wrapper">
+      <VersusMatchupHeader
+        enemyMembers={enemyPokemon}
+      />
+      {damageMatchup.map((resultRow, rowIdx) => <VersusMatchupRow
+        key={rowIdx}
+        userMember={userPokemon[rowIdx]}
+        resultRow={resultRow}
+      />)}
     </div>
   );
 };

@@ -1,0 +1,29 @@
+.versus-matchup__wrapper {
+  display: grid;
+  grid-template-rows: 50px repeat(6, 1fr);
+  grid-template-columns: 50px repeat(6, 1fr);
+  gap: 0.25rem;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  padding: 0.5rem;
+  background-color: red;
+}
+
+.versus-matchup__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  background-color: green;
+}
+
+.versus-matchup__cell {
+  background-color: blue;
+}

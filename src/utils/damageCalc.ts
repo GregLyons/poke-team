@@ -61,10 +61,12 @@ export function calcDamage ({
 };
 
 export type DamageMatchupSummary = {
-  movePSID: string
+  // First entry is movePSID, second entry is fullDesc() from the calculate function; only moves which achieve minHits have an entry
+  moveInfo: [string, string][]
+  // The minimum number of hits to KO the target
   minHits: number
-  priority: number
-  display: string
+  // The max priority of the moves in moveInfo, i.e. of the moves which achieve minHits
+  maxPriority: number
 };
 
 export type DamageMatchupResult = {
@@ -115,10 +117,10 @@ export function calcDamageMatchup ({
 
       // Compute userToEnemy
       let userToEnemy: DamageMatchupSummary;
-      let movePSID_userToEnemy: string = '';
+      let moveInfo_userToEnemy: [string, string][] = [];
       let minHits_userToEnemy: number = Number.MAX_SAFE_INTEGER;
-      let display_userToEnemy: string = 'No damaging moves.';
-      let priority_userToEnemy = 0;
+      let maxPriority_userToEnemy: number = Number.MIN_SAFE_INTEGER;
+
       for (let userMove of userMoves) {
         try {
           const result = calcDamage({
@@ -126,33 +128,39 @@ export function calcDamageMatchup ({
             defender: enemyMember,
             memberMove: userMove,
             gen});
-  
+          
           const hits = result.kochance().n;
-  
-          // If number of hits is strictly smaller, OR if number of hits is the same, but higher priority, use current move instead of old move
-          if (hits < minHits_userToEnemy || (hits === minHits_userToEnemy && userMove.priority > priority_userToEnemy)) {
-            movePSID_userToEnemy = userMove.psID;
+
+          if (hits !== 0 && hits < minHits_userToEnemy) {
+            moveInfo_userToEnemy = [[userMove.psID, result.fullDesc()]];
             minHits_userToEnemy = hits;
-            display_userToEnemy = result.fullDesc();
-            priority_userToEnemy = userMove.priority;
+            maxPriority_userToEnemy = userMove.priority;
+          }
+          else if (hits === minHits_userToEnemy) {
+            moveInfo_userToEnemy.push([userMove.psID, result.fullDesc()]);
+            if (userMove.priority > maxPriority_userToEnemy) {
+              maxPriority_userToEnemy = userMove.priority;
+            }
           }
         }
+        // Occurs as a result of kochance() when move does no damage
         catch (e) {
         }
       }
       userToEnemy = {
-        movePSID: movePSID_userToEnemy,
-        minHits: minHits_userToEnemy,
-        display: display_userToEnemy,
-        priority: priority_userToEnemy,
+        moveInfo: moveInfo_userToEnemy,
+        minHits: minHits_userToEnemy < Number.MAX_SAFE_INTEGER
+          ? minHits_userToEnemy
+          : 0,
+        maxPriority: maxPriority_userToEnemy,
       };
 
       // Compute enemyToUser
       let enemyToUser: DamageMatchupSummary;
-      let movePSID_enemyToUser: string = '';
+      let moveInfo_enemyToUser: [string, string][] = [];
       let minHits_enemyToUser: number = Number.MAX_SAFE_INTEGER;
-      let display_enemyToUser: string = 'No damaging moves.';
-      let priority_enemyToUser = 0;
+      let maxPriority_enemyToUser: number = Number.MIN_SAFE_INTEGER;
+
       for (let enemyMove of enemyMoves) {
         try {
           const result = calcDamage({
@@ -164,21 +172,28 @@ export function calcDamageMatchup ({
           const hits = result.kochance().n;
   
           // If number of hits is strictly smaller, OR if number of hits is the same, but higher priority, use current move instead of old move
-          if (hits < minHits_enemyToUser || (hits === minHits_enemyToUser && enemyMove.priority > priority_enemyToUser)) {
-            movePSID_enemyToUser = enemyMove.psID;
+          if (hits !== 0 && hits < minHits_enemyToUser) {
+            moveInfo_enemyToUser = [[enemyMove.psID, result.fullDesc()]];
             minHits_enemyToUser = hits;
-            display_enemyToUser = result.fullDesc();
-            priority_userToEnemy = enemyMove.priority;
+            maxPriority_enemyToUser = enemyMove.priority;
+          }
+          else if (hits === minHits_enemyToUser) {
+            moveInfo_enemyToUser.push([enemyMove.psID, result.fullDesc()]);
+            if (enemyMove.priority > maxPriority_enemyToUser) {
+              maxPriority_enemyToUser = enemyMove.priority;
+            }
           }
         }
+        // Occurs when move does no damage
         catch (e) {
         }
       }
       enemyToUser = {
-        movePSID: movePSID_enemyToUser,
-        minHits: minHits_enemyToUser,
-        display: display_enemyToUser,
-        priority: priority_enemyToUser
+        moveInfo: moveInfo_enemyToUser,
+        minHits: minHits_enemyToUser < Number.MAX_SAFE_INTEGER
+          ? minHits_enemyToUser
+          : 0,
+        maxPriority: maxPriority_enemyToUser,
       };
 
       const outSpeed = userMember.baseStats.speed > enemyMember.baseStats.speed;
