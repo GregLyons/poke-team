@@ -1,6 +1,7 @@
-import { useCallback, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useIsFirstRender } from "usehooks-ts";
 import { MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
-import { DamageMatchupResult } from "../../../../utils/damageCalc";
+import { DamageMatchupResult, rateDamageMatchupResult } from "../../../../utils/damageCalc";
 
 type VersusMatchupCellProps = {
   result: DamageMatchupResult | null
@@ -71,11 +72,11 @@ const VersusMatchupCell = ({
   const userToEnemyMinHitText: string = useMemo(() => {
     if (result === null) return '';
 
-    if (result.userToEnemy.minHits === 0) return '--';
+    if (result.userToEnemy.minHits === 0) return '---';
 
     return result.userToEnemy.minHits < 10
       ? '' + result.userToEnemy.minHits
-      : '!!'
+      : '10+'
   }, [result]);
 
   const enemyToUserGuaranteed: string = useMemo(() => {
@@ -92,16 +93,28 @@ const VersusMatchupCell = ({
   const enemyToUserMinHitText: string = useMemo(() => {
     if (result === null) return '';
 
-    if (result.enemyToUser.minHits === 0) return '--';
+    if (result.enemyToUser.minHits === 0) return '---';
 
     return result.enemyToUser.minHits < 10
       ? '' + result.enemyToUser.minHits
-      : '!!'
+      : '10+'
   }, [result]);
   
-  const rateMatchup = useCallback(() => {
-    
+  const rateMatchup = useMemo(() => {
+    return rateDamageMatchupResult(result);
   }, [result]);
+
+  // Don't run following effect on first render
+  const isFirst = useIsFirstRender();
+
+  // 
+  const [highlightChange, setHighlightChange] = useState<boolean>(false);
+
+  // When significant change in cell occurs (number of hits changes, outcome goes from possible to guaranteed, etc.), highlight it briefly
+  useEffect(() => {
+    setHighlightChange(true);
+    setTimeout(() => setHighlightChange(false), 2500);
+  }, [userToEnemyGuaranteed, userToEnemyMinHitText, enemyToUserGuaranteed, enemyToUserMinHitText, ]);
   
   return (
     <>
@@ -111,6 +124,14 @@ const VersusMatchupCell = ({
             versus-matchup__cell
             ${emphasizeCell
               ? '--emph'
+              : ''
+            }
+            ${!isFirst && highlightChange
+              ? '--changed'
+              : ''
+            }
+            ${rateMatchup !== 0
+              ? '--' + rateMatchup
               : ''
             }
           `}
@@ -123,15 +144,15 @@ const VersusMatchupCell = ({
             className="versus-matchup__user-to-enemy"
             title={result?.userToEnemy.moveInfo.map(([movePSID, display]) => display).join('\n') || 'Cannot do damage.'}
           >
-            U: {userToEnemyGuaranteed}{userToEnemyMinHitText}
+            U: {userToEnemyGuaranteed} {userToEnemyMinHitText}
           </div>
           <div className="versus-matchup__outspeed-wrapper">
-            {result.outSpeed === true
+            {result.moveFirst === true
               ? <div
                   title="You outspeed."
                   className="versus-matchup__outspeed"
                 />
-              : result.outSpeed === false
+              : result.moveFirst === false
                 ? <div
                     title="You're outsped."
                     className="versus-matchup__outsped"
@@ -152,7 +173,7 @@ const VersusMatchupCell = ({
             className="versus-matchup__enemy-to-user"
             title={result?.enemyToUser.moveInfo.map(([movePSID, display]) => display).join('\n') || 'Cannot do damage.'}
           >
-            E: {enemyToUserGuaranteed}{enemyToUserMinHitText}
+            E: {enemyToUserGuaranteed} {enemyToUserMinHitText}
           </div>
         </div>
       : <div className="versus-matchup__cell" />}

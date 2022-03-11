@@ -48,6 +48,7 @@ export const POPUP_ABILITY_QUERY = gql`
             name
             formattedName
             psID
+            formattedPSID
 
             introduced {
               id
@@ -104,6 +105,7 @@ export const POPUP_ITEM_QUERY = gql`
           name
           formattedName
           psID
+          formattedPSID
 
           introduced {
             edges {
@@ -162,6 +164,7 @@ export const POPUP_MOVE_QUERY = gql`
             name
             formattedName
             psID
+            formattedPSID
 
             introduced {
               id
@@ -177,6 +180,7 @@ export const POPUP_MOVE_QUERY = gql`
             accuracy
             category
             typeName
+            priority
 
             removedFromSwSh
             removedFromBDSP
@@ -189,6 +193,7 @@ export const POPUP_MOVE_QUERY = gql`
                   name
                   formattedName
                   psID
+                  formattedPSID
 
                   introduced {
                     edges {

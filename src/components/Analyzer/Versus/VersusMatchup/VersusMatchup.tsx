@@ -88,11 +88,15 @@ const VersusMatchup = ({
     return;
   }
   
-  const damageMatchup = useMemo(() => calcDamageMatchup({
-    userPokemon,
-    enemyPokemon,
-    gen,
-  }), [userPokemon, enemyPokemon, gen]);
+  const damageMatchup = useMemo(() => {
+    console.log('Recalculating damage matchup');
+    
+    return calcDamageMatchup({
+      userPokemon,
+      enemyPokemon,
+      gen,
+    });
+  }, [userPokemon, enemyPokemon, gen]);
 
   return (
     <div

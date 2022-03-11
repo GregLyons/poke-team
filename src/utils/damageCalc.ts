@@ -15,6 +15,7 @@ export const MEMBERPOKEMON_TO_SMOGONPOKEMON: (
   const abilityName = ability?.formattedPSID;
   const itemName = item?.formattedPSID
   const moveNames = (moves.map(move => move !== null ? move?.formattedPSID : undefined).filter(move => move) as string[]);
+
   const natureName = nature?.formattedName;
 
   return new Pokemon(gen, formattedPSID, {
@@ -74,8 +75,118 @@ export type DamageMatchupResult = {
   enemyPSID: string
   userToEnemy: DamageMatchupSummary
   enemyToUser: DamageMatchupSummary
-  outSpeed: boolean | null
+  moveFirst: boolean | null
 }
+
+// Rate matchup 1-5, 1 being bad for user, 5 being good for user; 0 for when we don't want to give opinion
+export const rateDamageMatchupResult = (result: DamageMatchupResult | null) => {
+  if (result === null) return 0;
+
+  const { userToEnemy, enemyToUser, moveFirst } = result;
+  
+  let userGuaranteed = false;
+  for (let [_, display] of result.userToEnemy.moveInfo) {
+    if (display.includes('guaranteed')) userGuaranteed = true;
+  }
+  let enemyGuaranteed = false;
+  for (let [_, display] of result.enemyToUser.moveInfo) {
+    if (display.includes('guaranteed')) enemyGuaranteed = true;
+  }
+
+  // User move-first and OHKO
+  if (moveFirst && userToEnemy.minHits === 1) {
+    // Guaranteed
+    if (userGuaranteed) return 5;
+
+    // Not guaranteed
+
+    // Enemy can OHKO; risky
+    if (enemyToUser.minHits === 1) return 3;
+
+    // Enemy can't OHKO
+    return 4;
+  }
+
+  // Enemy move-first and OHKO
+  if (moveFirst === false && enemyToUser.minHits === 1) {
+    // Guaranteed
+    if (enemyGuaranteed) return 1;
+
+    // Not guaranteed
+
+    // User can OHKO, but still risky
+    if (userToEnemy.minHits === 1) return 2;
+
+    // User can't OHKO
+    return 1;
+  }
+
+  // User guaranteed OHKO, and enemy can't OHKO
+  if (userToEnemy.minHits === 1 && userGuaranteed) return 4;
+
+  // Enemy guaranteed OHKO, and user can't OHKO
+  if (enemyToUser.minHits === 1 && enemyGuaranteed) return 2;
+
+  // User walls
+  let userWalls = false;
+  if (enemyToUser.minHits > 4) {
+    userWalls = true;
+  }
+
+  // Enemy walls
+  let enemyWalls = false;
+  if (userToEnemy.minHits > 4) {
+    enemyWalls = true;
+  }
+
+  // If both Pokemon wall each other, it's a wash
+  if (userWalls && enemyWalls) return 3;
+
+  // User walls enemy, but enemy doesn't wall user
+  if (userWalls && !enemyWalls) return 4;
+
+  // Enemy walls user, but user doesn't wall enemy
+  if (!userWalls && enemyWalls) return 2;
+
+  // Neither user nor enemy walls
+
+  // User moves first
+  if (moveFirst) {
+    // User KOs enemy in fewer hits, or guaranteed equal hits
+    if (userToEnemy.minHits < enemyToUser.minHits || userToEnemy.minHits === enemyToUser.minHits && userGuaranteed) return 4;
+
+    // Enemy KOs user in one fewer hit, or possible equal hits
+    if (userToEnemy.minHits - enemyToUser.minHits <= 1) return 3;
+
+    // Enemy KOs user in two or more fewer hits
+    return 2;
+  }
+
+  // Enemy moves first
+  if (moveFirst === false) {
+    // Enemy KOs user in fewer hits, or guaranteed equal hits
+    if (enemyToUser.minHits < userToEnemy.minHits || enemyToUser.minHits === userToEnemy.minHits && enemyGuaranteed) return 2;
+
+    // User KOs enemy in one fewer hit, or possible equal hits
+    if (userToEnemy.minHits - enemyToUser.minHits <= 1) return 3;
+
+    // User KOs enemy in two or more fewer hits
+    return 4;
+  }
+  
+  // Speed-tie
+  if (moveFirst === null) {
+
+    // Enemy can kill user in equal or fewer hits
+    if (enemyToUser.minHits <= userToEnemy.minHits) return 2;
+
+    // User can kill enemy in fewer hits
+    return 3;
+  }
+
+  // Otherwise, return nothing
+  return 0;
+};
 
 export function calcDamageMatchup ({
   userPokemon,
@@ -191,7 +302,7 @@ export function calcDamageMatchup ({
           memberMove: enemyMove,
           gen,
         });
-      
+        
         let hits = Number.MAX_SAFE_INTEGER;
         try {
           // Returns number between 0 and 9
@@ -248,13 +359,37 @@ export function calcDamageMatchup ({
           ? null
           : false;
 
+      const outPriority = userToEnemy.maxPriority > enemyToUser.maxPriority
+        ? true
+        : userToEnemy.maxPriority === enemyToUser.maxPriority
+          ? null
+          : false;
+      
+      const moveFirst = outPriority
+        // User has higher priority
+        ? true
+        // User has equal or lower priority
+        : outPriority === null
+          // Equal priority
+          ? outSpeed
+            // User has higher speed
+            ? true
+            // User has equal or lower speed
+            : outSpeed === null
+              // Speed-tie
+              ? null
+              // Enemy out-speeds
+              : false
+          // Enemy has higher priority
+          : false;
+
       // Add data to array
       resultRow.push({
         userPSID: userMember.psID,
         enemyPSID: enemyMember.psID,
         userToEnemy,
         enemyToUser,
-        outSpeed,
+        moveFirst,
       });
     }
     

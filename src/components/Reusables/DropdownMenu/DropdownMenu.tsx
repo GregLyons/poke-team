@@ -88,32 +88,28 @@ function DropdownMenu<E extends Item<F>, F>({
           ? <FontAwesome name="angle-up"/>
           : <FontAwesome name="angle-down"/>}
       </button>
-      <div
+      {isActive && <div
         className={classWithBGControl("dropdown__content-wrapper", backgroundLight)}
         ref={dropdownRef}
         style={{
           width: dropdownWidth,
           minWidth: `min-content`,
-          height: isActive
-            ? 'auto'
-            : 0,
+          height: 'auto',
           top: triggerHeight 
             ? triggerHeight
             : '',
           left: dropdownRef.current && triggerRef.current
             ? -dropdownRef.current.scrollWidth + triggerRef.current.scrollWidth
             : '',
-          boxShadow: isActive
-            ? `
-                5px 5px 2px 2px rgba(0, 0, 0, 0.8),
-                ${backgroundLight === 'blue'
-                  ? 'var(--bg-control-blue)'
-                  : backgroundLight === 'green'
-                    ? 'var(--bg-control-green)'
-                    : 'var(--bg-control-red)'
-                }
-              `
-            : '',
+          boxShadow: `
+            5px 5px 2px 2px rgba(0, 0, 0, 0.8),
+            ${backgroundLight === 'blue'
+              ? 'var(--bg-control-blue)'
+              : backgroundLight === 'green'
+                ? 'var(--bg-control-green)'
+                : 'var(--bg-control-red)'
+            }
+          `
         }}
       >
         <ul 
@@ -141,7 +137,7 @@ function DropdownMenu<E extends Item<F>, F>({
             )
           })}
         </ul>
-      </div>
+      </div>}
     </div>
   );
 }
