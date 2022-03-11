@@ -74,7 +74,7 @@ export type DamageMatchupResult = {
   enemyPSID: string
   userToEnemy: DamageMatchupSummary
   enemyToUser: DamageMatchupSummary
-  outSpeed: boolean
+  outSpeed: boolean | null
 }
 
 export function calcDamageMatchup ({
@@ -122,29 +122,52 @@ export function calcDamageMatchup ({
       let maxPriority_userToEnemy: number = Number.MIN_SAFE_INTEGER;
 
       for (let userMove of userMoves) {
+        const result = calcDamage({
+          attacker: userMember,
+          defender: enemyMember,
+          memberMove: userMove,
+          gen,
+        });
+        
+        let hits = Number.MAX_SAFE_INTEGER;
         try {
-          const result = calcDamage({
-            attacker: userMember,
-            defender: enemyMember,
-            memberMove: userMove,
-            gen});
-          
-          const hits = result.kochance().n;
+          // Returns number between 0 and 9
+          hits = result.kochance().n;
 
-          if (hits !== 0 && hits < minHits_userToEnemy) {
-            moveInfo_userToEnemy = [[userMove.psID, result.fullDesc()]];
-            minHits_userToEnemy = hits;
-            maxPriority_userToEnemy = userMove.priority;
-          }
-          else if (hits === minHits_userToEnemy) {
-            moveInfo_userToEnemy.push([userMove.psID, result.fullDesc()]);
-            if (userMove.priority > maxPriority_userToEnemy) {
-              maxPriority_userToEnemy = userMove.priority;
-            }
+          // Indicates move does damage but needs more than 9 hits
+          if (hits === 0) {
+            hits = 10;
           }
         }
-        // Occurs as a result of kochance() when move does little-to-no damage
-        catch (e) {
+        // Occurs as a result of kochance() when move does no damage
+        catch {
+          hits = 0;
+        }
+
+        if (hits !== 0 && hits < minHits_userToEnemy) {
+          try {
+            moveInfo_userToEnemy = [[userMove.psID, result.fullDesc()]];
+          }
+          // Occurs as a result of an inner call to kochance() when move does little-to-no damage
+          catch {
+            moveInfo_userToEnemy = [[userMove.psID, 'Does very little damage.']];
+          }
+
+          minHits_userToEnemy = hits;
+          maxPriority_userToEnemy = userMove.priority;
+        }
+        else if (hits === minHits_userToEnemy) {
+          try {
+            moveInfo_userToEnemy.push([userMove.psID, result.fullDesc()]);
+          }
+          // Occurs as a result of an inner call to kochance() when move does little-to-no damage
+          catch {
+            moveInfo_userToEnemy.push([userMove.psID, 'Does very little damage.']);
+          }
+
+          if (userMove.priority > maxPriority_userToEnemy) {
+            maxPriority_userToEnemy = userMove.priority;
+          }
         }
       }
       userToEnemy = {
@@ -162,30 +185,53 @@ export function calcDamageMatchup ({
       let maxPriority_enemyToUser: number = Number.MIN_SAFE_INTEGER;
 
       for (let enemyMove of enemyMoves) {
+        const result = calcDamage({
+          attacker: enemyMember,
+          defender: userMember,
+          memberMove: enemyMove,
+          gen,
+        });
+      
+        let hits = Number.MAX_SAFE_INTEGER;
         try {
-          const result = calcDamage({
-            attacker: enemyMember,
-            defender: userMember,
-            memberMove: enemyMove,
-            gen});
-  
-          const hits = result.kochance().n;
-  
-          // If number of hits is strictly smaller, OR if number of hits is the same, but higher priority, use current move instead of old move
-          if (hits !== 0 && hits < minHits_enemyToUser) {
-            moveInfo_enemyToUser = [[enemyMove.psID, result.fullDesc()]];
-            minHits_enemyToUser = hits;
-            maxPriority_enemyToUser = enemyMove.priority;
-          }
-          else if (hits === minHits_enemyToUser) {
-            moveInfo_enemyToUser.push([enemyMove.psID, result.fullDesc()]);
-            if (enemyMove.priority > maxPriority_enemyToUser) {
-              maxPriority_enemyToUser = enemyMove.priority;
-            }
+          // Returns number between 0 and 9
+          hits = result.kochance().n;
+          
+          // Indicates move does damage but needs more than 9 hits
+          if (hits === 0) {
+            hits = 10;
           }
         }
-        // Occurs when move does little-to-no damage
-        catch (e) {
+        // Occurs when move does no damage
+        catch {
+          hits = 0;
+        }
+
+        // If number of hits is strictly smaller, OR if number of hits is the same, but higher priority, use current move instead of old move
+        if (hits !== 0 && hits < minHits_enemyToUser) {
+          try {
+            moveInfo_enemyToUser = [[enemyMove.psID, result.fullDesc()]];
+          }
+          // Occurs as a result of an inner call to kochance() when move does little-to-no damage
+          catch {
+            moveInfo_enemyToUser = [[enemyMove.psID, 'Does very little damage.']];
+          }
+
+          minHits_enemyToUser = hits;
+          maxPriority_enemyToUser = enemyMove.priority;
+        }
+        else if (hits === minHits_enemyToUser) {
+          try {
+            moveInfo_enemyToUser.push([enemyMove.psID, result.fullDesc()]);
+          }
+          // Occurs as a result of an inner call to kochance() when move does little-to-no damage
+          catch {
+            moveInfo_enemyToUser.push([enemyMove.psID, 'Does very little damage.']);
+          }
+
+          if (enemyMove.priority > maxPriority_enemyToUser) {
+            maxPriority_enemyToUser = enemyMove.priority;
+          }
         }
       }
       enemyToUser = {
@@ -196,7 +242,11 @@ export function calcDamageMatchup ({
         maxPriority: maxPriority_enemyToUser,
       };
 
-      const outSpeed = userMember.baseStats.speed > enemyMember.baseStats.speed;
+      const outSpeed = userMember.computeSpeed() > enemyMember.computeSpeed()
+        ? true
+        : userMember.computeSpeed() === enemyMember.computeSpeed()
+          ? null
+          : false;
 
       // Add data to array
       resultRow.push({

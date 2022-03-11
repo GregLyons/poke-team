@@ -72,6 +72,7 @@ const VersusMatchupRow = ({
       <div
         className={`
           versus-matchup__icon
+          versus-matchup__icon--you
           ${rowEmph === rowIdx
             ? '--emph'
             : ''

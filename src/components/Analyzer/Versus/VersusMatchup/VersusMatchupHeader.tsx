@@ -59,6 +59,7 @@ const VersusMatchupHeader = ({
         key={columnIdx}
         className={`
           versus-matchup__icon
+          versus-matchup__icon--them
           ${colEmph === columnIdx
             ? '--emph'
             : ''
