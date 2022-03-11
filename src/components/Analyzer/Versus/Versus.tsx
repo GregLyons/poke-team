@@ -15,13 +15,18 @@ type VersusProps = {
   enemyTeam: Team
 };
 
+export type VersusPSIDObject = {
+  user: MemberPSIDObject
+  enemy: MemberPSIDObject
+} | null;
+
 const Versus = ({
   dispatches,
   filters,
   team,
   enemyTeam,
 }: VersusProps) => {
-  const [relevantNames, setRelevantNames] = useState<{ user: MemberPSIDObject, enemy: MemberPSIDObject, } | null>(null);
+  const [relevantNames, setRelevantNames] = useState<VersusPSIDObject>(null);
   const [isPopupActive, setIsPopupActive] = useState<boolean>(false);
 
   // Helper function so that we don't have to keep checking 'whichTeam' parameter in our other functions that update relevantNames
@@ -77,7 +82,7 @@ const Versus = ({
     };
   };
 
-  const onMouseOver = (newRelevantNames: { user: MemberPSIDObject, enemy: MemberPSIDObject, } | null) => {
+  const onMouseOver = (newRelevantNames: VersusPSIDObject) => {
     return (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLDivElement, Element>) => {
       e.preventDefault();
       if (!isPopupActive && newRelevantNames !== null) return setRelevantNames(newRelevantNames);

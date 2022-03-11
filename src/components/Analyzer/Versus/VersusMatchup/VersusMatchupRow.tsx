@@ -2,12 +2,13 @@ import { useMemo } from "react";
 import { MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
 import { DUMMY_POKEMON_ICON_DATUM } from "../../../../types-queries/helpers";
 import { MemberPokemon } from "../../../../types-queries/Member/MemberPokemon";
-import { DamageMatchupResult } from "../../../../utils/damageCalc";
+import { DamageMatchupResult, resultToStatPSIDs } from "../../../../utils/damageCalc";
 import PokemonIcon from "../../../Icons/PokemonIcon";
 import VersusMatchupCell from "./VersusMatchupCell";
 
 type VersusMatchupRowProps = {
   userMember: MemberPokemon | null
+  enemyMembers: (MemberPokemon | null)[]
   resultRow: (DamageMatchupResult | null)[]
 
   onCellMouseOver: (rowIdx: number, colIdx: number) => (newRelevantNames: { user: MemberPSIDObject, enemy: MemberPSIDObject} | null) => (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLDivElement, Element>) => void
@@ -23,6 +24,7 @@ type VersusMatchupRowProps = {
 
 const VersusMatchupRow = ({
   userMember,
+  enemyMembers,
   resultRow,
 
   onCellMouseOver,
@@ -46,22 +48,25 @@ const VersusMatchupRow = ({
     // If no results, return
     if (rowResults.length === 0) return null;
     
+    // Row corresponds to single one of the user's members
     const userPSID = userMember.psID;
-    const userMovePSIDs: string[] = rowResults.reduce((movePSIDs, rowResult) => {
-      return movePSIDs.concat(rowResult.userToEnemy.moveInfo.map(([movePSID, display]) => movePSID));
+    const userPSIDs: string[] = rowResults.reduce((psIDs, rowResult) => {
+      const userStatPSIDs = resultToStatPSIDs(rowResult, 'user');
+      return psIDs.concat(userStatPSIDs).concat(rowResult.userToEnemy.moveInfo.map(([movePSID, _]) => movePSID));
     }, [] as string[]);
 
-
+    // Row includes all six enemies, one result per enemy
     const enemyMemberPSIDObject: MemberPSIDObject = rowResults.reduce((acc, rowResult) => {
+      const enemyStatPSIDs = resultToStatPSIDs(rowResult, 'enemy');
       return {
         ...acc,
-        [rowResult.enemyPSID]: rowResult.enemyToUser.moveInfo.map(([movePSID, display]) => movePSID),
+        [rowResult.enemyPSID]: rowResult.enemyToUser.moveInfo.map(([movePSID, _]) => movePSID).concat(enemyStatPSIDs),
       }
     }, {});
 
     return {
       user: {
-        [userPSID]: userMovePSIDs,
+        [userPSID]: userPSIDs,
       },
       enemy: enemyMemberPSIDObject,
     };
@@ -78,6 +83,11 @@ const VersusMatchupRow = ({
             : ''
           }
         `}
+        title={userMember?.formattedName
+          ? `Your ${userMember.formattedName} vs. enemy's team`
+          : ''
+        }
+
         onMouseOver={onRowMouseOver(relevantNames)}
         onFocus={onRowMouseOver(relevantNames)}
         onMouseLeave={onRowMouseLeave}
@@ -90,6 +100,9 @@ const VersusMatchupRow = ({
       </div>
       {resultRow.map((result, colIdx) => <VersusMatchupCell
         key={colIdx}
+        userFormattedName={userMember?.formattedName}
+        enemyFormattedName={enemyMembers[colIdx]?.formattedName}
+
         result={result}
         onCellMouseOver={onCellMouseOver}
         onCellMouseLeave={onCellMouseLeave}

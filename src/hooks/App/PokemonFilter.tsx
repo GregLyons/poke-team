@@ -1,4 +1,4 @@
-import { BaseStatName, StatTable } from "../../types-queries/entities";
+import { AbbreviatedBaseStatName, BaseStatName, StatTable } from "../../types-queries/entities";
 import { PokemonIconDatum, TypeName } from "../../types-queries/helpers";
 import { getTier, isSinglesTier } from "../../utils/smogonLogic";
 import { GenFilter } from "./GenFilter";
@@ -13,6 +13,15 @@ export const BASE_STAT_NAMES: BaseStatName[] = [
   'specialDefense',
   'speed',
 ]
+
+export const ABBREVIATED_BASE_STAT_NAMES: AbbreviatedBaseStatName[] = [
+  'HP',
+  'Atk',
+  'Def',
+  'SpA',
+  'SpD',
+  'Spe',
+];
 
 export const TYPE_NAMES: TypeName[] = [
   'normal',

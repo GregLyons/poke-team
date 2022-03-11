@@ -3,6 +3,7 @@ import { MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
 import { GenNum } from "../../../../types-queries/entities";
 import { MemberPokemon } from "../../../../types-queries/Member/MemberPokemon";
 import { calcDamageMatchup } from "../../../../utils/damageCalc";
+import { VersusPSIDObject } from "../Versus";
 import './VersusMatchup.css';
 import VersusMatchupHeader from "./VersusMatchupHeader";
 import VersusMatchupRow from "./VersusMatchupRow";
@@ -29,7 +30,7 @@ const VersusMatchup = ({
   
   // Activates when hovering over row (user member) icon: relevantNames uses all the matchups in the row
   const onRowMouseOver = (rowIdx: number) => {
-    return (relevantNames: { user: MemberPSIDObject, enemy: MemberPSIDObject, } | null) => {
+    return (relevantNames: VersusPSIDObject) => {
       return (e: React.MouseEvent<HTMLElement, MouseEvent>| React.FocusEvent<HTMLDivElement, Element>) => {
         e.preventDefault();
 
@@ -49,7 +50,7 @@ const VersusMatchup = ({
   };
 
   // Activates when hovering over column (enemy member) icon: relevantNames uses all the matchups in the row
-  const onColumnMouseOver = (colIdx: number, relevantNames: { user: MemberPSIDObject, enemy: MemberPSIDObject, } | null) => {
+  const onColumnMouseOver = (colIdx: number, relevantNames: VersusPSIDObject) => {
     return (e: React.MouseEvent<HTMLElement, MouseEvent>| React.FocusEvent<HTMLDivElement, Element>) => {
       e.preventDefault();
 
@@ -69,7 +70,7 @@ const VersusMatchup = ({
 
   // Activates when hovering over cell in table
   const onCellMouseOver = (rowIdx: number, colIdx: number) => {
-    return (relevantNames: { user: MemberPSIDObject, enemy: MemberPSIDObject, } | null) => {
+    return (relevantNames: VersusPSIDObject) => {
       return (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLDivElement, Element>) => {
         e.preventDefault();
 
@@ -89,8 +90,6 @@ const VersusMatchup = ({
   }
   
   const damageMatchup = useMemo(() => {
-    console.log('Recalculating damage matchup');
-    
     return calcDamageMatchup({
       userPokemon,
       enemyPokemon,
@@ -115,6 +114,7 @@ const VersusMatchup = ({
       {damageMatchup.map((resultRow, rowIdx) => <VersusMatchupRow
         key={rowIdx}
         userMember={userPokemon[rowIdx]}
+        enemyMembers={enemyPokemon}
         resultRow={resultRow}
         
         onCellMouseOver={onCellMouseOver}

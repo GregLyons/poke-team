@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { useIsFirstRender } from "usehooks-ts";
 import { MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
-import { DamageMatchupResult, rateDamageMatchupResult } from "../../../../utils/damageCalc";
+import { DamageMatchupResult, rateDamageMatchupResult, resultToStatPSIDs } from "../../../../utils/damageCalc";
 
 type VersusMatchupCellProps = {
   result: DamageMatchupResult | null
+  userFormattedName: string | undefined
+  enemyFormattedName: string | undefined
 
   onCellMouseOver: (rowIdx: number, colIdx: number) => (newRelevantNames: { user: MemberPSIDObject, enemy: MemberPSIDObject} | null) => (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLDivElement, Element>) => void
   onCellMouseLeave: () => void
@@ -17,6 +19,9 @@ type VersusMatchupCellProps = {
 
 const VersusMatchupCell = ({
   result,
+  userFormattedName,
+  enemyFormattedName,
+
   onCellMouseOver,
   onCellMouseLeave,
 
@@ -30,17 +35,19 @@ const VersusMatchupCell = ({
     if (result === null) return null;
     
     const userPSID = result.userPSID;
-    const userMovePSIDs: string[] = result.userToEnemy.moveInfo.map(([movePSID, display]) => movePSID);
+    const userMovePSIDs: string[] = result.userToEnemy.moveInfo.map(([movePSID, _]) => movePSID);
+    const userStatPSIDs = resultToStatPSIDs(result, 'user');
 
     const enemyPSID = result.enemyPSID;
-    const enemyMovePSIDs: string[] = result.enemyToUser.moveInfo.map(([movePSID, display]) => movePSID);
+    const enemyMovePSIDs: string[] = result.enemyToUser.moveInfo.map(([movePSID, _]) => movePSID);
+    const enemyStatPSIDs = resultToStatPSIDs(result, 'enemy');
 
     return {
       user: {
-        [userPSID]: userMovePSIDs,
+        [userPSID]: userMovePSIDs.concat(userStatPSIDs),
       },
       enemy: {
-        [enemyPSID]: enemyMovePSIDs,
+        [enemyPSID]: enemyMovePSIDs.concat(enemyStatPSIDs),
       },
     };
   }, [result]);
@@ -63,7 +70,7 @@ const VersusMatchupCell = ({
 
     if ([0, 10].includes(result.userToEnemy.minHits)) return '';
 
-    for (let [movePSID, display] of result.userToEnemy.moveInfo) {
+    for (let [_, display] of result.userToEnemy.moveInfo) {
       if (display.includes('guaranteed')) return 'G';
     }
     return 'P';
@@ -84,7 +91,7 @@ const VersusMatchupCell = ({
 
     if ([0,10].includes(result.enemyToUser.minHits)) return '';
 
-    for (let [movePSID, display] of result.enemyToUser.moveInfo) {
+    for (let [_, display] of result.enemyToUser.moveInfo) {
       if (display.includes('guaranteed')) return 'G';
     }
     return 'P';
@@ -120,6 +127,10 @@ const VersusMatchupCell = ({
     <>
     {result !== null 
       ? <div
+          title={userFormattedName && enemyFormattedName
+            ? `Your ${userFormattedName} vs. enemy's ${enemyFormattedName}`
+            : ``
+          }
           className={`
             versus-matchup__cell
             ${emphasizeCell

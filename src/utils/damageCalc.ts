@@ -1,5 +1,7 @@
 import { calculate, Generations, Move, Pokemon, Result } from "@smogon/calc";
-import { GenNum, StatTable } from "../types-queries/entities";
+import { ABBREVIATED_BASE_STAT_NAMES } from "../hooks/App/PokemonFilter";
+import { AbbreviatedBaseStatName, computeStat, GenNum, StatTable } from "../types-queries/entities";
+import { NatureName } from "../types-queries/Member/helpers";
 import { MemberMove } from "../types-queries/Member/MemberMove";
 import { MemberPokemon } from "../types-queries/Member/MemberPokemon";
 
@@ -61,9 +63,18 @@ export function calcDamage ({
   );
 };
 
+export type StatPSIDObject = {
+  // User's stats relevant to the interaction
+  user: (AbbreviatedBaseStatName | NatureName)[]
+  // Enemy's stats relevant to the interaction
+  enemy: (AbbreviatedBaseStatName | NatureName)[]
+}
+
 export type DamageMatchupSummary = {
   // First entry is movePSID, second entry is fullDesc() from the calculate function; only moves which achieve minHits have an entry
   moveInfo: [string, string][]
+  // List of stats relevant to the interaction, and may include nature
+  statInfo: StatPSIDObject
   // The minimum number of hits to KO the target
   minHits: number
   // The max priority of the moves in moveInfo, i.e. of the moves which achieve minHits
@@ -77,6 +88,71 @@ export type DamageMatchupResult = {
   enemyToUser: DamageMatchupSummary
   moveFirst: boolean | null
 }
+
+// True if the EVs/IVs/Nature of the user/enemy matter in determining whether one's speed is greater than the other's, false otherwise
+const speedStatMatters = (user: MemberPokemon, enemy: MemberPokemon, gen: GenNum) => {
+  const userMinSpeed = computeStat({
+    statName: 'speed',
+    level: user.level,
+    base: user.baseStats.speed,
+    natureModifiesStat: {
+      // Other stats irrelevant
+      boosts: null,
+      reduces: 'speed',
+    },
+    ev: 0,
+    ivOrDV: 0,
+    gen,
+    // Irrelevant to computation
+    isShedinja: false,
+  });
+
+  const userMaxSpeed = computeStat({
+    statName: 'speed',
+    level: user.level,
+    base: user.baseStats.speed,
+    natureModifiesStat: {
+      boosts: 'speed',
+      reduces: null,
+    },
+    ev: 252,
+    ivOrDV: gen > 2 ? 31 : 15,
+    gen,
+    isShedinja: false,
+  });
+
+  const enemyMinSpeed = computeStat({
+    statName: 'speed',
+    level: enemy.level,
+    base: enemy.baseStats.speed,
+    natureModifiesStat: {
+      boosts: null,
+      reduces: 'speed',
+    },
+    ev: 0,
+    ivOrDV: 0,
+    gen,
+    isShedinja: false,
+  });
+
+
+  const enemyMaxSpeed = computeStat({
+    statName: 'speed',
+    level: enemy.level,
+    base: enemy.baseStats.speed,
+    natureModifiesStat: {
+      boosts: 'speed',
+      reduces: null,
+    },
+    ev: 252,
+    ivOrDV: gen > 2 ? 31 : 15,
+    gen,
+    isShedinja: false,
+  });
+  
+  // !(user always faster than enemy OR user always slower than enemy)
+  return !(userMinSpeed >= enemyMaxSpeed || userMaxSpeed <= enemyMinSpeed);
+};
 
 // Rate matchup 1-5, 1 being bad for user, 5 being good for user; 0 for when we don't want to give opinion
 export const rateDamageMatchupResult = (result: DamageMatchupResult | null) => {
@@ -122,10 +198,22 @@ export const rateDamageMatchupResult = (result: DamageMatchupResult | null) => {
   }
 
   // User guaranteed OHKO, and enemy can't OHKO
-  if (userToEnemy.minHits === 1 && userGuaranteed) return 4;
+  if (userToEnemy.minHits === 1 && userGuaranteed) {
+    // Enemy needs 3 or more hits to KO user
+    if (enemyToUser.minHits > 2) return 5;
+
+    // Enemy can 2HKO user
+    return 4;
+  }
 
   // Enemy guaranteed OHKO, and user can't OHKO
-  if (enemyToUser.minHits === 1 && enemyGuaranteed) return 2;
+  if (enemyToUser.minHits === 1 && enemyGuaranteed) {
+    // User needs 3 or more hits to KO enemy
+    if (userToEnemy.minHits > 2) return 1;
+
+    // User can 2HKO enemy
+    return 2;
+  }
 
   // User walls
   let userWalls = false;
@@ -227,6 +315,8 @@ export function calcDamageMatchup ({
       const enemyMoves = enemyMember.moveset.filter(move => move !== null) as MemberMove[];
 
       // Compute userToEnemy
+      // #region
+      
       let userToEnemy: DamageMatchupSummary;
       let moveInfo_userToEnemy: [string, string][] = [];
       let minHits_userToEnemy: number = Number.MAX_SAFE_INTEGER;
@@ -281,15 +371,12 @@ export function calcDamageMatchup ({
           }
         }
       }
-      userToEnemy = {
-        moveInfo: moveInfo_userToEnemy,
-        minHits: minHits_userToEnemy < Number.MAX_SAFE_INTEGER
-          ? minHits_userToEnemy
-          : 0,
-        maxPriority: maxPriority_userToEnemy,
-      };
+
+      // #endregion
 
       // Compute enemyToUser
+      // #region
+
       let enemyToUser: DamageMatchupSummary;
       let moveInfo_enemyToUser: [string, string][] = [];
       let minHits_enemyToUser: number = Number.MAX_SAFE_INTEGER;
@@ -345,13 +432,11 @@ export function calcDamageMatchup ({
           }
         }
       }
-      enemyToUser = {
-        moveInfo: moveInfo_enemyToUser,
-        minHits: minHits_enemyToUser < Number.MAX_SAFE_INTEGER
-          ? minHits_enemyToUser
-          : 0,
-        maxPriority: maxPriority_enemyToUser,
-      };
+
+      // #endregion
+
+      // Determine movesFirst
+      // #region
 
       const outSpeed = userMember.computeSpeed() > enemyMember.computeSpeed()
         ? true
@@ -359,9 +444,9 @@ export function calcDamageMatchup ({
           ? null
           : false;
 
-      const outPriority = userToEnemy.maxPriority > enemyToUser.maxPriority
+      const outPriority = maxPriority_userToEnemy > maxPriority_enemyToUser
         ? true
-        : userToEnemy.maxPriority === enemyToUser.maxPriority
+        : maxPriority_userToEnemy === maxPriority_enemyToUser
           ? null
           : false;
       
@@ -383,7 +468,142 @@ export function calcDamageMatchup ({
           // Enemy has higher priority
           : false;
 
-      // Add data to array
+      // #endregion
+
+      // Determine relevant stats and add them to psIDs
+      // #region
+
+      // If priorities are unequal, speed doesn't matter
+      const speedMatters = maxPriority_userToEnemy === maxPriority_enemyToUser;
+
+      // If speed matters, and if the min-max speed range of the user and enemy overlap, then the speed stat matters in the turn order
+      const speedMattersToTurnOrder = speedMatters && speedStatMatters(userMember, enemyMember, gen);
+
+      const defaultObj: StatPSIDObject = {
+        user: speedMattersToTurnOrder
+          ? ['Spe']
+          : [],
+        enemy: speedMattersToTurnOrder
+          ? ['Spe']
+          : [],
+      };
+
+      // userToEnemy stats
+      const userToEnemyStatPSIDs: StatPSIDObject = moveInfo_userToEnemy.reduce((acc, [_, display]) => {
+        // In userToEnemy, display is of the form [user info] vs. [enemy info]: [other info]
+        const displayParts = display.split(/vs\.|\:/);
+
+        if (displayParts.length === 0) return acc;
+
+        const userPart = displayParts[0];
+        const userStats: AbbreviatedBaseStatName[] = [];
+        for (let baseStatName of ABBREVIATED_BASE_STAT_NAMES) {
+          if (userPart.includes(baseStatName)) userStats.push(baseStatName);
+        }
+
+        // If userPart or enemyPart has '+' or '-', then their nature is relevant to the interaction; if speed matters, then also highlight nature
+        let userNature: NatureName | undefined;
+        if (userPart.includes('+') || userPart.includes('-') || speedMattersToTurnOrder) {
+          userNature = userMember.nature?.name;
+        }
+
+        // Shouldn't happen
+        if (displayParts.length === 1) return {
+          ...acc,
+          user: userNature
+            ? acc.user.concat(userStats).concat([userNature])
+            : acc.user.concat(userStats),
+        }
+
+        const enemyPart = displayParts[1];
+        const enemyStats: AbbreviatedBaseStatName[] = [];
+        for (let baseStatName of ABBREVIATED_BASE_STAT_NAMES) {
+          if (enemyPart.includes(baseStatName)) enemyStats.push(baseStatName);
+        }
+
+        let enemyNature: NatureName | undefined;
+        if (enemyPart.includes('+') || enemyPart.includes('-') || speedMattersToTurnOrder) {
+          enemyNature = enemyMember.nature?.name;
+        }
+
+        return {
+          user: userNature
+            ? acc.user.concat(userStats).concat([userNature])
+            : acc.user.concat(userStats),
+          enemy: enemyNature
+            ? acc.enemy.concat(enemyStats).concat([enemyNature])
+            : acc.enemy.concat(enemyStats),
+        }
+      }, { ...defaultObj, });
+
+      const enemyToUserStatPSIDs: StatPSIDObject = moveInfo_enemyToUser.reduce((acc, [_, display]) => {
+        // In enemyToUser, display is of the form [enemy info] vs. [user info]: [other info]
+        const displayParts = display.split(/vs\.|\:/);
+        
+        if (displayParts.length === 0) return acc;
+
+        const enemyPart = displayParts[0];
+        const enemyStats: AbbreviatedBaseStatName[] = [];
+        for (let baseStatName of ABBREVIATED_BASE_STAT_NAMES) {
+          if (enemyPart.includes(baseStatName)) enemyStats.push(baseStatName);
+        }
+        
+        // If userPart or enemyPart has '+' or '-', then their nature is relevant to the interaction
+        let enemyNature: NatureName | undefined;
+        if (enemyPart.includes('+') || enemyPart.includes('-') || speedMattersToTurnOrder) {
+          enemyNature = enemyMember.nature?.name;
+        }
+
+        if (displayParts.length === 1) return {
+          ...acc,
+          enemy: enemyNature
+            ? acc.enemy.concat(enemyStats).concat([enemyNature])
+            : acc.enemy.concat(enemyStats),
+        }
+
+        const userPart = displayParts[1];
+        const userStats: AbbreviatedBaseStatName[] = [];
+        for (let baseStatName of ABBREVIATED_BASE_STAT_NAMES) {
+          if (userPart.includes(baseStatName)) userStats.push(baseStatName);
+        }
+
+        // If userPart or enemyPart has '+' or '-', then their nature is relevant to the interaction
+        let userNature: NatureName | undefined;
+        if (userPart.includes('+') || userPart.includes('-') || speedMattersToTurnOrder) {
+          userNature = userMember.nature?.name;
+        }
+
+        return {
+          user: userNature
+            ? acc.user.concat(userStats).concat([userNature])
+            : acc.user.concat(userStats),
+          enemy: enemyNature
+            ? acc.enemy.concat(enemyStats).concat([enemyNature])
+            : acc.enemy.concat(enemyStats),
+        }
+      }, { ...defaultObj, });
+
+
+      // #endregion
+
+      userToEnemy = {
+        moveInfo: moveInfo_userToEnemy,
+        statInfo: userToEnemyStatPSIDs,
+        minHits: minHits_userToEnemy < Number.MAX_SAFE_INTEGER
+          ? minHits_userToEnemy
+          : 0,
+        maxPriority: maxPriority_userToEnemy,
+      };
+
+      enemyToUser = {
+        moveInfo: moveInfo_enemyToUser,
+        statInfo: enemyToUserStatPSIDs,
+        minHits: minHits_enemyToUser < Number.MAX_SAFE_INTEGER
+          ? minHits_enemyToUser
+          : 0,
+        maxPriority: maxPriority_enemyToUser,
+      };
+
       resultRow.push({
         userPSID: userMember.psID,
         enemyPSID: enemyMember.psID,
@@ -398,3 +618,7 @@ export function calcDamageMatchup ({
 
   return results;
 };
+
+export const resultToStatPSIDs = (result: DamageMatchupResult, userOrEnemy: 'user' | 'enemy') => {
+  return result.userToEnemy.statInfo[userOrEnemy].concat(result.enemyToUser.statInfo[userOrEnemy]);
+}

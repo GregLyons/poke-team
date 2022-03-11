@@ -12,7 +12,6 @@ import TeamColumnAbility from "./TeamColumnAbility";
 import TeamColumnItem from "./TeamColumnItem";
 import TeamColumnMove from "./TeamColumnMove";
 import TeamColumnNature from "./TeamColumnNature";
-import TeamColumnSpread from "./TeamColumnSpread";
 
 type TeamColumnMemberProps = {
   teamDispatch: React.Dispatch<TeamAction>
@@ -166,56 +165,67 @@ const TeamColumnMember = ({
             onPopupClose={onPopupClose}
           />}
         </div>
-        <div className="team-column__spread">
-          {member && <>
-            <TeamColumnSpread
-              teamDispatch={teamDispatch}
-              filters={filters}
-  
-              member={member}
-              memberIdx={memberIdx}
-  
-              statTable={member.evs}
-              spreadMode={'ev'}
-              determineRelevance={determineRelevance}
-              onEntityClick={onEntityClick}
-              onPopupClose={onPopupClose}
-            />
-            <TeamColumnSpread
-              teamDispatch={teamDispatch}
-              filters={filters}
-  
-              member={member}
-              memberIdx={memberIdx}
-  
-              statTable={member.ivs}
-              spreadMode={'iv'}
-              determineRelevance={determineRelevance}
-              onEntityClick={onEntityClick}
-              onPopupClose={onPopupClose}
-            />
-          </>
-          }
-        </div>
         <div className="team-column__stats">
           {member && <>
-            <div className="team-column__stat-wrapper">
-              HP&nbsp; <span className="team-column__stat-name">{member.computeHP()}</span>
+            <div
+              className={`
+                team-column__stat-wrapper
+                ${determineRelevance('HP')}
+              `}
+            >
+              <span className="team-column__text">
+                HP&nbsp; {member.computeHP()}
+              </span>
             </div>
-            <div className="team-column__stat-wrapper">
-              Def <span className="team-column__stat-name">{member.computeDefense()}</span>
+            <div
+              className={`
+                team-column__stat-wrapper
+                ${determineRelevance('Def')}
+              `}
+            >
+              <span className="team-column__text">
+                Def {member.computeDefense()}
+              </span>
             </div>
-            <div className="team-column__stat-wrapper">
-              SpD <span className="team-column__stat-name">{member.computeSpecialDefense()}</span>
+            <div
+              className={`
+                team-column__stat-wrapper
+                ${determineRelevance('SpD')}
+              `}
+            >
+              <span className="team-column__text">
+                SpD {member.computeSpecialDefense()}
+              </span>
             </div>
-            <div className="team-column__stat-wrapper">
-              Atk <span className="team-column__stat-name">{member.computeAttack()}</span>
+            <div
+              className={`
+                team-column__stat-wrapper
+                ${determineRelevance('Atk')}
+              `}
+            >
+              <span className="team-column__text">
+                Atk {member.computeAttack()}
+              </span>
             </div>
-            <div className="team-column__stat-wrapper">
-              SpA <span className="team-column__stat-name">{member.computeSpecialAttack()}</span>
+            <div
+              className={`
+                team-column__stat-wrapper
+                ${determineRelevance('SpA')}
+              `}
+            >
+              <span className="team-column__text">
+                SpA {member.computeSpecialAttack()}
+              </span>
             </div>
-            <div className="team-column__stat-wrapper">
-              Spe <span className="team-column__stat-name">{member.computeSpeed()}</span>
+            <div
+              className={`
+                team-column__stat-wrapper
+                ${determineRelevance('Spe')}
+              `}
+            >
+              <span className="team-column__text">
+                Spe {member.computeSpeed()}
+              </span>
             </div>
           </>}
         </div>
