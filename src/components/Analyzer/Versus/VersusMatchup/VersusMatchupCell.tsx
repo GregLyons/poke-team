@@ -121,7 +121,7 @@ const VersusMatchupCell = ({
   useEffect(() => {
     setHighlightChange(true);
     setTimeout(() => setHighlightChange(false), 2500);
-  }, [userToEnemyGuaranteed, userToEnemyMinHitText, enemyToUserGuaranteed, enemyToUserMinHitText, ]);
+  }, [userToEnemyGuaranteed, userToEnemyMinHitText, enemyToUserGuaranteed, enemyToUserMinHitText, result?.moveFirst]);
   
   return (
     <>
@@ -160,12 +160,12 @@ const VersusMatchupCell = ({
           <div className="versus-matchup__outspeed-wrapper">
             {result.moveFirst === true
               ? <div
-                  title="You outspeed."
+                  title="You move first."
                   className="versus-matchup__outspeed"
                 />
               : result.moveFirst === false
                 ? <div
-                    title="You're outsped."
+                    title="You move last."
                     className="versus-matchup__outsped"
                   />
                 : <>
