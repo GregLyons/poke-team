@@ -12,7 +12,6 @@ import TeamColumnAbility from "./TeamColumnAbility";
 import TeamColumnItem from "./TeamColumnItem";
 import TeamColumnMove from "./TeamColumnMove";
 import TeamColumnNature from "./TeamColumnNature";
-import TeamColumnStats from "./TeamColumnStats/TeamColumnStats";
 
 type TeamColumnMemberProps = {
   teamDispatch: React.Dispatch<TeamAction>
@@ -167,17 +166,68 @@ const TeamColumnMember = ({
           />}
         </div>
         <div className="team-column__stats">
-          {member && <TeamColumnStats
-            teamDispatch={teamDispatch}
-            filters={filters}
-
-            member={member}
-            memberIdx={memberIdx}
-
-            determineRelevance={determineRelevance}
-            onEntityClick={onEntityClick}
-            onPopupClose={onPopupClose}
-          />}
+          {member && <>
+            <div
+              className={`
+                team-column__stat-wrapper
+                ${determineRelevance('HP')}
+              `}
+            >
+              <span className="team-column__text">
+                HP&nbsp; {member.computeHP()}
+              </span>
+            </div>
+            <div
+              className={`
+                team-column__stat-wrapper
+                ${determineRelevance('Def')}
+              `}
+            >
+              <span className="team-column__text">
+                Def {member.computeDefense()}
+              </span>
+            </div>
+            <div
+              className={`
+                team-column__stat-wrapper
+                ${determineRelevance('SpD')}
+              `}
+            >
+              <span className="team-column__text">
+                SpD {member.computeSpecialDefense()}
+              </span>
+            </div>
+            <div
+              className={`
+                team-column__stat-wrapper
+                ${determineRelevance('Atk')}
+              `}
+            >
+              <span className="team-column__text">
+                Atk {member.computeAttack()}
+              </span>
+            </div>
+            <div
+              className={`
+                team-column__stat-wrapper
+                ${determineRelevance('SpA')}
+              `}
+            >
+              <span className="team-column__text">
+                SpA {member.computeSpecialAttack()}
+              </span>
+            </div>
+            <div
+              className={`
+                team-column__stat-wrapper
+                ${determineRelevance('Spe')}
+              `}
+            >
+              <span className="team-column__text">
+                Spe {member.computeSpeed()}
+              </span>
+            </div>
+          </>}
         </div>
       </>}
     </div>
