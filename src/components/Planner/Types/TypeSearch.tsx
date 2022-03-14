@@ -53,9 +53,9 @@ const listFilter = ({
   searchBar,
 }: ListFilterArgs<TypeSearchVars>) => {
   return (
-    <form>
+    <>
       {searchBar}
-    </form>
+    </>
   );
 }
 

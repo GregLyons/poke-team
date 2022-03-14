@@ -52,9 +52,9 @@ const listFilter = ({
   // TODO: volatility
 
   return (
-    <form>
+    <>
       {searchBar}
-    </form>
+    </>
   );
 }
 

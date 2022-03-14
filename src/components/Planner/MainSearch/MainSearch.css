@@ -4,6 +4,9 @@
   height: 100%;
 }
 
+/* Results */
+/* #region */
+
 .planner-search__results-padder {
   position: relative;
   height: 100%;
@@ -15,3 +18,22 @@
   height: 100%;
   overflow-y: scroll;
 }
+
+/* #endregion */
+
+/* Filters */
+/* #region */
+
+.planner-search__filter {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 0.5rem 1rem;
+
+  background-color: rgba(var(--dark3-components), 0.5);
+  box-shadow: var(--control-shadow);
+  padding: 0.5rem;
+}
+
+/* #endregion */

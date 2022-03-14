@@ -50,9 +50,9 @@ const listFilter = ({
   searchBar,
 }: ListFilterArgs<UsageMethodSearchVars>) => {
   return (
-    <form>
+    <>
       {searchBar}
-    </form>
+    </>
   );
 }
 

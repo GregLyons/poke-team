@@ -48,7 +48,7 @@ const listFilter = ({
   const handleClassSelect = listToggleValue<EffectSearchVars, EffectClass>(queryVars, setQueryVars, 'effectClass');
 
   return (
-    <form>
+    <>
       {searchBar}
       <DropdownMenu
         title="CLASS"
@@ -75,11 +75,11 @@ const listFilter = ({
           };
         })}
         toggleSelect={handleClassSelect}
-        dropdownWidth={'clamp(5vw, 50ch, 80%)'}
+        dropdownWidth={'clamp(10vw, 15ch, 30%)'}
         itemWidth={'15ch'}
         backgroundLight="blue"
       />
-    </form>
+    </>
   );
 }
 

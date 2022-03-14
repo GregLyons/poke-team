@@ -8,14 +8,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
   
-  background: var(--dark2);
+  background-color: var(--dark2);
   cursor: pointer;
   padding: 0.25rem 0.5rem;
   border: none;
 }
 
-.dropdown__trigger:hover {
+.dropdown__trigger:hover,
+.dropdown__trigger:focus {
   filter: brightness(1.1);
 }
 

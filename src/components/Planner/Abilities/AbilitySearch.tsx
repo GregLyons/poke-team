@@ -49,9 +49,9 @@ const listFilter = ({
   searchBar,
 }: ListFilterArgs<AbilitySearchVars>) => {
   return (
-    <form>
+    <>
       {searchBar}
-    </form>
+    </>
   );
 }
 

@@ -1,5 +1,5 @@
 import {
-    Outlet
+  Outlet
 } from 'react-router-dom';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { TYPE_NAMES } from '../../../hooks/App/PokemonFilter';
@@ -7,12 +7,12 @@ import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRend
 import { MoveCategory, MoveTargetClass, MOVE_CATEGORY_MAP, MOVE_TARGETCLASS_MAP, MOVE_TYPE_MAP } from '../../../types-queries/entities';
 import { CapsTypeName, toCapsTypeName } from '../../../types-queries/helpers';
 import {
-    MoveInSearch, MoveSearchQuery,
-    MoveSearchResult,
-    MoveSearchVars, MOVE_SEARCH_QUERY
+  MoveInSearch, MoveSearchQuery,
+  MoveSearchResult,
+  MoveSearchVars, MOVE_SEARCH_QUERY
 } from '../../../types-queries/Planner/Move';
 import {
-    ENUMCASE_TO_TITLECASE
+  ENUMCASE_TO_TITLECASE
 } from '../../../utils/constants';
 import { Dispatches, Filters } from '../../App';
 import Button from '../../Reusables/Button/Button';
@@ -104,7 +104,7 @@ const listFilter = ({
   // TODO: variable power
 
   return (
-    <form>
+    <>
       {searchBar}
       {handleAccuracyRange && handlePowerRange && handlePPRange && handlePriorityRange && <DropdownMenu
         title="RANGES"
@@ -182,7 +182,7 @@ const listFilter = ({
             selected: true,
           }
         })}
-        dropdownWidth={'clamp(5vw, 50ch, 80%)'}
+        dropdownWidth={'clamp(10vw, 15ch, 30%)'}
         itemWidth={'100%'}
         backgroundLight="blue"
       />}
@@ -220,7 +220,7 @@ const listFilter = ({
           };
         })}
         toggleSelect={handleCategorySelect}
-        dropdownWidth={'clamp(5vw, 50ch, 80%)'}
+        dropdownWidth={'clamp(10vw, 15ch, 30%)'}
         itemWidth={'15ch'}
         backgroundLight="blue"
       />
@@ -249,7 +249,7 @@ const listFilter = ({
           }
         })}
         toggleSelect={handleTypeSelect}
-        dropdownWidth={'clamp(5vw, 50ch, 80%)'}
+        dropdownWidth={'clamp(10vw, 15ch, 30%)'}
         itemWidth={'10ch'}
         backgroundLight={"blue"}
       />
@@ -278,11 +278,11 @@ const listFilter = ({
           };
         })}
         toggleSelect={handleTargetClassSelect}
-        dropdownWidth={'clamp(5vw, 50ch, 80%)'}
-        itemWidth={'20ch'}
+        dropdownWidth={'clamp(10vw, 15ch, 30%)'}
+        itemWidth={'25ch'}
         backgroundLight="blue"
       />
-    </form>
+    </>
   );
 }
 

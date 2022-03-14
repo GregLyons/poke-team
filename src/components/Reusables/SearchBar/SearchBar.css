@@ -5,27 +5,36 @@
   position: relative;
   width: fit-content;
 
-  padding: 0.5rem;
-  background-color: rgba(var(--dark3-components), 0.9);
+  padding: 0.25rem 0.5rem;
+  background-color: var(--dark2);
   box-shadow: var(--control-shadow);
 
   transition: 0.3s ease;
 }
 .search-bar__wrapper:hover {
-  background-color: rgba(var(--dark3-components), 0.5);
+  filter: brightness(1.1);
 }
 .search-bar__wrapper:focus-within {
-  background-color: rgba(var(--dark3-components), 0.5);
+  filter: brightness(1.1);
 }
 
-.search-bar__wrapper > *:not(:first-child) {
-  margin-right: 1rem;
+.search-bar__wrapper > * + * {
+  margin-left: 1rem;
 }
 
 .search-bar__label {
   color: var(--blue1);
-  font-size: 1.1rem;
   font-weight: 600;
   font-family: var(--monospace);
-  margin-right: 1rem;
+}
+
+/* Remove padding on Button element */
+.search-bar__wrapper .button {
+  box-shadow: none;
+  padding: 0;
+}
+/* Re-orient button triangle indicators to compensate for previous rule */
+.search-bar__wrapper .button:enabled:before {
+  top: 0.5em;
+  left: -0.5rem;
 }

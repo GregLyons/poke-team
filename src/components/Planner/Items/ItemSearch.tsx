@@ -1,16 +1,16 @@
 import {
-    Outlet
+  Outlet
 } from 'react-router-dom';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Searches';
 import { ItemClass, ITEM_CLASS_MAP } from '../../../types-queries/entities';
 import {
-    ItemInSearch, ItemSearchQuery,
-    ItemSearchResult,
-    ItemSearchVars, ITEM_SEARCH_QUERY
+  ItemInSearch, ItemSearchQuery,
+  ItemSearchResult,
+  ItemSearchVars, ITEM_SEARCH_QUERY
 } from '../../../types-queries/Planner/Item';
 import {
-    ENUMCASE_TO_TITLECASE
+  ENUMCASE_TO_TITLECASE
 } from '../../../utils/constants';
 import { Dispatches, Filters } from '../../App';
 import Button from '../../Reusables/Button/Button';
@@ -93,7 +93,7 @@ const listFilter = ({
           };
         })}
         toggleSelect={handleClassSelect}
-        dropdownWidth={'clamp(5vw, 50ch, 80%)'}
+        dropdownWidth={'clamp(10vw, 15ch, 30%)'}
         itemWidth={'15ch'}
         backgroundLight="blue"
       />

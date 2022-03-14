@@ -71,7 +71,6 @@ function DropdownMenu<E extends Item<F>, F>({
         onClick={onClick}
         className={classWithBGControl("dropdown__trigger", backgroundLight)}
         style={{
-          width: 'inherit',
           color: isActive 
             ? 'var(--blue1)' 
             : 'var(--light1)',

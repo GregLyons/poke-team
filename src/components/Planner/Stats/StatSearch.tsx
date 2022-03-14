@@ -50,9 +50,9 @@ const listFilter = ({
   searchBar,
 }: ListFilterArgs<StatSearchVars>) => {
   return (
-    <form>
+    <>
       {searchBar}
-    </form>
+    </>
   );
 }
 

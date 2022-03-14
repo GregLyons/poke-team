@@ -1,17 +1,16 @@
 import {
-    Outlet
+  Outlet
 } from 'react-router-dom';
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
 import { FieldStateClass, FieldStateTargetClass, FIELDSTATE_CLASS_MAP, FIELDSTATE_TARGETCLASS_MAP } from '../../../types-queries/entities';
 import {
-    FieldStateInSearch, FieldStateSearchQuery,
-    FieldStateSearchResult,
-    FieldStateSearchVars, FIELDSTATE_SEARCH_QUERY
+  FieldStateInSearch, FieldStateSearchQuery,
+  FieldStateSearchResult,
+  FieldStateSearchVars, FIELDSTATE_SEARCH_QUERY
 } from '../../../types-queries/Planner/FieldState';
 import { ENUMCASE_TO_TITLECASE } from '../../../utils/constants';
 import Button from '../../Reusables/Button/Button';
-import DoubleSlider from '../../Reusables/DoubleSlider/DoubleSlider';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
 import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { listToggleValue, rangeSelect } from '../helpers';
@@ -80,7 +79,7 @@ const listFilter = ({
   const handleTargetClassSelect = listToggleValue<FieldStateSearchVars, FieldStateTargetClass>(queryVars, setQueryVars, 'target');
 
   return (
-    <form>
+    <>
       {searchBar}
       <DropdownMenu
         title="CLASS"
@@ -107,7 +106,7 @@ const listFilter = ({
           };
         })}
         toggleSelect={handleClassSelect}
-        dropdownWidth={'clamp(5vw, 50ch, 80%)'}
+        dropdownWidth={'clamp(10vw, 15ch, 30%)'}
         itemWidth={'15ch'}
         backgroundLight="blue"
       />
@@ -136,18 +135,18 @@ const listFilter = ({
           };
         })}
         toggleSelect={handleTargetClassSelect}
-        dropdownWidth={'clamp(5vw, 50ch, 80%)'}
+        dropdownWidth={'clamp(10vw, 15ch, 30%)'}
         itemWidth={'15ch'}
         backgroundLight="blue"
       />
-      {handleDamagePercentRange && <DoubleSlider
+      {/* {handleDamagePercentRange && <DoubleSlider
         titleFor="damage percent"
         {...handleDamagePercentRange}
         min={0}
         minValue={queryVars.minDamagePercent}
         max={100}
         maxValue={queryVars.maxDamagePercent}
-      />}
+      />} */}
       {/* {handleMaxLayers && <Slider
         titleFor="max layers"
         {...handleMaxLayers}
@@ -155,7 +154,7 @@ const listFilter = ({
         max={3}
         value={queryVars.maxLayers}
       />} */}
-    </form>
+    </>
   );
 }
 
