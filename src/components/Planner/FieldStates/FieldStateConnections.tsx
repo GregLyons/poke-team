@@ -61,7 +61,7 @@ export const listRenderFieldStateAbility = ({ data, dispatches, filters, }: List
               dispatches,
               pokemonIconData: result.pokemonIconData,
               filters,
-              cartNote: `'${result.formattedName}' created by '${parent.formattedName}'.`,
+              cartNote: `'${result.formattedName}' creates '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -85,7 +85,7 @@ export const listRenderFieldStateAbility = ({ data, dispatches, filters, }: List
               dispatches,
               pokemonIconData: result.pokemonIconData,
               filters,
-              cartNote: `'${result.formattedName}' ignored by '${parent.formattedName}'.`,
+              cartNote: `'${result.formattedName}' ignores '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -109,7 +109,7 @@ export const listRenderFieldStateAbility = ({ data, dispatches, filters, }: List
               dispatches,
               pokemonIconData: result.pokemonIconData,
               filters,
-              cartNote: `'${result.formattedName}' prevented by '${parent.formattedName}'.`,
+              cartNote: `'${result.formattedName}' prevents '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -133,7 +133,7 @@ export const listRenderFieldStateAbility = ({ data, dispatches, filters, }: List
               dispatches,
               pokemonIconData: result.pokemonIconData,
               filters,
-              cartNote: `'${result.formattedName}' removed by '${parent.formattedName}'.`,
+              cartNote: `'${result.formattedName}' removes '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -157,7 +157,7 @@ export const listRenderFieldStateAbility = ({ data, dispatches, filters, }: List
               dispatches,
               pokemonIconData: result.pokemonIconData,
               filters,
-              cartNote: `'${result.formattedName}' suppressed by '${parent.formattedName}'.`,
+              cartNote: `'${result.formattedName}' suppresses '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -224,7 +224,7 @@ export const listRenderFieldStateItem = ({ data, dispatches, filters, }: ListRen
                 iconDatum: result.itemIconDatum
               },
               filters,
-              cartNote: `'${result.formattedName}' is activated by '${parent.formattedName}'.`,
+              cartNote: `'${result.formattedName}' activated by '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -379,7 +379,7 @@ export const listRenderFieldStateMove = ({ data, dispatches, filters, }: ListRen
                 iconDatum: result.typeIconDatum
               },
               filters,
-              cartNote: `'${result.formattedName}' enhances '${parent.formattedName}'.`,
+              cartNote: `'${result.formattedName}' enhanced by '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -407,7 +407,7 @@ export const listRenderFieldStateMove = ({ data, dispatches, filters, }: ListRen
                 iconDatum: result.typeIconDatum
               },
               filters,
-              cartNote: `'${result.formattedName}' hinders '${parent.formattedName}'.`,
+              cartNote: `'${result.formattedName}' hindered by '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -489,7 +489,7 @@ export const listRenderFieldStateStat = ({ data, }: ListRenderArgs<FieldStateSta
       {boostMultiplierResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
-        <h3 className="planner-accordion__subitem-header">Boost by multiplier</h3>
+        <h3 className="planner-accordion__subitem-header">Boosts by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Field state"
@@ -747,7 +747,7 @@ export const listRenderFieldStateType = ({ data, dispatches, filters, }: ListRen
                 iconDatum: result.typeIconDatum
               },
               filters,
-              cartNote: `'${result.formattedName}' strong against '${parent.formattedName}'.`,
+              cartNote: `'${result.formattedName}' weak to '${parent.formattedName}'.`,
             }}
             data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
           />
@@ -804,7 +804,7 @@ export const listRenderFieldStateType = ({ data, dispatches, filters, }: ListRen
                 iconDatum: result.typeIconDatum
               },
                 filters,
-                cartNote: `'${result.formattedName}' ignored by '${parent.formattedName}'.`,
+                cartNote: `'${result.formattedName}' ignores '${parent.formattedName}'.`,
               }}
             />
           ))}
@@ -832,7 +832,7 @@ export const listRenderFieldStateType = ({ data, dispatches, filters, }: ListRen
                 iconDatum: result.typeIconDatum
               },
               filters,
-              cartNote: `'${result.formattedName}' removed by '${parent.formattedName}'.`,
+              cartNote: `'${result.formattedName}' removes '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -860,7 +860,7 @@ export const listRenderFieldStateType = ({ data, dispatches, filters, }: ListRen
                 iconDatum: result.typeIconDatum
               },
               filters,
-              cartNote: `'${result.formattedName}' resisted by '${parent.formattedName}'.`,
+              cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
             }}
             data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
           />

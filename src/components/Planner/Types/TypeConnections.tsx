@@ -32,7 +32,7 @@ export const listRenderTypeAbility = ({ data, dispatches, filters, }: ListRender
               dispatches,
               pokemonIconData: result.pokemonIconData,
               filters,
-              cartNote: `'${result.formattedName}' boosted by '${parent.formattedName}'.`,
+              cartNote: `'${result.formattedName}' boosts '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -54,7 +54,7 @@ export const listRenderTypeAbility = ({ data, dispatches, filters, }: ListRender
               dispatches,
               pokemonIconData: result.pokemonIconData,
               filters,
-              cartNote: `'${result.formattedName}' resisted by by '${parent.formattedName}'.`,
+              cartNote: `'${result.formattedName}' resists '${parent.formattedName}'.`,
             }}
           />
         ))}
@@ -148,7 +148,7 @@ export const listRenderTypeFieldState = ({ data, }: ListRenderArgs<TypeFieldStat
       {removesResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
-        <h3 className="planner-accordion__subitem-header">Removed by type</h3>
+        <h3 className="planner-accordion__subitem-header">Removes field state</h3>
         <p className="planner-accordion__clarification">
           Pokemon of this type remove the listed field state upon entry.
         </p>

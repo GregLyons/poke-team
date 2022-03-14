@@ -185,7 +185,7 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
       {boostMultiplierResults.length > 0 && (
       <div className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
-        <h3 className="planner-accordion__subitem-header">Boost by multiplier</h3>
+        <h3 className="planner-accordion__subitem-header">Boosts by multiplier</h3>
         {boostMultiplierResults.map(result => (
           <ConnectionAccordionEntry
           parentEntityClass="Move"

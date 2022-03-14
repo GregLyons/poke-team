@@ -136,6 +136,7 @@ export class PSIDNotFoundError extends Error {
 
 // Converts strings and numbers to psID format (only alphanumeric characters)
 export const toPSID = (s: string | number) => {
+  if (s === undefined) return '';
   return ('' + s).toLowerCase().replace(/[^a-z0-9]+/g, '')
 }
 
