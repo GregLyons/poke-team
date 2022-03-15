@@ -222,9 +222,10 @@ export const setsToMembers: (
   
   const memberPSIDs = results.map(d => d.psID);
   const invalidSets: number[] = [];
-  sets.map((set, idx) => {
+  for (let idx = 0; idx < sets.length; idx++) {
+    const set = sets[idx];
     if (!memberPSIDs.includes(toPSID(set.species)) && !memberPSIDs.includes(toPSID(set.name))) invalidSets.push(idx);
-  });
+  }
 
   if (invalidSets.length > 0) throw new PSIDNotFoundError('', invalidSets);
 
@@ -271,16 +272,19 @@ export const setsToMembers: (
   
   // Map for keeping track of memberPokemon
   let memberPokemonMap = new Map<string, { member: MemberPokemon, slot: number, }>();
-  memberPokemon.map((member, idx) => {
+  for (let idx = 0; idx < memberPokemon.length; idx++) {
+    const member = memberPokemon[idx];
     memberPokemonMap.set(member.psID, { member, slot: idx, });
-  });
+  }
 
   // #endregion
 
   // Assign MemberAbility and MemberMoves to MemberPokemon
   // #region
 
-  sets.map((set, idx) => {
+  for (let idx = 0; idx < sets.length; idx++) {
+    const set = sets[idx];
+
     let memberPSID = toPSID(set.species);
 
     // Find name of Pokemon in set. Error should not occur, as it should already have been handled in the first step. If not, it'll throw here instead, to be caught later
@@ -293,7 +297,7 @@ export const setsToMembers: (
     let memberPokemonValue = memberPokemonMap.get(memberPSID);
 
     // Type-guard
-    if (!memberPokemonValue) return;
+    if (!memberPokemonValue) continue;
 
     // Assign memberPokemonSlot to be idx
     memberPokemonValue.slot = idx;
@@ -366,7 +370,9 @@ export const setsToMembers: (
     // Moveset
     // #region
 
-    set.moves.map((move, idx) => {
+    for (let idx = 0; idx < set.moves.length; idx++) {
+      const move = set.moves[idx];
+
       // Cast movesetIdx as MoveSlot so that we can assign it later
       const movesetIdx: MoveSlot= (idx as MoveSlot);
       // Shouldn't happen
@@ -399,7 +405,7 @@ export const setsToMembers: (
         }
         else throw new InvalidMoveError(move, memberPokemon.formattedName);
       }
-    });
+    };
 
     // #endregion
 
@@ -450,7 +456,7 @@ export const setsToMembers: (
     }
 
     // #endregion
-  });
+  };
 
   // Throw error if an ability, item, etc. was introduced later than 'gen'
   if (lateEntities.length > 0) throw new LateIntroductionError('', lateEntities);

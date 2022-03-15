@@ -79,9 +79,9 @@ export const USAGEMETHOD_SEARCH_QUERY = gql`
 `;
 
 export class UsageMethodInSearch extends AuxEntityInSearchWithIcon {
-  constructor(gqlUsageMethod: UsageMethodSearchResult) {
-    super(gqlUsageMethod);
-  }
+  // constructor(gqlUsageMethod: UsageMethodSearchResult) {
+  //   super(gqlUsageMethod);
+  // }
 }
 
 // #endregion

@@ -40,7 +40,7 @@ const SpreadView = ({
         {Object.entries(spread).map(([key, value]) => {
           // Type guard
           const statName = (key as BaseStatName);
-          if (!statName) return;
+          if (!statName) return <></>;
           const abbrStatName = toAbbreviatedBaseStatName(statName);
           const formStatName = toFormattedBaseStatName(statName);
           

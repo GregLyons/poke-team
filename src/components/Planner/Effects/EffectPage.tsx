@@ -16,9 +16,6 @@ import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 import { listRenderEffectAbility, listRenderEffectFieldState, listRenderEffectItem, listRenderEffectMove } from './EffectConnections';
 
-
-
-
 type EffectPageProps = {
   dispatches: Dispatches
   filters: Filters

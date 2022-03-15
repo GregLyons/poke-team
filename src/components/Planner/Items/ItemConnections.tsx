@@ -6,7 +6,6 @@ import {
 import { ENUMCASE_TO_TITLECASE } from "../../../utils/constants";
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 
-
 export const listRenderItemEffect = ({ data, }: ListRenderArgs<ItemEffectQuery>) => {
   if (!data || !data.itemByName) return (<div>Data not found for the query 'itemByName'.</div>);
 

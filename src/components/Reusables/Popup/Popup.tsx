@@ -95,7 +95,7 @@ const Popup = ({
         triggerRef.current && contentRef.current && setTriggerAuxDisplacement(auxDisplacement);
       }
     });
-  }, [windowWidth, windowHeight, triggerRef, contentRef, setTriggerMainDisplacement, setTriggerAuxDisplacement]);
+  }, [windowWidth, windowHeight, triggerRef, contentRef, setTriggerMainDisplacement, setTriggerAuxDisplacement, orientation, ]);
 
   return (
     <div className="popup-wrapper">

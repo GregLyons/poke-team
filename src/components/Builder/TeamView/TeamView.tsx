@@ -355,7 +355,7 @@ const TeamView = ({
         onHPSelect,
       },
     };
-  }, [dispatches, filters, team, memberSlot, setMemberSlot, view, setView, ]);
+  }, [dispatches, filters, memberSlot, setMemberSlot, view, setView, ]);
 
   const teamMembersClickHandlers: TeamMembersClickHandlers = useMemo(() => {
     // On clicking AddIcon, open up savedPokemon in ReferencePanel
@@ -384,7 +384,7 @@ const TeamView = ({
       onAddClick,
       onMemberClick,
     }
-  }, [dispatches, filters, team, view, setMemberSlot, setView, ]);
+  }, [setMemberSlot, setView, ]);
 
   const memberDetailHandlers: MemberDetailsHandlers = useMemo(() => {
     const onAbilityClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -546,7 +546,7 @@ const TeamView = ({
 
       updateCosmeticForm,
     };
-  }, [dispatches, filters, team, setView, view, memberSlot, ]);
+  }, [dispatches, filters, setView, memberSlot, ]);
 
   // When genFilter changes, clear memberSlot
   useEffect(() => {

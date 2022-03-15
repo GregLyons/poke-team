@@ -19,8 +19,6 @@ import {
   listRenderUsageMethodMove
 } from './UsageMethodConnections';
 
-
-
 type UsageMethodPageProps = {
   dispatches: Dispatches
   filters: Filters

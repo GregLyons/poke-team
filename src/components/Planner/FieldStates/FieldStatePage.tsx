@@ -24,8 +24,6 @@ import {
   listRenderFieldStateType
 } from './FieldStateConnections';
 
-
-
 type FieldStatePageProps = {
   dispatches: Dispatches
   filters: Filters

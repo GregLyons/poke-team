@@ -1,19 +1,16 @@
 import {
-    Outlet
+  Outlet
 } from 'react-router-dom';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Searches';
 import {
-    AbilityInSearch, AbilitySearchQuery,
-    AbilitySearchResult,
-    AbilitySearchVars, ABILITY_SEARCH_QUERY
+  AbilityInSearch, AbilitySearchQuery,
+  AbilitySearchResult,
+  AbilitySearchVars, ABILITY_SEARCH_QUERY
 } from '../../../types-queries/Planner/Ability';
 import { Dispatches, Filters } from '../../App';
 import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import MainSearch from '../MainSearch/MainSearch';
-
-
-
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<AbilitySearchQuery>) => {
   if (!data || !data.abilities) return (<div>Data not found for the query 'abilities'.</div>);
@@ -64,7 +61,7 @@ const AbilitySearch = ({
   dispatches,
   filters,
 }: AbilitySearchMainProps) => {
-  const { queryVars, filterForm, focusedOnInput, } = useListFilter_removal<AbilitySearchVars>({
+  const { queryVars, filterForm, } = useListFilter_removal<AbilitySearchVars>({
     defaultSearchVars: {
       gen: filters.genFilter.gen,
       contains: '',

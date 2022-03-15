@@ -18,8 +18,6 @@ const ItemSelectEntries = ({
   filters,
   focusedOnInput,
 }: ItemSelectEntriesProps) => {
-  const [sorted, setSorted] = useState(false);
-
   const originalEntries: MemberItem[] | undefined = useMemo(() => {
     // If not data, do nothing
     if (!data) return undefined;

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import './Accordion.css';
 import AccordionItem from "./AccordionItem";
 
-
 type AccordionProps = {
   optionsInTitle?: boolean
   accordionContext: string
@@ -27,7 +26,7 @@ const Accordion = ({
   useEffect(() => {
     if (activeElements.length !== accordionData.length) setActiveElements(accordionData.map(() => false));
     if (openedElements.length !== accordionData.length) setOpenedElements(accordionData.map(() => false));
-  }, [accordionData]);
+  }, [accordionData, activeElements.length, openedElements.length, ]);
 
   // When accordion has one item, open that item if it hasn't been opened before.
   useEffect(() => {

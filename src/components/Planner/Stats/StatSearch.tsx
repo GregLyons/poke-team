@@ -1,20 +1,15 @@
 import {
-    Outlet
+  Outlet
 } from 'react-router-dom';
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
 import {
-    StatInSearch, StatSearchQuery,
-    StatSearchResult,
-    StatSearchVars, STAT_SEARCH_QUERY
+  StatInSearch, StatSearchQuery,
+  StatSearchResult,
+  StatSearchVars, STAT_SEARCH_QUERY
 } from '../../../types-queries/Planner/Stat';
 import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import MainSearch from '../MainSearch/MainSearch';
-
-
-
-
-
 
 const listRender = ({ data, }: ListRenderArgs<StatSearchQuery>) => {
   if (!data || !data.stats) return (<div>Data not found for the query 'stats'.</div>);
@@ -63,7 +58,7 @@ type StatSearchMainProps = {
 const StatSearch = ({
   genFilter,
 }: StatSearchMainProps) => {
-  const { queryVars, filterForm, focusedOnInput, } = useListFilter<StatSearchVars>({
+  const { queryVars, filterForm, } = useListFilter<StatSearchVars>({
     defaultSearchVars: {
       gen: genFilter.gen,
       contains: '',

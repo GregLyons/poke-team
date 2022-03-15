@@ -4,7 +4,6 @@ import {
 } from "../../../types-queries/Planner/Status";
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 
-
 export const listRenderStatusAbility = ({ data, dispatches, filters, }: ListRenderArgsIcons<StatusAbilityQuery>) => {
   if (!data || !data.statusByName) return (<div>Data not found for the query 'statusByName'.</div>);
 

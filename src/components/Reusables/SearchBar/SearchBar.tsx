@@ -28,7 +28,6 @@ const SearchBar = ({
 
   containsOption = true,
 
-  backgroundLight,
   setFocusedOnInput,
 }: SearchBarProps) => {
   return (

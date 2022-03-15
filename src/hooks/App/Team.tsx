@@ -261,7 +261,6 @@ export function teamReducer(state: Team, action: TeamAction): Team {
   let newState: Team;
 
   let idx: number;
-  let memberIdx: number;
   let moveIdx: MoveSlot;
 
   let modifiedMember: MemberPokemon | undefined

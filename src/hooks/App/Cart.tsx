@@ -539,12 +539,12 @@ type RoleChangePlanner = {
 
 // Clear combination and set roles to undefined
 const setRoleToUndefinedCartInGen: (cartInGen: CartInGen) => void = cartInGen => {
-  Object.entries(cartInGen.pokemon).map(([key, value]) => {
+  for (let value of Object.values(cartInGen.pokemon)) {
     setRoleToUndefinedParent(value);
-  });
-  Object.entries(cartInGen.customBoxes).map(([key, value]) => {
+  };
+  for (let value of Object.values(cartInGen.customBoxes)) {
     value.roleInCombination = undefined;
-  });
+  };
 
   // Clean up combination fields
   cartInGen.combination = null;
@@ -553,25 +553,25 @@ const setRoleToUndefinedCartInGen: (cartInGen: CartInGen) => void = cartInGen =>
 }
 
 const setRoleToUndefinedParent: (parentEntityInCart: ParentEntityInCart) => void = parentEntityInCart => {
-  Object.entries(parentEntityInCart).map(([key, value]) => {
+  for (let value of Object.values(parentEntityInCart)) {
     setRoleToUndefinedTarget(value);
-  });
+  };
 };
 
 const setRoleToUndefinedTarget: (targetEntityInCart: TargetEntityInCart) => void = parentEntityInCart => {
-  Object.entries(parentEntityInCart).map(([key, value]) => {
+  for (let value of Object.values(parentEntityInCart)) {
     value.roleInCombination = undefined;
-  });
+  };
 };
 
 const endCombo: (state: Cart) => Cart = (state) => {
   // A shallow copy suffices since we only wish to change roleInCombination
   let newState = {...state};
 
-  // Set role to undefined 
-  Object.entries(newState).map(([key, value]) => {
+  // Set role to undefined
+  for (let value of Object.values(newState)) {
     setRoleToUndefinedCartInGen(value);
-  });
+  };
 
   return newState;
 };

@@ -1,10 +1,6 @@
 import './TeamMember.css';
 
-type AddIconProps = {
-}
-
-const AddIcon =({
-}: AddIconProps) => {
+const AddIcon =() => {
   return (
     <div
       className="team-member__add"

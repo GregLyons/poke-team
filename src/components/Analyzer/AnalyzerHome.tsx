@@ -1,9 +1,4 @@
-
-type AnalyzerHomeProps = {
-}
-
-const AnalyzerHome = ({
-}: AnalyzerHomeProps) => {
+const AnalyzerHome = () => {
 
   return (
     <div>

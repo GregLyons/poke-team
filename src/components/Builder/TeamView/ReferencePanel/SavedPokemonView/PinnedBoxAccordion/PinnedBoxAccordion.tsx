@@ -8,7 +8,7 @@ import './PinnedBoxAccordion.css';
 import PinnedBoxAccordionTitle from "./PinnedBoxAccordionTitle";
 
 
-type PinnedBoxAccordion = {
+type PinnedBoxAccordionProps = {
   clickHandlers: SavedPokemonClickHandlers
   dispatches: Dispatches
   filters: Filters
@@ -19,7 +19,7 @@ const PinnedBoxAccordion = ({
   clickHandlers,
   filters,
   team,
-}: PinnedBoxAccordion) => {
+}: PinnedBoxAccordionProps) => {
   const accordionData: {
     title: JSX.Element
     content: false | JSX.Element

@@ -1,27 +1,23 @@
 import { useDelayedQuery, useGenConnectedSearchBar } from "../../../../../hooks/Searches";
 import { MemberAbilityQuery, MemberAbilitySearchVars, MEMBER_ABILITY_QUERY } from "../../../../../types-queries/Member/MemberAbility";
-import { Dispatches, Filters } from "../../../../App";
-import { AbilitySelectHandlers, ReferencePanelView } from "../../TeamView";
+import { Filters } from "../../../../App";
+import { AbilitySelectHandlers } from "../../TeamView";
 import AbilitySelectEntries from "./AbilitySelectEntries";
 import './AbilitySelectView.css';
 
 
 type AbilitySelectViewProps = {
   handlers: AbilitySelectHandlers
-  view: ReferencePanelView
-  dispatches: Dispatches
   filters: Filters
   psID: string
 }
 
 const AbilitySelectView = ({
   handlers: clickHandlers,
-  view,
-  dispatches,
   filters,
   psID,
 }: AbilitySelectViewProps) => {
-  const { queryVars, setQueryVars, searchBar, focusedOnInput, } = useGenConnectedSearchBar<MemberAbilitySearchVars>({
+  const { queryVars, searchBar, focusedOnInput, } = useGenConnectedSearchBar<MemberAbilitySearchVars>({
     defaultSearchVars: {
       gen: filters.genFilter.gen,
       psID,

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import './Button.css';
 
-
 type ButtonProps = {
   title: string
   label: string
@@ -43,7 +42,7 @@ const Button = ({
       }}
       disabled={disabled}
     >
-      {label}
+      {!disabled && label}
     </button>
   );
 }

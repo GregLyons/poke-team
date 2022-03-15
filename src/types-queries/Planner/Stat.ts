@@ -1,24 +1,24 @@
 import {
-    gql
+  gql
 } from '@apollo/client';
 import { GenNum } from '../entities';
 import {
-    AbilityIconEdge,
-    IntroductionEdge,
-    MoveIconEdge,
-    PokemonIconDatum,
-    PokemonIconEdge,
-    pokemonIconEdgeToPokemonIconDatum,
-    TypeIconDatum,
-    TypeIconEdge,
-    typeIconEdgeToTypeIconDatum
+  AbilityIconEdge,
+  IntroductionEdge,
+  MoveIconEdge,
+  PokemonIconDatum,
+  PokemonIconEdge,
+  pokemonIconEdgeToPokemonIconDatum,
+  TypeIconDatum,
+  TypeIconEdge,
+  typeIconEdgeToTypeIconDatum
 } from '../helpers';
 import {
-    AuxEntityInSearchWithIcon, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToAuxConnectionEdge, AuxToIconConnectionEdge,
-    AuxToIconConnectionOnPage, AuxToItemConnectionOnPage, AuxToMainConnectionEdge, AuxToMainConnectionOnPage, CountField,
+  AuxEntityInSearchWithIcon, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToAuxConnectionEdge, AuxToIconConnectionEdge,
+  AuxToIconConnectionOnPage, AuxToItemConnectionOnPage, AuxToMainConnectionEdge, AuxToMainConnectionOnPage, CountField,
 
-    EntityConnectionVars, EntityPageQueryName,
-    EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
+  EntityConnectionVars, EntityPageQueryName,
+  EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
 } from './helpers';
 
 
@@ -69,9 +69,9 @@ export const STAT_SEARCH_QUERY = gql`
 `;
 
 export class StatInSearch extends AuxEntityInSearchWithIcon {
-  constructor(gqlStat: StatSearchResult) {
-    super(gqlStat);
-  }
+  // constructor(gqlStat: StatSearchResult) {
+  //   super(gqlStat);
+  // }
 }
 
 // #endregion

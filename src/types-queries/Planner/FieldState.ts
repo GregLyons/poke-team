@@ -1,23 +1,23 @@
 import {
-    gql
+  gql
 } from '@apollo/client';
 import { FieldStateClass, FieldStateTargetClass, GenNum } from '../entities';
 import {
-    AbilityIconEdge, IconDatum, IntroductionEdge, itemIconEdgeToItemIconDatum,
-    MoveIconEdge,
-    PokemonIconDatum,
-    PokemonIconEdge,
-    pokemonIconEdgeToPokemonIconDatum, TypeIconDatum, TypeIconEdge, typeIconEdgeToTypeIconDatum, TypeName,
-    TypeNameEdge
+  AbilityIconEdge, IconDatum, IntroductionEdge, itemIconEdgeToItemIconDatum,
+  MoveIconEdge,
+  PokemonIconDatum,
+  PokemonIconEdge,
+  pokemonIconEdgeToPokemonIconDatum, TypeIconDatum, TypeIconEdge, typeIconEdgeToTypeIconDatum, TypeName,
+  TypeNameEdge
 } from '../helpers';
 import {
-    AuxEntityInSearchWithIcon, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToAuxConnectionEdge,
-    AuxToAuxConnectionOnPage, AuxToIconConnectionEdge,
-    AuxToIconConnectionOnPage, AuxToItemConnectionEdge, AuxToItemConnectionOnPage, AuxToMainConnectionEdge,
-    AuxToMainConnectionOnPage, CountField,
+  AuxEntityInSearchWithIcon, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToAuxConnectionEdge,
+  AuxToAuxConnectionOnPage, AuxToIconConnectionEdge,
+  AuxToIconConnectionOnPage, AuxToItemConnectionEdge, AuxToItemConnectionOnPage, AuxToMainConnectionEdge,
+  AuxToMainConnectionOnPage, CountField,
 
-    EntityConnectionVars, EntityPageQueryName,
-    EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
+  EntityConnectionVars, EntityPageQueryName,
+  EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
 } from './helpers';
 
 
@@ -800,9 +800,9 @@ export const FIELDSTATE_EFFECT_QUERY = gql`
 `;
 
 export class FieldStateEffectResult extends AuxToAuxConnectionOnPage {
-  constructor(gqlFieldStateEffect: FieldStateEffectEdge) {
-    super(gqlFieldStateEffect)
-  }
+  // constructor(gqlFieldStateEffect: FieldStateEffectEdge) {
+  //   super(gqlFieldStateEffect)
+  // }
 }
 
 // #endregion

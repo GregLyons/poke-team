@@ -1,25 +1,25 @@
 import {
-    gql
+  gql
 } from '@apollo/client';
 import { GenNum, MoveCategory, MoveTargetClass } from '../entities';
 import {
-    CapsTypeName, DescriptionEdge,
-    DescriptionsEdge, IntroductionEdge,
-    PokemonIconDatum,
-    PokemonIconEdge,
-    pokemonIconEdgeToPokemonIconDatum,
-    TypeIconDatum,
-    TypeIconEdge,
-    typeIconEdgeToTypeIconDatum,
-    TypeName,
-    TypeNameEdge,
-    typeNameEdgeToTypeName
+  CapsTypeName, DescriptionEdge,
+  DescriptionsEdge, IntroductionEdge,
+  PokemonIconDatum,
+  PokemonIconEdge,
+  pokemonIconEdgeToPokemonIconDatum,
+  TypeIconDatum,
+  TypeIconEdge,
+  typeIconEdgeToTypeIconDatum,
+  TypeName,
+  TypeNameEdge,
+  typeNameEdgeToTypeName
 } from '../helpers';
 import {
-    CountField, EntityConnectionVars, EntityPageQueryName, EntityPageVars, EntitySearchVars,
-    MainEntityInSearch, MainEntityOnPage,
-    MainEntityPageResult, MainEntitySearchResult, MainToAuxConnectionEdge, MainToAuxConnectionOnPage, MainToIconConnectionEdge,
-    MainToIconConnectionOnPage, RemovedFromGameQueryVars
+  CountField, EntityConnectionVars, EntityPageQueryName, EntityPageVars, EntitySearchVars,
+  MainEntityInSearch, MainEntityOnPage,
+  MainEntityPageResult, MainEntitySearchResult, MainToAuxConnectionEdge, MainToAuxConnectionOnPage, MainToIconConnectionEdge,
+  MainToIconConnectionOnPage, RemovedFromGameQueryVars
 } from './helpers';
 
 
@@ -551,9 +551,9 @@ export const MOVE_EFFECT_QUERY = gql`
 `;
 
 export class MoveEffectResult extends MainToAuxConnectionOnPage {
-  constructor(gqlMoveEffect: MoveEffectEdge) {
-    super(gqlMoveEffect);
-  }
+  // constructor(gqlMoveEffect: MoveEffectEdge) {
+  //   super(gqlMoveEffect);
+  // }
 }
 
 // #endregion
@@ -955,9 +955,9 @@ export const MOVE_USAGEMETHOD_QUERY = gql`
 `;
 
 export class MoveUsageMethodResult extends MainToIconConnectionOnPage {
-  constructor(gqlUsageMethod: MoveUsageMethodEdge) {
-    super(gqlUsageMethod);
-  }
+  // constructor(gqlUsageMethod: MoveUsageMethodEdge) {
+  //   super(gqlUsageMethod);
+  // }
 }
 
 // #endregion

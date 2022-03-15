@@ -204,6 +204,10 @@ const CoverageView = ({
     return setRelevantNames(null);
   }
 
+  for (let error of [error_matchupAbility, error_matchupItem, error_coverageMove, error_coverageAbility, error_coverageItem, error_coverageMove]) {
+    if (error) return (<div>Error! {error.message}</div>);
+  }
+
   return (
     <div
       className="coverage-view__wrapper"
@@ -281,8 +285,6 @@ const CoverageView = ({
           ? <div>Loading...</div>
           : data_coverageAbility && data_coverageItem && data_coverageMove
             ? <SpeedControl
-                filters={filters}
-
                 abilityData={data_coverageAbility} 
                 itemData={data_coverageItem} 
                 moveData={data_coverageMove}

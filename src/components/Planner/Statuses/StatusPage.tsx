@@ -1,13 +1,13 @@
 import {
-  Outlet,
-  useParams
+    Outlet,
+    useParams
 } from 'react-router-dom';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
 import {
-  StatusAbilityQueryVars, StatusFieldStateQueryVars, StatusItemQueryVars, StatusMoveQueryVars, StatusOnPage, StatusPageQuery,
-  StatusPageQueryVars, STATUS_ABILITY_QUERY, STATUS_FIELDSTATE_QUERY, STATUS_ITEM_QUERY, STATUS_MOVE_QUERY, STATUS_PAGE_QUERY
+    StatusAbilityQueryVars, StatusFieldStateQueryVars, StatusItemQueryVars, StatusMoveQueryVars, StatusOnPage, StatusPageQuery,
+    StatusPageQueryVars, STATUS_ABILITY_QUERY, STATUS_FIELDSTATE_QUERY, STATUS_ITEM_QUERY, STATUS_MOVE_QUERY, STATUS_PAGE_QUERY
 } from '../../../types-queries/Planner/Status';
 import { Dispatches, Filters } from '../../App';
 import Accordion from '../../Reusables/Accordion/Accordion';
@@ -15,13 +15,11 @@ import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 import {
-  listRenderStatusAbility,
-  listRenderStatusFieldState,
-  listRenderStatusItem,
-  listRenderStatusMove
+    listRenderStatusAbility,
+    listRenderStatusFieldState,
+    listRenderStatusItem,
+    listRenderStatusMove
 } from './StatusConnections';
-
-
 
 type StatusPageProps = {
   dispatches: Dispatches

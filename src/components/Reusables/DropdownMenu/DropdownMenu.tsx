@@ -29,7 +29,6 @@ function DropdownMenu<E extends Item<F>, F>({
 
   dropdownWidth,
   itemWidth,
-  dropLeft = false,
 
   backgroundLight,
 }: DropdownMenuProps<E, F>) {

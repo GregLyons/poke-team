@@ -98,8 +98,6 @@ const ReferencePanel = ({
           />}
           {(view?.mode === 'ABILITY' && psID !== undefined) && <AbilitySelectView
             handlers={handlers.abilitySelectHandlers}
-            view={view}
-            dispatches={dispatches}
             filters={filters}
             psID={psID}
           />}

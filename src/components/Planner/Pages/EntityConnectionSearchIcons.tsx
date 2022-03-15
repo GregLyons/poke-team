@@ -8,8 +8,6 @@ import { ListRenderArgsIcons } from '../../../hooks/Searches';
 import { Dispatches, Filters } from '../../App';
 import './Pages.css';
 
-
-
 interface EntityConnectionSearchIconsProps<SearchQuery, SearchQueryVars> {
   dispatches: Dispatches
   filters: Filters

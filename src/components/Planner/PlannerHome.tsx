@@ -1,8 +1,4 @@
-type PlannerHomeProps = {
-}
-
-const PlannerHome = ({
-}: PlannerHomeProps) => (
+const PlannerHome = () => (
   <div>
     This is the planner page.
   </div>

@@ -4,7 +4,6 @@ import {
 } from "../../../types-queries/Planner/Effect";
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 
-
 export const listRenderEffectAbility = ({ data, dispatches, filters, }: ListRenderArgsIcons<EffectAbilityQuery>) => {
   if (!data || !data.effectByName) return (<div>Data not found for the query 'effectByName'.</div>);
 

@@ -60,7 +60,7 @@ const QuickSearchEntry = ({
       </div>
       <div className="quick-search__stats">
         {Object.entries({ ...pokemon.baseStats, baseStatTotal }).map(([key, value]: [string, number]) => {
-          if (key === '__typename') return;
+          if (key === '__typename') return <></>;
           
           let rating: 'bad' | 'ok' | 'decent' | 'good' | 'great';
           if (key !== 'baseStatTotal')

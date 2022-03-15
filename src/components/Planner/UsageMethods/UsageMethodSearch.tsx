@@ -1,20 +1,15 @@
 import {
-    Outlet
+  Outlet
 } from 'react-router-dom';
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { ListFilterArgs, ListRenderArgs, useListFilter, useListRender } from '../../../hooks/Searches';
 import {
-    UsageMethodInSearch, UsageMethodSearchQuery,
-    UsageMethodSearchResult,
-    UsageMethodSearchVars, USAGEMETHOD_SEARCH_QUERY
+  UsageMethodInSearch, UsageMethodSearchQuery,
+  UsageMethodSearchResult,
+  UsageMethodSearchVars, USAGEMETHOD_SEARCH_QUERY
 } from '../../../types-queries/Planner/UsageMethod';
 import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import MainSearch from '../MainSearch/MainSearch';
-
-
-
-
-
 
 const listRender = ({ data, }: ListRenderArgs<UsageMethodSearchQuery>) => {
   if (!data || !data.usageMethods) return (<div>Data not found for the query 'usageMethods'.</div>);
@@ -63,7 +58,7 @@ type UsageMethodSearchMainProps = {
 const UsageMethodSearch = ({
   genFilter,
 }: UsageMethodSearchMainProps) => {
-  const { queryVars, filterForm, focusedOnInput, } = useListFilter<UsageMethodSearchVars>({
+  const { queryVars, filterForm, } = useListFilter<UsageMethodSearchVars>({
     defaultSearchVars: {
       gen: genFilter.gen,
       contains: '',

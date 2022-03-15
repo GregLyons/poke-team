@@ -33,7 +33,7 @@ const PinnedBox = ({
           const psID = pokemonIconDatum.psID;
 
           // E.g. DUMMY_POKEMON_DATUM
-          if (!psID) return;
+          if (!psID) return <></>;
 
           const { validated, reason: reasonForFailure } = validatePokemon({
             pokemonIconDatum, 
@@ -42,7 +42,7 @@ const PinnedBox = ({
 
           if (!validated) {
             reason.current = reasonForFailure || '';
-            return;
+            return <></>;
           }
 
           hasIcon.current = true;

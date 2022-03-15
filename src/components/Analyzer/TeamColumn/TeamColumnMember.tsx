@@ -44,7 +44,7 @@ const TeamColumnMember = ({
     else if (name && relevantNames[member?.psID] && relevantNames[member?.psID].includes(name)) return 'team-column__relevant';
     else if (name && Object.keys(relevantNames).includes(name)) return 'team-column__relevant';
     else return 'team-column__irrelevant';
-  }, [relevantNames]);
+  }, [relevantNames, member, ]);
 
   return (
     <div
@@ -58,13 +58,14 @@ const TeamColumnMember = ({
           ${determineRelevance(member?.psID)}
         `}
       >
-        {member && <PokemonIcon
-          pokemonIconDatum={member?.iconDatum}
-          gender={member?.gender}
-        /> 
-        || <PokemonIcon
-          pokemonIconDatum={DUMMY_POKEMON_ICON_DATUM}
-        />}
+        {member 
+          ?<PokemonIcon
+            pokemonIconDatum={member?.iconDatum}
+            gender={member?.gender}
+          /> 
+          : <PokemonIcon
+            pokemonIconDatum={DUMMY_POKEMON_ICON_DATUM}
+          />}
       </div>
       <div
         className={`

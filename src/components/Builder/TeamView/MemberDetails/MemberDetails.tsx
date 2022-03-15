@@ -1,4 +1,3 @@
-import { HPTypeName } from "@pkmn/data";
 import { Team } from "../../../../hooks/App/Team";
 import { Dispatches, Filters } from "../../../App";
 import { MemberDetailsHandlers, ReferencePanelView } from "../TeamView";
@@ -54,7 +53,5 @@ const MemberDetails = ({
     </div>
   )
 };
-
-let a: HPTypeName
 
 export default MemberDetails;

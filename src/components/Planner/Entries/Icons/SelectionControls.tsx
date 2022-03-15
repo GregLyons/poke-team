@@ -1,6 +1,5 @@
 import { toggleBGPulse } from "../../../../hooks/App/BGManager";
 import { Selection, SelectionAction } from "../../../../hooks/Planner/Selections";
-import { PokemonIconDatum } from "../../../../types-queries/helpers";
 import { Dispatches } from "../../../App";
 import Button from "../../../Reusables/Button/Button";
 import './Icons.css';
@@ -60,14 +59,14 @@ const SelectionControls = ({
           
           // Pulse if there are any Pokemon selected
           let pulsed = false;
-          Object.entries(selection).map(([key, value]: [string, { nameData: PokemonIconDatum, selected: boolean, }]) => {
+          for (let value of Object.values(selection)) {
             if (pulsed) return;
             if (value.selected) {
               pulsed = true;
               toggleBGPulse(dispatches.dispatchBGManager);
             }
             return;
-          });
+          };
           
           handleAddToCart();
         }}

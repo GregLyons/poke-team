@@ -537,14 +537,14 @@ export const MOVE_COVERAGE_QUERY = gql`
 // #region
 
 // Returns CoverageDatum with total 0, and a key for each member in memberPSIDs
-const getInitialCoverageDatumFromMembers: (members: MemberAndEntityPSIDs) => CoverageDatum = members => {
-  let coverageDatum: CoverageDatum = { total: 0, memberPSIDs: {}, };
-  for (let member of members) {
-    const { psID: memberPSID } = member;
-    coverageDatum.memberPSIDs[memberPSID] = [];
-  }
-  return coverageDatum;
-};
+// const getInitialCoverageDatumFromMembers: (members: MemberAndEntityPSIDs) => CoverageDatum = members => {
+//   let coverageDatum: CoverageDatum = { total: 0, memberPSIDs: {}, };
+//   for (let member of members) {
+//     const { psID: memberPSID } = member;
+//     coverageDatum.memberPSIDs[memberPSID] = [];
+//   }
+//   return coverageDatum;
+// };
 
 type CoverageResults = {
   fromAbilities: CoverageResult[]
@@ -852,9 +852,8 @@ export const countDamagingMoves: (results: MoveCoverageResult[]) => number = res
       if (result.category === 'STATUS') continue;
       
       // Ignore moves which have certain effects
-      loop2:
-        for (let moveEffectEdge of result.effects.edges) {
-          if (effectTypeExceptions.includes(moveEffectEdge.node.name)) continue loop1;
+      for (let moveEffectEdge of result.effects.edges) {
+        if (effectTypeExceptions.includes(moveEffectEdge.node.name)) continue loop1;
 
         }
       
@@ -1009,10 +1008,9 @@ export const computeTypeCoverage: (
       if (moveResult.category === 'STATUS') continue;
 
       // Check whether move is in one of the exceptions that we wish to exclude; if so, continue onto next move
-      loop2:
-        for (let moveEffectEdge of moveResult.effects.edges) {
-          if (effectTypeExceptions.includes(moveEffectEdge.node.name)) continue loop1;
-        }
+      for (let moveEffectEdge of moveResult.effects.edges) {
+        if (effectTypeExceptions.includes(moveEffectEdge.node.name)) continue loop1;
+      }
 
       // Iterate over MoveTypeEdges; should only be one
       for (let moveTypeEdge of moveResult.type.edges) {

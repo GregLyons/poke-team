@@ -1,19 +1,16 @@
 import {
-    Outlet
+  Outlet
 } from 'react-router-dom';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Searches';
 import {
-    TypeInSearch, TypeSearchQuery,
-    TypeSearchResult,
-    TypeSearchVars, TYPE_SEARCH_QUERY
+  TypeInSearch, TypeSearchQuery,
+  TypeSearchResult,
+  TypeSearchVars, TYPE_SEARCH_QUERY
 } from '../../../types-queries/Planner/Type';
 import { Dispatches, Filters } from '../../App';
 import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import MainSearch from '../MainSearch/MainSearch';
-
-
-
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeSearchQuery>) => {
   if (!data || !data.types) return (<div>Data not found for the query 'types'.</div>);
@@ -68,7 +65,7 @@ const TypeSearch = ({
   dispatches,
   filters,
 }: TypeSearchMainProps) => {
-  const { queryVars, filterForm, focusedOnInput, } = useListFilter_removal<TypeSearchVars>({
+  const { queryVars, filterForm, } = useListFilter_removal<TypeSearchVars>({
     defaultSearchVars: {
       gen: filters.genFilter.gen,
       contains: '',

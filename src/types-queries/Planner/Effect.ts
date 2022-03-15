@@ -1,27 +1,27 @@
 import {
-    gql
+  gql
 } from '@apollo/client';
 import { EffectClass, GenNum } from '../entities';
 import {
-    AbilityIconEdge,
-    IntroductionEdge,
-    MoveIconEdge,
-    PokemonIconDatum,
-    PokemonIconEdge,
-    pokemonIconEdgeToPokemonIconDatum,
-    TypeIconDatum,
-    TypeIconEdge,
-    typeIconEdgeToTypeIconDatum,
-    TypeName,
-    typeNameEdgeToTypeName
+  AbilityIconEdge,
+  IntroductionEdge,
+  MoveIconEdge,
+  PokemonIconDatum,
+  PokemonIconEdge,
+  pokemonIconEdgeToPokemonIconDatum,
+  TypeIconDatum,
+  TypeIconEdge,
+  typeIconEdgeToTypeIconDatum,
+  TypeName,
+  typeNameEdgeToTypeName
 } from '../helpers';
 import {
-    AuxEntityInSearch, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToAuxConnectionEdge, AuxToIconConnectionEdge,
-    AuxToIconConnectionOnPage, AuxToItemConnectionEdge,
-    AuxToItemConnectionOnPage, AuxToMainConnectionEdge, AuxToMainConnectionOnPage, CountField,
+  AuxEntityInSearch, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToAuxConnectionEdge, AuxToIconConnectionEdge,
+  AuxToIconConnectionOnPage, AuxToItemConnectionEdge,
+  AuxToItemConnectionOnPage, AuxToMainConnectionEdge, AuxToMainConnectionOnPage, CountField,
 
-    EntityConnectionVars, EntityPageQueryName,
-    EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
+  EntityConnectionVars, EntityPageQueryName,
+  EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
 } from './helpers';
 
 
@@ -356,9 +356,9 @@ export const EFFECT_FIELDSTATE_QUERY = gql`
 `;
 
 export class EffectFieldStateResult extends AuxToIconConnectionOnPage {
-  constructor(gqlEffectFieldState: EffectFieldStateEdge) {
-    super(gqlEffectFieldState);
-  }
+  // constructor(gqlEffectFieldState: EffectFieldStateEdge) {
+  //   super(gqlEffectFieldState);
+  // }
 }
 
 // #endregion
@@ -457,9 +457,9 @@ export const EFFECT_ITEM_QUERY = gql`
 `;
 
 export class EffectItemResult extends AuxToItemConnectionOnPage {
-  constructor(gqlEffectItem: EffectItemEdge) {
-    super(gqlEffectItem);
-  }
+  // constructor(gqlEffectItem: EffectItemEdge) {
+  //   super(gqlEffectItem);
+  // }
 }
 
 // #endregion

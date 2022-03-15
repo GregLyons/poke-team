@@ -1,8 +1,4 @@
-type BuilderHomeProps = {
-}
-
-const BuilderHome = ({
-}: BuilderHomeProps) => {
+const BuilderHome = () => {
 
   return (
     <div>

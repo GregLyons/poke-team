@@ -8,8 +8,6 @@ import './Entries/Entries.css';
 import './Planner.css';
 import PlannerNavBar from './PlannerNavBar';
 
-
-
 type PlannerProps = {
   dispatchBGManager: React.Dispatch<BGAction>
   bgManager: BGManager

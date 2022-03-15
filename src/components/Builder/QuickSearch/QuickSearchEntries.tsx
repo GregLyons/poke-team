@@ -79,7 +79,7 @@ const QuickSearchEntries = ({
         tier,
       };
     }).sort(sortPokemonByKey(pagination));
-  }, [data, filters.genFilter.gen, filters.tierFilter.format]);
+  }, [data, filters.genFilter.gen, filters.tierFilter.format, pagination]);
 
   // Entries to be rendered, which should be sorted and filtered according to orderByKey and filters, respectively
   // If we were to perform our initial sort here, then the unsorted array shows for a brief moment before being sorted. Thus, we sort originalEntries instead

@@ -1,13 +1,13 @@
 import {
-  Outlet,
-  useParams
+    Outlet,
+    useParams
 } from 'react-router-dom';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
 import { useGenConnectedSearchVars } from '../../../hooks/Searches';
 import {
-  MoveEffectQueryVars, MoveFieldStateQueryVars, MoveOnPage, MovePageQuery,
-  MovePageQueryVars, MoveStatQueryVars, MoveStatusQueryVars, MoveTypeQueryVars, MoveUsageMethodQueryVars, MOVE_EFFECT_QUERY, MOVE_FIELDSTATE_QUERY, MOVE_PAGE_QUERY, MOVE_STATUS_QUERY, MOVE_STAT_QUERY, MOVE_TYPE_QUERY, MOVE_USAGEMETHOD_QUERY
+    MoveEffectQueryVars, MoveFieldStateQueryVars, MoveOnPage, MovePageQuery,
+    MovePageQueryVars, MoveStatQueryVars, MoveStatusQueryVars, MoveTypeQueryVars, MoveUsageMethodQueryVars, MOVE_EFFECT_QUERY, MOVE_FIELDSTATE_QUERY, MOVE_PAGE_QUERY, MOVE_STATUS_QUERY, MOVE_STAT_QUERY, MOVE_TYPE_QUERY, MOVE_USAGEMETHOD_QUERY
 } from '../../../types-queries/Planner/Move';
 import { Dispatches, Filters } from '../../App';
 import Accordion from '../../Reusables/Accordion/Accordion';
@@ -15,16 +15,13 @@ import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 import {
-  listRenderMoveEffect,
-  listRenderMoveFieldState,
-  listRenderMoveStat,
-  listRenderMoveStatus,
-  listRenderMoveType,
-  listRenderMoveUsageMethod
+    listRenderMoveEffect,
+    listRenderMoveFieldState,
+    listRenderMoveStat,
+    listRenderMoveStatus,
+    listRenderMoveType,
+    listRenderMoveUsageMethod
 } from './MoveConnections';
-
-
-
 
 type MovePageProps = {
   dispatches: Dispatches

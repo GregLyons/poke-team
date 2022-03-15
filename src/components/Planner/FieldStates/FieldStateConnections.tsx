@@ -1,13 +1,12 @@
 import { ListRenderArgs, ListRenderArgsIcons } from "../../../hooks/Searches";
 import {
-  DUMMY_POKEMON_ICON_DATUM
+    DUMMY_POKEMON_ICON_DATUM
 } from "../../../types-queries/helpers";
 import {
-  FieldStateAbilityQuery, FieldStateAbilityResult, FieldStateEffectQuery, FieldStateEffectResult, FieldStateItemQuery, FieldStateItemResult, FieldStateMoveQuery, FieldStateMoveResult, FieldStateStatQuery, FieldStateStatResult, FieldStateStatusQuery, FieldStateStatusResult, FieldStateTypeQuery, FieldStateTypeResult
+    FieldStateAbilityQuery, FieldStateAbilityResult, FieldStateEffectQuery, FieldStateEffectResult, FieldStateItemQuery, FieldStateItemResult, FieldStateMoveQuery, FieldStateMoveResult, FieldStateStatQuery, FieldStateStatResult, FieldStateStatusQuery, FieldStateStatusResult, FieldStateTypeQuery, FieldStateTypeResult
 } from "../../../types-queries/Planner/FieldState";
 import { ENUMCASE_TO_TITLECASE } from "../../../utils/constants";
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
-
 
 export const listRenderFieldStateAbility = ({ data, dispatches, filters, }: ListRenderArgsIcons<FieldStateAbilityQuery>) => {
   if (!data || !data.fieldStateByName) return (<div>Data not found for the query 'fieldStateByName'.</div>);

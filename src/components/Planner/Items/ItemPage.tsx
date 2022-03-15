@@ -23,9 +23,6 @@ import {
   listRenderItemUsageMethod
 } from './ItemConnections';
 
-
-
-
 type ItemPageProps = {
   dispatches: Dispatches
   filters: Filters

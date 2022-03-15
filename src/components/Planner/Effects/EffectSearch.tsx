@@ -15,9 +15,6 @@ import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { listToggleValue } from '../helpers';
 import MainSearch from '../MainSearch/MainSearch';
 
-
-
-
 const listRender = ({ data, }: ListRenderArgs<EffectSearchQuery>) => {
   if (!data || !data.effects) return (<div>Data not found for the query 'effects'.</div>);
   
@@ -90,7 +87,7 @@ type EffectSearchMainProps = {
 const EffectSearch = ({
   genFilter,
 }: EffectSearchMainProps) => {
-  const { queryVars, filterForm, focusedOnInput, } = useListFilter<EffectSearchVars>({
+  const { queryVars, filterForm, } = useListFilter<EffectSearchVars>({
     defaultSearchVars: {
       gen: genFilter.gen,
       contains: '',

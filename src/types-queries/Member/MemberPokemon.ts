@@ -248,7 +248,7 @@ export class MemberPokemon extends MemberEntity {
       .filter(d => d.formClass === 'COSMETIC')
       // Map to PokemonIconDatum
       .map(d => {
-        const { id, name, psID, formattedName, speciesName } = d;
+        const { id, psID, formattedName, } = d;
         return {
           id,
           formattedName,
@@ -427,14 +427,13 @@ export class MemberPokemon extends MemberEntity {
   }
 
   public assignEVs(newEVs: StatTable) {
-    Object.entries(newEVs).map(([key, value]) => {
+    for (let [key, value] of Object.entries(newEVs)) {
       const statName = key as BaseStatName;
 
-      // Type-guard
       if (!statName) return;
 
       this.assignEV(statName, value);
-    });
+    }
   }
 
   public assignIV(stat: BaseStatName, newValue: number) {
@@ -467,10 +466,9 @@ export class MemberPokemon extends MemberEntity {
   }
 
   public assignIVs(newIVs: StatTable) {
-    Object.entries(newIVs).map(([key, value]) => {
+    for (let [key, value] of Object.entries(newIVs)) {
       const statName = key as BaseStatName;
 
-      // Type-guard
       if (!statName) return;
 
       this.assignIV(statName, value);
@@ -479,7 +477,7 @@ export class MemberPokemon extends MemberEntity {
       if (this.gen > 1) {
         this.hpType = ivsToHiddenPower(this.ivs, this.gen).type;
       }
-    });
+    }
   }
 
   public assignNature(newNature: MemberNature) {

@@ -102,7 +102,7 @@ const CartTerminal = ({
     }
 
     return { onExecute, onSubmit, onTerminate };
-  }, [cart, dispatches, filters, newName, setNewName, submitting, setSubmitting, terminalMessage, setTerminalMessage, defaultMessage, ]);
+  }, [cart, dispatches, filters, newName, setNewName, setSubmitting, setTerminalMessage, defaultMessage, ]);
 
   const currentCombination = cart[filters.genFilter.gen].combination;
   return (

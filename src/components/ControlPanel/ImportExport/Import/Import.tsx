@@ -161,8 +161,8 @@ const Import = ({
     execute_item();
     execute_nature();
   }, [
-    filters, team[filters.genFilter.gen].importedMembers, team[filters.genFilter.gen].failedImport, teamDispatch,
-    importState.key, numOpenSlots,
+    filters, team, teamDispatch,
+    importState, numOpenSlots,
     execute_pokemon, execute_item, execute_nature,
   ]);
 
@@ -352,8 +352,8 @@ const Import = ({
       }
     }
   }, [
-    team[filters.genFilter.gen].importedMembers, filters, teamDispatch,
-    numOpenSlots, importState.key,
+    team, filters, teamDispatch,
+    numOpenSlots, importState,
     data_pokemon, data_item, data_nature,
     loading_pokemon, loading_item, loading_nature,
     error_pokemon, error_item, error_nature,

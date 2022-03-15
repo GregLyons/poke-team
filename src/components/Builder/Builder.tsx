@@ -8,10 +8,6 @@ import { useContainerSize } from "../../hooks/App/ContainerSize";
 import './Builder.css';
 import BuilderNavBar from './BuilderNavBar';
 
-
-
-
-
 type BuilderProps = {
   dispatchBGManager: React.Dispatch<BGAction>
   bgManager: BGManager
@@ -34,7 +30,7 @@ const Builder = ({
       payload: 'green',
     });
     toggleBGPulse(dispatchBGManager);
-  }, []);
+  }, [dispatchBGManager, ]);
 
   return (
     <div 

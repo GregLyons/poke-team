@@ -26,7 +26,7 @@ const Analyzer = ({
       payload: 'red',
     });
     toggleBGPulse(dispatchBGManager);
-  }, []);
+  }, [dispatchBGManager, ]);
   return (
     <div 
       className="analyzer-container"

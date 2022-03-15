@@ -66,26 +66,26 @@ const TYPENAME_TO_TYPEICON_5 = new Map<string, [number, number]>([
   ['ice', [-64, -60]],
 ]);
 
-const TYPENAME_TO_TYPEICON_8 = new Map<string, [number, number]>([
-  ['fighting', [-0, -0]],
-  ['fire', [-0, -44]],
-  ['flying', [-0, -88]],
-  ['ghost', [-0, -132]],
-  ['grass', [-200, -0]],
-  ['ground', [-200, -44]],
-  ['ice', [-200, -88]],
-  ['normal', [-200, -132]],
-  ['poison', [-0, -176]],
-  ['psychic', [-200, -176]],
-  ['rock', [-0, -220]],
-  ['steel', [-200, -220]],
-  ['water', [-0, -264]],
-  ['bug', [-200, -264]],
-  ['dark', [-0, -308]],
-  ['dragon', [-200, -308]],
-  ['electric', [-0, -352]],
-  ['fairy', [-200, -352]],
-]);
+// const TYPENAME_TO_TYPEICON_8 = new Map<string, [number, number]>([
+//   ['fighting', [-0, -0]],
+//   ['fire', [-0, -44]],
+//   ['flying', [-0, -88]],
+//   ['ghost', [-0, -132]],
+//   ['grass', [-200, -0]],
+//   ['ground', [-200, -44]],
+//   ['ice', [-200, -88]],
+//   ['normal', [-200, -132]],
+//   ['poison', [-0, -176]],
+//   ['psychic', [-200, -176]],
+//   ['rock', [-0, -220]],
+//   ['steel', [-200, -220]],
+//   ['water', [-0, -264]],
+//   ['bug', [-200, -264]],
+//   ['dark', [-0, -308]],
+//   ['dragon', [-200, -308]],
+//   ['electric', [-0, -352]],
+//   ['fairy', [-200, -352]],
+// ]);
 
 export const getTypeIcon = (type: string): { left: number, top: number } => {
   const [left, top] = TYPENAME_TO_TYPEICON_5.get(type) || [0, 0];

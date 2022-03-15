@@ -22,9 +22,6 @@ import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { listToggleValue, rangeSelect } from '../helpers';
 import MainSearch from '../MainSearch/MainSearch';
 
-
-
-
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<MoveSearchQuery>) => {
   if (!data || !data.moves) return (<div>Data not found for the query 'moves'.</div>);
   
@@ -295,7 +292,7 @@ const MoveSearch = ({
   dispatches,
   filters,
 }: MoveSearchProps) => {
-  const { queryVars, filterForm, focusedOnInput, } = useListFilter_removal<MoveSearchVars>({
+  const { queryVars, filterForm, } = useListFilter_removal<MoveSearchVars>({
     defaultSearchVars: {
       gen: filters.genFilter.gen,
       contains: '',

@@ -16,7 +16,6 @@ import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 import { listRenderStatAbility, listRenderStatFieldState, listRenderStatItem, listRenderStatMove } from './StatConnections';
 
-
 type StatPageProps = {
   dispatches: Dispatches
   filters: Filters

@@ -1,18 +1,14 @@
-import { useState } from "react";
 import { BoxInCart, Cart } from "../../../../../hooks/App/Cart";
 import { GenFilter } from "../../../../../hooks/App/GenFilter";
-import { Dispatches, } from "../../../../App";
 import Button from "../../../../Reusables/Button/Button";
-import { CartAccordionClickHandlers, } from "../../CartView";
+import { CartAccordionClickHandlers } from "../../CartView";
 
 type BoxAccordionTitleProps = {
   cart: Cart
   box: BoxInCart
   pinned: boolean
 
-  filters: {
-    genFilter: GenFilter
-  }
+  genFilter: GenFilter
   titleText: string
 
   clickHandlers: CartAccordionClickHandlers
@@ -21,16 +17,13 @@ type BoxAccordionTitleProps = {
 const BoxAccordionTitle = ({
   cart,
   box,
-  pinned: initialPinned,
+  pinned,
 
-  filters: {
-    genFilter,
-  },
+  genFilter,
   titleText,
 
   clickHandlers,
 }: BoxAccordionTitleProps) => {
-  const [pinned, setPinned] = useState(initialPinned);
 
   return (
     <>
@@ -63,7 +56,6 @@ const BoxAccordionTitle = ({
             pinned 
               ? clickHandlers.onUnpinClick(e, box)
               : clickHandlers.onPinClick(e, box);
-            setPinned(!pinned);
           }}
           disabled={false}
           immediate={false}

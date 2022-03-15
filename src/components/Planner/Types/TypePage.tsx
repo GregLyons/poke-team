@@ -1,13 +1,13 @@
 import {
-  Outlet,
-  useParams
+    Outlet,
+    useParams
 } from 'react-router-dom';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
 import {
-  TypeAbilityQueryVars, TypeFieldStateQueryVars, TypeItemQueryVars, TypeMoveQueryVars, TypeOnPage, TypePageQuery,
-  TypePageQueryVars, TYPE_ABILITY_QUERY, TYPE_FIELDSTATE_QUERY, TYPE_ITEM_QUERY, TYPE_MOVE_QUERY, TYPE_PAGE_QUERY
+    TypeAbilityQueryVars, TypeFieldStateQueryVars, TypeItemQueryVars, TypeMoveQueryVars, TypeOnPage, TypePageQuery,
+    TypePageQueryVars, TYPE_ABILITY_QUERY, TYPE_FIELDSTATE_QUERY, TYPE_ITEM_QUERY, TYPE_MOVE_QUERY, TYPE_PAGE_QUERY
 } from '../../../types-queries/Planner/Type';
 import { Dispatches, Filters } from '../../App';
 import Accordion from '../../Reusables/Accordion/Accordion';
@@ -15,13 +15,11 @@ import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 import EntityConnectionSearch from '../Pages/EntityConnectionSearch';
 import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 import {
-  listRenderTypeAbility,
-  listRenderTypeFieldState,
-  listRenderTypeItem,
-  listRenderTypeMove
+    listRenderTypeAbility,
+    listRenderTypeFieldState,
+    listRenderTypeItem,
+    listRenderTypeMove
 } from './TypeConnections';
-
-
 
 type TypePageProps = {
   dispatches: Dispatches

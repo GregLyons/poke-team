@@ -65,7 +65,7 @@ type StatusSearchMainProps = {
 const StatusSearch = ({
   genFilter,
 }: StatusSearchMainProps) => {
-  const { queryVars, filterForm, focusedOnInput, } = useListFilter<StatusSearchVars>({
+  const { queryVars, filterForm, } = useListFilter<StatusSearchVars>({
     defaultSearchVars: {
       gen: genFilter.gen,
       contains: '',

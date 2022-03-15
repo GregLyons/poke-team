@@ -1,14 +1,11 @@
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import { AbilityCoverageQuery, computeSpeedControl, ItemCoverageQuery, MoveCoverageQuery } from "../../../../types-queries/Analyzer/Coverage";
 import { MemberAndEntityPSIDs, MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
-import { Filters } from "../../../App";
 import './SpeedControl.css';
 import SpeedControlEntry from "./SpeedControlEntry";
 
 
 type SpeedControlProps = {
-  filters: Filters
-
   abilityData: AbilityCoverageQuery
   itemData: ItemCoverageQuery
   moveData: MoveCoverageQuery
@@ -19,8 +16,6 @@ type SpeedControlProps = {
 };
 
 const SpeedControl = ({
-  filters,
-
   abilityData,
   itemData,
   moveData,
@@ -39,13 +34,6 @@ const SpeedControl = ({
       },
     );
   }, [abilityData, itemData, moveData, memberAndEntityPSIDs]);
-
-  const rankControlValue = useCallback((total: number) => {
-    if (total > 2) return 'great';
-    if (total > 1) return 'good';
-    if (total > 0) return 'decent';
-    else return 'ok';
-  }, []);
   
   return (
     <div

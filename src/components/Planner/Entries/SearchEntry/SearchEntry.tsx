@@ -12,9 +12,7 @@ import EntryLink from "../EntryLink";
 import PlannerPokemonIcons from "../Icons/PlannerPokemonIcons";
 import './SearchEntry.css';
 
-
-
-type SearchEntry = {
+type SearchEntryProps = {
   entityClass: EntityClass
   name: string
   linkName: string
@@ -34,7 +32,7 @@ const SearchEntry = ({
   description,
   data,
   icons,
-}: SearchEntry) => {
+}: SearchEntryProps) => {
   // Changing scroll height 
   // #region
 

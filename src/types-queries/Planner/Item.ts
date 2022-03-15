@@ -394,9 +394,9 @@ export const ITEM_EFFECT_QUERY = gql`
 `;
 
 export class ItemEffectResult extends MainToAuxConnectionOnPage {
-  constructor(gqlItemEffect: ItemEffectEdge) {
-    super(gqlItemEffect);
-  }
+  // constructor(gqlItemEffect: ItemEffectEdge) {
+  //   super(gqlItemEffect);
+  // }
 }
 
 // #endregion

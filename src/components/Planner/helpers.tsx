@@ -4,7 +4,6 @@ import { Dispatches, Filters } from "../App";
 // Rendering lists
 // #region
 
-
 export class MissingDispatchError extends Error {
   constructor(msg: string) {
     super(msg);

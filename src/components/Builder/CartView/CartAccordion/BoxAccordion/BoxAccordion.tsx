@@ -1,13 +1,13 @@
-import { useMemo, } from "react";
+import { useMemo } from "react";
 import { Cart, TargetEntityInCart } from "../../../../../hooks/App/Cart";
-import { Dispatches, Filters } from "../../../../App";
+import { Team } from "../../../../../hooks/App/Team";
+import { Filters } from "../../../../App";
 import Accordion from "../../../../Reusables/Accordion/Accordion";
+import { CartAccordionClickHandlers } from "../../CartView";
 import Box from "./Box";
+import './BoxAccordion.css';
 import BoxAccordionTitle from "./BoxAccordionTitle";
 
-import './BoxAccordion.css';
-import { CartAccordionClickHandlers } from "../../CartView";
-import { Team } from "../../../../../hooks/App/Team";
 
 type BoxAccordionProps = {
   cart: Cart
@@ -41,7 +41,7 @@ const BoxAccordion = ({
           }
           
           clickHandlers={clickHandlers}
-          filters={filters}
+          genFilter={filters.genFilter}
           titleText={note}
         />,
         content: <Box

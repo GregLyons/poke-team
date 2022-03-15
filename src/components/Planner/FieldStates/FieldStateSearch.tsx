@@ -16,9 +16,6 @@ import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { listToggleValue, rangeSelect } from '../helpers';
 import MainSearch from '../MainSearch/MainSearch';
 
-
-
-
 const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
   if (!data || !data.fieldStates) return (<div>Data not found for the query 'fieldStates'.</div>);
   
@@ -165,7 +162,7 @@ type FieldStateSearchMainProps = {
 const FieldStateSearch = ({
   genFilter,
 }: FieldStateSearchMainProps) => {
-  const { queryVars, filterForm, focusedOnInput, } = useListFilter<FieldStateSearchVars>({
+  const { queryVars, filterForm, } = useListFilter<FieldStateSearchVars>({
     defaultSearchVars: {
       gen: genFilter.gen,
       contains: '',

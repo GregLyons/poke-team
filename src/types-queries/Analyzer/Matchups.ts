@@ -165,18 +165,17 @@ const resultsToMatchupMap = (results: NormalizedMatchupResult[]) => {
     map.set(result.name, initializeDefensiveTypeMatchupMapEntry());
     
     // Iterate over edges and update map
-    result.defensiveMatchups.edges.map(edge => {
-      // Unpack edge
+    for (let edge of result.defensiveMatchups.edges) {
       const { node, multiplier } = edge;
       const { name: typeName } = node;
 
       const matchup = map.get(result.name);
       
       // Typeguard; shouldn't happen
-      if (!matchup) return;
+      if (!matchup) continue;
 
       matchup[typeName] = multiplier;
-    });
+    };
   }
 
   return map;
@@ -226,11 +225,11 @@ export const computeTypeMatchups: (
   const fromItemsMap = resultsToMatchupMap(results.fromItems.map(toNormalizedMatchupResult));
 
   // Iterate over members, updating 'result' when necessary
-  members.map(member => {
+  for (let member of members) {
     const { psID: memberPSID } = member;
 
     // Type-guard
-    if (!member.typing) return;
+    if (!member.typing) continue;
 
     // Iterate over individual types
     for (let typeName of TYPENAMES.map(d => d[0])) {
@@ -291,7 +290,7 @@ export const computeTypeMatchups: (
         }
       }
     }
-  });
+  };
 
   return typeMatchupMap;
 };

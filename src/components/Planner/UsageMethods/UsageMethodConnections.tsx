@@ -1,9 +1,8 @@
 import { ListRenderArgsIcons } from "../../../hooks/Searches";
 import {
-  UsageMethodAbilityQuery, UsageMethodAbilityResult, UsageMethodItemQuery, UsageMethodItemResult, UsageMethodMoveQuery, UsageMethodMoveResult
+    UsageMethodAbilityQuery, UsageMethodAbilityResult, UsageMethodItemQuery, UsageMethodItemResult, UsageMethodMoveQuery, UsageMethodMoveResult
 } from "../../../types-queries/Planner/UsageMethod";
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
-
 
 export const listRenderUsageMethodAbility = ({ data, dispatches, filters, }: ListRenderArgsIcons<UsageMethodAbilityQuery>) => {
   if (!data || !data.usageMethodByName) return (<div>Data not found for the query 'usageMethodByName'.</div>);

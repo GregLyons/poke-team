@@ -19,8 +19,6 @@ import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { listToggleValue } from '../helpers';
 import MainSearch from '../MainSearch/MainSearch';
 
-
-
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<ItemSearchQuery>) => {
   if (!data || !data.items) return (<div>Data not found for the query 'items'.</div>);
   
@@ -110,7 +108,7 @@ const ItemSearch = ({
   dispatches,
   filters,
 }: ItemSearchProps) => {
-  const { queryVars, filterForm, focusedOnInput, } = useListFilter_removal<ItemSearchVars>({
+  const { queryVars, filterForm, } = useListFilter_removal<ItemSearchVars>({
     defaultSearchVars: {
       gen: filters.genFilter.gen,
       contains: '',

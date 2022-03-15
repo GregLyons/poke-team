@@ -46,10 +46,6 @@ import TypeSearch from './Planner/Types/TypeSearch';
 import UsageMethodPage from './Planner/UsageMethods/UsageMethodPage';
 import UsageMethodSearch from './Planner/UsageMethods/UsageMethodSearch';
 
-
-
-
-
 export type Dispatches = {
   dispatchCart: React.Dispatch<CartAction>
   dispatchGenFilter: React.Dispatch<GenFilterAction>

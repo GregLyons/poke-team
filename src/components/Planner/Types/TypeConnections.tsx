@@ -4,7 +4,6 @@ import {
 } from "../../../types-queries/Planner/Type";
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 
-
 export const listRenderTypeAbility = ({ data, dispatches, filters, }: ListRenderArgsIcons<TypeAbilityQuery>) => {
   if (!data || !data.typeByName) return (<div>Data not found for the query 'typeByName'.</div>);
 

@@ -3,7 +3,6 @@ import NumericalInput from "../NumericalInput/NumericalInput";
 import './Slider.css';
 import SliderBase from "./SliderBase";
 
-
 type SliderProps = {
   titleFor: string
 

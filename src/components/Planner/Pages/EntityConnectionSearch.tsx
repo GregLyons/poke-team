@@ -1,15 +1,12 @@
 import {
-  useQuery
+    useQuery
 } from "@apollo/client";
 import {
-  DocumentNode
+    DocumentNode
 } from 'graphql';
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { ListRenderArgs } from '../../../hooks/Searches';
 import './Pages.css';
-
-
-
 
 interface EntityConnectionSearchProps<SearchQuery, SearchQueryVars> {
   genFilter: GenFilter

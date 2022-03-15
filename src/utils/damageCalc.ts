@@ -23,9 +23,11 @@ export const MEMBERPOKEMON_TO_SMOGONPOKEMON: (
   return new Pokemon(gen, formattedPSID, {
     ability: abilityName,
     item: itemName,
-    moves: moveNames,
     nature: natureName,
+    moves: moveNames,
     curHP: options?.curHP,
+    evs,
+    ivs,
     boosts: options?.boosts,
   });
 };
@@ -241,7 +243,7 @@ export const rateDamageMatchupResult = (result: DamageMatchupResult | null) => {
   // User moves first
   if (moveFirst) {
     // User KOs enemy in fewer hits, or guaranteed equal hits
-    if (userToEnemy.minHits < enemyToUser.minHits || userToEnemy.minHits === enemyToUser.minHits && userGuaranteed) return 4;
+    if (userToEnemy.minHits < enemyToUser.minHits || (userToEnemy.minHits === enemyToUser.minHits && userGuaranteed)) return 4;
 
     // Enemy KOs user in one fewer hit, or possible equal hits
     if (userToEnemy.minHits - enemyToUser.minHits <= 1) return 3;
@@ -253,7 +255,7 @@ export const rateDamageMatchupResult = (result: DamageMatchupResult | null) => {
   // Enemy moves first
   if (moveFirst === false) {
     // Enemy KOs user in fewer hits, or guaranteed equal hits
-    if (enemyToUser.minHits < userToEnemy.minHits || enemyToUser.minHits === userToEnemy.minHits && enemyGuaranteed) return 2;
+    if (enemyToUser.minHits < userToEnemy.minHits || (enemyToUser.minHits === userToEnemy.minHits && enemyGuaranteed)) return 2;
 
     // User KOs enemy in one fewer hit, or possible equal hits
     if (userToEnemy.minHits - enemyToUser.minHits <= 1) return 3;
@@ -491,7 +493,7 @@ export function calcDamageMatchup ({
       // userToEnemy stats
       const userToEnemyStatPSIDs: StatPSIDObject = moveInfo_userToEnemy.reduce((acc, [_, display]) => {
         // In userToEnemy, display is of the form [user info] vs. [enemy info]: [other info]
-        const displayParts = display.split(/vs\.|\:/);
+        const displayParts = display.split(/vs\.|:/);
 
         if (displayParts.length === 0) return acc;
 
@@ -538,7 +540,7 @@ export function calcDamageMatchup ({
 
       const enemyToUserStatPSIDs: StatPSIDObject = moveInfo_enemyToUser.reduce((acc, [_, display]) => {
         // In enemyToUser, display is of the form [enemy info] vs. [user info]: [other info]
-        const displayParts = display.split(/vs\.|\:/);
+        const displayParts = display.split(/vs\.|:/);
         
         if (displayParts.length === 0) return acc;
 

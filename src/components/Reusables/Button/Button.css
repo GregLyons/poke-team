@@ -13,7 +13,8 @@
 }
 
 .button:disabled {
-  color: var(--dark1);
+  content: '';
+  height: 2rem;
 }
 
 .button:hover:enabled,

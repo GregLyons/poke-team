@@ -25,7 +25,9 @@ const SpeedControlEntry = ({
   }, []);
 
   return (
-  <div className="speed-control__entry">
+  <div className="speed-control__entry"
+    onMouseLeave={onMouseLeave}
+  >
     <div className="speed-control__name">
       {speedControlKey.charAt(0).toUpperCase() + speedControlKey.slice(1)}
     </div>

@@ -31,7 +31,7 @@ export function useGenConnectedSearchVars<SearchVars>({
       ...queryVars,
       gen: genFilter.gen,
     });
-  }, [genFilter]);
+  }, [genFilter, queryVars, setQueryVars, ]);
 
   return { queryVars, setQueryVars, };
 }
@@ -106,7 +106,7 @@ export function useGenConnectedSearchBar<SearchVars extends NameSearchVars>({
       ...queryVars,
       gen: genFilter.gen,
     });
-  }, [genFilter]);
+  }, [genFilter, queryVars, setQueryVars, ]);
 
   return {
     queryVars,
@@ -151,7 +151,7 @@ export function useRemovalConnectedSearchVars<SearchVars>({
       removedFromSwSh: removedFromSwSh(genFilter),
       removedFromBDSP: removedFromBDSP(genFilter),
     })
-  }, [genFilter]);
+  }, [genFilter, queryVars, setQueryVars, ]);
 
   return {
     queryVars, setQueryVars,
@@ -186,7 +186,7 @@ export function useRemovalConnectedSearchBar<SearchVars extends NameSearchVars>(
       removedFromSwSh: removedFromSwSh(genFilter),
       removedFromBDSP: removedFromBDSP(genFilter),
     })
-  }, [genFilter]);
+  }, [genFilter, queryVars, setQueryVars, ]);
 
   return {
     queryVars,

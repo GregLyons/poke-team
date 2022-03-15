@@ -283,26 +283,23 @@ export const validatePokemon = ({
   // Typing check
   // #region 
 
-  let typingCheck = true;
-  pokemonIconDatum.typing.map(typeName => {
+  for (let typeName of pokemonIconDatum.typing) {
     // Type filter fails to include one of the types
-    if (!pokemonFilter.types[typeName]) typingCheck = false;
-  });
-  if (!typingCheck) return { validated: false, reason: 'type', };
+    if (!pokemonFilter.types[typeName]) return { validated: false, reason: 'type', };
+  };
 
   // #endregion 
 
   // Base stat check
   // #region 
 
-  let baseStatCheck = true;
-  BASE_STAT_NAMES.map(baseStatName => {
+  for (let baseStatName of BASE_STAT_NAMES) {
     // Previous baseStatCheck failed, or baseStat less than min
-    if (baseStatCheck && pokemonIconDatum.baseStats[baseStatName] < pokemonFilter.minBaseStats[baseStatName]) baseStatCheck = false;
+    if (pokemonIconDatum.baseStats[baseStatName] < pokemonFilter.minBaseStats[baseStatName]) return { validated: false, reason: 'stat', };
     // Previous baseStatCheck failed, or baseStat greater than max
-    if (baseStatCheck && pokemonIconDatum.baseStats[baseStatName] > pokemonFilter.maxBaseStats[baseStatName]) baseStatCheck = false;
-  })
-  return { validated: baseStatCheck, reason: baseStatCheck ? null : 'stat', }; 
+    if (pokemonIconDatum.baseStats[baseStatName] > pokemonFilter.maxBaseStats[baseStatName]) return { validated: false, reason: 'stat', };
+  }
+  return { validated: true, reason: null, }; 
 
   // #endregion
 }

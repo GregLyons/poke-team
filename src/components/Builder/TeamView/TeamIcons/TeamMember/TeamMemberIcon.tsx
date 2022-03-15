@@ -5,7 +5,6 @@ import RemoveTimer from "./RemoveTimer";
 type TeamMemberIconProps = {
   pokemonIconDatum: PokemonIconDatum
   removing: boolean
-  // replaceDuration: number
   removeDuration: number
   startTime: number | undefined
 }
@@ -13,7 +12,6 @@ type TeamMemberIconProps = {
 const TeamMemberIcon = ({
   pokemonIconDatum,
   removing,
-  // replaceDuration,
   removeDuration,
   startTime,
 }: TeamMemberIconProps) => {
