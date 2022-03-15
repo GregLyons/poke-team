@@ -3,6 +3,7 @@ import { DocumentNode } from "graphql";
 import { useEffect, useRef, useState } from "react";
 import { Dispatches, Filters } from "../components/App";
 import SearchBar from "../components/Reusables/SearchBar/SearchBar";
+import { GenNum } from "../types-queries/entities";
 import { NameSearchVars } from "../types-queries/helpers";
 import { GenFilter, removedFromBDSP, removedFromSwSh } from "./App/GenFilter";
 
@@ -12,10 +13,9 @@ export type SearchBarProps = {
   backgroundLight: 'red' | 'green' | 'blue'
 }
 
-export function useGenConnectedSearchVars<SearchVars>({
+export function useGenConnectedSearchVars<SearchVars extends { gen: GenNum }>({
   defaultSearchVars,
   genFilter,
-
 }: {
   defaultSearchVars: SearchVars
   genFilter: GenFilter
@@ -27,6 +27,9 @@ export function useGenConnectedSearchVars<SearchVars>({
 
   // Update gen when genFilter changes
   useEffect(() => {
+    // If already equal, do nothing
+    if (queryVars.gen === genFilter.gen) return;
+
     setQueryVars({
       ...queryVars,
       gen: genFilter.gen,
@@ -57,7 +60,7 @@ export function useGenConnectedSearchBar<SearchVars extends NameSearchVars>({
   searchBar: JSX.Element
   focusedOnInput: boolean
 } {
-  const { queryVars, setQueryVars } = useGenConnectedSearchVars<SearchVars>({ defaultSearchVars, genFilter, });
+  const [queryVars, setQueryVars] = useState<SearchVars>(defaultSearchVars);
   const [searchMode, setSearchMode] = useState<'STARTS' | 'CONTAINS'>('STARTS');
   const [focusedOnInput, setFocusedOnInput] = useState<boolean>(false);
 
@@ -100,8 +103,11 @@ export function useGenConnectedSearchBar<SearchVars extends NameSearchVars>({
     );
   };
 
-  // Update gen
+  // Update gen when genFilter changes
   useEffect(() => {
+    // If already equal, do nothing
+    if (queryVars.gen === genFilter.gen) return;
+
     setQueryVars({
       ...queryVars,
       gen: genFilter.gen,
@@ -131,7 +137,7 @@ export function useGenConnectedSearchBar<SearchVars extends NameSearchVars>({
   };
 }
 
-export function useRemovalConnectedSearchVars<SearchVars>({
+export function useRemovalConnectedSearchVars<SearchVars extends { gen: GenNum, removedFromSwSh: boolean | null, removedFromBDSP: boolean | null }>({
   defaultSearchVars,
   genFilter,
 }: {
@@ -141,16 +147,18 @@ export function useRemovalConnectedSearchVars<SearchVars>({
   queryVars: SearchVars,
   setQueryVars: React.Dispatch<React.SetStateAction<SearchVars>>,
 } {
-  const { queryVars, setQueryVars } = useGenConnectedSearchVars<SearchVars>({defaultSearchVars, genFilter,});
+  const [queryVars, setQueryVars] = useState<SearchVars>(defaultSearchVars);
   
   // Update removal flags; gen already handled
   useEffect(() => {
+    if (queryVars.gen === genFilter.gen && queryVars.removedFromSwSh === removedFromSwSh(genFilter) && queryVars.removedFromBDSP === removedFromBDSP(genFilter)) return;
+
     setQueryVars({
       ...queryVars,
       gen: genFilter.gen,
       removedFromSwSh: removedFromSwSh(genFilter),
       removedFromBDSP: removedFromBDSP(genFilter),
-    })
+    });
   }, [genFilter, queryVars, setQueryVars, ]);
 
   return {
@@ -162,7 +170,7 @@ export function useRemovalConnectedSearchVars<SearchVars>({
   Do what useGenConnectedSearchVars does, but also:
     Set queryVars to update when the Sw/Sh and BDSP flags change
 */
-export function useRemovalConnectedSearchBar<SearchVars extends NameSearchVars>({
+export function useRemovalConnectedSearchBar<SearchVars extends NameSearchVars & { removedFromSwSh: boolean | null, removedFromBDSP: boolean | null, }>({
   defaultSearchVars,
   genFilter,
   searchBarProps,
@@ -180,6 +188,8 @@ export function useRemovalConnectedSearchBar<SearchVars extends NameSearchVars>(
   
   // Update removal flags; gen already handled
   useEffect(() => {
+    if (queryVars.gen === genFilter.gen && queryVars.removedFromSwSh === removedFromSwSh(genFilter) && queryVars.removedFromBDSP === removedFromBDSP(genFilter)) return;
+    
     setQueryVars({
       ...queryVars,
       gen: genFilter.gen,
@@ -248,7 +258,7 @@ export function useListFilter<SearchVars extends NameSearchVars>({
 /*
   Do what useListFilter does, but with useRemovalConnectedSearchVars instead of useGenConnectedSearchVars
 */
-export function useListFilter_removal<SearchVars extends NameSearchVars>({
+export function useListFilter_removal<SearchVars extends NameSearchVars & { removedFromSwSh: boolean | null, removedFromBDSP: boolean | null, }>({
   defaultSearchVars,
   genFilter,
   searchBarProps,

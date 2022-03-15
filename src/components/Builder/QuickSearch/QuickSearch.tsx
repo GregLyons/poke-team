@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { Team } from '../../../hooks/App/Team';
 import { useDelayedQuery, useRemovalConnectedSearchBar } from '../../../hooks/Searches';
 import { PokemonQuickSearchQuery, PokemonQuickSearchVars, POKEMON_QUICKSEARCH_QUERY } from '../../../types-queries/Builder/QuickSearch';
-import { PokemonColumnName, PokemonIconDatum, PokemonPaginationInput } from '../../../types-queries/helpers';
+import { CapsTypeName, PokemonColumnName, PokemonIconDatum, PokemonPaginationInput, toCapsTypeName, TypeName } from '../../../types-queries/helpers';
 import { Dispatches, Filters } from '../../App';
 import SortSwitch from '../../Reusables/SortSwitch/SortSwitch';
 import './QuickSearch.css';
@@ -21,18 +21,55 @@ const QuickSearch = ({
   team,
 }: QuickSearchProps) => {
   const [pagination, setPagination] = useState<PokemonPaginationInput>({
-    orderBy: 'psID',
+    orderBy: 'POKEMON_SHOWDOWN_ID',
     sortBy: 'ASC',
   });
 
-  const { queryVars, searchBar, focusedOnInput, }  = useRemovalConnectedSearchBar<PokemonQuickSearchVars>({
+
+  /*
+    We need to combine three sets of query variables: the generation variables, the variables for the 'searchBar' ('startsWith'/'contains'), and the variables from PokemonFilter. We use our custom hook to combine the first two into 'removalVars', and then we capture all three in the variable 'queryVars'.
+
+    We need to combine these variables in order to pass them as a single object to useDelayedQuery. useRemovalConnectedSearchBar does not update the other variables (e.g. from PokemonFilter), so we need a useMemo to get the others to update.
+  */
+  // #region
+
+  const { queryVars: removalVars, searchBar, focusedOnInput, } = useRemovalConnectedSearchBar<PokemonQuickSearchVars>({
     defaultSearchVars: {
       gen: filters.genFilter.gen,
+
+      limit: 20,
+      orderBy: pagination.orderBy,
+      sortBy: pagination.sortBy,
+
       startsWith: '',
       contains: '',
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
-    }, 
+
+      types: Object.entries(filters.pokemonFilter.types).reduce((acc, [key, value]) => {
+        const typeName = key as TypeName;
+        // Type-guard
+        if (!typeName || key === '__typename') return acc;
+
+        // If type is not selected in filter
+        if (!value) return acc;
+        
+        return acc.concat(toCapsTypeName(typeName));
+      }, [] as CapsTypeName[]),
+
+      maxHP: filters.pokemonFilter.maxBaseStats.hp,
+      minHP: filters.pokemonFilter.minBaseStats.hp,
+      maxAttack: filters.pokemonFilter.maxBaseStats.attack,
+      minAttack: filters.pokemonFilter.minBaseStats.attack,
+      maxDefense: filters.pokemonFilter.maxBaseStats.defense,
+      minDefense: filters.pokemonFilter.minBaseStats.defense,
+      maxSpecialAttack: filters.pokemonFilter.maxBaseStats.specialAttack,
+      minSpecialAttack: filters.pokemonFilter.minBaseStats.specialAttack,
+      maxSpecialDefense: filters.pokemonFilter.maxBaseStats.specialDefense,
+      minSpecialDefense: filters.pokemonFilter.minBaseStats.specialDefense,
+      maxSpeed: filters.pokemonFilter.maxBaseStats.speed,
+      minSpeed: filters.pokemonFilter.minBaseStats.speed,
+    },
     genFilter: filters.genFilter,
     searchBarProps: {
       title: "Search PokemonByName",
@@ -41,9 +78,46 @@ const QuickSearch = ({
     }
   });
 
+  const queryVars = useMemo(() => {
+    return {
+      ...removalVars,
+      
+      limit: 20,
+      orderBy: pagination.orderBy,
+      sortBy: pagination.sortBy,
+
+      types: Object.entries(filters.pokemonFilter.types).reduce((acc, [key, value]) => {
+        const typeName = key as TypeName;
+        // Type-guard
+        if (!typeName || key === '__typename') return acc;
+
+        // If type is not selected in filter
+        if (!value) return acc;
+        
+        return acc.concat(toCapsTypeName(typeName));
+      }, [] as CapsTypeName[]),
+
+      maxHP: filters.pokemonFilter.maxBaseStats.hp,
+      minHP: filters.pokemonFilter.minBaseStats.hp,
+      maxAttack: filters.pokemonFilter.maxBaseStats.attack,
+      minAttack: filters.pokemonFilter.minBaseStats.attack,
+      maxDefense: filters.pokemonFilter.maxBaseStats.defense,
+      minDefense: filters.pokemonFilter.minBaseStats.defense,
+      maxSpecialAttack: filters.pokemonFilter.maxBaseStats.specialAttack,
+      minSpecialAttack: filters.pokemonFilter.minBaseStats.specialAttack,
+      maxSpecialDefense: filters.pokemonFilter.maxBaseStats.specialDefense,
+      minSpecialDefense: filters.pokemonFilter.minBaseStats.specialDefense,
+      maxSpeed: filters.pokemonFilter.maxBaseStats.speed,
+      minSpeed: filters.pokemonFilter.minBaseStats.speed,
+    };
+  }, [removalVars, filters, pagination]);
+
+  // #endregion
+
   const { data, loading, error } = useDelayedQuery<PokemonQuickSearchQuery, PokemonQuickSearchVars>({
     query: POKEMON_QUICKSEARCH_QUERY,
     queryVars,
+    delay: 1000,
   });
 
   const onPaginationChangeClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, orderBy: PokemonColumnName) => {
@@ -94,11 +168,11 @@ const QuickSearch = ({
           <div
             className="quick-search__name"
           >
-            <span onClick={e => onPaginationChangeClick(e, 'psID')}>Name</span>
+            <span onClick={e => onPaginationChangeClick(e, 'POKEMON_SHOWDOWN_ID')}>Name</span>
             <SortSwitch
               titleFor="name"
-              onClick={e => onPaginationChangeClick(e, 'psID')}
-              sortBy={pagination.orderBy === 'psID' ? pagination.sortBy : null}
+              onClick={e => onPaginationChangeClick(e, 'POKEMON_SHOWDOWN_ID')}
+              sortBy={pagination.orderBy === 'POKEMON_SHOWDOWN_ID' ? pagination.sortBy : null}
             />
           </div>
           
@@ -110,89 +184,90 @@ const QuickSearch = ({
           <div
             className="quick-search__tier"
           >
-            <span onClick={e => onPaginationChangeClick(e, 'tier')}>Tier</span>
-            <SortSwitch
+            <span>Tier</span>
+            {/* <span onClick={e => onPaginationChangeClick(e, 'tier')}>Tier</span> */}
+            {/* <SortSwitch
               titleFor="tier"
               onClick={e => onPaginationChangeClick(e, 'tier')}
               sortBy={pagination.orderBy === 'tier' ? pagination.sortBy : null}
-            />
+            /> */}
           </div>
           <div className="quick-search__stats">
             <div
               className="quick-search__stat"
-              onClick={e => onPaginationChangeClick(e, 'hp')}
+              onClick={e => onPaginationChangeClick(e, 'HP')}
             >
               HP
               <SortSwitch
                 titleFor="HP"
-                onClick={e => onPaginationChangeClick(e, 'hp')}
-                sortBy={pagination.orderBy === 'hp' ? pagination.sortBy : null}
+                onClick={e => onPaginationChangeClick(e, 'HP')}
+                sortBy={pagination.orderBy === 'HP' ? pagination.sortBy : null}
               />
             </div>
             <div
               className="quick-search__stat"
-              onClick={e => onPaginationChangeClick(e, 'attack')}
+              onClick={e => onPaginationChangeClick(e, 'ATTACK')}
             >
               Atk
               <SortSwitch
                 titleFor="Attack"
-                onClick={e => onPaginationChangeClick(e, 'attack')}
-                sortBy={pagination.orderBy === 'attack' ? pagination.sortBy : null}
+                onClick={e => onPaginationChangeClick(e, 'ATTACK')}
+                sortBy={pagination.orderBy === 'ATTACK' ? pagination.sortBy : null}
               />
             </div>
             <div
               className="quick-search__stat"
-              onClick={e => onPaginationChangeClick(e, 'defense')}
+              onClick={e => onPaginationChangeClick(e, 'DEFENSE')}
             >
               Def
               <SortSwitch
                 titleFor="Defense"
-                onClick={e => onPaginationChangeClick(e, 'defense')}
-                sortBy={pagination.orderBy === 'defense' ? pagination.sortBy : null}
+                onClick={e => onPaginationChangeClick(e, 'DEFENSE')}
+                sortBy={pagination.orderBy === 'DEFENSE' ? pagination.sortBy : null}
               />
             </div>
             <div
               className="quick-search__stat"
-              onClick={e => onPaginationChangeClick(e, 'specialAttack')}
+              onClick={e => onPaginationChangeClick(e, 'SPECIAL_ATTACK')}
             >
               SpA
               <SortSwitch
                 titleFor="Special Attack"
-                onClick={e => onPaginationChangeClick(e, 'specialAttack')}
-                sortBy={pagination.orderBy === 'specialAttack' ? pagination.sortBy : null}
+                onClick={e => onPaginationChangeClick(e, 'SPECIAL_ATTACK')}
+                sortBy={pagination.orderBy === 'SPECIAL_ATTACK' ? pagination.sortBy : null}
               />
             </div>
             <div
               className="quick-search__stat"
-              onClick={e => onPaginationChangeClick(e, 'specialDefense')}
+              onClick={e => onPaginationChangeClick(e, 'SPECIAL_DEFENSE')}
             >
               SpD
               <SortSwitch
                 titleFor="Special Defense"
-                onClick={e => onPaginationChangeClick(e, 'specialDefense')}
-                sortBy={pagination.orderBy === 'specialDefense' ? pagination.sortBy : null}
+                onClick={e => onPaginationChangeClick(e, 'SPECIAL_DEFENSE')}
+                sortBy={pagination.orderBy === 'SPECIAL_DEFENSE' ? pagination.sortBy : null}
               />
             </div>
             <div
               className="quick-search__stat"
-              onClick={e => onPaginationChangeClick(e, 'speed')}
+              onClick={e => onPaginationChangeClick(e, 'SPEED')}
             >
               Spe
               <SortSwitch
                 titleFor="Speed"
-                onClick={e => onPaginationChangeClick(e, 'speed')}
-                sortBy={pagination.orderBy === 'speed' ? pagination.sortBy : null}
+                onClick={e => onPaginationChangeClick(e, 'SPEED')}
+                sortBy={pagination.orderBy === 'SPEED' ? pagination.sortBy : null}
               />
             </div>
             <div
               className="quick-search__stat"
-              onClick={e => onPaginationChangeClick(e, 'baseStatTotal')}
+              onClick={e => onPaginationChangeClick(e, 'BASE_STAT_TOTAL')}
             >
               BST
               <SortSwitch
                 titleFor="Base Stat Total"
-                onClick={e => onPaginationChangeClick(e, 'baseStatTotal')}
-                sortBy={pagination.orderBy === 'baseStatTotal' ? pagination.sortBy : null}
+                onClick={e => onPaginationChangeClick(e, 'BASE_STAT_TOTAL')}
+                sortBy={pagination.orderBy === 'BASE_STAT_TOTAL' ? pagination.sortBy : null}
               />
             </div>
           </div>
@@ -205,7 +280,6 @@ const QuickSearch = ({
               data={data}
               team={team}
               filters={filters}
-              pagination={pagination}
               onSaveClick={onSaveClick}
               focusedOnInput={focusedOnInput}
             />

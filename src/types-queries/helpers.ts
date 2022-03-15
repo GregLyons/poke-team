@@ -2,6 +2,7 @@ import { compareStrings, sortArray } from '../utils/helpers';
 import { EffectClass, FieldStateClass, FieldStateTargetClass, GenNum, GQLBaseStatName, StatModificationRecipientEnum, StatTable } from './entities';
 
 export interface NameSearchVars {
+  gen: GenNum
   startsWith: string
   contains: string
 }
@@ -19,7 +20,7 @@ export interface PaginationInput {
 // Pokemon pagination
 // #region
 
-export type PokemonColumnName = 'psID' | 'hp' | 'attack' | 'defense' | 'specialAttack' | 'specialDefense' | 'speed' | 'baseStatTotal' | 'tier';
+export type PokemonColumnName = 'POKEMON_SHOWDOWN_ID' | 'HP' | 'ATTACK' | 'DEFENSE' | 'SPECIAL_ATTACK' | 'SPECIAL_DEFENSE' | 'SPEED' | 'BASE_STAT_TOTAL';
 
 export interface PokemonPaginationInput extends PaginationInput {
   orderBy: PokemonColumnName

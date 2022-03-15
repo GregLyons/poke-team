@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { GenNum, StatTableWithBST } from "../entities";
-import { CapsTypeName, NameEdge, PokemonIconDatum, PokemonIconNode, pokemonIconNodeToPokemonIconDatum } from "../helpers";
+import { CapsTypeName, NameEdge, PokemonColumnName, PokemonIconDatum, PokemonIconNode, pokemonIconNodeToPokemonIconDatum, SortByEnum } from "../helpers";
 
 export type PokemonQuickSearchQuery = {
   pokemon: {
@@ -33,36 +33,49 @@ export interface PokemonAbilityEdge extends NameEdge {
 
 export interface PokemonQuickSearchVars {
   gen: GenNum
+
+  limit: number
+  orderBy: PokemonColumnName
+  sortBy: SortByEnum
+  
+
   contains: string
   startsWith: string
 
   removedFromSwSh: false | null
   removedFromBDSP: false | null
 
-  // maxHP: number
-  // minHP: number
-  // maxAttack: number
-  // minAttack: number
-  // maxDefense: number
-  // minDefense: number
-  // maxSpecialAttack: number
-  // minSpecialAttack: number
-  // maxSpecialDefense: number
-  // minSpecialDefense: number
-  // maxSpeed: number
-  // minSpeed: number
+  types: CapsTypeName[]
+
+  maxHP: number
+  minHP: number
+  maxAttack: number
+  minAttack: number
+  maxDefense: number
+  minDefense: number
+  maxSpecialAttack: number
+  minSpecialAttack: number
+  maxSpecialDefense: number
+  minSpecialDefense: number
+  maxSpeed: number
+  minSpeed: number
 }
 
 export const POKEMON_QUICKSEARCH_QUERY = gql`
   query PokemonSearchQuery(
-    $gen: Int! $contains: String $startsWith: String!
+    $gen: Int!
+
+    $limit: Int!, $orderBy: PokemonColumnName!, $sortBy: SortByEnum!
+
+    $contains: String $startsWith: String
     $removedFromBDSP: Boolean $removedFromSwSh: Boolean
-    # $maxHP: Int $minHP: Int
-    # $maxAttack: Int $minAttack: Int
-    # $maxDefense: Int $minDefense: Int
-    # $maxSpecialAttack: Int $minSpecialAttack: Int
-    # $maxSpecialDefense: Int $minSpecialDefense: Int
-    # $maxSpeed: Int $minSpeed: Int
+    $maxHP: Int $minHP: Int
+    $maxAttack: Int $minAttack: Int
+    $maxDefense: Int $minDefense: Int
+    $maxSpecialAttack: Int $minSpecialAttack: Int
+    $maxSpecialDefense: Int $minSpecialDefense: Int
+    $maxSpeed: Int $minSpeed: Int
+    $types: [TypeName!]!
   ) {
     pokemon(
       generation: $gen,
@@ -72,18 +85,24 @@ export const POKEMON_QUICKSEARCH_QUERY = gql`
         contains: $contains, startsWith: $startsWith, 
         removedFromSwSh: $removedFromSwSh,
         removedFromBDSP: $removedFromBDSP,
-        # maxHP: $maxHP,
-        # minHP: $minHP,
-        # maxAttack: $maxAttack,
-        # minAttack: $minAttack,
-        # maxDefense: $maxDefense
-        # minDefense: $minDefense
-        # maxSpecialAttack: $maxSpecialAttack,
-        # minSpecialAttack: $minSpecialAttack,
-        # maxSpecialDefense: $maxSpecialDefense,
-        # minSpecialDefense: $minSpecialDefense,
-        # maxSpeed: $maxSpeed,
-        # minSpeed: $minSpeed,
+        maxHP: $maxHP,
+        minHP: $minHP,
+        maxAttack: $maxAttack,
+        minAttack: $minAttack,
+        maxDefense: $maxDefense
+        minDefense: $minDefense
+        maxSpecialAttack: $maxSpecialAttack,
+        minSpecialAttack: $minSpecialAttack,
+        maxSpecialDefense: $maxSpecialDefense,
+        minSpecialDefense: $minSpecialDefense,
+        maxSpeed: $maxSpeed,
+        minSpeed: $minSpeed,
+        types: $types
+      }
+      pagination: {
+        limit: $limit
+        orderBy: $orderBy
+        sortBy: $sortBy
       }
     ) {
       id
@@ -114,7 +133,7 @@ export const POKEMON_QUICKSEARCH_QUERY = gql`
   }
 `;
  
-export class QuickSearchPokemon {
+export class QuickSearchPokemonEntry {
   public pokemonIconDatum: PokemonIconDatum
   public baseStatTotal: number
 

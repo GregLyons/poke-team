@@ -1,21 +1,22 @@
 import { PokemonIconDatum, toFormattedTypeName } from "../../../types-queries/helpers";
-import { DoublesTier, SinglesTier } from "../../../utils/smogonLogic";
+import { getTier } from "../../../utils/smogonLogic";
+import { Filters } from "../../App";
 import PokemonIcon from "../../Icons/PokemonIcon";
 import TypeIcon from "../../Icons/TypeIcon";
 import Button from "../../Reusables/Button/Button";
 
 type QuickSearchEntryProps = {
-  pokemon: PokemonIconDatum
+  filters: Filters
+  pokemonIconDatum: PokemonIconDatum
   baseStatTotal: number
-  tier: SinglesTier | DoublesTier
   onSaveClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, pokemonIconDatum: PokemonIconDatum) => void
   saved: boolean
 }
 
 const QuickSearchEntry = ({
-  pokemon,
+  filters,
+  pokemonIconDatum,
   baseStatTotal,
-  tier,
   onSaveClick,
   saved,
 }: QuickSearchEntryProps) => {
@@ -29,7 +30,7 @@ const QuickSearchEntry = ({
             label="SAVE"
             title="Save Pokemon to box for teambuilding."
 
-            onClick={e => onSaveClick(e, pokemon)}
+            onClick={e => onSaveClick(e, pokemonIconDatum)}
             active={saved}
             disabled={false}
             immediate={false}
@@ -38,14 +39,14 @@ const QuickSearchEntry = ({
       </div>
       <div className="quick-search__icon">
         <PokemonIcon
-          pokemonIconDatum={pokemon}
+          pokemonIconDatum={pokemonIconDatum}
         />
       </div>
       <div className="quick-search__name">
-        {pokemon.formattedName}
+        {pokemonIconDatum.formattedName}
       </div>
       <div className="quick-search__typing">
-        {pokemon.typing.map(typeName => (
+        {pokemonIconDatum.typing.map(typeName => (
           <TypeIcon 
             key={typeName}
             typeIconDatum={{
@@ -56,10 +57,10 @@ const QuickSearchEntry = ({
         ))}
       </div>
       <div className="quick-search__tier">
-        {tier}
+        {getTier(filters.genFilter.gen, filters.tierFilter.format, pokemonIconDatum.psID)}
       </div>
       <div className="quick-search__stats">
-        {Object.entries({ ...pokemon.baseStats, baseStatTotal }).map(([key, value]: [string, number]) => {
+        {Object.entries({ ...pokemonIconDatum.baseStats, baseStatTotal }).map(([key, value]: [string, number]) => {
           if (key === '__typename') return <></>;
           
           let rating: 'bad' | 'ok' | 'decent' | 'good' | 'great';
@@ -91,7 +92,7 @@ const QuickSearchEntry = ({
 
           return (
             <div
-              key={`${pokemon.psID}_${key}`}
+              key={`${pokemonIconDatum.psID}_${key}`}
               className={`
                 quick-search__stat
                 ${rating}
