@@ -25,7 +25,10 @@ const NavBar = ({
         width: containerWidth,
       }}
     >
-      <nav className="nav-bar">
+      <nav
+        className="nav-bar"
+        role="Primary Navigation"
+      >
         <li className="nav-item">
           <LinkButton 
             to="/"

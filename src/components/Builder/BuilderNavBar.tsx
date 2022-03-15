@@ -12,7 +12,10 @@ const BuilderNavBar = ({
   return (
     <div className={classWithBGShadow("nav-bar__wrapper", bgManager)}>
       {/* */}
-      <nav className="nav-bar">
+      <nav
+        className="nav-bar"
+        role="Secondary Navigation"
+      >
         <li className="nav-item">
           <LinkButton
             to="team"

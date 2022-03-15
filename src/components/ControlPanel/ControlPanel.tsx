@@ -29,7 +29,7 @@ const ControlPanel = ({
   headerRef,
 }: ControlPanelProps) => {
   return (
-    <div  
+    <div
       ref={headerRef}
       className={classWithBG('control-panel__wrapper', bgManager)}
     >

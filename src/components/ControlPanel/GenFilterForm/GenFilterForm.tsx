@@ -38,12 +38,14 @@ const GenFilterForm = ({
   }
 
   return (
-    <form className="gen-filter__wrapper">
+    <form
+      className="gen-filter__wrapper"
+    >
       <div className="gen-filter__label">
         GEN
       </div>
       <div className="gen-filter__slider">
-        <label htmlFor="select generation">
+        <label htmlFor="Select generation">
           <Slider
             titleFor="Generation"
             min={1}
@@ -57,7 +59,7 @@ const GenFilterForm = ({
         </label>
       </div>
       <div className="gen-filter__buttons">
-        <label htmlFor="select only moves and Pokemon in SwSh">
+        <label htmlFor="Select only moves and Pokemon in SwSh">
           <Button
             title={genFilter.gen !== 8
               ? ''
@@ -72,7 +74,7 @@ const GenFilterForm = ({
             immediate={false}
           />
         </label>
-        <label htmlFor="select only moves and Pokemon in BDSP">
+        <label htmlFor="Select only moves and Pokemon in BDSP">
           <Button
             title={genFilter.gen !== 8 
               ? ''

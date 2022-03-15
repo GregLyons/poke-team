@@ -11,7 +11,10 @@ const MainSearch = ({
 }: MainSearchProps) => {
   return (
     <div className="planner-search__wrapper">
-      <form className="planner-search__filter">
+      <form
+        role="search"
+        className="planner-search__filter"
+      >
         {filterForm}
       </form>
       <div className="planner-search__results">
