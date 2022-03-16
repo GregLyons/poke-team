@@ -8,8 +8,6 @@ html {
 /* Variable declarations */
 :root {
   --app-width: clamp(1024px, 90vw, 1440px);
-  --nav-bar-height: clamp(1.5rem, 32px, 3vh);
-  --content-padding: 0.75rem;
 
   font-family: var(--monospace);
   overflow: hidden;
@@ -78,7 +76,6 @@ html {
   --control-shadow-inset: 3px 3px;
   --control-shadow-inset-pulse: 3px 3px 1px 1px;
   --control-shadow: inset var(--control-shadow-inset) rgba(0,0,0,0.2);
-  --control-padding: 3px;
 
   --bg-control-red: inset 2px 2px 2px 1px rgba(var(--red-bg-components), 0.5);
   --bg-control-green: inset 2px 2px 2px 1px rgba(var(--green-bg-components), 0.5);
@@ -105,11 +102,16 @@ html {
   /* Transitions */
   --transition-duration: 1s;
   --bg-transition: var(--transition-duration) ease;
+
+  /* Heights */
+  --nav-bar-height: calc(1.5rem + 2 * var(--cell-padding));
+  --control-panel-height: calc(7rem + 4 * var(--cell-padding));
+  --header-height: calc(var(--nav-bar-height) + var(--control-panel-height));
 }
 
 body {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: var(--header-height) calc(100vh - var(--header-height));
   grid-template-columns: 1fr var(--app-width) 1fr;
 
   position: relative;

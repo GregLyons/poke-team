@@ -97,8 +97,7 @@ function App() {
   return (
     <>
       <div className={classWithBG("left-bg-panel", bgManager)} />
-      <header>
-        <div className={classWithBG(classWithBGShadow("app", bgManager), bgManager)}>
+      <header className={classWithBG(classWithBGShadow("header__bg-wrapper", bgManager), bgManager)}>
           <NavBar
             headerRef={controlPanelRef}
             navBarRef={navBarRef}
@@ -111,20 +110,16 @@ function App() {
             bgManager={bgManager}
             team={team}
           />
-        </div>
       </header>
-      <main>
-        <div className={classWithBG(classWithBGShadow("app", bgManager), bgManager)}>
+      <main className={classWithBGShadow("", bgManager)}>
+        <div className="app">
           <Routes>
             {/* Routing for Home */}
             <Route path="/" element={<div>Welcome to Bill's PC!</div>} />
 
             {/* Routing for Analyzer */}
             <Route path="/analyzer" element={<Analyzer
-              headerRef={controlPanelRef}
-              navBarRef={navBarRef}
               bgManager={bgManager}
-              dispatchBGManager={dispatchBGManager}
             />}>
               <Route
                 index
@@ -152,10 +147,7 @@ function App() {
 
             {/* Routing for Builder */}
             <Route path="/builder" element={<Builder
-              headerRef={controlPanelRef}
-              navBarRef={navBarRef}
               bgManager={bgManager}
-              dispatchBGManager={dispatchBGManager}
             />} >
             {/* */}
               <Route
@@ -193,10 +185,7 @@ function App() {
 
             {/* Routing for Planner */}
             <Route path="/planner" element={<Planner
-              headerRef={controlPanelRef}
-              navBarRef={navBarRef}
               bgManager={bgManager}
-              dispatchBGManager={dispatchBGManager}
             />} >
               {/* */}
               <Route
@@ -329,7 +318,6 @@ function App() {
             } />
             </Route>
           </Routes>
-          
         </div>
       </main>
       <div className={classWithBG("right-bg-panel", bgManager)} />

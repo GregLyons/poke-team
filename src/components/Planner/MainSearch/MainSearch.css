@@ -1,22 +1,22 @@
 .planner-search__wrapper {
+  display: grid;
+
   position: relative;
-  padding-bottom: 2rem;
+  width: 100%;
   height: 100%;
 }
 
 /* Results */
 /* #region */
 
-.planner-search__results-padder {
-  position: relative;
-  height: 100%;
-  overflow: hidden;
-}
-
 .planner-search__results {
   position: relative;
   height: 100%;
   overflow-y: scroll;
+}
+
+.planner-search__results > * {
+  margin-top: 0.5rem;
 }
 
 /* #endregion */

@@ -6,7 +6,6 @@
 
 .planner-search__entry-icons, .planner-accordion__entry-icons {
   --entry-icons-right-margin: 1rem;
-  padding-top: var(--control-padding);
 }
 /* Shrinks height gap caused by <br /> tag so that having one row of Pokemon icons does not cause an expand to be necessary; without this, having any Pokemon icons at all will always necessitate expansion of the entry to see everything */
 .planner-search__entry-icons:not(.planner__control-buttons) {
@@ -17,10 +16,12 @@
   width: auto;
   margin-right: var(--entry-icons-right-margin);
 
-  position: relative;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  
+  position: relative;
+  height: 2rem;
 
   background-color: var(--dark1);
   border-radius: 1rem;
@@ -28,7 +29,6 @@
   box-shadow: var(--control-shadow);
 
   padding-right: 1rem;
-  padding-top: var(--control-padding);
   text-align: right;
   /* Preserves button height */
   line-height: 1.5;
@@ -49,8 +49,8 @@
   border-radius: 1rem;
 
   background-color: var(--dark1);
-  /* Height of button + padding = height of .planner-control__buttons */
-  min-height: calc(2rem + var(--control-padding));
+  /* Height of .planner-control__buttons */
+  min-height: 2rem;
 
   /* This keeps the icon track from overflowing--note that each element of the track has a larger width than its container. Due to the track's absolute positioning, it will ignore the padding that already exists for the pokemon-icons-background element in its parent entry. */
   padding-right: 20px;

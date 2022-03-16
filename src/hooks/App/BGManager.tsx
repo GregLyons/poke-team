@@ -58,7 +58,7 @@ export function classWithBG (className: string, bgManager: BGManager): string {
       ? 'pulse' 
       : ''
     }
-  `;
+  `.replaceAll(/\n/g, '');
 }
 
 export function classWithBGShadow (className: string, bgManager: BGManager): string {
@@ -69,14 +69,14 @@ export function classWithBGShadow (className: string, bgManager: BGManager): str
       ? 'pulse' 
       : ''
     }
-  `;
+  `.replaceAll(/\n/g, ' ');
 }
 
 export function classWithBGControl (className: string, color: 'red' | 'green' | 'blue'): string {
   return `
     ${className}
     bg-control--${color}
-  `;
+  `.replaceAll(/\n/g, ' ');
 }
 
 export function classWithBGAfter (className: string, bgManager: BGManager): string {
@@ -87,5 +87,5 @@ export function classWithBGAfter (className: string, bgManager: BGManager): stri
       ? 'pulse' 
       : ''
     }
-  `;
+  `.replaceAll(/\n/g, ' ');
 }

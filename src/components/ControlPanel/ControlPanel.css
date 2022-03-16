@@ -3,13 +3,13 @@
 .control-panel__wrapper {
   min-width: fit-content;
   width: 100%;
+  height: var(--control-panel-height);
   
   display: grid;
   grid-template-columns: 4fr 2fr 2fr 4fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 50% 50%;
 
   /* Gap between entries so shadow shows through */
-  gap: var(--bg-shadow-gap);
   transition: var(--bg-transition);
   transition-property: border, background-color;
 
@@ -99,7 +99,6 @@
 
   background-color: var(--dark1);
   box-shadow: var(--control-shadow);
-  padding-top: var(--control-padding);
   border-radius: 15px;
   
   justify-self: center;

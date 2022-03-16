@@ -12,7 +12,6 @@
   grid-template-columns: 1fr clamp(5%, 5rem, 10%);
 
   box-shadow: var(--control-shadow);
-  padding-top: var(--control-padding);
   background-color: var(--dark2);
   border-radius: 1rem;
   padding: var(--cell-padding);

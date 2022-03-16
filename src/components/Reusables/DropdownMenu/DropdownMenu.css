@@ -47,7 +47,6 @@
   margin: 0.5rem 1rem 0.5rem 1rem;
   background-color: var(--dark1);
   box-shadow: var(--control-shadow);
-  padding-top: var(--control-padding);
   border-radius: 5px;
 
   display: grid;

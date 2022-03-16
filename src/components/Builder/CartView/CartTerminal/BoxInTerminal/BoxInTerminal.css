@@ -19,7 +19,6 @@
 .cart-view-terminal__box-note {
   background-color: var(--dark2);
   box-shadow: var(--control-shadow);
-  padding-top: var(--control-padding);
   padding: 3px 5px 3px 5px;
   font-size: 0.8rem;
 }

@@ -2,6 +2,7 @@ import { Team } from "../../../hooks/App/Team";
 import { Dispatches, Filters } from "../../App";
 import Export from "./Export/Export";
 import Import from "./Import/Import";
+import './ImportExport.css';
 
 type ImportExportProps = {
   dispatches: Dispatches

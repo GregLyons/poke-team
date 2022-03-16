@@ -27,7 +27,6 @@
   padding: 0.25rem;
   background-color: var(--dark1);
   box-shadow: var(--control-shadow);
-  padding-top: var(--control-padding);
   transition: 0.5s ease;
 }
 
@@ -55,7 +54,6 @@
 
   padding: 0.25rem;
   box-shadow: var(--control-shadow);
-  padding-top: var(--control-padding);
   border-radius: 3px;
   transition: 0.3s ease;
   font-weight: 600;
