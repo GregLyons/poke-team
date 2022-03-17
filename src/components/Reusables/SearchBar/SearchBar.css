@@ -34,7 +34,7 @@
   padding: 0;
 }
 /* Re-orient button triangle indicators to compensate for previous rule */
-.search-bar__wrapper .button:enabled:before {
+.search-bar__wrapper .button:enabled::before {
   top: 0.5em;
   left: -0.5rem;
 }

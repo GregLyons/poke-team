@@ -60,14 +60,12 @@ const SelectionControls = ({
           // Pulse if there are any Pokemon selected
           let pulsed = false;
           for (let value of Object.values(selection)) {
-            if (pulsed) return;
+            if (pulsed) continue;
             if (value.selected) {
               pulsed = true;
               toggleBGPulse(dispatches.dispatchBGManager);
             }
-            return;
           };
-          
           handleAddToCart();
         }}
         disabled={noPokemon}

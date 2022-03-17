@@ -13,8 +13,8 @@
 .planner-accordion__content-wrapper {
   width: 100%;
 
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
+  display: flex;
+  flex-direction: column;
 
   /* Makes it so box shadow isn't hidden */
   margin-left: calc(-1 * var(--accordion-left-shadow-size));
@@ -37,10 +37,10 @@
 /* #region */
 
 .planner-accordion__subitem {
-  grid-column: 1 / 11;
-
   /* Shadow is absolutely positioned */
   position: relative;
+  width: 100%;
+  height: 100%;
 
   background-color: var(--dark2);
 }
@@ -51,6 +51,18 @@
 
 .planner-accordion__clarification {
   padding-left: var(--entry-horizontal-padding);
+}
+
+.planner-accordion__sub-item-list {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.planner-accordion__sub-item-results {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 /* Left-hand shadow */
@@ -90,7 +102,7 @@
 /* #region */
 
 /* Gives illusion of gap; background of subitem is same color as entry. Don't put above first entry/second child */
-.planner-accordion__entry:not(:nth-child(2))::before {
+.planner-accordion__entry::before {
   content: '';
   display: block;
   position: absolute;

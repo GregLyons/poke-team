@@ -1,13 +1,13 @@
 import {
-  Outlet,
-  useParams
+    Outlet,
+    useParams
 } from 'react-router-dom';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
 import {
-  EffectAbilityQueryVars, EffectFieldStateQueryVars, EffectItemQueryVars, EffectMoveQueryVars, EffectOnPage, EffectPageQuery,
-  EffectPageQueryVars, EFFECT_ABILITY_QUERY, EFFECT_FIELDSTATE_QUERY, EFFECT_ITEM_QUERY, EFFECT_MOVE_QUERY, EFFECT_PAGE_QUERY
+    EffectAbilityQueryVars, EffectFieldStateQueryVars, EffectItemQueryVars, EffectMoveQueryVars, EffectOnPage, EffectPageQuery,
+    EffectPageQueryVars, EFFECT_ABILITY_QUERY, EFFECT_FIELDSTATE_QUERY, EFFECT_ITEM_QUERY, EFFECT_MOVE_QUERY, EFFECT_PAGE_QUERY
 } from '../../../types-queries/Planner/Effect';
 import { Dispatches, Filters } from '../../App';
 import Accordion from '../../Reusables/Accordion/Accordion';
@@ -92,56 +92,48 @@ const EffectPage = ({
               title: <ConnectionAccordionTitle
                 titleText={`Abilities with '${effectResult.formattedName}'`}
               />,
-              content: effectResult.abilityCount > 0 && <>
-                <EntityConnectionSearchIcons
+              content: effectResult.abilityCount > 0 && <EntityConnectionSearchIcons
                   dispatches={dispatches}
                   filters={filters}
                   listRender={listRenderEffectAbility}
                   query={EFFECT_ABILITY_QUERY}
                   queryVars={abilityQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Field states with '${effectResult.formattedName}'`}
               />,
-              content: effectResult.fieldStateCount > 0 && <>
-                <EntityConnectionSearch
+              content: effectResult.fieldStateCount > 0 && <EntityConnectionSearch
                   genFilter={filters.genFilter}
                   listRender={listRenderEffectFieldState}
                   query={EFFECT_FIELDSTATE_QUERY}
                   queryVars={fieldStateQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Items with '${effectResult.formattedName}'`}
               />,
-              content: effectResult.itemCount > 0 && <>
-                <EntityConnectionSearchIcons
+              content: effectResult.itemCount > 0 && <EntityConnectionSearchIcons
                   dispatches={dispatches}
                   filters={filters}
                   listRender={listRenderEffectItem}
                   query={EFFECT_ITEM_QUERY}
                   queryVars={itemQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Moves with '${effectResult.formattedName}'`}
               />,
-              content: effectResult.moveCount > 0 && <>
-                <EntityConnectionSearchIcons
+              content: effectResult.moveCount > 0 && <EntityConnectionSearchIcons
                   dispatches={dispatches}
                   filters={filters}
                   listRender={listRenderEffectMove}
                   query={EFFECT_MOVE_QUERY}
                   queryVars={moveQueryVars}
-                />
-              </>,
+              />
             },
           ]}
         />

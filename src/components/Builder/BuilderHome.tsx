@@ -1,6 +1,8 @@
 const BuilderHome = () => {
   return (
-    <div className="builder-home__wrapper">
+    <div
+      className="section-home__wrapper"
+    >
       <h1>
         Builder
       </h1>

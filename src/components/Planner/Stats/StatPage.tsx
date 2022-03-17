@@ -1,13 +1,13 @@
 import {
-  Outlet,
-  useParams
+    Outlet,
+    useParams
 } from 'react-router-dom';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
 import { useGenConnectedSearchVars, useRemovalConnectedSearchVars } from '../../../hooks/Searches';
 import {
-  StatAbilityQueryVars, StatFieldStateQueryVars, StatItemQueryVars, StatMoveQueryVars, StatOnPage, StatPageQuery,
-  StatPageQueryVars, STAT_ABILITY_QUERY, STAT_FIELDSTATE_QUERY, STAT_ITEM_QUERY, STAT_MOVE_QUERY, STAT_PAGE_QUERY
+    StatAbilityQueryVars, StatFieldStateQueryVars, StatItemQueryVars, StatMoveQueryVars, StatOnPage, StatPageQuery,
+    StatPageQueryVars, STAT_ABILITY_QUERY, STAT_FIELDSTATE_QUERY, STAT_ITEM_QUERY, STAT_MOVE_QUERY, STAT_PAGE_QUERY
 } from '../../../types-queries/Planner/Stat';
 import { Dispatches, Filters } from '../../App';
 import Accordion from '../../Reusables/Accordion/Accordion';
@@ -93,56 +93,48 @@ const StatPage = ({
               title: <ConnectionAccordionTitle
                 titleText={`Abilities with '${statResult.formattedName}'`}
               />,
-              content: statResult.modifiedByAbilityCount > 0 && <>
-                <EntityConnectionSearchIcons
+              content: statResult.modifiedByAbilityCount > 0 && <EntityConnectionSearchIcons
                   dispatches={dispatches}
                   filters={filters}
                   listRender={listRenderStatAbility}
                   query={STAT_ABILITY_QUERY}
                   queryVars={abilityQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Field states with '${statResult.formattedName}'`}
               />,
-              content: statResult.modifiedByFieldStateCount > 0 && <>
-                <EntityConnectionSearch
+              content: statResult.modifiedByFieldStateCount > 0 && <EntityConnectionSearch
                   genFilter={filters.genFilter}
                   listRender={listRenderStatFieldState}
                   query={STAT_FIELDSTATE_QUERY}
                   queryVars={fieldStateQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Items with '${statResult.formattedName}'`}
               />,
-              content: statResult.modifiedByItemCount > 0 && <>
-                <EntityConnectionSearchIcons
+              content: statResult.modifiedByItemCount > 0 && <EntityConnectionSearchIcons
                   dispatches={dispatches}
                   filters={filters}
                   listRender={listRenderStatItem}
                   query={STAT_ITEM_QUERY}
                   queryVars={itemQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Moves with '${statResult.formattedName}'`}
               />,
-              content: statResult.modifiedByMoveCount > 0 && <>
-                <EntityConnectionSearchIcons
+              content: statResult.modifiedByMoveCount > 0 && <EntityConnectionSearchIcons
                   dispatches={dispatches}
                   filters={filters}
                   listRender={listRenderStatMove}
                   query={STAT_MOVE_QUERY}
                   queryVars={moveQueryVars}
-                />
-              </>,
+              />
             },
           ]}
         />

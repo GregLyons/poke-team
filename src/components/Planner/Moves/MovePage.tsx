@@ -103,80 +103,68 @@ const MovePage = ({
               title: <ConnectionAccordionTitle
                 titleText={`Effects of ${moveResult.formattedName}`}
               />,
-              content: moveResult.effectCount > 0 && <>
-                <EntityConnectionSearch
+              content: moveResult.effectCount > 0 && <EntityConnectionSearch
                   genFilter={filters.genFilter}
                   listRender={listRenderMoveEffect}
                   query={MOVE_EFFECT_QUERY}
                   queryVars={effectQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Field state interactions with ${moveResult.formattedName}`}
               />,
-              content: moveResult.fieldStateCount > 0 && <>
-                <EntityConnectionSearch
+              content: moveResult.fieldStateCount > 0 && <EntityConnectionSearch
                   genFilter={filters.genFilter}
                   listRender={listRenderMoveFieldState}
                   query={MOVE_FIELDSTATE_QUERY}
                   queryVars={fieldStateQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Stat interactions with ${moveResult.formattedName}`}
               />,
-              content: moveResult.modifiesStatCount > 0 && <>
-                <EntityConnectionSearch
+              content: moveResult.modifiesStatCount > 0 && <EntityConnectionSearch
                   genFilter={filters.genFilter}
                   listRender={listRenderMoveStat}
                   query={MOVE_STAT_QUERY}
                   queryVars={statQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Status interactions with ${moveResult.formattedName}`}
               />,
-              content: moveResult.statusCount > 0 && <>
-                <EntityConnectionSearch
+              content: moveResult.statusCount > 0 && <EntityConnectionSearch
                   genFilter={filters.genFilter}
                   listRender={listRenderMoveStatus}
                   query={MOVE_STATUS_QUERY}
                   queryVars={statusQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Type interactions with ${moveResult.formattedName}`}
               />,
-              content: moveResult.typeCount > 0 && <>
-                <EntityConnectionSearchIcons
+              content: moveResult.typeCount > 0 && <EntityConnectionSearchIcons
                   dispatches={dispatches}
                   filters={filters}
                   listRender={listRenderMoveType}
                   query={MOVE_TYPE_QUERY}
                   queryVars={typeQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Usage method interactions with ${moveResult.formattedName}`}
               />,
-              content: moveResult.usageMethodCount > 0 && <>
-                <EntityConnectionSearch
+              content: moveResult.usageMethodCount > 0 && <EntityConnectionSearch
                   genFilter={filters.genFilter}
                   listRender={listRenderMoveUsageMethod}
                   query={MOVE_USAGEMETHOD_QUERY}
                   queryVars={usageMethodQueryVars}
-                />
-              </>,
+              />
             },
           ]}
         />

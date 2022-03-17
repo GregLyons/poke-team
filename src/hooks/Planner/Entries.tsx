@@ -22,7 +22,7 @@ import { Filters } from "../../components/App";
     - The various filters (gen, tier, Pokemon), as they change the number of icons present.
 */
 export const useEntryExpand = (
-  entryRef: React.RefObject<HTMLDivElement>,
+  entryRef: React.RefObject<HTMLLIElement>,
   filters?: Filters
 ) => {
   const [originalScrollHeight, setOriginalScrollHeight] = useState<null|number>(null);

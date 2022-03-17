@@ -29,7 +29,7 @@ const AccordionItem = ({
   const contentRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className={`accordion__item ${accordionContext}-accordion__item`}>
+    <li className={`accordion__item ${accordionContext}-accordion__item`}>
       <div 
         className={`
           accordion__title-wrapper 
@@ -82,7 +82,7 @@ const AccordionItem = ({
         {/* opened && content will be true so long as there is content to render and the element has been opened once */}
         {opened && content}
       </div>
-    </div>
+    </li>
   )
 }
 

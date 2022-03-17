@@ -21,14 +21,14 @@ const QuickSearchEntry = ({
   saved,
 }: QuickSearchEntryProps) => {
   return (
-    <div
+    <li
       className="quick-search__entry"
     >
       <div className="quick-search__save-wrapper">
         <div className="quick-search__save">
           <Button
             label="SAVE"
-            title="Save Pokemon to box for teambuilding."
+            title={`Save ${pokemonIconDatum.formattedName} for teambuilding.`}
 
             onClick={e => onSaveClick(e, pokemonIconDatum)}
             active={saved}
@@ -92,7 +92,7 @@ const QuickSearchEntry = ({
 
           return (
             <div
-              key={`${pokemonIconDatum.psID}_${key}`}
+              key={`${pokemonIconDatum.psID}_${key}_${value}`}
               className={`
                 quick-search__stat
                 ${rating}
@@ -103,7 +103,7 @@ const QuickSearchEntry = ({
           )
         })}
       </div>
-    </div>
+    </li>
   )
 };
 

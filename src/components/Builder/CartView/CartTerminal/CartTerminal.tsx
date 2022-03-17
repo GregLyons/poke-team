@@ -118,6 +118,7 @@ const CartTerminal = ({
             {currentCombination[1].map((box, idx) => {
               return (
                 <BoxInTerminal
+                  key={box.note}
                   box={box}
                   clickHandlers={clickHandlers}
                   last={idx === currentCombination[1].length - 1}

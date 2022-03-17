@@ -97,7 +97,7 @@ function App() {
   return (
     <>
       <div className={classWithBG("left-bg-panel", bgManager)} />
-      <header className={classWithBG(classWithBGShadow("header__bg-wrapper", bgManager), bgManager)}>
+      <header className={classWithBG(classWithBGShadow("header__bg-wrapper", bgManager), bgManager)} role="banner">
           <NavBar
             headerRef={controlPanelRef}
             navBarRef={navBarRef}
@@ -111,7 +111,7 @@ function App() {
             team={team}
           />
       </header>
-      <main className={classWithBGShadow("", bgManager)}>
+      <main className={classWithBGShadow("", bgManager)} role="main">
         <div className="app">
           <Routes>
             {/* Routing for Home */}

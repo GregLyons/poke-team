@@ -1,7 +1,9 @@
 const AnalyzerHome = () => {
 
   return (
-    <div className="analyzer-home__wrapper">
+    <div
+      className="section-home__wrapper"
+    >
       <h1>
         Analyzer
       </h1>

@@ -1,7 +1,7 @@
 .cart-view-terminal__controls-wrapper {
   display: grid;
   grid-template-columns: 1fr 10ch 10ch;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: auto 2rem 2rem;
   gap: 3px;
 
   width: auto;
@@ -9,14 +9,14 @@
 }
 
 .cart-view-terminal__message {
-  grid-row: 1 / 2;
+  grid-row: 1 / 3;
   grid-column: 1 / 2;
 
   padding: 0.25rem;
 }
 
 .cart-view-terminal__input-wrapper {
-  grid-row: 2 / 3;
+  grid-row: 3 / 4;
   grid-column: 1 / 3;
 
   display: flex;
@@ -60,10 +60,10 @@
 }
 .cart-view-terminal__execute,
 .cart-view-terminal__terminate {
-  grid-row: 1 / 2;
+  grid-row: 2 / 3;
 }
 .cart-view-terminal__submit {
-  grid-row: 2 / 3;
+  grid-row: 3 / 4;
   grid-column: 3 / 4;
 
   background-color: rgba(var(--blue2-components), 1);

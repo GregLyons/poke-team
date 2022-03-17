@@ -18,136 +18,144 @@ export const listRenderStatAbility = ({ data, dispatches, filters, }: ListRender
   const reduceMultiplierResults = abilityResults.filter(result => result.multiplier < 1);
 
   return (
-    <>
+    <ul className="planner-accordion__sub-item-list">
       {boostStageResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosted by stage</h3>
+        <ul className="planner-accordion__sub-item-results">
         {boostStageResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Stat"
-            targetEntityClass="Ability"
-            key={result.id}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'STAGE', title: 'Stage', value: result.stage,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-            icons={{
-              dispatches,
-              pokemonIconData: result.pokemonIconData,
-              filters,
-              cartNote: `'${result.formattedName}' boosts '${parent.formattedName}' by stage.`,
-            }}
-          />
-        ))}
-      </div>)}
+            <ConnectionAccordionEntry
+              parentEntityClass="Stat"
+              targetEntityClass="Ability"
+              key={result.id}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'STAGE', title: 'Stage', value: result.stage,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+              icons={{
+                dispatches,
+                pokemonIconData: result.pokemonIconData,
+                filters,
+                cartNote: `'${result.formattedName}' boosts '${parent.formattedName}' by stage.`,
+              }}
+            />
+          ))}
+        </ul>
+      </li>)}
       {boostMultiplierResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosted by multiplier</h3>
-        {boostMultiplierResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Stat"
-            targetEntityClass="Ability"
-            key={result.id}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'MULT', title: 'Multiplier', value: result.multiplier,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-            icons={{
-              dispatches,
-              pokemonIconData: result.pokemonIconData,
-              filters,
-              cartNote: `'${result.formattedName}' boosts '${parent.formattedName}' by multiplier.`,
-            }}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {boostMultiplierResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Stat"
+              targetEntityClass="Ability"
+              key={result.id}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'MULT', title: 'Multiplier', value: result.multiplier,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+              icons={{
+                dispatches,
+                pokemonIconData: result.pokemonIconData,
+                filters,
+                cartNote: `'${result.formattedName}' boosts '${parent.formattedName}' by multiplier.`,
+              }}
+            />
+          ))}
+        </ul>
+      </li>)}
       {reduceStageResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
         <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduced by stage</h3>
-        {reduceStageResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Stat"
-            targetEntityClass="Ability"
-            key={result.id}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'STAGE', title: 'Stage', value: result.stage,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-            icons={{
-              dispatches,
-              pokemonIconData: result.pokemonIconData,
-              filters,
-              cartNote: `'${result.formattedName}' reduces '${parent.formattedName}' by stage.`,
-            }}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {reduceStageResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Stat"
+              targetEntityClass="Ability"
+              key={result.id}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'STAGE', title: 'Stage', value: result.stage,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+              icons={{
+                dispatches,
+                pokemonIconData: result.pokemonIconData,
+                filters,
+                cartNote: `'${result.formattedName}' reduces '${parent.formattedName}' by stage.`,
+              }}
+            />
+          ))}
+        </ul>
+      </li>)}
       {reduceMultiplierResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
         <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduced by multiplier</h3>
-        {reduceMultiplierResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Stat"
-            targetEntityClass="Ability"
-            key={result.id}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'MULT', title: 'Multiplier', value: result.multiplier,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-            icons={{
-              dispatches,
-              pokemonIconData: result.pokemonIconData,
-              filters,
-              cartNote: `'${result.formattedName}' reduces '${parent.formattedName}' by multiplier.`,
-            }}
-          />
-        ))}
-      </div>)}
-    </>
+        <ul className="planner-accordion__sub-item-results">
+          {reduceMultiplierResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Stat"
+              targetEntityClass="Ability"
+              key={result.id}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'MULT', title: 'Multiplier', value: result.multiplier,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+              icons={{
+                dispatches,
+                pokemonIconData: result.pokemonIconData,
+                filters,
+                cartNote: `'${result.formattedName}' reduces '${parent.formattedName}' by multiplier.`,
+              }}
+            />
+          ))}
+        </ul>
+      </li>)}
+    </ul>
   );
 }
 
@@ -163,136 +171,144 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
   const reduceMultiplierResults = fieldStateResults.filter(result => result.multiplier < 1);
 
   return (
-    <>
+    <ul className="planner-accordion__sub-item-list">
       {boostStageResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosted by stage</h3>
-        {boostStageResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Stat"
-            targetEntityClass="Field state"
-            key={result.id}
-            icons={{
-              linkIconDatum: {
-                iconClass: 'fieldState',
-                iconDatum: result.iconDatum,
-              }
-            }}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'STAGE', title: 'Stage', value: result.stage,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {boostStageResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Stat"
+              targetEntityClass="Field state"
+              key={result.id}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'fieldState',
+                  iconDatum: result.iconDatum,
+                }
+              }}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'STAGE', title: 'Stage', value: result.stage,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+            />
+          ))}
+        </ul>
+      </li>)}
       {boostMultiplierResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosted by multiplier</h3>
-        {boostMultiplierResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Stat"
-            targetEntityClass="Field state"
-            key={result.id}
-            icons={{
-              linkIconDatum: {
-                iconClass: 'fieldState',
-                iconDatum: result.iconDatum,
-              }
-            }}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'MULT', title: 'Multiplier', value: result.multiplier,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {boostMultiplierResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Stat"
+              targetEntityClass="Field state"
+              key={result.id}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'fieldState',
+                  iconDatum: result.iconDatum,
+                }
+              }}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'MULT', title: 'Multiplier', value: result.multiplier,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+            />
+          ))}
+        </ul>
+      </li>)}
       {reduceStageResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
         <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduced by stage</h3>
-        {reduceStageResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Stat"
-            targetEntityClass="Field state"
-            key={result.id}
-            icons={{
-              linkIconDatum: {
-                iconClass: 'fieldState',
-                iconDatum: result.iconDatum,
-              }
-            }}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'STAGE', title: 'Stage', value: result.stage,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {reduceStageResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Stat"
+              targetEntityClass="Field state"
+              key={result.id}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'fieldState',
+                  iconDatum: result.iconDatum,
+                }
+              }}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'STAGE', title: 'Stage', value: result.stage,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+            />
+          ))}
+        </ul>
+      </li>)}
       {reduceMultiplierResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
         <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduced by multiplier</h3>
-        {reduceMultiplierResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Stat"
-            targetEntityClass="Field state"
-            key={result.id}
-            icons={{
-              linkIconDatum: {
-                iconClass: 'fieldState',
-                iconDatum: result.iconDatum,
-              }
-            }}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'MULT', title: 'Multiplier', value: result.multiplier,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-          />
-        ))}
-      </div>)}
-    </>
+        <ul className="planner-accordion__sub-item-results">
+          {reduceMultiplierResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Stat"
+              targetEntityClass="Field state"
+              key={result.id}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'fieldState',
+                  iconDatum: result.iconDatum,
+                }
+              }}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'MULT', title: 'Multiplier', value: result.multiplier,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+            />
+          ))}
+        </ul>
+      </li>)}
+    </ul>
   );
 }
 
@@ -308,152 +324,160 @@ export const listRenderStatItem = ({ data, dispatches, filters, }: ListRenderArg
   const reduceMultiplierResults = itemResults.filter(result => result.multiplier < 1);
 
   return (
-    <>
+    <ul className="planner-accordion__sub-item-list">
       {boostStageResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosted by stage</h3>
-        {boostStageResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Stat"
-            targetEntityClass="Item"
-            key={result.id}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'STAGE', title: 'Stage', value: result.stage,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-            icons={{
-              dispatches,
-              pokemonIconData: result.requiredPokemonIconData,
-              linkIconDatum: {
-                iconClass: 'item',
-                iconDatum: result.itemIconDatum
-              },
-              filters,
-              cartNote: `'${result.formattedName}' boosts '${parent.formattedName}' by stage.`,
-            }}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {boostStageResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Stat"
+              targetEntityClass="Item"
+              key={result.id}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'STAGE', title: 'Stage', value: result.stage,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+              icons={{
+                dispatches,
+                pokemonIconData: result.requiredPokemonIconData,
+                linkIconDatum: {
+                  iconClass: 'item',
+                  iconDatum: result.itemIconDatum
+                },
+                filters,
+                cartNote: `'${result.formattedName}' boosts '${parent.formattedName}' by stage.`,
+              }}
+            />
+          ))}
+        </ul>
+      </li>)}
       {boostMultiplierResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosted by multiplier</h3>
-        {boostMultiplierResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Stat"
-            targetEntityClass="Item"
-            key={result.id}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'MULT', title: 'Multiplier', value: result.multiplier,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-            icons={{
-              dispatches,
-              pokemonIconData: result.requiredPokemonIconData,
-              linkIconDatum: {
-                iconClass: 'item',
-                iconDatum: result.itemIconDatum
-              },
-              filters,
-              cartNote: `'${result.formattedName}' boosts '${parent.formattedName}' by multiplier.`,
-            }}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {boostMultiplierResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Stat"
+              targetEntityClass="Item"
+              key={result.id}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'MULT', title: 'Multiplier', value: result.multiplier,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+              icons={{
+                dispatches,
+                pokemonIconData: result.requiredPokemonIconData,
+                linkIconDatum: {
+                  iconClass: 'item',
+                  iconDatum: result.itemIconDatum
+                },
+                filters,
+                cartNote: `'${result.formattedName}' boosts '${parent.formattedName}' by multiplier.`,
+              }}
+            />
+          ))}
+        </ul>
+      </li>)}
       {reduceStageResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
         <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduced by stage</h3>
-        {reduceStageResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Stat"
-            targetEntityClass="Item"
-            key={result.id}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'STAGE', title: 'Stage', value: result.stage,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-            icons={{
-              dispatches,
-              pokemonIconData: result.requiredPokemonIconData,
-              linkIconDatum: {
-                iconClass: 'item',
-                iconDatum: result.itemIconDatum
-              },
-              filters,
-              cartNote: `'${result.formattedName}' reduces '${parent.formattedName}' by stage.`,
-            }}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {reduceStageResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Stat"
+              targetEntityClass="Item"
+              key={result.id}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'STAGE', title: 'Stage', value: result.stage,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+              icons={{
+                dispatches,
+                pokemonIconData: result.requiredPokemonIconData,
+                linkIconDatum: {
+                  iconClass: 'item',
+                  iconDatum: result.itemIconDatum
+                },
+                filters,
+                cartNote: `'${result.formattedName}' reduces '${parent.formattedName}' by stage.`,
+              }}
+            />
+          ))}
+        </ul>
+      </li>)}
       {reduceMultiplierResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
         <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduced by multiplier</h3>
-        {reduceMultiplierResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Stat"
-            targetEntityClass="Item"
-            key={result.id}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'MULT', title: 'Multiplier', value: result.multiplier,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-            icons={{
-              dispatches,
-              pokemonIconData: result.requiredPokemonIconData,
-              linkIconDatum: {
-                iconClass: 'item',
-                iconDatum: result.itemIconDatum
-              },
-              filters,
-              cartNote: `'${result.formattedName}' reduces '${parent.formattedName}' by multiplier.`,
-            }}
-          />
-        ))}
-      </div>)}
-    </>
+        <ul className="planner-accordion__sub-item-results">
+          {reduceMultiplierResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Stat"
+              targetEntityClass="Item"
+              key={result.id}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'MULT', title: 'Multiplier', value: result.multiplier,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+              icons={{
+                dispatches,
+                pokemonIconData: result.requiredPokemonIconData,
+                linkIconDatum: {
+                  iconClass: 'item',
+                  iconDatum: result.itemIconDatum
+                },
+                filters,
+                cartNote: `'${result.formattedName}' reduces '${parent.formattedName}' by multiplier.`,
+              }}
+            />
+          ))}
+        </ul>
+      </li>)}
+    </ul>
   );
 }
 
@@ -469,151 +493,159 @@ export const listRenderStatMove = ({ data, dispatches, filters, }: ListRenderArg
   const reduceMultiplierResults = moveResults.filter(result => result.multiplier < 1);
 
   return (
-    <>
+    <ul className="planner-accordion__sub-item-list">
       {boostStageResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosted by stage</h3>
-        {boostStageResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Stat"
-            targetEntityClass="Move"
-            key={result.id}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'STAGE', title: 'Stage', value: result.stage,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-            icons={{
-              dispatches,
-              pokemonIconData: result.pokemonIconData,
-              linkIconDatum: {
-                iconClass: 'type',
-                iconDatum: result.typeIconDatum
-              },
-              filters,
-              cartNote: `'${result.formattedName}' boosts '${parent.formattedName}' by stage.`,
-            }}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {boostStageResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Stat"
+              targetEntityClass="Move"
+              key={result.id}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'STAGE', title: 'Stage', value: result.stage,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+              icons={{
+                dispatches,
+                pokemonIconData: result.pokemonIconData,
+                linkIconDatum: {
+                  iconClass: 'type',
+                  iconDatum: result.typeIconDatum
+                },
+                filters,
+                cartNote: `'${result.formattedName}' boosts '${parent.formattedName}' by stage.`,
+              }}
+            />
+          ))}
+        </ul>
+      </li>)}
       {boostMultiplierResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosted by multiplier</h3>
-        {boostMultiplierResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Stat"
-            targetEntityClass="Move"
-            key={result.id}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'MULT', title: 'Multiplier', value: result.multiplier,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-            icons={{
-              dispatches,
-              pokemonIconData: result.pokemonIconData,
-              linkIconDatum: {
-                iconClass: 'type',
-                iconDatum: result.typeIconDatum
-              },
-              filters,
-              cartNote: `'${result.formattedName}' boosts '${parent.formattedName}' by multiplier.`,
-            }}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {boostMultiplierResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Stat"
+              targetEntityClass="Move"
+              key={result.id}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'MULT', title: 'Multiplier', value: result.multiplier,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+              icons={{
+                dispatches,
+                pokemonIconData: result.pokemonIconData,
+                linkIconDatum: {
+                  iconClass: 'type',
+                  iconDatum: result.typeIconDatum
+                },
+                filters,
+                cartNote: `'${result.formattedName}' boosts '${parent.formattedName}' by multiplier.`,
+              }}
+            />
+          ))}
+        </ul>
+      </li>)}
       {reduceStageResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
         <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduced by stage</h3>
-        {reduceStageResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Stat"
-            targetEntityClass="Move"
-            key={result.id}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'STAGE', title: 'Stage', value: result.stage,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-            icons={{
-              dispatches,
-              pokemonIconData: result.pokemonIconData,
-              linkIconDatum: {
-                iconClass: 'type',
-                iconDatum: result.typeIconDatum
-              },
-              filters,
-              cartNote: `'${result.formattedName}' reduces '${parent.formattedName}' by stage.`,
-            }}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {reduceStageResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Stat"
+              targetEntityClass="Move"
+              key={result.id}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'STAGE', title: 'Stage', value: result.stage,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+              icons={{
+                dispatches,
+                pokemonIconData: result.pokemonIconData,
+                linkIconDatum: {
+                  iconClass: 'type',
+                  iconDatum: result.typeIconDatum
+                },
+                filters,
+                cartNote: `'${result.formattedName}' reduces '${parent.formattedName}' by stage.`,
+              }}
+            />
+          ))}
+        </ul>
+      </li>)}
       {reduceMultiplierResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
         <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduced by multiplier</h3>
-        {reduceMultiplierResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Stat"
-            targetEntityClass="Move"
-            key={result.id}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'MULT', title: 'Multiplier', value: result.multiplier,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-            icons={{
-              dispatches,
-              pokemonIconData: result.pokemonIconData,
-              linkIconDatum: {
-                iconClass: 'type',
-                iconDatum: result.typeIconDatum
-              },
-              filters,
-              cartNote: `'${result.formattedName}' reduces '${parent.formattedName}' by multiplier.`,
-            }}
-          />
-        ))}
-      </div>)}
-    </>
+        <ul className="planner-accordion__sub-item-results">
+          {reduceMultiplierResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Stat"
+              targetEntityClass="Move"
+              key={result.id}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'MULT', title: 'Multiplier', value: result.multiplier,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+              icons={{
+                dispatches,
+                pokemonIconData: result.pokemonIconData,
+                linkIconDatum: {
+                  iconClass: 'type',
+                  iconDatum: result.typeIconDatum
+                },
+                filters,
+                cartNote: `'${result.formattedName}' reduces '${parent.formattedName}' by multiplier.`,
+              }}
+            />
+          ))}
+        </ul>
+      </li>)}
+    </ul>
   );
 }

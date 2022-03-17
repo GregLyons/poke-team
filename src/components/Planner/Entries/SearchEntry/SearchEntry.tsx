@@ -37,7 +37,7 @@ const SearchEntry = ({
   // #region
 
   // Ref for component
-  const entryRef = useRef<HTMLDivElement>(null);
+  const entryRef = useRef<HTMLLIElement>(null);
 
   // Default height
   const entryHeight = "7rem";
@@ -82,7 +82,7 @@ const SearchEntry = ({
   }, [icons?.filters]);
 
   return (
-    <div
+    <li
       ref={entryRef}
       onMouseEnter={hoverListeners.onMouseEnter}
       onMouseLeave={() => {
@@ -167,7 +167,7 @@ const SearchEntry = ({
         icons={icons}
         handleAddToCart={handleAddToCart}
       />}
-    </div>
+    </li>
   )
 }
 

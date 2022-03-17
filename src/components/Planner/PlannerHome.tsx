@@ -1,6 +1,8 @@
 const PlannerHome = () => {
   return (
-    <>
+    <div
+      className="section-home__wrapper"
+    >
       <h1>
         Planner
       </h1>
@@ -78,7 +80,7 @@ const PlannerHome = () => {
           </li>
         </ul>
       </section>
-    </>
+    </div>
   );
 };
 

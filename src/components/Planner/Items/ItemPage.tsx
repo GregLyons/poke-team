@@ -103,80 +103,68 @@ const ItemPage = ({
               title: <ConnectionAccordionTitle
                 titleText={`Effects of ${itemResult.formattedName}`}
               />,
-              content: itemResult.effectCount > 0 && <>
-                <EntityConnectionSearch
+              content: itemResult.effectCount > 0 && <EntityConnectionSearch
                   genFilter={filters.genFilter}
                   listRender={listRenderItemEffect}
                   query={ITEM_EFFECT_QUERY}
                   queryVars={effectQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Field state interactions with ${itemResult.formattedName}`}
               />,
-              content: itemResult.fieldStateCount > 0 && <>
-                <EntityConnectionSearch
+              content: itemResult.fieldStateCount > 0 && <EntityConnectionSearch
                   genFilter={filters.genFilter}
                   listRender={listRenderItemFieldState}
                   query={ITEM_FIELDSTATE_QUERY}
                   queryVars={fieldStateQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Stat interactions with ${itemResult.formattedName}`}
               />,
-              content: itemResult.modifiesStatCount > 0 && <>
-                <EntityConnectionSearch
+              content: itemResult.modifiesStatCount > 0 && <EntityConnectionSearch
                   genFilter={filters.genFilter}
                   listRender={listRenderItemStat}
                   query={ITEM_STAT_QUERY}
                   queryVars={statQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Status interactions with ${itemResult.formattedName}`}
               />,
-              content: itemResult.statusCount > 0 && <>
-                <EntityConnectionSearch
+              content: itemResult.statusCount > 0 && <EntityConnectionSearch
                   genFilter={filters.genFilter}
                   listRender={listRenderItemStatus}
                   query={ITEM_STATUS_QUERY}
                   queryVars={statusQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Type interactions with ${itemResult.formattedName}`}
               />,
-              content: itemResult.typeCount > 0 && <>
-                <EntityConnectionSearchIcons
+              content: itemResult.typeCount > 0 && <EntityConnectionSearchIcons
                   dispatches={dispatches}
                   filters={filters}
                   listRender={listRenderItemType}
                   query={ITEM_TYPE_QUERY}
                   queryVars={typeQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Usage method interactions with ${itemResult.formattedName}`}
               />,
-              content: itemResult.usageMethodCount > 0 && <>
-                <EntityConnectionSearch
+              content: itemResult.usageMethodCount > 0 && <EntityConnectionSearch
                   genFilter={filters.genFilter}
                   listRender={listRenderItemUsageMethod}
                   query={ITEM_USAGEMETHOD_QUERY}
                   queryVars={usageMethodQueryVars}
-                />
-              </>,
+              />
             },
           ]}
         />

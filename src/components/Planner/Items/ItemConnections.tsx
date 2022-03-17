@@ -15,19 +15,21 @@ export const listRenderItemEffect = ({ data, }: ListRenderArgs<ItemEffectQuery>)
   
   return (
     <>
-      <div className="planner-accordion__subitem">
+      <li className="planner-accordion__subitem">
         <div className="planner-accordion__subitem-shadow" />
-        {effectResults.map(result => (
-          <ConnectionAccordionEntry
-            parentEntityClass="Item"
-            targetEntityClass="Effect"
-            key={result.id}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-          />
-        ))}
-      </div>
+        <ul className="planner-accordion__sub-item-results">
+          {effectResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Item"
+              targetEntityClass="Effect"
+              key={result.id}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+            />
+          ))}
+        </ul>
+      </li>
     </>
   )
 }
@@ -45,99 +47,107 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
   return (
     <>
       {activatedByResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Activated by field state</h3>
-        {activatedByResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Item"
-            targetEntityClass="Field state"
-            key={result.id}
-            icons={{
-              linkIconDatum: {
-                iconClass: 'fieldState',
-                iconDatum: result.iconDatum,
-              }
-            }}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {activatedByResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Item"
+              targetEntityClass="Field state"
+              key={result.id}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'fieldState',
+                  iconDatum: result.iconDatum,
+                }
+              }}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+            />
+          ))}
+        </ul>
+      </li>)}
       {extendsResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Extends field state</h3>
         <p className="planner-accordion__clarification">
           When the owner of this item creates the field state, the field state will last for a greater number of turns than usual.
         </p>
-        {extendsResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Item"
-            targetEntityClass="Field state"
-            key={result.id}
-            icons={{
-              linkIconDatum: {
-                iconClass: 'fieldState',
-                iconDatum: result.iconDatum,
-              }
-            }}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[{key: 'TURN', title: 'Turns', value: result.turns || 0}]}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {extendsResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Item"
+              targetEntityClass="Field state"
+              key={result.id}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'fieldState',
+                  iconDatum: result.iconDatum,
+                }
+              }}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[{key: 'TURN', title: 'Turns', value: result.turns || 0}]}
+            />
+          ))}
+        </ul>
+      </li>)}
       {ignoresResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
         <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Ignores field state</h3>
         <p className="planner-accordion__clarification">
           Item allows the owner to ignore the effects of the field state.
         </p>
-        {ignoresResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Item"
-            targetEntityClass="Field state"
-            key={result.id}
-            icons={{
-              linkIconDatum: {
-                iconClass: 'fieldState',
-                iconDatum: result.iconDatum,
-              }
-            }}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {ignoresResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Item"
+              targetEntityClass="Field state"
+              key={result.id}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'fieldState',
+                  iconDatum: result.iconDatum,
+                }
+              }}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+            />
+          ))}
+        </ul>
+      </li>)}
       {resistsResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
         <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Resists field state</h3>
         <p className="planner-accordion__clarification">
           Effects of the field state on the owner of the item are weakened (e.g. less damage).
         </p>
-        {resistsResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Item"
-            targetEntityClass="Field state"
-            key={result.id}
-            icons={{
-              linkIconDatum: {
-                iconClass: 'fieldState',
-                iconDatum: result.iconDatum,
-              }
-            }}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {resistsResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Item"
+              targetEntityClass="Field state"
+              key={result.id}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'fieldState',
+                  iconDatum: result.iconDatum,
+                }
+              }}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+            />
+          ))}
+        </ul>
+      </li>)}
     </>
   )
 }
@@ -156,133 +166,141 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
   return (
     <>
       {boostStageResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosts by stage</h3>
-        {boostStageResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Item"
-            targetEntityClass="Stat"
-            key={result.id}
-            icons={{
-              linkIconDatum: {
-                iconClass: 'stat',
-                iconDatum: result.iconDatum,
-              }
-            }}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'STAGE', title: 'Stage', value: result.stage,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {boostStageResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Item"
+              targetEntityClass="Stat"
+              key={result.id}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'stat',
+                  iconDatum: result.iconDatum,
+                }
+              }}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'STAGE', title: 'Stage', value: result.stage,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+            />
+          ))}
+        </ul>
+      </li>)}
       {boostMultiplierResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosts by multiplier</h3>
-        {boostMultiplierResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Item"
-            targetEntityClass="Stat"
-            key={result.id}
-            icons={{
-              linkIconDatum: {
-                iconClass: 'stat',
-                iconDatum: result.iconDatum,
-              }
-            }}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'MULT', title: 'Multiplier', value: result.multiplier,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {boostMultiplierResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Item"
+              targetEntityClass="Stat"
+              key={result.id}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'stat',
+                  iconDatum: result.iconDatum,
+                }
+              }}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'MULT', title: 'Multiplier', value: result.multiplier,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+            />
+          ))}
+        </ul>
+      </li>)}
       {reduceStageResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
         <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by stage</h3>
-        {reduceStageResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Item"
-            targetEntityClass="Stat"
-            key={result.id}
-            icons={{
-              linkIconDatum: {
-                iconClass: 'stat',
-                iconDatum: result.iconDatum,
-              }
-            }}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'STAGE', title: 'Stage', value: result.stage,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {reduceStageResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Item"
+              targetEntityClass="Stat"
+              key={result.id}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'stat',
+                  iconDatum: result.iconDatum,
+                }
+              }}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'STAGE', title: 'Stage', value: result.stage,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+            />
+          ))}
+        </ul>
+      </li>)}
       {reduceMultiplierResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
         <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by multiplier</h3>
-        {reduceMultiplierResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Item"
-            targetEntityClass="Stat"
-            key={result.id}
-            icons={{
-              linkIconDatum: {
-                iconClass: 'stat',
-                iconDatum: result.iconDatum,
-              }
-            }}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[
-              {
-                key: 'MULT', title: 'Multiplier', value: result.multiplier,
-              },
-              {
-                key: '%', title: 'Chance', value: result.chance,
-              },
-              {
-                key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
-              },
-            ]}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {reduceMultiplierResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Item"
+              targetEntityClass="Stat"
+              key={result.id}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'stat',
+                  iconDatum: result.iconDatum,
+                }
+              }}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[
+                {
+                  key: 'MULT', title: 'Multiplier', value: result.multiplier,
+                },
+                {
+                  key: '%', title: 'Chance', value: result.chance,
+                },
+                {
+                  key: 'REC', title: 'Recipient', value: ENUMCASE_TO_TITLECASE(result.recipient),
+                },
+              ]}
+            />
+          ))}
+        </ul>
+      </li>)}
     </>
   );
 }
@@ -298,51 +316,55 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
   return (
     <>
       {causesResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Causes status</h3>
-        {causesResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Item"
-            targetEntityClass="Status"
-            key={result.id}
-            icons={{
-              linkIconDatum: {
-                iconClass: 'status',
-                iconDatum: result.iconDatum,
-              }
-            }}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[{key: '%', title: 'Chance', value: result.chance || 0}]}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {causesResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Item"
+              targetEntityClass="Status"
+              key={result.id}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'status',
+                  iconDatum: result.iconDatum,
+                }
+              }}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[{key: '%', title: 'Chance', value: result.chance || 0}]}
+            />
+          ))}
+        </ul>
+      </li>)}
       {resistsResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
         <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Resists status</h3>
         <p className="planner-accordion__clarification">
           The item fully cures the status, prevents the status, or mitigates the status in some way.
         </p>
-        {causesResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Item"
-            targetEntityClass="Status"
-            key={result.id}
-            icons={{
-              linkIconDatum: {
-                iconClass: 'status',
-                iconDatum: result.iconDatum,
-              }
-            }}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {causesResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Item"
+              targetEntityClass="Status"
+              key={result.id}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'status',
+                  iconDatum: result.iconDatum,
+                }
+              }}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+            />
+          ))}
+        </ul>
+      </li>)}
     </>
   );
 }
@@ -359,92 +381,98 @@ export const listRenderItemType = ({ data, dispatches, filters, }: ListRenderArg
   return (
     <>
       {boostsResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosts type</h3>
         <p className="planner-accordion__clarification">
           Item boosts the power of moves of the listed type used by the owner.
         </p> 
-        {boostsResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Item"
-            targetEntityClass="Type"
-            key={result.id}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
-            icons={{
-              pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
-              linkIconDatum: {
-                iconClass: 'type',
-                iconDatum: result.typeIconDatum
-              },
-              dispatches,
-              filters,
-              cartNote: ``
-            }}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {boostsResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Item"
+              targetEntityClass="Type"
+              key={result.id}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+              icons={{
+                pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
+                linkIconDatum: {
+                  iconClass: 'type',
+                  iconDatum: result.typeIconDatum
+                },
+                dispatches,
+                filters,
+                cartNote: ``
+              }}
+            />
+          ))}
+        </ul>
+      </li>)}
       {naturalGiftResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Natural gift</h3>
         <p className="planner-accordion__clarification">
           When the owner of this item uses Natural Gift, the move will be of the listed type.
         </p> 
-        {naturalGiftResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Item"
-            targetEntityClass="Type"
-            key={result.id}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[{key: 'POW', title: 'Power', value: result.power || 1}]}
-            icons={{
-              pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
-              linkIconDatum: {
-                iconClass: 'type',
-                iconDatum: result.typeIconDatum
-              },
-              dispatches,
-              filters,
-              cartNote: ``
-            }}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {naturalGiftResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Item"
+              targetEntityClass="Type"
+              key={result.id}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[{key: 'POW', title: 'Power', value: result.power || 1}]}
+              icons={{
+                pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
+                linkIconDatum: {
+                  iconClass: 'type',
+                  iconDatum: result.typeIconDatum
+                },
+                dispatches,
+                filters,
+                cartNote: ``
+              }}
+            />
+          ))}
+        </ul>
+      </li>)}
       {resistsResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
         <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Resists type</h3>
         <p className="planner-accordion__clarification">
           Item resists moves of the listed type used against the owner.
         </p>
-        {resistsResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Item"
-            targetEntityClass="Type"
-            key={result.id}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
-            icons={{
-              pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
-              linkIconDatum: {
-                iconClass: 'type',
-                iconDatum: result.typeIconDatum
-              },
-              dispatches,
-              filters,
-              cartNote: ``
-            }}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {resistsResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Item"
+              targetEntityClass="Type"
+              key={result.id}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+              icons={{
+                pokemonIconData: [DUMMY_POKEMON_ICON_DATUM],
+                linkIconDatum: {
+                  iconClass: 'type',
+                  iconDatum: result.typeIconDatum
+                },
+                dispatches,
+                filters,
+                cartNote: ``
+              }}
+            />
+          ))}
+        </ul>
+      </li>)}
     </>
   );
 }
@@ -461,76 +489,82 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
   return (
     <>
       {activatedByResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Activated by usage method</h3>
-        {activatedByResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Item"
-            targetEntityClass="Field state"
-            key={result.id}
-            icons={{
-              linkIconDatum: {
-                iconClass: 'fieldState',
-                iconDatum: result.iconDatum,
-              }
-            }}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {activatedByResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Item"
+              targetEntityClass="Field state"
+              key={result.id}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'fieldState',
+                  iconDatum: result.iconDatum,
+                }
+              }}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+            />
+          ))}
+        </ul>
+      </li>)}
       {boostsResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--positive">
+      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
         <h3 className="planner-accordion__subitem-header">Boosts usage method</h3>
         <p className="planner-accordion__clarification">
           Item boosts the power of moves of this usage method used by the Pokemon.
         </p> 
-        {boostsResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Item"
-            targetEntityClass="Usage method"
-            key={result.id}
-            icons={{
-              linkIconDatum: {
-                iconClass: 'usageMethod',
-                iconDatum: result.iconDatum,
-              }
-            }}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {boostsResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Item"
+              targetEntityClass="Usage method"
+              key={result.id}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'usageMethod',
+                  iconDatum: result.iconDatum,
+                }
+              }}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            />
+          ))}
+        </ul>
+      </li>)}
       {resistsResults.length > 0 && (
-      <div className="planner-accordion__subitem planner-accordion__subitem--negative">
+      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
         <div className="planner-accordion__subitem-shadow--negative" />
         <h3 className="planner-accordion__subitem-header">Resists usage method</h3>
         <p className="planner-accordion__clarification">
           Item resists moves of this usage method used against the Pokemon.
         </p>
-        {resistsResults.map(result => (
-          <ConnectionAccordionEntry
-          parentEntityClass="Item"
-            targetEntityClass="Usage method"
-            key={result.id}
-            icons={{
-              linkIconDatum: {
-                iconClass: 'usageMethod',
-                iconDatum: result.iconDatum,
-              }
-            }}
-            name={result.formattedName}
-            linkName={result.name}
-            description={result.description}
-            data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
-          />
-        ))}
-      </div>)}
+        <ul className="planner-accordion__sub-item-results">
+          {resistsResults.map(result => (
+            <ConnectionAccordionEntry
+              parentEntityClass="Item"
+              targetEntityClass="Usage method"
+              key={result.id}
+              icons={{
+                linkIconDatum: {
+                  iconClass: 'usageMethod',
+                  iconDatum: result.iconDatum,
+                }
+              }}
+              name={result.formattedName}
+              linkName={result.name}
+              description={result.description}
+              data={[{key: 'MULT', title: 'Multiplier', value: result.multiplier !== undefined ? result.multiplier : 1}]}
+            />
+          ))}
+        </ul>
+      </li>)}
     </>
   );
 }

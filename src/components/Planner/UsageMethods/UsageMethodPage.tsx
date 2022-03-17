@@ -1,22 +1,22 @@
 import {
-  Outlet,
-  useParams
+    Outlet,
+    useParams
 } from 'react-router-dom';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { useDebutQuery, usePageQuery } from '../../../hooks/Planner/PageQueries';
 import { useRemovalConnectedSearchVars } from '../../../hooks/Searches';
 import {
-  UsageMethodAbilityQueryVars, UsageMethodItemQueryVars, UsageMethodMoveQueryVars, UsageMethodOnPage, UsageMethodPageQuery,
-  UsageMethodPageQueryVars, USAGEMETHOD_ABILITY_QUERY, USAGEMETHOD_ITEM_QUERY, USAGEMETHOD_MOVE_QUERY, USAGEMETHOD_PAGE_QUERY
+    UsageMethodAbilityQueryVars, UsageMethodItemQueryVars, UsageMethodMoveQueryVars, UsageMethodOnPage, UsageMethodPageQuery,
+    UsageMethodPageQueryVars, USAGEMETHOD_ABILITY_QUERY, USAGEMETHOD_ITEM_QUERY, USAGEMETHOD_MOVE_QUERY, USAGEMETHOD_PAGE_QUERY
 } from '../../../types-queries/Planner/UsageMethod';
 import { Dispatches, Filters } from '../../App';
 import Accordion from '../../Reusables/Accordion/Accordion';
 import ConnectionAccordionTitle from '../Pages/ConnectionAccordionTitle';
 import EntityConnectionSearchIcons from '../Pages/EntityConnectionSearchIcons';
 import {
-  listRenderUsageMethodAbility,
-  listRenderUsageMethodItem,
-  listRenderUsageMethodMove
+    listRenderUsageMethodAbility,
+    listRenderUsageMethodItem,
+    listRenderUsageMethodMove
 } from './UsageMethodConnections';
 
 type UsageMethodPageProps = {
@@ -89,43 +89,37 @@ const UsageMethodPage = ({
               title: <ConnectionAccordionTitle
                 titleText={`Ability interactions with ${usageMethodResult.formattedName}`}
               />,
-              content: usageMethodResult.abilityCount > 0 && <>
-                <EntityConnectionSearchIcons
+              content: usageMethodResult.abilityCount > 0 && <EntityConnectionSearchIcons
                   dispatches={dispatches}
                   filters={filters}
                   listRender={listRenderUsageMethodAbility}
                   query={USAGEMETHOD_ABILITY_QUERY}
                   queryVars={abilityQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Item interactions with ${usageMethodResult.formattedName}`}
               />,
-              content: usageMethodResult.itemCount > 0 && <>
-                <EntityConnectionSearchIcons
+              content: usageMethodResult.itemCount > 0 && <EntityConnectionSearchIcons
                   dispatches={dispatches}
                   filters={filters}
                   listRender={listRenderUsageMethodItem}
                   query={USAGEMETHOD_ITEM_QUERY}
                   queryVars={itemQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Move interactions with ${usageMethodResult.formattedName}`}
               />,
-              content: usageMethodResult.moveCount > 0 && <>
-                <EntityConnectionSearchIcons
+              content: usageMethodResult.moveCount > 0 && <EntityConnectionSearchIcons
                   dispatches={dispatches}
                   filters={filters}
                   listRender={listRenderUsageMethodMove}
                   query={USAGEMETHOD_MOVE_QUERY}
                   queryVars={moveQueryVars}
-                />
-              </>,
+              />
             },
           ]}
         />

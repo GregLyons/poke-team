@@ -9,11 +9,11 @@ const ConnectionAccordionTitle = ({
 }: ConnectionAccordionTitleProps) => {
   return (
     <>
-      <div
+      <h2
         className="planner-accordion__title"
       >
         {titleText}
-      </div>
+      </h2>
     </>
   );
 };

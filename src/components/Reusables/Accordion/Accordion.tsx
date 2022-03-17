@@ -58,7 +58,7 @@ const Accordion = ({
   }
 
   return (
-    <div className="accordion">
+    <ul className="accordion">
       {accordionData.map(({title, content}, idx) => (
         content && <AccordionItem
           // While new items may be added to or removed from the Accordion during its lifecycle, their order will not change
@@ -75,7 +75,7 @@ const Accordion = ({
           accordionContext={accordionContext}
         />
       ))}
-    </div>
+    </ul>
   );
 }
 

@@ -38,7 +38,7 @@ const ConnectionAccordionEntry = ({
   // #region
 
   // Ref for component
-  const entryRef = useRef<HTMLDivElement>(null);
+  const entryRef = useRef<HTMLLIElement>(null);
 
   // Default height
   const entryHeight = "6rem";
@@ -78,7 +78,7 @@ const ConnectionAccordionEntry = ({
 
 
   return (
-    <div
+    <li
       ref={entryRef}
       onMouseEnter={hoverListeners.onMouseEnter}
       onMouseLeave={() => {
@@ -164,7 +164,7 @@ const ConnectionAccordionEntry = ({
         icons={icons}
         handleAddToCart={handleAddToCart}
       />}
-    </div>
+    </li>
   )
 }
 

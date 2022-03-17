@@ -97,56 +97,48 @@ const TypePage = ({
               title: <ConnectionAccordionTitle
                 titleText={`Ability interactions with ${typeResult.formattedName}`}
               />,
-              content: typeResult.abilityCount > 0 && <>
-                <EntityConnectionSearchIcons
+              content: typeResult.abilityCount > 0 && <EntityConnectionSearchIcons
                   dispatches={dispatches}
                   filters={filters}
                   listRender={listRenderTypeAbility}
                   query={TYPE_ABILITY_QUERY}
                   queryVars={abilityQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Field state interactions with ${typeResult.formattedName}`}
               />,
-              content: typeResult.fieldStateCount > 0 && <>
-                <EntityConnectionSearch
+              content: typeResult.fieldStateCount > 0 && <EntityConnectionSearch
                   genFilter={filters.genFilter}
                   listRender={listRenderTypeFieldState}
                   query={TYPE_FIELDSTATE_QUERY}
                   queryVars={fieldStateQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Item interactions with ${typeResult.formattedName}`}
               />,
-              content: typeResult.itemCount > 0 && <>
-                <EntityConnectionSearchIcons
+              content: typeResult.itemCount > 0 && <EntityConnectionSearchIcons
                   dispatches={dispatches}
                   filters={filters}
                   listRender={listRenderTypeItem}
                   query={TYPE_ITEM_QUERY}
                   queryVars={itemQueryVars}
-                />
-              </>,
+              />
             },
             {
               title: <ConnectionAccordionTitle
                 titleText={`Move interactions with ${typeResult.formattedName}`}
               />,
-              content: typeResult.moveInteractionCount > 0 && <>
-                <EntityConnectionSearchIcons
+              content: typeResult.moveInteractionCount > 0 && <EntityConnectionSearchIcons
                   dispatches={dispatches}
                   filters={filters}
                   listRender={listRenderTypeMove}
                   query={TYPE_MOVE_QUERY}
                   queryVars={moveQueryVars}
-                />
-              </>,
+              />
             },
           ]}
         />

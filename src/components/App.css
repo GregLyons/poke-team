@@ -42,6 +42,17 @@ main {
   padding: 0.5rem 0.5rem 0 0.5rem;
 }
 
+/* Home pages */
+.section-home__wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+
+  background-color: rgba(var(--dark3-components), 0.5);
+  padding: 1rem;
+}
+
 /* BG Panels */
 /* #region */
 .left-bg-panel,

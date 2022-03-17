@@ -20,7 +20,7 @@ const MainSearch = ({
       >
         {filterForm}
       </form>
-      <div
+      <ul
         className="planner-search__results"
         style={{
           height: filterRef.current
@@ -29,7 +29,7 @@ const MainSearch = ({
         }}
       >
         {results}
-      </div>
+      </ul>
     </div>
   )
 };

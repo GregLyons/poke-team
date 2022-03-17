@@ -135,7 +135,7 @@ const QuickSearchEntries = ({
   if (!data || data.pokemon.edges.length === 0) return (<div>Data not found for the query 'pokemon'.</div>);
 
   return (
-    <div
+    <ul
       className="quick-search__entries-wrapper"
     >
       {entries && entries.map(entry => {
@@ -151,7 +151,7 @@ const QuickSearchEntries = ({
           />
         )
       })}
-    </div>
+    </ul>
   )
 }
 
