@@ -11,7 +11,11 @@ const RemoveIcon = ({
     <div
       className="team-member__remove-wrapper"
     >
-      <div
+      <button
+        title={removing
+          ? 'Stop removing this team member.'
+          : 'Remove this team member.'
+        }
         className={`
           team-member__remove
           ${removing
@@ -27,7 +31,7 @@ const RemoveIcon = ({
         <div className="team-member__remove--left" />
         <div className="team-member__remove--bottom" />
         <div className="team-member__remove--right" />
-      </div>
+      </button>
     </div>
   )
 }

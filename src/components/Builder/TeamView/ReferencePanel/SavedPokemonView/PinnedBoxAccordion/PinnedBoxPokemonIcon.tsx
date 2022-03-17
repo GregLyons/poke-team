@@ -13,15 +13,15 @@ const PinnedBoxPokemonIcon = ({
   const {left, top} = getPokemonIcon(pokemonIconDatum);
 
   return (
-    <div className="planner__pokemon-icon-container"
+    <div className="pinned-box__pokemon-icon-container"
       style={{
         width: '50px',
         height: '30px',
         display: 'inline-block',
       }}
     > 
-      <div className="planner__pokemon-icon-track" />
-      <div className="planner__pokemon-icon-background"
+      <div className="pinned-box__pokemon-icon-track" />
+      <div className="pinned-box__pokemon-icon-background"
         style={{
           width: '40px',
           height: '30px',
@@ -30,10 +30,10 @@ const PinnedBoxPokemonIcon = ({
           opacity: '0.8',
         }}
       />
-      <div
-        className="planner__pokemon-icon"
+      <button
+        className="pinned-box__pokemon-icon"
         onClick={e => onPokemonSelect(e, pokemonIconDatum)}
-        title={`${pokemonIconDatum.formattedName}`}
+        title={`Select ${pokemonIconDatum.formattedName}.`}
         style={{
           width: '40px',
           height: '30px',

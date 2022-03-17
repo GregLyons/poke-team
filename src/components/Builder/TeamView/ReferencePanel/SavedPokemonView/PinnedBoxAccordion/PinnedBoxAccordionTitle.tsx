@@ -12,9 +12,9 @@ const PinnedBoxAccordionTitle = ({
 }: PinnedBoxAccordionTitleProps) => {
   return (
     <>
-      <div className="pinned-box-title__text">
+      <h2 className="pinned-box-title__text">
         {titleText}
-      </div>
+      </h2>
       <div className="pinned-box-title__buttons">
         <Button
           title='Unpin this box'

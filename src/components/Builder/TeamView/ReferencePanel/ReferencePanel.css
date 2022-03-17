@@ -13,7 +13,8 @@
 
   transition: border 0.3s ease;
 }
-.reference-panel__padder:hover {
+.reference-panel__padder:hover,
+.reference-panel__padder:focus-within {
   border: var(--team-builder-border1);
 }
 

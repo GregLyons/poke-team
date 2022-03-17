@@ -33,7 +33,7 @@ const TeamMemberHolder = ({
   if (error) { return (<div>{error.message}</div>); }
 
   return (
-    <div className={`
+    <li className={`
       team-member-holder__wrapper
       ${selected
         ? 'team-member-holder__wrapper--active'
@@ -50,7 +50,6 @@ const TeamMemberHolder = ({
         className={`
           team-member-holder__content
         `}
-        
       >
         {loading
           ? <div>Loading...</div>
@@ -65,7 +64,7 @@ const TeamMemberHolder = ({
             />
         }
       </div>
-    </div>
+    </li>
   );
 };
 

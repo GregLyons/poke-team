@@ -555,13 +555,12 @@ const TeamView = ({
 
   return (
     <div className="team-view__wrapper">
-      <MemberDetails
-        dispatches={dispatches}
-        filters={filters}
-        handlers={memberDetailHandlers}
-        memberSlot={memberSlot}
+      <TeamMembers
+        slot={memberSlot}
+        clickHandlers={teamMembersClickHandlers}
         team={team}
-        view={view}
+        dispatches={dispatches}
+        filters={filters} 
       />
       <ReferencePanel
         handlers={referencePanelClickHandlers}
@@ -578,12 +577,13 @@ const TeamView = ({
           : undefined
         }
       />
-      <TeamMembers
-        slot={memberSlot}
-        clickHandlers={teamMembersClickHandlers}
-        team={team}
+      <MemberDetails
         dispatches={dispatches}
-        filters={filters} 
+        filters={filters}
+        handlers={memberDetailHandlers}
+        memberSlot={memberSlot}
+        team={team}
+        view={view}
       />
     </div>
   )

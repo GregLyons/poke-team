@@ -18,7 +18,9 @@ const TeamMemberIcon = ({
   const {left, top} = getPokemonIcon(pokemonIconDatum);
 
   return (
-    <div className="team-member__pokemon-icon-container">
+    <button
+      className="team-member__pokemon-icon-container"
+    >
       {startTime &&
         <RemoveTimer
           removing={removing}
@@ -36,13 +38,13 @@ const TeamMemberIcon = ({
             : '',
         }}
       />
-      <div
+      <button
         className="team-member__pokemon-icon"
-        title={`${pokemonIconDatum.formattedName}`}
+        title={`Modify ${pokemonIconDatum.formattedName}.`}
         style={{
           width: '40px',
           height: '30px',
-          display: 'inline-block',
+          display: 'block',
           backgroundPosition: `${left}px ${top}px`,
           transform: removing 
             ? 'scale(0.05)'
@@ -53,8 +55,8 @@ const TeamMemberIcon = ({
             // : replaceDuration + 'ms ease-in-out',
         }}              
       />
-    </div>
-  )  
-}
+    </button>
+  );
+};
 
 export default TeamMemberIcon;

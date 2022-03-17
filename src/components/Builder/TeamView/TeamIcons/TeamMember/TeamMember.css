@@ -10,7 +10,7 @@
   width: 100%;
   height: 100%;
 }
-.team-member__wrapper--empty:hover {
+.team-member__wrapper:hover {
   cursor: pointer;
 }
 
@@ -29,10 +29,19 @@
   left: calc(50% - var(--add-button-width) / 2);
   height: var(--add-button-width);
   width: var(--add-button-width);
+
+  transform-origin: center;
+}
+.team-member__add:hover,
+.team-member__add:focus,
+.team-member-holder__wrapper:hover .team-member__add {
+  transform: scale(1.1);
 }
 
 .team-member__add-h,
 .team-member__add-v {
+  width: 100%;
+  height: 100%;
   background-color: rgba(var(--green1-components), 1);
 }
 .team-member__add-h {
@@ -71,8 +80,10 @@
   background: var(--red1);
 
   transition: 0.2s ease;
+  transform-origin: center;
 }
-.team-member__remove:hover {
+.team-member__remove:hover,
+.team-member__remove:focus {
   transform: scale(1.2);
   filter: brightness(1.1);
   cursor: pointer;
@@ -165,20 +176,26 @@
   width: 40px;
   height: 35px;
 }
+.team-member__pokemon-icon-container:hover {
+  cursor: pointer;
+}
 .team-member__track {
   position: absolute;
   width: 30px;
   height: 15px;
-  margin-top: 20px;
   left: 5px;
   background-color: var(--light1);
   border-radius: 50%;
 }
 .team-member__pokemon-icon {
-  /* Centering  */
+  top: -3px;
+  left: 0;
   position: absolute;
   background-image: url('../../../../../assets/icons/pokemonicons-sheet.png');
   background-repeat: no-repeat;
+}
+.team-member__pokemon-icon:hover {
+  cursor: pointer;
 }
 
 .team-member__remove-timer {

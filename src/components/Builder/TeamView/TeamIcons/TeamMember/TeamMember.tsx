@@ -96,44 +96,49 @@ const TeamMember = ({
 
   return (
     <div
+      title={icon === null
+        ? ''
+        : `Select ${icon.formattedName}.`
+      }
       className={`
         team-member__wrapper
         ${icon === null
-          ? 'team-member__wrapper--empty'
+          ? '--empty'
           : ''
         }
         ${selected
-          ? 'team-member__wrapper--active'
+          ? '--active'
           : ''
         }
       `}
       onClick={e => {
         e.preventDefault();
-        // If no icon present, go into adding mode
-        if (icon === null) clickHandlers.onAddClick(e, idx);
-        // Otherwise, pull up the member's details
-        else clickHandlers.onMemberClick(e, idx);
+        if (icon === null) return clickHandlers.onAddClick(e, idx);
+        else return clickHandlers.onMemberClick(e, idx);
       }}
     > 
-      {icon === null && <AddIcon />}
-      {icon && 
-        <>
-          <div className="team-member__pokemon-icon-wrapper">
-            <TeamMemberIcon
-              pokemonIconDatum={icon}
-              removing={removing}
-              removeDuration={removeDuration}
-              startTime={startTime}
-            />
-          </div>
-          <RemoveIcon
-            removing={removing}
-            onClick={removing
-              ? onReturnClick
-              : onRemoveClick
-            }
+      {icon === null
+        ? <AddIcon
+            clickHandlers={clickHandlers} 
+            idx={idx}
           />
-        </>
+        : <>
+            <div className="team-member__pokemon-icon-wrapper">
+              <TeamMemberIcon
+                pokemonIconDatum={icon}
+                removing={removing}
+                removeDuration={removeDuration}
+                startTime={startTime}
+              />
+            </div>
+            <RemoveIcon
+              removing={removing}
+              onClick={removing
+                ? onReturnClick
+                : onRemoveClick
+              }
+            />
+          </>
       }
     </div>
   )
