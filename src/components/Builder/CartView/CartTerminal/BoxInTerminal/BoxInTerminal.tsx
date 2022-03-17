@@ -15,32 +15,42 @@ const BoxInTerminal = ({
   last,
 }: BoxInTerminalProps) => {
   return (
-    <div className={`
-      cart-view-terminal__box-wrapper
-      ${breaking 
-        ? 'cart-view-terminal__box-wrapper--breaking'
-        : ''
-      }
-    `}>
-      <div className={`
+    <li
+      title={box.note}
+      className={`
+        cart-view-terminal__box-wrapper
+        ${breaking 
+          ? 'cart-view-terminal__box-wrapper--breaking'
+          : ''
+        }
+      `}
+    >
+      <button className={`
         cart-view-terminal__box-role--${box.roleInCombination === 'AND' ? 'and' : 'or'}
         cart-view-terminal__box-role-toggleable
       `}
         onClick={e => clickHandlers.onToggleOperationClick(e, box)}
       >
         {box.roleInCombination}
-      </div>
+      </button>
       <div className="cart-view-terminal__box-move-wrapper">
-        <div 
+        <button 
+          title="Swap this box with the preceding box."
           className="cart-view-terminal__arrow-wrapper"
           onClick={e => clickHandlers.onMoveUpClick(e, box)}
         >
           <div
-            role="button"
-            className="cart-view-terminal__box-move-up"
+            className={`
+              cart-view-terminal__box-move-up
+              cart-view-terminal__box-arrow
+            `}
           />
-        </div>
-        <div 
+        </button>
+        <button
+          title={last
+            ? "Cannot move the last box down; no subsequent box."
+            : "Swap this box with the subsequent box."  
+          }
           className={last 
             ? 'cart-view-terminal__arrow-wrapper--disabled'
             : 'cart-view-terminal__arrow-wrapper'
@@ -48,22 +58,23 @@ const BoxInTerminal = ({
           onClick={e => {
             if (!last) clickHandlers.onMoveDownClick(e, box)
           }}
+          disabled={last}
         >
           <div
-            role="button"
             className={`
               cart-view-terminal__box-move-down
+              cart-view-terminal__box-arrow
               ${last
                 ? 'cart-view-terminal__box-move-down--disabled'
                 : ''
               }
             `}
           />
-        </div>
+        </button>
       </div>
       <div className="cart-view-terminal__box-remove-wrapper">
-        <div
-          role="button"
+        <button
+          title="Remove this box from the combination."
           className="cart-view-terminal__box-remove"
           onClick={e => clickHandlers.onRemoveClick(e, box)}
         />
@@ -73,7 +84,7 @@ const BoxInTerminal = ({
           {box.note}
         </span>
       </div>
-    </div>
+    </li>
   )
 }
 

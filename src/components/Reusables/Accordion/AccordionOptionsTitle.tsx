@@ -34,11 +34,12 @@ const AccordionOptionsTitle = ({
         >
           {title}
         </div>
-        <button 
+        <button
+          title={active ? "Close entry." : "Open entry."}
           className={`
             accordion__title-trigger-wrapper
             ${accordionContext}-accordion__title-trigger-wrapper
-            accordion__title-trigger-wrapper--clickable
+            --clickable
           `}
           onClick={(e) => {
             e.preventDefault();

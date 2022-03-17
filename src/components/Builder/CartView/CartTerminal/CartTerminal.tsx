@@ -15,9 +15,9 @@ type CartTerminalProps = {
   clickHandlers: CartTerminalClickHandlers
 }
 
-export type CartTerminalControlClickHandlers = {
+export type CartTerminalControlHandlers = {
   onExecute: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
-  onSubmit: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onSubmit: (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent) => void
   onTerminate: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 }
 
@@ -54,7 +54,7 @@ const CartTerminal = ({
     if (submitting && inputRef.current) inputRef.current.focus();
   }, [submitting]);
 
-  const controlClickHandlers: CartTerminalControlClickHandlers = useMemo(() => {
+  const controlClickHandlers: CartTerminalControlHandlers = useMemo(() => {
     const onExecute = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       e.preventDefault();
       dispatches.dispatchCart({
@@ -66,12 +66,12 @@ const CartTerminal = ({
 
       if (cart[filters.genFilter.gen].combination) {
         setSubmitting(true);
-        setTerminalMessage('SUBMIT name for new box');
+        setTerminalMessage('ENTER name for new box');
         setNewName('');
       }
     }
 
-    const onSubmit = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    const onSubmit = (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent) => {
       e.preventDefault();
       if (newName) {
         dispatches.dispatchCart({
@@ -107,28 +107,31 @@ const CartTerminal = ({
   const currentCombination = cart[filters.genFilter.gen].combination;
   return (
     <div className="cart-view-terminal__wrapper">
-      <div className="cart-view-terminal__boxes-wrapper">
-        {currentCombination && (
-          <>
-            <StartBoxInTerminal 
-              box={currentCombination[0]}
-              clickHandlers={clickHandlers}
-              hasMore={currentCombination[1].length !== 0}
-            />
-            {currentCombination[1].map((box, idx) => {
-              return (
-                <BoxInTerminal
-                  key={box.note}
-                  box={box}
-                  clickHandlers={clickHandlers}
-                  last={idx === currentCombination[1].length - 1}
-                  breaking={cart[filters.genFilter.gen].zeroCombinationResult && findBoxInArray((cart[filters.genFilter.gen].zeroCombinationResult as BoxInCombination[]), box)}
-                />
-              )
-            })}
-          </>
-        )}
-      </div>
+      <section className="cart-view-terminal__boxes-wrapper">
+        <h2 className="hidden-header">Boxes in combination.</h2>
+        <ul>
+          {currentCombination && (
+            <>
+              <StartBoxInTerminal 
+                box={currentCombination[0]}
+                clickHandlers={clickHandlers}
+                hasMore={currentCombination[1].length !== 0}
+              />
+              {currentCombination[1].map((box, idx) => {
+                return (
+                  <BoxInTerminal
+                    key={box.note}
+                    box={box}
+                    clickHandlers={clickHandlers}
+                    last={idx === currentCombination[1].length - 1}
+                    breaking={cart[filters.genFilter.gen].zeroCombinationResult && findBoxInArray((cart[filters.genFilter.gen].zeroCombinationResult as BoxInCombination[]), box)}
+                  />
+                )
+              })}
+            </>
+          )}
+        </ul>
+      </section>
       <CartTerminalControls
         onNameChange={onNameChange}
         newName={newName}

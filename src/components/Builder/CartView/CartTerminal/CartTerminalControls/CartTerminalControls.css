@@ -70,18 +70,22 @@
 }
 .cart-view-terminal__execute:hover,
 .cart-view-terminal__terminate:hover,
-.cart-view-terminal__submit--enabled:hover {
-  filter:brightness(1.1);
+.cart-view-terminal__submit--enabled:hover,
+.cart-view-terminal__execute:focus,
+.cart-view-terminal__terminate:focus,
+.cart-view-terminal__submit--enabled:focus {
+  filter: brightness(1.1);
   cursor: pointer;
   box-shadow: none;
+  text-decoration: underline;
 }
 .cart-view-terminal__execute {
   background-color: rgba(var(--green2-components), 1);
-  grid-column: 3 / 4;
+  grid-column: 2 / 3;
 }
 .cart-view-terminal__terminate {
   background-color: rgba(var(--red2-components), 1);
-  grid-column: 2 / 3;
+  grid-column: 3 / 4;
 }
 
 .cart-view-terminal__submit--disabled {

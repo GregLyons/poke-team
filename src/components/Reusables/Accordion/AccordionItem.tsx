@@ -67,6 +67,7 @@ const AccordionItem = ({
                 visibility: 'hidden',
               }
         }
+        aria-hidden={active ? "false" : "true"}
       >
         {/* opened && content will be true so long as there is content to render and the element has been opened once */}
         {opened && content}

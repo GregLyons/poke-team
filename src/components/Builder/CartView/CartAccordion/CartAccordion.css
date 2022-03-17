@@ -1,11 +1,4 @@
 .cart-view-accordion__wrapper {
-  position: relative;
-
-  width: 100%;
-  height: 100%;
-
-  background: rgba(var(--dark3-components), 0.5);
-
   overflow-y: scroll;
 }
 

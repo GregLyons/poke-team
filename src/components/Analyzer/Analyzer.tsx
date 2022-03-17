@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { BGAction, BGManager, toggleBGPulse } from "../../hooks/App/BGManager";
+import { BGAction, BGManager, classWithBGShadow, toggleBGPulse } from "../../hooks/App/BGManager";
 import AnalyzerNavBar from "./AnalyzerNavBar";
 
 type AnalyzerProps = {
@@ -25,7 +25,7 @@ const Analyzer = ({
       <AnalyzerNavBar
         bgManager={bgManager}
       />
-      <div className="main-content__wrapper">
+      <div className={classWithBGShadow("main-content__wrapper", bgManager)}>
         <Outlet />
       </div>
     </>

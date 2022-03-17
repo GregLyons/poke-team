@@ -14,18 +14,29 @@
   grid-column: 9 / 13;
 }
 
-/* Border effects */
 .cart-view-accordion__cell,
 .cart-view-terminal__cell {
   overflow: hidden;
   grid-row: 1 / 2;
   position: relative;
 
-  height: minmax(fit-content, 90%);
+  height: 100%;
 
   display: flex;
   justify-content: center;
   align-items: flex-start;
 
-  padding: 1rem 0.5rem 1rem 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.cart-view-accordion__wrapper,
+.cart-view-terminal__wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  padding: 0.5rem;
+  font-family: var(--monospace);
+  background-color: rgba(var(--dark3-components), 0.7);
 }

@@ -37,9 +37,9 @@ main {
 .main-content__wrapper {
   position: relative;
   width: 100%;
-  height: calc(100% - var(--nav-bar-height));
+  height: calc(100% - var(--nav-bar-height) + 0.5rem);
 
-  padding: 0.5rem 0.5rem 0 0.5rem;
+  padding: 1rem 0.5rem 1rem 0.5rem;
 }
 
 /* Home pages */

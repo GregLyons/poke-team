@@ -1,11 +1,13 @@
-import { CartTerminalControlClickHandlers } from '../CartTerminal';
+import { useState } from 'react';
+import { useEventListener } from 'usehooks-ts';
+import { CartTerminalControlHandlers } from '../CartTerminal';
 import './CartTerminalControls.css';
 
 type CartTerminalControlsProps = {
   onNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   newName: string
   inputRef: React.RefObject<HTMLInputElement>
-  clickHandlers: CartTerminalControlClickHandlers
+  clickHandlers: CartTerminalControlHandlers
   terminalMessage: string
   submitting: boolean
 }
@@ -18,25 +20,34 @@ const CartTerminalControls = ({
   terminalMessage,
   submitting,
 }: CartTerminalControlsProps) => {
+  const [focusedOnNameInput, setFocusedOnNameInput] = useState(false);
+
+  // 'Enter' submits name
+  const onEnter = (e: KeyboardEvent) => {
+    if (!submitting || newName.length === 0 || !focusedOnNameInput) return;
+    if (e.code === 'Enter') clickHandlers.onSubmit(e);
+  }
+  useEventListener('keydown', onEnter);
   return (
-    <div className="cart-view-terminal__controls-wrapper">
-      <div className="cart-view-terminal__message">
+    <section className="cart-view-terminal__controls-wrapper">
+      <h2 className="hidden-header">Controls for Cart Terminal</h2>
+      <p className="cart-view-terminal__message">
         {terminalMessage}
-      </div>
-      <div
-        role="button" 
+      </p>
+      <button
+        title="Create a custom box using the above combination."
         className="cart-view-terminal__execute"
         onClick={clickHandlers.onExecute}
       >
         COMBO
-      </div>
-      <div
-        role="button"
+      </button>
+      <button
+        title="Break the combo, removing all boxes from the terminal."
         className="cart-view-terminal__terminate"
         onClick={clickHandlers.onTerminate}
       >
         BREAK
-      </div>
+      </button>
       <div 
         className={`
         cart-view-terminal__input-wrapper
@@ -47,6 +58,10 @@ const CartTerminalControls = ({
       `}
       >
         <input
+          title={submitting
+            ? "Enter name for new box."
+            : "Combine two or more boxes before entering name."
+          }
           ref={inputRef}
           value={newName}
           type="text"
@@ -57,25 +72,34 @@ const CartTerminalControls = ({
               : 'cart-view-terminal__input--enabled'
             }
           `}
+          onFocus={() => setFocusedOnNameInput(true)}
+          onBlur={() => setFocusedOnNameInput(false)}
           onChange={onNameChange}
           placeholder="Input box name"
           disabled={!submitting}
         />
       </div>
-      <div
-        role="button"
+      <button
+        title={
+          submitting
+            ? newName.length > 0
+              ? "Create new box with the given name."
+              : "Box must have a name."
+            : "Need to create combination first."
+        }
         className={`
           cart-view-terminal__submit
-          ${!submitting
+          ${!submitting || newName.length === 0
             ? 'cart-view-terminal__submit--disabled'
             : 'cart-view-terminal__submit--enabled'
           }
         `}
-        onClick={e => submitting && clickHandlers.onSubmit(e)}
+        onClick={clickHandlers.onSubmit}
+        disabled={!submitting || newName.length === 0}
       >
-        SUBMIT
-      </div>
-    </div>
+        ENTER
+      </button>
+    </section>
   )
 }
 

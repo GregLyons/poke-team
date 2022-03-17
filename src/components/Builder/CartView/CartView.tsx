@@ -1,12 +1,12 @@
-import { useMemo, } from "react";
+import { useMemo } from "react";
 import { toggleBGPulse } from "../../../hooks/App/BGManager";
-import { BoxInCart, BoxInCombination, Cart, StartBox, } from "../../../hooks/App/Cart";
+import { BoxInCart, BoxInCombination, Cart, StartBox } from "../../../hooks/App/Cart";
 import { Team } from "../../../hooks/App/Team";
 import { Dispatches, Filters } from "../../App";
 import CartAccordion from "./CartAccordion/CartAccordion";
 import CartTerminal from "./CartTerminal/CartTerminal";
-
 import './CartView.css';
+
 
 type CartViewProps = {
   team: Team
@@ -159,22 +159,24 @@ const CartView = ({
 
   return (
     <div className={"cart-view__wrapper"}>
-      <div className={"cart-view-accordion__cell"}>
+      <section className={"cart-view-accordion__cell"}>
+        <h2 className="hidden-header">List of boxes from Planner and custom boxes.</h2>
         <CartAccordion
           cart={cart}
           team={team}
           filters={filters}
           clickHandlers={cartAccordionClickHandlers}
         />
-      </div>
-      <div className={"cart-view-terminal__cell"}>
+      </section>
+      <section className={"cart-view-terminal__cell"}>
+        <h2 className="hidden-header">Controls for combining boxes.</h2>
         <CartTerminal
           cart={cart}
           dispatches={dispatches}
           filters={filters}
           clickHandlers={cartTerminalClickHandlers}
         />
-      </div>
+      </section>
     </div>
   )
 }

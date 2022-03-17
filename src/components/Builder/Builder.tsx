@@ -3,7 +3,7 @@ import {
   Outlet
 } from "react-router-dom";
 import 'simplebar/dist/simplebar.min.css';
-import { BGAction, BGManager, toggleBGPulse } from "../../hooks/App/BGManager";
+import { BGAction, BGManager, classWithBGShadow, toggleBGPulse } from "../../hooks/App/BGManager";
 import './Builder.css';
 import BuilderNavBar from './BuilderNavBar';
 
@@ -29,7 +29,7 @@ const Builder = ({
       <BuilderNavBar
         bgManager={bgManager}
       />
-      <div className="main-content__wrapper">
+      <div className={classWithBGShadow("main-content__wrapper", bgManager)}>
         <Outlet />
       </div>
     </>
