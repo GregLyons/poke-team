@@ -1,5 +1,6 @@
 import { useRef } from "react";
-import FontAwesome from "react-fontawesome";
+import AccordionClickableTitle from "./AccordionClickableTitle";
+import AccordionOptionsTitle from "./AccordionOptionsTitle";
 
 type AccordionItemProps = {
   title: JSX.Element
@@ -30,52 +31,40 @@ const AccordionItem = ({
 
   return (
     <li className={`accordion__item ${accordionContext}-accordion__item`}>
-      <div 
-        className={`
-          accordion__title-wrapper 
-          ${accordionContext}-accordion__title-wrapper
-          ${!optionsInTitle
-            ? 'accordion__title-wrapper--clickable'
-            : ''}
-        `}
-        onClick={(e) => {
-          e.preventDefault();
-          if (!optionsInTitle) handleOpenClick(idx);
-        }}
-      >
-        <div className={`accordion__title-element-wrapper ${accordionContext}-accordion__title-element-wrapper`}>
-          {title}
-        </div>
-        <div 
-          className={`
-            accordion__title-trigger-wrapper
-            ${accordionContext}-accordion__title-trigger-wrapper
-            ${optionsInTitle
-              ? 'accordion__title-trigger-wrapper--clickable'
-              : ''}
-          `}
-          onClick={(e) => {
-            e.preventDefault();
-            if (optionsInTitle) handleOpenClick(idx);
-          }}
-        >
-          {active 
-            ? <FontAwesome name="angle-up" />
-            : <FontAwesome name="angle-down" />
-          }
-        </div>
-      </div>
+      {optionsInTitle
+        ? <AccordionOptionsTitle
+            title={title}
+            
+            active={active}
+            handleOpenClick={handleOpenClick}
+            idx={idx}
+            
+            accordionContext={accordionContext}
+          />
+        : <AccordionClickableTitle
+            title={title}
+            
+            active={active}
+            handleOpenClick={handleOpenClick}
+            idx={idx}
+            
+            accordionContext={accordionContext}
+          />
+      }
       <div
         ref={contentRef}
         className={`accordion__content-wrapper ${accordionContext}-accordion__content-wrapper`}
         style={
-          // When inactive, hide the element
+          // When inactive, hide the element.
+          // We don't want to de-render elements that have been opened but are currently inactive; merely make them invisible and not able to receive focus
           active
             ? {
                 height: 'auto',
               }
             : {
                 height: 0,
+                // Prevents elements inside of content from receiving focus
+                visibility: 'hidden',
               }
         }
       >

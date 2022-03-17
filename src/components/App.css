@@ -43,15 +43,89 @@ main {
 }
 
 /* Home pages */
+/* #region */
+
 .section-home__wrapper {
   position: relative;
   width: 100%;
   height: 100%;
   overflow-y: scroll;
 
+  font-size: 1.2rem;
+  text-align: justify;
   background-color: rgba(var(--dark3-components), 0.5);
-  padding: 1rem;
+  padding: 0.5em 1.5em 0.5em 1em;
 }
+
+.section-home__section:not(:nth-of-type(1)) {
+  margin-top: 1rem;
+}
+
+/* Indentation */
+.section-home__section {
+  position: relative;
+
+  margin-left: 0.5em;
+}
+.section-home__text {
+  margin-left: 0.5em;
+}
+.section-home__list {
+  position: relative;
+
+  margin-left: 1em;
+  font-size: 0.9em;
+  padding: 0.5em 1em 0.5em 1em;
+}
+/* Style bullet points */
+.section-home__list-item::before {
+  content: "";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  font-weight: bold; /* If you want it to be bold */
+  display: inline-block; /* Needed to add space between the bullet and the text */
+  margin-right: 0.5em;
+}
+
+/* Colors based on section */
+.analyzer-home > h1,
+.analyzer-home h2 {
+  color: var(--red1);
+}
+.analyzer-home .section-home__list {
+  box-shadow: inset var(--control-shadow-inset) rgba(var(--red1-components), 0.8);
+}
+.analyzer-home .section-home__list-item::before {
+  border-top: 0.25em solid transparent;
+  border-bottom: 0.25em solid transparent;
+  border-left: 0.25em solid var(--red1);
+}
+
+.builder-home > h1,
+.builder-home h2 {
+  color: var(--green1);
+}
+.builder-home .section-home__list {
+  box-shadow: inset var(--control-shadow-inset) rgba(var(--green1-components), 0.8);
+}
+.builder-home .section-home__list-item::before {
+  border-top: 0.25em solid transparent;
+  border-bottom: 0.25em solid transparent;
+  border-left: 0.25em solid var(--green1);
+}
+
+.planner-home > h1,
+.planner-home h2 {
+  color: var(--blue1);
+}
+.planner-home .section-home__list {
+  box-shadow: inset var(--control-shadow-inset) rgba(var(--blue1-components), 0.8);
+}
+.planner-home .section-home__list-item::before {
+  border-top: 0.25em solid transparent;
+  border-bottom: 0.25em solid transparent;
+  border-left: 0.25em solid var(--blue1);
+}
+
+/* #endregion */
 
 /* BG Panels */
 /* #region */

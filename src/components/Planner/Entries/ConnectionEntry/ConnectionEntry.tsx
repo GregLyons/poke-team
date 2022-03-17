@@ -1,4 +1,5 @@
 import {
+  Fragment,
   useRef
 } from "react";
 import { useEntryExpand } from "../../../../hooks/Planner/Entries";
@@ -117,7 +118,7 @@ const ConnectionAccordionEntry = ({
         icons={icons}
       />
 
-      <div 
+      <dl 
         onMouseEnter={expandListeners.onMouseEnter}
         onMouseLeave={() => {
           // If haven't expanded yet, then leaving will prevent the expand
@@ -126,22 +127,19 @@ const ConnectionAccordionEntry = ({
         className="planner-accordion__entry-data"
       >
         {data && data.map(({key, title, value}) => (
-          <div
-            key={key}
-            className="planner-accordion__entry-data-row"
-          >
-            <b 
+          <Fragment key={key}>
+            <dt 
               className="planner-accordion__entry-data-key"
               title={title}
             >
               {key}
-            </b>
-            <div className="planner-accordion__entry-data-value">
+            </dt>
+            <dd className="planner-accordion__entry-data-value">
               {value}
-            </div>
-          </div>
+            </dd>
+          </Fragment>
         ))}
-      </div>
+      </dl>
 
       <div
         onMouseEnter={expandListeners.onMouseEnter}

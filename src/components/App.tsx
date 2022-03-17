@@ -120,6 +120,7 @@ function App() {
             {/* Routing for Analyzer */}
             <Route path="/analyzer" element={<Analyzer
               bgManager={bgManager}
+              dispatchBGManager={dispatchBGManager}
             />}>
               <Route
                 index
@@ -148,6 +149,7 @@ function App() {
             {/* Routing for Builder */}
             <Route path="/builder" element={<Builder
               bgManager={bgManager}
+              dispatchBGManager={dispatchBGManager}
             />} >
             {/* */}
               <Route
@@ -186,6 +188,7 @@ function App() {
             {/* Routing for Planner */}
             <Route path="/planner" element={<Planner
               bgManager={bgManager}
+              dispatchBGManager={dispatchBGManager}
             />} >
               {/* */}
               <Route

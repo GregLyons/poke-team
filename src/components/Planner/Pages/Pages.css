@@ -4,19 +4,20 @@
 .planner-page__wrapper {
   position: relative;
   height: 100%;
-  padding-bottom: 4rem;
+
+  padding-bottom: 1rem;
 }
 
 .planner-page__accordion-wrapper {
   position: relative;
-  height: calc(100% - 1rem);
+  /* Full height of page, minus h1 height */
+  height: calc(100% - 2rem);
   overflow-y: scroll;
   background-color: rgba(var(--dark3-components), 0.5);
 }
 
 .planner-page__accordion-wrapper > .accordion {
   position: relative;
-  height: 100%;
   
   border-radius: 0;
   padding-left: 1rem;
@@ -73,8 +74,6 @@
 
 .planner-accordion__title {
   font-family: var(--monospace);
-  font-size: 1.5rem; 
-  ;
   font-weight: 500;
 }
 

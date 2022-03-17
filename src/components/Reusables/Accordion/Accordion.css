@@ -10,6 +10,10 @@
 .accordion__title-wrapper {
   display: grid;
   grid-template-columns: 1fr clamp(5%, 5rem, 10%);
+  align-items: center;
+
+  position: relative;
+  width: 100%;
 
   box-shadow: var(--control-shadow);
   background-color: var(--dark2);
@@ -20,11 +24,13 @@
   transition: 0.5s ease;
 }
 
-.accordion__title-wrapper:hover {
+.accordion__title-wrapper:hover,
+.accordion__title-wrapper:focus {
   filter: brightness(1.2);
 }
 
-.accordion__title-wrapper--clickable:hover {
+.accordion__title-wrapper.--clickable:hover,
+.accordion__title-wrapper.--clickable:focus {
   cursor: pointer;
   color: var(--blue1);
 }
@@ -42,7 +48,8 @@
   justify-content: flex-end;
 }
 
-.accordion__title-trigger-wrapper--clickable:hover {
+.accordion__title-trigger-wrapper.--clickable:hover,
+.accordion__title-trigger-wrapper.--clickable:focus {
   cursor: pointer;
   color: var(--blue1);
 }

@@ -1,4 +1,5 @@
 import {
+  Fragment,
   useEffect,
   useRef
 } from "react";
@@ -120,7 +121,7 @@ const SearchEntry = ({
         name={name}
         icons={icons}
       />
-      <div
+      <dl
         onMouseEnter={expandListeners.onMouseEnter}
         onMouseLeave={() => {
           // If haven't expanded yet, then leaving will prevent the expand
@@ -129,24 +130,21 @@ const SearchEntry = ({
         className="planner-search__entry-data"
       >
         {data && data.map(({key, title, value}) => (
-          <div
-            key={key}
-            className="planner-search__entry-data-row"
-          >
-            <b
+          <Fragment key={key}>
+            <dt
               className="planner-search__entry-data-key"
               title={title}
             >
               {key}
-            </b>
-            <div
+            </dt>
+            <dd
               className="planner-search__entry-data-value"
             >
               {value}
-            </div>
-          </div>
+            </dd>
+          </Fragment>
         ))}
-      </div>
+      </dl>
       <div 
         onMouseEnter={expandListeners.onMouseEnter}
         onMouseLeave={() => {
