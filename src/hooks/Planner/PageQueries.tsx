@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { DocumentNode } from "graphql";
+import LoadIcon from "../../components/Reusables/LoadIcon/LoadIcon";
 import { EntityPageQueryName, IntroductionQuery, IntroductionQueryVars, INTRODUCTION_QUERY } from "../../types-queries/Planner/helpers";
 import { EntityClass, NUMBER_OF_GENS } from "../../utils/constants";
 import { GenFilter } from "../App/GenFilter";
@@ -45,9 +46,7 @@ export function useDebutQuery(entityName: string, entityClass: EntityClass, genF
 
   if (loading) {
     return (
-      <div>
-        Loading...
-      </div>
+      <LoadIcon />
     );
   }
 
@@ -98,9 +97,7 @@ export function usePageQuery<PageQuery, PageQueryVars>(
   let pageComponent: JSX.Element | null;
   if (loading) {
     pageComponent = (
-      <div>
-        Loading...
-      </div>
+      <LoadIcon />
     );
   }
   else if (error) {

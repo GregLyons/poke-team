@@ -4,6 +4,7 @@ import { useDelayedQuery, useRemovalConnectedSearchBar } from "../../../../../ho
 import { MoveColumnName, MovePaginationInput } from "../../../../../types-queries/helpers";
 import { MemberMoveQuery, MemberMoveVars, MEMBER_MOVESET_QUERY } from "../../../../../types-queries/Member/MemberMove";
 import { Filters } from "../../../../App";
+import LoadIcon from "../../../../Reusables/LoadIcon/LoadIcon";
 import SortSwitch from "../../../../Reusables/SortSwitch/SortSwitch";
 import { MoveSelectHandlers } from "../../TeamView";
 import MoveSelectEntries from "./MoveSelectEntries";
@@ -128,7 +129,7 @@ const MoveSelectView = ({
           </div>
         </div>
         {loading
-          ? <div>Loading...</div>
+          ? <LoadIcon />
           : data && <MoveSelectEntries
               data={data}
               clickHandlers={handlers}

@@ -1,6 +1,7 @@
 import { useDelayedQuery, useGenConnectedSearchBar } from "../../../../../hooks/Searches";
 import { HPTypeQuery, HPTypeVars, HPTYPE_QUERY } from "../../../../../types-queries/Member/MemberPokemon";
 import { Filters } from "../../../../App";
+import LoadIcon from "../../../../Reusables/LoadIcon/LoadIcon";
 import { HPSelectHandlers } from "../../TeamView";
 import HPSelectEntries from "./HPSelectEntries";
 import './HPSelectView.css';
@@ -53,7 +54,7 @@ const HPSelectView = ({
           </div>
         </div>
         {loading
-          ? <div>Loading...</div>
+          ? <LoadIcon />
           : data && <HPSelectEntries
               data={data}
               clickHandlers={clickHandlers}

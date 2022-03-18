@@ -45,6 +45,7 @@ import TypePage from './Planner/Types/TypePage';
 import TypeSearch from './Planner/Types/TypeSearch';
 import UsageMethodPage from './Planner/UsageMethods/UsageMethodPage';
 import UsageMethodSearch from './Planner/UsageMethods/UsageMethodSearch';
+import LoadIcon from './Reusables/LoadIcon/LoadIcon';
 
 export type Dispatches = {
   dispatchCart: React.Dispatch<CartAction>
@@ -115,7 +116,7 @@ function App() {
         <div className="app">
           <Routes>
             {/* Routing for Home */}
-            <Route path="/" element={<div>Welcome to Bill's PC!</div>} />
+            <Route path="/" element={<LoadIcon />} />
 
             {/* Routing for Analyzer */}
             <Route path="/analyzer" element={<Analyzer

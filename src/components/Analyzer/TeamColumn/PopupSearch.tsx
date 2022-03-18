@@ -1,4 +1,5 @@
 import { useEventListener } from "usehooks-ts";
+import LoadIcon from "../../Reusables/LoadIcon/LoadIcon";
 
 type PopupSearchProps<ResultEdge> = {
   data: ResultEdge[] | undefined
@@ -34,7 +35,7 @@ function PopupSearch<Result extends { node: { psID: string, formattedName: strin
       </div>
       <div className="popup-search__results">
         {loading
-          ? <div>Loading...</div>
+          ? <LoadIcon />
           : data && data.map(edge => (<div
             key={edge.node.psID}
             className={`

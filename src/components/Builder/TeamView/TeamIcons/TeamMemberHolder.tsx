@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import { PokemonIconDatum } from '../../../../types-queries/helpers';
 import { MemberPokemonQuery, MemberPokemonVars, POKEMONICON_TO_MEMBER_QUERY } from '../../../../types-queries/Member/MemberPokemon';
 import { Dispatches, Filters } from '../../../App';
+import LoadIcon from '../../../Reusables/LoadIcon/LoadIcon';
 import { TeamMembersClickHandlers } from '../TeamView';
 import TeamMember from './TeamMember/TeamMember';
 import './TeamMembers.css';
@@ -52,7 +53,7 @@ const TeamMemberHolder = ({
         `}
       >
         {loading
-          ? <div>Loading...</div>
+          ? <LoadIcon />
           : <TeamMember
               selected={selected}
               clickHandlers={clickHandlers}

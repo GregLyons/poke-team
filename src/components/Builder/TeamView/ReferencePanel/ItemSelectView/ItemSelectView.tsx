@@ -1,6 +1,7 @@
 import { useDelayedQuery, useGenConnectedSearchBar } from "../../../../../hooks/Searches";
 import { MemberItemQuery, MemberItemVars, MEMBER_ITEM_QUERY } from "../../../../../types-queries/Member/MemberItem";
 import { Filters } from "../../../../App";
+import LoadIcon from "../../../../Reusables/LoadIcon/LoadIcon";
 import { ItemSelectHandlers } from "../../TeamView";
 import ItemSelectEntries from "./ItemSelectEntries";
 import './ItemSelectView.css';
@@ -52,7 +53,7 @@ const ItemSelectView = ({
           </div>
         </div>
         {loading
-          ? <div>Loading...</div>
+          ? <LoadIcon />
           : data && <ItemSelectEntries
               data={data}
               clickHandlers={clickHandlers}

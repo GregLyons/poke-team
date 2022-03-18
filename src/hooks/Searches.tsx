@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client";
 import { DocumentNode } from "graphql";
 import { useEffect, useRef, useState } from "react";
 import { Dispatches, Filters } from "../components/App";
+import LoadIcon from "../components/Reusables/LoadIcon/LoadIcon";
 import SearchBar from "../components/Reusables/SearchBar/SearchBar";
 import { GenNum } from "../types-queries/entities";
 import { NameSearchVars } from "../types-queries/helpers";
@@ -361,7 +362,7 @@ export function useListRender<SearchQuery, SearchVars>(
   return (
     <>
       {loading 
-        ? <div>Loading...</div>
+        ? <LoadIcon />
         : data && listRender({ data, })
       }
     </>
@@ -385,7 +386,7 @@ export function useListRender_icons<SearchQuery, SearchVars>(
   return (
     <>
       {loading 
-        ? <div>Loading...</div>
+        ? <LoadIcon />
         : data && listRender({ data, dispatches, filters, })
       }
     </>

@@ -1,6 +1,7 @@
 import { useDelayedQuery, useGenConnectedSearchBar } from "../../../../../hooks/Searches";
 import { MemberNatureQuery, MemberNatureVars, MEMBER_NATURE_QUERY } from "../../../../../types-queries/Member/MemberNature";
 import { Filters } from "../../../../App";
+import LoadIcon from "../../../../Reusables/LoadIcon/LoadIcon";
 import { NatureSelectHandlers } from "../../TeamView";
 import NatureSelectEntries from "./NatureSelectEntries";
 import './NatureSelectView.css';
@@ -55,7 +56,7 @@ const NatureSelectView = ({
           </div>
         </div>
         {loading
-          ? <div>Loading...</div>
+          ? <LoadIcon />
           : data && <NatureSelectEntries
               data={data}
               clickHandlers={clickHandlers}

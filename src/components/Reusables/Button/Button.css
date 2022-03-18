@@ -3,6 +3,7 @@
 
   font-family: var(--monospace);
   font-weight: 400;
+  height: 1.5rem;
 
   transition: 0.2s ease-in;
 }
@@ -13,7 +14,6 @@
 
 .button:disabled {
   content: '';
-  height: 1.5rem;
 }
 
 .button:hover:enabled,

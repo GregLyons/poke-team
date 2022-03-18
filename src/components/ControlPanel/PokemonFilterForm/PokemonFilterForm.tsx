@@ -111,7 +111,8 @@ const PokemonFilterForm = ({
 
   return (
     <>
-    <div className={classWithBGShadow("type-filter__cell", bgManager)}>
+    <section className={classWithBGShadow("type-filter__cell", bgManager)}>
+      <h2 className="hidden-header">Type filter</h2>
       <form className="type-filter__wrapper">
         <div className="type-filter__button">
           <label htmlFor="Select all types">
@@ -163,8 +164,9 @@ const PokemonFilterForm = ({
           </label>
         </div>
       </form>
-    </div>
-    <div className={classWithBGShadow("stat-filter__cell", bgManager)}>
+    </section>
+    <section className={classWithBGShadow("stat-filter__cell", bgManager)}>
+      <h2 className="hidden-header">Stat filter</h2>
       <form className="stat-filter__wrapper">
         <div className="stat-filter__button">
           <label htmlFor="Reset stats">
@@ -223,7 +225,7 @@ const PokemonFilterForm = ({
           </label>
         </div>
       </form>
-    </div>
+    </section>
     </>
   )
 }

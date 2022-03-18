@@ -33,35 +33,39 @@ const ControlPanel = ({
       ref={headerRef}
       className={classWithBG('control-panel__wrapper', bgManager)}
     >
-      <div className={classWithBGShadow("gen-filter__cell", bgManager)}>
+      <section className={classWithBGShadow("gen-filter__cell", bgManager)}>
+        <h2 className="hidden-header">Change generation</h2>
         <GenFilterForm
           genFilter={filters.genFilter}
           dispatchGenFilter={dispatches.dispatchGenFilter}
         />
-      </div>
-      <div className={classWithBGShadow("tier-filter__cell", bgManager)}>
+      </section>
+      <section className={classWithBGShadow("tier-filter__cell", bgManager)}>
+        <h2 className="hidden-header">Tier filter</h2>
         <TierFilterForm
           genFilter={filters.genFilter}
           tierFilter={filters.tierFilter}
           dispatchTierFilter={dispatches.dispatchTierFilter}
           bgManager={bgManager}
         />
-      </div>
-      <div className="team__cell">
+      </section>
+      <section className="team__cell">
+        <h2 className="hidden-header">Team display</h2>
         <PokemonTeam
           dispatchCart={dispatches.dispatchCart}
           dispatchTeam={dispatches.dispatchTeam}
           genFilter={filters.genFilter}
           team={team}
         />
-      </div>
-      <div className={classWithBGShadow("import-export__cell", bgManager)}>
+      </section>
+      <section className={classWithBGShadow("import-export__cell", bgManager)}>
+        <h2 className="hidden-header">Import and export teams</h2>
         <ImportExport
           dispatches={dispatches}
           filters={filters}
           team={team}
         />
-      </div>
+      </section>
       <>
         <PokemonFilterForm
           dispatchPokemonFilter={dispatches.dispatchPokemonFilter}

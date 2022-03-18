@@ -6,6 +6,7 @@ import {
 } from 'graphql';
 import { ListRenderArgsIcons } from '../../../hooks/Searches';
 import { Dispatches, Filters } from '../../App';
+import LoadIcon from "../../Reusables/LoadIcon/LoadIcon";
 import './Pages.css';
 
 interface EntityConnectionSearchIconsProps<SearchQuery, SearchQueryVars> {
@@ -37,7 +38,7 @@ function EntityConnectionSearchIcons<SearchQuery, SearchQueryVars>({
   return (
     <>
       {loading 
-        ? <div>Loading...</div>
+        ? <LoadIcon />
         : data && listRender({ data, dispatches, filters, })
       }
     </>

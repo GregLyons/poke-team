@@ -1,6 +1,7 @@
 import { useDelayedQuery, useGenConnectedSearchBar } from "../../../../../hooks/Searches";
 import { MemberAbilityQuery, MemberAbilitySearchVars, MEMBER_ABILITY_QUERY } from "../../../../../types-queries/Member/MemberAbility";
 import { Filters } from "../../../../App";
+import LoadIcon from "../../../../Reusables/LoadIcon/LoadIcon";
 import { AbilitySelectHandlers } from "../../TeamView";
 import AbilitySelectEntries from "./AbilitySelectEntries";
 import './AbilitySelectView.css';
@@ -58,7 +59,7 @@ const AbilitySelectView = ({
           </div>
         </div>
         {loading
-          ? <div>Loading...</div>
+          ? <LoadIcon />
           : data && <AbilitySelectEntries
               data={data}
               clickHandlers={clickHandlers}

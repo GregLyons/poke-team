@@ -7,6 +7,7 @@ import { AbilityMatchupQuery, ABILITY_MATCHUP_QUERY, ItemMatchupQuery, ITEM_MATC
 import { CapsTypeName, toCapsTypeName } from "../../../types-queries/helpers";
 import { MemberPokemon } from "../../../types-queries/Member/MemberPokemon";
 import { Dispatches, Filters } from "../../App";
+import LoadIcon from "../../Reusables/LoadIcon/LoadIcon";
 import TeamColumn from "../TeamColumn/TeamColumn";
 import './CoverageView.css';
 import FieldControl from "./FieldControl/FieldControl";
@@ -227,7 +228,7 @@ const CoverageView = ({
       <section className="type-matchup__cell">
         <h2 className="hidden-header">Your team's type matchups</h2>
         {loading_matchupAbility || loading_matchupItem || loading_matchupType || loading_coverageMove
-          ? <div>Loading...</div>
+          ? <LoadIcon />
           : data_matchupAbility && data_matchupItem && data_matchupType && data_coverageMove
             ? <TypeMatchup
                 filters={filters}
@@ -247,7 +248,7 @@ const CoverageView = ({
       <section className="status-control__cell">
         <h2 className="hidden-header">Your team's ability to cause and resist status effects</h2>
         {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
-          ? <div>Loading...</div>
+          ? <LoadIcon />
           : data_coverageAbility && data_coverageItem && data_coverageMove
             ? <StatusControl
                 filters={filters}
@@ -266,7 +267,7 @@ const CoverageView = ({
       <section className="field-control__cell">
         <h2 className="hidden-header">Your team's ability to create and mitigate hazards, weather, and terrain.</h2>
         {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
-          ? <div>Loading...</div>
+          ? <LoadIcon />
           : data_coverageAbility && data_coverageItem && data_coverageMove
             ? <FieldControl
                 filters={filters}
@@ -285,7 +286,7 @@ const CoverageView = ({
       <section className="speed-control__cell">
         <h2 className="hidden-header">Your team's forms of speed control.</h2>
         {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
-          ? <div>Loading...</div>
+          ? <LoadIcon />
           : data_coverageAbility && data_coverageItem && data_coverageMove
             ? <SpeedControl
                 abilityData={data_coverageAbility} 

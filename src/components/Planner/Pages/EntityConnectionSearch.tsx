@@ -1,11 +1,12 @@
 import {
-    useQuery
+  useQuery
 } from "@apollo/client";
 import {
-    DocumentNode
+  DocumentNode
 } from 'graphql';
 import { GenFilter } from "../../../hooks/App/GenFilter";
 import { ListRenderArgs } from '../../../hooks/Searches';
+import LoadIcon from "../../Reusables/LoadIcon/LoadIcon";
 import './Pages.css';
 
 interface EntityConnectionSearchProps<SearchQuery, SearchQueryVars> {
@@ -34,7 +35,7 @@ function EntityConnectionSearch<SearchQuery, SearchQueryVars>({
   return (
     <>
       {loading 
-        ? <div>Loading...</div>
+        ? <LoadIcon />
         : data && listRender({ data, })
       }
     </>

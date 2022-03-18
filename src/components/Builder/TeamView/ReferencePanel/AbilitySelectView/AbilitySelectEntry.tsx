@@ -22,9 +22,6 @@ const AbilitySelectEntry = ({
       <div className="ability-select__slot">
         {ENUMCASE_TO_TITLECASE(ability.slot)}
       </div>
-      <div className="ability-select__description">
-        Placeholder description.
-      </div>
     </div>
   );
 };

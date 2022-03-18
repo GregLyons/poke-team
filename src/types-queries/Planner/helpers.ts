@@ -81,12 +81,11 @@ export abstract class MainEntityInSearch {
     this.name = name;
     this.formattedName = formattedName;
 
-    // TODO: Bulbapedia doesn't list all items, so there will be missing descriptions
     if (gqlEntity.node.descriptions.edges.length > 0) {
       this.description = gqlEntity.node.descriptions.edges[0].node.text;
     }
     else {
-      this.description = 'Placeholder description.';
+      this.description = 'Description doesn\'t exist in this gen.';
     }
   }
 }
@@ -196,7 +195,7 @@ export abstract class MainEntityOnPage {
     }
     else {
       this.descriptions = [{
-        text: 'Placeholder description.',
+        text: 'Description doesn\'t exist in this gen.',
         code: 'Placeholder code.',
       }];
     }
@@ -357,7 +356,7 @@ export abstract class AuxToMainConnectionOnPage {
       this.description = gqlEdge.node.descriptions.edges[0].node.text;
     }
     else {
-      this.description = 'Placeholder description.';
+      this.description = 'Description doesn\'t exist in this gen.';
     }
   }
 }

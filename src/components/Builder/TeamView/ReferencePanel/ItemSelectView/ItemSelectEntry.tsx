@@ -27,9 +27,6 @@ const ItemSelectEntry = ({
       <div className="item-select__name">
         {item.formattedName}
       </div>
-      <div className="item-select__description">
-        Placeholder description.
-      </div>
     </div>
   );
 };

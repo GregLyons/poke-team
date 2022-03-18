@@ -33,7 +33,7 @@
 .ability-select__legend {
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: minmax(20ch, min-content) 8ch 1fr;
+  grid-template-columns: minmax(20ch, min-content) 1fr;
 
   align-items: center;
   gap: 0 24px;

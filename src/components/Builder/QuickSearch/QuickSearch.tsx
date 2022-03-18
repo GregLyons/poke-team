@@ -5,6 +5,7 @@ import { useDelayedQuery, useRemovalConnectedSearchBar } from '../../../hooks/Se
 import { PokemonQuickSearchQuery, PokemonQuickSearchVars, POKEMON_QUICKSEARCH_QUERY } from '../../../types-queries/Builder/QuickSearch';
 import { CapsTypeName, PokemonColumnName, PokemonIconDatum, PokemonPaginationInput, toCapsTypeName, TypeName } from '../../../types-queries/helpers';
 import { Dispatches, Filters } from '../../App';
+import LoadIcon from '../../Reusables/LoadIcon/LoadIcon';
 import SortSwitch from '../../Reusables/SortSwitch/SortSwitch';
 import './QuickSearch.css';
 import QuickSearchEntries from './QuickSearchEntries';
@@ -276,7 +277,7 @@ const QuickSearch = ({
           </div>
         </div>
         {loading
-          ? <div>Loading...</div>
+          ? <LoadIcon />
           : data && <QuickSearchEntries
               data={data}
               team={team}
