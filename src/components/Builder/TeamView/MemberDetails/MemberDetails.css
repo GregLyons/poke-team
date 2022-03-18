@@ -7,7 +7,7 @@
   background-color: var(--dark3);
 }
 /* Hide content when inactive, i.e. member isn't selected */
-.member-details__wrapper--inactive div {
+.member-details__wrapper.--inactive div {
   display: none;
 }
 

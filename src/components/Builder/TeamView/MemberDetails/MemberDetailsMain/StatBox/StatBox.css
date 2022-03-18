@@ -12,7 +12,7 @@
   transition: 0.3s ease;
 }
 .member-details__stats:hover,
-.member-details__stats--active {
+.member-details__stats.--active {
   border: var(--team-builder-border2);
 }
 
@@ -27,7 +27,7 @@
   transition: 0.3s ease;
 }
 .member-details__stat-wrapper:hover,
-.member-details__stat-wrapper--active {
+.member-details__stat-wrapper.--active {
   border: var(--team-builder-border1);
 }
 

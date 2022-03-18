@@ -32,13 +32,17 @@
   background: var(--dark2);
   box-shadow: inset 2px 2px 2px 0 rgba(var(--dark3-components), 0.8);
 }
+.numerical-input__wrapper:hover,
+.numerical-input__wrapper:focus-within {
+  filter: brightness(1.2);
+}
 
-.numerical-input__wrapper--left {
+.numerical-input__wrapper.--left {
   margin-right: 0.5rem;
   padding-right: 0.25rem;
 }
 
-.numerical-input__wrapper--right {
+.numerical-input__wrapper.--right {
   margin-left: 0.5rem;
   padding-left: 0.25rem;
 }
@@ -49,11 +53,6 @@
 
   color: var(--blue1);
   transition: 0.2s ease-in;
-}
-
-.numerical-input:focus,
-.numerical-input:hover {
-  filter: brightness(1.3);
 }
 
 /* #endregion */
@@ -72,34 +71,32 @@
   margin-right: 0.6rem;
 }
 
-.numerical-input__up-arrow {
-  position: absolute;
-  top: 3px;
-
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 5px solid var(--blue1);
-}
-
-.numerical-input__up-arrow:hover {
-  filter: brightness(1.2);
-}
-
+.numerical-input__up-arrow,
 .numerical-input__down-arrow {
   position: absolute;
-  bottom: 3px;
 
   width: 0;
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
+  transform-origin: center;
+}
+.numerical-input__up-arrow {
+  top: 3px;
+  border-bottom: 5px solid var(--blue1);
+}
+.numerical-input__down-arrow {
+  bottom: 3px;
   border-top: 5px solid var(--blue1);
 }
 
-.numerical-input__down-arrow:hover {
+.numerical-input__up-arrow:hover,
+.numerical-input__down-arrow:hover,
+.numerical-input__up-arrow:focus,
+.numerical-input__down-arrow:focus 
+{
   filter: brightness(1.2);
+  transform: scale(1.2);
 }
 
 /* #endregion */

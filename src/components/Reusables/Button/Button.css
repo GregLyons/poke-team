@@ -7,7 +7,7 @@
   transition: 0.2s ease-in;
 }
 
-.button--active {
+.button.--active {
   color: var(--blue1);
 }
 
@@ -41,7 +41,7 @@
 }
 
 /* Active: blue */
-.button--active:enabled::before {
+.button.--active:enabled::before {
   border-left-color: var(--blue1);
   opacity: 1;
 }
@@ -54,8 +54,8 @@
 }
 
 /* Active, hover: white */
-.button--active:hover:enabled::before,
-.button--active:focus:enabled::before {
+.button.--active:hover:enabled::before,
+.button.--active:focus:enabled::before {
   border-left-color: var(--light1);
   opacity: 1;
 }

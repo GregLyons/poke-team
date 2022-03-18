@@ -80,8 +80,8 @@ const DoubleSliderBase = ({
         ref={minValRef}
         onChange={onMinChange}
         className={minValue > max - 100 
-          ? "double-slider__thumb double-slider__thumb--zindex-5"
-          : "double-slider__thumb double-slider__thumb--zindex-3"
+          ? "double-slider__thumb double-slider__thumb --zindex-5"
+          : "double-slider__thumb double-slider__thumb --zindex-3"
         }
       />
       <input
@@ -92,7 +92,7 @@ const DoubleSliderBase = ({
         value={maxValue}
         ref={maxValRef}
         onChange={onMaxChange}
-        className="double-slider__thumb double-slider__thumb--zindex-4"
+        className="double-slider__thumb double-slider__thumb --zindex-4"
       />
 
       <div className="double-slider">

@@ -24,7 +24,7 @@ const CosmeticFormDropdown = ({
               className={`
                 member-details__cosmetic-form-icon
                 ${selected 
-                  ? "member-details__cosmetic-form-icon--selected"
+                  ? "--selected"
                   : ''
                 }
               `}

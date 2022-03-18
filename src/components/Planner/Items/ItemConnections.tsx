@@ -17,7 +17,7 @@ export const listRenderItemEffect = ({ data, }: ListRenderArgs<ItemEffectQuery>)
     <ul>
       <li className="planner-accordion__subitem">
         <div className="planner-accordion__subitem-shadow" />
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {effectResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Item"
@@ -47,10 +47,10 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
   return (
     <ul>
       {activatedByResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Activated by field state</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {activatedByResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Item"
@@ -70,13 +70,13 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
         </ul>
       </li>)}
       {extendsResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Extends field state</h3>
         <p className="planner-accordion__clarification">
           When the owner of this item creates the field state, the field state will last for a greater number of turns than usual.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {extendsResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Item"
@@ -97,13 +97,13 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
         </ul>
       </li>)}
       {ignoresResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Ignores field state</h3>
         <p className="planner-accordion__clarification">
           Item allows the owner to ignore the effects of the field state.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {ignoresResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Item"
@@ -123,13 +123,13 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
         </ul>
       </li>)}
       {resistsResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Resists field state</h3>
         <p className="planner-accordion__clarification">
           Effects of the field state on the owner of the item are weakened (e.g. less damage).
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {resistsResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Item"
@@ -166,10 +166,10 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
   return (
     <ul>
       {boostStageResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Boosts by stage</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {boostStageResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Item"
@@ -200,10 +200,10 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
         </ul>
       </li>)}
       {boostMultiplierResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Boosts by multiplier</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {boostMultiplierResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Item"
@@ -234,10 +234,10 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
         </ul>
       </li>)}
       {reduceStageResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by stage</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {reduceStageResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Item"
@@ -268,10 +268,10 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
         </ul>
       </li>)}
       {reduceMultiplierResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by multiplier</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {reduceMultiplierResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Item"
@@ -316,10 +316,10 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
   return (
     <ul>
       {causesResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Causes status</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {causesResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Item"
@@ -340,13 +340,13 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
         </ul>
       </li>)}
       {resistsResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Resists status</h3>
         <p className="planner-accordion__clarification">
           The item fully cures the status, prevents the status, or mitigates the status in some way.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {causesResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Item"
@@ -381,13 +381,13 @@ export const listRenderItemType = ({ data, dispatches, filters, }: ListRenderArg
   return (
     <ul>
       {boostsResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Boosts type</h3>
         <p className="planner-accordion__clarification">
           Item boosts the power of moves of the listed type used by the owner.
         </p> 
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {boostsResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Item"
@@ -412,13 +412,13 @@ export const listRenderItemType = ({ data, dispatches, filters, }: ListRenderArg
         </ul>
       </li>)}
       {naturalGiftResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Natural gift</h3>
         <p className="planner-accordion__clarification">
           When the owner of this item uses Natural Gift, the move will be of the listed type.
         </p> 
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {naturalGiftResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Item"
@@ -443,13 +443,13 @@ export const listRenderItemType = ({ data, dispatches, filters, }: ListRenderArg
         </ul>
       </li>)}
       {resistsResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Resists type</h3>
         <p className="planner-accordion__clarification">
           Item resists moves of the listed type used against the owner.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {resistsResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Item"
@@ -489,10 +489,10 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
   return (
     <ul>
       {activatedByResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Activated by usage method</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {activatedByResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Item"
@@ -512,13 +512,13 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
         </ul>
       </li>)}
       {boostsResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Boosts usage method</h3>
         <p className="planner-accordion__clarification">
           Item boosts the power of moves of this usage method used by the Pokemon.
         </p> 
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {boostsResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Item"
@@ -539,13 +539,13 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
         </ul>
       </li>)}
       {resistsResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Resists usage method</h3>
         <p className="planner-accordion__clarification">
           Item resists moves of this usage method used against the Pokemon.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {resistsResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Item"

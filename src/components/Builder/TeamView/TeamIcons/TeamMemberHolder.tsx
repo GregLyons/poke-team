@@ -36,7 +36,7 @@ const TeamMemberHolder = ({
     <li className={`
       team-member-holder__wrapper
       ${selected
-        ? 'team-member-holder__wrapper--active'
+        ? 'team-member-holder__wrapper.--active'
         : ''
       }
     `}>

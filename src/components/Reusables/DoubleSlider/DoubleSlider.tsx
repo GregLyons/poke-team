@@ -56,9 +56,15 @@ const DoubleSlider = ({
 
   const onMinChange = (e: React.ChangeEvent<HTMLInputElement>) => updateMinIntermediate(parseInt(e.target.value, 10));
 
-  const onMinIncrement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => updateMinIntermediate(minValue + 1);
+  const onMinIncrement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.preventDefault();
+    updateMinIntermediate(minValue + 1);
+  }
 
-  const onMinDecrement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => updateMinIntermediate(minValue - 1);
+  const onMinDecrement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.preventDefault();
+    updateMinIntermediate(minValue - 1);
+  }
 
   // When focusing on NumericalInput, changes don't update minValue, but update minNumber instead; otherwise e.g. you can't backspace a 1-character entry, as that would give empty text box, resetting to default min
   const onMinFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
@@ -93,9 +99,15 @@ const DoubleSlider = ({
 
   const onMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => updateMaxIntermediate(parseInt(e.target.value, 10));
 
-  const onMaxIncrement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => updateMaxIntermediate(maxValue + 1);
+  const onMaxIncrement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.preventDefault();
+    updateMaxIntermediate(maxValue + 1);
+  }
 
-  const onMaxDecrement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => updateMaxIntermediate(maxValue - 1);
+  const onMaxDecrement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.preventDefault();
+    updateMaxIntermediate(maxValue - 1);
+  }
 
   // When focusing on NumericalInput, changes don't update maxValue, but update maxNumber instead; otherwise e.g. you can't backspace a 1-character entry, as that would give empty text box, resetting to default max
   const onMaxFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {

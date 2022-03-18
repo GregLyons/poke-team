@@ -54,15 +54,15 @@
   filter: brightness(1.1);
 }
 
-.double-slider__thumb--zindex-3 {
+.double-slider__thumb.--zindex-3 {
   z-index: 3;
 }
 
-.double-slider__thumb--zindex-4 {
+.double-slider__thumb.--zindex-4 {
   z-index: 4;
 }
 
-.double-slider__thumb--zindex-5 {
+.double-slider__thumb.--zindex-5 {
   z-index: 5;
 }
 
@@ -109,11 +109,11 @@
   width: 3rem;
 }
 
-.double-slider__input--left {
+.double-slider__input.--left {
   margin-right: 0.5rem;
 }
 
-.double-slider__input--right {
+.double-slider__input.--right {
   margin-left: 0.5rem;
 }
 

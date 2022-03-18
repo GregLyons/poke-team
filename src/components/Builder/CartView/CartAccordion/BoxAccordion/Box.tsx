@@ -20,8 +20,8 @@ const Box = ({
   }, [box.pokemon, filters]);
 
   return (
-    <div className={`box__icons-wrapper`}>
-      <div className="box__icons-background">
+    <div  className={`box__icons-wrapper`}>
+      <div  className="box__icons-background">
         {box && box.pokemon && box.pokemon.map(pokemonIconDatum => {
           const psID = pokemonIconDatum.psID;
           
@@ -42,7 +42,7 @@ const Box = ({
 
           return (
             <BoxPokemonIcon
-              key={pokemonIconDatum.psID}
+              key={pokemonIconDatum.id}
               pokemonIconDatum={pokemonIconDatum}
             />
           )

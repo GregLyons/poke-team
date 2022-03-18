@@ -48,12 +48,12 @@ const CartTerminalControls = ({
       >
         BREAK
       </button>
-      <div 
+      <div
         className={`
         cart-view-terminal__input-wrapper
         ${!submitting
-          ? 'cart-view-terminal__input-wrapper--disabled'
-          : 'cart-view-terminal__input-wrapper--enabled'
+          ? '--disabled'
+          : '--enabled'
         }
       `}
       >
@@ -68,8 +68,8 @@ const CartTerminalControls = ({
           className={`
             cart-view-terminal__input
             ${!submitting
-              ? 'cart-view-terminal__input--disabled'
-              : 'cart-view-terminal__input--enabled'
+              ? '--disabled'
+              : '--enabled'
             }
           `}
           onFocus={() => setFocusedOnNameInput(true)}
@@ -90,8 +90,8 @@ const CartTerminalControls = ({
         className={`
           cart-view-terminal__submit
           ${!submitting || newName.length === 0
-            ? 'cart-view-terminal__submit--disabled'
-            : 'cart-view-terminal__submit--enabled'
+            ? '--disabled'
+            : '--enabled'
           }
         `}
         onClick={clickHandlers.onSubmit}

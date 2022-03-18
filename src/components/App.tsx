@@ -96,7 +96,7 @@ function App() {
   
   return (
     <>
-      <div className={classWithBG("left-bg-panel", bgManager)} />
+      <div role="presentation" className={classWithBG("left-bg-panel", bgManager)} />
       <header className={classWithBG(classWithBGShadow("header__bg-wrapper", bgManager), bgManager)} role="banner">
           <NavBar
             headerRef={controlPanelRef}
@@ -323,7 +323,7 @@ function App() {
           </Routes>
         </div>
       </main>
-      <div className={classWithBG("right-bg-panel", bgManager)} />
+      <div role="presentation" className={classWithBG("right-bg-panel", bgManager)} />
     </>
   );
 }

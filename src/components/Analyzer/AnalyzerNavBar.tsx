@@ -14,7 +14,7 @@ const AnalyzerNavBar = ({
       {/* */}
       <nav
         className="nav-bar"
-        role="Secondary Navigation"
+        role="navigation" aria-label="Secondary"
       >
         <li className="nav-item">
           <LinkButton

@@ -50,7 +50,7 @@ const PinnedBox = ({
           return (
             <PinnedBoxPokemonIcon
               onPokemonSelect={clickHandlers.onPokemonSelect}
-              key={pokemonIconDatum.psID}
+              key={pokemonIconDatum.id}
               pokemonIconDatum={pokemonIconDatum}
             />
           )

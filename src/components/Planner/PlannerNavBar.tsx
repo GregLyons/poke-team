@@ -13,7 +13,7 @@ const PlannerNavBar = ({
     <div className={classWithBGShadow("nav-bar__wrapper", bgManager)}>
       <nav
         className="nav-bar"
-        role="Secondary Navigation"
+        role="navigation" aria-label="Secondary"
       >
         <li className="nav-item">
           <LinkButton

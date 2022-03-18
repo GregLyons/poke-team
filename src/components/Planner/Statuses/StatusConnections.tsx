@@ -13,12 +13,12 @@ export const listRenderStatusAbility = ({ data, dispatches, filters, }: ListRend
   const resistedByResults = parent.resistedByAbility.edges.map(edge => new StatusAbilityResult(edge));
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       {causedByResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Caused by ability</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {causedByResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Status"
@@ -39,13 +39,13 @@ export const listRenderStatusAbility = ({ data, dispatches, filters, }: ListRend
         </ul>
       </li>)}
       {resistedByResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Resisted by ability</h3>
         <p className="planner-accordion__clarification">
           Ability fully cures this status, prevents it, or mitigates it in some way.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {resistedByResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Status"
@@ -77,12 +77,12 @@ export const listRenderStatusFieldState = ({ data, }: ListRenderArgs<StatusField
   const resistedByResults = parent.resistedByFieldState.edges.map(edge => new StatusFieldStateResult(edge));
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       {causedByResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Caused by field state</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {causedByResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Status"
@@ -103,13 +103,13 @@ export const listRenderStatusFieldState = ({ data, }: ListRenderArgs<StatusField
         </ul>
       </li>)}
       {resistedByResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Resisted by field state</h3>
         <p className="planner-accordion__clarification">
           Field state fully cures this status, prevents it, or mitigates it in some way.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {resistedByResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Status"
@@ -141,12 +141,12 @@ export const listRenderStatusItem = ({ data, dispatches, filters, }: ListRenderA
   const resistedByResults = parent.resistedByItem.edges.map(edge => new StatusItemResult(edge));
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       {causedByResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Caused by item</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {causedByResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Status"
@@ -171,13 +171,13 @@ export const listRenderStatusItem = ({ data, dispatches, filters, }: ListRenderA
         </ul>
       </li>)}
       {resistedByResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Resisted by item</h3>
         <p className="planner-accordion__clarification">
           Item fully cure this status, prevents it, or mitigates it in some way.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {resistedByResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Status"
@@ -213,12 +213,12 @@ export const listRenderStatusMove = ({ data, dispatches, filters, }: ListRenderA
   const resistedByResults = parent.resistedByMove.edges.map(edge => new StatusMoveResult(edge));
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       {causedByResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Caused by move</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {causedByResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Status"
@@ -243,13 +243,13 @@ export const listRenderStatusMove = ({ data, dispatches, filters, }: ListRenderA
         </ul>
       </li>)}
       {resistedByResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Resisted by move</h3>
         <p className="planner-accordion__clarification">
           Move fully cure this status, prevents it, or mitigates it in some way.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {resistedByResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Status"

@@ -212,7 +212,8 @@ const CoverageView = ({
     <div
       className="coverage-view__wrapper"
     >
-      <div className="team-column__cell">
+      <section className="team-column__cell">
+        <h2 className="hidden-header">Your team</h2>
         <TeamColumn
           teamDispatch={dispatches.dispatchTeam}
           filters={filters}
@@ -222,8 +223,9 @@ const CoverageView = ({
           onEntityClick={onEntityClick}
           onPopupClose={onPopupClose}
         />
-      </div>
-      <div className="type-matchup__cell">
+      </section>
+      <section className="type-matchup__cell">
+        <h2 className="hidden-header">Your team's type matchups</h2>
         {loading_matchupAbility || loading_matchupItem || loading_matchupType || loading_coverageMove
           ? <div>Loading...</div>
           : data_matchupAbility && data_matchupItem && data_matchupType && data_coverageMove
@@ -241,10 +243,9 @@ const CoverageView = ({
               />
             : <div>Type matchup data not found.</div>
         }
-      </div>
-      <div
-        className="status-control__cell"
-      >
+      </section>
+      <section className="status-control__cell">
+        <h2 className="hidden-header">Your team's ability to cause and resist status effects</h2>
         {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
           ? <div>Loading...</div>
           : data_coverageAbility && data_coverageItem && data_coverageMove
@@ -261,8 +262,9 @@ const CoverageView = ({
               />
             : <div>Status control data not found.</div>
         }
-      </div>
-      <div className="field-control__cell">
+      </section>
+      <section className="field-control__cell">
+        <h2 className="hidden-header">Your team's ability to create and mitigate hazards, weather, and terrain.</h2>
         {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
           ? <div>Loading...</div>
           : data_coverageAbility && data_coverageItem && data_coverageMove
@@ -279,8 +281,9 @@ const CoverageView = ({
               />
             : <div>Field control data not found.</div>
         }
-      </div>
-      <div className="speed-control__cell">
+      </section>
+      <section className="speed-control__cell">
+        <h2 className="hidden-header">Your team's forms of speed control.</h2>
         {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
           ? <div>Loading...</div>
           : data_coverageAbility && data_coverageItem && data_coverageMove
@@ -296,7 +299,7 @@ const CoverageView = ({
             : <div>Speed control data not found.</div>
         }
 
-      </div>
+      </section>
     </div>
   );
 };

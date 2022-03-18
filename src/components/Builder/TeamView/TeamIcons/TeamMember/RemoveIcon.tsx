@@ -27,10 +27,10 @@ const RemoveIcon = ({
           e.stopPropagation();
         }}
       >
-        <div className="team-member__remove--top" />
-        <div className="team-member__remove--left" />
-        <div className="team-member__remove--bottom" />
-        <div className="team-member__remove--right" />
+        <div className="team-member__remove.--top" />
+        <div className="team-member__remove.--left" />
+        <div className="team-member__remove.--bottom" />
+        <div className="team-member__remove.--right" />
       </button>
     </div>
   )

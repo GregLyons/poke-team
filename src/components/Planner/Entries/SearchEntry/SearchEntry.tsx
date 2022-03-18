@@ -108,7 +108,7 @@ const SearchEntry = ({
       className={`
         planner-search__entry
         ${expandHover 
-          ? 'planner-search__entry--expand-hover' 
+          ? 'planner-search__entry.--expand-hover' 
           : ''
         }
       `}

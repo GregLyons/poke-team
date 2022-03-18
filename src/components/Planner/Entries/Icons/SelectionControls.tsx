@@ -85,10 +85,10 @@ export default SelectionControls;
 //             // Item icon entry
 //             ? icons.pokemonIconData.length
 //               // Item has Pokemon requirements, so Pokemon icons not rendering due to tier filter
-//               ? <div className="planner__selection-controls--reason">None of the item's required Pokemon are in this tier.</div>
+//               ? <div className="planner__selection-controls .--reason">None of the item's required Pokemon are in this tier.</div>
 //               // Item doesn't have Pokemon requirements, so no Pokemon icons to render.
-//               : <div className="planner__selection-controls--reason">No Pokemon requirements.</div>
+//               : <div className="planner__selection-controls .--reason">No Pokemon requirements.</div>
 //             // Not item icon entry, so Pokemon icons not rendering due to tier filter
-//             : <div className="planner__selection-controls--reason">No Pokemon in this tier.</div>
+//             : <div className="planner__selection-controls .--reason">No Pokemon in this tier.</div>
 //           // Entry has no icon data (e.g. target entity is Stat, Status, etc.)
 //           : ''

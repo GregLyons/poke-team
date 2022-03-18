@@ -1,6 +1,6 @@
 import { ListRenderArgs, ListRenderArgsIcons } from "../../../hooks/Searches";
 import {
-  EffectAbilityQuery, EffectAbilityResult, EffectFieldStateQuery, EffectFieldStateResult, EffectItemQuery, EffectItemResult, EffectMoveQuery, EffectMoveResult
+    EffectAbilityQuery, EffectAbilityResult, EffectFieldStateQuery, EffectFieldStateResult, EffectItemQuery, EffectItemResult, EffectMoveQuery, EffectMoveResult
 } from "../../../types-queries/Planner/Effect";
 import ConnectionAccordionEntry from "../Entries/ConnectionEntry/ConnectionEntry";
 
@@ -12,10 +12,10 @@ export const listRenderEffectAbility = ({ data, dispatches, filters, }: ListRend
   const abilityResults = parent.abilities.edges.map(edge => new EffectAbilityResult(edge));
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       <li className="planner-accordion__subitem">
         <div className="planner-accordion__subitem-shadow" />
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {abilityResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Effect"
@@ -46,10 +46,10 @@ export const listRenderEffectFieldState = ({ data, }: ListRenderArgs<EffectField
   const fieldStateResults = parent.fieldStates.edges.map(edge => new EffectFieldStateResult(edge));
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       <li className="planner-accordion__subitem">
         <div className="planner-accordion__subitem-shadow" />
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {fieldStateResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Effect"
@@ -80,10 +80,10 @@ export const listRenderEffectItem = ({ data, dispatches, filters, }: ListRenderA
   const itemResults = parent.items.edges.map(edge => new EffectItemResult(edge));
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       <li className="planner-accordion__subitem">
         <div className="planner-accordion__subitem-shadow" />
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {itemResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Effect"
@@ -118,10 +118,10 @@ export const listRenderEffectMove = ({ data, dispatches, filters, }: ListRenderA
   const moveResults = parent.moves.edges.map(edge => new EffectMoveResult(edge));
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       <li className="planner-accordion__subitem">
         <div className="planner-accordion__subitem-shadow" />
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {moveResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Effect"

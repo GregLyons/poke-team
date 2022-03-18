@@ -18,12 +18,12 @@ export const listRenderStatAbility = ({ data, dispatches, filters, }: ListRender
   const reduceMultiplierResults = abilityResults.filter(result => result.multiplier < 1);
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       {boostStageResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Boosted by stage</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
         {boostStageResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Stat"
@@ -54,10 +54,10 @@ export const listRenderStatAbility = ({ data, dispatches, filters, }: ListRender
         </ul>
       </li>)}
       {boostMultiplierResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Boosted by multiplier</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {boostMultiplierResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Stat"
@@ -88,10 +88,10 @@ export const listRenderStatAbility = ({ data, dispatches, filters, }: ListRender
         </ul>
       </li>)}
       {reduceStageResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Reduced by stage</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {reduceStageResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Stat"
@@ -122,10 +122,10 @@ export const listRenderStatAbility = ({ data, dispatches, filters, }: ListRender
         </ul>
       </li>)}
       {reduceMultiplierResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Reduced by multiplier</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {reduceMultiplierResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Stat"
@@ -171,12 +171,12 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
   const reduceMultiplierResults = fieldStateResults.filter(result => result.multiplier < 1);
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       {boostStageResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Boosted by stage</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {boostStageResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Stat"
@@ -207,10 +207,10 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
         </ul>
       </li>)}
       {boostMultiplierResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Boosted by multiplier</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {boostMultiplierResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Stat"
@@ -241,10 +241,10 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
         </ul>
       </li>)}
       {reduceStageResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Reduced by stage</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {reduceStageResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Stat"
@@ -275,10 +275,10 @@ export const listRenderStatFieldState = ({ data, }: ListRenderArgs<StatFieldStat
         </ul>
       </li>)}
       {reduceMultiplierResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Reduced by multiplier</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {reduceMultiplierResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Stat"
@@ -324,12 +324,12 @@ export const listRenderStatItem = ({ data, dispatches, filters, }: ListRenderArg
   const reduceMultiplierResults = itemResults.filter(result => result.multiplier < 1);
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       {boostStageResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Boosted by stage</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {boostStageResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Stat"
@@ -364,10 +364,10 @@ export const listRenderStatItem = ({ data, dispatches, filters, }: ListRenderArg
         </ul>
       </li>)}
       {boostMultiplierResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Boosted by multiplier</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {boostMultiplierResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Stat"
@@ -402,10 +402,10 @@ export const listRenderStatItem = ({ data, dispatches, filters, }: ListRenderArg
         </ul>
       </li>)}
       {reduceStageResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Reduced by stage</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {reduceStageResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Stat"
@@ -440,10 +440,10 @@ export const listRenderStatItem = ({ data, dispatches, filters, }: ListRenderArg
         </ul>
       </li>)}
       {reduceMultiplierResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Reduced by multiplier</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {reduceMultiplierResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Stat"
@@ -493,12 +493,12 @@ export const listRenderStatMove = ({ data, dispatches, filters, }: ListRenderArg
   const reduceMultiplierResults = moveResults.filter(result => result.multiplier < 1);
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       {boostStageResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Boosted by stage</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {boostStageResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Stat"
@@ -533,10 +533,10 @@ export const listRenderStatMove = ({ data, dispatches, filters, }: ListRenderArg
         </ul>
       </li>)}
       {boostMultiplierResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Boosted by multiplier</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {boostMultiplierResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Stat"
@@ -571,10 +571,10 @@ export const listRenderStatMove = ({ data, dispatches, filters, }: ListRenderArg
         </ul>
       </li>)}
       {reduceStageResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Reduced by stage</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {reduceStageResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Stat"
@@ -609,10 +609,10 @@ export const listRenderStatMove = ({ data, dispatches, filters, }: ListRenderArg
         </ul>
       </li>)}
       {reduceMultiplierResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Reduced by multiplier</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {reduceMultiplierResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Stat"

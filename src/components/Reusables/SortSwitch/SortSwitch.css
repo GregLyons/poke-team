@@ -7,8 +7,14 @@
   background-color: rgba(var(--dark3-components), 0.5);
   height: 1.2rem;
   width: 18px;
+  transform-origin: center;
 }
-.sort-switch__wrapper {
+.sort-switch__wrapper:hover,
+.sort-switch__wrapper:focus-within {
+  filter: brightness(1.2);
+  transform: scale(1.1);
+}
+.sort-switch__wrapper:hover {
   cursor: pointer;
 }
 
@@ -31,7 +37,7 @@
   border-right: 6px solid transparent;
   border-bottom: 6px solid var(--dark1);
 }
-.sort-switch__asc--active {
+.sort-switch__asc.--active {
   border-bottom: 6px solid var(--green1);
 }
 
@@ -42,6 +48,6 @@
   border-right: 6px solid transparent;
   border-top: 6px solid var(--dark1);
 }
-.sort-switch__desc--active {
+.sort-switch__desc.--active {
   border-top: 6px solid var(--red1);
 }

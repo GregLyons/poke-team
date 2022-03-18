@@ -28,7 +28,7 @@ const Button = ({
       className={`
         button
         ${(!immediate && active) || justClicked
-          ? 'button--active'
+          ? 'button --active'
           : ''
         }
       `}

@@ -81,7 +81,7 @@
   filter:brightness(1.1);
 }
 
-.move-select__entry--event::before {
+.move-select__entry.--event::before {
   content: '';
   position: absolute;
   width: 100%;

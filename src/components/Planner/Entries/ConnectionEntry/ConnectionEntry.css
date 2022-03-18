@@ -53,13 +53,17 @@
   padding-left: var(--entry-horizontal-padding);
 }
 
-.planner-accordion__sub-item-list {
+.planner-accordion__subitem-list {
   position: relative;
   width: 100%;
   height: 100%;
 }
 
-.planner-accordion__sub-item-results {
+.planner-accordion__subitem-list > * + * {
+  margin-top: 1rem;
+}
+
+.planner-accordion__subitem-results {
   position: relative;
   width: 100%;
   height: 100%;
@@ -78,19 +82,19 @@
   box-shadow: calc(-1 * var(--accordion-left-shadow-size)) 0 1px 0 var(--blue1);
 }
 
-.planner-accordion__subitem-shadow--positive,
-.planner-accordion__subitem-shadow--negative {
+.planner-accordion__subitem-shadow.--positive,
+.planner-accordion__subitem-shadow.--negative {
   position: absolute;
 
   width: calc(100% + var(--accordion-left-shadow-size));
   height: 100%;
 }
 
-.planner-accordion__subitem-shadow--positive {
+.planner-accordion__subitem-shadow.--positive {
   box-shadow: calc(-1 * var(--accordion-left-shadow-size)) 0 1px 0 var(--green1);
 }
 
-.planner-accordion__subitem-shadow--negative {
+.planner-accordion__subitem-shadow.--negative {
   box-shadow: calc(-1 * var(--accordion-left-shadow-size)) 0 1px 0 var(--red1);
 }
 
@@ -123,8 +127,8 @@
 /* #region */
 
 .planner-accordion__entry::after,
-.planner-accordion__subitem--positive > .planner-accordion__entry::after,
-.planner-accordion__subitem--negative > .planner-accordion__entry::after {
+.planner-accordion__subitem.--positive > .planner-accordion__entry::after,
+.planner-accordion__subitem.--negative > .planner-accordion__entry::after {
   content: '';
   display: block;
   position: absolute;
@@ -139,17 +143,17 @@
   box-shadow: inset var(--bg-shadow-inset) rgba(var(--blue1-components), 0.7);
 }
 
-.planner-accordion__subitem--positive > .planner-accordion__entry::after {
+.planner-accordion__subitem.--positive > .planner-accordion__entry::after {
   box-shadow: inset var(--bg-shadow-inset) rgba(var(--green1-components), 0.7);
 }
 
-.planner-accordion__subitem--negative > .planner-accordion__entry::after {
+.planner-accordion__subitem.--negative > .planner-accordion__entry::after {
   box-shadow: inset var(--bg-shadow-inset) rgba(var(--red1-components), 0.7);
 }
 
-.planner-accordion__entry--expand-hover::after,
-.planner-accordion__subitem--positive > .planner-accordion__entry--expand-hover::after,
-.planner-accordion__subitem--negative > .planner-accordion__entry--expand-hover::after {
+.planner-accordion__entry.--expand-hover::after,
+.planner-accordion__subitem.--positive > .planner-accordion__entry.--expand-hover::after,
+.planner-accordion__subitem.--negative > .planner-accordion__entry.--expand-hover::after {
   width: 100%;
 }
 

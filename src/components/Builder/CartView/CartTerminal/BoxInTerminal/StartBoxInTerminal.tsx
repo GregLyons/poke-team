@@ -23,14 +23,15 @@ const StartBoxInTerminal = ({
       <div className="cart-view-terminal__box-move-wrapper">
         <button 
           title="Cannot move the starting box up; no preceding box."
-          className="cart-view-terminal__arrow-wrapper--disabled"
+          className="--disabled"
           disabled
         >
           <div
+            
             className={`
               cart-view-terminal__box-arrow
               cart-view-terminal__box-move-up
-              cart-view-terminal__box-move-up--disabled
+              --disabled
             `}
           />
         </button>
@@ -45,7 +46,7 @@ const StartBoxInTerminal = ({
               cart-view-terminal__box-arrow
               ${hasMore 
                 ? ''
-                : 'cart-view-terminal__box-move-down--disabled'
+                : '--disabled'
               }
             `}
           />

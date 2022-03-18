@@ -53,7 +53,7 @@ export function toggleBGPulse(dispatchBGManager: React.Dispatch<BGAction>) {
 export function classWithBG (className: string, bgManager: BGManager): string {
   return `
     ${className}
-    bg--${bgManager.bgColor}
+    bg --${bgManager.bgColor}
     ${bgManager.pulsing
       ? 'pulse' 
       : ''
@@ -64,7 +64,7 @@ export function classWithBG (className: string, bgManager: BGManager): string {
 export function classWithBGShadow (className: string, bgManager: BGManager): string {
   return `
     ${className}
-    bg-shadow--${bgManager.bgColor}
+    bg-shadow --${bgManager.bgColor}
     ${bgManager.pulsing
       ? 'pulse' 
       : ''
@@ -75,14 +75,14 @@ export function classWithBGShadow (className: string, bgManager: BGManager): str
 export function classWithBGControl (className: string, color: 'red' | 'green' | 'blue'): string {
   return `
     ${className}
-    bg-control--${color}
+    bg-control --${color}
   `.replaceAll(/\n/g, ' ');
 }
 
 export function classWithBGAfter (className: string, bgManager: BGManager): string {
   return `
     ${className}
-    bg-after--${bgManager.bgColor}
+    bg-after --${bgManager.bgColor}
     ${bgManager.pulsing
       ? 'pulse' 
       : ''

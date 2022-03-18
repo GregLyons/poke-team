@@ -27,7 +27,9 @@ main {
 .app {
   position: relative;
   width: 100%;
+  min-width: fit-content;
   height: 100%;
+  min-height: fit-content;
 
   background-color: rgba(var(--dark3-components), 0.5);
   z-index: 1;
@@ -37,7 +39,9 @@ main {
 .main-content__wrapper {
   position: relative;
   width: 100%;
+  min-width: fit-content;
   height: calc(100% - var(--nav-bar-height) + 0.5rem);
+  min-height: fit-content;
 
   padding: 1rem 0.5rem 1rem 0.5rem;
 }
@@ -190,60 +194,60 @@ main {
 
 /* Background color */
 
-.bg--red,
-.bg--green,
-.bg--blue {
+.bg.--red,
+.bg.--green,
+.bg.--blue {
   transition: background-color var(--bg-transition);
 }
-.bg--red {
+.bg.--red {
   background-color: var(--red-bg);
 }
-.bg--green {
+.bg.--green {
   background-color: var(--green-bg);
 }
-.bg--blue {
+.bg.--blue {
   background-color: var(--blue-bg);
 }
 
-.bg--red.bg-shadow--red,
-.bg--green.bg-shadow--green,
-.bg--blue.bg-shadow--blue {
+.bg.--red.bg-shadow.--red,
+.bg.--green.bg-shadow.--green,
+.bg.--blue.bg-shadow.--blue {
   transition: background-color var(--bg-transition), box-shadow var(--bg-transition);
 }
 
 /* Box shadow along bottom and right based on background color */
-.bg-shadow--red,
-.bg-shadow--green,
-.bg-shadow--blue {
+.bg-shadow.--red,
+.bg-shadow.--green,
+.bg-shadow.--blue {
   transition: box-shadow var(--bg-transition);
 }
-.bg-shadow--red {
+.bg-shadow.--red {
   box-shadow: var(--bg-shadow-red);
 }
-.bg-shadow--red.pulse {
+.bg-shadow.--red.pulse {
   box-shadow: var(--bg-shadow-red-pulse);
 }
-.bg-shadow--green {
+.bg-shadow.--green {
   box-shadow: var(--bg-shadow-green);
 }
-.bg-shadow--green.pulse {
+.bg-shadow.--green.pulse {
   box-shadow: var(--bg-shadow-green-pulse);
 }
-.bg-shadow--blue {
+.bg-shadow.--blue {
   box-shadow: var(--bg-shadow-blue);
 }
-.bg-shadow--blue.pulse {
+.bg-shadow.--blue.pulse {
   box-shadow: var(--bg-shadow-blue-pulse);
 }
 
 /* Box shadow along up and left based on background color */
-.bg-control--red {
+.bg-control.--red {
   box-shadow: var(--bg-control-red);
 }
-.bg-control--green {
+.bg-control.--green {
   box-shadow: var(--bg-control-green);
 }
-.bg-control--blue {
+.bg-control.--blue {
   box-shadow: var(--bg-control-blue);
 }
 

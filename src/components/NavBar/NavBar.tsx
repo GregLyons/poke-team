@@ -27,7 +27,7 @@ const NavBar = ({
     >
       <nav
         className="nav-bar"
-        role="Primary Navigation"
+        role="navigation" aria-label="Primary"
       >
         <li className="nav-item">
           <LinkButton 

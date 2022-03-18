@@ -18,7 +18,7 @@ const MoveSelectEntry = ({
       className={`
         move-select__entry
         ${move.eventOnly
-          ? "move-select__entry--event"
+          ? "move-select__entry.--event"
           : ''
         }
       `}

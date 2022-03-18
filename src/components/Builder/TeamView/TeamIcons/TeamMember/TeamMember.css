@@ -92,10 +92,10 @@
 /* Triangles */
 /* #region */ 
 
-.team-member__remove--top,
-.team-member__remove--left,
-.team-member__remove--bottom,
-.team-member__remove--right {
+.team-member__remove.--top,
+.team-member__remove.--left,
+.team-member__remove.--bottom,
+.team-member__remove.--right {
   position: absolute;
   width: 0;
   height: 0;
@@ -103,7 +103,7 @@
   opacity: 1;
 }
 
-.team-member__remove--top {
+.team-member__remove.--top {
   top: calc((1 - var(--triangle-size-factor)) * var(--remove-button-side));
   left: calc((0.5 - var(--triangle-size-factor)) * var(--remove-button-side));
 
@@ -113,7 +113,7 @@
   border-bottom: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid var(--dark3);
 }
 
-.team-member__remove--bottom {
+.team-member__remove.--bottom {
   bottom: calc((1 - var(--triangle-size-factor)) * var(--remove-button-side));
   left: calc((0.5 - var(--triangle-size-factor)) * var(--remove-button-side));
 
@@ -123,7 +123,7 @@
   border-top: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid var(--dark3);
 }
 
-.team-member__remove--left {
+.team-member__remove.--left {
   left: calc((1 - var(--triangle-size-factor)) * var(--remove-button-side));
   top: calc((0.5 - var(--triangle-size-factor)) * var(--remove-button-side));
 
@@ -133,7 +133,7 @@
   border-right: calc(var(--triangle-size-factor) * var(--remove-button-side)) solid var(--dark3);
 }
 
-.team-member__remove--right {
+.team-member__remove.--right {
   right: calc((1 - var(--triangle-size-factor)) * var(--remove-button-side));
   top: calc((0.5 - var(--triangle-size-factor)) * var(--remove-button-side));
 

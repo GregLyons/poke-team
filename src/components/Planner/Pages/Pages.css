@@ -45,7 +45,7 @@
   background-color: lightgray;
 }
 
-.planner-page__description--main-entity {
+.planner-page__description.--main-entity {
   grid-column: 1 / 13;
   border: 1px solid white;
   display: grid;

@@ -13,7 +13,7 @@ const SortSwitch = ({
   sortBy,
 }: SortSwitchProps) => {
   return (
-    <div
+    <button
       title={`Sort by ${titleFor}, ${sortBy === 'ASC'
         ? 'descending'
         : 'ascending'
@@ -23,27 +23,27 @@ const SortSwitch = ({
       `}
       onClick={onClick}
     >
-      <div className="sort-switch__arrow-wrapper">
+      <div  className="sort-switch__arrow-wrapper">
         <div
           className={`
             sort-switch__asc
             ${sortBy === 'ASC'
-              ? 'sort-switch__asc--active'
+              ? 'sort-switch__asc --active'
               : ''
             }
           `}
         />
-        <div 
+        <div
           className={`
             sort-switch__desc
             ${sortBy === 'DESC'
-              ? 'sort-switch__desc--active'
+              ? 'sort-switch__desc --active'
               : ''
             }
           `}
         />
       </div>
-    </div>
+    </button>
   )
 }
 

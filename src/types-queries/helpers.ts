@@ -120,6 +120,7 @@ export interface StatusControlFieldStateEdge {
 export type psID = string;
 
 export interface PokemonIconDatum {
+  id: string
   formattedName: string
   psID: psID
 
@@ -143,6 +144,7 @@ export function sortPokemonIconData (pid: PokemonIconDatum[]): PokemonIconDatum[
 }
 
 export const DUMMY_POKEMON_ICON_DATUM: PokemonIconDatum = {
+  id: '',
   formattedName: '',
   psID: '',
   removedFromSwSh: false,
@@ -409,6 +411,7 @@ export interface MoveIconEdge extends NameEdge {
 // Pokemon edges which contain data for rendering Pokemon icons
 // psID for using @pkmn/img
 export interface PokemonIconNode {
+  id: string
   formattedName: string
   speciesName: string
   psID: string

@@ -86,7 +86,8 @@ const VersusMatchupRow = ({
         aria-colindex={1}
         className={`
           versus-matchup__icon
-          versus-matchup__icon--you
+          versus-matchup__icon
+          --you
           ${rowEmph === rowIdx
             ? '--emph'
             : ''

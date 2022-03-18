@@ -44,19 +44,19 @@ const NumericalInput = ({
       className={`
         numerical-input__wrapper
         ${onLeft
-          ? 'numerical-input__wrapper--left'
-          : 'numerical-input__wrapper--right'
+          ? 'numerical-input__wrapper --left'
+          : 'numerical-input__wrapper --right'
         }
       `}
     >
       {onLeft &&
         <div className="numerical-input__arrow-wrapper">
-          <div
+          <button
             title={`Increase ${titleFor} by 1`}
             className="numerical-input__up-arrow"
             onClick={onIncrement}
           />
-          <div
+          <button
             title={`Decrease ${titleFor} by 1`}
             className="numerical-input__down-arrow"
             onClick={onDecrement}
@@ -80,12 +80,12 @@ const NumericalInput = ({
       />
       {!onLeft && 
         <div className="numerical-input__arrow-wrapper">
-          <div
+          <button
             title={`Increase ${titleFor} by 1`}
             className="numerical-input__up-arrow"
             onClick={onIncrement}
           />
-          <div
+          <button
             title={`Decrease ${titleFor} by 1`}
             className="numerical-input__down-arrow"
             onClick={onDecrement}

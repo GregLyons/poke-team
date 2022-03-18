@@ -104,7 +104,7 @@ const ConnectionAccordionEntry = ({
       className={`
         planner-accordion__entry
         ${expandHover 
-          ? 'planner-accordion__entry--expand-hover' 
+          ? 'planner-accordion__entry.--expand-hover' 
           : ''
         }
       `}

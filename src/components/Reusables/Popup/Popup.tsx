@@ -102,9 +102,9 @@ const Popup = ({
       <button
         className={`
           popup-trigger
-          popup-trigger--${orientation}
+          popup-trigger --${orientation}
           ${isActive
-            ? `popup-trigger--active`
+            ? `popup-trigger --active`
             : ''
           }
         `}
@@ -116,9 +116,9 @@ const Popup = ({
       {isActive && <div
         className={`
           popup-content
-          popup-content--${orientation}
+          popup-content --${orientation}
           ${isActive
-            ? `popup-content--active`
+            ? `popup-content --active`
             : ''
           }
         `}
@@ -148,9 +148,9 @@ const Popup = ({
               {/* <div
                 className={`
                   popup-content__before
-                  popup-content__before--right
+                  popup-content__before --right
                   ${isActive
-                    ? `popup-content__before--active`
+                    ? `popup-content__before --active`
                     : ''
                   }
                 `}
@@ -169,9 +169,9 @@ const Popup = ({
               {/* <div
                 className={`
                   popup-content__after
-                  popup-content__after--right
+                  popup-content__after --right
                   ${isActive
-                    ? `popup-content__after--active`
+                    ? `popup-content__after --active`
                     : ''
                   }
                 `}
@@ -192,9 +192,9 @@ const Popup = ({
             <div
               className={`
                 popup-content__before
-                popup-content__before--bottom
+                popup-content__before --bottom
                 ${isActive
-                  ? `popup-content__before--active`
+                  ? `popup-content__before --active`
                   : ''
                 }
               `}
@@ -213,9 +213,9 @@ const Popup = ({
             <div
               className={`
                 popup-content__before
-                popup-content__before--bottom
+                popup-content__before --bottom
                 ${isActive
-                  ? `popup-content__before--active`
+                  ? `popup-content__before --active`
                   : ''
                 }
               `}
@@ -236,9 +236,9 @@ const Popup = ({
           <div
             className={`
               popup-padder
-              popup-padder--${orientation}
+              popup-padder --${orientation}
               ${isActive
-                ? `popup-padder--active`
+                ? `popup-padder --active`
                 : ''
               }
             `}

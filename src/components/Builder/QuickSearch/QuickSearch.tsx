@@ -155,9 +155,10 @@ const QuickSearch = ({
   if (error) { return (<div>{error.message}</div>); }
 
   return (
-    <div 
+    <section
       className="quick-search__wrapper"
     >
+      <h2 className="hidden-header">Quick search</h2>
       <form>
         {searchBar}
       </form>
@@ -285,7 +286,7 @@ const QuickSearch = ({
             />
         }
       </div>
-    </div>
+    </section>
   )
 }
 

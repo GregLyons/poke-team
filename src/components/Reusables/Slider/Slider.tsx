@@ -57,6 +57,8 @@ const Slider = ({
 
   // When up arrow is pressed, increase value by 1 if possible
   const onIncrement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.preventDefault();
+
     // If value would go over max, do nothing
     if (value + step > max) return;
     updateValue(value + step);
@@ -64,11 +66,12 @@ const Slider = ({
 
   // When down arrow is pressed, decrease value by 1 if possible
   const onDecrement = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.preventDefault();
+    
     // If value would go under min, do nothing
     if (value - step < min) return;
     updateValue(value - step);
   }
-
 
   return (
     <div className="slider__wrapper">

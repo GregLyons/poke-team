@@ -18,8 +18,8 @@ const BoxPokemonIcon = ({
         display: 'inline-block',
       }}
     > 
-      <div className="planner__pokemon-icon-track" />
-      <div className="planner__pokemon-icon-background" 
+      <div role="presentation" className="planner__pokemon-icon-track" />
+      <div role="presentation" className="planner__pokemon-icon-background" 
         style={{
           width: '40px',
           height: '30px',
@@ -29,8 +29,9 @@ const BoxPokemonIcon = ({
         }}
       />
       <div
+        role="img"
         className="planner__pokemon-icon"
-        title={`${pokemonIconDatum.formattedName}`}
+        title={`Icon for the Pokemon ${pokemonIconDatum.formattedName}.`}
         style={{
           width: '40px',
           height: '30px',

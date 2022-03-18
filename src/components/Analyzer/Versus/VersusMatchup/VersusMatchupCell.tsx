@@ -158,9 +158,9 @@ const VersusMatchupCell = ({
             className="versus-matchup__user-to-enemy"
             title={result?.userToEnemy.moveInfo.map(([_, display]) => display).join('\n') || 'Cannot do damage.'}
           >
-            U: {userToEnemyGuaranteed} {userToEnemyMinHitText}
+            U {userToEnemyGuaranteed} {userToEnemyMinHitText}
           </p>
-          <div className="versus-matchup__outspeed-wrapper">
+          <button className="versus-matchup__outspeed-wrapper">
             {result.moveFirst === true
               ? <div
                   title="You outspeed."
@@ -182,12 +182,12 @@ const VersusMatchupCell = ({
                     />
                   </>
             } 
-          </div>
+          </button>
           <p
             className="versus-matchup__enemy-to-user"
             title={result?.enemyToUser.moveInfo.map(([_, display]) => display).join('\n') || 'Cannot do damage.'}
           >
-            E: {enemyToUserGuaranteed} {enemyToUserMinHitText}
+            E {enemyToUserGuaranteed} {enemyToUserMinHitText}
           </p>
         </a>
       : <a className="versus-matchup__cell" />}

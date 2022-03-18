@@ -105,7 +105,7 @@ const PlannerPokemonIcons = ({
 
           return (
             <PlannerPokemonIcon
-              key={pokemonIconDatum.psID}
+              key={pokemonIconDatum.id}
               pokemonIconDatum={pokemonIconDatum}
               selected={selection.hasOwnProperty(psID) && (selection[psID] as {
                 nameData: PokemonIconDatum,

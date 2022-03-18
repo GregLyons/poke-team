@@ -97,7 +97,8 @@ const Versus = ({
         versus__wrapper
       `}
     >
-      <div className="versus__user-team-cell">
+      <section className="versus__user-team-cell">
+        <h2 className="hidden-header">Your team</h2>
         <TeamColumn
           teamDispatch={dispatches.dispatchTeam}
           filters={filters}
@@ -108,9 +109,10 @@ const Versus = ({
           onEntityClick={onEntityClick('user')}
           onPopupClose={onPopupClose}
         />
-      </div>
+      </section>
       <div className="versus__matchup-cell">
-        <div className="versus__controls">
+        <section className="versus__controls">
+          <h2 className="hidden-header">Versus controls</h2>
           <div
             className="versus__user-mode-toggle"
             onClick={toggleMode('user')}
@@ -130,16 +132,20 @@ const Versus = ({
           >
             {enemyMode}
           </div>
-        </div>
-        <VersusMatchup
-          userPokemon={team[filters.genFilter.gen].members}
-          enemyPokemon={enemyTeam[filters.genFilter.gen].members}
-          gen={filters.genFilter.gen}
-          onMouseOver={onMouseOver}
-          onMouseLeave={onMouseLeave}
-        />
+        </section>
+        <section className="versus-matchup__wrapper">
+          <h2 className="hidden-header">Matchup table</h2>
+          <VersusMatchup
+            userPokemon={team[filters.genFilter.gen].members}
+            enemyPokemon={enemyTeam[filters.genFilter.gen].members}
+            gen={filters.genFilter.gen}
+            onMouseOver={onMouseOver}
+            onMouseLeave={onMouseLeave}
+          />
+        </section>
       </div>
-      <div className="versus__enemy-team-cell">
+      <section className="versus__enemy-team-cell">
+        <h2 className="hidden-header">Enemy's team</h2>
         <TeamColumn
           teamDispatch={dispatches.dispatchEnemyTeam}
           filters={filters}
@@ -150,7 +156,7 @@ const Versus = ({
           onEntityClick={onEntityClick('enemy')}
           onPopupClose={onPopupClose}
         />
-      </div>
+      </section>
     </div>
   );
 };

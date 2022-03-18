@@ -106,7 +106,7 @@ const CartTerminal = ({
 
   const currentCombination = cart[filters.genFilter.gen].combination;
   return (
-    <div className="cart-view-terminal__wrapper">
+    <div  className="cart-view-terminal__wrapper">
       <section className="cart-view-terminal__boxes-wrapper">
         <h2 className="hidden-header">Boxes in combination.</h2>
         <ul>

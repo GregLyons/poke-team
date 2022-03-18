@@ -13,12 +13,12 @@ export const listRenderTypeAbility = ({ data, dispatches, filters, }: ListRender
   const resistedByResults = parent.resistedByAbility.edges.map(edge => new TypeAbilityResult(edge));
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       {boostedByResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Boosted by ability</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {boostedByResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Type"
@@ -39,10 +39,10 @@ export const listRenderTypeAbility = ({ data, dispatches, filters, }: ListRender
         </ul>
       </li>)}
       {resistedByResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Resisted by ability</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {resistedByResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Type"
@@ -79,15 +79,15 @@ export const listRenderTypeFieldState = ({ data, }: ListRenderArgs<TypeFieldStat
   const weatherBallResults = parent.weatherBall.edges.map(edge => new TypeFieldStateResult(edge));
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       {boostedByResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Boosted by field state</h3>
         <p className="planner-accordion__clarification">
           Presence of the listed field state boosts the power of moves of this type.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {boostedByResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Type"
@@ -108,13 +108,13 @@ export const listRenderTypeFieldState = ({ data, }: ListRenderArgs<TypeFieldStat
         </ul>
       </li>)}
       {resistanceResults.filter(result => result.multiplier !== undefined && result.multiplier < 1).length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Resists field state</h3>
         <p className="planner-accordion__clarification">
           Negative effects of the listed field state on Pokemon of this type are mitigated.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {resistanceResults.filter(result => result.multiplier !== undefined && result.multiplier < 1).map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Type"
@@ -135,13 +135,13 @@ export const listRenderTypeFieldState = ({ data, }: ListRenderArgs<TypeFieldStat
         </ul>
       </li>)}
       {ignoresResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
           <h3 className="planner-accordion__subitem-header">Ignores field state</h3>
           <p className="planner-accordion__clarification">
             Effects of the listed field state ignored by Pokemon of this type.
           </p>
-          <ul className="planner-accordion__sub-item-results">
+          <ul className="planner-accordion__subitem-results">
             {ignoresResults.map(result => (
               <ConnectionAccordionEntry
               parentEntityClass="Type"
@@ -155,13 +155,13 @@ export const listRenderTypeFieldState = ({ data, }: ListRenderArgs<TypeFieldStat
         </ul>
       </li>)}
       {removesResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Removes field state</h3>
         <p className="planner-accordion__clarification">
           Pokemon of this type remove the listed field state upon entry.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {removesResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Type"
@@ -181,13 +181,13 @@ export const listRenderTypeFieldState = ({ data, }: ListRenderArgs<TypeFieldStat
         </ul>
       </li>)}
       {weatherBallResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Weather Ball</h3>
         <p className="planner-accordion__clarification">
           Presence of the listed field state changes the type of Weather Ball to this type.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {weatherBallResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Type"
@@ -207,13 +207,13 @@ export const listRenderTypeFieldState = ({ data, }: ListRenderArgs<TypeFieldStat
         </ul>
       </li>)}
       {resistedByResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Weakened by field state</h3>
         <p className="planner-accordion__clarification">
           Presence of the listed field state weakens the power of moves of this type.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {resistedByResults.map(result => (
             <ConnectionAccordionEntry
                 parentEntityClass="Type"
@@ -234,13 +234,13 @@ export const listRenderTypeFieldState = ({ data, }: ListRenderArgs<TypeFieldStat
         </ul>
       </li>)}
       {resistanceResults.filter(result => result.multiplier !== undefined && result.multiplier > 1).length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Weak to field state</h3>
         <p className="planner-accordion__clarification">
           Negative effects of the listed field state on Pokemon of this type are increased.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {resistanceResults.filter(result => result.multiplier !== undefined && result.multiplier > 1).map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Type"
@@ -274,12 +274,12 @@ export const listRenderTypeItem = ({ data, dispatches, filters, }: ListRenderArg
   const resistedByResults = parent.resistedByItem.edges.map(edge => new TypeItemResult(edge));
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       {boostedByResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Boosted by ability</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {boostedByResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Type"
@@ -304,13 +304,13 @@ export const listRenderTypeItem = ({ data, dispatches, filters, }: ListRenderArg
         </ul>
       </li>)}
       {naturalGiftResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Natural gift</h3>
         <p className="planner-accordion__clarification">
           When the owner of the listed item uses Natural Gift, the move will be of this type.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {naturalGiftResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Type"
@@ -335,10 +335,10 @@ export const listRenderTypeItem = ({ data, dispatches, filters, }: ListRenderArg
         </ul>
       </li>)}
       {resistedByResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Resisted by ability</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {resistedByResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Type"
@@ -374,14 +374,14 @@ export const listRenderTypeMove = ({ data, dispatches, filters, }: ListRenderArg
   const enablesResult = parent.enablesMove.edges.map(edge => new TypeMoveResult(edge));
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       {enablesResult.length > 0 && (
       <li className="planner-accordion__subitem">
         <h3 className="planner-accordion__subitem-header">Enables move</h3>
         <p className="planner-accordion__clarification">
           Moves of this type serve as the base move for the listed move.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {enablesResult.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Type"

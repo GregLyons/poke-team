@@ -20,20 +20,20 @@ const BoxInTerminal = ({
       className={`
         cart-view-terminal__box-wrapper
         ${breaking 
-          ? 'cart-view-terminal__box-wrapper--breaking'
+          ? '--breaking'
           : ''
         }
       `}
     >
       <button className={`
-        cart-view-terminal__box-role--${box.roleInCombination === 'AND' ? 'and' : 'or'}
+        --${box.roleInCombination === 'AND' ? 'and' : 'or'}
         cart-view-terminal__box-role-toggleable
       `}
         onClick={e => clickHandlers.onToggleOperationClick(e, box)}
       >
         {box.roleInCombination}
       </button>
-      <div className="cart-view-terminal__box-move-wrapper">
+      <div  className="cart-view-terminal__box-move-wrapper">
         <button 
           title="Swap this box with the preceding box."
           className="cart-view-terminal__arrow-wrapper"
@@ -52,7 +52,7 @@ const BoxInTerminal = ({
             : "Swap this box with the subsequent box."  
           }
           className={last 
-            ? 'cart-view-terminal__arrow-wrapper--disabled'
+            ? '--disabled'
             : 'cart-view-terminal__arrow-wrapper'
           }
           onClick={e => {
@@ -61,11 +61,12 @@ const BoxInTerminal = ({
           disabled={last}
         >
           <div
+            
             className={`
               cart-view-terminal__box-move-down
               cart-view-terminal__box-arrow
               ${last
-                ? 'cart-view-terminal__box-move-down--disabled'
+                ? '--disabled'
                 : ''
               }
             `}

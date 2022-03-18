@@ -7,11 +7,11 @@ const ParentEntityAccordionTitle = ({
 }: ParentEntityAccordionTitleProps) => {
   return (
     <>
-      <div
+      <h2
         className="cart-view-accordion__title"
       >
         {titleText}
-      </div>
+      </h2>
     </>
   );
 };

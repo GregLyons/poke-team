@@ -18,10 +18,10 @@ export const listRenderMoveEffect = ({ data, }: ListRenderArgs<MoveEffectQuery>)
   const effectResults = parent.effects.edges.map(edge => new MoveEffectResult(edge));
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       <li className="planner-accordion__subitem">
         <div className="planner-accordion__subitem-shadow" />
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {effectResults.map(result => (
             <ConnectionAccordionEntry
                 parentEntityClass="Move"
@@ -49,12 +49,12 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
   const removesResults = parent.removesFieldState.edges.map(edge => new MoveFieldStateResult(edge));
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       {createsResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Creates field state</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {createsResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Move"
@@ -75,10 +75,10 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
         </ul>
       </li>)}
       {enhancedByResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Enhanced by field state</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {enhancedByResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Move"
@@ -98,10 +98,10 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
         </ul>
       </li>)}
       {hinderedByResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Hindered by field state</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {hinderedByResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Move"
@@ -121,10 +121,10 @@ export const listRenderMoveFieldState = ({ data, }: ListRenderArgs<MoveFieldStat
         </ul>
       </li>)}
       {removesResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Removes field state</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {removesResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Move"
@@ -159,12 +159,12 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
   const reduceMultiplierResults = statResults.filter(result => result.multiplier < 1);
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       {boostStageResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Boosts by stage</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {boostStageResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Move"
@@ -195,10 +195,10 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
         </ul>
       </li>)}
       {boostMultiplierResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Boosts by multiplier</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {boostMultiplierResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Move"
@@ -229,10 +229,10 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
         </ul>
       </li>)}
       {reduceStageResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by stage</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {reduceStageResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Move"
@@ -263,10 +263,10 @@ export const listRenderMoveStat = ({ data, }: ListRenderArgs<MoveStatQuery>) => 
         </ul>
       </li>)}
       {reduceMultiplierResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Reduces by multiplier</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {reduceMultiplierResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Move"
@@ -309,12 +309,12 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
   const resistsResults = parent.resistsStatus.edges.map(edge => new MoveStatusResult(edge));
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       {causesResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Causes status</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {causesResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Move"
@@ -335,13 +335,13 @@ export const listRenderMoveStatus = ({ data, }: ListRenderArgs<MoveStatusQuery>)
         </ul>
       </li>)}
       {resistsResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--negative">
-        <div className="planner-accordion__subitem-shadow--negative" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --negative">
+        <div className="planner-accordion__subitem-shadow --negative" />
         <h3 className="planner-accordion__subitem-header">Resists status</h3>
         <p className="planner-accordion__clarification">
           The move fully cures the status, prevents the status, or mitigates the status in some way.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {resistsResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Move"
@@ -372,14 +372,14 @@ export const listRenderMoveType = ({ data, dispatches, filters, }: ListRenderArg
   const requiresResults = parent.requiresType.edges.map(edge => new MoveTypeResult(edge));
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       {requiresResults.length > 0 && (
       <li className="planner-accordion__subitem">
         <h3 className="planner-accordion__subitem-header">Requires type</h3>
         <p className="planner-accordion__clarification">
           This move requires another move of the listed type as its base move.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {requiresResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Move"
@@ -415,12 +415,12 @@ export const listRenderMoveUsageMethod = ({ data, }: ListRenderArgs<MoveUsageMet
   const preventsResults = parent.preventsUsageMethod.edges.map(edge => new MoveUsageMethodResult(edge));
 
   return (
-    <ul className="planner-accordion__sub-item-list">
+    <ul className="planner-accordion__subitem-list">
       {hasResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Has usage method</h3>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {hasResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Move"
@@ -440,13 +440,13 @@ export const listRenderMoveUsageMethod = ({ data, }: ListRenderArgs<MoveUsageMet
         </ul>
       </li>)}
       {preventsResults.length > 0 && (
-      <li className="planner-accordion__subitem planner-accordion__subitem--positive">
-        <div className="planner-accordion__subitem-shadow--positive" />
+      <li className="planner-accordion__subitem planner-accordion__subitem --positive">
+        <div className="planner-accordion__subitem-shadow --positive" />
         <h3 className="planner-accordion__subitem-header">Prevents usage method</h3>
         <p className="planner-accordion__subitem-positive">
           This move can prevent other Pokemon from using moves of the listed usage method.
         </p>
-        <ul className="planner-accordion__sub-item-results">
+        <ul className="planner-accordion__subitem-results">
           {preventsResults.map(result => (
             <ConnectionAccordionEntry
               parentEntityClass="Move"

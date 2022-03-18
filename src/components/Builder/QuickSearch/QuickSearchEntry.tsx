@@ -92,7 +92,7 @@ const QuickSearchEntry = ({
 
           return (
             <div
-              key={`${pokemonIconDatum.psID}_${key}_${value}`}
+              key={`${pokemonIconDatum.id}_${key}_${value}`}
               className={`
                 quick-search__stat
                 ${rating}

@@ -28,7 +28,7 @@ const MemberDetails = ({
     : null;
 
   if (member === null || memberSlot === null) return (
-    <div className="member-details__wrapper member-details__wrapper--inactive" />
+    <div className="member-details__wrapper --inactive" />
   );
 
   const gen = filters.genFilter.gen;

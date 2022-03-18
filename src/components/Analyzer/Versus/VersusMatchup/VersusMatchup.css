@@ -12,9 +12,10 @@
 
   position: relative;
   width: 100%;
+  min-width: calc(50px + 24rem);
   height: 100%;
 
-  padding: 0.5rem;
+  padding: 0.25rem;
   background-color: rgba(var(--dark3-components), 0.7);
   font-size: 0.9rem;
   line-height: 1.2;
@@ -49,10 +50,10 @@
 
   background-color: var(--dark2);
 }
-.versus-matchup__icon--you {
+.versus-matchup__icon.--you {
   box-shadow: inset 1px 1px 2px rgba(var(--green1-components), 0.5), var(--basic-cell-shadow);
 }
-.versus-matchup__icon--them {
+.versus-matchup__icon.--them {
   box-shadow: inset 1px 1px 2px rgba(var(--red1-components), 0.5), var(--basic-cell-shadow);
 }
 
@@ -121,10 +122,10 @@
 .versus-matchup__cell.--emph {
   box-shadow: var(--emph-cell-shadow);
 }
-.versus-matchup__icon--you.--emph {
+.versus-matchup__icon.--you.--emph {
   box-shadow: var(--other-cell-shadow-inset) rgba(var(--green1-components), 0.7), var(--emph-cell-shadow);
 }
-.versus-matchup__icon--them.--emph {
+.versus-matchup__icon.--them.--emph {
   box-shadow: var(--other-cell-shadow-inset) rgba(var(--red1-components), 0.7), var(--emph-cell-shadow);
 }
 
