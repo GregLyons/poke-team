@@ -83,7 +83,7 @@ const Versus = ({
   };
 
   const onMouseOver = (newRelevantNames: VersusPSIDObject) => {
-    return (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLDivElement, Element>) => {
+    return (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => {
       e.preventDefault();
       if (!isPopupActive && newRelevantNames !== null) return setRelevantNames(newRelevantNames);
     };

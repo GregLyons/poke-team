@@ -8,7 +8,7 @@ type VersusMatchupCellProps = {
   userFormattedName: string | undefined
   enemyFormattedName: string | undefined
 
-  onCellMouseOver: (rowIdx: number, colIdx: number) => (newRelevantNames: { user: MemberPSIDObject, enemy: MemberPSIDObject} | null) => (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLDivElement, Element>) => void
+  onCellMouseOver: (rowIdx: number, colIdx: number) => (newRelevantNames: { user: MemberPSIDObject, enemy: MemberPSIDObject} | null) => (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
   onCellMouseLeave: () => void
 
   rowIdx: number
@@ -124,9 +124,12 @@ const VersusMatchupCell = ({
   }, [userToEnemyGuaranteed, userToEnemyMinHitText, enemyToUserGuaranteed, enemyToUserMinHitText, ]);
   
   return (
-    <>
+    <td
+      role="gridcell"
+      aria-colindex={colIdx + 2}
+    >
     {result !== null 
-      ? <div
+      ? <a
           title={userFormattedName && enemyFormattedName
             ? `Your ${userFormattedName} vs. enemy's ${enemyFormattedName}`
             : ``
@@ -151,12 +154,12 @@ const VersusMatchupCell = ({
           onMouseLeave={onCellMouseLeave}
           onBlur={onCellMouseLeave}
         >
-          <div
+          <p
             className="versus-matchup__user-to-enemy"
-            title={result?.userToEnemy.moveInfo.map(([movePSID, display]) => display).join('\n') || 'Cannot do damage.'}
+            title={result?.userToEnemy.moveInfo.map(([_, display]) => display).join('\n') || 'Cannot do damage.'}
           >
             U: {userToEnemyGuaranteed} {userToEnemyMinHitText}
-          </div>
+          </p>
           <div className="versus-matchup__outspeed-wrapper">
             {result.moveFirst === true
               ? <div
@@ -180,15 +183,15 @@ const VersusMatchupCell = ({
                   </>
             } 
           </div>
-          <div
+          <p
             className="versus-matchup__enemy-to-user"
-            title={result?.enemyToUser.moveInfo.map(([movePSID, display]) => display).join('\n') || 'Cannot do damage.'}
+            title={result?.enemyToUser.moveInfo.map(([_, display]) => display).join('\n') || 'Cannot do damage.'}
           >
             E: {enemyToUserGuaranteed} {enemyToUserMinHitText}
-          </div>
-        </div>
-      : <div className="versus-matchup__cell" />}
-    </>
+          </p>
+        </a>
+      : <a className="versus-matchup__cell" />}
+    </td>
   );
 };
 

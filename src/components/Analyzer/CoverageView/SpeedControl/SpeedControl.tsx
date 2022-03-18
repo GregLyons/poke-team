@@ -47,7 +47,7 @@ const SpeedControl = ({
     >
       <tbody
         ref={grid}
-        className="field-control__table-body"
+        className="speed-control__table-body"
         role="grid"
         tabIndex={0}
         onKeyDown={e => handleGridKeyDown({

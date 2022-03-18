@@ -11,10 +11,10 @@ type VersusMatchupRowProps = {
   enemyMembers: (MemberPokemon | null)[]
   resultRow: (DamageMatchupResult | null)[]
 
-  onCellMouseOver: (rowIdx: number, colIdx: number) => (newRelevantNames: { user: MemberPSIDObject, enemy: MemberPSIDObject} | null) => (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLDivElement, Element>) => void
+  onCellMouseOver: (rowIdx: number, colIdx: number) => (newRelevantNames: { user: MemberPSIDObject, enemy: MemberPSIDObject} | null) => (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
   onCellMouseLeave: () => void
 
-  onRowMouseOver: (relevantNames: { user: MemberPSIDObject, enemy: MemberPSIDObject} | null) => (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLDivElement, Element>) => void
+  onRowMouseOver: (relevantNames: { user: MemberPSIDObject, enemy: MemberPSIDObject} | null) => (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
   onRowMouseLeave: () => void
 
   rowIdx: number
@@ -73,8 +73,17 @@ const VersusMatchupRow = ({
   }, [userMember, resultRow]);
 
   return (
-    <>
-      <div
+    <tr
+      role="row"
+      aria-rowindex={rowIdx + 2}
+      className={`
+        versus-matchup__row
+      `}
+    >
+      <th
+        scope="row"
+        role="gridcell"
+        aria-colindex={1}
         className={`
           versus-matchup__icon
           versus-matchup__icon--you
@@ -93,11 +102,13 @@ const VersusMatchupRow = ({
         onMouseLeave={onRowMouseLeave}
         onBlur={onRowMouseLeave}
       >
-        <PokemonIcon
-          pokemonIconDatum={userMember?.iconDatum || DUMMY_POKEMON_ICON_DATUM}
-          gender={userMember?.gender}
-        />
-      </div>
+        <a>
+          <PokemonIcon
+            pokemonIconDatum={userMember?.iconDatum || DUMMY_POKEMON_ICON_DATUM}
+            gender={userMember?.gender}
+          />
+        </a>
+      </th>
       {resultRow.map((result, colIdx) => <VersusMatchupCell
         key={colIdx}
         userFormattedName={userMember?.formattedName}
@@ -112,7 +123,7 @@ const VersusMatchupRow = ({
         rowEmph={rowEmph}
         colEmph={colEmph}
       />)}
-    </>
+    </tr>
   );
 };
 

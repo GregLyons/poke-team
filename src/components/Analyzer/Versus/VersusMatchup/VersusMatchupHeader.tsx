@@ -53,14 +53,33 @@ const VersusMatchupHeader = ({
         [enemyPSID]: enemyPSIDs,
       },
     };
-  }, [damageMatchup, enemyMembers])
+  }, [damageMatchup, enemyMembers]);
+
   return (
-    <>
-      {/* Filler */}
-      <div />
+    <tr
+      role="row"
+      aria-rowindex={1}
+      className={`
+        versus-matchup__row
+      `}
+    >
+      <th
+        scope="col"
+        role="gridcell"
+        aria-colindex={1}
+      >
+        <a>
+          Vs.
+        </a>  
+      </th>
       {enemyMembers.map((member, columnIdx) => 
-      <div
+      <th
         key={columnIdx}
+        
+        scope="col"
+        role="gridcell"
+        aria-colindex={columnIdx + 2}
+        
         className={`
           versus-matchup__icon
           versus-matchup__icon--them
@@ -78,13 +97,15 @@ const VersusMatchupHeader = ({
         onMouseLeave={onColumnMouseLeave}
         onBlur={onColumnMouseLeave}
       >
-        <PokemonIcon
-          pokemonIconDatum={member?.iconDatum || DUMMY_POKEMON_ICON_DATUM}
-          gender={member?.gender}
-        />
-      </div>
+        <a>
+          <PokemonIcon
+            pokemonIconDatum={member?.iconDatum || DUMMY_POKEMON_ICON_DATUM}
+            gender={member?.gender}
+          />
+        </a>
+      </th>
       )}
-    </>
+    </tr>
   );
 };
 
