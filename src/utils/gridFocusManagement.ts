@@ -1,3 +1,5 @@
+// Adapted from https://dev.to/tryggvigy/building-accessible-grids-1-216j
+
 type GridObject = Element
 type GridDirection = 'left' | 'right' | 'up' | 'down' | 'start' | 'end';
 type Position = { row: number, col: number };
@@ -15,6 +17,9 @@ export const handleGridKeyDown = ({
   e: React.KeyboardEvent
   interactiveHeaders: boolean
 }) => {
+  // Don't prevent default behavior of Tab
+  if (e.key === "Tab") return;
+
   e.preventDefault();
   if (!grid.current) return;
 
@@ -32,6 +37,7 @@ export const handleGridKeyDown = ({
     case "End":
       return moveFocus(grid.current, "end", interactiveHeaders, numRows, numCols);
     default:
+      return;
   }
 };
 

@@ -1,6 +1,8 @@
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
+import { useRemoveFromTabOrder } from "../../../../hooks/useRemoveFromTabOrder";
 import { AbilityCoverageQuery, computeStatusControl, ItemCoverageQuery, MoveCoverageQuery } from "../../../../types-queries/Analyzer/Coverage";
 import { MemberAndEntityPSIDs, MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
+import { handleGridKeyDown } from "../../../../utils/gridFocusManagement";
 import { Filters } from "../../../App";
 import './StatusControl.css';
 import StatusControlEntry from "./StatusControlEntry";
@@ -14,8 +16,8 @@ type StatusControlProps = {
   moveData: MoveCoverageQuery
 
   memberAndEntityPSIDs: MemberAndEntityPSIDs
-  onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
-  onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
+  onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
 };
 
 const StatusControl = ({
@@ -40,34 +42,70 @@ const StatusControl = ({
       filters.genFilter.gen
     );
   }, [abilityData, itemData, moveData, filters, memberAndEntityPSIDs]);
+
+  const grid = useRef<HTMLTableSectionElement>(null);
+
+  useRemoveFromTabOrder(grid);
   
   return (
-    <div
+    <table
       className="status-control__wrapper"
     >
-      <div className="status-control__entry">
-        <div className="status-control__icon"></div>
-        <div className="status-control__name">
-          
-        </div>
-        <div className="status-control__cause">
-          +
-        </div>
-        <div className="status-control__resist">
-          -
-        </div>
-      </div>
-      {Array.from(statusControlMap.entries()).map(([statusName, summary]) => (
-        <StatusControlEntry
-          key={statusName}
-          statusName={statusName}
-          summary={summary}
+      <tbody
+        ref={grid}
+        className="field-control__table-body"
+        role="grid"
+        tabIndex={0}
+        onKeyDown={e => handleGridKeyDown({
+          grid,
+          numRows: Array.from(statusControlMap.keys()).length + 1,
+          numCols: 3,
+          e,
+          interactiveHeaders: false,
+        })}
+      >
+        <tr
+          className="status-control__entry"
+        >
+          <th
+            scope="col"
+            role="columnheader"
+            aria-colindex={1}
+            className="status-control__name"
+          >
+            Name
+          </th>
+          <th
+            scope="col"
+            role="columnheader"
+            aria-colindex={2}
+            className="status-control__cause"
+          >
+            +
+          </th>
+          <th
+            scope="col"
+            role="columnheader"
+            aria-colindex={3}
+            className="status-control__resist"
+          >
+            -
+          </th>
+        </tr>
+        {Array.from(statusControlMap.entries()).map(([statusName, summary], rowIdx) => (
+          <StatusControlEntry
+            key={statusName}
+            statusName={statusName}
+            summary={summary}
 
-          onMouseOver={onMouseOver}
-          onMouseLeave={onMouseLeave}
-        />
-      ))}
-    </div>
+            rowIdx={rowIdx}
+
+            onMouseOver={onMouseOver}
+            onMouseLeave={onMouseLeave}
+          />
+        ))}
+      </tbody>
+    </table>
   )
 };
 

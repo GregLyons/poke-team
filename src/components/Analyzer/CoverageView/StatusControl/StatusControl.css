@@ -17,7 +17,7 @@
 
 .status-control__entry {
   display: grid;
-  grid-template-columns: 40px 11ch 4ch 4ch;
+  grid-template-columns: calc(40px + 12.5ch) 4ch 4ch;
   gap: 1.5ch;
   justify-content: center;
   align-items: center;
@@ -27,7 +27,6 @@
   height: clamp(1.5rem, 2rem, 5%);
 }
 
-.status-control__icon,
 .status-control__name,
 .status-control__cause,
 .status-control__resist {
@@ -41,6 +40,10 @@
   width: 100%;
   height: 100%;
 }
+.status-control__name {
+  display: flex;
+  justify-content: space-between;
+}
 /* Pad cells except icons */
 .status-control__name,
 .status-control__cause,
@@ -48,7 +51,6 @@
   padding: 0 1ch 0 1ch;
 }
 /* Center everything except names */
-.status-control__icon,
 .status-control__entry:first-of-type > .status-control__name,
 .status-control__cause,
 .status-control__resist {
@@ -63,12 +65,17 @@
 .status-control__entry:nth-of-type(2n + 1) {
   background-color: rgba(var(--dark2-components), 0.5);
 }
-.status-control__entry > div:nth-of-type(2n):not(.status-control__icon) {
+.status-control__entry > td:nth-of-type(2n):not(.status-control__icon),
+.status-control__entry > th:nth-of-type(2n):not(.status-control__icon) {
   background-color: rgba(var(--dark1-components), 0.1);
 }
-.status-control__entry > div:nth-of-type(2n + 1):not(.status-control__icon) {
+.status-control__entry > td:nth-of-type(2n + 1):not(.status-control__icon),
+.status-control__entry > th:nth-of-type(2n + 1):not(.status-control__icon) {
   background-color: rgba(var(--dark1-components), 0.3);
 }
-.status-control__entry:not(:first-of-type) > div:not(.status-control__icon):not(.status-control__name):hover {
+.status-control__entry:not(:first-of-type) > td:not(.status-control__name):hover,
+.status-control__entry:not(:first-of-type) > th:not(.status-control__name):hover,
+.status-control__entry:not(:first-of-type) > td:not(.status-control__name):focus-within,
+.status-control__entry:not(:first-of-type) > th:not(.status-control__name):focus-within {
   background: rgba(var(--blue1-components), 0.5);
 }

@@ -12,8 +12,8 @@ type TypeMatchupEntryProps = {
 
   rowIdx: number
   
-  onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
-  onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
+  onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
 };
 
 const TypeMatchupEntry = ({
@@ -89,6 +89,7 @@ const TypeMatchupEntry = ({
       role="row"
       aria-rowindex={rowIdx + 2}
       className="type-matchup__entry"
+      onBlur={onMouseLeave}
       onMouseLeave={onMouseLeave}
     >
       <th
@@ -110,6 +111,7 @@ const TypeMatchupEntry = ({
         role="gridcell"
         aria-colindex={2}
         className="type-matchup__0"
+        onFocus={onMouseOver(immunities.memberPSIDs)}
         onMouseOver={onMouseOver(immunities.memberPSIDs)}
       >
         <a
@@ -122,6 +124,7 @@ const TypeMatchupEntry = ({
         role="gridcell"
         aria-colindex={3}
         className="type-matchup__1-4"
+        onFocus={onMouseOver(quadResistances.memberPSIDs)}
         onMouseOver={onMouseOver(quadResistances.memberPSIDs)}
       >
         <a
@@ -134,6 +137,7 @@ const TypeMatchupEntry = ({
         role="gridcell"
         aria-colindex={4}
         className="type-matchup__1-2"
+        onFocus={onMouseOver(resistances.memberPSIDs)}
         onMouseOver={onMouseOver(resistances.memberPSIDs)}
       >
         <a
@@ -146,6 +150,7 @@ const TypeMatchupEntry = ({
         role="gridcell"
         aria-colindex={5}
         className="type-matchup__1"
+        onFocus={onMouseOver(neutralMatchup.memberPSIDs)}
         onMouseOver={onMouseOver(neutralMatchup.memberPSIDs)}
       >
         <a
@@ -158,6 +163,7 @@ const TypeMatchupEntry = ({
         role="gridcell"
         aria-colindex={6}
         className="type-matchup__2"
+        onFocus={onMouseOver(weaknesses.memberPSIDs)}
         onMouseOver={onMouseOver(weaknesses.memberPSIDs)}
       >
         <a
@@ -170,6 +176,7 @@ const TypeMatchupEntry = ({
         role="gridcell"
         aria-colindex={7}
         className="type-matchup__4"
+        onFocus={onMouseOver(quadWeaknesses.memberPSIDs)}
         onMouseOver={onMouseOver(quadWeaknesses.memberPSIDs)}
       >
         <a
@@ -182,6 +189,7 @@ const TypeMatchupEntry = ({
         role="gridcell"
         aria-colindex={8}
         className="type-coverage__0"
+        onFocus={onMouseOver(noEffect.memberPSIDs)}
         onMouseOver={onMouseOver(noEffect.memberPSIDs)}
       >
         <a
@@ -194,6 +202,7 @@ const TypeMatchupEntry = ({
         role="gridcell"
         aria-colindex={9}
         className="type-coverage__1-2"
+        onFocus={onMouseOver(notVeryEffective.memberPSIDs)}
         onMouseOver={onMouseOver(notVeryEffective.memberPSIDs)}
       >
         <a
@@ -206,6 +215,7 @@ const TypeMatchupEntry = ({
         role="gridcell"
         aria-colindex={10}
         className="type-coverage__1"
+        onFocus={onMouseOver(neutralCoverage.memberPSIDs)}
         onMouseOver={onMouseOver(neutralCoverage.memberPSIDs)}
       >
         <a
@@ -218,6 +228,7 @@ const TypeMatchupEntry = ({
         role="gridcell"
         aria-colindex={11}
         className="type-coverage__2"
+        onFocus={onMouseOver(superEffective.memberPSIDs)}
         onMouseOver={onMouseOver(superEffective.memberPSIDs)}
       >
         <a

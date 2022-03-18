@@ -1,6 +1,8 @@
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
+import { useRemoveFromTabOrder } from "../../../../hooks/useRemoveFromTabOrder";
 import { AbilityCoverageQuery, computeSpeedControl, ItemCoverageQuery, MoveCoverageQuery } from "../../../../types-queries/Analyzer/Coverage";
 import { MemberAndEntityPSIDs, MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
+import { handleGridKeyDown } from "../../../../utils/gridFocusManagement";
 import './SpeedControl.css';
 import SpeedControlEntry from "./SpeedControlEntry";
 
@@ -11,8 +13,8 @@ type SpeedControlProps = {
   moveData: MoveCoverageQuery
 
   memberAndEntityPSIDs: MemberAndEntityPSIDs
-  onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
-  onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
+  onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
 };
 
 const SpeedControl = ({
@@ -34,29 +36,63 @@ const SpeedControl = ({
       },
     );
   }, [abilityData, itemData, moveData, memberAndEntityPSIDs]);
+
+  const grid = useRef<HTMLTableSectionElement>(null);
+
+  useRemoveFromTabOrder(grid);
   
   return (
-    <div
+    <table
       className="speed-control__wrapper"
     >
-      <div className="speed-control__entry">
-        <div className="speed-control__name">
-        </div>
-        <div className="speed-control__value">
-          #
-        </div>
-      </div>
-      {(Object.entries(speedControlMap)).map(([speedControlKey, coverageDatum]) => (
-        <SpeedControlEntry
-          key={speedControlKey}
-          speedControlKey={speedControlKey}
-          coverageDatum={coverageDatum}
+      <tbody
+        ref={grid}
+        className="field-control__table-body"
+        role="grid"
+        tabIndex={0}
+        onKeyDown={e => handleGridKeyDown({
+          grid,
+          numRows: Object.keys(speedControlMap).length + 1,
+          numCols: 2,
+          e,
+          interactiveHeaders: false,
+        })}
+      >
+        <tr
+          role="row"
+          aria-rowindex={1}
+          className="speed-control__entry"
+        >
+          <th
+            scope="col"
+            role="columnheader"
+            aria-colindex={1}
+            className="speed-control__name"
+          >
+            Class
+          </th>
+          <td
+            scope="col"
+            role="columnheader"
+            aria-colindex={2}
+            className="speed-control__value"
+          >
+            #
+          </td>
+        </tr>
+        {(Object.entries(speedControlMap)).map(([speedControlKey, coverageDatum], rowIdx) => (
+          <SpeedControlEntry
+            key={speedControlKey}
+            rowIdx={rowIdx}
+            speedControlKey={speedControlKey}
+            coverageDatum={coverageDatum}
 
-          onMouseOver={onMouseOver}
-          onMouseLeave={onMouseLeave}
-        />
-      ))}
-    </div>
+            onMouseOver={onMouseOver}
+            onMouseLeave={onMouseLeave}
+          />
+        ))}
+      </tbody>
+    </table>
   )
 };
 

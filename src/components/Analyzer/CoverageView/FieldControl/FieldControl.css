@@ -62,9 +62,13 @@
 .field-control__entry:nth-of-type(2n + 1) {
   background-color: rgba(var(--dark2-components), 0.5);
 }
-.field-control__entry > div:nth-of-type(2n) {
+.field-control__entry > td:nth-of-type(2n),
+.field-control__entry > th:nth-of-type(2n) {
   background-color: rgba(var(--dark1-components), 0.1);
 }
-.field-control__entry:not(:first-of-type) > div:not(.field-control__name):hover {
+.field-control__entry:not(:first-of-type) > td:not(.field-control__name):hover,
+.field-control__entry:not(:first-of-type) > td:not(.field-control__name):focus-within,
+.field-control__entry:not(:first-of-type) > th:not(.field-control__name):hover,
+.field-control__entry:not(:first-of-type) > th:not(.field-control__name):focus-within {
   background: rgba(var(--blue1-components), 0.5);
 }

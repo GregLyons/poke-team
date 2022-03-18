@@ -1,6 +1,8 @@
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
+import { useRemoveFromTabOrder } from "../../../../hooks/useRemoveFromTabOrder";
 import { AbilityCoverageQuery, computeFieldControl, ItemCoverageQuery, MoveCoverageQuery } from "../../../../types-queries/Analyzer/Coverage";
 import { MemberAndEntityPSIDs, MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
+import { handleGridKeyDown } from "../../../../utils/gridFocusManagement";
 import { Filters } from "../../../App";
 import './FieldControl.css';
 import FieldControlEntry from "./FieldControlEntry";
@@ -14,8 +16,8 @@ type FieldControlProps = {
   moveData: MoveCoverageQuery
 
   memberAndEntityPSIDs: MemberAndEntityPSIDs
-  onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
-  onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
+  onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
 };
 
 const FieldControl = ({
@@ -40,32 +42,72 @@ const FieldControl = ({
       filters.genFilter.gen,
     );
   }, [abilityData, itemData, moveData, filters, memberAndEntityPSIDs]);
+
+  const grid = useRef<HTMLTableSectionElement>(null);
+
+  useRemoveFromTabOrder(grid);
   
   return (
-    <div
+    <table
       className="field-control__wrapper"
     >
-      <div className="field-control__entry">
-        <div className="field-control__name">
-        </div>
-        <div className="field-control__create">
-          +
-        </div>
-        <div className="field-control__resist">
-          -
-        </div>
-      </div>
-      {Array.from(fieldControlMap.entries()).map(([fieldStateClass, summary]) => (
-        <FieldControlEntry
-          key={fieldStateClass}
-          fieldStateClass={fieldStateClass}
-          summary={summary}
+      <tbody
+        ref={grid}
+        className="field-control__table-body"
+        role="grid"
+        tabIndex={0}
+        onKeyDown={e => handleGridKeyDown({
+          grid,
+          numRows: Array.from(fieldControlMap.keys()).length + 1,
+          numCols: 3,
+          e,
+          interactiveHeaders: false,
+        })}
+      >
+        <tr
+          role="row"
+          aria-rowindex={1}
+          className="field-control__entry"
+        >
+          <th
+            scope="col"
+            role="columnheader"
+            aria-colindex={1}
+            className="field-control__name"
+          >
+            Name
+          </th>
+          <th
+            scope="col"
+            role="columnheader"
+            aria-colindex={2}
+            className="field-control__create"
+          >
+            +
+          </th>
+          <th
+            scope="col"
+            role="columnheader"
+            aria-colindex={3}
+            className="field-control__resist"
+          >
+            -
+          </th>
+        </tr>
+        {Array.from(fieldControlMap.entries()).map(([fieldStateClass, summary], rowIdx) => (
+          <FieldControlEntry
+            key={fieldStateClass}
+            fieldStateClass={fieldStateClass}
+            summary={summary}
 
-          onMouseOver={onMouseOver}
-          onMouseLeave={onMouseLeave}
-        />
-      ))}
-    </div>
+            rowIdx={rowIdx}
+
+            onMouseOver={onMouseOver}
+            onMouseLeave={onMouseLeave}
+          />
+        ))}
+      </tbody>
+    </table>
   )
 };
 

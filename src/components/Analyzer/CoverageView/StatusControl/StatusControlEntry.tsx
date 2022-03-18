@@ -7,14 +7,18 @@ import StatusIcon from "../../../Icons/StatusIcon";
 type StatusControlEntryProps = {
   statusName: StatusName
   summary: StatusControlSummary
+
+  rowIdx: number
   
-  onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
-  onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
+  onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
 };
 
 const StatusControlEntry = ({
   statusName,
   summary,
+
+  rowIdx,
 
   onMouseOver,
   onMouseLeave,
@@ -37,42 +41,53 @@ const StatusControlEntry = ({
   }, []);
 
   return (
-  <div
+  <tr
+    role="row"
+    aria-rowindex={rowIdx + 2}
     className="status-control__entry"
     onMouseLeave={onMouseLeave}
   >
-    <div className="status-control__icon">
+    <th
+      scope="row"
+      role="gridcell"
+      aria-colindex={1}
+      className="status-control__name"
+    >
       <StatusIcon
         iconDatum={{
           name: statusName,
           formattedName: STATUS_MAP.get(statusName) || '',
         }}
       />
-    </div>
-    <div className="status-control__name">
       {STATUS_MAP.get(statusName) || ''}
-    </div>
-    <div
+    </th>
+    <td
+      role="gridcell"
+      aria-colindex={2}
       className="status-control__cause"
+      onFocus={onMouseOver(cause.memberPSIDs)}
       onMouseOver={onMouseOver(cause.memberPSIDs)}
     >
-      <span
+      <a
         className={rankControlValue(cause.total, 'cause')}
       >
         {cause.total}
-      </span>
-    </div>
-    <div
+      </a>
+    </td>
+    <td
+      role="gridcell"
+      aria-colindex={3}
       className="status-control__resist"
+      onFocus={onMouseOver(resist.memberPSIDs)}
       onMouseOver={onMouseOver(resist.memberPSIDs)}
     >
-      <span
+      <a
         className={rankControlValue(resist.total, 'resist')}
       >
         {resist.total}
-      </span>
-    </div>
-  </div>
+      </a>
+    </td>
+  </tr>
   )
 };
 

@@ -171,7 +171,7 @@ const CoverageView = ({
 
   // When hovering over a data point, store the relevant names
   const onMouseOver = (memberPSIDObject: MemberPSIDObject) => {
-    return (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    return (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => {
       e.preventDefault();
 
       // If popup window is active, then don't change relevant names; the relevant names of the popup window (member name and entity name) take precedence
@@ -180,7 +180,7 @@ const CoverageView = ({
   }
 
   // Upon leaving a data point, discard the relevant names
-  const onMouseLeave = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const onMouseLeave = (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => {
     e.preventDefault();
 
     // If popup window is active, then don't change relevant names; the relevant names of the popup window (member name and entity name) take precedence

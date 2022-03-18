@@ -6,14 +6,18 @@ import { FieldStateClass, FIELDSTATE_CLASS_MAP } from "../../../../types-queries
 type FieldControlEntryProps = {
   fieldStateClass: FieldStateClass
   summary: FieldControlSummary
+
+  rowIdx: number
   
-  onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
-  onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
+  onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
 };
 
 const FieldControlEntry = ({
   fieldStateClass,
   summary,
+
+  rowIdx,
 
   onMouseOver,
   onMouseLeave,
@@ -36,34 +40,48 @@ const FieldControlEntry = ({
   }, []);
 
   return (
-  <div
+  <tr
+    role="row"
+    aria-rowindex={rowIdx + 2}
     className="field-control__entry"
     onMouseLeave={onMouseLeave}
+    onBlur={onMouseLeave}
   >
-    <div className="field-control__name">
+    <th
+      scope="row"
+      role="gridcell"
+      aria-colindex={1}
+      className="field-control__name"
+    >
       {FIELDSTATE_CLASS_MAP.get(fieldStateClass)?.replace('Entry hazard', 'Hazards')}
-    </div>
-    <div
+    </th>
+    <td
+      role="gridcell"
+      aria-colindex={2}
       className="field-control__create"
+      onFocus={onMouseOver(create.memberPSIDs)}
       onMouseOver={onMouseOver(create.memberPSIDs)}
     >
-      <span
+      <a
         className={rankControlValue(create.total, 'create')}
       >
         {create.total}
-      </span>
-    </div>
-    <div
+      </a>
+    </td>
+    <td
+      role="gridcell"
+      aria-colindex={3}
       className="field-control__resist"
+      onFocus={onMouseOver(resist.memberPSIDs)}
       onMouseOver={onMouseOver(resist.memberPSIDs)}
     >
-      <span
+      <a
         className={rankControlValue(resist.total, 'resist')}
       >
         {resist.total}
-      </span>
-    </div>
-  </div>
+      </a>
+    </td>
+  </tr>
   )
 };
 

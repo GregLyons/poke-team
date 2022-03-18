@@ -4,14 +4,18 @@ import { CoverageDatum, MemberPSIDObject } from "../../../../types-queries/Analy
 type SpeedControlEntryProps = {
   speedControlKey: string
   coverageDatum: CoverageDatum
+
+  rowIdx: number
   
-  onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
-  onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
+  onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
 };
 
 const SpeedControlEntry = ({
   speedControlKey,
   coverageDatum,
+
+  rowIdx,
 
   onMouseOver,
   onMouseLeave,
@@ -25,23 +29,35 @@ const SpeedControlEntry = ({
   }, []);
 
   return (
-  <div className="speed-control__entry"
+  <tr
+    role="row"
+    aria-rowindex={rowIdx + 2}
+    className="speed-control__entry"
+    onBlur={onMouseLeave}
     onMouseLeave={onMouseLeave}
   >
-    <div className="speed-control__name">
+    <th
+      scope="row"
+      role="gridcell"
+      aria-colindex={1}
+      className="speed-control__name"
+    >
       {speedControlKey.charAt(0).toUpperCase() + speedControlKey.slice(1)}
-    </div>
-    <div
+    </th>
+    <td
+      role="gridcell"
+      aria-colindex={2}
       className="speed-control__value"
+      onFocus={onMouseOver(memberPSIDs)}
       onMouseOver={onMouseOver(memberPSIDs)}
     >
-      <span
+      <a
         className={rankControlValue(total)}
       >
         {total}
-      </span>
-    </div>
-  </div>
+      </a>
+    </td>
+  </tr>
   )
 };
 

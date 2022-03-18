@@ -58,12 +58,11 @@
 .speed-control__entry:nth-of-type(2n + 1) {
   background-color: rgba(var(--dark2-components), 0.5);
 }
-.speed-control__entry > div:nth-of-type(2n) {
+.speed-control__entry > td:nth-of-type(2n),
+.speed-control__entry > th:nth-of-type(2n) {
   background-color: rgba(var(--dark1-components), 0.1);
 }
-.speed-control__value:hover {
-  background: rgba(var(--blue1-components), 0.5);
-}
-.speed-control__entry:not(:first-of-type) > div:not(.speed-control__name):hover {
+.speed-control__value:hover,
+.speed-control__entry:not(:first-of-type) > td:not(.speed-control__name):focus-within {
   background: rgba(var(--blue1-components), 0.5);
 }

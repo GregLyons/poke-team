@@ -19,8 +19,8 @@ type TypeMatchupProps = {
   moveData: MoveCoverageQuery
 
   memberAndEntityPSIDs: MemberAndEntityPSIDs
-  onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
-  onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
+  onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
 };
 
 export type TypeSummary = {
@@ -99,7 +99,7 @@ const TypeMatchup = ({
         aria-rowindex={1}
         className="type-matchup__entry"
       >
-        <td
+        <th
           scope="col"  
           role="columnheader"
           aria-colindex={1}
@@ -107,7 +107,8 @@ const TypeMatchup = ({
             type-matchup__icon
           `}
         >
-        </td>
+          Type
+        </th>
         <th
           scope="col"  
           role="columnheader"
