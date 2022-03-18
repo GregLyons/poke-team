@@ -1,8 +1,10 @@
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
+import { useRemoveFromTabOrder } from "../../../../hooks/useRemoveFromTabOrder";
 import { computeMemberTypeCoverage, INITIAL_TYPECOVERAGE_SUMMARY, MoveCoverageQuery, TypeCoverageSummary } from "../../../../types-queries/Analyzer/Coverage";
 import { MemberAndEntityPSIDs, MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
 import { AbilityMatchupQuery, computeTypeMatchups, INITIAL_TYPEMATCHUP_SUMMARY, ItemMatchupQuery, TypeMatchupSummary, TypingMatchupQuery } from "../../../../types-queries/Analyzer/Matchups";
 import { TypeName, TYPENAMES } from "../../../../types-queries/helpers";
+import { handleGridKeyDown } from "../../../../utils/gridFocusManagement";
 import { Filters } from "../../../App";
 import './TypeMatchup.css';
 import TypeMatchupEntry from "./TypeMatchupEntry";
@@ -71,48 +73,146 @@ const TypeMatchup = ({
     return typeSummaryMap;
   }, [filters, abilityData, itemData, typingData, moveData, memberAndEntityPSIDs, ]);
 
+  const grid = useRef<HTMLTableSectionElement>(null);
+
+  useRemoveFromTabOrder(grid);
+  
   return (
-    <div
+    <table
       className="type-matchup__wrapper"
     >
-      <div className="type-matchup__entry">
-        <div className="type-matchup__icon">
-        </div>
-        <div className="type-matchup__0">
+      <tbody
+        ref={grid}
+        className="type-matchup__table-body"
+        role="grid"
+        tabIndex={0}
+        onKeyDown={e => handleGridKeyDown({
+          grid,
+          numRows: Array.from(typeSummaryMap.keys()).length + 1,
+          numCols: 11,
+          e,
+          interactiveHeaders: false,
+        })}
+      >
+      <tr
+        role="row"
+        aria-rowindex={1}
+        className="type-matchup__entry"
+      >
+        <td
+          scope="col"  
+          role="columnheader"
+          aria-colindex={1}
+          className={`
+            type-matchup__icon
+          `}
+        >
+        </td>
+        <th
+          scope="col"  
+          role="columnheader"
+          aria-colindex={2}
+          className={`
+            type-matchup__0
+          `}
+        >
           0x
-        </div>
-        <div className="type-matchup__1-4">
+        </th>
+        <th
+          scope="col"  
+          role="columnheader"
+          aria-colindex={3}
+          className={`
+            type-matchup__1-4
+          `}
+        >
           &frac14;x
-        </div>
-        <div className="type-matchup__1-2">
+        </th>
+        <th
+          scope="col"  
+          role="columnheader"
+          aria-colindex={4}
+          className={`
+            type-matchup__1-2
+          `}
+        >
           &frac12;x
-        </div>
-        <div className="type-matchup__1">
+        </th>
+        <th
+          scope="col"  
+          role="columnheader"
+          aria-colindex={5}
+          className={`
+            type-matchup__1
+          `}
+        >
           1x
-        </div>
-        <div className="type-matchup__2">
+        </th>
+        <th
+          scope="col"  
+          role="columnheader"
+          aria-colindex={6}
+          className={`
+            type-matchup__2
+          `}
+        >
           2x
-        </div>
-        <div className="type-matchup__4">
+        </th>
+        <th
+          scope="col"  
+          role="columnheader"
+          aria-colindex={7}
+          className={`
+            type-matchup__4
+          `}
+        >
           4x
-        </div>
-        <div className="type-matchup__buffer"></div>
-        <div className="type-coverage__0">
+        </th>
+        <th
+          scope="col"  
+          role="columnheader"
+          aria-colindex={8}
+          className={`
+            type-coverage__0
+          `}
+        >
           0x
-        </div>
-        <div className="type-coverage__1-2">
+        </th>
+        <th
+          scope="col"  
+          role="columnheader"
+          aria-colindex={9}
+          className={`
+            type-coverage__1-2
+          `}
+        >
           &frac12;x
-        </div>
-        <div className="type-coverage__1">
+        </th>
+        <th
+          scope="col"  
+          role="columnheader"
+          aria-colindex={10}
+          className={`
+            type-coverage__1
+          `}
+        >
           1x
-        </div>
-        <div className="type-coverage__entry2">
+        </th>
+        <th
+          scope="col"  
+          role="columnheader"
+          aria-colindex={11}
+          className={`
+            type-coverage__entry2
+          `}
+        >
           2x
-        </div>
-      </div>
-      {Array.from(typeSummaryMap.entries()).map(([typeName, summary]) => (
+        </th>
+      </tr>
+      {Array.from(typeSummaryMap.entries()).map(([typeName, summary], rowIdx) => (
           <TypeMatchupEntry
             key={typeName}
+            rowIdx={rowIdx}
             typeName={typeName}
             summary={summary}
 
@@ -120,7 +220,8 @@ const TypeMatchup = ({
             onMouseLeave={onMouseLeave}
           />
         ))}
-    </div>
+      </tbody>
+    </table>
   )
 };
 

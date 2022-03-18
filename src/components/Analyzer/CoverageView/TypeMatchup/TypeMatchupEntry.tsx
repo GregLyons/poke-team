@@ -9,6 +9,8 @@ import { TypeSummary } from "./TypeMatchup";
 type TypeMatchupEntryProps = {
   typeName: TypeName
   summary: TypeSummary
+
+  rowIdx: number
   
   onMouseOver: (memberPSIDObject: MemberPSIDObject) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onMouseLeave: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
@@ -17,6 +19,8 @@ type TypeMatchupEntryProps = {
 const TypeMatchupEntry = ({
   typeName,
   summary,
+  
+  rowIdx,
 
   onMouseOver,
   onMouseLeave,
@@ -81,120 +85,148 @@ const TypeMatchupEntry = ({
   }, []);
 
   return (
-    <div
+    <tr
+      role="row"
+      aria-rowindex={rowIdx + 2}
       className="type-matchup__entry"
       onMouseLeave={onMouseLeave}
     >
-      <div className="type-matchup__icon">
+      <th
+        scope="row"
+        role="gridcell"
+        aria-colindex={1}
+        className={`
+          type-matchup__icon
+        `}
+      >
         <TypeIcon
           typeIconDatum={{
             name: typeName,
             formattedName: toFormattedTypeName(typeName),
           }}
         />
-      </div>
-      <div
+      </th>
+      <td
+        role="gridcell"
+        aria-colindex={2}
         className="type-matchup__0"
         onMouseOver={onMouseOver(immunities.memberPSIDs)}
       >
-        <span
+        <a
           className={rankMatchupValue(immunities.total, 'immunities')}
         >
           {immunities.total}
-        </span>
-      </div>
-      <div
+        </a>
+      </td>
+      <td
+        role="gridcell"
+        aria-colindex={3}
         className="type-matchup__1-4"
         onMouseOver={onMouseOver(quadResistances.memberPSIDs)}
       >
-        <span
+        <a
           className={rankMatchupValue(quadResistances.total, 'quadResistances')}
         >
           {quadResistances.total}
-        </span>
-      </div>
-      <div
+        </a>
+      </td>
+      <td
+        role="gridcell"
+        aria-colindex={4}
         className="type-matchup__1-2"
         onMouseOver={onMouseOver(resistances.memberPSIDs)}
       >
-        <span
+        <a
           className={rankMatchupValue(resistances.total, 'resistances')}
         >
           {resistances.total}
-        </span>
-      </div>
-      <div
+        </a>
+      </td>
+      <td
+        role="gridcell"
+        aria-colindex={5}
         className="type-matchup__1"
         onMouseOver={onMouseOver(neutralMatchup.memberPSIDs)}
       >
-        <span
+        <a
           className={rankMatchupValue(neutralMatchup.total, 'neutral')}
         >
           {neutralMatchup.total}
-        </span>
-      </div>
-      <div
+        </a>
+      </td>
+      <td
+        role="gridcell"
+        aria-colindex={6}
         className="type-matchup__2"
         onMouseOver={onMouseOver(weaknesses.memberPSIDs)}
       >
-        <span
+        <a
           className={rankMatchupValue(weaknesses.total, 'weaknesses')}
         >
           {weaknesses.total}
-        </span>
-      </div>
-      <div
+        </a>
+      </td>
+      <td
+        role="gridcell"
+        aria-colindex={7}
         className="type-matchup__4"
         onMouseOver={onMouseOver(quadWeaknesses.memberPSIDs)}
       >
-        <span
+        <a
           className={rankMatchupValue(quadWeaknesses.total, 'quadWeaknesses')}
         >
           {quadWeaknesses.total}
-        </span>
-      </div>
-      <div className="type-matchup__buffer"></div>
-      <div
+        </a>
+      </td>
+      <td
+        role="gridcell"
+        aria-colindex={8}
         className="type-coverage__0"
         onMouseOver={onMouseOver(noEffect.memberPSIDs)}
       >
-        <span
+        <a
           className={rankCoverageValue(noEffect.total, 'noEffect')}
         >
           {noEffect.total}
-        </span>
-      </div>
-      <div
+        </a>
+      </td>
+      <td
+        role="gridcell"
+        aria-colindex={9}
         className="type-coverage__1-2"
         onMouseOver={onMouseOver(notVeryEffective.memberPSIDs)}
       >
-        <span
+        <a
           className={rankCoverageValue(notVeryEffective.total, 'notVeryEffective')}
         >
           {notVeryEffective.total}
-        </span>
-      </div>
-      <div
+        </a>
+      </td>
+      <td
+        role="gridcell"
+        aria-colindex={10}
         className="type-coverage__1"
         onMouseOver={onMouseOver(neutralCoverage.memberPSIDs)}
       >
-        <span
+        <a
           className={rankCoverageValue(neutralCoverage.total, 'neutral')}
         >
           {neutralCoverage.total}
-        </span>
-      </div>
-      <div
+        </a>
+      </td>
+      <td
+        role="gridcell"
+        aria-colindex={11}
         className="type-coverage__2"
         onMouseOver={onMouseOver(superEffective.memberPSIDs)}
       >
-        <span
+        <a
           className={rankCoverageValue(superEffective.total, 'superEffective')}
         >
           {superEffective.total}
-        </span>
-      </div>
-    </div>
+        </a>
+      </td>
+    </tr>
   )
 };
 

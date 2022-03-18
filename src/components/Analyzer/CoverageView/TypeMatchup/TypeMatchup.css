@@ -1,4 +1,4 @@
-.type-matchup__wrapper {
+.type-matchup__table-body {
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: 1fr;
@@ -18,7 +18,7 @@
 
 .type-matchup__entry {
   display: grid;
-  grid-template-columns: 40px repeat(11, 3ch);
+  grid-template-columns: 40px repeat(10, 3ch);
   gap: 1.5ch;
   justify-content: center;
   align-items: center;
@@ -60,12 +60,13 @@
 .type-matchup__entry:nth-of-type(2n + 1) {
   background-color: rgba(var(--dark2-components), 0.5);
 }
-.type-matchup__entry > div:nth-of-type(2n):not(.type-matchup__icon) {
+.type-matchup__entry > td:nth-of-type(2n):not(.type-matchup__icon) {
   background-color: rgba(var(--dark1-components), 0.1);
 }
-.type-matchup__entry > div:nth-of-type(2n + 1):not(.type-matchup__icon) {
+.type-matchup__entry > td:nth-of-type(2n + 1):not(.type-matchup__icon) {
   background-color: rgba(var(--dark1-components), 0.3);
 }
-.type-matchup__entry:not(:first-of-type) > div:not(.type-matchup__icon):hover {
+.type-matchup__entry:not(:first-of-type) > td:not(.type-matchup__icon):hover,
+.type-matchup__entry:not(:first-of-type) > td:not(.type-matchup__icon):focus-within {
   background: rgba(var(--blue1-components), 0.5);
 }
