@@ -1,0 +1,7 @@
+.error-boundary {
+  justify-self: center;
+  align-self: center;
+
+  font-weight: 500;
+  color: red;
+}

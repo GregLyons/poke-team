@@ -358,7 +358,7 @@ const Import = ({
     loading_pokemon, loading_item, loading_nature,
     error_pokemon, error_item, error_nature,
   ]);
-
+  
   return (
     <div
       className="import-wrapper"

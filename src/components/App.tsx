@@ -45,6 +45,7 @@ import TypePage from './Planner/Types/TypePage';
 import TypeSearch from './Planner/Types/TypeSearch';
 import UsageMethodPage from './Planner/UsageMethods/UsageMethodPage';
 import UsageMethodSearch from './Planner/UsageMethods/UsageMethodSearch';
+import ErrorBoundary from './Reusables/ErrorBoundary/ErrorBoundary';
 import LoadIcon from './Reusables/LoadIcon/LoadIcon';
 
 export type Dispatches = {
@@ -99,6 +100,8 @@ function App() {
     <>
       <div role="presentation" className={classWithBG("left-bg-panel", bgManager)} />
       <header className={classWithBG(classWithBGShadow("header__bg-wrapper", bgManager), bgManager)} role="banner">
+        {/* Last resort--should be error boundaries in appropriate places in children */}
+        <ErrorBoundary>
           <NavBar
             headerRef={controlPanelRef}
             navBarRef={navBarRef}
@@ -111,217 +114,221 @@ function App() {
             bgManager={bgManager}
             team={team}
           />
+        </ErrorBoundary>
       </header>
       <main className={classWithBGShadow("", bgManager)} role="main">
         <div className="app">
-          <Routes>
-            {/* Routing for Home */}
-            <Route path="/" element={<LoadIcon />} />
+          {/* Last resort--should be error boundaries in appropriate places in children */}
+          <ErrorBoundary>
+            <Routes>
+              {/* Routing for Home */}
+              <Route path="/" element={<LoadIcon />} />
 
-            {/* Routing for Analyzer */}
-            <Route path="/analyzer" element={<Analyzer
-              bgManager={bgManager}
-              dispatchBGManager={dispatchBGManager}
-            />}>
-              <Route
-                index
-                element={<AnalyzerHome
-                />}
-              />
-              <Route
-                path='coverage'
-                element={<CoverageView
-                  dispatches={dispatches}
-                  filters={filters}
-                  team={team}
-                />}
-              />
-              <Route
-                path='versus'
-                element={<Versus
-                  dispatches={dispatches}
-                  filters={filters}
-                  team={team}
-                  enemyTeam={enemyTeam}
+              {/* Routing for Analyzer */}
+              <Route path="/analyzer" element={<Analyzer
+                bgManager={bgManager}
+                dispatchBGManager={dispatchBGManager}
+              />}>
+                <Route
+                  index
+                  element={<AnalyzerHome
                   />}
-              />
-            </Route>
-
-            {/* Routing for Builder */}
-            <Route path="/builder" element={<Builder
-              bgManager={bgManager}
-              dispatchBGManager={dispatchBGManager}
-            />} >
-            {/* */}
-              <Route
-                index
-                element={<BuilderHome
-                />}
-              />
-              <Route
-                path='cart'
-                element={<CartView
-                  cart={cart}
-                  team={team}
-                  dispatches={dispatches}
-                  filters={filters}
-                />}
-              />
-              <Route
-                path='team'
-                element={<TeamView
-                  bgManager={bgManager}
-                  dispatches={dispatches}
-                  filters={filters}
-                  team={team}
-                />}
-              />
-              <Route
-                path='quickSearch'
-                element={<QuickSearch
-                  dispatches={dispatches}
-                  filters={filters}
-                  team={team}
-                />}
-              />
-            </Route>
-
-            {/* Routing for Planner */}
-            <Route path="/planner" element={<Planner
-              bgManager={bgManager}
-              dispatchBGManager={dispatchBGManager}
-            />} >
-              {/* */}
-              <Route
-                index
-                element={<PlannerHome
-                />}
-              />
-
-              {/* */}
-              <Route 
-                path='abilities' 
-                element={<AbilitySearch
-                  dispatches={dispatches}
-                  filters={filters}
-                />}
-              />
-              <Route path="abilities/:abilityId" element={<AbilityPage 
-                dispatches={dispatches}
-                filters={filters}
-              />} />
-
-              <Route 
-                path='items' 
-                element={<ItemSearch
-                  dispatches={dispatches}
-                  filters={filters}
-                />}
-              />
-              <Route path="items/:itemId" element={<ItemPage 
-                dispatches={dispatches}
-                filters={filters}
-              />} />
-
-              <Route 
-                path='moves' 
-                element={<MoveSearch
-                  dispatches={dispatches}
-                  filters={filters}
-                />} 
-              >
+                />
+                <Route
+                  path='coverage'
+                  element={<CoverageView
+                    dispatches={dispatches}
+                    filters={filters}
+                    team={team}
+                  />}
+                />
+                <Route
+                  path='versus'
+                  element={<Versus
+                    dispatches={dispatches}
+                    filters={filters}
+                    team={team}
+                    enemyTeam={enemyTeam}
+                    />}
+                />
               </Route>
-              <Route path="moves/:moveId" element={<MovePage 
-                dispatches={dispatches}
-                filters={filters}
-              />} />
 
+              {/* Routing for Builder */}
+              <Route path="/builder" element={<Builder
+                bgManager={bgManager}
+                dispatchBGManager={dispatchBGManager}
+              />} >
               {/* */}
-              <Route 
-                path='effects' 
-                element={<EffectSearch
-                  genFilter={genFilter}
-                />}
-              />
-              <Route path="effects/:effectId" element={<EffectPage
-                dispatches={dispatches}
-                filters={filters}
-              />} />
+                <Route
+                  index
+                  element={<BuilderHome
+                  />}
+                />
+                <Route
+                  path='cart'
+                  element={<CartView
+                    cart={cart}
+                    team={team}
+                    dispatches={dispatches}
+                    filters={filters}
+                  />}
+                />
+                <Route
+                  path='team'
+                  element={<TeamView
+                    bgManager={bgManager}
+                    dispatches={dispatches}
+                    filters={filters}
+                    team={team}
+                  />}
+                />
+                <Route
+                  path='quickSearch'
+                  element={<QuickSearch
+                    dispatches={dispatches}
+                    filters={filters}
+                    team={team}
+                  />}
+                />
+              </Route>
 
-              <Route 
-                path='fieldStates' 
-                element={<FieldStateSearch
-                  genFilter={genFilter}
-                />}
-              />
-              <Route path="fieldStates/:fieldStateId" element={<FieldStatePage
-                dispatches={dispatches}
-                filters={filters}
-              />} />
+              {/* Routing for Planner */}
+              <Route path="/planner" element={<Planner
+                bgManager={bgManager}
+                dispatchBGManager={dispatchBGManager}
+              />} >
+                {/* */}
+                <Route
+                  index
+                  element={<PlannerHome
+                  />}
+                />
 
-              <Route 
-                path='stats' 
-                element={<StatSearch
-                  genFilter={genFilter}
-                />}
-              />
-              <Route path="stats/:statId" element={<StatPage
-                dispatches={dispatches}
-                filters={filters}
-              />} />
-
-              <Route 
-                path='statuses' 
-                element={<StatusSearch
-                  genFilter={genFilter}
-                />}
-              />
-              <Route path="statuses/:statusId" element={<StatusPage
-                dispatches={dispatches}
-                filters={filters}
-              />} />
-
-              <Route 
-                path='types' 
-                element={<TypeSearch
+                {/* */}
+                <Route 
+                  path='abilities' 
+                  element={<AbilitySearch
+                    dispatches={dispatches}
+                    filters={filters}
+                  />}
+                />
+                <Route path="abilities/:abilityId" element={<AbilityPage 
                   dispatches={dispatches}
                   filters={filters}
-                />}
-              />
-              <Route path="types/:typeId" element={<TypePage
-                dispatches={dispatches}
-                filters={filters}
-              />} />
+                />} />
 
-              <Route 
-                path='usageMethods' 
-                element={<UsageMethodSearch
-                  genFilter={genFilter}
-                />}
-              />
-              <Route path="usageMethods/:usageMethodId" element={<UsageMethodPage
-                dispatches={dispatches}
-                filters={filters}
-              />} />
+                <Route 
+                  path='items' 
+                  element={<ItemSearch
+                    dispatches={dispatches}
+                    filters={filters}
+                  />}
+                />
+                <Route path="items/:itemId" element={<ItemPage 
+                  dispatches={dispatches}
+                  filters={filters}
+                />} />
 
-              {/* */}
-              <Route
-                path='*'
-                element={
+                <Route 
+                  path='moves' 
+                  element={<MoveSearch
+                    dispatches={dispatches}
+                    filters={filters}
+                  />} 
+                >
+                </Route>
+                <Route path="moves/:moveId" element={<MovePage 
+                  dispatches={dispatches}
+                  filters={filters}
+                />} />
+
+                {/* */}
+                <Route 
+                  path='effects' 
+                  element={<EffectSearch
+                    genFilter={genFilter}
+                  />}
+                />
+                <Route path="effects/:effectId" element={<EffectPage
+                  dispatches={dispatches}
+                  filters={filters}
+                />} />
+
+                <Route 
+                  path='fieldStates' 
+                  element={<FieldStateSearch
+                    genFilter={genFilter}
+                  />}
+                />
+                <Route path="fieldStates/:fieldStateId" element={<FieldStatePage
+                  dispatches={dispatches}
+                  filters={filters}
+                />} />
+
+                <Route 
+                  path='stats' 
+                  element={<StatSearch
+                    genFilter={genFilter}
+                  />}
+                />
+                <Route path="stats/:statId" element={<StatPage
+                  dispatches={dispatches}
+                  filters={filters}
+                />} />
+
+                <Route 
+                  path='statuses' 
+                  element={<StatusSearch
+                    genFilter={genFilter}
+                  />}
+                />
+                <Route path="statuses/:statusId" element={<StatusPage
+                  dispatches={dispatches}
+                  filters={filters}
+                />} />
+
+                <Route 
+                  path='types' 
+                  element={<TypeSearch
+                    dispatches={dispatches}
+                    filters={filters}
+                  />}
+                />
+                <Route path="types/:typeId" element={<TypePage
+                  dispatches={dispatches}
+                  filters={filters}
+                />} />
+
+                <Route 
+                  path='usageMethods' 
+                  element={<UsageMethodSearch
+                    genFilter={genFilter}
+                  />}
+                />
+                <Route path="usageMethods/:usageMethodId" element={<UsageMethodPage
+                  dispatches={dispatches}
+                  filters={filters}
+                />} />
+
+                {/* */}
+                <Route
+                  path='*'
+                  element={
+                    <main>
+                      Bad Planner link
+                    </main>
+                  }
+                />
+
+              {/* Bad link */}
+              <Route path="*" element={
                   <main>
-                    Bad Planner link
+                    Bad link
                   </main>
-                }
-              />
-
-            {/* Bad link */}
-            <Route path="*" element={
-                <main>
-                  Bad link
-                </main>
-            } />
-            </Route>
-          </Routes>
+              } />
+              </Route>
+            </Routes>
+          </ErrorBoundary>
         </div>
       </main>
       <div role="presentation" className={classWithBG("right-bg-panel", bgManager)} />

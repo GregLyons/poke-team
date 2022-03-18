@@ -1,6 +1,7 @@
 import { BGManager, classWithBG, classWithBGShadow } from '../../hooks/App/BGManager';
 import { Team } from '../../hooks/App/Team';
 import { Dispatches, Filters } from '../App';
+import ErrorBoundary from '../Reusables/ErrorBoundary/ErrorBoundary';
 import './ControlPanel.css';
 import GenFilterForm from "./GenFilterForm/GenFilterForm";
 import ImportExport from './ImportExport/ImportExport';
@@ -35,36 +36,44 @@ const ControlPanel = ({
     >
       <section className={classWithBGShadow("gen-filter__cell", bgManager)}>
         <h2 className="hidden-header">Change generation</h2>
-        <GenFilterForm
-          genFilter={filters.genFilter}
-          dispatchGenFilter={dispatches.dispatchGenFilter}
-        />
+        <ErrorBoundary>
+          <GenFilterForm
+            genFilter={filters.genFilter}
+            dispatchGenFilter={dispatches.dispatchGenFilter}
+          />
+        </ErrorBoundary>
       </section>
       <section className={classWithBGShadow("tier-filter__cell", bgManager)}>
         <h2 className="hidden-header">Tier filter</h2>
-        <TierFilterForm
-          genFilter={filters.genFilter}
-          tierFilter={filters.tierFilter}
-          dispatchTierFilter={dispatches.dispatchTierFilter}
-          bgManager={bgManager}
-        />
+        <ErrorBoundary>
+          <TierFilterForm
+            genFilter={filters.genFilter}
+            tierFilter={filters.tierFilter}
+            dispatchTierFilter={dispatches.dispatchTierFilter}
+            bgManager={bgManager}
+          />
+        </ErrorBoundary>
       </section>
       <section className="team__cell">
         <h2 className="hidden-header">Team display</h2>
-        <PokemonTeam
-          dispatchCart={dispatches.dispatchCart}
-          dispatchTeam={dispatches.dispatchTeam}
-          genFilter={filters.genFilter}
-          team={team}
-        />
+        <ErrorBoundary>
+          <PokemonTeam
+            dispatchCart={dispatches.dispatchCart}
+            dispatchTeam={dispatches.dispatchTeam}
+            genFilter={filters.genFilter}
+            team={team}
+          />
+        </ErrorBoundary>
       </section>
       <section className={classWithBGShadow("import-export__cell", bgManager)}>
         <h2 className="hidden-header">Import and export teams</h2>
-        <ImportExport
-          dispatches={dispatches}
-          filters={filters}
-          team={team}
-        />
+        <ErrorBoundary>
+          <ImportExport
+            dispatches={dispatches}
+            filters={filters}
+            team={team}
+          />
+        </ErrorBoundary>
       </section>
       <>
         <PokemonFilterForm

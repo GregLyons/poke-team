@@ -1,5 +1,6 @@
 import { Team } from "../../../hooks/App/Team";
 import { Dispatches, Filters } from "../../App";
+import ErrorBoundary from "../../Reusables/ErrorBoundary/ErrorBoundary";
 import Export from "./Export/Export";
 import Import from "./Import/Import";
 import './ImportExport.css';
@@ -19,15 +20,17 @@ const ImportExport = ({
     <div
       className="import-export__wrapper"
     >
-      <Import
-        teamDispatch={dispatches.dispatchTeam}
-        filters={filters}
-        team={team}
-      />
-      <Export
-        filters={filters}
-        team={team}
-      />
+      <ErrorBoundary>
+        <Import
+          teamDispatch={dispatches.dispatchTeam}
+          filters={filters}
+          team={team}
+        />
+        <Export
+          filters={filters}
+          team={team}
+        />
+      </ErrorBoundary>
     </div>
   );
 };

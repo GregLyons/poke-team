@@ -10,6 +10,7 @@ import {
 } from "../../../utils/smogonLogic";
 import Button from '../../Reusables/Button/Button';
 import DropdownMenu from "../../Reusables/DropdownMenu/DropdownMenu";
+import ErrorBoundary from '../../Reusables/ErrorBoundary/ErrorBoundary';
 import './TierFilterForm.css';
 
 
@@ -102,58 +103,60 @@ const TierFilterForm = ({
   }, [genFilter, dispatchTierFilter]);
 
   return (
-    <form className="tier-filter__wrapper">
-      <div className="tier-filter__buttons">
-        <label htmlFor="singles">
-          <Button
-            title='Filter Pokemon based on their tier in Singles battles.'
-            active={tierFilter.format === 'singles'}
-            onClick={(e) => {
-              e.preventDefault();
-              handleFormatSelect('singles');
-            }}
-            label='SINGLES'
-            disabled={false}
-            immediate={false}
-          />
-        </label>
-        <label htmlFor="doubles">
-          <Button
-            title='Filter Pokemon based on their tier in Doubles battles.'
-            active={tierFilter.format === 'doubles'}
-            onClick={(e) => {
-              e.preventDefault();
-              handleFormatSelect('doubles')
-            }}
-            label='DOUBLES'
-            disabled={genFilter.gen < 3}
-            immediate={false}
-          />
-        </label>
-      </div>
-      <div className="tier-filter__select">
-        <label htmlFor="Tier select">
-          {tierFilter.format === 'singles'
-            ? <DropdownMenu 
-                title={'TIER FILTER'}
-                items={singlesItems}
-                toggleSelect={handleTierSelect}
-                dropdownWidth={'clamp(5vw, 50ch, 80%)'}
-                itemWidth={'6ch'}
-                backgroundLight={bgManager.bgColor}
-              />
-            : <DropdownMenu 
-                title={'TIER FILTER'}
-                items={doublesItems}
-                toggleSelect={handleTierSelect}
-                dropdownWidth={'clamp(5vw, 50ch, 80%)'}
-                itemWidth={'6ch'}
-                backgroundLight={bgManager.bgColor}
-              />
-          }
-        </label>
-      </div>
-    </form>
+    <ErrorBoundary>
+      <form className="tier-filter__wrapper">
+        <div className="tier-filter__buttons">
+          <label htmlFor="singles">
+            <Button
+              title='Filter Pokemon based on their tier in Singles battles.'
+              active={tierFilter.format === 'singles'}
+              onClick={(e) => {
+                e.preventDefault();
+                handleFormatSelect('singles');
+              }}
+              label='SINGLES'
+              disabled={false}
+              immediate={false}
+            />
+          </label>
+          <label htmlFor="doubles">
+            <Button
+              title='Filter Pokemon based on their tier in Doubles battles.'
+              active={tierFilter.format === 'doubles'}
+              onClick={(e) => {
+                e.preventDefault();
+                handleFormatSelect('doubles')
+              }}
+              label='DOUBLES'
+              disabled={genFilter.gen < 3}
+              immediate={false}
+            />
+          </label>
+        </div>
+        <div className="tier-filter__select">
+          <label htmlFor="Tier select">
+            {tierFilter.format === 'singles'
+              ? <DropdownMenu 
+                  title={'TIER FILTER'}
+                  items={singlesItems}
+                  toggleSelect={handleTierSelect}
+                  dropdownWidth={'clamp(5vw, 50ch, 80%)'}
+                  itemWidth={'6ch'}
+                  backgroundLight={bgManager.bgColor}
+                />
+              : <DropdownMenu 
+                  title={'TIER FILTER'}
+                  items={doublesItems}
+                  toggleSelect={handleTierSelect}
+                  dropdownWidth={'clamp(5vw, 50ch, 80%)'}
+                  itemWidth={'6ch'}
+                  backgroundLight={bgManager.bgColor}
+                />
+            }
+          </label>
+        </div>
+      </form>
+    </ErrorBoundary>
   )
 }
 

@@ -6,6 +6,7 @@ import { toCapsTypeName, toFormattedTypeName, TypeName } from "../../../types-qu
 import Button from "../../Reusables/Button/Button";
 import DoubleSlider from "../../Reusables/DoubleSlider/DoubleSlider";
 import DropdownMenu from "../../Reusables/DropdownMenu/DropdownMenu";
+import ErrorBoundary from "../../Reusables/ErrorBoundary/ErrorBoundary";
 import './PokemonFilterForm.css';
 
 
@@ -113,118 +114,122 @@ const PokemonFilterForm = ({
     <>
     <section className={classWithBGShadow("type-filter__cell", bgManager)}>
       <h2 className="hidden-header">Type filter</h2>
-      <form className="type-filter__wrapper">
-        <div className="type-filter__button">
-          <label htmlFor="Select all types">
-            <Button
-              title={'Include all types.'}
-              label='RESET'
-              active={true}
-              onClick={e => {
-                e.preventDefault();
-                dispatchPokemonFilter({
-                  type: 'select_all_types',
-                })
-              }}
-              disabled={false}
-              immediate={true}
-            />
-          </label>
-        </div>
-        <div className="type-filter__select">
-          <label htmlFor="Type select">
-            <DropdownMenu
-              title={'TYPE FILTER'}
-              items={TYPE_NAMES.map((typeName: TypeName) => {
-                const selected = pokemonFilter.types[typeName];
+      <ErrorBoundary>
+        <form className="type-filter__wrapper">
+          <div className="type-filter__button">
+            <label htmlFor="Select all types">
+              <Button
+                title={'Include all types.'}
+                label='RESET'
+                active={true}
+                onClick={e => {
+                  e.preventDefault();
+                  dispatchPokemonFilter({
+                    type: 'select_all_types',
+                  })
+                }}
+                disabled={false}
+                immediate={true}
+              />
+            </label>
+          </div>
+          <div className="type-filter__select">
+            <label htmlFor="Type select">
+              <DropdownMenu
+                title={'TYPE FILTER'}
+                items={TYPE_NAMES.map((typeName: TypeName) => {
+                  const selected = pokemonFilter.types[typeName];
 
-                return {
-                  id: typeName,
-                  label: (
-                    <Button
-                      title={selected
-                        ? `Exclude ${toFormattedTypeName(typeName)}-type Pokemon.`
-                        : `Include ${toFormattedTypeName(typeName)}-type Pokemon.`
-                      }
-                      label={toCapsTypeName(typeName)}
-                      active={selected}
-                      onClick={e => e.preventDefault()}
-                      disabled={false}
-                      immediate={false}
-                    />
-                  ),
-                  selected,
-                }
-              })}
-              toggleSelect={handleTypeSelect}
-              dropdownWidth={'clamp(5vw, 50ch, 80%)'}
-              itemWidth={'10ch'}
-              backgroundLight={bgManager.bgColor}
-            />
-          </label>
-        </div>
-      </form>
+                  return {
+                    id: typeName,
+                    label: (
+                      <Button
+                        title={selected
+                          ? `Exclude ${toFormattedTypeName(typeName)}-type Pokemon.`
+                          : `Include ${toFormattedTypeName(typeName)}-type Pokemon.`
+                        }
+                        label={toCapsTypeName(typeName)}
+                        active={selected}
+                        onClick={e => e.preventDefault()}
+                        disabled={false}
+                        immediate={false}
+                      />
+                    ),
+                    selected,
+                  }
+                })}
+                toggleSelect={handleTypeSelect}
+                dropdownWidth={'clamp(5vw, 50ch, 80%)'}
+                itemWidth={'10ch'}
+                backgroundLight={bgManager.bgColor}
+              />
+            </label>
+          </div>
+        </form>
+      </ErrorBoundary>
     </section>
     <section className={classWithBGShadow("stat-filter__cell", bgManager)}>
       <h2 className="hidden-header">Stat filter</h2>
-      <form className="stat-filter__wrapper">
-        <div className="stat-filter__button">
-          <label htmlFor="Reset stats">
-            <Button
-              title={'Reset stat filters to defaults.'}
-              label='RESET'
-              active={true}
-              onClick={e => {
-                e.preventDefault();
-                dispatchPokemonFilter({
-                  type: 'reset_stat_filter',
-                });
-              }}
-              disabled={false}
-              immediate={true}
-            />
-          </label>
-        </div>
-        <div className="stat-filter__select">
-          <label htmlFor="Filter out Pokemon depending on base stats.">
-            <DropdownMenu
-              title="STAT FILTER"
-              items={BASE_STAT_NAMES.map(baseStatName => {
-                return {
-                  id: baseStatName,
-                  label: (
-                    <div 
-                      className="stat-filter__base-stat-wrapper"
-                    > 
-                      <div className="stat-filter__base-stat-name">
-                        {toAbbreviatedBaseStatName(baseStatName).length === 3
-                          ? toAbbreviatedBaseStatName(baseStatName)
-                          : <>{toAbbreviatedBaseStatName(baseStatName)}&nbsp;</>}
+      <ErrorBoundary>
+        <form className="stat-filter__wrapper">
+          <div className="stat-filter__button">
+            <label htmlFor="Reset stats">
+              <Button
+                title={'Reset stat filters to defaults.'}
+                label='RESET'
+                active={true}
+                onClick={e => {
+                  e.preventDefault();
+                  dispatchPokemonFilter({
+                    type: 'reset_stat_filter',
+                  });
+                }}
+                disabled={false}
+                immediate={true}
+              />
+            </label>
+          </div>
+          <div className="stat-filter__select">
+            <label htmlFor="Filter out Pokemon depending on base stats.">
+              <DropdownMenu
+                title="STAT FILTER"
+                items={BASE_STAT_NAMES.map(baseStatName => {
+                  return {
+                    id: baseStatName,
+                    label: (
+                      <div 
+                        className="stat-filter__base-stat-wrapper"
+                      > 
+                        <div className="stat-filter__base-stat-name">
+                          {toAbbreviatedBaseStatName(baseStatName).length === 3
+                            ? toAbbreviatedBaseStatName(baseStatName)
+                            : <>{toAbbreviatedBaseStatName(baseStatName)}&nbsp;</>}
+                        </div>
+                        <DoubleSlider
+                          titleFor={toFormattedBaseStatName(baseStatName)}
+                          min={0}
+                          minValue={pokemonFilter.minBaseStats[baseStatName]}
+                          updateMinValue={updateMinValue(baseStatName)}
+        
+                          max={255}
+                          maxValue={pokemonFilter.maxBaseStats[baseStatName]}
+                          updateMaxValue={updateMaxValue(baseStatName)}
+        
+                          sliderWidth="clamp(75px, 7.5vw, 150px)"
+                        />
                       </div>
-                      <DoubleSlider
-                        titleFor={toFormattedBaseStatName(baseStatName)}
-                        min={0}
-                        minValue={pokemonFilter.minBaseStats[baseStatName]}
-                        updateMinValue={updateMinValue(baseStatName)}
-      
-                        max={255}
-                        maxValue={pokemonFilter.maxBaseStats[baseStatName]}
-                        updateMaxValue={updateMaxValue(baseStatName)}
-      
-                        sliderWidth="clamp(75px, 7.5vw, 150px)"
-                      />
-                    </div>
-                  ),
-                  selected: true,
-                };
-              })}
-              dropdownWidth={'clamp(5vw, 50ch, 80%)'}
-              itemWidth={'100%'}
-              backgroundLight={bgManager.bgColor}
-            />
-          </label>
-        </div>
-      </form>
+                    ),
+                    selected: true,
+                  };
+                })}
+                dropdownWidth={'clamp(5vw, 50ch, 80%)'}
+                itemWidth={'100%'}
+                backgroundLight={bgManager.bgColor}
+              />
+            </label>
+          </div>
+        </form>
+      </ErrorBoundary>
     </section>
     </>
   )

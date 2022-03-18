@@ -22,10 +22,10 @@ const LoadIcon = ({
     <div
       ref={wrapperRef}
       className="load-icon__wrapper"
-      title="Loading..."
     >
       <div
         className="pokeball__wrapper"
+        title="Loading..."
         style={{
           width: diameter,
           height: diameter,
