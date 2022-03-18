@@ -14,7 +14,7 @@ export const listRenderItemEffect = ({ data, }: ListRenderArgs<ItemEffectQuery>)
   const effectResults = parent.effects.edges.map(edge => new ItemEffectResult(edge));
   
   return (
-    <>
+    <ul>
       <li className="planner-accordion__subitem">
         <div className="planner-accordion__subitem-shadow" />
         <ul className="planner-accordion__sub-item-results">
@@ -30,7 +30,7 @@ export const listRenderItemEffect = ({ data, }: ListRenderArgs<ItemEffectQuery>)
           ))}
         </ul>
       </li>
-    </>
+    </ul>
   )
 }
 
@@ -45,7 +45,7 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
   const resistsResults = parent.resistsFieldState.edges.map(edge => new ItemFieldStateResult(edge));
 
   return (
-    <>
+    <ul>
       {activatedByResults.length > 0 && (
       <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
@@ -148,7 +148,7 @@ export const listRenderItemFieldState = ({ data, }: ListRenderArgs<ItemFieldStat
           ))}
         </ul>
       </li>)}
-    </>
+    </ul>
   )
 }
 
@@ -164,7 +164,7 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
   const reduceMultiplierResults = statResults.filter(result => result.multiplier < 1);
 
   return (
-    <>
+    <ul>
       {boostStageResults.length > 0 && (
       <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
@@ -301,7 +301,7 @@ export const listRenderItemStat = ({ data, }: ListRenderArgs<ItemStatQuery>) => 
           ))}
         </ul>
       </li>)}
-    </>
+    </ul>
   );
 }
 
@@ -314,7 +314,7 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
   const resistsResults = parent.resistsStatus.edges.map(edge => new ItemStatusResult(edge));
 
   return (
-    <>
+    <ul>
       {causesResults.length > 0 && (
       <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
@@ -365,7 +365,7 @@ export const listRenderItemStatus = ({ data, }: ListRenderArgs<ItemStatusQuery>)
           ))}
         </ul>
       </li>)}
-    </>
+    </ul>
   );
 }
 
@@ -379,7 +379,7 @@ export const listRenderItemType = ({ data, dispatches, filters, }: ListRenderArg
   const resistsResults = parent.resistsType.edges.map(edge => new ItemTypeResult(edge));
 
   return (
-    <>
+    <ul>
       {boostsResults.length > 0 && (
       <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
@@ -473,7 +473,7 @@ export const listRenderItemType = ({ data, dispatches, filters, }: ListRenderArg
           ))}
         </ul>
       </li>)}
-    </>
+    </ul>
   );
 }
 
@@ -487,7 +487,7 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
   const resistsResults = parent.resistsUsageMethod.edges.map(edge => new ItemUsageMethodResult(edge));
 
   return (
-    <>
+    <ul>
       {activatedByResults.length > 0 && (
       <li className="planner-accordion__subitem planner-accordion__subitem--positive">
         <div className="planner-accordion__subitem-shadow--positive" />
@@ -565,6 +565,6 @@ export const listRenderItemUsageMethod = ({ data, }: ListRenderArgs<ItemUsageMet
           ))}
         </ul>
       </li>)}
-    </>
+    </ul>
   );
 }

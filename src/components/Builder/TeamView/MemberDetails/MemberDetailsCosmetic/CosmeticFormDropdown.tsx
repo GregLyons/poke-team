@@ -13,7 +13,7 @@ const CosmeticFormDropdown = ({
 }: CosmeticFormDropdownProps) => {
   return (
     <DropdownMenu
-      title={`Cosmetic`}
+      title={`Select cosmetic forms for ${member.formattedName}.`}
       items={member.cosmeticForms.map(d => {
         const selected = d.psID === member.psID;
 

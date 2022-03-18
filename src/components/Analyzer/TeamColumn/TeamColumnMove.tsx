@@ -116,7 +116,7 @@ const TeamColumnMove = ({
 
   return (
     <>
-      {member?.moveset[moveIdx] && <Popup
+      {member && <Popup
         trigger={<div
           className={`
           team-column__text
@@ -124,7 +124,7 @@ const TeamColumnMove = ({
           `}
           onClick={onEntityClick(member?.psID || 'a', member?.moveset[moveIdx]?.psID || 'a')}
         >
-          {move?.formattedName || ''}
+          {move?.formattedName || 'Empty moveslot'}
         </div>}
         content={<PopupSearch
           data={dataWithoutDuplicates?.pokemonByPSID?.[0]?.moves?.edges.map(edge => edge)}

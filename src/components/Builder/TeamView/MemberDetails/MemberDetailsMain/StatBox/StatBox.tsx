@@ -32,6 +32,7 @@ const StatBox = ({
     <MemberDetailInnerBox
       forClass="nature"
       header="Nature"
+      title="Modify nature."
       content={<div
           className={`
             member-details__nature-wrapper
@@ -66,6 +67,7 @@ const StatBox = ({
     <MemberDetailInnerBox
       forClass="evs"
       header="EVs"
+      title="Modify EVs."
       content={<SpreadTable
         statTable={member?.evs || (gen > 2 ? DEFAULT_EV_SPREAD : DEFAULT_EV_SPREAD_GENS12)}
         tableFor={'ev'}
@@ -81,6 +83,7 @@ const StatBox = ({
 
     {/* IVs */}
     <MemberDetailInnerBox
+      title="Modify IVs."
       forClass="ivs"
       header={gen < 3 ? 'DVs' : 'IVs'}
       content={<SpreadTable
@@ -95,6 +98,7 @@ const StatBox = ({
 
     {/* Hidden power */}
     <MemberDetailInnerBox
+      title="Select hidden-power type. Will change IVs for maximum possible power."
       forClass="hidden-power"
       header={'Hidden Power'}
       content={<div
@@ -124,6 +128,7 @@ const StatBox = ({
 
     <MemberDetailInnerBox
       forClass="graph"
+      title={`Graph of stats.`}
       header="Stat values"
       content={member !== null
         ? <StatGraph

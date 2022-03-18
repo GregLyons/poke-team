@@ -163,7 +163,7 @@ const ConnectionAccordionEntry = ({
         handleAddToCart={handleAddToCart}
       />}
     </li>
-  )
+  );
 }
 
 export default ConnectionAccordionEntry;

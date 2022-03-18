@@ -85,7 +85,7 @@ const TeamColumnItem = ({
 
   return (
     <>
-      {member?.item && <Popup
+      {member && <Popup
         trigger={
           <div
             className={`
@@ -94,7 +94,7 @@ const TeamColumnItem = ({
             `}
             onClick={onEntityClick(member?.psID || 'a', member?.item?.psID || 'a')}
           >
-            {item?.formattedName || ''}
+            {item?.formattedName || 'Empty item'}
           </div>}
         content={<PopupSearch
           data={data?.items?.edges.map(edge => edge)}

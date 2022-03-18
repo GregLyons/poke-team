@@ -51,7 +51,7 @@ const StatGraph = ({
   };
 
   return (
-    <div
+    <ul
       className="member-details__graph-wrapper"
     >
       {Object.keys(evs).map(key => {
@@ -75,33 +75,36 @@ const StatGraph = ({
         }
 
         return (
-          <div
-            className="member-details__graph-row-wrapper"
+          <li
             key={statName}
           >
-            <div className="member-details__graph-name">
-              {statName === 'hp'
-                ? <>{toAbbreviatedBaseStatName(statName)}</>
-                : toAbbreviatedBaseStatName(statName)
-              }
-            </div>
-            <div className="member-details__graph-value">
-              {Math.floor(value)}
-            </div>
-            <div className={`
-              member-details__graph-row
-              ${rating}
-            `}
-              style={{
-                width: statPercentObj[statName] + '%',
-                minWidth: '10px',
-                height: '1rem',
-              }}
-            />
-          </div>
+            <dl
+              className="member-details__graph-row-wrapper"
+            >
+              <dt className="member-details__graph-name">
+                {statName === 'hp'
+                  ? <>{toAbbreviatedBaseStatName(statName)}</>
+                  : toAbbreviatedBaseStatName(statName)
+                }
+              </dt>
+              <dd className="member-details__graph-value">
+                {Math.floor(value)}
+              </dd>
+              <div className={`
+                member-details__graph-row
+                ${rating}
+              `}
+                style={{
+                  width: statPercentObj[statName] + '%',
+                  minWidth: '10px',
+                  height: '1rem',
+                }}
+              />
+            </dl>
+          </li>
         )
       })}
-    </div>
+    </ul>
   )
 };
 

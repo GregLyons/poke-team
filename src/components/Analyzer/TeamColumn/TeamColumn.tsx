@@ -32,7 +32,7 @@ const TeamColumn = ({
   }, [filters, team, ]);
 
   return (
-    <div
+    <ol
       className="team-column__wrapper"
     >
       {members.map((member, idx) => <TeamColumnMember
@@ -47,7 +47,7 @@ const TeamColumn = ({
           onPopupClose={onPopupClose}
         />
       )}
-    </div>
+    </ol>
   );
 };
 

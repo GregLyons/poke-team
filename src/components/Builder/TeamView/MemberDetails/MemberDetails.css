@@ -72,8 +72,8 @@
 }
 
 /* When hovering over enabled, interactive box/inner box, change cursor */
-.member-details__box.--interactive:not(.--has-inner-box):not(.--disabled):hover,
-.member-details__inner-box.--interactive:hover {
+.member-details__box.--interactive:not(.--has-inner-box):not(.--disabled) .member-details__content:hover,
+.member-details__inner-box.--interactive:not(.--disabled) .member-details__inner-content:hover {
   cursor: pointer;
 }
 

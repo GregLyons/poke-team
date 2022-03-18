@@ -87,7 +87,7 @@ const TeamColumnAbility = ({
 
   return (
     <>
-      {member?.ability && <Popup
+      {member && <Popup
         trigger={
           <div
             className={`
@@ -96,7 +96,7 @@ const TeamColumnAbility = ({
             `}
             onClick={onEntityClick(member?.psID || 'a', member?.ability?.psID || 'a')}
           >
-            {ability?.formattedName || ''}
+            {ability?.formattedName || 'Empty ability'}
           </div>}
         content={<PopupSearch
           data={data?.pokemonByPSID?.[0]?.abilities?.edges.map(edge => edge)}

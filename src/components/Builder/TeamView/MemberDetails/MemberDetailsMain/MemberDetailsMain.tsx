@@ -31,6 +31,7 @@ const MemberDetailsMain = ({
       <MemberDetailBox
         forClass="ability"
         header="Ability"
+        title="Select ability."
         content={<>{member?.ability?.formattedName}</>}
 
         active={view?.mode === 'ABILITY'}
@@ -45,6 +46,7 @@ const MemberDetailsMain = ({
       <MemberDetailBox
         forClass="item"
         header="Item"
+        title="Select item."
         content={<>
           <div className="member-details__item-icon">
             {member?.item && <ItemIcon
@@ -71,6 +73,7 @@ const MemberDetailsMain = ({
       <MemberDetailBox
         forClass="moveset"
         header="Moveset"
+        title="Modify moveset."
         content={<div
           className="member-details__moveset-wrapper"
         >
@@ -82,6 +85,7 @@ const MemberDetailsMain = ({
             return (
               <MemberDetailInnerBox
                 key={moveIdx}
+                title={`Select move ${moveIdx + 1}`}
                 forClass="move"
                 header={`Slot ${moveIdx + 1}`}
                 content={<MemberDetailsMoveSlot
@@ -105,6 +109,7 @@ const MemberDetailsMain = ({
       <MemberDetailBox
         forClass="stats"
         header="Stats"
+        title="Modify stats"
         content={<StatBox
           member={member}
           handlers={handlers}

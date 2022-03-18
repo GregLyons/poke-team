@@ -199,13 +199,14 @@ p {
 }
 
 /* Remove default list styles */
-ul, dl {
+ol, ul, dl {
   margin-block-start: 0;
   margin-block-end: 0;
   padding-inline-start: 0;
 }
-li {
+li, dd, dt {
   list-style: none;
+  margin-inline-start: 0;
 }
 
 /* Scrollbars */

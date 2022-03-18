@@ -26,6 +26,7 @@ const MemberDetailsExtra = ({
       <MemberDetailBox
         forClass="nickname"
         header="Nickname"
+        title="Select nickname."
         content={<TextInput
           title="Give this Pokemon a nickname"
           placeholder="Nickname"
@@ -42,6 +43,7 @@ const MemberDetailsExtra = ({
       <MemberDetailBox
         forClass="level"
         header="Level"
+        title="Select level."
         content={member && <Slider
           titleFor="Level"
 
@@ -61,6 +63,7 @@ const MemberDetailsExtra = ({
       <MemberDetailBox
         forClass="gender"
         header="Gender"
+        title="Select gender."
         content={<>{member.gender}</>}
 
         interactive={true}
@@ -73,6 +76,10 @@ const MemberDetailsExtra = ({
       <MemberDetailBox
         forClass="shiny"
         header="Shiny"
+        title={member.shiny
+          ? "Turn off shiny."
+          : "Turn on shiny."
+        }
         content={<>{member.shiny ? 'Yes' : 'No'}</>}
 
         onContentClick={handlers.toggleShiny}
@@ -86,6 +93,7 @@ const MemberDetailsExtra = ({
       <MemberDetailBox
         forClass="happiness"
         header="Happiness"
+        title="Select happiness level."
         content={<Slider
           titleFor="Happiness"
           min={0}

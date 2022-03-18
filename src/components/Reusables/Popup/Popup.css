@@ -10,6 +10,10 @@
 .popup-trigger:hover {
   cursor: pointer;
 }
+.popup-trigger:hover,
+.popup-trigger:focus {
+  text-decoration: underline;
+}
 
 .popup-trigger--bottom {
   padding: 0.125rem 0.25rem 0 0.25rem;

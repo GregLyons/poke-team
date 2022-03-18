@@ -19,6 +19,7 @@ const MemberDetailsCosmetic = ({
     <MemberDetailBox
       forClass="cosmetic-wrapper"
       header={member.formattedName}
+      title={`Cosmetic options for ${member.formattedName}.`}
       content={<div
           className="member-details__icon-options-wrapper"
         >

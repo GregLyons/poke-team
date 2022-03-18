@@ -3,6 +3,7 @@ import { GenNum } from "../../../../types-queries/entities"
 type MemberDetailBoxProps = {
   forClass: string
   header: string
+  title?: string
   content: JSX.Element
 
   active?: boolean
@@ -18,6 +19,7 @@ type MemberDetailBoxProps = {
 const MemberDetailBox = ({
   forClass,
   header,
+  title,
   content,
 
   active,
@@ -56,16 +58,23 @@ const MemberDetailBox = ({
         ? ''
         : active 
           ? 'Active'
-          :header}
+          : header}
       </div>
-      <div
+      <button
+        title={invalidGen
+          ? 'Not available in this Gen.'
+          : hasInnerBox
+            ? ''
+            : title
+        }
         className={`
           member-details__content
         `}
         onClick={onContentClick && !invalidGen ? onContentClick : () => {}}
+        disabled={!onContentClick || invalidGen}
       >
         {invalidGen ? '' : content}
-      </div>
+      </button>
     </div>
   );
 };

@@ -20,7 +20,7 @@ const Popup = ({
   onClose,
   forceClose,
 }: PopupProps) => {
-  const triggerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   const [isActive, setIsActive] = useState(false);
@@ -99,7 +99,7 @@ const Popup = ({
 
   return (
     <div className="popup-wrapper">
-      <div
+      <button
         className={`
           popup-trigger
           popup-trigger--${orientation}
@@ -112,7 +112,7 @@ const Popup = ({
         onClick={onClick}
       >
         {trigger}
-      </div>
+      </button>
       {isActive && <div
         className={`
           popup-content

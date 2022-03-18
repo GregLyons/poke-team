@@ -89,7 +89,7 @@ const TeamColumnNature = ({
 
   return (
     <>
-      {member?.nature && <Popup
+      {member && <Popup
         trigger={
           <div
             className={`
@@ -98,7 +98,7 @@ const TeamColumnNature = ({
             `}
             onClick={onEntityClick(member?.psID || 'a', member?.nature?.name || 'a')}
           >
-            {nature?.formattedName || ''}
+            {nature?.formattedName || 'Empty nature'}
           </div>}
         content={<PopupSearch
           data={data?.natures?.edges.map(edge => {

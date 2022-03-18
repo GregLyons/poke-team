@@ -101,6 +101,15 @@
   padding: var(--team-builder-gap);
   font-size: 0.8rem;
 }
+.member-details__evs-wrapper > li,
+.member-details__ivs-wrapper > li {
+  grid-row: span 1;
+  grid-column: span 1;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
 /* .member-details__evs-summary,
 .member-details__ivs-summary {
   padding: 0 0.5rem 0 0.5rem;

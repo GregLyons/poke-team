@@ -3,6 +3,7 @@ import { GenNum } from "../../../../types-queries/entities";
 type MemberDetailInnerBoxProps = {
   forClass: string
   header: string
+  title: string
   content: JSX.Element
 
   active?: boolean
@@ -17,6 +18,7 @@ type MemberDetailInnerBoxProps = {
 const MemberDetailInnerBox = ({
   forClass,
   header,
+  title,
   content,
 
   active,
@@ -53,12 +55,17 @@ const MemberDetailInnerBox = ({
             ? 'Active'
             :header}
       </div>
-      <div
+      <button
+        title={invalidGen
+          ? 'Not available in this Gen.'
+          : title
+        }
         className="member-details__inner-content"
         onClick={onContentClick && !invalidGen ? onContentClick : () => {}}
+        disabled={!onContentClick || invalidGen}
       >
         {invalidGen ? '' : content}
-      </div>
+      </button>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { BaseStatName, StatTable, toAbbreviatedBaseStatName } from "../../../../../../types-queries/entities";
+import { BaseStatName, StatTable, toAbbreviatedBaseStatName, toFormattedBaseStatName } from "../../../../../../types-queries/entities";
 
 type SpreadTableProps = {
   statTable: StatTable
@@ -10,7 +10,7 @@ const SpreadTable = ({
   tableFor,
 }: SpreadTableProps) => {
   return (
-    <div
+    <ul
       className={`
         member-details__${tableFor}s-wrapper
       `}
@@ -19,49 +19,40 @@ const SpreadTable = ({
         // Type guard
         const statName = (key as BaseStatName);
         if (!statName) return <></>;
-        
-        let classSuffix;
-        switch(statName) {
-          case 'specialAttack':
-            classSuffix = 'special-attack';
-            break;
-          case 'specialDefense':
-            classSuffix = 'special-defense';
-            break;
-          default:
-            classSuffix = statName;
-        }
 
         const abbrStatName = toAbbreviatedBaseStatName(statName);
 
         return (
-          <div
-            key={abbrStatName}
-            className={`
-              member-details__${tableFor}-wrapper
-              member-details__${tableFor}-wrapper--${classSuffix}
+          <li
+            title={`
+              Entry for ${toFormattedBaseStatName(statName)}.
             `}
+            key={abbrStatName}
           >
-            <div
+            <dl
               className={`
-                member-details__${tableFor}-name
-                member-details__${tableFor}-name--${classSuffix}
+                member-details__${tableFor}-wrapper
               `}
             >
-              {abbrStatName.length === 3 ? abbrStatName : <>{abbrStatName}&nbsp;</>}
-            </div>
-            <div
-              className={`
-                member-details__${tableFor}-value
-                member-details__${tableFor}-value--${classSuffix}
-              `}
-            >
-              {value}
-            </div>
-          </div>
+              <dt
+                className={`
+                  member-details__${tableFor}-name
+                `}
+              >
+                {abbrStatName.length === 3 ? abbrStatName : <>{abbrStatName}&nbsp;</>}
+              </dt>
+              <dd
+                className={`
+                  member-details__${tableFor}-value
+                `}
+              >
+                {value}
+              </dd>
+            </dl>
+          </li>
         )
       })}
-    </div>
+    </ul>
   )
 };
 

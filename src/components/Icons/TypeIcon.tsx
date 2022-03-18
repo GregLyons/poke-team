@@ -13,8 +13,9 @@ const TypeIcon = ({
   const { left, top, } = getTypeIcon(typeIconDatum.name);
 
   return (
-    <div className="type-icon icon"
-      title={typeIconDatum.formattedName}
+    <div
+      className="type-icon icon"
+      title={`${typeIconDatum.formattedName}-type`}
       style={{
         width: '32px',
         height: '12px',

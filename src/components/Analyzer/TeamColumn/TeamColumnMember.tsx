@@ -47,7 +47,7 @@ const TeamColumnMember = ({
   }, [relevantNames, member, ]);
 
   return (
-    <div
+    <li
       className={`
         team-column__member-wrapper
       `}
@@ -84,7 +84,7 @@ const TeamColumnMember = ({
           team-column__text
         `}
       >
-        {member?.formattedName || ''}
+        {member?.formattedName || 'Empty member'}
       </div>
       <div
         className={`
@@ -231,7 +231,7 @@ const TeamColumnMember = ({
           </>}
         </div>
       </>}
-    </div>
+    </li>
   )
 };
 
