@@ -5,6 +5,7 @@ import { PopupItemQuery, PopupItemVars, POPUP_ITEM_QUERY } from "../../../types-
 import { MemberItem, MemberItemResult } from "../../../types-queries/Member/MemberItem";
 import { MemberPokemon } from "../../../types-queries/Member/MemberPokemon";
 import { Filters } from "../../App";
+import ErrorBoundary from "../../Reusables/ErrorBoundary/ErrorBoundary";
 import Popup from "../../Reusables/Popup/Popup";
 import PopupSearch from "./PopupSearch";
 
@@ -84,7 +85,7 @@ const TeamColumnItem = ({
 
 
   return (
-    <>
+    <ErrorBoundary>
       {member && <Popup
         trigger={
           <div
@@ -108,7 +109,7 @@ const TeamColumnItem = ({
         onClose={onPopupClose}
         forceClose={forceClose}
       />}
-    </>
+    </ErrorBoundary>
   );
 };
 

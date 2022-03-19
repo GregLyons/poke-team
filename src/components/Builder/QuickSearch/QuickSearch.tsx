@@ -5,6 +5,7 @@ import { useDelayedQuery, useRemovalConnectedSearchBar } from '../../../hooks/Se
 import { PokemonQuickSearchQuery, PokemonQuickSearchVars, POKEMON_QUICKSEARCH_QUERY } from '../../../types-queries/Builder/QuickSearch';
 import { CapsTypeName, PokemonColumnName, PokemonIconDatum, PokemonPaginationInput, toCapsTypeName, TypeName } from '../../../types-queries/helpers';
 import { Dispatches, Filters } from '../../App';
+import ErrorBoundary from '../../Reusables/ErrorBoundary/ErrorBoundary';
 import LoadIcon from '../../Reusables/LoadIcon/LoadIcon';
 import SortSwitch from '../../Reusables/SortSwitch/SortSwitch';
 import './QuickSearch.css';
@@ -164,128 +165,132 @@ const QuickSearch = ({
         {searchBar}
       </form>
       <div className="quick-search__results">
-        <div 
-          className="quick-search__legend"
-        >
-          <div
-            className="quick-search__name"
+        <ErrorBoundary>
+          <div 
+            className="quick-search__legend"
           >
-            <span onClick={e => onPaginationChangeClick(e, 'POKEMON_SHOWDOWN_ID')}>Name</span>
-            <SortSwitch
-              titleFor="name"
-              onClick={e => onPaginationChangeClick(e, 'POKEMON_SHOWDOWN_ID')}
-              sortBy={pagination.orderBy === 'POKEMON_SHOWDOWN_ID' ? pagination.sortBy : null}
-            />
-          </div>
-          
-          <div
-            className="quick-search__typing"
-          >
-            Typing
-          </div>
-          <div
-            className="quick-search__tier"
-          >
-            <span>Tier</span>
-            {/* <span onClick={e => onPaginationChangeClick(e, 'tier')}>Tier</span> */}
-            {/* <SortSwitch
-              titleFor="tier"
-              onClick={e => onPaginationChangeClick(e, 'tier')}
-              sortBy={pagination.orderBy === 'tier' ? pagination.sortBy : null}
-            /> */}
-          </div>
-          <div className="quick-search__stats">
             <div
-              className="quick-search__stat"
-              onClick={e => onPaginationChangeClick(e, 'HP')}
+              className="quick-search__name"
             >
-              HP
+              <span onClick={e => onPaginationChangeClick(e, 'POKEMON_SHOWDOWN_ID')}>Name</span>
               <SortSwitch
-                titleFor="HP"
+                titleFor="name"
+                onClick={e => onPaginationChangeClick(e, 'POKEMON_SHOWDOWN_ID')}
+                sortBy={pagination.orderBy === 'POKEMON_SHOWDOWN_ID' ? pagination.sortBy : null}
+              />
+            </div>
+            
+            <div
+              className="quick-search__typing"
+            >
+              Typing
+            </div>
+            <div
+              className="quick-search__tier"
+            >
+              <span>Tier</span>
+              {/* <span onClick={e => onPaginationChangeClick(e, 'tier')}>Tier</span> */}
+              {/* <SortSwitch
+                titleFor="tier"
+                onClick={e => onPaginationChangeClick(e, 'tier')}
+                sortBy={pagination.orderBy === 'tier' ? pagination.sortBy : null}
+              /> */}
+            </div>
+            <div className="quick-search__stats">
+              <div
+                className="quick-search__stat"
                 onClick={e => onPaginationChangeClick(e, 'HP')}
-                sortBy={pagination.orderBy === 'HP' ? pagination.sortBy : null}
-              />
-            </div>
-            <div
-              className="quick-search__stat"
-              onClick={e => onPaginationChangeClick(e, 'ATTACK')}
-            >
-              Atk
-              <SortSwitch
-                titleFor="Attack"
+              >
+                HP
+                <SortSwitch
+                  titleFor="HP"
+                  onClick={e => onPaginationChangeClick(e, 'HP')}
+                  sortBy={pagination.orderBy === 'HP' ? pagination.sortBy : null}
+                />
+              </div>
+              <div
+                className="quick-search__stat"
                 onClick={e => onPaginationChangeClick(e, 'ATTACK')}
-                sortBy={pagination.orderBy === 'ATTACK' ? pagination.sortBy : null}
-              />
-            </div>
-            <div
-              className="quick-search__stat"
-              onClick={e => onPaginationChangeClick(e, 'DEFENSE')}
-            >
-              Def
-              <SortSwitch
-                titleFor="Defense"
+              >
+                Atk
+                <SortSwitch
+                  titleFor="Attack"
+                  onClick={e => onPaginationChangeClick(e, 'ATTACK')}
+                  sortBy={pagination.orderBy === 'ATTACK' ? pagination.sortBy : null}
+                />
+              </div>
+              <div
+                className="quick-search__stat"
                 onClick={e => onPaginationChangeClick(e, 'DEFENSE')}
-                sortBy={pagination.orderBy === 'DEFENSE' ? pagination.sortBy : null}
-              />
-            </div>
-            <div
-              className="quick-search__stat"
-              onClick={e => onPaginationChangeClick(e, 'SPECIAL_ATTACK')}
-            >
-              SpA
-              <SortSwitch
-                titleFor="Special Attack"
+              >
+                Def
+                <SortSwitch
+                  titleFor="Defense"
+                  onClick={e => onPaginationChangeClick(e, 'DEFENSE')}
+                  sortBy={pagination.orderBy === 'DEFENSE' ? pagination.sortBy : null}
+                />
+              </div>
+              <div
+                className="quick-search__stat"
                 onClick={e => onPaginationChangeClick(e, 'SPECIAL_ATTACK')}
-                sortBy={pagination.orderBy === 'SPECIAL_ATTACK' ? pagination.sortBy : null}
-              />
-            </div>
-            <div
-              className="quick-search__stat"
-              onClick={e => onPaginationChangeClick(e, 'SPECIAL_DEFENSE')}
-            >
-              SpD
-              <SortSwitch
-                titleFor="Special Defense"
+              >
+                SpA
+                <SortSwitch
+                  titleFor="Special Attack"
+                  onClick={e => onPaginationChangeClick(e, 'SPECIAL_ATTACK')}
+                  sortBy={pagination.orderBy === 'SPECIAL_ATTACK' ? pagination.sortBy : null}
+                />
+              </div>
+              <div
+                className="quick-search__stat"
                 onClick={e => onPaginationChangeClick(e, 'SPECIAL_DEFENSE')}
-                sortBy={pagination.orderBy === 'SPECIAL_DEFENSE' ? pagination.sortBy : null}
-              />
-            </div>
-            <div
-              className="quick-search__stat"
-              onClick={e => onPaginationChangeClick(e, 'SPEED')}
-            >
-              Spe
-              <SortSwitch
-                titleFor="Speed"
+              >
+                SpD
+                <SortSwitch
+                  titleFor="Special Defense"
+                  onClick={e => onPaginationChangeClick(e, 'SPECIAL_DEFENSE')}
+                  sortBy={pagination.orderBy === 'SPECIAL_DEFENSE' ? pagination.sortBy : null}
+                />
+              </div>
+              <div
+                className="quick-search__stat"
                 onClick={e => onPaginationChangeClick(e, 'SPEED')}
-                sortBy={pagination.orderBy === 'SPEED' ? pagination.sortBy : null}
-              />
-            </div>
-            <div
-              className="quick-search__stat"
-              onClick={e => onPaginationChangeClick(e, 'BASE_STAT_TOTAL')}
-            >
-              BST
-              <SortSwitch
-                titleFor="Base Stat Total"
+              >
+                Spe
+                <SortSwitch
+                  titleFor="Speed"
+                  onClick={e => onPaginationChangeClick(e, 'SPEED')}
+                  sortBy={pagination.orderBy === 'SPEED' ? pagination.sortBy : null}
+                />
+              </div>
+              <div
+                className="quick-search__stat"
                 onClick={e => onPaginationChangeClick(e, 'BASE_STAT_TOTAL')}
-                sortBy={pagination.orderBy === 'BASE_STAT_TOTAL' ? pagination.sortBy : null}
-              />
+              >
+                BST
+                <SortSwitch
+                  titleFor="Base Stat Total"
+                  onClick={e => onPaginationChangeClick(e, 'BASE_STAT_TOTAL')}
+                  sortBy={pagination.orderBy === 'BASE_STAT_TOTAL' ? pagination.sortBy : null}
+                />
+              </div>
+            </div>
+            <div className="quick-search__save-wrapper">
             </div>
           </div>
-          <div className="quick-search__save-wrapper">
-          </div>
-        </div>
-        {loading
-          ? <LoadIcon />
-          : data && <QuickSearchEntries
-              data={data}
-              team={team}
-              filters={filters}
-              onSaveClick={onSaveClick}
-              focusedOnInput={focusedOnInput}
-            />
-        }
+        </ErrorBoundary>
+        <ErrorBoundary>
+          {loading
+            ? <LoadIcon />
+            : data && <QuickSearchEntries
+                data={data}
+                team={team}
+                filters={filters}
+                onSaveClick={onSaveClick}
+                focusedOnInput={focusedOnInput}
+              />
+          }
+        </ErrorBoundary>
       </div>
     </section>
   )

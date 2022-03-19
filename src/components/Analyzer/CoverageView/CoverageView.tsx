@@ -7,6 +7,7 @@ import { AbilityMatchupQuery, ABILITY_MATCHUP_QUERY, ItemMatchupQuery, ITEM_MATC
 import { CapsTypeName, toCapsTypeName } from "../../../types-queries/helpers";
 import { MemberPokemon } from "../../../types-queries/Member/MemberPokemon";
 import { Dispatches, Filters } from "../../App";
+import ErrorBoundary from "../../Reusables/ErrorBoundary/ErrorBoundary";
 import LoadIcon from "../../Reusables/LoadIcon/LoadIcon";
 import TeamColumn from "../TeamColumn/TeamColumn";
 import './CoverageView.css';
@@ -215,91 +216,100 @@ const CoverageView = ({
     >
       <section className="team-column__cell">
         <h2 className="hidden-header">Your team</h2>
-        <TeamColumn
-          teamDispatch={dispatches.dispatchTeam}
-          filters={filters}
-          team={team}
-          mode={'normal'}
-          relevantNames={relevantNames}
-          onEntityClick={onEntityClick}
-          onPopupClose={onPopupClose}
-        />
+        <ErrorBoundary>
+          <TeamColumn
+            teamDispatch={dispatches.dispatchTeam}
+            filters={filters}
+            team={team}
+            mode={'normal'}
+            relevantNames={relevantNames}
+            onEntityClick={onEntityClick}
+            onPopupClose={onPopupClose}
+          />
+        </ErrorBoundary>
       </section>
       <section className="type-matchup__cell">
         <h2 className="hidden-header">Your team's type matchups</h2>
-        {loading_matchupAbility || loading_matchupItem || loading_matchupType || loading_coverageMove
-          ? <LoadIcon />
-          : data_matchupAbility && data_matchupItem && data_matchupType && data_coverageMove
-            ? <TypeMatchup
-                filters={filters}
+        <ErrorBoundary>
+          {loading_matchupAbility || loading_matchupItem || loading_matchupType || loading_coverageMove
+            ? <LoadIcon />
+            : data_matchupAbility && data_matchupItem && data_matchupType && data_coverageMove
+              ? <TypeMatchup
+                  filters={filters}
 
-                abilityData={data_matchupAbility} 
-                itemData={data_matchupItem} 
-                typingData={data_matchupType}
-                moveData={data_coverageMove}
+                  abilityData={data_matchupAbility} 
+                  itemData={data_matchupItem} 
+                  typingData={data_matchupType}
+                  moveData={data_coverageMove}
 
-                memberAndEntityPSIDs={memberAndEntityPSIDs}
-                onMouseOver={onMouseOver}
-                onMouseLeave={onMouseLeave}
-              />
-            : <div>Type matchup data not found.</div>
-        }
+                  memberAndEntityPSIDs={memberAndEntityPSIDs}
+                  onMouseOver={onMouseOver}
+                  onMouseLeave={onMouseLeave}
+                />
+              : <div>Type matchup data not found.</div>
+          }
+        </ErrorBoundary>
       </section>
       <section className="status-control__cell">
         <h2 className="hidden-header">Your team's ability to cause and resist status effects</h2>
-        {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
-          ? <LoadIcon />
-          : data_coverageAbility && data_coverageItem && data_coverageMove
-            ? <StatusControl
-                filters={filters}
-                
-                abilityData={data_coverageAbility} 
-                itemData={data_coverageItem} 
-                moveData={data_coverageMove}
+        <ErrorBoundary>
+          {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
+            ? <LoadIcon />
+            : data_coverageAbility && data_coverageItem && data_coverageMove
+              ? <StatusControl
+                  filters={filters}
+                  
+                  abilityData={data_coverageAbility} 
+                  itemData={data_coverageItem} 
+                  moveData={data_coverageMove}
 
-                memberAndEntityPSIDs={memberAndEntityPSIDs}
-                onMouseOver={onMouseOver}
-                onMouseLeave={onMouseLeave}
-              />
-            : <div>Status control data not found.</div>
-        }
+                  memberAndEntityPSIDs={memberAndEntityPSIDs}
+                  onMouseOver={onMouseOver}
+                  onMouseLeave={onMouseLeave}
+                />
+              : <div>Status control data not found.</div>
+          }
+        </ErrorBoundary>
       </section>
       <section className="field-control__cell">
         <h2 className="hidden-header">Your team's ability to create and mitigate hazards, weather, and terrain.</h2>
-        {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
-          ? <LoadIcon />
-          : data_coverageAbility && data_coverageItem && data_coverageMove
-            ? <FieldControl
-                filters={filters}
+        <ErrorBoundary>
+          {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
+            ? <LoadIcon />
+            : data_coverageAbility && data_coverageItem && data_coverageMove
+              ? <FieldControl
+                  filters={filters}
 
-                abilityData={data_coverageAbility} 
-                itemData={data_coverageItem} 
-                moveData={data_coverageMove}
+                  abilityData={data_coverageAbility} 
+                  itemData={data_coverageItem} 
+                  moveData={data_coverageMove}
 
-                memberAndEntityPSIDs={memberAndEntityPSIDs}
-                onMouseOver={onMouseOver}
-                onMouseLeave={onMouseLeave}
-              />
-            : <div>Field control data not found.</div>
-        }
+                  memberAndEntityPSIDs={memberAndEntityPSIDs}
+                  onMouseOver={onMouseOver}
+                  onMouseLeave={onMouseLeave}
+                />
+              : <div>Field control data not found.</div>
+          }
+        </ErrorBoundary>
       </section>
       <section className="speed-control__cell">
         <h2 className="hidden-header">Your team's forms of speed control.</h2>
-        {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
-          ? <LoadIcon />
-          : data_coverageAbility && data_coverageItem && data_coverageMove
-            ? <SpeedControl
-                abilityData={data_coverageAbility} 
-                itemData={data_coverageItem} 
-                moveData={data_coverageMove}
+        <ErrorBoundary>
+          {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
+            ? <LoadIcon />
+            : data_coverageAbility && data_coverageItem && data_coverageMove
+              ? <SpeedControl
+                  abilityData={data_coverageAbility} 
+                  itemData={data_coverageItem} 
+                  moveData={data_coverageMove}
 
-                memberAndEntityPSIDs={memberAndEntityPSIDs}
-                onMouseOver={onMouseOver}
-                onMouseLeave={onMouseLeave}
-              />
-            : <div>Speed control data not found.</div>
-        }
-
+                  memberAndEntityPSIDs={memberAndEntityPSIDs}
+                  onMouseOver={onMouseOver}
+                  onMouseLeave={onMouseLeave}
+                />
+              : <div>Speed control data not found.</div>
+          }
+        </ErrorBoundary>
       </section>
     </div>
   );

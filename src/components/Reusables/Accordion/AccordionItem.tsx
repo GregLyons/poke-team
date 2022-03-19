@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import AccordionClickableTitle from "./AccordionClickableTitle";
 import AccordionOptionsTitle from "./AccordionOptionsTitle";
 
@@ -31,26 +32,28 @@ const AccordionItem = ({
 
   return (
     <li className={`accordion__item ${accordionContext}-accordion__item`}>
-      {optionsInTitle
-        ? <AccordionOptionsTitle
-            title={title}
-            
-            active={active}
-            handleOpenClick={handleOpenClick}
-            idx={idx}
-            
-            accordionContext={accordionContext}
-          />
-        : <AccordionClickableTitle
-            title={title}
-            
-            active={active}
-            handleOpenClick={handleOpenClick}
-            idx={idx}
-            
-            accordionContext={accordionContext}
-          />
-      }
+      <ErrorBoundary>
+        {optionsInTitle
+          ? <AccordionOptionsTitle
+              title={title}
+              
+              active={active}
+              handleOpenClick={handleOpenClick}
+              idx={idx}
+              
+              accordionContext={accordionContext}
+            />
+          : <AccordionClickableTitle
+              title={title}
+              
+              active={active}
+              handleOpenClick={handleOpenClick}
+              idx={idx}
+              
+              accordionContext={accordionContext}
+            />
+        }
+      </ErrorBoundary>
       <div
         ref={contentRef}
         className={`accordion__content-wrapper ${accordionContext}-accordion__content-wrapper`}
@@ -69,8 +72,11 @@ const AccordionItem = ({
         }
         aria-hidden={active ? "false" : "true"}
       >
-        {/* opened && content will be true so long as there is content to render and the element has been opened once */}
-        {opened && content}
+        {/* Isolate error in accordion to item in which it occurs */}
+        <ErrorBoundary>
+          {/* opened && content will be true so long as there is content to render and the element has been opened once */}
+          {opened && content}
+        </ErrorBoundary>
       </div>
     </li>
   )

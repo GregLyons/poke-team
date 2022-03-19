@@ -7,6 +7,7 @@ import { MoveSlot } from "../../../types-queries/Member/helpers";
 import { MemberMove, MemberMoveResult } from "../../../types-queries/Member/MemberMove";
 import { MemberPokemon } from "../../../types-queries/Member/MemberPokemon";
 import { Filters } from "../../App";
+import ErrorBoundary from "../../Reusables/ErrorBoundary/ErrorBoundary";
 import Popup from "../../Reusables/Popup/Popup";
 import PopupSearch from "./PopupSearch";
 
@@ -115,7 +116,7 @@ const TeamColumnMove = ({
   if (error) { return <div>{error.message}</div> };
 
   return (
-    <>
+    <ErrorBoundary>
       {member && <Popup
         trigger={<div
           className={`
@@ -138,7 +139,7 @@ const TeamColumnMove = ({
         onClose={onPopupClose}
         forceClose={forceClose}
       />}
-    </>
+    </ErrorBoundary>
   );
 };
 

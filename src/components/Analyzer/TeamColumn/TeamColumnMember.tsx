@@ -8,6 +8,7 @@ import { Filters } from "../../App";
 import ItemIcon from "../../Icons/ItemIcon";
 import PokemonIcon from "../../Icons/PokemonIcon";
 import TypeIcon from "../../Icons/TypeIcon";
+import ErrorBoundary from "../../Reusables/ErrorBoundary/ErrorBoundary";
 import TeamColumnAbility from "./TeamColumnAbility";
 import TeamColumnItem from "./TeamColumnItem";
 import TeamColumnMove from "./TeamColumnMove";
@@ -52,6 +53,9 @@ const TeamColumnMember = ({
         team-column__member-wrapper
       `}
     >
+      <ErrorBoundary>
+        
+      </ErrorBoundary>
       <div
         className={`
           team-column__icon

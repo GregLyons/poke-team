@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import ErrorBoundary from '../../Reusables/ErrorBoundary/ErrorBoundary';
 import './MainSearch.css';
 
 type MainSearchProps = {
@@ -13,23 +14,27 @@ const MainSearch = ({
   const filterRef = useRef<HTMLFormElement>(null);
   return (
     <div className="planner-search__wrapper">
-      <form
-        ref={filterRef}
-        role="search"
-        className="planner-search__filter"
-      >
-        {filterForm}
-      </form>
-      <ul
-        className="planner-search__results"
-        style={{
-          height: filterRef.current
-            ? `calc(100% - ${filterRef.current.offsetHeight})`
-            : ''
-        }}
-      >
-        {results}
-      </ul>
+      <ErrorBoundary>
+        <form
+          ref={filterRef}
+          role="search"
+          className="planner-search__filter"
+        >
+          {filterForm}
+        </form>
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <ul
+          className="planner-search__results"
+          style={{
+            height: filterRef.current
+              ? `calc(100% - ${filterRef.current.offsetHeight})`
+              : ''
+          }}
+        >
+          {results}
+        </ul>
+      </ErrorBoundary>
     </div>
   )
 };

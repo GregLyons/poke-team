@@ -3,6 +3,7 @@ import { Team } from "../../../hooks/App/Team";
 import { MemberPSIDObject } from "../../../types-queries/Analyzer/helpers";
 import { Dispatches, Filters } from "../../App";
 import Import from "../../ControlPanel/ImportExport/Import/Import";
+import ErrorBoundary from "../../Reusables/ErrorBoundary/ErrorBoundary";
 import TeamColumn from "../TeamColumn/TeamColumn";
 import './Versus.css';
 import VersusMatchup from "./VersusMatchup/VersusMatchup";
@@ -99,63 +100,71 @@ const Versus = ({
     >
       <section className="versus__user-team-cell">
         <h2 className="hidden-header">Your team</h2>
-        <TeamColumn
-          teamDispatch={dispatches.dispatchTeam}
-          filters={filters}
+        <ErrorBoundary>
+          <TeamColumn
+            teamDispatch={dispatches.dispatchTeam}
+            filters={filters}
 
-          team={team}
-          mode={userMode}
-          relevantNames={relevantNames?.user || null}
-          onEntityClick={onEntityClick('user')}
-          onPopupClose={onPopupClose}
-        />
+            team={team}
+            mode={userMode}
+            relevantNames={relevantNames?.user || null}
+            onEntityClick={onEntityClick('user')}
+            onPopupClose={onPopupClose}
+          />
+        </ErrorBoundary>
       </section>
       <div className="versus__matchup-cell">
         <section className="versus__controls">
           <h2 className="hidden-header">Versus controls</h2>
-          <div
-            className="versus__user-mode-toggle"
-            onClick={toggleMode('user')}
-          >
-            {userMode}
-          </div>
-          <div className="versus__import">
-            <Import
-              teamDispatch={dispatches.dispatchEnemyTeam}
-              filters={filters}
-              team={enemyTeam}
-            />
-          </div>
-          <div
-            className="versus__enemy-mode-toggle"
-            onClick={toggleMode('enemy')}
-          >
-            {enemyMode}
-          </div>
+          <ErrorBoundary>
+            <div
+              className="versus__user-mode-toggle"
+              onClick={toggleMode('user')}
+            >
+              {userMode}
+            </div>
+            <div className="versus__import">
+              <Import
+                teamDispatch={dispatches.dispatchEnemyTeam}
+                filters={filters}
+                team={enemyTeam}
+              />
+            </div>
+            <div
+              className="versus__enemy-mode-toggle"
+              onClick={toggleMode('enemy')}
+            >
+              {enemyMode}
+            </div>
+          </ErrorBoundary>
         </section>
         <section className="versus-matchup__wrapper">
           <h2 className="hidden-header">Matchup table</h2>
-          <VersusMatchup
-            userPokemon={team[filters.genFilter.gen].members}
-            enemyPokemon={enemyTeam[filters.genFilter.gen].members}
-            gen={filters.genFilter.gen}
-            onMouseOver={onMouseOver}
-            onMouseLeave={onMouseLeave}
-          />
+          <ErrorBoundary>
+            <VersusMatchup
+              userPokemon={team[filters.genFilter.gen].members}
+              enemyPokemon={enemyTeam[filters.genFilter.gen].members}
+              gen={filters.genFilter.gen}
+              onMouseOver={onMouseOver}
+              onMouseLeave={onMouseLeave}
+            />
+          </ErrorBoundary>
         </section>
       </div>
       <section className="versus__enemy-team-cell">
         <h2 className="hidden-header">Enemy's team</h2>
-        <TeamColumn
-          teamDispatch={dispatches.dispatchEnemyTeam}
-          filters={filters}
+        <ErrorBoundary>
+          <TeamColumn
+            teamDispatch={dispatches.dispatchEnemyTeam}
+            filters={filters}
 
-          team={enemyTeam}
-          mode={enemyMode}
-          relevantNames={relevantNames?.enemy || null}
-          onEntityClick={onEntityClick('enemy')}
-          onPopupClose={onPopupClose}
-        />
+            team={enemyTeam}
+            mode={enemyMode}
+            relevantNames={relevantNames?.enemy || null}
+            onEntityClick={onEntityClick('enemy')}
+            onPopupClose={onPopupClose}
+          />
+        </ErrorBoundary>
       </section>
     </div>
   );

@@ -32,7 +32,8 @@ class ErrorBoundary extends Component<Props, State> {
       return <p className="error-boundary" title="An unexpected error occurred. Please check the console for diagnosis.">Error!</p>;
     }
 
-    return this.props.children;
+    // If no children, return nothing
+    return this.props.children ? this.props.children : null;
   }
 }
 

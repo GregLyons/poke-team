@@ -3,6 +3,7 @@ import { toggleBGPulse } from "../../../hooks/App/BGManager";
 import { BoxInCart, BoxInCombination, Cart, StartBox } from "../../../hooks/App/Cart";
 import { Team } from "../../../hooks/App/Team";
 import { Dispatches, Filters } from "../../App";
+import ErrorBoundary from "../../Reusables/ErrorBoundary/ErrorBoundary";
 import CartAccordion from "./CartAccordion/CartAccordion";
 import CartTerminal from "./CartTerminal/CartTerminal";
 import './CartView.css';
@@ -161,21 +162,25 @@ const CartView = ({
     <div className={"cart-view__wrapper"}>
       <section className={"cart-view-accordion__cell"}>
         <h2 className="hidden-header">List of boxes from Planner and custom boxes.</h2>
-        <CartAccordion
-          cart={cart}
-          team={team}
-          filters={filters}
-          clickHandlers={cartAccordionClickHandlers}
-        />
+        <ErrorBoundary>
+          <CartAccordion
+            cart={cart}
+            team={team}
+            filters={filters}
+            clickHandlers={cartAccordionClickHandlers}
+          />
+        </ErrorBoundary>
       </section>
       <section className={"cart-view-terminal__cell"}>
         <h2 className="hidden-header">Controls for combining boxes.</h2>
-        <CartTerminal
-          cart={cart}
-          dispatches={dispatches}
-          filters={filters}
-          clickHandlers={cartTerminalClickHandlers}
-        />
+        <ErrorBoundary>
+          <CartTerminal
+            cart={cart}
+            dispatches={dispatches}
+            filters={filters}
+            clickHandlers={cartTerminalClickHandlers}
+          />
+        </ErrorBoundary>
       </section>
     </div>
   )

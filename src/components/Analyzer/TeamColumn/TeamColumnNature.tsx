@@ -6,6 +6,7 @@ import { natureNameToFormattedNatureName } from "../../../types-queries/Member/h
 import { MemberNature, MemberNatureResult_psID } from "../../../types-queries/Member/MemberNature";
 import { MemberPokemon } from "../../../types-queries/Member/MemberPokemon";
 import { Filters } from "../../App";
+import ErrorBoundary from "../../Reusables/ErrorBoundary/ErrorBoundary";
 import Popup from "../../Reusables/Popup/Popup";
 import PopupSearch from "./PopupSearch";
 
@@ -88,7 +89,7 @@ const TeamColumnNature = ({
 
 
   return (
-    <>
+    <ErrorBoundary>
       {member && <Popup
         trigger={
           <div
@@ -121,7 +122,7 @@ const TeamColumnNature = ({
         onClose={onPopupClose}
         forceClose={forceClose}
       />}
-    </>
+    </ErrorBoundary>
   );
 };
 

@@ -38,7 +38,7 @@ const TeamMemberIcon = ({
             : '',
         }}
       />
-      <button
+      <div
         className="team-member__pokemon-icon"
         title={`Modify ${pokemonIconDatum.formattedName}.`}
         style={{

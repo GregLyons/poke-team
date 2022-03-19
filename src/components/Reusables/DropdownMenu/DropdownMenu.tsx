@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import FontAwesome from "react-fontawesome";
 import { useOnClickOutside, useWindowSize } from "usehooks-ts";
 import { classWithBGControl } from "../../../hooks/App/BGManager";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import './DropdownMenu.css';
 
 type Item<F> = {
@@ -110,31 +111,33 @@ function DropdownMenu<E extends Item<F>, F>({
           `
         }}
       >
-        <ul 
-          className="dropdown__options"
-          style={{
-            gridTemplateColumns: `repeat(auto-fit, minmax(${itemWidth}, 1fr))`,
-          }}
-        >
-          {items.map((item, idx) => {
-            return (
-              <li
-                className="dropdown__option"
-                key={`${item.id}`}
-              >
-                {/* Match clicking range to content */}
-                <span
-                  onClick={e => {
-                    e.preventDefault();
-                    toggleSelect && toggleSelect(item.id);
-                  }}    
+        <ErrorBoundary>
+          <ul 
+            className="dropdown__options"
+            style={{
+              gridTemplateColumns: `repeat(auto-fit, minmax(${itemWidth}, 1fr))`,
+            }}
+          >
+            {items.map((item, idx) => {
+              return (
+                <li
+                  className="dropdown__option"
+                  key={`${item.id}`}
                 >
-                  {item.label}
-                </span>
-              </li>
-            )
-          })}
-        </ul>
+                  {/* Match clicking range to content */}
+                  <span
+                    onClick={e => {
+                      e.preventDefault();
+                      toggleSelect && toggleSelect(item.id);
+                    }}    
+                  >
+                    {item.label}
+                  </span>
+                </li>
+              )
+            })}
+          </ul>
+        </ErrorBoundary>
       </div>}
     </div>
   );

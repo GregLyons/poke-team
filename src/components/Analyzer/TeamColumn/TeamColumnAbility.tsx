@@ -6,6 +6,7 @@ import { AbilitySlot } from "../../../types-queries/Member/helpers";
 import { MemberAbility, MemberAbilityResult } from "../../../types-queries/Member/MemberAbility";
 import { MemberPokemon } from "../../../types-queries/Member/MemberPokemon";
 import { Filters } from "../../App";
+import ErrorBoundary from "../../Reusables/ErrorBoundary/ErrorBoundary";
 import Popup from "../../Reusables/Popup/Popup";
 import PopupSearch from "./PopupSearch";
 
@@ -86,7 +87,7 @@ const TeamColumnAbility = ({
   if (error) { return <div>{error.message}</div> };
 
   return (
-    <>
+    <ErrorBoundary>
       {member && <Popup
         trigger={
           <div
@@ -110,7 +111,7 @@ const TeamColumnAbility = ({
         onClose={onPopupClose}
         forceClose={forceClose}
       />}
-    </>
+    </ErrorBoundary>
   );
 };
 

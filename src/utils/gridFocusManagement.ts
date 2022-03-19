@@ -139,12 +139,11 @@ function focusEnd(grid: GridObject, numRows: number, numCols: number) {
   const lastCell = grid.querySelector(
     `[aria-rowindex="${numRows}"] [aria-colindex="${numCols}"]`
   );
-  console.log(`[aria-rowindex="${numRows}"] [aria-colindex="${numCols}"]`);
 
-   if (!lastCell) return;
+  if (!lastCell) return;
   
-   const firstElem = lastCell.querySelector("a, button");
-   return transferFocus(currentFocus, firstElem);
+  const firstElem = lastCell.querySelector("a, button");
+  return transferFocus(currentFocus, firstElem);
 }
 
 function getGridPosition(interactiveEl: Element) {
