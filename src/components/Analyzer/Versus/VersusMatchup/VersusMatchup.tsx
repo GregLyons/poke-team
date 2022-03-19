@@ -1,3 +1,4 @@
+import { Field, Side } from "@smogon/calc";
 import { useMemo, useRef, useState } from "react";
 import { useRemoveFromTabOrder } from "../../../../hooks/useRemoveFromTabOrder";
 import { MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
@@ -17,6 +18,10 @@ type VersusMatchupProps = {
   gen: GenNum
   onMouseOver: (newRelevantNames: { user: MemberPSIDObject, enemy: MemberPSIDObject} | null) => (e: React.MouseEvent<HTMLElement, MouseEvent> | React.FocusEvent<HTMLElement, Element>) => void
   onMouseLeave: () => void
+
+  field: Field
+  userSide: Side
+  enemySide: Side
 };
 
 const VersusMatchup = ({
@@ -25,6 +30,10 @@ const VersusMatchup = ({
   gen,
   onMouseOver,
   onMouseLeave,
+
+  field,
+  userSide,
+  enemySide,
 }: VersusMatchupProps) => {
   // Tracks focus/mouse position in the table, which is used to determine which cells/psIDs to highlight
   const [rowEmph, setRowEmph] = useState<number | null>(null);
@@ -96,8 +105,11 @@ const VersusMatchup = ({
       userPokemon,
       enemyPokemon,
       gen,
+      field,
+      userSide,
+      enemySide,
     });
-  }, [userPokemon, enemyPokemon, gen]);
+  }, [userPokemon, enemyPokemon, gen, field, userSide, enemySide, ]);
 
   const grid = useRef<HTMLTableSectionElement>(null);
 

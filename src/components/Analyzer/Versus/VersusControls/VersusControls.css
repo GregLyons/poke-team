@@ -1,4 +1,5 @@
-.versus-controls__field {
+.versus-controls__field,
+.versus-controls__side {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,25 +11,29 @@
   padding: 1rem;
 }
 
-.versus-controls__field > h3 {
+.versus-controls__field > h3,
+.versus-controls__side > h3 {
   color: var(--blue1);
 }
 
-.versus-controls__field > * + * {
+.versus-controls__field > * + *,
+.versus-controls__side > * + * {
   margin-top: 0.5rem;
 }
 
-.versus-controls__weather {
+.versus-controls__weather,
+.versus-controls__terrain,
+.versus-controls__side-toggles {
   display: grid;
-  grid-template-columns: repeat(3, 6ch);
   gap: 1ch 2ch;
-
   justify-items: flex-start;
 }
-
+.versus-controls__weather {
+  grid-template-columns: repeat(3, 6ch);
+}
 .versus-controls__terrain {
-  display: grid;
   grid-template-columns: repeat(2, 8ch);
-  justify-items: flex-start;
-  gap: 1ch 3ch;
+}
+.versus-controls__side-toggles {
+  grid-template-columns: repeat(2, 12ch);
 }

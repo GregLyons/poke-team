@@ -59,6 +59,7 @@ const VersusControls = ({
           gen={gen}
           side={userSide}
           setSide={setUserSide}
+          whichSide='your'
         />
       </div>
       <div className="versus-controls">
@@ -80,6 +81,7 @@ const VersusControls = ({
           gen={gen}
           side={enemySide}
           setSide={setEnemySide}
+          whichSide='enemy'
         />
       </div>
       <div

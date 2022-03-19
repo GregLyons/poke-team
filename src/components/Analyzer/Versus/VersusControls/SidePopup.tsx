@@ -2,6 +2,7 @@ import { Side } from "@smogon/calc";
 import { GenNum } from "../../../../types-queries/entities";
 import Button from "../../../Reusables/Button/Button";
 import Popup from "../../../Reusables/Popup/Popup";
+import Slider from "../../../Reusables/Slider/Slider";
 import ThreeToggle from "../../../Reusables/ThreeToggle/ThreeToggle";
 import { BooleanKeysOfSide, SIDES_GENS, SIDE_TEXT_MAP } from "../helpers";
 
@@ -9,16 +10,17 @@ type SidePopupProps = {
   gen: GenNum
   side: Side
   setSide: React.Dispatch<React.SetStateAction<Side>>
+  whichSide: 'your' | 'enemy'
 };
 
 const SidePopup = ({
   gen,
   side,
   setSide,
+  whichSide,
 }: SidePopupProps) => {
   const toggleSideValue = (key: BooleanKeysOfSide) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    if (!side) return;
 
     return setSide(new Side({
       ...side,
@@ -47,11 +49,19 @@ const SidePopup = ({
         }));
     }
   };
+
+  const setSpikes = (newValue: number) => {
+    return setSide(new Side({
+      ...side,
+      spikes: newValue,
+    }));
+  };
   
   return (
     <Popup
-      trigger={<div>SIDE</div>}
+      trigger={<div>{whichSide.toUpperCase()} SIDE</div>}
       content={<div className="versus-controls__side">
+        <h3>Flags</h3>
         <div className="versus-controls__side-toggles">
           {SIDES_GENS.map(sideAndGen => {
             const [sideKey, sideGen] = sideAndGen;
@@ -83,9 +93,21 @@ const SidePopup = ({
             return;
           })}
         </div>
+        <h3>Spikes</h3>
         <div className="versus-controls__spikes">
+          {gen > 1 && <Slider
+            titleFor="layers of spikes."
 
+            min={0}
+            max={3}
+            value={side.spikes}
+            updateValue={setSpikes}
+            
+            sliderWidth="100px"
+            numericalWidth={1}
+          />}
         </div>
+        <h3>Switching</h3>
         <div className="versus-controls__switching">
           <ThreeToggle
             label="SWITCHING"
@@ -97,6 +119,7 @@ const SidePopup = ({
             }
             setSelection={setSwitching}
             buttonLabels={['IN', 'OUT', 'NO']}
+            background={false}
           />
         </div>
       </div>}

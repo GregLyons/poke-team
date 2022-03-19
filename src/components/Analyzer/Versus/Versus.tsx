@@ -162,6 +162,10 @@ const Versus = ({
               gen={filters.genFilter.gen}
               onMouseOver={onMouseOver}
               onMouseLeave={onMouseLeave}
+
+              field={field}
+              userSide={userSide}
+              enemySide={enemySide}
             />
           </ErrorBoundary>
         </section>

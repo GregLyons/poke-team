@@ -1,4 +1,4 @@
-import { calculate, Field, Generations, Move, Pokemon, Result } from "@smogon/calc";
+import { calculate, Field, Generations, Move, Pokemon, Result, Side } from "@smogon/calc";
 import { ABBREVIATED_BASE_STAT_NAMES } from "../hooks/App/PokemonFilter";
 import { AbbreviatedBaseStatName, computeStat, GenNum, StatTable } from "../types-queries/entities";
 import { NatureName } from "../types-queries/Member/helpers";
@@ -285,11 +285,29 @@ export function calcDamageMatchup ({
   userPokemon,
   enemyPokemon,
   gen,
+  field,
+  userSide,
+  enemySide,
 }: {
   userPokemon: (MemberPokemon | null)[]
   enemyPokemon: (MemberPokemon | null)[]
   gen: GenNum
+  field: Field
+  userSide: Side
+  enemySide: Side
 }): (DamageMatchupResult | null)[][] {
+  const userToEnemyField = new Field({
+    ...field,
+    attackerSide: userSide,
+    defenderSide: enemySide,
+  });
+
+  const enemyToUserField = new Field({
+    ...field,
+    attackerSide: enemySide,
+    defenderSide: userSide,
+  });
+
   // Coordinates are i (row), j (column)
   let results: (DamageMatchupResult | null)[][] = []
 
@@ -333,6 +351,7 @@ export function calcDamageMatchup ({
           defender: enemyMember,
           memberMove: userMove,
           gen,
+          field: userToEnemyField,
         });
         
         let hits = Number.MAX_SAFE_INTEGER;
@@ -393,6 +412,7 @@ export function calcDamageMatchup ({
           defender: userMember,
           memberMove: enemyMove,
           gen,
+          field: enemyToUserField,
         });
         
         let hits = Number.MAX_SAFE_INTEGER;
@@ -443,7 +463,9 @@ export function calcDamageMatchup ({
       // Determine movesFirst
       // #region
 
-      const outSpeed = userMember.computeSpeed() > enemyMember.computeSpeed()
+      const userTailwindFactor = userSide.isTailwind ? 2 : 1;
+      const enemyTailwindFactor = enemySide.isTailwind ? 2 : 1;
+      const outSpeed = userMember.computeSpeed() * userTailwindFactor > enemyMember.computeSpeed() * enemyTailwindFactor
         ? true
         : userMember.computeSpeed() === enemyMember.computeSpeed()
           ? null
