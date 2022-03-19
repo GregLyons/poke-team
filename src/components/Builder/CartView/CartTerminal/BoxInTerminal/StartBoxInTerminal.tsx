@@ -17,7 +17,10 @@ const StartBoxInTerminal = ({
       title={box.note}
       className="cart-view-terminal__box-wrapper"
     >
-      <div className="cart-view-terminal__box-role">
+      <div
+        className="cart-view-terminal__box-role"
+        title="This box starts the combination."
+      >
         {box.roleInCombination}
       </div>
       <div className="cart-view-terminal__box-move-wrapper">
@@ -27,7 +30,6 @@ const StartBoxInTerminal = ({
           disabled
         >
           <div
-            
             className={`
               cart-view-terminal__box-arrow
               cart-view-terminal__box-move-up

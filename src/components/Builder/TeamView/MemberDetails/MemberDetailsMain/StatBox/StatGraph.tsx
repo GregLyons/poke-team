@@ -56,9 +56,9 @@ const StatGraph = ({
     >
       {Object.keys(evs).map(key => {
         // Type guard
-        if (key === '__typename') return <></>;
+        if (key === '__typename') return;
         const statName: BaseStatName = (key as BaseStatName);
-        if (!statName) return <></>;
+        if (!statName) return;
 
         const value = statObj[statName];
         let rating: 'bad' | 'ok' | 'decent' | 'good' | 'great';

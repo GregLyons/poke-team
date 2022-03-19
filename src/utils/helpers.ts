@@ -78,7 +78,8 @@ export function removeDuplicatesFromSortedArray<E> (
     }, [] as E[]));
 }
 
-export function omitKeys<E> (keys: string[], obj: { [key: string]: E }): { [key: string]: E } {
+export function omitKeys<E> (keys: string[], obj: { [key: string]: E } | undefined): { [key: string]: E } {
+  if (obj === undefined) return {};
   return Object.fromEntries(
     Object.entries(obj)
       .filter(([k, v]) => !keys.includes(k))

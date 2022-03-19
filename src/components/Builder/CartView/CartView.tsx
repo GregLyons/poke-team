@@ -20,6 +20,7 @@ type CartViewProps = {
 // #region
 
 export type CartAccordionClickHandlers = {
+  onDeleteClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => void
   onPinClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => void
   onUnpinClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => void
   onComboClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => void
@@ -43,6 +44,17 @@ const CartView = ({
   filters,
 }: CartViewProps) => {
   const cartAccordionClickHandlers: CartAccordionClickHandlers = useMemo(() => {
+    const onDeleteClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => {
+      e.preventDefault();
+      dispatches.dispatchCart({
+        type: 'delete',
+        payload: {
+          gen: filters.genFilter.gen,
+          box,
+        }
+      })
+    };
+
     const onPinClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, box: BoxInCart) => {
       e.preventDefault();
       dispatches.dispatchTeam({
@@ -107,7 +119,7 @@ const CartView = ({
       })
     };
 
-    return { onPinClick, onUnpinClick, onComboClick, onAndClick, onOrClick, };
+    return { onDeleteClick, onPinClick, onUnpinClick, onComboClick, onAndClick, onOrClick, };
   }, [dispatches, filters, ]);
 
   const cartTerminalClickHandlers: CartTerminalClickHandlers = useMemo(() => {

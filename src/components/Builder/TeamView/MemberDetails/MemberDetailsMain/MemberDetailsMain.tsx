@@ -81,7 +81,7 @@ const MemberDetailsMain = ({
             const moveIdx = (idx as MoveSlot);
 
             // Type-guard
-            if (moveIdx === undefined) return <></>;
+            if (moveIdx === undefined) return;
             return (
               <MemberDetailInnerBox
                 key={moveIdx}

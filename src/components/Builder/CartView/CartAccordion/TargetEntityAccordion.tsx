@@ -35,22 +35,25 @@ const TargetEntityAccordion = ({
         title: <TargetEntityAccordionTitle
           titleText={targetEntityClass}
         />,
-        content: <BoxAccordion
-          cart={cart}
-          team={team}
-          clickHandlers={clickHandlers}
-          targetEntityInCart={targetEntityInCart}
-          filters={filters}
-        />
+        content: Object.keys(targetEntityInCart).length > 0
+          ? <BoxAccordion
+              cart={cart}
+              team={team}
+              clickHandlers={clickHandlers}
+              targetEntityInCart={targetEntityInCart}
+              filters={filters}
+            />
+          : false,
       }
     });
   }, [cart, team, filters, clickHandlers, ]);
-
   return (
-    <Accordion
-      accordionContext="target-entity"
-      accordionData={accordionData}
-    />
+    <>
+      {accordionData.filter(d => d.content !== false).length > 0 && <Accordion
+        accordionContext="target-entity"
+        accordionData={accordionData}
+      />}
+    </>
   );
 }
 

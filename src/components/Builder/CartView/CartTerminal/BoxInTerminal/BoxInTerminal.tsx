@@ -25,10 +25,18 @@ const BoxInTerminal = ({
         }
       `}
     >
-      <button className={`
-        --${box.roleInCombination === 'AND' ? 'and' : 'or'}
-        cart-view-terminal__box-role-toggleable
-      `}
+      <button
+        className={`
+          --${box.roleInCombination === 'AND' ? 'and' : 'or'}
+          cart-view-terminal__box-role
+          cart-view-terminal__box-role-toggleable
+        `}
+        title={`
+          ${box.roleInCombination === 'AND'
+            ? 'Change role to "OR".'
+            : 'Change role to "AND".'
+          }
+        `}
         onClick={e => clickHandlers.onToggleOperationClick(e, box)}
       >
         {box.roleInCombination}

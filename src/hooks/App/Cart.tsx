@@ -1,7 +1,7 @@
 import { GenNum } from "../../types-queries/entities";
 import { equateTwoPokemonIconData, IconDatum, PokemonIconDatum, sortPokemonIconData } from "../../types-queries/helpers";
 import { EntityClass } from "../../utils/constants";
-import { binaryIncludes, compareStrings, removeDuplicatesFromSortedArray } from "../../utils/helpers";
+import { binaryIncludes, compareStrings, omitKeys, removeDuplicatesFromSortedArray } from "../../utils/helpers";
 
 // Cart setup
 // #region 
@@ -429,9 +429,7 @@ export type CartAction =
     type: 'delete', 
     payload: {
       gen: GenNum,
-      parentEntityClass: EntityClass,
-      targetEntityClass: EntityClass,
-      note: string,
+      box: BoxInCart,
     }
   }
 
@@ -648,6 +646,7 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
   let idx: number;
   let parentEntityClass: ParentEntityClass | 'Custom';
   let targetEntityClass: TargetEntityClass | null;
+  let note: string;
   try {
   switch(action.type) {
     // Adding to/removing from cart; these operations stop combinations
@@ -720,11 +719,41 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
 
     // TODO
     case 'delete':
-      parentEntityClass = action.payload.parentEntityClass;
-      targetEntityClass = action.payload.targetEntityClass;
-      gen = action.payload.gen; 
+      gen = action.payload.gen;
+      parentEntityClass = action.payload.box.classification.parentEntityClass;
+      targetEntityClass = action.payload.box.classification.targetEntityClass;
+      note = action.payload.box.note;
 
+      // Removing custom box
+      if (parentEntityClass === 'Custom' && targetEntityClass === null) {
+        return {
+          ...state,
+          [gen]: {
+            ...state[gen],
+            customBoxes: omitKeys([note], state[gen].customBoxes),
+          },
+        };
+      }
+      // Removing box from Planner
+      else if (parentEntityClass !== 'Custom' && targetEntityClass !== null) {
+        return {
+          ...state,
+          [gen]: {
+            ...state[gen],
+            pokemon: {
+              ...state[gen].pokemon,
+              [parentEntityClass]: {
+                ...state[gen].pokemon[parentEntityClass],
+                [targetEntityClass]: omitKeys([note], state[gen].pokemon[parentEntityClass]?.[targetEntityClass]),
+              },
+            },
+          },
+        };
+      }
+
+      // Shouldn't occur
       return state;
+
     
     // #endregion
 
@@ -1022,7 +1051,7 @@ export function cartReducer(state: Cart, action: CartAction): Cart {
             ...state[gen].customBoxes,
             [action.payload.note]: {
               ...state[gen].combinationResult,
-              note: [action.payload.note],
+              note: action.payload.note,
             },
           },
         }

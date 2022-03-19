@@ -29,18 +29,20 @@ const CartAccordion = ({
   }[] = useMemo(() => {
     const parentEntitiesInCart = Object.entries(cart[filters.genFilter.gen].pokemon);
 
-    const parentEntityData = parentEntitiesInCart.map(([parentEntityClass, value]) => {
+    const parentEntityData = parentEntitiesInCart.map(([parentEntityClass, parentEntityInCart]) => {
       return {
         title: <ParentEntityAccordionTitle 
           titleText={parentEntityClass}
         />,
-        content: <TargetEntityAccordion
-          cart={cart}
-          team={team}
-          clickHandlers={clickHandlers}
-          parentEntityInCart={value}
-          filters={filters}
-        />
+        content: Object.values(parentEntityInCart).filter(targetEntityInCart => Object.keys(targetEntityInCart).length > 0).length > 0
+          ? <TargetEntityAccordion
+              cart={cart}
+              team={team}
+              clickHandlers={clickHandlers}
+              parentEntityInCart={parentEntityInCart}
+              filters={filters}
+            />
+          : false as false,
       }
     });
 
@@ -48,13 +50,15 @@ const CartAccordion = ({
       title: <ParentEntityAccordionTitle
         titleText={'Custom'}
       />,
-      content: <BoxAccordion
-        cart={cart}
-        team={team}
-        targetEntityInCart={cart[filters.genFilter.gen].customBoxes}
-        filters={filters}
-        clickHandlers={clickHandlers}
-      />
+      content: Object.keys(cart[filters.genFilter.gen].customBoxes).length > 0
+        ? <BoxAccordion
+            cart={cart}
+            team={team}
+            targetEntityInCart={cart[filters.genFilter.gen].customBoxes}
+            filters={filters}
+            clickHandlers={clickHandlers}
+          />
+        : false as false
     };
 
     return [...parentEntityData, customBoxAccordionData];
@@ -62,10 +66,10 @@ const CartAccordion = ({
 
   return (
     <div className="cart-view-accordion__wrapper">
-      <Accordion
+      {accordionData.filter(d => d.content !== false).length > 0 && <Accordion
         accordionContext="cart-view"
         accordionData={accordionData}
-      />
+      />}
     </div>
   );
 }

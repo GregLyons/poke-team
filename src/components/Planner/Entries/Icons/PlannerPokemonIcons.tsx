@@ -82,14 +82,14 @@ const PlannerPokemonIcons = ({
           const psID = pokemonIconDatum.psID;
 
           // E.g. DUMMY_POKEMON_DATUM
-          if (!icons.filters || !icons.dispatches) return <></>;
-          if (!psID) return <></>;
+          if (!icons.filters || !icons.dispatches) return;
+          if (!psID) return;
 
           // Ignore duplicate Pokemon
-          if(seenPokemon.hasOwnProperty(pokemonIconDatum.psID)) return <></>
+          if(seenPokemon.hasOwnProperty(pokemonIconDatum.id)) return;
         
           // Add Pokemon to list of seen Pokemon
-          else seenPokemon[pokemonIconDatum.psID] = true;
+          else seenPokemon[pokemonIconDatum.id] = true;
 
           const { validated, reason: reasonForFailure } = validatePokemon({
             pokemonIconDatum, 
@@ -98,7 +98,7 @@ const PlannerPokemonIcons = ({
 
           if (!validated) {
             reason.current = reasonForFailure || '';
-            return <></>;
+            return;
           }
 
           hasIcon.current = true;

@@ -35,15 +35,13 @@ const BoxAccordionTitle = ({
       <menu className="box-title__buttons">
         <li>
           <Button
-            title='Rename this box.'
-            label='EDIT'
+            title='Remove this box.'
+            label='DEL'
 
             active={true}
-            onClick={e => {
-              e.preventDefault();
-            }}
+            onClick={e => clickHandlers.onDeleteClick(e, box)}
             disabled={false}
-            immediate={false}
+            immediate={true}
           />
         </li>
         <li>
