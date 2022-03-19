@@ -42,8 +42,11 @@
   transition: 0.3s ease;
   transform-origin: center;
 }
-.three-toggle__button:hover,
-.three-toggle__button:focus,
+.three-toggle__button.--disabled {
+  filter: grayscale(2);
+}
+.three-toggle__button:not(.--disabled):hover,
+.three-toggle__button:not(.--disabled):focus,
 .three-toggle__button.--active {
   filter: brightness(1.1);
   cursor: pointer;
@@ -51,7 +54,7 @@
   text-decoration: underline;
   transform: scale(1.1);
 }
-.three-toggle__button.--active:not(:hover):not(:focus) {
+.three-toggle__button:not(.--disabled).--active:not(:hover):not(:focus) {
 box-shadow: var(--control-shadow);
 }
 

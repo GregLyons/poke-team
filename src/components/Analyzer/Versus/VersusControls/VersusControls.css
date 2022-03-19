@@ -1,0 +1,34 @@
+.versus-controls__field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: relative;
+  height: auto;
+
+  background-color: var(--dark3);
+  padding: 1rem;
+}
+
+.versus-controls__field > h3 {
+  color: var(--blue1);
+}
+
+.versus-controls__field > * + * {
+  margin-top: 0.5rem;
+}
+
+.versus-controls__weather {
+  display: grid;
+  grid-template-columns: repeat(3, 6ch);
+  gap: 1ch 2ch;
+
+  justify-items: flex-start;
+}
+
+.versus-controls__terrain {
+  display: grid;
+  grid-template-columns: repeat(2, 8ch);
+  justify-items: flex-start;
+  gap: 1ch 3ch;
+}

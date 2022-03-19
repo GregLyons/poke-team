@@ -4,15 +4,28 @@ type ThreeToggleProps = {
   label: string
   selection: boolean | null
   setSelection: ((newSelection: boolean | null) => void) | undefined
+
+  buttonLabels?: string[]
+  background?: boolean
+  disabled?: (boolean | null)[]
 };
 
 const ThreeToggle = ({
   label,
   selection,
   setSelection,
+
+  buttonLabels = ['ANY', 'YES', 'NO'],
+  background = true,
+  disabled = [],
 }: ThreeToggleProps) => {
   return (
-    <div className="three-toggle__wrapper">
+    <div className="three-toggle__wrapper"
+      style={{
+        background: background ? '' : 'none',
+        boxShadow: background ? '' : 'none',
+      }}
+    >
       <div className="three-toggle__label">
         {label}
       </div>
@@ -21,8 +34,12 @@ const ThreeToggle = ({
           className={`
             three-toggle__button
             three-toggle__null
-            ${selection === null
+            ${selection === null && !disabled.includes(null)
               ? '--active'
+              : ''
+            }
+            ${disabled.includes(null)
+              ? '--disabled'
               : ''
             }
           `}
@@ -30,15 +47,20 @@ const ThreeToggle = ({
             e.preventDefault();
             setSelection && setSelection(null);
           }}
+          disabled={disabled.includes(null)}
         >
-          ANY
+          {buttonLabels[0]}
         </button>
         <button
           className={`
             three-toggle__button
             three-toggle__true
-            ${selection === true
+            ${selection === true && !disabled.includes(true)
               ? '--active'
+              : ''
+            }
+            ${disabled.includes(true)
+              ? '--disabled'
               : ''
             }
           `}
@@ -46,15 +68,20 @@ const ThreeToggle = ({
             e.preventDefault();
             setSelection && setSelection(true);
           }}
+          disabled={disabled.includes(true)}
         >
-          YES
+          {buttonLabels[1]}
         </button>
         <button
           className={`
             three-toggle__button
             three-toggle__false
-            ${selection === false
+            ${selection === false && !disabled.includes(false)
               ? '--active'
+              : ''
+            }
+            ${disabled.includes(false)
+              ? '--disabled'
               : ''
             }
           `}
@@ -62,8 +89,9 @@ const ThreeToggle = ({
             e.preventDefault();
             setSelection && setSelection(false);
           }}
+          disabled={disabled.includes(false)}
         >
-          NO
+          {buttonLabels[2]}
         </button>
       </div>
     </div>

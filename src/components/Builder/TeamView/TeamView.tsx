@@ -107,7 +107,7 @@ export type MemberDetailsHandlers = {
 
   updateNickname: (e: React.ChangeEvent<HTMLInputElement>) => void
   updateLevel: (newValue: number) => void
-  updateGender: (newValue: GenderName) => void
+  updateGender: (newValue: boolean | null) => void
   toggleShiny: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   updateHappiness: (newValue: number) => void
 
@@ -193,14 +193,7 @@ const TeamView = ({
         }
       });
 
-      // Setting view to null clears the search bar, so that when we set the view back, the search bar will be cleared
-      setView(null);
-
-      // No longer selecting abilities
-      return setView({
-        mode: 'ITEM',
-        idx: 0,
-      });
+      return setView(null);
     }
 
     const onItemSelect = (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, item: MemberItem) => {
@@ -216,14 +209,7 @@ const TeamView = ({
         }
       });
 
-      // Setting view to null clears the search bar, so that when we set the view back, the search bar will be cleared
-      setView(null)
-
-      // No longer selecting items
-      return setView({
-        mode: 'MOVE',
-        idx: 0,
-      });
+      return setView(null);
     }
 
     const onMoveSelect = (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, move: MemberMove) => {
@@ -240,20 +226,7 @@ const TeamView = ({
         }
       });
       
-      // Setting view to null clears the search bar, so that when we set the view back, the search bar will be cleared
-      setView(null)
-
-      // Select next move slot, if not at the end
-      if (view.idx !== 3) return setView({
-        mode: 'MOVE',
-        idx: view.idx + 1,
-      });
-
-      // Otherwise, move onto nature
-      return setView({
-        mode: 'NATURE',
-        idx: 0,
-      });
+      return setView(null);
     }
 
     // #endregion
@@ -273,11 +246,7 @@ const TeamView = ({
         }
       });
 
-      // Move on to EV
-      return setView({
-        mode: 'EV',
-        idx: 0,
-      });
+      return setView(null);
     }
 
     const updateEV = (stat: BaseStatName, newValue: number) => {
@@ -319,12 +288,8 @@ const TeamView = ({
           typeName,
         }
       });
-
-      // Move on to EV
-      return setView({
-        mode: 'EV',
-        idx: 0,
-      });
+      
+      return setView(null);
     };
 
     // #endregion
@@ -477,15 +442,28 @@ const TeamView = ({
       });
     };
 
-    const updateGender = (newValue: GenderName) => {
+    const updateGender = (newValue: boolean | null) => {
       if (memberSlot === null) return;
+
+      let gender: GenderName;
+      switch(newValue) {
+        case null:
+          gender = 'M';
+          break;
+        case true:
+          gender = 'F';
+          break;
+        case false:
+          gender = 'N';
+          break;
+      };
 
       dispatches.dispatchTeam({
         type: 'assign_gender',
         payload: {
           gen: filters.genFilter.gen,
           idx: memberSlot,
-          gender: newValue,
+          gender,
         }
       });
     };

@@ -2,6 +2,7 @@ import { GenNum } from "../../../../../types-queries/entities";
 import { MemberPokemon } from "../../../../../types-queries/Member/MemberPokemon";
 import Slider from "../../../../Reusables/Slider/Slider";
 import TextInput from "../../../../Reusables/TextInput/TextInput";
+import ThreeToggle from "../../../../Reusables/ThreeToggle/ThreeToggle";
 import { MemberDetailsHandlers } from "../../TeamView";
 import MemberDetailBox from "../MemberDetailBox";
 import './MemberDetailsExtra.css';
@@ -18,6 +19,20 @@ const MemberDetailsExtra = ({
   handlers,
   gen,
 }: MemberDetailsExtraProps) => {
+  let unavailableGenders: (boolean | null)[] = [];
+  // No males
+  if (member.maleRate === 0) {
+    unavailableGenders = unavailableGenders.concat(null);
+  }
+  // No females
+  if (member.femaleRate === 0) {
+    unavailableGenders = unavailableGenders.concat(true);
+  }
+  // Males or females present, so 'N' excluded
+  if (member.maleRate > 0 || member.femaleRate > 0) {
+    unavailableGenders = [false];
+  }
+
   return (
     <div
       className="member-details__extra-wrapper"
@@ -36,7 +51,7 @@ const MemberDetailsExtra = ({
           autoFocus={false}
         />}
 
-        interactive={true}
+        interactive={false}
       />
       
       {/* Level */}
@@ -56,7 +71,7 @@ const MemberDetailsExtra = ({
           numericalWidth={3}
         />}
 
-        interactive={true}
+        interactive={false}
       />
 
       {/* Gender */}
@@ -64,9 +79,21 @@ const MemberDetailsExtra = ({
         forClass="gender"
         header="Gender"
         title="Select gender."
-        content={<>{member.gender}</>}
+        content={<ThreeToggle
+            label=""
+            selection={member.gender === 'N'
+              ? false
+              : member.gender === 'M'
+                ? null
+                : true}
+            setSelection={handlers.updateGender}
 
-        interactive={true}
+            buttonLabels={['M', 'F', 'N']}
+            background={false}
+            disabled={unavailableGenders}
+          />}
+
+        interactive={false}
 
         gen={gen}
         minGen={2}
@@ -108,7 +135,7 @@ const MemberDetailsExtra = ({
           numericalWidth={3}
         />}
         
-        interactive={true}
+        interactive={false}
 
         gen={gen}
         minGen={2}

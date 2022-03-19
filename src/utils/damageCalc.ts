@@ -1,4 +1,4 @@
-import { calculate, Generations, Move, Pokemon, Result } from "@smogon/calc";
+import { calculate, Field, Generations, Move, Pokemon, Result } from "@smogon/calc";
 import { ABBREVIATED_BASE_STAT_NAMES } from "../hooks/App/PokemonFilter";
 import { AbbreviatedBaseStatName, computeStat, GenNum, StatTable } from "../types-queries/entities";
 import { NatureName } from "../types-queries/Member/helpers";
@@ -46,11 +46,13 @@ export function calcDamage ({
   defender,
   memberMove,
   gen,
+  field,
 } : {
   attacker: MemberPokemon,
   defender: MemberPokemon,
   memberMove: MemberMove,
   gen: GenNum
+  field?: Field
 }): Result {
   const attackerPokemon = MEMBERPOKEMON_TO_SMOGONPOKEMON(attacker, gen);
   const defenderPokemon = MEMBERPOKEMON_TO_SMOGONPOKEMON(defender, gen);
@@ -62,6 +64,7 @@ export function calcDamage ({
     attackerPokemon,
     defenderPokemon,
     move,
+    field,
   );
 };
 

@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { Field, Side } from "@smogon/calc";
+import { useEffect, useState } from "react";
 import { Team } from "../../../hooks/App/Team";
 import { MemberPSIDObject } from "../../../types-queries/Analyzer/helpers";
 import { Dispatches, Filters } from "../../App";
-import Import from "../../ControlPanel/ImportExport/Import/Import";
 import ErrorBoundary from "../../Reusables/ErrorBoundary/ErrorBoundary";
 import TeamColumn from "../TeamColumn/TeamColumn";
 import './Versus.css';
+import VersusControls from "./VersusControls/VersusControls";
 import VersusMatchup from "./VersusMatchup/VersusMatchup";
 
 
@@ -92,6 +93,21 @@ const Versus = ({
 
   const onMouseLeave = () => setRelevantNames(null);
 
+  const [field, setField] = useState<Field>(new Field({
+    gameType: filters.tierFilter.format === 'singles' ? 'Singles' : 'Doubles',
+    isGravity: false,
+  }));
+
+  useEffect(() => {
+    setField(new Field({
+      ...field,
+      gameType: filters.tierFilter.format === 'singles' ? 'Singles' : 'Doubles',
+    }));
+  }, [filters, setField]);
+
+  const [userSide, setUserSide] = useState<Side>(new Side());
+  const [enemySide, setEnemySide] = useState<Side>(new Side());
+
   return (
     <div
       className={`
@@ -117,25 +133,24 @@ const Versus = ({
         <section className="versus__controls">
           <h2 className="hidden-header">Versus controls</h2>
           <ErrorBoundary>
-            <div
-              className="versus__user-mode-toggle"
-              onClick={toggleMode('user')}
-            >
-              {userMode}
-            </div>
-            <div className="versus__import">
-              <Import
-                teamDispatch={dispatches.dispatchEnemyTeam}
-                filters={filters}
-                team={enemyTeam}
-              />
-            </div>
-            <div
-              className="versus__enemy-mode-toggle"
-              onClick={toggleMode('enemy')}
-            >
-              {enemyMode}
-            </div>
+            <VersusControls
+              dispatches={dispatches}
+              filters={filters}
+              enemyTeam={enemyTeam}
+
+              field={field}
+              setField={setField}
+
+              userSide={userSide}
+              setUserSide={setUserSide}
+
+              enemySide={enemySide}
+              setEnemySide={setEnemySide}
+
+              userMode={userMode}
+              enemyMode={enemyMode}
+              toggleMode={toggleMode}
+            />
           </ErrorBoundary>
         </section>
         <section className="versus-matchup__wrapper">

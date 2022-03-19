@@ -13,7 +13,7 @@ const CosmeticFormDropdown = ({
 }: CosmeticFormDropdownProps) => {
   return (
     <DropdownMenu
-      title={`Select cosmetic forms for ${member.formattedName}.`}
+      title={`COSMETIC`}
       items={member.cosmeticForms.map(d => {
         const selected = d.psID === member.psID;
 
@@ -39,8 +39,8 @@ const CosmeticFormDropdown = ({
         }
       })}
       toggleSelect={updateCosmeticForm}
-      dropdownWidth={'100%'}
-      itemWidth={'50px'}
+      dropdownWidth={'15ch'}
+      itemWidth={'40px'}
       backgroundLight="green"
     />
   )

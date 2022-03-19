@@ -62,6 +62,7 @@
 .member-details__box:not(.--disabled):not(.--has-inner-box):focus-within
 .member-details__inner-box:not(.--disabled):focus-within,
 .member-details__box.--active,
+.member-details__box:focus-within,
 .member-details__inner-box.--active {
   border: var(--team-builder-border1);
 }
