@@ -87,7 +87,6 @@ const TierFilterForm = ({
     })
   };
 
-  // TODO: Buggy; doesn't work a lot of the time
   // Remove doubles prior to Gen 3
   useEffect(() => {
     if (genFilter.gen < 3) {

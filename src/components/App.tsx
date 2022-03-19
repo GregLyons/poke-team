@@ -1,7 +1,8 @@
 import {
   useMemo,
   useReducer,
-  useRef
+  useRef,
+  useState
 } from 'react';
 import {
   Route,
@@ -46,7 +47,7 @@ import TypeSearch from './Planner/Types/TypeSearch';
 import UsageMethodPage from './Planner/UsageMethods/UsageMethodPage';
 import UsageMethodSearch from './Planner/UsageMethods/UsageMethodSearch';
 import ErrorBoundary from './Reusables/ErrorBoundary/ErrorBoundary';
-import LoadIcon from './Reusables/LoadIcon/LoadIcon';
+import ThreeToggle from './Reusables/ThreeToggle/ThreeToggle';
 
 export type Dispatches = {
   dispatchCart: React.Dispatch<CartAction>
@@ -95,6 +96,8 @@ function App() {
       pokemonFilter,
     }
   }, [genFilter, tierFilter, pokemonFilter]);
+
+  const [selection, setSelection] = useState<boolean | null>(null);
   
   return (
     <>
@@ -122,7 +125,11 @@ function App() {
           <ErrorBoundary>
             <Routes>
               {/* Routing for Home */}
-              <Route path="/" element={<LoadIcon />} />
+              <Route path="/" element={<ThreeToggle
+                label="Test"
+                selection={selection}
+                setSelection={setSelection}
+              />} />
 
               {/* Routing for Analyzer */}
               <Route path="/analyzer" element={<Analyzer

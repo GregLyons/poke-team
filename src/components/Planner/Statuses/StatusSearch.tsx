@@ -8,7 +8,9 @@ import {
   StatusSearchResult,
   StatusSearchVars, STATUS_SEARCH_QUERY
 } from '../../../types-queries/Planner/Status';
+import ThreeToggle from '../../Reusables/ThreeToggle/ThreeToggle';
 import SearchEntry from '../Entries/SearchEntry/SearchEntry';
+import { threeToggle } from '../helpers';
 import MainSearch from '../MainSearch/MainSearch';
 
 const listRender = ({ data, }: ListRenderArgs<StatusSearchQuery>) => {
@@ -49,11 +51,17 @@ const listFilter = ({
   setQueryVars,
   searchBar,
 }: ListFilterArgs<StatusSearchVars>) => {
-  // TODO: volatility
+
+  const setVolatile = threeToggle<StatusSearchVars>(queryVars, setQueryVars, 'volatile');
 
   return (
     <>
       {searchBar}
+      <ThreeToggle
+        label="VOLATILE"
+        selection={queryVars.volatile}
+        setSelection={setVolatile}
+      />
     </>
   );
 }

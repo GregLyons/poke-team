@@ -12,8 +12,9 @@ import {
 import { ENUMCASE_TO_TITLECASE } from '../../../utils/constants';
 import Button from '../../Reusables/Button/Button';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
+import ThreeToggle from '../../Reusables/ThreeToggle/ThreeToggle';
 import SearchEntry from '../Entries/SearchEntry/SearchEntry';
-import { listToggleValue, rangeSelect } from '../helpers';
+import { listToggleValue, rangeSelect, threeToggle } from '../helpers';
 import MainSearch from '../MainSearch/MainSearch';
 
 const listRender = ({ data, }: ListRenderArgs<FieldStateSearchQuery>) => {
@@ -71,7 +72,7 @@ const listFilter = ({
 
   // const handleMaxLayers = sliderSelect<FieldStateSearchVars>(queryVars, setQueryVars, 'maxLayers');
 
-  // TODO: grounded filter
+  const setGrounded = threeToggle<FieldStateSearchVars>(queryVars, setQueryVars, 'grounded');
 
   const handleTargetClassSelect = listToggleValue<FieldStateSearchVars, FieldStateTargetClass>(queryVars, setQueryVars, 'target');
 
@@ -135,6 +136,11 @@ const listFilter = ({
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
         itemWidth={'15ch'}
         backgroundLight="blue"
+      />
+      <ThreeToggle
+        label="GROUNDED"
+        selection={queryVars.grounded}
+        setSelection={setGrounded}
       />
       {/* {handleDamagePercentRange && <DoubleSlider
         titleFor="damage percent"

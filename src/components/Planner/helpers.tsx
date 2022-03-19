@@ -160,4 +160,25 @@ export function rangeSelect<SearchVars extends { [Property in keyof SearchVars]:
   return { updateMinValue, updateMaxValue, };
 }
 
+// Three toggles
+export function threeToggle<SearchVars extends { [Property in keyof SearchVars] : any }> (
+  queryVars: SearchVars,
+  setQueryVars: React.Dispatch<React.SetStateAction<SearchVars>>,
+  key: keyof SearchVars,
+) {
+  if ((queryVars[key]) as boolean | null === undefined) {
+    console.log('Incorrect key for three toggle passed:', key);
+    return;
+  }
+
+  const setSelection = (newSelection: boolean | null) => {
+    setQueryVars({
+      ...queryVars,
+      [key]: newSelection,
+    });
+  };
+
+  return setSelection;
+}
+
 // #endregion

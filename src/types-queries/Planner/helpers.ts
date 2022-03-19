@@ -184,7 +184,6 @@ export abstract class MainEntityOnPage {
     this.name = name;
     this.formattedName = formattedName;
 
-    // TODO: Bulbapedia doesn't list all items, so there will be missing descriptions
     if (descriptions.edges.length > 0) {
       this.descriptions = descriptions.edges.map(edge => {
         return {
@@ -351,7 +350,6 @@ export abstract class AuxToMainConnectionOnPage {
     this.name = name;
     this.formattedName = formattedName;
     
-    // TODO: Bulbapedia doesn't list all items, so there will be missing descriptions
     if (gqlEdge.node.descriptions.edges.length > 0) {
       this.description = gqlEdge.node.descriptions.edges[0].node.text;
     }

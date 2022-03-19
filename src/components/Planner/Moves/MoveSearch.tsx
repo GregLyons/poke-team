@@ -18,8 +18,9 @@ import { Dispatches, Filters } from '../../App';
 import Button from '../../Reusables/Button/Button';
 import DoubleSlider from '../../Reusables/DoubleSlider/DoubleSlider';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
+import ThreeToggle from '../../Reusables/ThreeToggle/ThreeToggle';
 import SearchEntry from '../Entries/SearchEntry/SearchEntry';
-import { listToggleValue, rangeSelect } from '../helpers';
+import { listToggleValue, rangeSelect, threeToggle } from '../helpers';
 import MainSearch from '../MainSearch/MainSearch';
 
 const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<MoveSearchQuery>) => {
@@ -90,7 +91,7 @@ const listFilter = ({
 
   const handlePriorityRange = rangeSelect<MoveSearchVars>(queryVars, setQueryVars, 'minPriority', 'maxPriority');
 
-  // TODO: bypass accuracy
+  const setBypassAccuracy = threeToggle<MoveSearchVars>(queryVars, setQueryVars, 'bypassAccuracy');
 
   const handleCategorySelect = listToggleValue<MoveSearchVars, MoveCategory>(queryVars, setQueryVars, 'category');
 
@@ -98,7 +99,7 @@ const listFilter = ({
 
   const handleTargetClassSelect = listToggleValue<MoveSearchVars, MoveTargetClass>(queryVars, setQueryVars, 'target');
 
-  // TODO: variable power
+  const setVariablePower = threeToggle<MoveSearchVars>(queryVars, setQueryVars, 'variablePower');
 
   return (
     <>
@@ -278,6 +279,16 @@ const listFilter = ({
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
         itemWidth={'25ch'}
         backgroundLight="blue"
+      />
+      <ThreeToggle
+        label="BYPASS ACC."
+        selection={queryVars.bypassAccuracy}
+        setSelection={setBypassAccuracy}
+      />
+      <ThreeToggle
+        label="VARIABLE POW."
+        selection={queryVars.variablePower}
+        setSelection={setVariablePower}
       />
     </>
   );
