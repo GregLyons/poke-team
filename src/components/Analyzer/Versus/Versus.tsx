@@ -114,8 +114,8 @@ const Versus = ({
         versus__wrapper
       `}
     >
-      <section className="versus__user-team-cell">
-        <h2 className="hidden-header">Your team</h2>
+      <section aria-labelledby="versus-user-team" className="versus__user-team-cell">
+        <h2 id="versus-user-team" className="hidden-header">Your team</h2>
         <ErrorBoundary>
           <TeamColumn
             teamDispatch={dispatches.dispatchTeam}
@@ -130,8 +130,8 @@ const Versus = ({
         </ErrorBoundary>
       </section>
       <div className="versus__matchup-cell">
-        <section className="versus__controls">
-          <h2 className="hidden-header">Versus controls</h2>
+        <section aria-labelledby="versus-controls" className="versus__controls">
+          <h2 id="versus-controls" className="hidden-header">Versus controls</h2>
           <ErrorBoundary>
             <VersusControls
               dispatches={dispatches}
@@ -153,8 +153,8 @@ const Versus = ({
             />
           </ErrorBoundary>
         </section>
-        <section className="versus-matchup__wrapper">
-          <h2 className="hidden-header">Matchup table</h2>
+        <section aria-labelledby="versus-matchup" className="versus-matchup__wrapper">
+          <h2 id="versus-matchup" className="hidden-header">Matchup table</h2>
           <ErrorBoundary>
             <VersusMatchup
               userPokemon={team[filters.genFilter.gen].members}
@@ -170,8 +170,8 @@ const Versus = ({
           </ErrorBoundary>
         </section>
       </div>
-      <section className="versus__enemy-team-cell">
-        <h2 className="hidden-header">Enemy's team</h2>
+      <section aria-labelledby="versus-enemy-team" className="versus__enemy-team-cell">
+        <h2 id="versus-enemy-team" className="hidden-header">Enemy's team</h2>
         <ErrorBoundary>
           <TeamColumn
             teamDispatch={dispatches.dispatchEnemyTeam}

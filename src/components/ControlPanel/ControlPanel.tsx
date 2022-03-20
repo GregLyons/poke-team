@@ -34,8 +34,8 @@ const ControlPanel = ({
       ref={headerRef}
       className={classWithBG('control-panel__wrapper', bgManager)}
     >
-      <section className={classWithBGShadow("gen-filter__cell", bgManager)}>
-        <h2 className="hidden-header">Change generation</h2>
+      <section aria-labelledby="gen-filter" className={classWithBGShadow("gen-filter__cell", bgManager)}>
+        <h2 id="gen-filter" className="hidden-header">Change generation</h2>
         <ErrorBoundary>
           <GenFilterForm
             genFilter={filters.genFilter}
@@ -43,8 +43,8 @@ const ControlPanel = ({
           />
         </ErrorBoundary>
       </section>
-      <section className={classWithBGShadow("tier-filter__cell", bgManager)}>
-        <h2 className="hidden-header">Tier filter</h2>
+      <section aria-labelledby="tier-filter" className={classWithBGShadow("tier-filter__cell", bgManager)}>
+        <h2 id="tier-filter" className="hidden-header">Tier filter</h2>
         <ErrorBoundary>
           <TierFilterForm
             genFilter={filters.genFilter}
@@ -54,8 +54,8 @@ const ControlPanel = ({
           />
         </ErrorBoundary>
       </section>
-      <section className="team__cell">
-        <h2 className="hidden-header">Team display</h2>
+      <section aria-labelledby="team-display" className="team__cell">
+        <h2 id="team-display" className="hidden-header">Team display</h2>
         <ErrorBoundary>
           <PokemonTeam
             dispatchCart={dispatches.dispatchCart}
@@ -65,8 +65,8 @@ const ControlPanel = ({
           />
         </ErrorBoundary>
       </section>
-      <section className={classWithBGShadow("import-export__cell", bgManager)}>
-        <h2 className="hidden-header">Import and export teams</h2>
+      <section aria-labelledby="import-export" className={classWithBGShadow("import-export__cell", bgManager)}>
+        <h2 id="import-export" className="hidden-header">Import and export teams</h2>
         <ErrorBoundary>
           <ImportExport
             dispatches={dispatches}

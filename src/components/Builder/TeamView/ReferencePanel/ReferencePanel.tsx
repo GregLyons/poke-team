@@ -75,10 +75,8 @@ const ReferencePanel = ({
   if (member) spreads = { evs: member.evs, ivs: member.ivs, };
 
   return (
-    <section
-      className="reference-panel__wrapper"
-    >
-      <h2 className="hidden-header" title={viewPanelMessage}>Reference panel</h2>
+    <section aria-labelledby="reference-panel" className="reference-panel__wrapper">
+      <h2 id="reference-panel" className="hidden-header" title={viewPanelMessage}>Reference panel</h2>
       {/* Mimic text-on-border effect of other panels on the page */}
       <div className="reference-panel__padder">
         <div className="reference-panel__header">

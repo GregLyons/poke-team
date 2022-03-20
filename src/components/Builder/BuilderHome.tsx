@@ -9,16 +9,16 @@ const BuilderHome = () => {
       <h1 className="section-home__header">
         Builder
       </h1>
-      <section className="section-home__section">
-        <h2 className="section-home__section-header">Team</h2>
+      <section aria-labelledby="team-description" className="section-home__section">
+        <h2 id="team-description" className="section-home__section-header">Team</h2>
         <p className="section-home__text">
           Here you can use the teambuilding interface, which functions like the one on Pokemon Showdown, to build your team of six Pokemon.
           When adding Pokemon, you can select either from your pinned boxes in the "Cart" section (see next section), or from individual Pokemon that you saved in the "Quick Search" section.
           Blank boxes in the teambuilding interface indicate a mechanic which is not present in the currently selected generation, e.g. the "Hidden Power" box in the "Stats" panel will be blank in Gens 1 and 8.
         </p>
       </section>
-      <section className="section-home__section">
-        <h2 className="section-home__section-header">Cart</h2>
+      <section aria-labelledby="cart-description" className="section-home__section">
+        <h2 id="cart-description" className="section-home__section-header">Cart</h2>
         <p className="section-home__text">
           Boxes saved in the Planner, as well as your own custom boxes, are displayed here.
           Boxes from the Planner are organized by the section in which you found them, and your custom boxes are at the bottom.
@@ -46,14 +46,14 @@ const BuilderHome = () => {
           At any point, you can click the "PIN" button on any box in order to make it accessible in the "Team" section.
         </p>
       </section>
-      <section className="section-home__section">
-        <h2 className="section-home__section-header">Quick Search</h2>
+      <section aria-labelledby="quick-search-description" className="section-home__section">
+        <h2 id="quick-search-description" className="section-home__section-header">Quick Search</h2>
         <p className="section-home__text">
           Search individual Pokemon by name, and save them for use in the Team tab.
         </p>
       </section>
-      <section className="section-home__section">
-        <h2 className="section-home__section-header">
+      <section aria-labelledby="builder-notes" className="section-home__section">
+        <h2 id="builder-notes" className="section-home__section-header">
           Notes
         </h2>
         <ul className="section-home__list">

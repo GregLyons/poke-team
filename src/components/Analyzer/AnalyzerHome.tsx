@@ -10,8 +10,8 @@ const AnalyzerHome = () => {
       <h1 className="section-home__header">
         Analyzer
       </h1>
-      <section className="section-home__section">
-        <h2 className="section-home__section-header">
+      <section aria-labelledby="coverage-description" className="section-home__section">
+        <h2 id="coverage-description" className="section-home__section-header">
           Coverage
         </h2>
         <p className="section-home__text">
@@ -35,8 +35,8 @@ const AnalyzerHome = () => {
           You can change your Pokemon's abilities, items, and moves as well by clicking on them.
         </p>
       </section>
-      <section className="section-home__section">
-        <h2 className="section-home__section-header">
+      <section aria-labelledby="versus-description" className="section-home__section">
+        <h2 id="versus-description" className="section-home__section-header">
           Versus
         </h2>
         <p className="section-home__text">
@@ -60,8 +60,8 @@ const AnalyzerHome = () => {
           The app will briefly highlight any cells whose values for the above three bullet points change due to modifying your or the enemy's team members.
         </p>
       </section>
-      <section className="section-home__section">
-        <h2 className="section-home__section-header">
+      <section aria-labelledby="analyzer-notes" className="section-home__section">
+        <h2 id="analyzer-notes" className="section-home__section-header">
           Notes
         </h2>
         <p className="section-home__text">

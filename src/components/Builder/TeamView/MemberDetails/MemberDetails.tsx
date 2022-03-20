@@ -35,8 +35,8 @@ const MemberDetails = ({
   const gen = filters.genFilter.gen;
 
   return (
-    <section className="member-details__wrapper">
-      <h2 className="hidden-header" title={`Details for ${member.formattedPSID}.`}>Member details</h2>
+    <section aria-labelledby="member-details" className="member-details__wrapper">
+      <h2 id="member-details" className="hidden-header" title={`Details for ${member.formattedPSID}.`}>Member details</h2>
       <ErrorBoundary>
         <MemberDetailsCosmetic
           member={member}

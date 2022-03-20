@@ -157,10 +157,8 @@ const QuickSearch = ({
   if (error) { return (<div>{error.message}</div>); }
 
   return (
-    <section
-      className="quick-search__wrapper"
-    >
-      <h2 className="hidden-header">Quick search</h2>
+    <section aria-labelledby="quick-search" className="quick-search__wrapper">
+      <h2 id="quick-search" className="hidden-header">Quick search</h2>
       <form>
         {searchBar}
       </form>

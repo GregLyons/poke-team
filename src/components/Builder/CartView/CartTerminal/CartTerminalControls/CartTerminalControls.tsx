@@ -29,8 +29,8 @@ const CartTerminalControls = ({
   }
   useEventListener('keydown', onEnter);
   return (
-    <section className="cart-view-terminal__controls-wrapper">
-      <h2 className="hidden-header">Controls for Cart Terminal</h2>
+    <section aria-labelledby="cart-terminal-controls" className="cart-view-terminal__controls-wrapper">
+      <h2 id="cart-terminal-controls" className="hidden-header">Controls for Cart Terminal</h2>
       <p className="cart-view-terminal__message">
         {terminalMessage}
       </p>

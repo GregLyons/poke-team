@@ -112,8 +112,8 @@ const PokemonFilterForm = ({
 
   return (
     <>
-    <section className={classWithBGShadow("type-filter__cell", bgManager)}>
-      <h2 className="hidden-header">Type filter</h2>
+    <section aria-labelledby="type-filter" className={classWithBGShadow("type-filter__cell", bgManager)}>
+      <h2 id="type-filter" className="hidden-header">Type filter</h2>
       <ErrorBoundary>
         <form className="type-filter__wrapper">
           <div className="type-filter__button">
@@ -168,8 +168,8 @@ const PokemonFilterForm = ({
         </form>
       </ErrorBoundary>
     </section>
-    <section className={classWithBGShadow("stat-filter__cell", bgManager)}>
-      <h2 className="hidden-header">Stat filter</h2>
+    <section aria-labelledby="stat-filter" className={classWithBGShadow("stat-filter__cell", bgManager)}>
+      <h2 id="stat-filter" className="hidden-header">Stat filter</h2>
       <ErrorBoundary>
         <form className="stat-filter__wrapper">
           <div className="stat-filter__button">

@@ -9,8 +9,8 @@ const PlannerHome = () => {
       <h1 className="section-home__header">
         Planner
       </h1>
-      <section className="section-home__section">
-        <h2 className="section-home__section-header">
+      <section aria-labelledby="searches-description" className="section-home__section">
+        <h2 id="searches-description" className="section-home__section-header">
           Main searches
         </h2>
         <p className="section-home__text">
@@ -52,8 +52,8 @@ const PlannerHome = () => {
           You can change the Type, Base Stat, and Tier filters in the Control Panel to filter Pokemon.
         </p>
       </section>
-      <section className="section-home__section">
-        <h2 className="section-home__section-header">Pages</h2>
+      <section aria-labelledby="pages-description" className="section-home__section">
+        <h2 id="pages-description" className="section-home__section-header">Pages</h2>
         <p className="section-home__text">
           Each of the main search results contains a link to a page for that particular result.
           Certain pages, like the one for the move "Pound", will be empty, but others will list relationships that the result has with other categories.
@@ -69,8 +69,8 @@ const PlannerHome = () => {
           </li>
         </ul>
       </section>
-      <section className="section-home__section">
-        <h2 className="section-home__section-header">Notes</h2>
+      <section aria-labelledby="planner-notes" className="section-home__section">
+        <h2 id="planner-notes" className="section-home__section-header">Notes</h2>
         <ul className="section-home__list">
           <li className="section-home__list-item">
             Results with overflowing content (e.g. those with a lot of icons) will expand, but only when you hover over the data or the icons (the content which could cause overflow). This means that the result will not expand when you're hovering over the controls (which could cause the button to move from under your mouse).
