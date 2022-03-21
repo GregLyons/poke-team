@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useWindowSize } from "usehooks-ts";
+import { useIsMounted, useWindowSize } from "usehooks-ts";
 import { Filters } from "../../components/App";
 
 /*
@@ -33,9 +33,11 @@ export const useEntryExpand = (
   const expandTimer = useRef<NodeJS.Timeout>();
   const contractTimer = useRef<NodeJS.Timeout>();
 
+  const isMounted = useIsMounted();
+
   // Needs to run on window resize as well. 
   useEffect(() => {
-    setTimeout(() => entryRef.current && setOriginalScrollHeight(entryRef.current.scrollHeight));
+    setTimeout(() => isMounted() && entryRef.current && setOriginalScrollHeight(entryRef.current.scrollHeight));
   }, [entryRef, setOriginalScrollHeight, windowWidth, windowHeight, filters?.genFilter, filters?.pokemonFilter, filters?.tierFilter]);
 
   function onMouseEnterEntry() {
@@ -58,7 +60,7 @@ export const useEntryExpand = (
   function onMouseEnterIcon() {
     setExpandHover(true);
     // Only expand if there is overflow in the element
-    if (entryRef.current && entryRef.current.offsetHeight < entryRef.current.scrollHeight) expandTimer.current = setTimeout(() => setExpand(true), 500);
+    if (entryRef.current && entryRef.current.offsetHeight < entryRef.current.scrollHeight) expandTimer.current = setTimeout(() => isMounted() && setExpand(true), 500);
     // Stop contract timer
     if (contractTimer.current) clearTimeout(contractTimer.current);
   }
@@ -70,7 +72,7 @@ export const useEntryExpand = (
     // Stop expand timer
     if (expandTimer.current) clearTimeout(expandTimer.current);
     // If expanded, start contract timer
-    if (expand) contractTimer.current = setTimeout(() => setExpand(false), 500);
+    if (expand) contractTimer.current = setTimeout(() => isMounted() && setExpand(false), 500);
   }
 
   const hoverListeners = { onMouseEnter: onMouseEnterEntry, onMouseLeave: onMouseLeaveEntry }

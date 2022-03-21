@@ -54,7 +54,7 @@
   grid-column: 4 / 5;
 }
 
-.team__cell {
+.team-display__cell {
   grid-row: 2 / 3;
   grid-column: 1 / 3;
 }
@@ -73,7 +73,8 @@
 .tier-filter__cell,
 .type-filter__cell,
 .stat-filter__cell,
-.import-export__cell {
+.import-export__cell,
+.team-display__cell {
   position: relative;
   
   display: flex;
@@ -95,7 +96,7 @@
 .type-filter__wrapper,
 .stat-filter__wrapper,
 .import-export__wrapper,
-.team-icon__wrapper {
+.team-display__wrapper {
   position: relative;
   width: 100%;
   height: 100%;
@@ -108,53 +109,6 @@
   align-self: center;
   padding: 0.25rem;
 }
-
-/* Team-specific border styling */ 
-/* #region */
-
-.team__cell {
-  box-shadow: var(--bg-shadow);
-  min-width: fit-content;
-}
-
-.team-icon__cell {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  padding: var(--cell-padding);
-  background-color: var(--dark2);
-}
-
-.team__wrapper {
-  position: relative;
-  
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: 1fr;
-  
-  background-color: var(--dark2);
-  box-shadow: var(--bg-shadow);
-}
-
-/* We can't just apply the box shadowing to .team__cell, as its content will cover up the box shadow due to the HTML structure. Thus, we use an ::after to achieve the same effect, with z-index 1 */
-.team__wrapper::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: none;
-  box-shadow: var(--bg-shadow);
-  z-index: 1;
-  
-  /* TODO: Allows clicking on content below. For IE10 and below, need to implement JS fix */
-  pointer-events: none;
-}
-
-/* #endregion */
 
 /* #endregion */
 

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useIsMounted } from "usehooks-ts";
 import { PokemonIconDatum } from "../../../../../types-queries/helpers";
 import { MemberPokemon, MemberPokemonQuery } from "../../../../../types-queries/Member/MemberPokemon";
 import { Dispatches, Filters } from "../../../../App";
@@ -34,6 +35,8 @@ const TeamMember = ({
   const removeTimer = useRef<NodeJS.Timeout>();
   const removeDuration = 1500;
 
+  const isMounted = useIsMounted();
+
   // When remove icon is clicked, begin removing the Pokemon; user has a chance to cancel
   const onRemoveClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
@@ -43,7 +46,7 @@ const TeamMember = ({
     
     // Start removing Pokemon
     setRemoving(true);
-    removeTimer.current = setTimeout(removePokemon, removeDuration);
+    removeTimer.current = setTimeout(() => { if (isMounted()) removePokemon() }, removeDuration);
   }
 
   // When removeTimer has expired, remove the Pokemon from the team

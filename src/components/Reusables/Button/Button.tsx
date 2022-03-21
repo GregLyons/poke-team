@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useIsMounted } from "usehooks-ts";
 import './Button.css';
 
 type ButtonProps = {
@@ -21,11 +22,7 @@ const Button = ({
   immediate,
 }: ButtonProps) => {
   const [justClicked, setJustClicked] = useState(false);
-  const [isMounted, setIsMounted] = useState(true);
-
-  useEffect(() => {
-    return () => { setIsMounted(false) }
-  }, [setIsMounted]);
+  const isMounted = useIsMounted();
 
   return (
     <button
@@ -43,7 +40,7 @@ const Button = ({
       onClick={e => {
         setJustClicked(true);
         // justClicked is set to false after 250ms, but the component might unmount in that time. In that case, we don't perform the state update
-        setTimeout(() => isMounted && setJustClicked(false), 250);
+        setTimeout(() => isMounted() && setJustClicked(false), 250);
         onClick(e);
       }}
       disabled={disabled}

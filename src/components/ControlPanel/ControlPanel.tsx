@@ -6,7 +6,7 @@ import './ControlPanel.css';
 import GenFilterForm from "./GenFilterForm/GenFilterForm";
 import ImportExport from './ImportExport/ImportExport';
 import PokemonFilterForm from './PokemonFilterForm/PokemonFilterForm';
-import PokemonTeam from "./PokemonTeam/PokemonTeam";
+import TeamDisplay from "./TeamDisplay/TeamDisplay";
 import TierFilterForm from "./TierFilterForm/TierFilterForm";
 
 
@@ -54,12 +54,10 @@ const ControlPanel = ({
           />
         </ErrorBoundary>
       </section>
-      <section aria-labelledby="team-display" className="team__cell">
+      <section aria-labelledby="team-display" className="team-display__cell">
         <h2 id="team-display" className="hidden-header">Team display</h2>
         <ErrorBoundary>
-          <PokemonTeam
-            dispatchCart={dispatches.dispatchCart}
-            dispatchTeam={dispatches.dispatchTeam}
+          <TeamDisplay
             genFilter={filters.genFilter}
             team={team}
           />
