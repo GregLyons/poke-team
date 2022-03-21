@@ -123,6 +123,15 @@
   grid-column: 3 / 4;
 }
 
+.team-column__spreads {
+  grid-row: 2 / 3;
+  grid-column: 3 / 5;
+
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 1fr;
+}
+
 .team-column__stats {
   grid-row: 3 / 5;
   grid-column: 2 / 4;
@@ -143,11 +152,12 @@
 
 /* #endregion */
 
-.--relevant {
+/* Need to exclude the wrapper, otherwise the underline text-decoration will be passed down to descendants and cannot be removed */
+.--relevant:not(.team-column__member-wrapper) {
   font-weight: 600;
   text-decoration: underline;
 }
-.--irrelevant {
+.--irrelevant:not(.team-column__member-wrapper) {
   color: var(--dark1);
 }
 .--irrelevant.team-column__icon,
@@ -191,6 +201,11 @@
 /* Highlight first popup-search__result */
 .popup-search__result:first-of-type {
   filter: brightness(1.3);
+}
+
+.popup-spread__slider-wrapper {
+  display: flex;
+  align-items: center;
 }
 
 /* #endregion */

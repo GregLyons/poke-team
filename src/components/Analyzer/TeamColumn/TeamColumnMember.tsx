@@ -13,6 +13,7 @@ import TeamColumnAbility from "./TeamColumnAbility";
 import TeamColumnItem from "./TeamColumnItem";
 import TeamColumnMove from "./TeamColumnMove";
 import TeamColumnNature from "./TeamColumnNature";
+import TeamColumnSpread from "./TeamColumnSpread";
 
 type TeamColumnMemberProps = {
   teamDispatch: React.Dispatch<TeamAction>
@@ -44,6 +45,7 @@ const TeamColumnMember = ({
   // Highlights/de-highlights ability names, move names, etc. which are relevant to the element being hovered over (e.g. a cell in the type coverage chart)
   const determineRelevance = useCallback((name: string | undefined) => {
     if (member === null || relevantNames === null) return '';
+
     else if (name && relevantNames[member?.psID] && relevantNames[member?.psID].includes(name)) return '--relevant';
     else if (name && Object.keys(relevantNames).includes(name)) return '--relevant';
     else return '--irrelevant';
@@ -183,67 +185,100 @@ const TeamColumnMember = ({
               onPopupClose={onPopupClose}
             />}
           </div>
+          <div
+            className={`
+              team-column__spreads
+              ${determineRelevance(member?.psID)}
+            `}
+          >
+            {member && <>
+            <TeamColumnSpread
+              teamDispatch={teamDispatch}
+              filters={filters}
+              
+              member={member}
+              memberIdx={memberIdx}
+              popupPositioning={popupPositioning}
+
+              spreadFor='EV'
+              spread={member.evs}
+
+              determineRelevance={determineRelevance}
+              onEntityClick={onEntityClick}
+              onPopupClose={onPopupClose}
+            />
+            <TeamColumnSpread
+              teamDispatch={teamDispatch}
+              filters={filters}
+
+              member={member}
+              memberIdx={memberIdx}
+              popupPositioning={popupPositioning}
+
+              spreadFor={filters.genFilter.gen > 2 ? 'IV' : 'DV'}
+              spread={member.ivs}
+
+              determineRelevance={determineRelevance}
+              onEntityClick={onEntityClick}
+              onPopupClose={onPopupClose}
+            />
+            </>}
+          </div>
           <div className="team-column__stats">
             {member && <>
               <div
                 className={`
                   team-column__stat-wrapper
+                  team-column__text
                   ${determineRelevance('HP')}
                 `}
               >
-                <span className="team-column__text">
-                  HP&nbsp; {member.computeHP()}
-                </span>
+                HP&nbsp; {member.computeHP()}
               </div>
               <div
                 className={`
                   team-column__stat-wrapper
+                  team-column__text
                   ${determineRelevance('Def')}
                 `}
               >
-                <span className="team-column__text">
-                  Def {member.computeDefense()}
-                </span>
+                Def {member.computeDefense()}
               </div>
               <div
                 className={`
                   team-column__stat-wrapper
+                  team-column__text
                   ${determineRelevance('SpD')}
                 `}
               >
-                <span className="team-column__text">
-                  SpD {member.computeSpecialDefense()}
-                </span>
+                SpD {member.computeSpecialDefense()}
               </div>
               <div
                 className={`
                   team-column__stat-wrapper
+                  team-column__text
                   ${determineRelevance('Atk')}
                 `}
               >
-                <span className="team-column__text">
-                  Atk {member.computeAttack()}
-                </span>
+                Atk {member.computeAttack()}
               </div>
               <div
                 className={`
                   team-column__stat-wrapper
+                  team-column__text
                   ${determineRelevance('SpA')}
                 `}
               >
-                <span className="team-column__text">
-                  SpA {member.computeSpecialAttack()}
-                </span>
+                SpA {member.computeSpecialAttack()}
               </div>
               <div
                 className={`
                   team-column__stat-wrapper
+                  team-column__text
                   ${determineRelevance('Spe')}
                 `}
               >
-                <span className="team-column__text">
-                  Spe {member.computeSpeed()}
-                </span>
+                Spe {member.computeSpeed()}
               </div>
             </>}
           </div>

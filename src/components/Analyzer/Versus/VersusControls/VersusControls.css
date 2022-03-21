@@ -10,8 +10,15 @@
   box-shadow: 1px 1px 2px 1px black;
 }
 
+/* 6ch since 'IMPORT' has 6 letters. 2px for the border from the popup. */
+.versus-controls__clear {
+  width: calc(6ch + 2px);
+}
+
 .versus-controls__mode-toggle:hover,
-.versus-controls__mode-toggle:focus {
+.versus-controls__mode-toggle:focus,
+.versus-controls__clear:hover,
+.versus-controls__clear:focus {
   text-decoration: underline;
   cursor: pointer;
 }

@@ -125,7 +125,7 @@ const TeamColumnMove = ({
       {member && <Popup
         trigger={<div
           className={`
-          team-column__text
+            team-column__text
             ${determineRelevance(move?.psID)}
           `}
           onClick={onEntityClick(member?.psID || 'a', member?.moveset[moveIdx]?.psID || 'a')}

@@ -44,10 +44,10 @@ const VersusMatchupCell = ({
 
     return {
       user: {
-        [userPSID]: userMovePSIDs.concat(userStatPSIDs),
+        [userPSID]: userMovePSIDs.concat(userStatPSIDs).concat(['EV', 'IV', 'DV']),
       },
       enemy: {
-        [enemyPSID]: enemyMovePSIDs.concat(enemyStatPSIDs),
+        [enemyPSID]: enemyMovePSIDs.concat(enemyStatPSIDs).concat(['EV', 'IV', 'DV']),
       },
     };
   }, [result]);

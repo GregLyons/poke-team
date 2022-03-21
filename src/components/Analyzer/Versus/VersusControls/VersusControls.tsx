@@ -82,6 +82,7 @@ const VersusControls = ({
       >
         {enemyTeam[filters.genFilter.gen].members.filter(d => d !== null).length !== 0
           ? <button
+              className="versus-controls__clear"
               title="Clear current enemy team."
               onClick={e => {
                 e.preventDefault();
@@ -96,7 +97,7 @@ const VersusControls = ({
                 border: '1px solid transparent',
               }}
             >
-              CLEAR&nbsp;
+              CLEAR
             </button>
           : <Import
               teamDispatch={dispatches.dispatchEnemyTeam}

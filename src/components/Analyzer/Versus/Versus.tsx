@@ -91,7 +91,7 @@ const Versus = ({
     };
   };
 
-  const onMouseLeave = () => setRelevantNames(null);
+  const onMouseLeave = () => !isPopupActive && setRelevantNames(null);
 
   const [field, setField] = useState<Field>(new Field({
     gameType: filters.tierFilter.format === 'singles' ? 'Singles' : 'Doubles',

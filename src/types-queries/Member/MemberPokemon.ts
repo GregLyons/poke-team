@@ -559,9 +559,9 @@ export class MemberPokemon extends MemberEntity {
     this.gender && copy.assignGender(this.gender);
     this.shiny !== undefined && copy.assignShiny(this.shiny);
     this.happiness !== undefined && copy.assignHappiness(this.happiness);
+    // Assigning HP type is not necessary, as that is handled by setIVs
 
     this.pokeball !== undefined && copy.assignPokeball(this.pokeball);
-    this.hpType !== undefined && copy.assignHPType(this.hpType);
   }
 
   // Returns a deep copy of this member
