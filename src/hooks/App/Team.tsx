@@ -31,13 +31,15 @@ export type Team = {
   [gen in GenNum]: TeamInGen
 }
 
+const EMPTY_TEAM = [null, null, null, null, null, null];
+
 const EMPTY_TEAM_IN_GEN: TeamInGen = {
   savedPokemon: {
     pinnedBoxes: {},
     quickSearch: {},
   },
-  members: [null, null, null, null, null, null],
-  memberIcons: [null, null, null, null, null, null],
+  members: [...EMPTY_TEAM],
+  memberIcons: [...EMPTY_TEAM],
   selectedMember: null,
   importedMembers: [],
   failedImport: false,
@@ -117,6 +119,12 @@ export type TeamAction =
     payload: {
       gen: GenNum
       idx: number
+    }
+  }
+| {
+    type: 'clear_team'
+    payload: {
+      gen: GenNum
     }
   }
 // Member actions
@@ -377,6 +385,17 @@ export function teamReducer(state: Team, action: TeamAction): Team {
             if (i !== idx) return d;
             return null;
           }),
+        },
+      };
+
+    case 'clear_team':
+      gen = action.payload.gen;
+      return {
+        ...state,
+        [gen]: {
+          ...state[gen],
+          members: [...EMPTY_TEAM],
+          memberIcons: [...EMPTY_TEAM],
         },
       };
 

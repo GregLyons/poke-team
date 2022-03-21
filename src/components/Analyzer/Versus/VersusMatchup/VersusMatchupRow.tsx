@@ -103,12 +103,12 @@ const VersusMatchupRow = ({
         onMouseLeave={onRowMouseLeave}
         onBlur={onRowMouseLeave}
       >
-        <a>
+        <button>
           <PokemonIcon
             pokemonIconDatum={userMember?.iconDatum || DUMMY_POKEMON_ICON_DATUM}
             gender={userMember?.gender}
           />
-        </a>
+        </button>
       </th>
       {resultRow.map((result, colIdx) => <VersusMatchupCell
         key={colIdx}

@@ -62,11 +62,11 @@ const FieldControlEntry = ({
       onFocus={onMouseOver(create.memberPSIDs)}
       onMouseOver={onMouseOver(create.memberPSIDs)}
     >
-      <a
+      <button
         className={rankControlValue(create.total, 'create')}
       >
         {create.total}
-      </a>
+      </button>
     </td>
     <td
       role="gridcell"
@@ -75,11 +75,11 @@ const FieldControlEntry = ({
       onFocus={onMouseOver(resist.memberPSIDs)}
       onMouseOver={onMouseOver(resist.memberPSIDs)}
     >
-      <a
+      <button
         className={rankControlValue(resist.total, 'resist')}
       >
         {resist.total}
-      </a>
+      </button>
     </td>
   </tr>
   )

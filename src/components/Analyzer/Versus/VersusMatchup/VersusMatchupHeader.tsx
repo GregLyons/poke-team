@@ -67,10 +67,11 @@ const VersusMatchupHeader = ({
         scope="col"
         role="gridcell"
         aria-colindex={1}
+        className="versus-matchup__cell"
       >
-        <a>
-          Vs.
-        </a>  
+        <button>
+          VS
+        </button>  
       </th>
       {enemyMembers.map((member, columnIdx) => 
       <th
@@ -98,12 +99,12 @@ const VersusMatchupHeader = ({
         onMouseLeave={onColumnMouseLeave}
         onBlur={onColumnMouseLeave}
       >
-        <a>
+        <button>
           <PokemonIcon
             pokemonIconDatum={member?.iconDatum || DUMMY_POKEMON_ICON_DATUM}
             gender={member?.gender}
           />
-        </a>
+        </button>
       </th>
       )}
     </tr>

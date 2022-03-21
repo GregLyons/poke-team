@@ -123,6 +123,8 @@ const Versus = ({
 
             team={team}
             mode={userMode}
+            teamFor='user'
+
             relevantNames={relevantNames?.user || null}
             onEntityClick={onEntityClick('user')}
             onPopupClose={onPopupClose}
@@ -130,7 +132,7 @@ const Versus = ({
         </ErrorBoundary>
       </section>
       <div className="versus__matchup-cell">
-        <section aria-labelledby="versus-controls" className="versus__controls">
+        <section aria-labelledby="versus-controls" className="versus-controls__wrapper">
           <h2 id="versus-controls" className="hidden-header">Versus controls</h2>
           <ErrorBoundary>
             <VersusControls
@@ -179,6 +181,8 @@ const Versus = ({
 
             team={enemyTeam}
             mode={enemyMode}
+            teamFor='enemy'
+
             relevantNames={relevantNames?.enemy || null}
             onEntityClick={onEntityClick('enemy')}
             onPopupClose={onPopupClose}

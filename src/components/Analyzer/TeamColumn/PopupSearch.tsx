@@ -16,7 +16,6 @@ function PopupSearch<Result extends { node: { psID: string, formattedName: strin
   focusedOnInput,
   onSelect,
 }: PopupSearchProps<Result>): JSX.Element {
-
   // 'Enter' selects first entry
   const onEnter = (event: KeyboardEvent) => {
     if (!focusedOnInput) return;

@@ -12,6 +12,8 @@ type TeamColumnProps = {
 
   team: Team
   mode: 'normal' | 'stat'
+  teamFor: 'user' | 'enemy'
+
   relevantNames: MemberPSIDObject | null
   onEntityClick: (memberPSID: string, entityPSID: string) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
   onPopupClose: () => void
@@ -23,6 +25,8 @@ const TeamColumn = ({
 
   team,
   mode,
+  teamFor,
+
   relevantNames,
   onEntityClick,
   onPopupClose,
@@ -42,6 +46,7 @@ const TeamColumn = ({
           member={member}
           memberIdx={idx}
           mode={mode}
+          teamFor={teamFor}
           relevantNames={relevantNames}
           onEntityClick={onEntityClick}
           onPopupClose={onPopupClose}

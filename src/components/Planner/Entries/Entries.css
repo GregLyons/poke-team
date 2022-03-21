@@ -42,7 +42,7 @@
 
 .planner__entry-row-name:hover {
   color: var(--blue1);
-  box-shadow: var(--button-shadow);
+  text-decoration: underline;
 }
 
 /* Data */

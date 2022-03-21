@@ -114,11 +114,11 @@ const TypeMatchupEntry = ({
         onFocus={onMouseOver(immunities.memberPSIDs)}
         onMouseOver={onMouseOver(immunities.memberPSIDs)}
       >
-        <a
+        <button
           className={rankMatchupValue(immunities.total, 'immunities')}
         >
           {immunities.total}
-        </a>
+        </button>
       </td>
       <td
         role="gridcell"
@@ -127,11 +127,11 @@ const TypeMatchupEntry = ({
         onFocus={onMouseOver(quadResistances.memberPSIDs)}
         onMouseOver={onMouseOver(quadResistances.memberPSIDs)}
       >
-        <a
+        <button
           className={rankMatchupValue(quadResistances.total, 'quadResistances')}
         >
           {quadResistances.total}
-        </a>
+        </button>
       </td>
       <td
         role="gridcell"
@@ -140,11 +140,11 @@ const TypeMatchupEntry = ({
         onFocus={onMouseOver(resistances.memberPSIDs)}
         onMouseOver={onMouseOver(resistances.memberPSIDs)}
       >
-        <a
+        <button
           className={rankMatchupValue(resistances.total, 'resistances')}
         >
           {resistances.total}
-        </a>
+        </button>
       </td>
       <td
         role="gridcell"
@@ -153,11 +153,11 @@ const TypeMatchupEntry = ({
         onFocus={onMouseOver(neutralMatchup.memberPSIDs)}
         onMouseOver={onMouseOver(neutralMatchup.memberPSIDs)}
       >
-        <a
+        <button
           className={rankMatchupValue(neutralMatchup.total, 'neutral')}
         >
           {neutralMatchup.total}
-        </a>
+        </button>
       </td>
       <td
         role="gridcell"
@@ -166,11 +166,11 @@ const TypeMatchupEntry = ({
         onFocus={onMouseOver(weaknesses.memberPSIDs)}
         onMouseOver={onMouseOver(weaknesses.memberPSIDs)}
       >
-        <a
+        <button
           className={rankMatchupValue(weaknesses.total, 'weaknesses')}
         >
           {weaknesses.total}
-        </a>
+        </button>
       </td>
       <td
         role="gridcell"
@@ -179,11 +179,11 @@ const TypeMatchupEntry = ({
         onFocus={onMouseOver(quadWeaknesses.memberPSIDs)}
         onMouseOver={onMouseOver(quadWeaknesses.memberPSIDs)}
       >
-        <a
+        <button
           className={rankMatchupValue(quadWeaknesses.total, 'quadWeaknesses')}
         >
           {quadWeaknesses.total}
-        </a>
+        </button>
       </td>
       <td
         role="gridcell"
@@ -192,11 +192,11 @@ const TypeMatchupEntry = ({
         onFocus={onMouseOver(noEffect.memberPSIDs)}
         onMouseOver={onMouseOver(noEffect.memberPSIDs)}
       >
-        <a
+        <button
           className={rankCoverageValue(noEffect.total, 'noEffect')}
         >
           {noEffect.total}
-        </a>
+        </button>
       </td>
       <td
         role="gridcell"
@@ -205,11 +205,11 @@ const TypeMatchupEntry = ({
         onFocus={onMouseOver(notVeryEffective.memberPSIDs)}
         onMouseOver={onMouseOver(notVeryEffective.memberPSIDs)}
       >
-        <a
+        <button
           className={rankCoverageValue(notVeryEffective.total, 'notVeryEffective')}
         >
           {notVeryEffective.total}
-        </a>
+        </button>
       </td>
       <td
         role="gridcell"
@@ -218,11 +218,11 @@ const TypeMatchupEntry = ({
         onFocus={onMouseOver(neutralCoverage.memberPSIDs)}
         onMouseOver={onMouseOver(neutralCoverage.memberPSIDs)}
       >
-        <a
+        <button
           className={rankCoverageValue(neutralCoverage.total, 'neutral')}
         >
           {neutralCoverage.total}
-        </a>
+        </button>
       </td>
       <td
         role="gridcell"
@@ -231,11 +231,11 @@ const TypeMatchupEntry = ({
         onFocus={onMouseOver(superEffective.memberPSIDs)}
         onMouseOver={onMouseOver(superEffective.memberPSIDs)}
       >
-        <a
+        <button
           className={rankCoverageValue(superEffective.total, 'superEffective')}
         >
           {superEffective.total}
-        </a>
+        </button>
       </td>
     </tr>
   )

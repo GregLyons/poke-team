@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { DocumentNode } from "graphql";
 import { useEffect, useRef, useState } from "react";
+import { useIsMounted } from "usehooks-ts";
 import { Dispatches, Filters } from "../components/App";
 import LoadIcon from "../components/Reusables/LoadIcon/LoadIcon";
 import SearchBar from "../components/Reusables/SearchBar/SearchBar";
@@ -326,6 +327,8 @@ export function useDelayedQuery<SearchQuery, SearchVars>({
   const [delayedQueryVars, setDelayedQueryVars] = useState<SearchVars>(queryVars)
   const queryTimer = useRef<NodeJS.Timeout>();
 
+  const isMounted = useIsMounted();
+
   const { data, loading, error } = useQuery<SearchQuery, SearchVars>(query, {
     variables: delayedQueryVars,
   });
@@ -341,8 +344,9 @@ export function useDelayedQuery<SearchQuery, SearchVars>({
     if (queryTimer.current) {
       clearTimeout(queryTimer.current);
     }
-    queryTimer.current = setTimeout(() => { setDelayedQueryVars(queryVars) }, delay);
-  }, [queryVars, delayedQueryVars, setDelayedQueryVars, queryTimer]);
+    
+    queryTimer.current = setTimeout(() => { isMounted() && setDelayedQueryVars(queryVars) }, delay);
+  }, [queryVars, delayedQueryVars, setDelayedQueryVars, queryTimer, delay, ]);
 
   return { data, loading, error };
 }

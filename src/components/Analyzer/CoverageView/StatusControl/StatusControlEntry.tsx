@@ -68,11 +68,11 @@ const StatusControlEntry = ({
       onFocus={onMouseOver(cause.memberPSIDs)}
       onMouseOver={onMouseOver(cause.memberPSIDs)}
     >
-      <a
+      <button
         className={rankControlValue(cause.total, 'cause')}
       >
         {cause.total}
-      </a>
+      </button>
     </td>
     <td
       role="gridcell"
@@ -81,11 +81,11 @@ const StatusControlEntry = ({
       onFocus={onMouseOver(resist.memberPSIDs)}
       onMouseOver={onMouseOver(resist.memberPSIDs)}
     >
-      <a
+      <button
         className={rankControlValue(resist.total, 'resist')}
       >
         {resist.total}
-      </a>
+      </button>
     </td>
   </tr>
   )

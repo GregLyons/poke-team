@@ -13,8 +13,12 @@ type TeamColumnItemProps = {
   teamDispatch: React.Dispatch<TeamAction>
   filters: Filters
 
-  member: MemberPokemon | null
+  member: MemberPokemon
   memberIdx: number
+  popupPositioning: {
+    orientation: 'top' | 'bottom' | 'left' | 'right',
+    nudge: 'top' | 'bottom' | 'left' | 'right',
+  }
   
   item: MemberItem | null | undefined
   determineRelevance: (name: string | undefined) => string
@@ -28,6 +32,7 @@ const TeamColumnItem = ({
   
   member,
   memberIdx,
+  popupPositioning,
   
   item,
   determineRelevance,
@@ -104,7 +109,7 @@ const TeamColumnItem = ({
           focusedOnInput={focusedOnInput}
           onSelect={addItem}
         />}
-        orientation='right'
+        {...popupPositioning}
 
         onClose={onPopupClose}
         forceClose={forceClose}

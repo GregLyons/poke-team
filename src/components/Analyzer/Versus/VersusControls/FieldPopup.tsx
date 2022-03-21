@@ -66,7 +66,7 @@ const FieldPopup = ({
   };
   return (
     <Popup
-      trigger={<div>FIELD</div>}
+      trigger={<div title="Change conditions of the entire field.">FIELD</div>}
       content={<div className="versus-controls__field">
         <h3>Weather</h3>
         <div className="versus-controls__weather">

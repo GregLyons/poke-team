@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TeamAction } from "../../../hooks/App/Team";
 import { useDelayedQuery, useGenConnectedSearchBar } from "../../../hooks/Searches";
 import { PopupAbilityQuery, PopupAbilityVars, POPUP_ABILITY_QUERY } from "../../../types-queries/Analyzer/PopupSearch";
@@ -14,8 +14,12 @@ type TeamColumnAbilityProps = {
   teamDispatch: React.Dispatch<TeamAction>
   filters: Filters
 
-  member: MemberPokemon | null
+  member: MemberPokemon
   memberIdx: number
+  popupPositioning: {
+    orientation: 'top' | 'bottom' | 'left' | 'right',
+    nudge: 'top' | 'bottom' | 'left' | 'right',
+  }
 
   ability: MemberAbility | null | undefined
   determineRelevance: (name: string | undefined) => string
@@ -29,6 +33,7 @@ const TeamColumnAbility = ({
 
   member,
   memberIdx,
+  popupPositioning,
   
   ability,
   determineRelevance,
@@ -49,6 +54,15 @@ const TeamColumnAbility = ({
       backgroundLight: 'red',
     },
   });
+
+  useEffect(() => {
+    if (!member) return;
+    setQueryVars({
+      ...queryVars,
+      psID: member.psID,
+    })
+  }, [member]);
+
   const { data, loading, error } = useDelayedQuery<PopupAbilityQuery, PopupAbilityVars>({
     query: POPUP_ABILITY_QUERY,
     queryVars,
@@ -106,7 +120,7 @@ const TeamColumnAbility = ({
           focusedOnInput={focusedOnInput}
           onSelect={addAbility}
         />}
-        orientation='right'
+        {...popupPositioning}
 
         onClose={onPopupClose}
         forceClose={forceClose}

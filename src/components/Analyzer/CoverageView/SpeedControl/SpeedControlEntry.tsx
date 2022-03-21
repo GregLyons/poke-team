@@ -51,11 +51,11 @@ const SpeedControlEntry = ({
       onFocus={onMouseOver(memberPSIDs)}
       onMouseOver={onMouseOver(memberPSIDs)}
     >
-      <a
+      <button
         className={rankControlValue(total)}
       >
         {total}
-      </a>
+      </button>
     </td>
   </tr>
   )

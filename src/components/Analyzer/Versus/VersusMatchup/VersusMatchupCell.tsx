@@ -134,7 +134,7 @@ const VersusMatchupCell = ({
       aria-colindex={colIdx + 2}
     >
     {result !== null 
-      ? <a
+      ? <button
           title={userFormattedName && enemyFormattedName
             ? `Your ${userFormattedName} vs. enemy's ${enemyFormattedName}`
             : ``
@@ -194,8 +194,8 @@ const VersusMatchupCell = ({
           >
             E {enemyToUserGuaranteed} {enemyToUserMinHitText}
           </p>
-        </a>
-      : <a className="versus-matchup__cell" />}
+        </button>
+      : <button className="versus-matchup__cell" />}
     </td>
   );
 };

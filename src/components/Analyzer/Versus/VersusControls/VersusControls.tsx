@@ -48,12 +48,12 @@ const VersusControls = ({
 
   return (
     <>
-      <div
-        className="versus-controls__user-mode-toggle"
+      <button
+        className="versus-controls__mode-toggle"
         onClick={toggleMode('user')}
       >
-        {userMode}
-      </div>
+        {userMode === 'normal' ? 'STAT' : 'MOVE'}
+      </button>
       <div className="versus-controls__user-side">
         <SidePopup
           gen={gen}
@@ -69,13 +69,6 @@ const VersusControls = ({
           setField={setField}
         />
       </div>
-      <div className="versus-controls__import">
-        <Import
-          teamDispatch={dispatches.dispatchEnemyTeam}
-          filters={filters}
-          team={enemyTeam}
-        />
-      </div>
       <div className="versus-controls__enemy-side">
         <SidePopup
           gen={gen}
@@ -85,11 +78,39 @@ const VersusControls = ({
         />
       </div>
       <div
-        className="versus-controls__enemy-mode-toggle"
+        className="versus-controls__import"
+      >
+        {enemyTeam[filters.genFilter.gen].members.filter(d => d !== null).length !== 0
+          ? <button
+              title="Clear current enemy team."
+              onClick={e => {
+                e.preventDefault();
+                dispatches.dispatchEnemyTeam({
+                  type: 'clear_team',
+                  payload: {
+                    gen: filters.genFilter.gen,
+                  },
+                });
+              }}
+              style={{
+                border: '1px solid transparent',
+              }}
+            >
+              CLEAR&nbsp;
+            </button>
+          : <Import
+              teamDispatch={dispatches.dispatchEnemyTeam}
+              filters={filters}
+              team={enemyTeam}
+            />
+        }
+      </div>
+      <button
+        className="versus-controls__mode-toggle"
         onClick={toggleMode('enemy')}
       >
-        {enemyMode}
-      </div>
+        {enemyMode === 'normal' ? 'STAT' : 'MOVE'}
+      </button>
     </>
   );
 };

@@ -59,7 +59,11 @@ const SidePopup = ({
   
   return (
     <Popup
-      trigger={<div>{whichSide.toUpperCase()} SIDE</div>}
+      trigger={<div
+        title={`Change conditions for ${whichSide} side.`}
+      >
+        SIDE
+      </div>}
       content={<div className="versus-controls__side">
         <h3>Flags</h3>
         <div className="versus-controls__side-toggles">

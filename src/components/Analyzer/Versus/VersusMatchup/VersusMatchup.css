@@ -75,6 +75,12 @@
   box-shadow: var(--basic-cell-shadow);
 }
 
+.versus-matchup__icon:focus-within,
+.versus-matchup__cell:focus-within {
+  outline: 2px dashed var(--blue1);
+} 
+
+
 /* Speed tie triangles */
 /* #region */
 
@@ -187,4 +193,8 @@
   box-shadow: var(--basic-cell-shadow),
               var(--emph-cell-shadow),
               var(--other-cell-shadow-inset) rgba(var(--blue1-components), 0.7);
+}
+
+.versus-matchup__wrapper button {
+  outline: none;
 }

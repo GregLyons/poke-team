@@ -25,7 +25,6 @@
 
   position: relative;
   width: auto;
-  height: clamp(1.5rem, 2rem, 5%);
 
   text-align: center;
 }
@@ -41,7 +40,6 @@
 .type-matchup__2,
 .type-matchup__4 {
   grid-column: span 1;
-  align-self: center;
 
   display: flex;
   justify-content: center;
@@ -74,5 +72,5 @@
 .type-matchup__entry:not(:first-of-type) > td:not(.type-matchup__icon):focus-within,
 .type-matchup__entry:not(:first-of-type) > th:not(.type-matchup__icon):hover
 .type-matchup__entry:not(:first-of-type) > th:not(.type-matchup__icon):focus-within {
-  background: rgba(var(--blue1-components), 0.5);
+  outline: 2px dashed var(--blue1);
 }

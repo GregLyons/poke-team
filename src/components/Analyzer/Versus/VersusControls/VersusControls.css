@@ -1,3 +1,21 @@
+.versus-controls__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 1rem;
+  font-weight: 500;
+
+  background-color: rgb(var(--dark3-components), 0.6);
+  outline: 1px solid var(--light3);
+  box-shadow: 1px 1px 2px 1px black;
+}
+
+.versus-controls__mode-toggle:hover,
+.versus-controls__mode-toggle:focus {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .versus-controls__field,
 .versus-controls__side {
   display: flex;
@@ -36,4 +54,8 @@
 }
 .versus-controls__side-toggles {
   grid-template-columns: repeat(2, 12ch);
+}
+
+.versus-controls__wrapper > button {
+  outline: none;
 }

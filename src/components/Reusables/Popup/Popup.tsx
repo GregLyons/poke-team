@@ -60,7 +60,7 @@ const Popup = ({
   }, [windowSize, isActive, contentRef, triggerRef, content, trigger, ]);
 
   const positioning: React.CSSProperties = useMemo(() => {
-    if (!triggerDim || !contentDim) return {};
+    if (!triggerDim) return {};
 
     let top: number | string = '';
     let bottom: number | string = '';
@@ -72,26 +72,31 @@ const Popup = ({
     switch(orientation) {
       case 'top':
         bottom = `calc(${triggerDim.height}px + ${padding})`
-        left = `calc(${-contentDim.width / 2 + triggerDim.width / 2}px + ${padding})`;
+        if (contentDim) {
+          left = `calc(${-contentDim.width / 2 + triggerDim.width / 2}px + ${padding})`;
+        }
         break;
 
       case 'bottom':
         top = `calc(${triggerDim.height}px + ${padding})`
-        left = `calc(${-contentDim.width / 2 + triggerDim.width / 2}px + ${padding})`;
+        if (contentDim) {
+          left = `calc(${-contentDim.width / 2 + triggerDim.width / 2}px + ${padding})`;
+        }
         break;
 
       case 'left':
-        top = `calc(-${contentDim.height / 2 - triggerDim.height / 2}px)`;
+        if (contentDim) {
+          top = `calc(-${contentDim.height / 2 - triggerDim.height / 2}px)`;
+        }
         right = `calc(${triggerDim.width}px + ${padding})`;
         break;
 
       case 'right':
-        top = `calc(-${contentDim.height / 2 - triggerDim.height / 2}px)`;
+        if (contentDim) {
+          top = `calc(-${contentDim.height / 2 - triggerDim.height / 2}px)`;
+        }
         left = `calc(${triggerDim.width}px + ${padding})`;
         break;
-
-      default:
-        return {};
     }
 
     switch(nudge) {

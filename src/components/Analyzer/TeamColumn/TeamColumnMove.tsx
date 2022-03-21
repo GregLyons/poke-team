@@ -15,9 +15,13 @@ type TeamColumnMoveProps = {
   teamDispatch: React.Dispatch<TeamAction>
   filters: Filters
 
-  member: MemberPokemon | null
+  member: MemberPokemon
   memberIdx: number
-  
+  popupPositioning: {
+    orientation: 'top' | 'bottom' | 'left' | 'right',
+    nudge: 'top' | 'bottom' | 'left' | 'right',
+  }
+
   move: MemberMove | null | undefined
   moveIdx: MoveSlot
   determineRelevance: (name: string | undefined) => string
@@ -31,6 +35,7 @@ const TeamColumnMove = ({
 
   member,
   memberIdx,
+  popupPositioning,
 
   move,
   moveIdx,
@@ -134,7 +139,7 @@ const TeamColumnMove = ({
           focusedOnInput={focusedOnInput}
           onSelect={addMove}
         />}
-        orientation='right'
+        {...popupPositioning}
 
         onClose={onPopupClose}
         forceClose={forceClose}

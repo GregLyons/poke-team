@@ -220,8 +220,11 @@ const CoverageView = ({
           <TeamColumn
             teamDispatch={dispatches.dispatchTeam}
             filters={filters}
+
             team={team}
             mode={'normal'}
+            teamFor='user'
+
             relevantNames={relevantNames}
             onEntityClick={onEntityClick}
             onPopupClose={onPopupClose}

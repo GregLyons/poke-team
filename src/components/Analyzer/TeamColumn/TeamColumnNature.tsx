@@ -14,8 +14,12 @@ type TeamColumnNatureProps = {
   teamDispatch: React.Dispatch<TeamAction>
   filters: Filters
 
-  member: MemberPokemon | null
+  member: MemberPokemon
   memberIdx: number
+  popupPositioning: {
+    orientation: 'top' | 'bottom' | 'left' | 'right',
+    nudge: 'top' | 'bottom' | 'left' | 'right',
+  }
   
   nature: MemberNature | null | undefined
   determineRelevance: (name: string | undefined) => string
@@ -29,6 +33,7 @@ const TeamColumnNature = ({
   
   member,
   memberIdx,
+  popupPositioning,
   
   nature,
   determineRelevance,
@@ -117,7 +122,7 @@ const TeamColumnNature = ({
           focusedOnInput={focusedOnInput}
           onSelect={addNature}
         />}
-        orientation='right'
+        {...popupPositioning}
 
         onClose={onPopupClose}
         forceClose={forceClose}
