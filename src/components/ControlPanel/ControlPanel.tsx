@@ -54,7 +54,7 @@ const ControlPanel = ({
           />
         </ErrorBoundary>
       </section>
-      <section aria-labelledby="team-display" className="team-display__cell">
+      <section aria-labelledby="team-display" className={classWithBGShadow("team-display__cell", bgManager)}>
         <h2 id="team-display" className="hidden-header">Team display</h2>
         <ErrorBoundary>
           <TeamDisplay

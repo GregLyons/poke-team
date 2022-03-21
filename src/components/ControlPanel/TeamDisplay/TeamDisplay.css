@@ -23,11 +23,15 @@
   align-self: center;
 
   border-radius: 50%;
-  background-color: var(--dark3);
-  box-shadow: 0 0 1px 1px var(--light3);
+  background-color: var(--dark2);
+  box-shadow:
+    var(--control-shadow), 
+    0 0 1px 1px var(--light3);
   transition: box-shadow 0.5s ease;
 }
 
 .team-display__icon.--occupied {
-  box-shadow: 0 0 3px 2px var(--blue1);
+  box-shadow:
+    var(--control-shadow),
+    0 0 3px 2px var(--blue1);
 }

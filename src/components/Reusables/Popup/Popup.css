@@ -6,6 +6,8 @@
   position: relative;
   width: fit-content;
   height: fit-content;
+
+  border: 1px solid transparent;
 }
 .popup-trigger:hover {
   cursor: pointer;
@@ -15,14 +17,9 @@
   text-decoration: underline;
 }
 
-.popup-trigger.--bottom {
-  padding: 0.125rem 0.25rem 0 0.25rem;
-}
-
-/* Make trigger take on background color when active */
-.popup-trigger.--bottom.popup-trigger.--active {
-  background-color: rgba(var(--dark3-components), 0.6);
-  text-decoration: underline;
+.popup-trigger.--active {
+  background-color: rgba(var(--dark3-components), 0.9);
+  border: 1px solid var(--light3);
 }
 
 .popup-content {
@@ -31,9 +28,13 @@
 
   background-color: rgba(var(--dark3-components), 0.6);
   z-index: 100;
+
+
+  border: 1px solid var(--light3);
   
   /* Need to use opacity; just setting height to 0 or auto will still show the borders */
   opacity: 0;
+  transition: opacity 0.5s ease;
   pointer-events: none;
 }
 .popup-content.popup-content.--active {
@@ -43,29 +44,6 @@
 
 /* Border effects */
 /* #region */
-/* Prevents content from moving when border appears */
-.popup-trigger.--bottom {
-  border-left: 1px solid transparent;
-  border-right: 1px solid transparent;
-  border-top: 1px solid transparent;
-}
-
-/* Turn on border when active */
-/* Horizontal */
-.popup-content.--right.popup-content.--active {
-  border: 1px solid var(--light3);
-}
-/* Vertical */
-.popup-trigger.--bottom.popup-trigger.--active {
-  border-left: 1px solid var(--light3);
-  border-right: 1px solid var(--light3);
-  border-top: 1px solid var(--light3);
-}
-.popup-content.--bottom.popup-content.--active {
-  border-left: 1px solid var(--light3);
-  border-right: 1px solid var(--light3);
-  border-bottom: 1px solid var(--light3);
-}
 
 /* Box shadow around active content */
 .popup-content.--active {
