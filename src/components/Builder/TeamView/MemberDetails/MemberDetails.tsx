@@ -1,7 +1,7 @@
 import { Team } from "../../../../hooks/App/Team";
 import { Dispatches, Filters } from "../../../App";
 import ErrorBoundary from "../../../Reusables/ErrorBoundary/ErrorBoundary";
-import { MemberDetailsHandlers, ReferencePanelView } from "../TeamView";
+import { MemberDetailsHandlers, ReferencePanelView, TeamViewRefKey } from "../TeamView";
 import './MemberDetails.css';
 import MemberDetailsCosmetic from "./MemberDetailsCosmetic/MemberDetailsCosmetic";
 import MemberDetailsExtra from "./MemberDetailsExtra/MemberDetailsExtra";
@@ -9,6 +9,9 @@ import MemberDetailsMain from "./MemberDetailsMain/MemberDetailsMain";
 
 
 type MemberDetailsProps = {
+  focusRef: React.RefObject<HTMLDivElement>
+  nicknameRef: React.RefObject<HTMLDivElement>
+  refKey: TeamViewRefKey
   dispatches: Dispatches
   filters: Filters
   handlers: MemberDetailsHandlers
@@ -18,6 +21,9 @@ type MemberDetailsProps = {
 };
 
 const MemberDetails = ({
+  focusRef,
+  nicknameRef,
+  refKey,
   filters,
   handlers,
   team,
@@ -45,6 +51,7 @@ const MemberDetails = ({
       </ErrorBoundary>
       <ErrorBoundary>
         <MemberDetailsExtra
+          nicknameRef={nicknameRef}
           member={member}
           handlers={handlers}
           gen={gen}
@@ -52,6 +59,9 @@ const MemberDetails = ({
       </ErrorBoundary>
       <ErrorBoundary>
         <MemberDetailsMain
+          nicknameRef={nicknameRef}
+          focusRef={focusRef}
+          refKey={refKey}
           member={member}
           handlers={handlers}
           gen={gen}

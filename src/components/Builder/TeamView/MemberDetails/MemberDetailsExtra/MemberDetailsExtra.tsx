@@ -9,12 +9,14 @@ import './MemberDetailsExtra.css';
 
 
 type MemberDetailsExtraProps = {
+  nicknameRef: React.RefObject<HTMLDivElement>
   member: MemberPokemon
   handlers: MemberDetailsHandlers
   gen: GenNum
 };
 
 const MemberDetailsExtra = ({
+  nicknameRef,
   member,
   handlers,
   gen,
@@ -40,6 +42,7 @@ const MemberDetailsExtra = ({
       {/* Nickname */}
       <label htmlFor="member_nickname" className="hidden-label">Nickname</label>
       <MemberDetailBox
+        focusRef={nicknameRef}
         forClass="nickname"
         header="Nickname"
         title="Select nickname."
@@ -51,7 +54,6 @@ const MemberDetailsExtra = ({
           value={member?.nickname || ''}
           onChange={handlers.updateNickname}
           width={15}
-          autoFocus={false}
         />}
 
         interactive={false}

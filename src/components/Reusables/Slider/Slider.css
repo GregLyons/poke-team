@@ -47,7 +47,8 @@
   z-index: 3;
 }
 
-.slider__thumb:hover {
+.slider__thumb:hover,
+.slider__thumb:focus {
   filter: brightness(1.1);
 }
 

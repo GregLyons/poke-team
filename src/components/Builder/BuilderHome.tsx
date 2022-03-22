@@ -63,6 +63,9 @@ const BuilderHome = () => {
           <li className="section-home__list-item">
             The "Quick Search" section is primarly meant for when you want to search for a specific Pokemon to add to your team; for searching for Pokemon by Ability, by Move, and so on, use the Planner instead.
           </li>
+          <li className="section-home__list-item">
+            In the "Team View" section, pressing 'Shift' and a number 1-6 will select the corresponding member of your team.
+          </li>
         </ul>
       </section>
     </div>

@@ -4,7 +4,7 @@
   height: 100%;
 
   border: 1px solid var(--light3);
-  box-shadow: 1px 1px 2px 1px black;
+  box-shadow: 2px 2px 2px 1px black;
 }
 
 .versus-matchup__table-body {

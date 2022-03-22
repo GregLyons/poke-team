@@ -39,7 +39,8 @@
   gap: 0 24px;
 
   min-width: fit-content;
-  width: auto;
+  text-align: left;
+  width: 100%;
   padding: 0.5rem 1rem 0.5rem 0.5rem;
 
 }

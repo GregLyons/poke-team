@@ -6,6 +6,7 @@ import './SavedPokemonView.css';
 
 
 type SavedPokemonViewProps = {
+  focusRef: React.RefObject<HTMLDivElement>
   clickHandlers: SavedPokemonClickHandlers
   dispatches: Dispatches
   filters: Filters
@@ -13,6 +14,7 @@ type SavedPokemonViewProps = {
 };
 
 const SavedPokemonView = ({
+  focusRef,
   clickHandlers,
   dispatches,
   filters,
@@ -20,6 +22,7 @@ const SavedPokemonView = ({
 }: SavedPokemonViewProps) => {
   return (
     <div
+      ref={focusRef}
       className="saved-pokemon__wrapper"
     >
       <PinnedBoxAccordion

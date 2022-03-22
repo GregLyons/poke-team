@@ -50,7 +50,8 @@
   outline: none;
 }
 
-.double-slider__thumb:hover {
+.double-slider__thumb:hover,
+.double-slider__thumb:focus {
   filter: brightness(1.1);
 }
 

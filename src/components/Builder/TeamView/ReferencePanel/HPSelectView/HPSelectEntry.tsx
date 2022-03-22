@@ -16,7 +16,7 @@ const HPSelectEntry = ({
   defaultIV,
 }: HPSelectEntryProps) => {
   return (
-    <div
+    <button
       className="hp-select__entry"
       onClick={e => clickHandlers.onHPSelect(e, typeName)}
     >
@@ -39,7 +39,7 @@ const HPSelectEntry = ({
           }).join(' / ')
         }
       </div>
-    </div>
+    </button>
   );
 };
 

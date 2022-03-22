@@ -12,7 +12,7 @@ const NatureSelectEntry = ({
   clickHandlers,
 }: NatureSelectEntryProps) => {
   return (
-    <div
+    <button
       className="nature-select__entry"
       onClick={e => clickHandlers.onNatureSelect(e, nature)}
     >
@@ -25,7 +25,7 @@ const NatureSelectEntry = ({
       <div className="nature-select__reduce">
         {nature.modifiesStat.reduces ? `+${toAbbreviatedBaseStatName(nature.modifiesStat.reduces)}` : ''}
       </div>
-    </div>
+    </button>
   );
 };
 

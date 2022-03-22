@@ -1,17 +1,20 @@
 import { spreadSummary } from "../../../../../types-queries/Builder/helpers";
 import { BaseStatName, StatTable, toAbbreviatedBaseStatName, toFormattedBaseStatName } from "../../../../../types-queries/entities";
+import Button from "../../../../Reusables/Button/Button";
 import Slider from "../../../../Reusables/Slider/Slider";
 import { SpreadHandlers } from "../../TeamView";
 import './SpreadView.css';
 
 
 type SpreadViewProps = {
+  focusRef: React.RefObject<HTMLDivElement>
   handlers: SpreadHandlers
   spread: StatTable
   spreadFor: 'EV' | 'IV' | 'DV'
 }
 
 const SpreadView = ({
+  focusRef,
   handlers,
   spread,
   spreadFor,
@@ -34,7 +37,10 @@ const SpreadView = ({
       break;
   }
   return (
-    <div className="spread-view__wrapper">
+    <div
+      ref={focusRef}
+      className="spread-view__wrapper"
+    >
       <div className="spread-view__header">{spreadFor} spread</div>
       <div className="spread-view__sliders">
         {Object.entries(spread).map(([key, value]) => {
@@ -55,7 +61,8 @@ const SpreadView = ({
                   : <>{abbrStatName}&nbsp;&nbsp;&nbsp;</>
                 }
               </div>
-              <div className="spread-view__slider">
+              <fieldset className="spread-view__slider">
+                <legend className="hidden-label">{formStatName} {spreadFor}</legend>
                 <Slider
                   titleFor={formStatName + ' ' + spreadFor}
                   min={min}
@@ -69,13 +76,26 @@ const SpreadView = ({
                   numericalWidth={3}
                   step={spreadFor === 'EV' ? 4 : 1}
                 />
-              </div>
+              </fieldset>
             </div>
           )
         })}
       </div>
       <div className="spread-view__summary">
         {spreadSummary(spread, defaultValue)}
+      </div>
+      <div className="spread-view__done">
+        <label htmlFor={`spread-view_${spreadFor}_done`} className="hidden-label">Quit modifying {spreadFor}s</label>
+        <Button
+          id={`spread-view_${spreadFor}_done`}
+          label='DONE'
+          title={`Quit modifying ${spreadFor}s`}
+
+          onClick={handlers.onSpreadFinish}
+          active={true}
+          disabled={false}
+          immediate={true}
+        />
       </div>
     </div>
   )

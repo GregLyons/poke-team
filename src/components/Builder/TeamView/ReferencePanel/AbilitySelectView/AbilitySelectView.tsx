@@ -1,19 +1,20 @@
 import { useDelayedQuery, useGenConnectedSearchBar } from "../../../../../hooks/Searches";
 import { MemberAbilityQuery, MemberAbilitySearchVars, MEMBER_ABILITY_QUERY } from "../../../../../types-queries/Member/MemberAbility";
 import { Filters } from "../../../../App";
-import LoadIcon from "../../../../Reusables/LoadIcon/LoadIcon";
 import { AbilitySelectHandlers } from "../../TeamView";
 import AbilitySelectEntries from "./AbilitySelectEntries";
 import './AbilitySelectView.css';
 
 
 type AbilitySelectViewProps = {
+  focusRef: React.RefObject<HTMLDivElement>
   handlers: AbilitySelectHandlers
   filters: Filters
   psID: string
 }
 
 const AbilitySelectView = ({
+  focusRef,
   handlers: clickHandlers,
   filters,
   psID,
@@ -43,8 +44,12 @@ const AbilitySelectView = ({
   if (error) { return (<div>{error.message}</div>); }
 
   return (
-    <div className="ability-select__wrapper">
+    <div
+      ref={focusRef}
+      className="ability-select__wrapper"
+    >
       <form>
+        <label htmlFor="member_ability_search" className="hidden-label">Search abilities, 'Enter' selects first entry</label>
         {searchBar}
       </form>
       <div className="ability-select__results">
@@ -55,12 +60,9 @@ const AbilitySelectView = ({
           <div className="ability-select__slot">
             <span>Slot</span>
           </div>
-          <div className="ability-select__description">
-            <span>Description</span>
-          </div>
         </div>
         {loading
-          ? <LoadIcon />
+          ? <div></div>
           : data && <AbilitySelectEntries
               data={data}
               clickHandlers={clickHandlers}

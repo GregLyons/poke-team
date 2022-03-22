@@ -35,6 +35,7 @@
 .team-member__add:hover,
 .team-member__add:focus,
 .team-member-holder__wrapper:hover .team-member__add {
+  cursor: pointer;
   transform: scale(1.1);
 }
 

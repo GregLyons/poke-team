@@ -12,7 +12,7 @@ const ItemSelectEntry = ({
   clickHandlers,
 }: ItemSelectEntryProps) => {
   return (
-    <div
+    <button
       className="item-select__entry"
       onClick={e => clickHandlers.onItemSelect(e, item)}
     >
@@ -27,7 +27,7 @@ const ItemSelectEntry = ({
       <div className="item-select__name">
         {item.formattedName}
       </div>
-    </div>
+    </button>
   );
 };
 

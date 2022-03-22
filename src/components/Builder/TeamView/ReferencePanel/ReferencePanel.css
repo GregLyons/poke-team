@@ -33,6 +33,9 @@
   -6px -6px 0 0 var(--light1);
 }
 
+/* Entity selections */
+/* #region */
+
 .ability-select__entry:first-of-type,
 .item-select__entry:first-of-type,
 .move-select__entry:first-of-type,
@@ -43,3 +46,28 @@
   border-bottom: 1px solid var(--light3);
   box-shadow: none;
 }
+
+.ability-select__wrapper fieldset,
+.item-select__wrapper fieldset,
+.move-select__wrapper fieldset,
+.nature-select__wrapper fieldset,
+.hp-select__wrapper fieldset {
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.ability-select__results,
+.item-select__results,
+.move-select__results,
+.nature-select__results,
+.hp-select__results {
+  margin-top: 0.5rem;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  font-size: 12px;
+}
+
+/* #endregion */

@@ -42,4 +42,10 @@
 
 .spread-view__summary {
   margin-left: 2rem;
+  height: 2rem;
+}
+
+.spread-view__done {
+  margin-right: 2rem;
+  text-align: end;
 }

@@ -1,6 +1,7 @@
 import { GenNum } from "../../../../types-queries/entities"
 
 type MemberDetailBoxProps = {
+  focusRef?: React.RefObject<HTMLDivElement> | undefined
   forClass: string
   header: string
   title?: string
@@ -17,6 +18,7 @@ type MemberDetailBoxProps = {
 }
 
 const MemberDetailBox = ({
+  focusRef,
   forClass,
   header,
   title,
@@ -35,6 +37,7 @@ const MemberDetailBox = ({
 
   return (
     <div
+      ref={focusRef}
       className={`
         member-details__box
         member-details__${forClass}

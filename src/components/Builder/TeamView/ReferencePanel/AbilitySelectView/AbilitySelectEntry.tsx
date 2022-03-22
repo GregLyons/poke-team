@@ -12,7 +12,7 @@ const AbilitySelectEntry = ({
   clickHandlers,
 }: AbilitySelectEntryProps) => {
   return (
-    <div
+    <button
       className="ability-select__entry"
       onClick={e => clickHandlers.onAbilitySelect(e, ability)}
     >
@@ -22,7 +22,7 @@ const AbilitySelectEntry = ({
       <div className="ability-select__slot">
         {ENUMCASE_TO_TITLECASE(ability.slot)}
       </div>
-    </div>
+    </button>
   );
 };
 

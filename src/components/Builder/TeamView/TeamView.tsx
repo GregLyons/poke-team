@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
-import { BGManager, toggleBGPulse } from "../../../hooks/App/BGManager";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEventListener } from "usehooks-ts";
+import { toggleBGPulse } from "../../../hooks/App/BGManager";
 import { Team } from "../../../hooks/App/Team";
 import { BaseStatName } from "../../../types-queries/entities";
 import { PokemonIconDatum, TypeName } from "../../../types-queries/helpers";
@@ -16,7 +17,6 @@ import './TeamView.css';
 
 
 type TeamViewProps = {
-  bgManager: BGManager
   dispatches: Dispatches
   filters: Filters
   team: Team
@@ -65,6 +65,7 @@ export type NatureSelectHandlers = {
 export type SpreadHandlers = {
   updateEV: (statName: BaseStatName, newValue: number) => void
   updateIV: (statName: BaseStatName, newValue: number) => void
+  onSpreadFinish: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
 export type HPSelectHandlers = {
@@ -87,14 +88,25 @@ export type ReferencePanelHandlers = {
 // #region
 
 export type TeamMembersClickHandlers = {
-  onAddClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, idx: number) => void
-  onMemberClick: (e: React.MouseEvent<HTMLElement, MouseEvent>, idx: number) => void
+  onAddClick: (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, idx: number) => void
+  onMemberClick: (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, idx: number) => void
 }
 
 // #endregion
 
 // Member details
 // #region
+
+export type TeamViewRefKey =
+| 'member'
+| 'ability'
+| 'item'
+| 'move'
+| 'evs'
+| 'ivs'
+| 'nature'
+| 'hp'
+| null;
 
 export type MemberDetailsHandlers = {
   onAbilityClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
@@ -117,7 +129,6 @@ export type MemberDetailsHandlers = {
 // #endregion
 
 const TeamView = ({
-  bgManager,
   dispatches,
   filters,
   team,
@@ -126,6 +137,46 @@ const TeamView = ({
   const [memberSlot, setMemberSlot] = useState<number | null>(null);
   // Determines what is shown in ReferencePanel
   const [view, setView] = useState<ReferencePanelView>(null);
+
+  // Focus management for closing reference panel
+  // #region
+
+  // refKey determines which element in MemberDetails or TeamIcons receives focusRef
+  const [refKey, setRefKey] = useState<TeamViewRefKey>(null);
+  const focusRef = useRef<HTMLDivElement>(null);
+
+  // When reference panel closes, focus on focusRef and set refKey to null
+  const focusPrevious = useCallback(() => {
+    if (!focusRef.current) return;
+  
+    const wrapperEl = focusRef.current;
+    const firstInteractiveEl = wrapperEl.querySelector("button:not(:disabled), input") as HTMLElement;
+
+    // If the 'Enter' key is pressed to complete a search, e.g. for selecting an Ability, then focusing immediately would cause the button in MemberDetails to be pressed _again_, reopening the view in ReferencePanel. Thus, we add a small delay to prevent this
+    if (firstInteractiveEl) setTimeout(() => firstInteractiveEl.focus(), 5);
+
+    setRefKey(null);
+  }, [focusRef, setRefKey, ]);
+
+  // #endregion
+
+  // Focusing on member's first detail when member is clicked
+  // #region
+
+  const nicknameRef = useRef<HTMLDivElement>(null);
+  const focusNickname = useCallback(() => {
+    if (!nicknameRef.current) return;
+  
+    const wrapperEl = nicknameRef.current;
+    const firstInteractiveEl = wrapperEl.querySelector("input:not(:disabled)") as HTMLElement;
+
+    if (firstInteractiveEl) firstInteractiveEl.focus();
+
+    setView(null);
+    setRefKey(null);
+  }, [nicknameRef, setRefKey, setView]);
+
+  // #endregion
 
   const referencePanelClickHandlers: ReferencePanelHandlers = useMemo(() => {
     // Saved Pokemon
@@ -168,11 +219,11 @@ const TeamView = ({
         }
       });
 
-      // De-select slot
+      // Select slot
       setMemberSlot(view.idx);
       
-      // No longer in 'POKEMON' mode (but can still view saved boxes)
-      setView(null);
+      focusPrevious();
+      return setView(null);
     }
 
     // #endregion
@@ -193,6 +244,7 @@ const TeamView = ({
         }
       });
 
+      focusPrevious();
       return setView(null);
     }
 
@@ -209,6 +261,7 @@ const TeamView = ({
         }
       });
 
+      focusPrevious();
       return setView(null);
     }
 
@@ -226,6 +279,7 @@ const TeamView = ({
         }
       });
       
+      focusPrevious();
       return setView(null);
     }
 
@@ -246,6 +300,7 @@ const TeamView = ({
         }
       });
 
+      focusPrevious();
       return setView(null);
     }
 
@@ -277,6 +332,12 @@ const TeamView = ({
       });
     };
 
+    const onSpreadFinish = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      e.preventDefault();
+      focusPrevious();
+      return setView(null);
+    }
+
     const onHPSelect = (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, typeName: TypeName) => {
       if (memberSlot === null) return;
 
@@ -289,6 +350,7 @@ const TeamView = ({
         }
       });
       
+      focusPrevious();
       return setView(null);
     };
 
@@ -315,6 +377,7 @@ const TeamView = ({
       spreadHandlers: {
         updateEV,
         updateIV,
+        onSpreadFinish,
       },
       hpSelectHandlers: {
         onHPSelect,
@@ -324,23 +387,27 @@ const TeamView = ({
 
   const teamMembersClickHandlers: TeamMembersClickHandlers = useMemo(() => {
     // On clicking AddIcon, open up savedPokemon in ReferencePanel
-    const onAddClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, idx: number) => {
+    const onAddClick = (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, idx: number) => {
       e.preventDefault();
 
       // Slot has been selected
       setMemberSlot(idx);
+
+      setRefKey('member');
 
       // Pokemon for user to choose from
       setView({ mode: 'POKEMON', idx, });
     }
 
     // On clicking the Pokemon icon, pull up that member's details
-    const onMemberClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, idx: number) => {
+    const onMemberClick = (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, idx: number) => {
       e.preventDefault();
 
       // Slot has been selected
       setMemberSlot(idx);
 
+      setTimeout(() => focusNickname(), 5);
+      
       // No need to interact with reference panel yet
       setView(null);
     }
@@ -359,6 +426,7 @@ const TeamView = ({
       // Abilities not present prior to gen 3
       if (filters.genFilter.gen < 3) return setView(null);
 
+      setRefKey('ability');
       return setView({ mode: 'ABILITY', idx: 0, });
     };
 
@@ -369,6 +437,7 @@ const TeamView = ({
       // Held items not present prior to gen 2
       if (filters.genFilter.gen < 2) return setView(null);
 
+      setRefKey('item');
       return setView({ mode: 'ITEM', idx: 0, });
     };
 
@@ -376,6 +445,7 @@ const TeamView = ({
       e.preventDefault();
       if (memberSlot === null) return;
 
+      setRefKey('move');
       return setView({ mode: 'MOVE', idx: moveslot });
     };
 
@@ -386,6 +456,7 @@ const TeamView = ({
       // Natures not present prior to gen 3
       if (filters.genFilter.gen < 3) return setView(null);
       
+      setRefKey('nature');
       return setView({ mode: 'NATURE', idx: 0, });
     };
 
@@ -396,6 +467,7 @@ const TeamView = ({
       // EVs not present prior to gen 3
       if (filters.genFilter.gen < 3) return setView(null);
       
+      setRefKey('evs');
       return setView({ mode: 'EV', idx: 0, });
 
     }
@@ -404,6 +476,7 @@ const TeamView = ({
       e.preventDefault();
       if (memberSlot === null) return;
       
+      setRefKey('ivs');
       return setView({ mode: 'IV', idx: 0, });
     }
 
@@ -411,10 +484,10 @@ const TeamView = ({
       e.preventDefault();
       if (memberSlot === null) return;
       
+      setRefKey('hp');
       return setView({ mode: 'HP', idx: 0, });
     }
 
-    // TODO: connect to ability
     const updateNickname = (e: React.ChangeEvent<HTMLInputElement>) => {
       e.preventDefault();
       if (memberSlot === null) return;
@@ -531,14 +604,71 @@ const TeamView = ({
     setMemberSlot(null);
   }, [filters.genFilter.gen]);
 
+  // Pressing Shift + a number key between 1-6 selects the corresponding member if focus is within TeamView
+  const onNumberPress = useCallback((e: KeyboardEvent) => {
+    const memberSlots = ['!', '@', '#', '$', '%', '^']; 
+    if (!memberSlots.includes(e.key)) return;
+
+    let memberIdx: number;
+    switch(e.key) {
+      case '!':
+        memberIdx = 0;
+        break;
+        
+      case '@':
+        memberIdx = 1;
+        break;
+
+      case '#':
+        memberIdx = 2;
+        break;
+
+      case '$':
+        memberIdx = 3;
+        break;
+
+      case '%':
+        memberIdx = 4;
+        break;
+
+      case '^':
+        memberIdx = 5;
+        break;
+
+      default:
+        return;
+    }
+
+    if (team[filters.genFilter.gen].members[memberIdx]) return teamMembersClickHandlers.onMemberClick(e, memberIdx);
+    
+    return teamMembersClickHandlers.onAddClick(e, memberIdx);
+  }, [team, filters, teamMembersClickHandlers, ]);
+  useEventListener('keydown', onNumberPress);
+
   return (
-    <div className="team-view__wrapper">
+    <div
+      className="team-view__wrapper"
+    >
       <TeamMembers
+        focusRef={focusRef}
+        refKey={refKey}
         slot={memberSlot}
         clickHandlers={teamMembersClickHandlers}
         team={team}
         dispatches={dispatches}
-        filters={filters} 
+        filters={filters}
+        view={view}
+      />
+      <MemberDetails
+        nicknameRef={nicknameRef}
+        focusRef={focusRef}
+        refKey={refKey}
+        dispatches={dispatches}
+        filters={filters}
+        handlers={memberDetailHandlers}
+        memberSlot={memberSlot}
+        team={team}
+        view={view}
       />
       <ReferencePanel
         handlers={referencePanelClickHandlers}
@@ -554,14 +684,6 @@ const TeamView = ({
           ? team[filters.genFilter.gen].members[memberSlot]
           : undefined
         }
-      />
-      <MemberDetails
-        dispatches={dispatches}
-        filters={filters}
-        handlers={memberDetailHandlers}
-        memberSlot={memberSlot}
-        team={team}
-        view={view}
       />
     </div>
   )

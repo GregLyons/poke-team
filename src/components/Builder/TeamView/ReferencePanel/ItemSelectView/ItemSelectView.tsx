@@ -1,18 +1,19 @@
 import { useDelayedQuery, useGenConnectedSearchBar } from "../../../../../hooks/Searches";
 import { MemberItemQuery, MemberItemVars, MEMBER_ITEM_QUERY } from "../../../../../types-queries/Member/MemberItem";
 import { Filters } from "../../../../App";
-import LoadIcon from "../../../../Reusables/LoadIcon/LoadIcon";
 import { ItemSelectHandlers } from "../../TeamView";
 import ItemSelectEntries from "./ItemSelectEntries";
 import './ItemSelectView.css';
 
 
 type ItemSelectViewProps = {
+  focusRef: React.RefObject<HTMLDivElement>
   handlers: ItemSelectHandlers
   filters: Filters
 }
 
 const ItemSelectView = ({
+  focusRef,
   handlers: clickHandlers,
   filters,
 }: ItemSelectViewProps) => {
@@ -40,8 +41,12 @@ const ItemSelectView = ({
   if (error) { return (<div>{error.message}</div>); }
 
   return (
-    <div className="item-select__wrapper">
+    <div
+      ref={focusRef}
+      className="item-select__wrapper"
+    >
       <form>
+        <label htmlFor="member_item_search" className="hidden-label">Search items, 'Enter' selects first entry</label>
         {searchBar}
       </form>
       <div className="item-select__results">
@@ -49,12 +54,9 @@ const ItemSelectView = ({
           <div className="item-select__name">
             <span>Name</span>
           </div>
-          <div className="item-select__description">
-            <span>Description</span>
-          </div>
         </div>
         {loading
-          ? <LoadIcon />
+          ? <div></div>
           : data && <ItemSelectEntries
               data={data}
               clickHandlers={clickHandlers}

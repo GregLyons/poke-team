@@ -2,7 +2,7 @@ import { GenNum } from "../../../../../types-queries/entities";
 import { MoveSlot } from "../../../../../types-queries/Member/helpers";
 import { MemberPokemon } from "../../../../../types-queries/Member/MemberPokemon";
 import ItemIcon from "../../../../Icons/ItemIcon";
-import { MemberDetailsHandlers, ReferencePanelView } from "../../TeamView";
+import { MemberDetailsHandlers, ReferencePanelView, TeamViewRefKey } from "../../TeamView";
 import MemberDetailBox from "../MemberDetailBox";
 import MemberDetailInnerBox from "../MemberDetailInnerBox";
 import './MemberDetailsMain.css';
@@ -11,6 +11,9 @@ import StatBox from "./StatBox/StatBox";
 
 
 type MemberDetailsMainProps = {
+  nicknameRef: React.RefObject<HTMLDivElement>
+  focusRef: React.RefObject<HTMLDivElement>
+  refKey: TeamViewRefKey
   member: MemberPokemon
   handlers: MemberDetailsHandlers
   gen: GenNum
@@ -18,6 +21,9 @@ type MemberDetailsMainProps = {
 }
 
 const MemberDetailsMain = ({
+  nicknameRef,
+  focusRef,
+  refKey,
   member,
   handlers,
   gen,
@@ -29,6 +35,7 @@ const MemberDetailsMain = ({
     >
     {/* Ability */}
       <MemberDetailBox
+        focusRef={refKey === 'ability' ? focusRef : undefined}
         forClass="ability"
         header="Ability"
         title="Select ability."
@@ -44,6 +51,7 @@ const MemberDetailsMain = ({
 
       {/* Item */}
       <MemberDetailBox
+        focusRef={refKey === 'item' ? focusRef : undefined}
         forClass="item"
         header="Item"
         title="Select item."
@@ -84,6 +92,10 @@ const MemberDetailsMain = ({
             if (moveIdx === undefined) return;
             return (
               <MemberDetailInnerBox
+                focusRef={refKey === 'move' && moveIdx === view?.idx
+                  ? focusRef
+                  : undefined
+                }
                 key={moveIdx}
                 title={`Select move ${moveIdx + 1}`}
                 forClass="move"
@@ -111,6 +123,9 @@ const MemberDetailsMain = ({
         header="Stats"
         title="Modify stats"
         content={<StatBox
+          nicknameRef={nicknameRef}
+          refKey={refKey}
+          focusRef={focusRef}
           member={member}
           handlers={handlers}
           gen={gen}

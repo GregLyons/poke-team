@@ -4,7 +4,6 @@ import { useDelayedQuery, useRemovalConnectedSearchBar } from "../../../../../ho
 import { MoveColumnName, MovePaginationInput } from "../../../../../types-queries/helpers";
 import { MemberMoveQuery, MemberMoveVars, MEMBER_MOVESET_QUERY } from "../../../../../types-queries/Member/MemberMove";
 import { Filters } from "../../../../App";
-import LoadIcon from "../../../../Reusables/LoadIcon/LoadIcon";
 import SortSwitch from "../../../../Reusables/SortSwitch/SortSwitch";
 import { MoveSelectHandlers } from "../../TeamView";
 import MoveSelectEntries from "./MoveSelectEntries";
@@ -12,12 +11,14 @@ import './MoveSelectView.css';
 
 
 type MoveSelectViewProps = {
+  focusRef: React.RefObject<HTMLDivElement>
   handlers: MoveSelectHandlers
   filters: Filters
   psID: string
 }
 
 const MoveSelectView = ({
+  focusRef,
   handlers,
   filters,
   psID,
@@ -74,8 +75,12 @@ const MoveSelectView = ({
   if (error) { return (<div>{error.message}</div>); }
 
   return (
-    <div className="move-select__wrapper">
+    <div
+      ref={focusRef}
+      className="move-select__wrapper"
+    >
       <form>
+        <label htmlFor="member_move_search" className="hidden-label">Search moves by name, 'Enter' selects first entry</label>
         {searchBar}
       </form>
       <div className="move-select__results">
@@ -130,7 +135,7 @@ const MoveSelectView = ({
           </div>
         </div>
         {loading
-          ? <LoadIcon />
+          ? <div></div>
           : data && <MoveSelectEntries
               data={data}
               clickHandlers={handlers}

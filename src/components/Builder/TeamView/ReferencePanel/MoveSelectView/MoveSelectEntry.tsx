@@ -14,7 +14,7 @@ const MoveSelectEntry = ({
   clickHandlers,
 }: MoveSelectEntryProps) => {
   return (
-    <div
+    <button
       className={`
         move-select__entry
         ${move.eventOnly
@@ -51,7 +51,7 @@ const MoveSelectEntry = ({
       <div className="move-select__category">
         {ENUMCASE_TO_TITLECASE(move.category)}
       </div>
-    </div>
+    </button>
   );
 };
 

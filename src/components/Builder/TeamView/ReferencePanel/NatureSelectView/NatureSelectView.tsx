@@ -1,18 +1,19 @@
 import { useDelayedQuery, useGenConnectedSearchBar } from "../../../../../hooks/Searches";
 import { MemberNatureQuery, MemberNatureVars, MEMBER_NATURE_QUERY } from "../../../../../types-queries/Member/MemberNature";
 import { Filters } from "../../../../App";
-import LoadIcon from "../../../../Reusables/LoadIcon/LoadIcon";
 import { NatureSelectHandlers } from "../../TeamView";
 import NatureSelectEntries from "./NatureSelectEntries";
 import './NatureSelectView.css';
 
 
 type NatureSelectViewProps = {
+  focusRef: React.RefObject<HTMLDivElement>
   handlers: NatureSelectHandlers
   filters: Filters
 }
 
 const NatureSelectView = ({
+  focusRef,
   handlers: clickHandlers,
   filters,
 }: NatureSelectViewProps) => {
@@ -40,8 +41,12 @@ const NatureSelectView = ({
   if (error) { return (<div>{error.message}</div>); }
 
   return (
-    <div className="nature-select__wrapper">
+    <div
+      ref={focusRef}
+      className="nature-select__wrapper"
+    >
       <form>
+        <label htmlFor="member_nature_search" className="hidden-label">Select Nature, 'Enter' selects first entry</label>
         {searchBar}
       </form>
       <div className="nature-select__results">
@@ -57,7 +62,7 @@ const NatureSelectView = ({
           </div>
         </div>
         {loading
-          ? <LoadIcon />
+          ? <div></div>
           : data && <NatureSelectEntries
               data={data}
               clickHandlers={clickHandlers}

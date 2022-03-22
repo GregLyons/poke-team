@@ -1,18 +1,19 @@
 import { useDelayedQuery, useGenConnectedSearchBar } from "../../../../../hooks/Searches";
 import { HPTypeQuery, HPTypeVars, HPTYPE_QUERY } from "../../../../../types-queries/Member/MemberPokemon";
 import { Filters } from "../../../../App";
-import LoadIcon from "../../../../Reusables/LoadIcon/LoadIcon";
 import { HPSelectHandlers } from "../../TeamView";
 import HPSelectEntries from "./HPSelectEntries";
 import './HPSelectView.css';
 
 
 type HPSelectViewProps = {
+  focusRef: React.RefObject<HTMLDivElement>
   handlers: HPSelectHandlers
   filters: Filters
 }
 
 const HPSelectView = ({
+  focusRef,
   handlers: clickHandlers,
   filters,
 }: HPSelectViewProps) => {
@@ -40,8 +41,12 @@ const HPSelectView = ({
   if (error) { return (<div>{error.message}</div>); }
 
   return (
-    <div className="hp-select__wrapper">
+    <div
+      ref={focusRef}
+      className="hp-select__wrapper"
+    >
       <form>
+        <label htmlFor="member_hp_search" className="hidden-label">Select Hidden Power type, 'Enter' selects first entry</label>
         {searchBar}
       </form>
       <div className="hp-select__results">
@@ -55,7 +60,7 @@ const HPSelectView = ({
           </div>
         </div>
         {loading
-          ? <LoadIcon />
+          ? <div></div>
           : data && <HPSelectEntries
               data={data}
               clickHandlers={clickHandlers}
