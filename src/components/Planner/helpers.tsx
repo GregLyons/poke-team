@@ -90,7 +90,7 @@ export function listToggleValue<SearchVars extends { [Property in keyof SearchVa
   key: keyof SearchVars,
 ) {
   // Type-check
-  return (value: ValueType) => {
+  return (value: ValueType) => (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!(queryVars[key] as ValueType[])) {
       console.log('Incorrect key passed:', key, value);
       return;

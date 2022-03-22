@@ -15,7 +15,7 @@ import {
   ENUMCASE_TO_TITLECASE
 } from '../../../utils/constants';
 import { Dispatches, Filters } from '../../App';
-import Button from '../../Reusables/Button/Button';
+import Checkbox from '../../Reusables/Checkbox/Checkbox';
 import DoubleSlider from '../../Reusables/DoubleSlider/DoubleSlider';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
 import ThreeToggle from '../../Reusables/ThreeToggle/ThreeToggle';
@@ -105,69 +105,69 @@ const listFilter = ({
     <>
       {searchBar}
       {handleAccuracyRange && handlePowerRange && handlePPRange && handlePriorityRange && <DropdownMenu
-        title="RANGES"
-        items={['Accuracy', 'Power', 'PP ', 'Priority'].map(attributeName => {
-          let min: number, max: number, 
-              minKey: keyof MoveSearchVars, maxKey: keyof MoveSearchVars,
-              handleRange: {
-                updateMinValue: (value: number) => void,
-                updateMaxValue: (value: number) => void,
-              };
-          switch(attributeName) {
-            case 'Accuracy':
-              min = 0;
-              max = 100;
-              minKey = 'minAccuracy';
-              maxKey = 'maxAccuracy';
-              handleRange = handleAccuracyRange;
+        label="RANGES"
+        content={<div>
+          {['Accuracy', 'Power', 'PP ', 'Priority'].map(attributeName => {
+            let min: number, max: number, 
+                minKey: keyof MoveSearchVars, maxKey: keyof MoveSearchVars,
+                handleRange: {
+                  updateMinValue: (value: number) => void,
+                  updateMaxValue: (value: number) => void,
+                };
+            switch(attributeName) {
+              case 'Accuracy':
+                min = 0;
+                max = 100;
+                minKey = 'minAccuracy';
+                maxKey = 'maxAccuracy';
+                handleRange = handleAccuracyRange;
 
-              break;
+                break;
 
-            case 'Power':
-              min = 0;
-              max = 300;
-              minKey = 'minPower';
-              maxKey = 'maxPower';
-              handleRange = handlePowerRange;
+              case 'Power':
+                min = 0;
+                max = 300;
+                minKey = 'minPower';
+                maxKey = 'maxPower';
+                handleRange = handlePowerRange;
 
-              break;
+                break;
 
-            case 'PP ':
-              min = 0;
-              max = 40;
-              minKey = 'minPP';
-              maxKey = 'maxPP';
-              handleRange = handlePPRange;
+              case 'PP ':
+                min = 0;
+                max = 40;
+                minKey = 'minPP';
+                maxKey = 'maxPP';
+                handleRange = handlePPRange;
 
-              break;
+                break;
 
-            case 'Priority':
-              min = -7;
-              max = 7;
-              minKey = 'minPriority';
-              maxKey = 'maxPriority';
-              handleRange = handlePriorityRange;
+              case 'Priority':
+                min = -7;
+                max = 7;
+                minKey = 'minPriority';
+                maxKey = 'maxPriority';
+                handleRange = handlePriorityRange;
 
-              break;
+                break;
 
-            // Shouldn't be reached
-            default:
-              min = 0;
-              max = 100;
-              minKey = 'minAccuracy';
-              maxKey = 'maxAccuracy';
-              handleRange = handleAccuracyRange;
-          }
+              // Shouldn't be reached
+              default:
+                min = 0;
+                max = 100;
+                minKey = 'minAccuracy';
+                maxKey = 'maxAccuracy';
+                handleRange = handleAccuracyRange;
+            }
 
-          return {
-            id: attributeName,
-            label: (
-              <div>
+            return (
+              <div
+                key={attributeName}
+              >
                 <div>
                   {attributeName.slice(0, 3)}
                 </div>
                 <DoubleSlider
-                  key={attributeName}
                   titleFor={attributeName}
                   min={min}
                   minValue={queryVars[minKey]}
@@ -176,108 +176,98 @@ const listFilter = ({
                   {...handleRange}
                 />
               </div>
-            ),
-            selected: true,
-          }
+            );
         })}
+        </div>}
+
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
-        itemWidth={'100%'}
         backgroundLight="blue"
       />}
       <DropdownMenu
-        title="CATEGORY"
-        items={Array.from(MOVE_CATEGORY_MAP.entries()).map(([key, value]) => {
-          const selected = queryVars.category.includes(key);
-          
-          let titleString: string
-          switch(key) {
-            case 'VARIES':
-              titleString = 'whose category varies';
-              break;
-            default:
-              titleString = `in the ${value} category`
-          }
+        label="CATEGORY"
 
-          return {
-            id: key,
-            label: (
-              <Button
-                key={key}
-                title={selected
-                  ? `Exclude moves ${titleString}.`
-                  : `Include moves ${titleString}.`
-                }
-                label={value}
-                active={selected}
-                onClick={e => e.preventDefault()}
-                disabled={false}
-                immediate={false}
-              />
-            ),
-            selected,
-          };
-        })}
-        toggleSelect={handleCategorySelect}
+        content={<div>
+          {Array.from(MOVE_CATEGORY_MAP.entries()).map(([moveCategory, formattedMoveCategory]) => {
+            const checked = queryVars.category.includes(moveCategory);
+            
+            let titleString: string
+            switch(moveCategory) {
+              case 'VARIES':
+                titleString = 'whose category varies';
+                break;
+              default:
+                titleString = `in the ${formattedMoveCategory} category`
+            }
+
+            return <Checkbox
+              key={moveCategory}
+              
+              id={moveCategory + '_move_category'}
+              label={formattedMoveCategory}
+              title={checked
+                ? `Exclude moves ${titleString}.`
+                : `Include moves ${titleString}.`
+              }
+
+              checked={checked}
+              onChange={handleCategorySelect(moveCategory)}
+            />
+          })}
+        </div>}
+
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
-        itemWidth={'15ch'}
         backgroundLight="blue"
       />
       <DropdownMenu
-        title={'TYPE'}
-        items={Array.from(MOVE_TYPE_MAP.entries()).map(([key, value]) => {
-          const selected = queryVars.types.includes(key);
+        label={'TYPE'}
 
-          return {
-            id: key,
-            label: (
-              <Button
-                key={key}
-                title={selected
-                  ? `Exclude ${value}-type Moves.`
-                  : `Include ${value}-type Moves.`
-                }
-                label={value}
-                active={selected}
-                onClick={e => e.preventDefault()}
-                disabled={false}
-                immediate={false}
-              />
-            ),
-            selected,
-          }
-        })}
-        toggleSelect={handleTypeSelect}
+        content={<div>
+          {Array.from(MOVE_TYPE_MAP.entries()).map(([typeName, formattedTypeName]) => {
+            const checked = queryVars.types.includes(typeName);
+
+            return <Checkbox
+              key={typeName}
+
+              id={typeName + '_move_type'}
+              label={formattedTypeName}
+              title={checked
+                ? `Exclude ${formattedTypeName}-type Moves.`
+                : `Include ${formattedTypeName}-type Moves.`
+              }
+
+              checked={checked}
+              onChange={handleTypeSelect(typeName)}
+            />
+          })}
+        </div>}
+        
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
-        itemWidth={'10ch'}
         backgroundLight={"blue"}
       />
       <DropdownMenu
-        title="TARGET"
-        items={Array.from(MOVE_TARGETCLASS_MAP.entries()).map(([key, value]) => {
-          const selected = queryVars.target.includes(key);
+        label="TARGET"
+        
+        content={<div>
+          {Array.from(MOVE_TARGETCLASS_MAP.entries()).map(([targetClassName, formattedTargetClassName]) => {
+            const checked = queryVars.target.includes(targetClassName);
 
-          return {
-            id: key,
-            label: (
-              <Button
-                key={key}
-                title={selected
-                  ? `Exclude moves which target ${value}.`
-                  : `Include moves which target ${value}.`
-                }
-                label={value}
-                active={selected}
-                onClick={e => e.preventDefault()}
-                disabled={false}
-                immediate={false}
-              />
-            ),
-            selected,
-          };
-        })}
-        toggleSelect={handleTargetClassSelect}
+            return <Checkbox
+              key={targetClassName}
+
+              id={targetClassName + '_move_target'}
+              label={formattedTargetClassName}
+              title={checked
+                ? `Exclude moves which target ${formattedTargetClassName}.`
+                : `Include moves which target ${formattedTargetClassName}.`
+              }
+
+              checked={checked}
+              onChange={handleTargetClassSelect(targetClassName)}
+            />
+          })}
+        </div>}
+        
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
-        itemWidth={'25ch'}
         backgroundLight="blue"
       />
       <ThreeToggle

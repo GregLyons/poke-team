@@ -9,7 +9,7 @@ import {
   EffectSearchResult,
   EffectSearchVars, EFFECT_SEARCH_QUERY
 } from '../../../types-queries/Planner/Effect';
-import Button from '../../Reusables/Button/Button';
+import Checkbox from '../../Reusables/Checkbox/Checkbox';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
 import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { listToggleValue } from '../helpers';
@@ -48,32 +48,28 @@ const listFilter = ({
     <>
       {searchBar}
       <DropdownMenu
-        title="CLASS"
-        items={Array.from(EFFECT_CLASS_MAP.entries()).map(([key, value]) => {
-          const selected = queryVars.effectClass.includes(key);
+        label="CLASS"
+        content={<div>
+          {Array.from(EFFECT_CLASS_MAP.entries()).map(([key, value]) => {
+            const checked = queryVars.effectClass.includes(key);
+            
+            return <Checkbox
+              key={key}
 
-          return {
-            id: key,
-            label: (
-              <Button
-                key={key}
-                title={selected
-                  ? `Exclude ${EFFECT_TITLE_MAP.get(key)}.`
-                  : `Include ${EFFECT_TITLE_MAP.get(key)}.`
-                }
-                label={value}
-                active={selected}
-                onClick={e => e.preventDefault()}
-                disabled={false}
-                immediate={false}
-              />
-            ),
-            selected,
-          };
-        })}
-        toggleSelect={handleClassSelect}
+              id={key + '_effect_class'}
+              label={value}
+              title={checked
+                ? `Exclude ${EFFECT_TITLE_MAP.get(key)}.`
+                : `Include ${EFFECT_TITLE_MAP.get(key)}.`
+              }
+
+              checked={checked}
+              onChange={handleClassSelect(key)}
+            />
+          })}
+        </div>}
+        
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
-        itemWidth={'15ch'}
         backgroundLight="blue"
       />
     </>

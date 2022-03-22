@@ -3,7 +3,7 @@ import {
 } from 'react-router-dom';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Searches';
-import { ItemClass, ITEM_CLASS_MAP } from '../../../types-queries/entities';
+import { ItemClass, ITEM_CLASS_MAP, ITEM_TITLE_MAP } from '../../../types-queries/entities';
 import {
   ItemInSearch, ItemSearchQuery,
   ItemSearchResult,
@@ -13,7 +13,7 @@ import {
   ENUMCASE_TO_TITLECASE
 } from '../../../utils/constants';
 import { Dispatches, Filters } from '../../App';
-import Button from '../../Reusables/Button/Button';
+import Checkbox from '../../Reusables/Checkbox/Checkbox';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
 import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { listToggleValue } from '../helpers';
@@ -67,32 +67,29 @@ const listFilter = ({
     <>
       {searchBar}
       <DropdownMenu
-        title="CLASS"
-        items={Array.from(ITEM_CLASS_MAP.entries()).map(([key, value]) => {
-          const selected = queryVars.itemClass.includes(key);
+        label="CLASS"
 
-          return {
-            id: key,
-            label: (
-              <Button
-                key={key}
-                title={selected
-                  ? `Exclude ${value} items.`
-                  : `Include ${value} items.`
-                }
-                label={value}
-                active={selected}
-                onClick={e => e.preventDefault()}
-                disabled={false}
-                immediate={false}
-              />
-            ),
-            selected,
-          };
-        })}
-        toggleSelect={handleClassSelect}
+        content={<div>
+          {Array.from(ITEM_CLASS_MAP.entries()).map(([key, value]) => {
+            const checked = queryVars.itemClass.includes(key);
+  
+            return <Checkbox
+              key={key}
+
+              id={key + '_item_class'}
+              label={value}
+              title={checked
+                ? `Exclude ${ITEM_TITLE_MAP.get(key)}.`
+                : `Include ${ITEM_TITLE_MAP.get(key)}.`
+              }
+
+              checked={checked}
+              onChange={handleClassSelect(key)}
+            />
+          })}
+        </div>}
+
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
-        itemWidth={'15ch'}
         backgroundLight="blue"
       />
     </>

@@ -171,6 +171,22 @@ export const ITEM_CLASS_MAP = new Map<ItemClass, string>([
   ['Z_CRYSTAL', 'Z-crystal'],
 ]);
 
+export const ITEM_TITLE_MAP = new Map<ItemClass, string>([
+  ['BERRY', 'Berries'],
+  ['CHOICE', 'Choice items'],
+  ['DRIVE', 'Drives'],
+  ['GEM', 'Gems'],
+  ['INCENSE', 'Incenses'],
+  ['MEGA_STONE', 'Mega stones'],
+  ['MEMORY', 'Memories'],
+  ['OTHER', 'other items'],
+  ['PLATE', 'Plates'],
+  ['POWER', 'Power items'],
+  ['STAT_ENHANCER', 'Stat enhancers'],
+  ['TYPE_ENHANCER', 'Type enhancers'],
+  ['Z_CRYSTAL', 'Z-crystals'],
+]);
+
 // #endregion
 
 // Moves

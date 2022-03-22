@@ -10,7 +10,7 @@ import {
   FieldStateSearchVars, FIELDSTATE_SEARCH_QUERY
 } from '../../../types-queries/Planner/FieldState';
 import { ENUMCASE_TO_TITLECASE } from '../../../utils/constants';
-import Button from '../../Reusables/Button/Button';
+import Checkbox from '../../Reusables/Checkbox/Checkbox';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
 import ThreeToggle from '../../Reusables/ThreeToggle/ThreeToggle';
 import SearchEntry from '../Entries/SearchEntry/SearchEntry';
@@ -80,61 +80,55 @@ const listFilter = ({
     <>
       {searchBar}
       <DropdownMenu
-        title="CLASS"
-        items={Array.from(FIELDSTATE_CLASS_MAP.entries()).map(([key, value]) => {
-          const selected = queryVars.fieldStateClass.includes(key);
+        label="CLASS"
 
-          return {
-            id: key,
-            label: (
-              <Button
-                key={key}
-                title={selected
-                  ? `Exclude ${value} field states.`
-                  : `Include ${value} field states.`
-                }
-                label={value}
-                active={selected}
-                onClick={e => e.preventDefault()}
-                disabled={false}
-                immediate={false}
-              />
-            ),
-            selected,
-          };
-        })}
-        toggleSelect={handleClassSelect}
+        content={<div>
+          {Array.from(FIELDSTATE_CLASS_MAP.entries()).map(([key, value]) => {
+            const checked = queryVars.fieldStateClass.includes(key);
+
+            return <Checkbox
+              key={key}
+
+              id={key + '_field_state_class'}
+              label={value}
+              title={checked
+                ? `Exclude ${value} field states.`
+                : `Include ${value} field states.`
+              }
+
+              checked={checked}
+              onChange={handleClassSelect(key)}
+            />
+          })}
+        </div>}
+        
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
-        itemWidth={'15ch'}
         backgroundLight="blue"
       />
       <DropdownMenu
-        title="TARGET"
-        items={Array.from(FIELDSTATE_TARGETCLASS_MAP.entries()).map(([key, value]) => {
-          const selected = queryVars.target.includes(key);
+        label="TARGET"
 
-          return {
-            id: key,
-            label: (
-              <Button
-                key={key}
-                title={selected
-                  ? `Exclude field states which target ${value}.`
-                  : `Include field states which target ${value}.`
-                }
-                label={value}
-                active={selected}
-                onClick={e => e.preventDefault()}
-                disabled={false}
-                immediate={false}
-              />
-            ),
-            selected,
-          };
-        })}
-        toggleSelect={handleTargetClassSelect}
+        content={<div>
+          {Array.from(FIELDSTATE_TARGETCLASS_MAP.entries()).map(([key, value]) => {
+            const checked = queryVars.target.includes(key);
+
+            return <Checkbox
+              key={key}
+
+              id={key + '_field_state_target_class'}
+              label={value}
+              title={checked
+                ? `Exclude field states which target ${value}.`
+                : `Include field states which target ${value}.`
+              }
+
+              checked={checked}
+              onChange={handleTargetClassSelect(key)}
+            />
+          })}
+        </div>}
+        
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
-        itemWidth={'15ch'}
         backgroundLight="blue"
       />
       <ThreeToggle

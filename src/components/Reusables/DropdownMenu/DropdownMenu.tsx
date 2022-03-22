@@ -25,7 +25,7 @@ function DropdownMenu({
   dropdownWidth,
   backgroundLight,
 }: DropdownMenuProps) {
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   const { width: windowWidth, height: windowHeight } = useWindowSize();
@@ -42,7 +42,7 @@ function DropdownMenu({
   const handleClickOutside = () => {
     setIsActive(false);
   }
-  useOnClickOutside(dropdownRef, handleClickOutside);
+  useOnClickOutside(contentRef, handleClickOutside);
 
   // Reset heights on window resize
   useEffect(() => {
@@ -63,6 +63,7 @@ function DropdownMenu({
         onClick={onClick}
         className={classWithBGControl("dropdown__trigger", backgroundLight)}
         style={{
+          width: dropdownWidth,
           color: isActive 
             ? 'var(--blue1)' 
             : 'var(--light1)',
@@ -81,10 +82,9 @@ function DropdownMenu({
       </button>
       {isActive && <div
         className={classWithBGControl("dropdown__content-wrapper", backgroundLight)}
-        ref={dropdownRef}
+        ref={contentRef}
         style={{
-          width: dropdownWidth,
-          minWidth: `min-content`,
+          minWidth: dropdownWidth,
           height: 'auto',
           top: triggerHeight 
             ? triggerHeight

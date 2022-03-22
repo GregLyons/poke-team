@@ -222,6 +222,13 @@ li, dd, dt {
   margin-inline-start: 0;
 }
 
+/* Remove default checkbox/radio styling */
+input[type="checkbox"], input[type="radio"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 /* Scrollbars */
 /* #region */
 
