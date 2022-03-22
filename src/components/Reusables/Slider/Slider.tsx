@@ -75,32 +75,37 @@ const Slider = ({
 
   return (
     <div className="slider__wrapper">
-      {onLeft && <NumericalInput
-        titleFor={titleFor}
-        min={min}
-        max={max}
-        value={focused 
-          ? number
-          : value}
-        onChange={(e) => {
-          const strValue = e.target.value.length > 0 
-            ? e.target.value
-            : ''
-          const value = parseInt(strValue, 10);
-          if (isNaN(value)) setNumber('');
-          else setNumber(value);
-        }}
-        onFocus={onFocus}
-        onBlur={(e) => {
-          setFocused(false);
-          onBlur(e);
-        }}
-        onIncrement={onIncrement}
-        onDecrement={onDecrement}
+      {onLeft && 
+        <>
+          <label htmlFor={titleFor.replace(/\s/g, '-') + '_numerical_input'}  className="hidden-label">Number input for {titleFor}</label>
+          <NumericalInput
+            titleFor={titleFor.replace(/\s/g, '-')}
+            min={min}
+            max={max}
+            value={focused 
+              ? number
+              : value}
+            onChange={(e) => {
+              const strValue = e.target.value.length > 0 
+                ? e.target.value
+                : ''
+              const value = parseInt(strValue, 10);
+              if (isNaN(value)) setNumber('');
+              else setNumber(value);
+            }}
+            onFocus={onFocus}
+            onBlur={(e) => {
+              setFocused(false);
+              onBlur(e);
+            }}
+            onIncrement={onIncrement}
+            onDecrement={onDecrement}
 
-        width={numericalWidth}
-        onLeft={true}
-      />}
+            width={numericalWidth}
+            onLeft={true}
+          />
+        </>
+      }
       <SliderBase
         titleFor={titleFor}
         min={min}
@@ -110,33 +115,36 @@ const Slider = ({
         onChange={onChange}
         sliderWidth={sliderWidth}
       />
-      {!onLeft && <NumericalInput
-        titleFor={titleFor}
-        min={min}
-        max={max}
-        value={focused 
-          ? number
-          : value}
-
-        onChange={(e) => {
-          const strValue = e.target.value.length > 0 
-            ? e.target.value
-            : ''
-          const value = parseInt(strValue, 10);
-          if (isNaN(value)) setNumber('');
-          else setNumber(value);
-        }}
-        onFocus={onFocus}
-        onBlur={(e) => {
-          setFocused(false);
-          onBlur(e);
-        }}
-        onIncrement={onIncrement}
-        onDecrement={onDecrement}
-
-        width={numericalWidth}
-        onLeft={false}
-      />}
+      {!onLeft && <>
+        <label htmlFor={titleFor.replace(/\s/g, '-') + '_numerical_input'}  className="hidden-label">Number input for {titleFor}</label>
+        <NumericalInput
+          titleFor={titleFor}
+          min={min}
+          max={max}
+          value={focused 
+            ? number
+            : value}
+  
+          onChange={(e) => {
+            const strValue = e.target.value.length > 0 
+              ? e.target.value
+              : ''
+            const value = parseInt(strValue, 10);
+            if (isNaN(value)) setNumber('');
+            else setNumber(value);
+          }}
+          onFocus={onFocus}
+          onBlur={(e) => {
+            setFocused(false);
+            onBlur(e);
+          }}
+          onIncrement={onIncrement}
+          onDecrement={onDecrement}
+  
+          width={numericalWidth}
+          onLeft={false}
+        />
+      </>}
     </div>
   )
 }

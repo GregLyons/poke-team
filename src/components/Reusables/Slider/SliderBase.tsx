@@ -51,7 +51,8 @@ const SliderBase = ({
         width: sliderWidth,
       }}
     >
-      <input 
+      <label htmlFor={titleFor.replace(/\s/g, '-') + '_slider'} className="hidden-label">Slider for {titleFor}</label>
+      <input
         type="range"
         min={min}
         max={max}
@@ -59,6 +60,8 @@ const SliderBase = ({
         ref={valRef}
         onChange={onChange}
         step={step}
+
+        id={`${titleFor.replace(/\s/g, '-')}_slider`}
         className="slider__thumb"
       />
       <div className="slider">

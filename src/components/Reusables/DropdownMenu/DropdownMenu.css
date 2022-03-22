@@ -2,6 +2,8 @@
 
 .dropdown__wrapper {
   position: relative;
+
+  font-family: var(--monospace);
 }
 
 .dropdown__trigger {
@@ -38,5 +40,12 @@
   background-color: var(--dark2);
   z-index: 100;
 
-  padding: 0.5rem;
+  padding: 1rem;
+}
+
+.dropdown__content-padder {
+  background-color: var(--dark1);
+  box-shadow: var(--control-shadow);
+  border-radius: 1rem;
+  padding: 1rem;
 }

@@ -79,10 +79,13 @@ const listFilter = ({
   return (
     <>
       {searchBar}
+      <label htmlFor="field_state_class_filter_trigger">Field state class dropdown</label>
       <DropdownMenu
+        triggerID="field_state_class_filter_trigger"
         label="CLASS"
 
-        content={<div>
+        content={<fieldset>
+          <legend className="hidden-label">Filter field states by class</legend>
           {Array.from(FIELDSTATE_CLASS_MAP.entries()).map(([key, value]) => {
             const checked = queryVars.fieldStateClass.includes(key);
 
@@ -100,15 +103,18 @@ const listFilter = ({
               onChange={handleClassSelect(key)}
             />
           })}
-        </div>}
+        </fieldset>}
         
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
         backgroundLight="blue"
       />
+      <label htmlFor="field_state_target_filter_trigger">Field state target dropdown</label>
       <DropdownMenu
+        triggerID="field_state_target_filter_trigger"
         label="TARGET"
 
-        content={<div>
+        content={<fieldset>
+          <legend className="hidden-label">Filter field states by target</legend>
           {Array.from(FIELDSTATE_TARGETCLASS_MAP.entries()).map(([key, value]) => {
             const checked = queryVars.target.includes(key);
 
@@ -126,7 +132,7 @@ const listFilter = ({
               onChange={handleTargetClassSelect(key)}
             />
           })}
-        </div>}
+        </fieldset>}
         
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
         backgroundLight="blue"

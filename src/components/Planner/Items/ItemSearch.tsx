@@ -66,10 +66,13 @@ const listFilter = ({
   return (
     <>
       {searchBar}
+      <label htmlFor="item_class_filter_trigger" className="hidden-label">Item class dropdown</label>
       <DropdownMenu
+        triggerID="item_class_filter_trigger"
         label="CLASS"
 
-        content={<div>
+        content={<fieldset>
+          <legend className="hidden-label">Item class filter</legend>
           {Array.from(ITEM_CLASS_MAP.entries()).map(([key, value]) => {
             const checked = queryVars.itemClass.includes(key);
   
@@ -87,7 +90,7 @@ const listFilter = ({
               onChange={handleClassSelect(key)}
             />
           })}
-        </div>}
+        </fieldset>}
 
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
         backgroundLight="blue"

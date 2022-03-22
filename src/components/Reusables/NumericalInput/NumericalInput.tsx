@@ -51,15 +51,21 @@ const NumericalInput = ({
     >
       {onLeft &&
         <div className="numerical-input__arrow-wrapper">
+          <label htmlFor={titleFor + '_increment'} className="hidden-label">Increment {titleFor}</label>
           <button
             title={`Increase ${titleFor} by 1`}
-            className="numerical-input__up-arrow"
             onClick={onIncrement}
+
+            id={titleFor + '_increment'}
+            className="numerical-input__up-arrow"
           />
+          <label htmlFor={titleFor + '_decrement'} className="hidden-label">Decrement {titleFor}</label>
           <button
             title={`Decrease ${titleFor} by 1`}
-            className="numerical-input__down-arrow"
             onClick={onDecrement}
+
+            id={titleFor + '_decrement'}
+            className="numerical-input__down-arrow"
           />
         </div>
       }
@@ -68,7 +74,6 @@ const NumericalInput = ({
         ref={inputRef}
         min={min}
         max={max}
-        className="numerical-input"
         type="number"
         value={value}
         onChange={onChange}
@@ -77,18 +82,27 @@ const NumericalInput = ({
         }}
         onFocus={onFocus}
         onBlur={onBlur}
+
+        id={`${titleFor}_numerical_input`}
+        className="numerical-input"
       />
       {!onLeft && 
         <div className="numerical-input__arrow-wrapper">
+          <label htmlFor={titleFor + '_increment'} className="hidden-label">Increment {titleFor}</label>
           <button
             title={`Increase ${titleFor} by 1`}
-            className="numerical-input__up-arrow"
             onClick={onIncrement}
+
+            id={titleFor + '_increment'}
+            className="numerical-input__up-arrow"
           />
+          <label htmlFor={titleFor + '_decrement'} className="hidden-label">Decrement {titleFor}</label>
           <button
             title={`Decrease ${titleFor} by 1`}
-            className="numerical-input__down-arrow"
             onClick={onDecrement}
+
+            id={titleFor + '_decrement'}
+            className="numerical-input__down-arrow"
           />
         </div>
       }

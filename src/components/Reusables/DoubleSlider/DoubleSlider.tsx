@@ -126,6 +126,7 @@ const DoubleSlider = ({
   
   return (
     <div className="double-slider__wrapper">
+      <label htmlFor={'minimum-' + titleFor.replace(/\s/g, '-') + 'numerical_input'} className="hidden-label">Number input for minimum {titleFor}</label>
       <NumericalInput
         titleFor={'minimum ' + titleFor}
         min={min}
@@ -161,6 +162,7 @@ const DoubleSlider = ({
         onMaxChange={onMaxChange}
         sliderWidth={sliderWidth}
       />
+      <label htmlFor={'maximum-' + titleFor.replace(/\s/g, '-') + 'numerical_input'} className="hidden-label">Number input for maximum {titleFor}</label>
       <NumericalInput
         titleFor={'maximum ' + titleFor}
         min={min}

@@ -47,9 +47,12 @@ const listFilter = ({
   return (
     <>
       {searchBar}
+      <label htmlFor="effect_class_filter_trigger">Effect class dropdown</label>
       <DropdownMenu
+        triggerID="effect_class_filter_trigger"
         label="CLASS"
-        content={<div>
+        content={<fieldset>
+          <legend className="hidden-label">Filter effects by class</legend>
           {Array.from(EFFECT_CLASS_MAP.entries()).map(([key, value]) => {
             const checked = queryVars.effectClass.includes(key);
             
@@ -67,7 +70,7 @@ const listFilter = ({
               onChange={handleClassSelect(key)}
             />
           })}
-        </div>}
+        </fieldset>}
         
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
         backgroundLight="blue"

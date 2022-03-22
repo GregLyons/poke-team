@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import FontAwesome from "react-fontawesome";
-import { useOnClickOutside, useWindowSize } from "usehooks-ts";
+import { useEventListener, useOnClickOutside, useWindowSize } from "usehooks-ts";
 import { classWithBGControl } from "../../../hooks/App/BGManager";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import './DropdownMenu.css';
@@ -9,6 +9,7 @@ import './DropdownMenu.css';
 type DropdownMenuProps = {
   label: string
   content: JSX.Element
+  triggerID: string
 
   dropLeft?: boolean
 
@@ -19,6 +20,7 @@ type DropdownMenuProps = {
 function DropdownMenu({
   label,
   content,
+  triggerID,
 
   dropLeft,
 
@@ -51,6 +53,17 @@ function DropdownMenu({
     });
   }, [windowWidth, windowHeight, triggerRef, setTriggerHeight]);
 
+  // Closes window when focus leaves the content
+  useEventListener('focusin', e => {
+    const el = contentRef?.current;
+
+    if (!el || el.contains(e.target as Node)) {
+      return;
+    }
+
+    setIsActive(false);
+  });
+
   return (
     <div className="dropdown__wrapper"
       style={{
@@ -60,20 +73,24 @@ function DropdownMenu({
     >
       <button
         ref={triggerRef}
-        onClick={onClick}
+        title={`${isActive ? 'Close' : 'Open'} ${label} dropdown.`}
         className={classWithBGControl("dropdown__trigger", backgroundLight)}
+        id={triggerID}
+
         style={{
           width: dropdownWidth,
           color: isActive 
-            ? 'var(--blue1)' 
-            : 'var(--light1)',
+          ? 'var(--blue1)' 
+          : 'var(--light1)',
           boxShadow: isActive
-            ? ''
-            : 'var(--control-shadow)',
+          ? ''
+          : 'var(--control-shadow)',
           borderRadius: isActive 
-            ? 0
-            : '',
+          ? 0
+          : '',
         }}
+        
+        onClick={onClick}
       >
         <span className="dropdown__title">{label}</span>
         {isActive
@@ -81,10 +98,10 @@ function DropdownMenu({
           : <FontAwesome name="angle-down"/>}
       </button>
       {isActive && <div
-        className={classWithBGControl("dropdown__content-wrapper", backgroundLight)}
+        className="dropdown__content-wrapper"
         ref={contentRef}
         style={{
-          minWidth: dropdownWidth,
+          width: `max(${dropdownWidth}, min-content)`,
           height: 'auto',
           top: triggerHeight 
             ? triggerHeight
@@ -103,9 +120,13 @@ function DropdownMenu({
           `
         }}
       >
-        <ErrorBoundary>
-          {content}
-        </ErrorBoundary>
+        <div
+          className="dropdown__content-padder"
+        >
+          <ErrorBoundary>
+            {content}
+          </ErrorBoundary>
+        </div>
       </div>}
     </div>
   );

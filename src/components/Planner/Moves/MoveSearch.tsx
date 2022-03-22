@@ -104,89 +104,109 @@ const listFilter = ({
   return (
     <>
       {searchBar}
-      {handleAccuracyRange && handlePowerRange && handlePPRange && handlePriorityRange && <DropdownMenu
-        label="RANGES"
-        content={<div>
-          {['Accuracy', 'Power', 'PP ', 'Priority'].map(attributeName => {
-            let min: number, max: number, 
-                minKey: keyof MoveSearchVars, maxKey: keyof MoveSearchVars,
-                handleRange: {
-                  updateMinValue: (value: number) => void,
-                  updateMaxValue: (value: number) => void,
-                };
-            switch(attributeName) {
-              case 'Accuracy':
-                min = 0;
-                max = 100;
-                minKey = 'minAccuracy';
-                maxKey = 'maxAccuracy';
-                handleRange = handleAccuracyRange;
+      {handleAccuracyRange && handlePowerRange && handlePPRange && handlePriorityRange && <>
+        <label htmlFor="move_range_filter_trigger" className="hidden-label">Move range dropdown</label>
+        <DropdownMenu
+          triggerID="move_range_filter_trigger"
+          label="RANGES"
+          content={<fieldset
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.5rem',
+            }}
+          >
+            <legend className="hidden-label">Filter moves by accuracy, power, PP, and priority</legend>
+            {['Accuracy', 'Power', 'PP ', 'Priority'].map(attributeName => {
+              let min: number, max: number, 
+                  minKey: keyof MoveSearchVars, maxKey: keyof MoveSearchVars,
+                  handleRange: {
+                    updateMinValue: (value: number) => void,
+                    updateMaxValue: (value: number) => void,
+                  };
+              switch(attributeName) {
+                case 'Accuracy':
+                  min = 0;
+                  max = 100;
+                  minKey = 'minAccuracy';
+                  maxKey = 'maxAccuracy';
+                  handleRange = handleAccuracyRange;
 
-                break;
+                  break;
 
-              case 'Power':
-                min = 0;
-                max = 300;
-                minKey = 'minPower';
-                maxKey = 'maxPower';
-                handleRange = handlePowerRange;
+                case 'Power':
+                  min = 0;
+                  max = 300;
+                  minKey = 'minPower';
+                  maxKey = 'maxPower';
+                  handleRange = handlePowerRange;
 
-                break;
+                  break;
 
-              case 'PP ':
-                min = 0;
-                max = 40;
-                minKey = 'minPP';
-                maxKey = 'maxPP';
-                handleRange = handlePPRange;
+                case 'PP ':
+                  min = 0;
+                  max = 40;
+                  minKey = 'minPP';
+                  maxKey = 'maxPP';
+                  handleRange = handlePPRange;
 
-                break;
+                  break;
 
-              case 'Priority':
-                min = -7;
-                max = 7;
-                minKey = 'minPriority';
-                maxKey = 'maxPriority';
-                handleRange = handlePriorityRange;
+                case 'Priority':
+                  min = -7;
+                  max = 7;
+                  minKey = 'minPriority';
+                  maxKey = 'maxPriority';
+                  handleRange = handlePriorityRange;
 
-                break;
+                  break;
 
-              // Shouldn't be reached
-              default:
-                min = 0;
-                max = 100;
-                minKey = 'minAccuracy';
-                maxKey = 'maxAccuracy';
-                handleRange = handleAccuracyRange;
-            }
+                // Shouldn't be reached
+                default:
+                  min = 0;
+                  max = 100;
+                  minKey = 'minAccuracy';
+                  maxKey = 'maxAccuracy';
+                  handleRange = handleAccuracyRange;
+              }
 
-            return (
-              <div
-                key={attributeName}
-              >
-                <div>
-                  {attributeName.slice(0, 3)}
+              return (
+                <div
+                  key={attributeName}
+                  style={{
+                    display: 'flex',
+                    gap: '1rem',
+                  }}
+                >
+                  <div style={{
+                    width: '3ch',
+                  }}>
+                    {attributeName.slice(0, 3)}
+                  </div>
+                  <DoubleSlider
+                    titleFor={attributeName}
+                    min={min}
+                    minValue={queryVars[minKey]}
+                    max={max}
+                    maxValue={queryVars[maxKey]}
+                    {...handleRange}
+                  />
                 </div>
-                <DoubleSlider
-                  titleFor={attributeName}
-                  min={min}
-                  minValue={queryVars[minKey]}
-                  max={max}
-                  maxValue={queryVars[maxKey]}
-                  {...handleRange}
-                />
-              </div>
-            );
-        })}
-        </div>}
+              );
+          })}
+          </fieldset>}
 
-        dropdownWidth={'clamp(10vw, 15ch, 30%)'}
-        backgroundLight="blue"
-      />}
+          dropdownWidth={'clamp(10vw, 15ch, 30%)'}
+          backgroundLight="blue"
+        />
+      </>}
+      <label htmlFor="move_category_filter_trigger" className="hidden-label">Move category dropdown</label>
       <DropdownMenu
+        triggerID="move_category_filter_trigger"
         label="CATEGORY"
 
-        content={<div>
+        content={<fieldset>
+          <legend className="hidden-label">Filter by move category</legend>
           {Array.from(MOVE_CATEGORY_MAP.entries()).map(([moveCategory, formattedMoveCategory]) => {
             const checked = queryVars.category.includes(moveCategory);
             
@@ -213,15 +233,18 @@ const listFilter = ({
               onChange={handleCategorySelect(moveCategory)}
             />
           })}
-        </div>}
+        </fieldset>}
 
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
         backgroundLight="blue"
       />
+      <label htmlFor="move_type_filter_trigger">Move type dropdown</label>
       <DropdownMenu
+        triggerID="move_type_filter_trigger"
         label={'TYPE'}
 
-        content={<div>
+        content={<fieldset>
+          <legend className="hidden-label">Filter moves by type</legend>
           {Array.from(MOVE_TYPE_MAP.entries()).map(([typeName, formattedTypeName]) => {
             const checked = queryVars.types.includes(typeName);
 
@@ -239,15 +262,18 @@ const listFilter = ({
               onChange={handleTypeSelect(typeName)}
             />
           })}
-        </div>}
+        </fieldset>}
         
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
         backgroundLight={"blue"}
       />
+      <label htmlFor="move_target_filter_trigger">Move target dropdown</label>
       <DropdownMenu
+        triggerID="move_target_filter_trigger"
         label="TARGET"
         
-        content={<div>
+        content={<fieldset>
+          <legend className="hidden-label">Filter moves by target</legend>
           {Array.from(MOVE_TARGETCLASS_MAP.entries()).map(([targetClassName, formattedTargetClassName]) => {
             const checked = queryVars.target.includes(targetClassName);
 
@@ -265,7 +291,7 @@ const listFilter = ({
               onChange={handleTargetClassSelect(targetClassName)}
             />
           })}
-        </div>}
+        </fieldset>}
         
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
         backgroundLight="blue"

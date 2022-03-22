@@ -118,58 +118,56 @@ const PokemonFilterForm = ({
       <ErrorBoundary>
         <form className="type-filter__wrapper">
           <div className="type-filter__button">
-            <label htmlFor="Select all types">
-              <Button
-                title={'Include all types.'}
-                label='RESET'
-                active={true}
-                onClick={e => {
-                  e.preventDefault();
-                  dispatchPokemonFilter({
-                    type: 'select_all_types',
-                  })
-                }}
-                disabled={false}
-                immediate={true}
-              />
-            </label>
+            <label className="hidden-label" htmlFor="tpe_filter_reset">Reset type filter</label>
+            <Button
+              id="type_filter_reset"
+              title={'Include all types.'}
+              label='RESET'
+              active={true}
+              onClick={e => {
+                e.preventDefault();
+                dispatchPokemonFilter({
+                  type: 'select_all_types',
+                })
+              }}
+              disabled={false}
+              immediate={true}
+            />
           </div>
           <div className="type-filter__select">
-            <label htmlFor="Type select">
-              <DropdownMenu
-                label={'TYPE FILTER'}
-                content={<form>
-                  <fieldset>
-                    <legend>Type filter</legend>
-                    {TYPENAMES.map(([typeName, typeGen]) => {
-                      // Only show types present in this gen
-                      if (genFilter.gen < typeGen) return; 
+            <label htmlFor="type_filter_trigger" className="hidden-label">Type filter dropdown</label>
+            <DropdownMenu
+              triggerID="type_filter_trigger"
+              label={'TYPE FILTER'}
+              content={<fieldset>
+                <legend >Type filter</legend>
+                {TYPENAMES.map(([typeName, typeGen]) => {
+                  // Only show types present in this gen
+                  if (genFilter.gen < typeGen) return; 
 
-                      const checked = pokemonFilter.types[typeName];
+                  const checked = pokemonFilter.types[typeName];
 
-                      return <Checkbox
-                        key={typeName}
+                  return <Checkbox
+                    key={typeName}
 
-                        id={typeName + '_typeFilter'}
-                        label={toCapsTypeName(typeName)}
-                        title={checked
-                          ? `Exclude ${toFormattedTypeName(typeName)}-type Pokemon.`
-                          : `Include ${toFormattedTypeName(typeName)}-type Pokemon.`
-                        }
+                    id={typeName + '_typeFilter'}
+                    label={toCapsTypeName(typeName)}
+                    title={checked
+                      ? `Exclude ${toFormattedTypeName(typeName)}-type Pokemon.`
+                      : `Include ${toFormattedTypeName(typeName)}-type Pokemon.`
+                    }
 
-                        checked={checked}
-                        onChange={handleTypeSelect(typeName)}
-                      />
-                    })}
-                  </fieldset>
-                </form>}
+                    checked={checked}
+                    onChange={handleTypeSelect(typeName)}
+                  />
+                })}
+              </fieldset>}
 
-                dropLeft={true}
+              dropLeft={true}
 
-                dropdownWidth={'clamp(5vw, 50ch, 80%)'}
-                backgroundLight={bgManager.bgColor}
-              />
-            </label>
+              dropdownWidth={'clamp(5vw, 50ch, 80%)'}
+              backgroundLight={bgManager.bgColor}
+            />
           </div>
         </form>
       </ErrorBoundary>
@@ -179,64 +177,62 @@ const PokemonFilterForm = ({
       <ErrorBoundary>
         <form className="stat-filter__wrapper">
           <div className="stat-filter__button">
-            <label htmlFor="Reset stats">
-              <Button
-                title={'Reset stat filters to defaults.'}
-                label='RESET'
-                active={true}
-                onClick={e => {
-                  e.preventDefault();
-                  dispatchPokemonFilter({
-                    type: 'reset_stat_filter',
-                  });
-                }}
-                disabled={false}
-                immediate={true}
-              />
-            </label>
+            <label htmlFor="stat_filter_reset" className="hidden-label">Reset stat filter</label>
+            <Button
+              id="stat_filter_reset"
+              title={'Reset stat filters to defaults.'}
+              label='RESET'
+              active={true}
+              onClick={e => {
+                e.preventDefault();
+                dispatchPokemonFilter({
+                  type: 'reset_stat_filter',
+                });
+              }}
+              disabled={false}
+              immediate={true}
+            />
           </div>
           <div className="stat-filter__select">
-            <label htmlFor="Filter out Pokemon depending on base stats.">
-              <DropdownMenu
-                label="STAT FILTER"
-                content={<form>
-                  <fieldset>
-                    <legend>Stat filter</legend>
-                    {BASE_STAT_NAMES.map(baseStatName => {
-                      return (
-                        <div
-                          key={baseStatName}
+            <label htmlFor="stat_filter_trigger" className="hidden-label">Base stat filter dropdown</label>
+            <DropdownMenu
+              triggerID="stat_filter_trigger"
+              label="STAT FILTER"
+              content={<fieldset>
+                <legend >Stat filter</legend>
+                {BASE_STAT_NAMES.map(baseStatName => {
+                  return (
+                    <div
+                      key={baseStatName}
 
-                          className="stat-filter__base-stat-wrapper"
-                        >
-                          <div className="stat-filter__base-stat-name">
-                            {toAbbreviatedBaseStatName(baseStatName).length === 3
-                              ? toAbbreviatedBaseStatName(baseStatName)
-                              : <>{toAbbreviatedBaseStatName(baseStatName)}&nbsp;</>}
-                          </div>
-                          <DoubleSlider
-                            titleFor={toFormattedBaseStatName(baseStatName)}
-                            min={0}
-                            minValue={pokemonFilter.minBaseStats[baseStatName]}
-                            updateMinValue={updateMinValue(baseStatName)}
-          
-                            max={255}
-                            maxValue={pokemonFilter.maxBaseStats[baseStatName]}
-                            updateMaxValue={updateMaxValue(baseStatName)}
-          
-                            sliderWidth="clamp(75px, 7.5vw, 150px)"
-                          />
-                        </div>
-                      ) 
-                    })}
-                  </fieldset>
-                </form>}
-                
-                dropdownWidth={'clamp(5vw, 50ch, 80%)'}
-                dropLeft={true}
-                backgroundLight={bgManager.bgColor}
-              />
-            </label>
+                      className="stat-filter__base-stat-wrapper"
+                    >
+                      <div className="stat-filter__base-stat-name">
+                        {toAbbreviatedBaseStatName(baseStatName).length === 3
+                          ? toAbbreviatedBaseStatName(baseStatName)
+                          : <>{toAbbreviatedBaseStatName(baseStatName)}&nbsp;</>}
+                      </div>
+                      <DoubleSlider
+                        titleFor={toFormattedBaseStatName(baseStatName)}
+                        min={0}
+                        minValue={pokemonFilter.minBaseStats[baseStatName]}
+                        updateMinValue={updateMinValue(baseStatName)}
+      
+                        max={255}
+                        maxValue={pokemonFilter.maxBaseStats[baseStatName]}
+                        updateMaxValue={updateMaxValue(baseStatName)}
+      
+                        sliderWidth="clamp(75px, 7.5vw, 150px)"
+                      />
+                    </div>
+                  ) 
+                })}
+              </fieldset>}
+              
+              dropdownWidth={'clamp(5vw, 50ch, 80%)'}
+              dropLeft={true}
+              backgroundLight={bgManager.bgColor}
+            />
           </div>
         </form>
       </ErrorBoundary>

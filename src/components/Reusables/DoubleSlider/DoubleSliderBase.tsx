@@ -71,6 +71,7 @@ const DoubleSliderBase = ({
         width: sliderWidth,
       }}
     >
+      <label htmlFor={titleFor.replace(/\s/g, '-') + '_slider_minimum'} className="hidden-label">Slider for minimum {titleFor}</label>
       <input
         title={`Modify minimum ${titleFor}`}
         type="range"
@@ -79,11 +80,14 @@ const DoubleSliderBase = ({
         value={minValue}
         ref={minValRef}
         onChange={onMinChange}
+
+        id={titleFor.replace(/\s/g, '-') + '_slider_minimum'}
         className={minValue > max - 100 
           ? "double-slider__thumb double-slider__thumb --zindex-5"
           : "double-slider__thumb double-slider__thumb --zindex-3"
         }
       />
+      <label htmlFor={titleFor.replace(/\s/g, '-') + '_slider_maximum'} className="hidden-label">Slider for maximum {titleFor}</label>
       <input
         title={`Modify maximum ${titleFor}`}
         type="range"
@@ -92,6 +96,8 @@ const DoubleSliderBase = ({
         value={maxValue}
         ref={maxValRef}
         onChange={onMaxChange}
+
+        id={titleFor.replace(/\s/g, '-') + '_slider_maximum'}
         className="double-slider__thumb double-slider__thumb --zindex-4"
       />
 

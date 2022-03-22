@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { BGManager } from '../../../hooks/App/BGManager';
 import { GenFilter } from '../../../hooks/App/GenFilter';
 import { TierFilter, TierFilterAction } from "../../../hooks/App/TierFilter";
@@ -30,50 +30,6 @@ const TierFilterForm = ({
   dispatchTierFilter,
   bgManager,
 }: TierFilterFormProps) => {
-  const singlesItems = useMemo(() =>
-    SINGLES_TIERS.map((singlesTier: SinglesTier) => {
-      return {
-        id: singlesTier,
-        label: (
-          <Button
-            title={tierFilter.singlesTiers[singlesTier]
-              ? `Exclude Pokemon in ${singlesTier}.`
-              : `Include Pokemon in ${singlesTier}.`
-            }
-            active={tierFilter.singlesTiers[singlesTier]}
-            label={singlesTier}
-            onClick={e => e.preventDefault()}
-            disabled={false}
-            immediate={false}
-          />
-        ),
-        selected: tierFilter.singlesTiers[singlesTier]
-      }
-    }),
-  [tierFilter]);
-
-  const doublesItems = useMemo(() => 
-    DOUBLES_TIERS.map((doublesTier: DoublesTier) => {
-      return {
-        id: doublesTier,
-        label: (
-          <Button
-            title={tierFilter.doublesTiers[doublesTier]
-              ? `Exclude Pokemon in ${doublesTier}.`
-              : `Include Pokemon in ${doublesTier}.`
-            }
-            active={tierFilter.doublesTiers[doublesTier]}
-            label={doublesTier}
-            onClick={e => e.preventDefault()}
-            disabled={false}
-            immediate={false}
-          />
-        ),
-        selected: tierFilter.doublesTiers[doublesTier]
-      }
-    }),
-  [tierFilter]);
-
   const handleTierSelect = (tier: SinglesTier | DoublesTier) => (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatchTierFilter({
       type: 'toggle_tier',
@@ -106,83 +62,84 @@ const TierFilterForm = ({
 
   return (
     <ErrorBoundary>
-      <div className="tier-filter__wrapper">
-        <form className="tier-filter__buttons">
-          <label htmlFor="singles">
-            <Button
-              title='Filter Pokemon based on their tier in Singles battles.'
-              active={tierFilter.format === 'singles'}
-              onClick={(e) => {
-                e.preventDefault();
-                handleFormatSelect('singles');
-              }}
-              label='SINGLES'
-              disabled={false}
-              immediate={false}
-            />
-          </label>
-          <label htmlFor="doubles">
-            <Button
-              title='Filter Pokemon based on their tier in Doubles battles.'
-              active={tierFilter.format === 'doubles'}
-              onClick={(e) => {
-                e.preventDefault();
-                handleFormatSelect('doubles')
-              }}
-              label='DOUBLES'
-              disabled={genFilter.gen < 3}
-              immediate={false}
-            />
-          </label>
-        </form>
+      <form className="tier-filter__wrapper">
+        <fieldset className="tier-filter__buttons">
+          <legend >Select singles or doubles format, if applicable</legend>
+          <label htmlFor="tier_filter_singles" className="hidden-label">Singles</label>
+          <Button
+            id="tier_filter_singles"
+            title='Filter Pokemon based on their tier in Singles battles.'
+            active={tierFilter.format === 'singles'}
+            onClick={(e) => {
+              e.preventDefault();
+              handleFormatSelect('singles');
+            }}
+            label='SINGLES'
+            disabled={false}
+            immediate={false}
+          />
+          <label htmlFor="tier_filter_doubles" className="hidden-label">Doubles</label>
+          <Button
+            id="tier_filter_doubles"
+            title='Filter Pokemon based on their tier in Doubles battles.'
+            active={tierFilter.format === 'doubles'}
+            onClick={(e) => {
+              e.preventDefault();
+              handleFormatSelect('doubles')
+            }}
+            label='DOUBLES'
+            disabled={genFilter.gen < 3}
+            immediate={false}
+          />
+        </fieldset>
         <div className="tier-filter__select">
+          <label htmlFor="tier_filter_trigger" className="hidden-label">Tier filter dropdown</label>
           <DropdownMenu
+            triggerID="tier_filter_trigger"
             label={'TIER FILTER'}
-            content={<form>
-              <fieldset>
-                <legend>{format === 'singles' ? 'Singles' : 'Doubles'} tier filter</legend>
-                {format === 'singles' 
-                  ? SINGLES_TIERS.map(singlesTier => {
-                      const checked = tierFilter.singlesTiers[singlesTier];
-
-                      return (
-                        <Checkbox
-                          id={singlesTier + '_tierFilter'}
-                          label={singlesTier}
-                          title={checked
-                            ? `Exclude Pokemon in ${singlesTier}.`
-                            : `Include Pokemon in ${singlesTier}.`
-                          }
-                          checked={checked}
-                          onChange={handleTierSelect(singlesTier)}
-                        />
-                      )
-                    })
-                  : DOUBLES_TIERS.map(doublesTier => {
-                    const checked = tierFilter.doublesTiers[doublesTier];
+            content={<fieldset>
+              <legend >{format === 'singles' ? 'Singles' : 'Doubles'} tier filter</legend>
+              {format === 'singles' 
+                ? SINGLES_TIERS.map(singlesTier => {
+                    const checked = tierFilter.singlesTiers[singlesTier];
 
                     return (
                       <Checkbox
-                        id={doublesTier + '_tierFilter'}
-                        label={doublesTier}
+                        id={singlesTier + '_tierFilter'}
+                        label={singlesTier}
                         title={checked
-                          ? `Exclude Pokemon in ${doublesTier}.`
-                          : `Include Pokemon in ${doublesTier}.`
+                          ? `Exclude Pokemon in ${singlesTier}.`
+                          : `Include Pokemon in ${singlesTier}.`
                         }
                         checked={checked}
-                        onChange={handleTierSelect(doublesTier)}
+                        onChange={handleTierSelect(singlesTier)}
                       />
-                    );
+                    )
                   })
-                }
-              </fieldset>
-            </form>}
+                : DOUBLES_TIERS.map(doublesTier => {
+                  const checked = tierFilter.doublesTiers[doublesTier];
+
+                  return (
+                    <Checkbox
+                      id={doublesTier + '_tierFilter'}
+                      label={doublesTier}
+                      title={checked
+                        ? `Exclude Pokemon in ${doublesTier}.`
+                        : `Include Pokemon in ${doublesTier}.`
+                      }
+                      checked={checked}
+                      onChange={handleTierSelect(doublesTier)}
+                    />
+                  );
+                })
+              }
+            </fieldset>}
 
             dropdownWidth={'clamp(5vw, 50ch, 80%)'}
             backgroundLight={bgManager.bgColor}
           />
         </div>
-      </div>
+      </form>
     </ErrorBoundary>
   )
 }

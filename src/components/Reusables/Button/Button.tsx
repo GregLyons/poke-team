@@ -5,6 +5,7 @@ import './Button.css';
 type ButtonProps = {
   title: string
   label: string
+  id?: string
 
   active: boolean
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
@@ -13,8 +14,9 @@ type ButtonProps = {
 }
 
 const Button = ({
-  label,
   title,
+  label,
+  id,
 
   onClick,
   active,
@@ -27,6 +29,7 @@ const Button = ({
   return (
     <button
       title={title}
+      id={id}
       className={`
         button
         ${(!immediate && active) || justClicked

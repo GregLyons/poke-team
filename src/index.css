@@ -133,11 +133,20 @@ body {
   color: var(--light1);
 }
 
-/* Visually hide headers that are meant for screen readers */
-.hidden-header {
+/* Visually hide headers and labels that are solely meant for screen readers */
+.hidden-header,
+.hidden-label,
+legend {
   position: absolute;
   left: -9999px;
   top: -9999px;
+}
+
+/* Remove fieldset styling so that stylistically, it's a <div> */
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
 }
 
 /* Overwrite old link styles */
