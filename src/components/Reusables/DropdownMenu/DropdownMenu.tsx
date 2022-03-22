@@ -30,6 +30,7 @@ function DropdownMenu<E extends Item<F>, F>({
 
   dropdownWidth,
   itemWidth,
+  dropLeft,
 
   backgroundLight,
 }: DropdownMenuProps<E, F>) {
@@ -97,8 +98,8 @@ function DropdownMenu<E extends Item<F>, F>({
           top: triggerHeight 
             ? triggerHeight
             : '',
-          left: dropdownRef.current && triggerRef.current
-            ? -dropdownRef.current.scrollWidth + triggerRef.current.scrollWidth
+          right: dropLeft
+            ? 0
             : '',
           boxShadow: `
             5px 5px 2px 2px rgba(0, 0, 0, 0.8),
@@ -118,7 +119,7 @@ function DropdownMenu<E extends Item<F>, F>({
               gridTemplateColumns: `repeat(auto-fit, minmax(${itemWidth}, 1fr))`,
             }}
           >
-            {items.map((item, idx) => {
+            {items.map((item) => {
               return (
                 <li
                   className="dropdown__option"

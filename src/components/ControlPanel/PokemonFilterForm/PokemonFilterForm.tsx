@@ -223,6 +223,7 @@ const PokemonFilterForm = ({
                   };
                 })}
                 dropdownWidth={'clamp(5vw, 50ch, 80%)'}
+                dropLeft={true}
                 itemWidth={'100%'}
                 backgroundLight={bgManager.bgColor}
               />
