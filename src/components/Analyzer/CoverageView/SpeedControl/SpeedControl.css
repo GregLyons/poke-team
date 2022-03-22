@@ -1,18 +1,5 @@
 .speed-control__wrapper {
-  display: grid;
-  grid-template-rows: auto;
-  grid-template-columns: 1fr;
-  gap: 0;
-
-  position: relative;
-  width: fit-content;
   min-width: calc(13ch);
-  height: auto;
-
-  padding: 0.5rem;
-  background-color: rgba(var(--dark3-components), 0.5);
-  border-radius: 0.5rem;
-  box-shadow: 3px 3px 3px 0 rgba(var(--dark3-components), 0.9);
 }
 
 .speed-control__entry {

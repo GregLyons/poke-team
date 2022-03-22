@@ -47,8 +47,7 @@ const VersusControls = ({
   const gen = filters.genFilter.gen;
 
   return (
-    <fieldset>
-      <legend className="hidden-label">Versus controls</legend>
+    <form>
       <label htmlFor="versus_mode_toggle_user" className="hidden-label">Toggle mode for your team</label>
       <button
         id="versus_mode_toggle_user"
@@ -57,15 +56,14 @@ const VersusControls = ({
       >
         {userMode === 'normal' ? 'STAT' : 'MOVE'}
       </button>
-      <fieldset className="versus-controls__user-side">
-        <legend></legend>
+      <div className="versus-controls__user-side">
         <SidePopup
           gen={gen}
           side={userSide}
           setSide={setUserSide}
           whichSide='your'
         />
-      </fieldset>
+      </div>
       <div className="versus-controls">
         <FieldPopup
           gen={gen}
@@ -85,38 +83,46 @@ const VersusControls = ({
         className="versus-controls__import"
       >
         {enemyTeam[filters.genFilter.gen].members.filter(d => d !== null).length !== 0
-          ? <button
-              className="versus-controls__clear"
-              title="Clear current enemy team."
-              onClick={e => {
-                e.preventDefault();
-                dispatches.dispatchEnemyTeam({
-                  type: 'clear_team',
-                  payload: {
-                    gen: filters.genFilter.gen,
-                  },
-                });
-              }}
-              style={{
-                border: '1px solid transparent',
-              }}
-            >
-              CLEAR
-            </button>
+          ? <>
+              <label htmlFor="versus_clear_enemy_team" className="hidden-label">Clear enemy team</label>
+              <button
+                id="versus_clear_enemy_team"
+                className="versus-controls__clear"
+                title="Clear current enemy team."
+                onClick={e => {
+                  e.preventDefault();
+                  dispatches.dispatchEnemyTeam({
+                    type: 'clear_team',
+                    payload: {
+                      gen: filters.genFilter.gen,
+                    },
+                  });
+                }}
+                style={{
+                  border: '1px solid transparent',
+                }}
+              >
+                CLEAR
+              </button>
+            </>
           : <Import
+              triggerLabel="Import enemy team"
+              triggerID="popup_trigger_enemy_import"
               teamDispatch={dispatches.dispatchEnemyTeam}
               filters={filters}
               team={enemyTeam}
             />
         }
       </div>
+      <label htmlFor="versus_mode_toggle_enemy" className="hidden-label">Toggle mode for enemy team</label>
       <button
+        id="versus_mode_toggle_enemy"
         className="versus-controls__mode-toggle"
         onClick={toggleMode('enemy')}
       >
         {enemyMode === 'normal' ? 'STAT' : 'MOVE'}
       </button>
-    </fieldset>
+    </form>
   );
 };
 

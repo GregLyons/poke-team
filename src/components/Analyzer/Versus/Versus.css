@@ -26,17 +26,24 @@
   grid-row: 1 / 7;
   grid-column: 2 / 3;
 
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr;
   gap: 0.5rem;
 
   position: relative;
   width: 100%;
   height: 100%;
+  padding: 0.5rem 0 0.5rem 0;
 }
 
 .versus__controls {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.versus-matchup__table-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }

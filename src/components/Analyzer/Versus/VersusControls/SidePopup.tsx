@@ -57,14 +57,17 @@ const SidePopup = ({
     }));
   };
   
-  return (
+  return (<>
+    <label htmlFor={`popup_trigger_${whichSide}_side`} className="hidden-label"></label>
     <Popup
+      triggerID={`popup_trigger_${whichSide}_side`}
       trigger={<div
         title={`Change conditions for ${whichSide} side.`}
       >
         SIDE
       </div>}
-      content={<div className="versus-controls__side">
+      content={<fieldset className="versus-controls__side">
+        <legend className="hidden-label">Conditions for {whichSide} side</legend>
         <h3>Flags</h3>
         <div className="versus-controls__side-toggles">
           {SIDES_GENS.map(sideAndGen => {
@@ -126,10 +129,10 @@ const SidePopup = ({
             background={false}
           />
         </div>
-      </div>}
+      </fieldset>}
       orientation="bottom"
     />
-  );
+  </>);
 };
 
 export default SidePopup;

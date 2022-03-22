@@ -104,6 +104,7 @@ const TeamColumnAbility = ({
   return (
     <ErrorBoundary>
       {member && <Popup
+        triggerID={`popup_trigger_${memberIdx}_ability`}
         trigger={
           <div
             className={`

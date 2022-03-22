@@ -31,10 +31,13 @@ const Export = ({
       className="export__wrapper"
       title="Export your team."
     >
+      <label htmlFor="popup_export" className="hidden-label">Export your team</label>
       <Popup
+        triggerID="popup_export"
         trigger={<div>EXPORT</div>}
         content={<div
           className="export__textbox-wrapper"
+          title="Copy this team string to your clipboard."
         >
           {/* Iterate over member strings */}
           {exportText.map((memberString, memberIdx) => (<div

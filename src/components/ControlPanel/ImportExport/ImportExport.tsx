@@ -22,6 +22,8 @@ const ImportExport = ({
     >
       <ErrorBoundary>
         <Import
+          triggerID="popup_trigger_user_team"
+          triggerLabel="Import your team"
           teamDispatch={dispatches.dispatchTeam}
           filters={filters}
           team={team}

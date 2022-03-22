@@ -113,7 +113,7 @@ const VersusMatchup = ({
 
   const grid = useRef<HTMLTableSectionElement>(null);
 
-  useRemoveFromTabOrder(grid);
+  useRemoveFromTabOrder(grid)
 
   return (
     <table

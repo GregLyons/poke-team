@@ -1,19 +1,6 @@
 .type-matchup__table-body {
-  display: grid;
-  grid-template-rows: auto;
-  grid-template-columns: 1fr;
-  gap: 0;
-
-  position: relative;
-  width: fit-content;
   min-width: calc(40px + 51ch);
-  height: auto;
   min-height: 420px;
-
-  padding: 0.5rem;
-  background-color: rgba(var(--dark3-components), 0.5);
-  border-radius: 0.5rem;
-  box-shadow: 3px 3px 3px 0 rgba(var(--dark3-components), 0.9);
 }
 
 .type-matchup__entry {

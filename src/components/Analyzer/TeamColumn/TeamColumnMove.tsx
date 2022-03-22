@@ -124,6 +124,7 @@ const TeamColumnMove = ({
   return (
     <ErrorBoundary>
       {member && <Popup
+        triggerID={`popup_trigger_${memberIdx}_move_${moveIdx}`}
         trigger={<div
           className={`
             team-column__text

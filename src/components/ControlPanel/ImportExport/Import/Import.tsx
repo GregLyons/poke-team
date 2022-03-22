@@ -13,6 +13,8 @@ import ImportTextbox from "./ImportTextbox";
 
 // By isolating teamDispatch, we can use both dispatchTeam and dispatchEnemyTeam
 type ImportProps = {
+  triggerID: string
+  triggerLabel: string
   teamDispatch: React.Dispatch<TeamAction>
   filters: Filters
   team: Team
@@ -24,6 +26,8 @@ export type ImportState = {
 };
 
 const Import = ({
+  triggerID,
+  triggerLabel,
   teamDispatch,
   filters,
   team,
@@ -364,7 +368,9 @@ const Import = ({
       className="import-wrapper"
       title="Import Pokemon."
     >
+      <label htmlFor={triggerID} className="hidden-label">{triggerLabel}</label>
       <Popup
+        triggerID={triggerID}
         trigger={<div>IMPORT</div>}
         content={<ImportTextbox 
           onImport={onImport}

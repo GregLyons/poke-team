@@ -1,4 +1,4 @@
-.versus-controls__wrapper > fieldset {
+.versus-controls__wrapper > form {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -6,7 +6,7 @@
   font-weight: 500;
 
   background-color: rgb(var(--dark3-components), 0.6);
-  outline: 1px solid var(--light3);
+  border: 1px solid var(--light3);
   box-shadow: 1px 1px 2px 1px black;
 }
 

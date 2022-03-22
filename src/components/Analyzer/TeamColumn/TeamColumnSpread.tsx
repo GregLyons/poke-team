@@ -81,6 +81,7 @@ const TeamColumnSpread = ({
   
   return (
     <Popup
+      triggerID={`popup_trigger_${memberIdx}_${spreadFor}`}
       trigger={<div
         className={`
           team-column__text

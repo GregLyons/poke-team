@@ -64,10 +64,13 @@ const FieldPopup = ({
       isGravity: !field.isGravity,
     }))
   };
-  return (
+  return (<>
+    <label htmlFor="popup_trigger_field" className="hidden-label"></label>
     <Popup
+      triggerID={"popup_trigger_field"}
       trigger={<div title="Change conditions of the entire field.">FIELD</div>}
-      content={<div className="versus-controls__field">
+      content={<fieldset className="versus-controls__field">
+        <legend className="hidden-label">Conditions on the field</legend>
         <h3>Weather</h3>
         <div className="versus-controls__weather">
           {WEATHERS_GENS.map(weatherAndGen => {
@@ -138,10 +141,10 @@ const FieldPopup = ({
             immediate={false}
           />
         </div>
-      </div>}
+      </fieldset>}
       orientation="bottom"
     />
-  );
+  </>);
 };
 
 export default FieldPopup;

@@ -155,7 +155,7 @@ const Versus = ({
             />
           </ErrorBoundary>
         </section>
-        <section aria-labelledby="versus-matchup" className="versus-matchup__wrapper">
+        <section aria-labelledby="versus-matchup" className="versus-matchup__table-wrapper">
           <h2 id="versus-matchup" className="hidden-header">Matchup table</h2>
           <ErrorBoundary>
             <VersusMatchup

@@ -47,7 +47,6 @@ import TypeSearch from './Planner/Types/TypeSearch';
 import UsageMethodPage from './Planner/UsageMethods/UsageMethodPage';
 import UsageMethodSearch from './Planner/UsageMethods/UsageMethodSearch';
 import ErrorBoundary from './Reusables/ErrorBoundary/ErrorBoundary';
-import Popup from './Reusables/Popup/Popup';
 
 export type Dispatches = {
   dispatchCart: React.Dispatch<CartAction>
@@ -125,22 +124,7 @@ function App() {
           <ErrorBoundary>
             <Routes>
               {/* Routing for Home */}
-              <Route path="/" element={<Popup
-                trigger={<div className="popup-test">Testing</div>}
-                content={<div>
-                  <p>
-                    Yo yo
-                  </p>
-                  <p>
-                    Yo yo
-                  </p>
-                  <p>
-                    Yo yo
-                  </p>
-                </div>}
-                orientation="top"
-                nudge="left"
-              />} />
+              <Route path="/" element={<div>Bill's PC</div>} />
 
               {/* Routing for Analyzer */}
               <Route path="/analyzer" element={<Analyzer
