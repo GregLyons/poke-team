@@ -52,6 +52,7 @@ export const MEMBER_ITEM_QUERY = gql`
           formattedPSID
 
           introduced {
+            id
             edges {
               node {
                 number

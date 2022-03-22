@@ -108,6 +108,7 @@ export const POPUP_ITEM_QUERY = gql`
           formattedPSID
 
           introduced {
+            id
             edges {
               node {
                 number
@@ -196,6 +197,7 @@ export const POPUP_MOVE_QUERY = gql`
                   formattedPSID
 
                   introduced {
+                    id
                     edges {
                       node {
                         number
@@ -252,6 +254,7 @@ export const POPUP_NATURE_QUERY = gql`
           name
 
           modifiesStat {
+            id
             edges {
               node {
                 id
@@ -263,6 +266,7 @@ export const POPUP_NATURE_QUERY = gql`
           }
           
           introduced {
+            id
             edges {
               node {
                 number

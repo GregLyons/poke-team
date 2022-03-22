@@ -274,6 +274,7 @@ export const EFFECT_ABILITY_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -439,6 +440,7 @@ export const EFFECT_ITEM_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -562,6 +564,7 @@ export const EFFECT_MOVE_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense

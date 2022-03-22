@@ -123,6 +123,7 @@ export const MOVE_SEARCH_QUERY = gql`
           target
 
           descriptions(pagination: {limit: 1}) {
+            id
             edges {
               node {
                 text
@@ -131,6 +132,7 @@ export const MOVE_SEARCH_QUERY = gql`
           }
 
           type {
+            id
             edges {
               node {
                 id
@@ -138,6 +140,7 @@ export const MOVE_SEARCH_QUERY = gql`
                 formattedName
 
                 introduced {
+                  id
                   edges {
                     node {
                       number
@@ -153,6 +156,7 @@ export const MOVE_SEARCH_QUERY = gql`
             removedFromSwSh: $removedFromSwSh,
             removedFromBDSP: $removedFromBDSP,
           }) {
+            id
             edges {
               node {
                 id
@@ -165,6 +169,7 @@ export const MOVE_SEARCH_QUERY = gql`
                 typeNames
 
                 baseStats {
+                  id
                   hp
                   attack
                   defense

@@ -1,27 +1,27 @@
 import {
-  gql
+    gql
 } from '@apollo/client';
 import { GenNum, ItemClass } from '../entities';
 import {
-  DescriptionEdge,
-  DescriptionsEdge,
-  IconDatum,
-  IntroductionEdge,
-  itemIconEdgeToItemIconDatum,
-  itemRequiresPokemonEdgeToRequiredPokemonIconData,
-  PokemonIconDatum,
-  PokemonIconEdge,
-  pokemonIconEdgeToPokemonIconDatum,
-  TypeIconDatum,
-  TypeIconEdge,
-  typeIconEdgeToTypeIconDatum,
-  TypeName
+    DescriptionEdge,
+    DescriptionsEdge,
+    IconDatum,
+    IntroductionEdge,
+    itemIconEdgeToItemIconDatum,
+    itemRequiresPokemonEdgeToRequiredPokemonIconData,
+    PokemonIconDatum,
+    PokemonIconEdge,
+    pokemonIconEdgeToPokemonIconDatum,
+    TypeIconDatum,
+    TypeIconEdge,
+    typeIconEdgeToTypeIconDatum,
+    TypeName
 } from '../helpers';
 import {
-  CountField, EntityConnectionVars, EntityPageQueryName, EntityPageVars, EntitySearchVars,
-  MainEntityInSearch, MainEntityOnPage,
-  MainEntityPageResult, MainEntitySearchResult, MainToAuxConnectionEdge, MainToAuxConnectionOnPage, MainToIconConnectionEdge,
-  MainToIconConnectionOnPage, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
+    CountField, EntityConnectionVars, EntityPageQueryName, EntityPageVars, EntitySearchVars,
+    MainEntityInSearch, MainEntityOnPage,
+    MainEntityPageResult, MainEntitySearchResult, MainToAuxConnectionEdge, MainToAuxConnectionOnPage, MainToIconConnectionEdge,
+    MainToIconConnectionOnPage, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
 } from './helpers';
 
 
@@ -75,6 +75,7 @@ export const ITEM_SEARCH_QUERY = gql`
           class
 
           descriptions(pagination: {limit: 1}) {
+            id
             edges {
               node {
                 text
@@ -99,6 +100,7 @@ export const ITEM_SEARCH_QUERY = gql`
                 typeNames
 
                 baseStats {
+                  id
                   hp
                   attack
                   defense

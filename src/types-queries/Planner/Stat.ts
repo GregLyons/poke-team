@@ -1,24 +1,24 @@
 import {
-  gql
+    gql
 } from '@apollo/client';
 import { GenNum } from '../entities';
 import {
-  AbilityIconEdge,
-  IntroductionEdge,
-  MoveIconEdge,
-  PokemonIconDatum,
-  PokemonIconEdge,
-  pokemonIconEdgeToPokemonIconDatum,
-  TypeIconDatum,
-  TypeIconEdge,
-  typeIconEdgeToTypeIconDatum
+    AbilityIconEdge,
+    IntroductionEdge,
+    MoveIconEdge,
+    PokemonIconDatum,
+    PokemonIconEdge,
+    pokemonIconEdgeToPokemonIconDatum,
+    TypeIconDatum,
+    TypeIconEdge,
+    typeIconEdgeToTypeIconDatum
 } from '../helpers';
 import {
-  AuxEntityInSearchWithIcon, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToAuxConnectionEdge, AuxToIconConnectionEdge,
-  AuxToIconConnectionOnPage, AuxToItemConnectionOnPage, AuxToMainConnectionEdge, AuxToMainConnectionOnPage, CountField,
+    AuxEntityInSearchWithIcon, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToAuxConnectionEdge, AuxToIconConnectionEdge,
+    AuxToIconConnectionOnPage, AuxToItemConnectionOnPage, AuxToMainConnectionEdge, AuxToMainConnectionOnPage, CountField,
 
-  EntityConnectionVars, EntityPageQueryName,
-  EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
+    EntityConnectionVars, EntityPageQueryName,
+    EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
 } from './helpers';
 
 
@@ -265,6 +265,7 @@ export const STAT_ABILITY_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -467,6 +468,7 @@ export const STAT_ITEM_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -606,6 +608,7 @@ export const STAT_MOVE_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense

@@ -125,10 +125,10 @@
 
 .team-column__spreads {
   grid-row: 2 / 3;
-  grid-column: 3 / 5;
+  grid-column: 3 / 4;
 
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
 }
 

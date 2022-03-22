@@ -94,6 +94,7 @@ export const MEMBER_MOVESET_QUERY = gql`
                   formattedPSID
 
                   introduced {
+                    id
                     edges {
                       node {
                         number

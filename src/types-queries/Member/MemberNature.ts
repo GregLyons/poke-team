@@ -63,6 +63,7 @@ export const MEMBER_NATURE_QUERY = gql`
           name
           
           modifiesStat {
+            id
             edges {
               node {
                 id
@@ -74,6 +75,7 @@ export const MEMBER_NATURE_QUERY = gql`
           }
 
           introduced {
+            id
             edges {
               node {
                 number

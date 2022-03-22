@@ -313,6 +313,7 @@ export const STATUS_ABILITY_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -362,6 +363,7 @@ export const STATUS_ABILITY_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -555,6 +557,7 @@ export const STATUS_ITEM_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -600,6 +603,7 @@ export const STATUS_ITEM_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -728,6 +732,7 @@ export const STATUS_MOVE_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -788,6 +793,7 @@ export const STATUS_MOVE_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense

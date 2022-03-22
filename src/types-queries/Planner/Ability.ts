@@ -75,6 +75,7 @@ export const ABILITY_SEARCH_QUERY = gql`
           formattedName
 
           descriptions(pagination: {limit: 1}) {
+            id
             edges {
               node {
                 text
@@ -87,6 +88,7 @@ export const ABILITY_SEARCH_QUERY = gql`
             removedFromSwSh: $removedFromSwSh,
             removedFromBDSP: $removedFromBDSP,
           }) {
+            id
             edges {
               node {
                 id
@@ -99,6 +101,7 @@ export const ABILITY_SEARCH_QUERY = gql`
                 typeNames
 
                 baseStats {
+                  id
                   hp
                   attack
                   defense

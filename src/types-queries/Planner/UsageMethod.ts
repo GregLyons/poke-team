@@ -1,24 +1,24 @@
 import {
-  gql
+    gql
 } from '@apollo/client';
 import { GenNum } from '../entities';
 import {
-  AbilityIconEdge,
-  IntroductionEdge,
-  MoveIconEdge,
-  PokemonIconDatum,
-  PokemonIconEdge,
-  pokemonIconEdgeToPokemonIconDatum,
-  TypeIconDatum,
-  TypeIconEdge,
-  typeIconEdgeToTypeIconDatum
+    AbilityIconEdge,
+    IntroductionEdge,
+    MoveIconEdge,
+    PokemonIconDatum,
+    PokemonIconEdge,
+    pokemonIconEdgeToPokemonIconDatum,
+    TypeIconDatum,
+    TypeIconEdge,
+    typeIconEdgeToTypeIconDatum
 } from '../helpers';
 import {
-  AuxEntityInSearchWithIcon, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToItemConnectionEdge,
-  AuxToItemConnectionOnPage, AuxToMainConnectionEdge, AuxToMainConnectionOnPage, CountField,
+    AuxEntityInSearchWithIcon, AuxEntityOnPage, AuxEntityPageResult, AuxEntitySearchResult, AuxToItemConnectionEdge,
+    AuxToItemConnectionOnPage, AuxToMainConnectionEdge, AuxToMainConnectionOnPage, CountField,
 
-  EntityConnectionVars, EntityPageQueryName,
-  EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
+    EntityConnectionVars, EntityPageQueryName,
+    EntityPageVars, EntitySearchVars, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
 } from './helpers';
 
 
@@ -322,6 +322,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -370,6 +371,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -419,6 +421,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -467,6 +470,7 @@ export const USAGEMETHOD_ABILITY_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -583,6 +587,7 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -627,6 +632,7 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -672,6 +678,7 @@ export const USAGEMETHOD_ITEM_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -804,6 +811,7 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -865,6 +873,7 @@ export const USAGEMETHOD_MOVE_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense

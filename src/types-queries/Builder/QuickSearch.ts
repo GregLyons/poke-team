@@ -119,6 +119,7 @@ export const POKEMON_QUICKSEARCH_QUERY = gql`
 
           typeNames
           baseStats {
+            id
             hp
             attack
             defense

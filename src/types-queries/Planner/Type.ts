@@ -91,6 +91,7 @@ export const TYPE_SEARCH_QUERY = gql`
           formattedName
 
           introduced {
+            id
             edges {
               node {
                 number
@@ -99,6 +100,7 @@ export const TYPE_SEARCH_QUERY = gql`
           }
 
           defensiveMatchups {
+            id
             edges {
               node {
                 id
@@ -110,6 +112,7 @@ export const TYPE_SEARCH_QUERY = gql`
           }
 
           offensiveMatchups {
+            id
             edges {
               node {
                 id
@@ -125,6 +128,7 @@ export const TYPE_SEARCH_QUERY = gql`
             removedFromSwSh: $removedFromSwSh,
             removedFromBDSP: $removedFromBDSP,
           }) {
+            id
             edges {
               node {
                 id
@@ -137,6 +141,7 @@ export const TYPE_SEARCH_QUERY = gql`
                 typeNames
 
                 baseStats {
+                  id
                   hp
                   attack
                   defense
@@ -503,6 +508,7 @@ export const TYPE_ABILITY_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -552,6 +558,7 @@ export const TYPE_ABILITY_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -815,6 +822,7 @@ export const TYPE_ITEM_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -860,6 +868,7 @@ export const TYPE_ITEM_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -905,6 +914,7 @@ export const TYPE_ITEM_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense
@@ -1039,6 +1049,7 @@ export const TYPE_MOVE_QUERY = gql`
                   typeNames 
 
                   baseStats {
+                    id
                     hp
                     attack
                     defense

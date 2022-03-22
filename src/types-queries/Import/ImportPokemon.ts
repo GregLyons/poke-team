@@ -59,6 +59,7 @@ export const IMPORT_MEMBER_QUERY = gql`
 
       typeNames
       baseStats {
+        id
         hp
         attack
         defense
