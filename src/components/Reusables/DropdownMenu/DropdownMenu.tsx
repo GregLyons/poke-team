@@ -5,35 +5,26 @@ import { classWithBGControl } from "../../../hooks/App/BGManager";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import './DropdownMenu.css';
 
-type Item<F> = {
-  id: F
-  label: JSX.Element
-  selected: boolean
-}
 
-type DropdownMenuProps<E extends Item<F>, F> = {
-  title: string
-  items: E[]
-  toggleSelect?: (id: F) => void
+type DropdownMenuProps = {
+  label: string
+  content: JSX.Element
 
-  dropdownWidth: number | string
-  itemWidth: number | string
   dropLeft?: boolean
 
+  dropdownWidth: number | string
   backgroundLight: 'red' | 'green' | 'blue'
 }
 
-function DropdownMenu<E extends Item<F>, F>({
-  title,
-  items,
-  toggleSelect,
+function DropdownMenu({
+  label,
+  content,
 
-  dropdownWidth,
-  itemWidth,
   dropLeft,
 
+  dropdownWidth,
   backgroundLight,
-}: DropdownMenuProps<E, F>) {
+}: DropdownMenuProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
@@ -83,7 +74,7 @@ function DropdownMenu<E extends Item<F>, F>({
             : '',
         }}
       >
-        <span className="dropdown__title">{title}</span>
+        <span className="dropdown__title">{label}</span>
         {isActive
           ? <FontAwesome name="angle-up"/>
           : <FontAwesome name="angle-down"/>}
@@ -113,31 +104,7 @@ function DropdownMenu<E extends Item<F>, F>({
         }}
       >
         <ErrorBoundary>
-          <ul 
-            className="dropdown__options"
-            style={{
-              gridTemplateColumns: `repeat(auto-fit, minmax(${itemWidth}, 1fr))`,
-            }}
-          >
-            {items.map((item) => {
-              return (
-                <li
-                  className="dropdown__option"
-                  key={`${item.id}`}
-                >
-                  {/* Match clicking range to content */}
-                  <span
-                    onClick={e => {
-                      e.preventDefault();
-                      toggleSelect && toggleSelect(item.id);
-                    }}    
-                  >
-                    {item.label}
-                  </span>
-                </li>
-              )
-            })}
-          </ul>
+          {content}
         </ErrorBoundary>
       </div>}
     </div>

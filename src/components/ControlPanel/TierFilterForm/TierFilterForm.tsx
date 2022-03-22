@@ -9,6 +9,7 @@ import {
   SINGLES_TIERS
 } from "../../../utils/smogonLogic";
 import Button from '../../Reusables/Button/Button';
+import Checkbox from '../../Reusables/Checkbox/Checkbox';
 import DropdownMenu from "../../Reusables/DropdownMenu/DropdownMenu";
 import ErrorBoundary from '../../Reusables/ErrorBoundary/ErrorBoundary';
 import './TierFilterForm.css';
@@ -73,7 +74,7 @@ const TierFilterForm = ({
     }),
   [tierFilter]);
 
-  const handleTierSelect = (tier: SinglesTier | DoublesTier) => {
+  const handleTierSelect = (tier: SinglesTier | DoublesTier) => (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatchTierFilter({
       type: 'toggle_tier',
       payload: tier,
@@ -101,10 +102,12 @@ const TierFilterForm = ({
     }
   }, [genFilter, dispatchTierFilter]);
 
+  const format = tierFilter.format;
+
   return (
     <ErrorBoundary>
-      <form className="tier-filter__wrapper">
-        <div className="tier-filter__buttons">
+      <div className="tier-filter__wrapper">
+        <form className="tier-filter__buttons">
           <label htmlFor="singles">
             <Button
               title='Filter Pokemon based on their tier in Singles battles.'
@@ -131,30 +134,55 @@ const TierFilterForm = ({
               immediate={false}
             />
           </label>
-        </div>
+        </form>
         <div className="tier-filter__select">
-          <label htmlFor="Tier select">
-            {tierFilter.format === 'singles'
-              ? <DropdownMenu 
-                  title={'TIER FILTER'}
-                  items={singlesItems}
-                  toggleSelect={handleTierSelect}
-                  dropdownWidth={'clamp(5vw, 50ch, 80%)'}
-                  itemWidth={'6ch'}
-                  backgroundLight={bgManager.bgColor}
-                />
-              : <DropdownMenu 
-                  title={'TIER FILTER'}
-                  items={doublesItems}
-                  toggleSelect={handleTierSelect}
-                  dropdownWidth={'clamp(5vw, 50ch, 80%)'}
-                  itemWidth={'6ch'}
-                  backgroundLight={bgManager.bgColor}
-                />
-            }
-          </label>
+          <DropdownMenu
+            label={'TIER FILTER'}
+            content={<form>
+              <fieldset>
+                <legend>{format === 'singles' ? 'Singles' : 'Doubles'} tier filter</legend>
+                {format === 'singles' 
+                  ? SINGLES_TIERS.map(singlesTier => {
+                      const checked = tierFilter.singlesTiers[singlesTier];
+
+                      return (
+                        <Checkbox
+                          id={singlesTier + '_tierFilter'}
+                          label={singlesTier}
+                          title={checked
+                            ? `Exclude Pokemon in ${singlesTier}.`
+                            : `Include Pokemon in ${singlesTier}.`
+                          }
+                          checked={checked}
+                          onChange={handleTierSelect(singlesTier)}
+                        />
+                      )
+                    })
+                  : DOUBLES_TIERS.map(doublesTier => {
+                    const checked = tierFilter.doublesTiers[doublesTier];
+
+                    return (
+                      <Checkbox
+                        id={doublesTier + '_tierFilter'}
+                        label={doublesTier}
+                        title={checked
+                          ? `Exclude Pokemon in ${doublesTier}.`
+                          : `Include Pokemon in ${doublesTier}.`
+                        }
+                        checked={checked}
+                        onChange={handleTierSelect(doublesTier)}
+                      />
+                    );
+                  })
+                }
+              </fieldset>
+            </form>}
+
+            dropdownWidth={'clamp(5vw, 50ch, 80%)'}
+            backgroundLight={bgManager.bgColor}
+          />
         </div>
-      </form>
+      </div>
     </ErrorBoundary>
   )
 }
