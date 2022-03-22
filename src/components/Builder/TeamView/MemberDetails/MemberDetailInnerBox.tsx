@@ -63,6 +63,7 @@ const MemberDetailInnerBox = ({
         className="member-details__inner-content"
         onClick={onContentClick && !invalidGen ? onContentClick : () => {}}
         disabled={!onContentClick || invalidGen}
+        aria-disabled={!onContentClick || invalidGen}
       >
         {invalidGen ? '' : content}
       </button>

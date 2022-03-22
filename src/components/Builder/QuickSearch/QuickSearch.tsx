@@ -74,7 +74,8 @@ const QuickSearch = ({
     },
     genFilter: filters.genFilter,
     searchBarProps: {
-      title: "Search PokemonByName",
+      id: 'quick_search',
+      title: "Search Pokemon by name",
       placeholder: "ENTER to save first row",
       backgroundLight: "green"
     }

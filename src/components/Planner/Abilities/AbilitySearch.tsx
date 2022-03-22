@@ -72,6 +72,7 @@ const AbilitySearch = ({
     },
     genFilter: filters.genFilter,
     searchBarProps: {
+      id: 'planner_ability_search',
       title: 'Search abilities by name',
       backgroundLight: 'blue',
     },

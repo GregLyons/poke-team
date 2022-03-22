@@ -47,7 +47,7 @@ const listFilter = ({
   return (
     <>
       {searchBar}
-      <label htmlFor="effect_class_filter_trigger">Effect class dropdown</label>
+      <label htmlFor="effect_class_filter_trigger" className="hidden-label">Effect class dropdown</label>
       <DropdownMenu
         triggerID="effect_class_filter_trigger"
         label="CLASS"
@@ -96,6 +96,7 @@ const EffectSearch = ({
     },
     genFilter,
     searchBarProps: {
+      id: 'planner_effect_search',
       title: 'Search effects by name',
       backgroundLight: 'blue',
     },

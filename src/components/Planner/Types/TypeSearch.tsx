@@ -76,6 +76,7 @@ const TypeSearch = ({
     },
     genFilter: filters.genFilter,
     searchBarProps: {
+      id: 'planner_type_search',
       title: 'Search types by name',
       backgroundLight: 'blue',
     },

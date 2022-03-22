@@ -120,6 +120,7 @@ const ItemSearch = ({
     },
     genFilter: filters.genFilter,
     searchBarProps: {
+      id: 'planner_item_search',
       title: 'Search items by name',
       backgroundLight: 'blue',
     },

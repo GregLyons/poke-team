@@ -64,7 +64,7 @@ const TierFilterForm = ({
     <ErrorBoundary>
       <form className="tier-filter__wrapper">
         <fieldset className="tier-filter__buttons">
-          <legend >Select singles or doubles format, if applicable</legend>
+          <legend className="hidden-label">Select singles or doubles format, if applicable</legend>
           <label htmlFor="tier_filter_singles" className="hidden-label">Singles</label>
           <Button
             id="tier_filter_singles"
@@ -98,7 +98,7 @@ const TierFilterForm = ({
             triggerID="tier_filter_trigger"
             label={'TIER FILTER'}
             content={<fieldset>
-              <legend >{format === 'singles' ? 'Singles' : 'Doubles'} tier filter</legend>
+              <legend className="hidden-label">{format === 'singles' ? 'Singles' : 'Doubles'} tier filter</legend>
               {format === 'singles' 
                 ? SINGLES_TIERS.map(singlesTier => {
                     const checked = tierFilter.singlesTiers[singlesTier];

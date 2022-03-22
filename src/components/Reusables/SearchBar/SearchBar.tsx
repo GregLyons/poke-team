@@ -3,6 +3,7 @@ import TextInput from '../TextInput/TextInput';
 import './SearchBar.css';
 
 type SearchBarProps = {
+  id: string
   title: string
   placeholder: string
 
@@ -19,6 +20,7 @@ type SearchBarProps = {
 };
 
 const SearchBar = ({
+  id,
   title,
   placeholder,
   searchTerm,
@@ -31,11 +33,15 @@ const SearchBar = ({
   setFocusedOnInput,
 }: SearchBarProps) => {
   return (
-    <div className="search-bar__wrapper">
+    <fieldset className="search-bar__wrapper">
+      <legend className="hidden-label">{title}</legend>
       <div className="search-bar__label">
         Search
       </div>
+      <label htmlFor={id} className="hidden-label">Name search</label>
       <TextInput
+        id={id}
+        inputType='search'
         title={title}
         placeholder={placeholder}
         value={searchTerm}
@@ -43,7 +49,9 @@ const SearchBar = ({
         setFocusedOnInput={setFocusedOnInput}
       />
       {containsOption && <>
+        <label htmlFor={id + '_starts'} className="hidden-label">Start with</label>
         <Button
+          id={id + 'starts'}
           title="Search by whether names start with the given search term."
           label="Starts"
           active={searchMode === 'STARTS'}
@@ -51,7 +59,9 @@ const SearchBar = ({
           disabled={false}
           immediate={false}
         />
+        <label htmlFor={id + '_contains'} className="hidden-label">Contains</label>
         <Button
+          id={id + '_contains'}
           title="Search by whether names contain with the given search term."
           label="Contains"
           active={searchMode === 'CONTAINS'}
@@ -60,7 +70,7 @@ const SearchBar = ({
           immediate={false}
         />
       </>}
-    </div>
+    </fieldset>
   );
 };
 

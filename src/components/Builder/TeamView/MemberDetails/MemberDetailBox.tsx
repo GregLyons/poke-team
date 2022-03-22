@@ -72,6 +72,7 @@ const MemberDetailBox = ({
         `}
         onClick={onContentClick && !invalidGen ? onContentClick : () => {}}
         disabled={!onContentClick || invalidGen}
+        aria-disabled={!onContentClick || invalidGen}
       >
         {invalidGen ? '' : content}
       </button>

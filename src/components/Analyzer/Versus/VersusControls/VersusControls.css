@@ -1,4 +1,4 @@
-.versus-controls__wrapper {
+.versus-controls__wrapper > fieldset {
   display: flex;
   justify-content: space-between;
   align-items: center;

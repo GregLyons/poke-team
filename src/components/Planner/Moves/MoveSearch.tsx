@@ -238,7 +238,7 @@ const listFilter = ({
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
         backgroundLight="blue"
       />
-      <label htmlFor="move_type_filter_trigger">Move type dropdown</label>
+      <label htmlFor="move_type_filter_trigger" className="hidden-label">Move type dropdown</label>
       <DropdownMenu
         triggerID="move_type_filter_trigger"
         label={'TYPE'}
@@ -267,7 +267,7 @@ const listFilter = ({
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
         backgroundLight={"blue"}
       />
-      <label htmlFor="move_target_filter_trigger">Move target dropdown</label>
+      <label htmlFor="move_target_filter_trigger" className="hidden-label">Move target dropdown</label>
       <DropdownMenu
         triggerID="move_target_filter_trigger"
         label="TARGET"
@@ -345,6 +345,7 @@ const MoveSearch = ({
     },
     genFilter: filters.genFilter,
     searchBarProps: {
+      id: 'planner_move_search',
       title: 'Search moves by name',
       backgroundLight: 'blue',
     },

@@ -27,6 +27,7 @@ const AbilitySelectView = ({
     },
     genFilter: filters.genFilter,
     searchBarProps: {
+      id: 'member_ability_search',
       title: "Search abilities by name",
       backgroundLight: "green"
     },

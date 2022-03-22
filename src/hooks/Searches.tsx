@@ -10,6 +10,7 @@ import { NameSearchVars } from "../types-queries/helpers";
 import { GenFilter, removedFromBDSP, removedFromSwSh } from "./App/GenFilter";
 
 export type SearchBarProps = {
+  id: string
   title: string
   placeholder?: string
   backgroundLight: 'red' | 'green' | 'blue'
@@ -122,6 +123,7 @@ export function useGenConnectedSearchBar<SearchVars extends NameSearchVars>({
     searchBar: <>
       {searchBarProps !== undefined
         ? <SearchBar 
+            id={searchBarProps.id}
             title={searchBarProps.title}
             placeholder={searchBarProps.placeholder || 'ENTER to select first row'}
             backgroundLight={searchBarProps.backgroundLight}

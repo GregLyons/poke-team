@@ -4,6 +4,7 @@ import './Popup.css';
 
 
 type PopupProps = {
+  triggerID: string
   trigger: JSX.Element
   content: JSX.Element
   orientation: 'top' | 'bottom' | 'left' | 'right'
@@ -14,6 +15,7 @@ type PopupProps = {
 };
 
 const Popup = ({
+  triggerID,
   trigger,
   content,
   orientation,
@@ -137,6 +139,7 @@ const Popup = ({
       }}
     >
       <button
+        id={triggerID}
         className={`
           popup-trigger
           ${isActive

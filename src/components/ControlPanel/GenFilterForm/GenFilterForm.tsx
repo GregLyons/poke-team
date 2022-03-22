@@ -47,7 +47,7 @@ const GenFilterForm = ({
           GEN
         </div>
         <fieldset className="gen-filter__slider">
-          <legend >Select gen</legend>
+          <legend className="hidden-label">Select gen</legend>
           <Slider
             titleFor="Generation"
             min={1}
@@ -60,7 +60,7 @@ const GenFilterForm = ({
           />
         </fieldset>
         <fieldset className="gen-filter__buttons">
-          <legend >Select version group, if applicable</legend>
+          <legend className="hidden-label">Select version group, if applicable</legend>
           <label htmlFor="gen_filter_swsh" className="hidden-label">Sword/Shield filter</label>
           <Button
             id="gen_filter_swsh"

@@ -135,8 +135,7 @@ body {
 
 /* Visually hide headers and labels that are solely meant for screen readers */
 .hidden-header,
-.hidden-label,
-legend {
+.hidden-label {
   position: absolute;
   left: -9999px;
   top: -9999px;

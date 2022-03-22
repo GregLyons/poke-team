@@ -67,6 +67,7 @@ const BoxInTerminal = ({
             if (!last) clickHandlers.onMoveDownClick(e, box)
           }}
           disabled={last}
+          aria-disabled={last}
         >
           <div
             

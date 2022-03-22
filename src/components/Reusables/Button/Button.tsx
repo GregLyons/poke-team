@@ -47,6 +47,7 @@ const Button = ({
         onClick(e);
       }}
       disabled={disabled}
+      aria-disabled={disabled}
     >
       {!disabled && label}
     </button>

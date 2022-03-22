@@ -24,6 +24,7 @@ const ItemSelectView = ({
     },
     genFilter: filters.genFilter,
     searchBarProps: {
+      id: 'member_item_search',
       title: "Search items by name",
       backgroundLight: "green"
     },

@@ -67,6 +67,7 @@ const StatSearch = ({
     },
     genFilter,
     searchBarProps: {
+      id: 'planner_stat_search',
       title: 'Search statuses by name',
       backgroundLight: 'blue',
     },

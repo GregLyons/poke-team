@@ -67,6 +67,7 @@ const UsageMethodSearch = ({
     },
     genFilter,
     searchBarProps: {
+      id: 'planner_usage_method_search',
       title: 'Search usage methods by name',
       backgroundLight: 'blue',
     },

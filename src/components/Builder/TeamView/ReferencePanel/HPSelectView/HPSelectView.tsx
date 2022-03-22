@@ -24,6 +24,7 @@ const HPSelectView = ({
     },
     genFilter: filters.genFilter,
     searchBarProps: {
+      id: 'member_hp_search',
       title: "Search types by name",
       backgroundLight: "green"
     },

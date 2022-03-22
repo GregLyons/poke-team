@@ -24,6 +24,7 @@ const NatureSelectView = ({
     },
     genFilter: filters.genFilter,
     searchBarProps: {
+      id: 'member_nature_search',
       title: "Search natures by name",
       backgroundLight: "green"
     },

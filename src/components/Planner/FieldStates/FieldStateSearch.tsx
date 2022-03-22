@@ -79,7 +79,7 @@ const listFilter = ({
   return (
     <>
       {searchBar}
-      <label htmlFor="field_state_class_filter_trigger">Field state class dropdown</label>
+      <label htmlFor="field_state_class_filter_trigger" className="hidden-label">Field state class dropdown</label>
       <DropdownMenu
         triggerID="field_state_class_filter_trigger"
         label="CLASS"
@@ -108,7 +108,7 @@ const listFilter = ({
         dropdownWidth={'clamp(10vw, 15ch, 30%)'}
         backgroundLight="blue"
       />
-      <label htmlFor="field_state_target_filter_trigger">Field state target dropdown</label>
+      <label htmlFor="field_state_target_filter_trigger" className="hidden-label">Field state target dropdown</label>
       <DropdownMenu
         triggerID="field_state_target_filter_trigger"
         label="TARGET"
@@ -184,6 +184,7 @@ const FieldStateSearch = ({
     },
     genFilter,
     searchBarProps: {
+      id: 'planner_field_state_search',
       title: 'Search field states by name',
       backgroundLight: 'blue',
     },

@@ -47,21 +47,25 @@ const VersusControls = ({
   const gen = filters.genFilter.gen;
 
   return (
-    <>
+    <fieldset>
+      <legend className="hidden-label">Versus controls</legend>
+      <label htmlFor="versus_mode_toggle_user" className="hidden-label">Toggle mode for your team</label>
       <button
+        id="versus_mode_toggle_user"
         className="versus-controls__mode-toggle"
         onClick={toggleMode('user')}
       >
         {userMode === 'normal' ? 'STAT' : 'MOVE'}
       </button>
-      <div className="versus-controls__user-side">
+      <fieldset className="versus-controls__user-side">
+        <legend></legend>
         <SidePopup
           gen={gen}
           side={userSide}
           setSide={setUserSide}
           whichSide='your'
         />
-      </div>
+      </fieldset>
       <div className="versus-controls">
         <FieldPopup
           gen={gen}
@@ -112,7 +116,7 @@ const VersusControls = ({
       >
         {enemyMode === 'normal' ? 'STAT' : 'MOVE'}
       </button>
-    </>
+    </fieldset>
   );
 };
 

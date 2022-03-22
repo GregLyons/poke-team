@@ -22,12 +22,6 @@ const Checkbox = ({
 }: CheckboxProps) => {
   return (
     <div className="checkbox__wrapper" title={title}>
-      <label
-        htmlFor={id}
-        className="checkbox__label"
-      >
-        {label}
-      </label>
       <input
         type="checkbox"
         checked={checked}
@@ -37,6 +31,12 @@ const Checkbox = ({
         id={id}
         className="checkbox__input"
       />
+      <label
+        htmlFor={id}
+        className="checkbox__label"
+      >
+        {label}
+      </label>
     </div>
   )
 };

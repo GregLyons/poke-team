@@ -56,6 +56,7 @@ const TeamColumnMove = ({
     },
     genFilter: filters.genFilter,
     searchBarProps: {
+      id: 'popup_move_search',
       title: 'Search moves',
       backgroundLight: 'red',
     },

@@ -38,11 +38,14 @@ const MemberDetailsExtra = ({
       className="member-details__extra-wrapper"
     >
       {/* Nickname */}
+      <label htmlFor="member_nickname" className="hidden-label">Nickname</label>
       <MemberDetailBox
         forClass="nickname"
         header="Nickname"
         title="Select nickname."
         content={<TextInput
+          id="member_nickname"
+          inputType="text"
           title="Give this Pokemon a nickname"
           placeholder="Nickname"
           value={member?.nickname || ''}

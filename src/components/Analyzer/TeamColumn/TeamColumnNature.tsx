@@ -49,6 +49,7 @@ const TeamColumnNature = ({
     },
     genFilter: filters.genFilter,
     searchBarProps: {
+      id: 'popup_nature_search',
       title: 'Search natures',
       backgroundLight: 'red',
     },

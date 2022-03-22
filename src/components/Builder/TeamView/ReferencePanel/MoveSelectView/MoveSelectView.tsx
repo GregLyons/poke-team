@@ -38,6 +38,7 @@ const MoveSelectView = ({
     },
     genFilter: filters.genFilter,
     searchBarProps: {
+      id: 'member_move_search',
       title: "Search moves by name",
       backgroundLight: "green"
     },

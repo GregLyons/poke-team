@@ -140,7 +140,7 @@ const PokemonFilterForm = ({
               triggerID="type_filter_trigger"
               label={'TYPE FILTER'}
               content={<fieldset>
-                <legend >Type filter</legend>
+                <legend className="hidden-label">Type filter</legend>
                 {TYPENAMES.map(([typeName, typeGen]) => {
                   // Only show types present in this gen
                   if (genFilter.gen < typeGen) return; 
@@ -199,7 +199,7 @@ const PokemonFilterForm = ({
               triggerID="stat_filter_trigger"
               label="STAT FILTER"
               content={<fieldset>
-                <legend >Stat filter</legend>
+                <legend className="hidden-label">Stat filter</legend>
                 {BASE_STAT_NAMES.map(baseStatName => {
                   return (
                     <div

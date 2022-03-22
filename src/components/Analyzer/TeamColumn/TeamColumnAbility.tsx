@@ -50,6 +50,7 @@ const TeamColumnAbility = ({
     },
     genFilter: filters.genFilter,
     searchBarProps: {
+      id: 'popup_ability_search',
       title: 'Search abilities',
       backgroundLight: 'red',
     },

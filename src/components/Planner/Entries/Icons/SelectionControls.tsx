@@ -34,6 +34,7 @@ const SelectionControls = ({
           dispatchSelection({ type: 'remove_all' });
         }}
         disabled={noPokemon}
+        aria-disabled={noPokemon}
         immediate={true}
       />
       {/* Placing 'Select all' next to 'Add to cart' to make 'Select all' -> 'Add to cart' easier. Place latter action to the right. */}
@@ -47,6 +48,7 @@ const SelectionControls = ({
           dispatchSelection({ type: 'add_all' });
         }}
         disabled={noPokemon}
+        aria-disabled={noPokemon}
         immediate={true}
       />
       <Button
@@ -69,6 +71,7 @@ const SelectionControls = ({
           handleAddToCart();
         }}
         disabled={noPokemon}
+        aria-disabled={noPokemon}
         immediate={true}
       />
     </>

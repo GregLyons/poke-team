@@ -48,6 +48,7 @@ const TeamColumnItem = ({
     },
     genFilter: filters.genFilter,
     searchBarProps: {
+      id: 'popup_item_search',
       title: 'Search items',
       backgroundLight: 'red',
     },

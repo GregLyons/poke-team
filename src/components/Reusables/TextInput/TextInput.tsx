@@ -2,7 +2,9 @@ import { useEffect, useRef } from 'react';
 import './TextInput.css';
 
 type TextInputProps = {
+  id: string
   title: string
+  inputType: 'text' | 'search'
   
   value: string
   placeholder: string
@@ -16,7 +18,10 @@ type TextInputProps = {
 };
 
 const TextInput = ({
+  id,
   title,
+  inputType,
+  
   value,
   onChange,
   placeholder,
@@ -36,8 +41,7 @@ const TextInput = ({
       <input
         ref={focusRef}
         title={title}
-        type="text"
-        className="text-input"
+        type={inputType}
         value={value}
         placeholder={placeholder}
         onChange={onChange}
@@ -46,6 +50,9 @@ const TextInput = ({
         }}
         onFocus={() => setFocusedOnInput && setFocusedOnInput(true)}
         onBlur={() => setFocusedOnInput && setFocusedOnInput(false)}
+
+        id={id}
+        className="text-input"
       />
     </div>
   )
