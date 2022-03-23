@@ -95,6 +95,7 @@
 .numerical-input__up-arrow:focus,
 .numerical-input__down-arrow:focus 
 {
+  cursor: pointer;
   filter: brightness(1.2);
   transform: scale(1.2);
 }

@@ -63,22 +63,35 @@ const MemberDetailBox = ({
           ? 'Active'
           : header}
       </div>
-      <button
-        title={invalidGen
-          ? 'Not available in this Gen.'
-          : hasInnerBox
-            ? ''
-            : title
-        }
-        className={`
-          member-details__content
-        `}
-        onClick={onContentClick && !invalidGen ? onContentClick : () => {}}
-        disabled={!onContentClick || invalidGen}
-        aria-disabled={!onContentClick || invalidGen}
-      >
-        {invalidGen ? '' : content}
-      </button>
+      {hasInnerBox || !interactive
+        ? <div 
+            title={invalidGen
+              ? 'Not available in this Gen.'
+              : hasInnerBox
+                ? ''
+                : title
+            }
+            className="member-details__content"
+            >
+              {invalidGen ? '' : content}
+          </div>
+        : <button
+            title={invalidGen
+              ? 'Not available in this Gen.'
+              : hasInnerBox
+                ? ''
+                : title
+            }
+            className={`
+              member-details__content
+            `}
+            onClick={onContentClick && !invalidGen ? onContentClick : () => {}}
+            disabled={!onContentClick || invalidGen}
+            aria-disabled={!onContentClick || invalidGen}
+          >
+            {invalidGen ? '' : content}
+          </button>
+      }
     </div>
   );
 };

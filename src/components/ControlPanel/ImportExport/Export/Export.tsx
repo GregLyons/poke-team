@@ -1,6 +1,6 @@
 import { Dex } from "@pkmn/dex";
 import { Sets } from "@pkmn/sets";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { Team } from "../../../../hooks/App/Team";
 import { Filters } from "../../../App";
 import Popup from "../../../Reusables/Popup/Popup";
@@ -15,6 +15,20 @@ const Export = ({
   filters,
   team,
 }: ExportProps) => {
+  const exportEl = useRef<HTMLDivElement>(null);
+
+  const selectExportString = () => {
+    if (!exportEl.current) return;
+
+    const el = exportEl.current;
+    const range = document.createRange();
+    range.selectNodeContents(el);
+
+    const sel = window.getSelection();
+    sel?.removeAllRanges();
+    sel?.addRange(range);
+  }
+
   const exportText: string[] = useMemo(() => {
     return team[filters.genFilter.gen].members.reduce((exportString: string[], currentMember) => {
       if (currentMember === null) return exportString;
@@ -36,8 +50,14 @@ const Export = ({
         triggerID="popup_export"
         trigger={<div className="import-export__popup-trigger">EXPORT</div>}
         content={<div
-          className="export__textbox-wrapper"
+          ref={exportEl}
+          className="export__textbox-wrapper" 
           title="Copy this team string to your clipboard."
+          onClick={e => {
+            if (e.detail === 2) selectExportString()
+          }}
+          onFocus={() => selectExportString()}
+          tabIndex={0}
         >
           {/* Iterate over member strings */}
           {exportText.map((memberString, memberIdx) => (<div

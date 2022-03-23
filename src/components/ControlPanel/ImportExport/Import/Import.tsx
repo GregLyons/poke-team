@@ -80,6 +80,9 @@ const Import = ({
       }
     });
 
+  const loading = loading_pokemon || loading_item || loading_nature;
+  const error = error_pokemon || error_item || error_nature;
+
   const onImport: (importString: string) => (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void = importString => {
     return e => {
       e.preventDefault();
@@ -99,6 +102,13 @@ const Import = ({
     };
   }
 
+  const returnToWaiting = () => setTimeout(() => setImportState({
+    key: 'waiting',
+    messageComponent: (<>
+      Waiting for import.
+    </>),
+  }), 5000);
+
   // When members are imported, execute query
   useEffect(() => {
     // If not waiting for import, do nothing
@@ -115,6 +125,8 @@ const Import = ({
           No available slots into which to import members.
         </>)
       });
+
+      returnToWaiting();
 
       return teamDispatch({
         type: 'clear_import',
@@ -133,22 +145,7 @@ const Import = ({
         </>),
       });
 
-      return teamDispatch({
-        type: 'clear_import',
-        payload: {
-          gen: filters.genFilter.gen,
-        },
-      });
-    }
-    
-    // If no imported members
-    if (team[filters.genFilter.gen].importedMembers.length === 0) {
-      setImportState({
-        key: 'error',
-        messageComponent: (<>
-          No members detected to import.
-        </>),
-      });
+      returnToWaiting();
 
       return teamDispatch({
         type: 'clear_import',
@@ -157,6 +154,25 @@ const Import = ({
         },
       });
     }
+    
+    // // If no imported members
+    // if (team[filters.genFilter.gen].importedMembers.length === 0) {
+    //   setImportState({
+    //     key: 'error',
+    //     messageComponent: (<>
+    //       No members detected to import.
+    //     </>),
+    //   });
+
+    //   returnToWaiting();
+
+    //   return teamDispatch({
+    //     type: 'clear_import',
+    //     payload: {
+    //       gen: filters.genFilter.gen,
+    //     },
+    //   });
+    // }
 
     // #endregion
 
@@ -166,7 +182,7 @@ const Import = ({
     execute_nature();
   }, [
     filters, team, teamDispatch,
-    importState, numOpenSlots,
+    importState.key, numOpenSlots,
     execute_pokemon, execute_item, execute_nature,
   ]);
 
@@ -176,16 +192,15 @@ const Import = ({
     if (!['waiting', 'loading'].includes(importState.key)) return;
 
     // Checks for query errors
-    // #region
-
-    // Error in Pokemon query
-    if (error_pokemon) {
+    if (error) {
       setImportState({
         key: 'error',
         messageComponent: (<>
-          Failed to query Pokemon: {error_pokemon.message}
+          Failed to query: {error.message}
         </>)
       });
+
+      returnToWaiting();
 
       return teamDispatch({
         type: 'clear_import',
@@ -195,47 +210,7 @@ const Import = ({
       });
     }
 
-    // Error in item query
-    if (error_item) {
-      setImportState({
-        key: 'error',
-        messageComponent: (<>
-          Failed to query item: {error_item.message}
-        </>)
-      });
-
-      return teamDispatch({
-        type: 'clear_import',
-        payload: {
-          gen: filters.genFilter.gen,
-        },
-      });
-    }
-
-    // Error in Nature query
-    if (error_nature) {
-      setImportState({
-        key: 'error',
-        messageComponent: (<>
-          Failed to query Nature: {error_nature.message}
-        </>)
-      });
-
-      return teamDispatch({
-        type: 'clear_import',
-        payload: {
-          gen: filters.genFilter.gen,
-        },
-      });
-    }
-
-    // #endregion
-
-    // Checks loading state
-    // In this section, we don't want to clear the import, as the importing is still in process. Just modify importState
-    // #region
-
-    if (loading_pokemon || loading_item || loading_nature) {
+    if (loading) {
       setImportState({
         key: 'loading',
         messageComponent:(<>
@@ -243,8 +218,6 @@ const Import = ({
         </>)
       });
     }
-
-    // #endregion
 
     // At this point, if we have all the necessary data, try to add imported members to team
     if (data_pokemon?.pokemonByPSIDs && data_item?.itemsByPSID && data_nature?.naturesByName && data_pokemon.pokemonByPSIDs.length > 0) {
@@ -261,6 +234,9 @@ const Import = ({
       }
       // Handle various errors that could come from setsToMembers, e.g. invalid moves, abilities, etc.
       catch (e) {
+        // After each error, return to waiting after 5 seconds
+        returnToWaiting();
+
         if (e instanceof LateIntroductionError) {
           setImportState({
             key: 'error',
@@ -346,6 +322,8 @@ const Import = ({
           </>),
         });
 
+        returnToWaiting();
+
         return teamDispatch({
           type: 'add_imported_members',
           payload: {
@@ -357,10 +335,10 @@ const Import = ({
     }
   }, [
     team, filters, teamDispatch,
-    numOpenSlots, importState,
+    numOpenSlots, importState.key,
     data_pokemon, data_item, data_nature,
-    loading_pokemon, loading_item, loading_nature,
-    error_pokemon, error_item, error_nature,
+    loading,
+    error,
   ]);
   
   return (
@@ -377,6 +355,12 @@ const Import = ({
           importState={importState}
         />}
         orientation="bottom"
+        onClose={() => setImportState({
+          key: 'waiting',
+          messageComponent: (<>
+            Waiting for import.
+          </>)
+        })}
       />
     </div>
   );
