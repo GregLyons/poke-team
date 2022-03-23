@@ -12,22 +12,22 @@ import StatGraph from "./StatGraph";
 
 
 type StatBoxProps = {
-  nicknameRef: React.RefObject<HTMLDivElement>
   focusRef: React.RefObject<HTMLDivElement> | undefined
   refKey: TeamViewRefKey
   member: MemberPokemon | null
   handlers: MemberDetailsHandlers
   gen: GenNum
+  natDexOn: boolean
   view: ReferencePanelView
 };
 
 const StatBox = ({
-  nicknameRef,
   focusRef,
   refKey,
   member,
   handlers,
   gen,
+  natDexOn,
   view,
 }: StatBoxProps) => {
   const hiddenPower: { type: TypeName, power: number, } = useMemo(() => {
@@ -97,7 +97,8 @@ const StatBox = ({
 
       gen={gen}
       minGen={2}
-      excludeGens={[8]}
+      // In National Dex, hidden power still exists
+      excludeGens={natDexOn ? undefined : [8]}
     />
     
     {/* Nature */}

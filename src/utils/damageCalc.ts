@@ -1,6 +1,6 @@
 import { calculate, Field, Generations, Move, Pokemon, Result, Side } from "@smogon/calc";
 import { ABBREVIATED_BASE_STAT_NAMES } from "../hooks/App/PokemonFilter";
-import { AbbreviatedBaseStatName, computeStat, GenNum, StatTable } from "../types-queries/entities";
+import { AbbreviatedBaseStatName, computeStat, GenNum, StatTable, statTableToPSStatsTable } from "../types-queries/entities";
 import { NatureName } from "../types-queries/Member/helpers";
 import { MemberMove } from "../types-queries/Member/MemberMove";
 import { MemberPokemon } from "../types-queries/Member/MemberPokemon";
@@ -16,7 +16,7 @@ export const MEMBERPOKEMON_TO_SMOGONPOKEMON: (
   const { formattedPSID, ability, item, nature, moveset: moves, evs, ivs, } = member;
   const abilityName = ability?.formattedPSID;
   const itemName = item?.formattedPSID
-  const moveNames = (moves.map(move => move !== null ? move?.formattedPSID : undefined).filter(move => move) as string[]);
+  const moveNames = (moves.map(move => move !== null ? move?.formattedPSID : undefined).filter(move => move).map(move => move === "Hidden Power" ? "HP Grass" : move) as string[]);
 
   const natureName = nature?.formattedName;
 
@@ -26,8 +26,8 @@ export const MEMBERPOKEMON_TO_SMOGONPOKEMON: (
     nature: natureName,
     moves: moveNames,
     curHP: options?.curHP,
-    evs,
-    ivs,
+    evs: statTableToPSStatsTable(evs),
+    ivs: statTableToPSStatsTable(ivs),
     boosts: options?.boosts,
   });
 };
@@ -58,7 +58,7 @@ export function calcDamage ({
   const defenderPokemon = MEMBERPOKEMON_TO_SMOGONPOKEMON(defender, gen);
   const move = MEMBERMOVE_TO_SMOGONMOVE(memberMove, gen);
   const generation = Generations.get(gen);
-
+  
   return calculate(
     generation,
     attackerPokemon,

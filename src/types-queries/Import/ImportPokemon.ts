@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 import { PokemonSet } from "@pkmn/sets";
+import { GenFilter } from "../../hooks/App/GenFilter";
 import { compareNumbers } from "../../utils/helpers";
 import { GenNum } from "../entities";
 import { PokemonIconDatum, PokemonIconNode, toTypeName, TypeName } from "../helpers";
@@ -216,8 +217,12 @@ export const setsToMembers: (
   results: ImportMemberResult[],
   itemResults: MemberItemResult[],
   natureResults: MemberNatureResult[],
-  gen: GenNum
-) => MemberPokemon[] = (sets, results, itemResults, natureResults, gen) => {
+  natDexMoveResults: MemberMoveResult[],
+  genFilter: GenFilter
+) => MemberPokemon[] = (sets, results, itemResults, natureResults, natDexMoveResults, genFilter) => {
+  const gen = genFilter.gen;
+  const natDexOn = genFilter.includeRemovedFromBDSP && genFilter.includeRemovedFromSwSh;
+  
   // Verify that every set has a corresponding result, otherwise throw error
   // #region
   
@@ -393,6 +398,24 @@ export const setsToMembers: (
           if (moveIndex === -1) throw new InvalidMoveError(move, memberPokemon.formattedName);
 
           const moveResult = moveResults[moveIndex];
+
+          const memberMove = new MemberMove(moveResult, gen, false);
+
+          // Check if move is late
+          if (memberMove.introduced > gen) {
+            lateEntities = lateEntities.concat([memberMove.formattedName, memberMove.introduced]);
+          }
+
+          // Finally, assign move
+          memberPokemon.assignMove(memberMove, movesetIdx);
+        }
+        // If we're in National Dex mode, stop validation and just assign the move
+        else if (natDexOn) {
+          const moveIndex = natDexMoveResults.map(d => d.psID).indexOf(movePSID);
+
+          if (moveIndex === -1) throw new InvalidMoveError(move, memberPokemon.formattedName);
+
+          const moveResult = natDexMoveResults[moveIndex];
 
           const memberMove = new MemberMove(moveResult, gen, false);
 

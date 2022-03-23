@@ -1,8 +1,9 @@
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useMemo, useState } from "react";
 import { Team, TeamAction } from "../../../../hooks/App/Team";
-import { InvalidAbilityError, InvalidItemError, InvalidMoveError, InvalidNatureError, InvalidStatsError, LateIntroductionError, PSIDNotFoundError } from "../../../../types-queries/Import/helpers";
+import { InvalidAbilityError, InvalidItemError, InvalidMoveError, InvalidNatureError, InvalidStatsError, LateIntroductionError, PSIDNotFoundError, toPSID } from "../../../../types-queries/Import/helpers";
 import { ImportItemQuery, ImportItemVars, IMPORT_ITEM_QUERY } from "../../../../types-queries/Import/ImportItem";
+import { ImportMoveQuery, ImportMoveVars, IMPORT_MOVE_QUERY } from "../../../../types-queries/Import/ImportMove";
 import { ImportNatureQuery, ImportNatureVars, SET_MEMBERNATURE_QUERY } from "../../../../types-queries/Import/ImportNature";
 import { ImportMemberQuery, ImportMemberVars, IMPORT_MEMBER_QUERY, setsToMembers } from "../../../../types-queries/Import/ImportPokemon";
 import { MemberPokemon } from "../../../../types-queries/Member/MemberPokemon";
@@ -71,7 +72,6 @@ const Import = ({
     {
       variables: {
         gen: filters.genFilter.gen,
-        // Convert species name to psID
         psIDs: team[filters.genFilter.gen].importedMembers
           .slice(0, numOpenSlots)
           .filter(set => set.nature)
@@ -80,8 +80,27 @@ const Import = ({
       }
     });
 
-  const loading = loading_pokemon || loading_item || loading_nature;
-  const error = error_pokemon || error_item || error_nature;
+  const natDexOn = filters.genFilter.includeRemovedFromBDSP && filters.genFilter.includeRemovedFromSwSh;
+  const [execute_move, { data: data_move, loading: loading_move, error: error_move }] = useLazyQuery<ImportMoveQuery, ImportMoveVars>(IMPORT_MOVE_QUERY,
+    {
+      variables: {
+        gen: filters.genFilter.gen,
+        psIDs: natDexOn 
+          ? team[filters.genFilter.gen].importedMembers
+            .slice(0, numOpenSlots)
+            .filter(set => set.moves)
+            .reduce((acc, curr) => {
+              const movePSIDs = curr.moves.map(toPSID).map(movePSID => movePSID.includes('hiddenpower') ? 'hiddenpower' : movePSID);
+
+              return acc.concat(movePSIDs);
+            }, [] as string[])
+          : [] as string[],
+      },
+    },
+  );
+
+  const loading = loading_pokemon || loading_item || loading_nature || loading_move;
+  const error = error_pokemon || error_item || error_nature || error_move;
 
   const onImport: (importString: string) => (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void = importString => {
     return e => {
@@ -180,6 +199,7 @@ const Import = ({
     execute_pokemon();
     execute_item();
     execute_nature();
+    execute_move();
   }, [
     filters, team, teamDispatch,
     importState.key, numOpenSlots,
@@ -220,7 +240,7 @@ const Import = ({
     }
 
     // At this point, if we have all the necessary data, try to add imported members to team
-    if (data_pokemon?.pokemonByPSIDs && data_item?.itemsByPSID && data_nature?.naturesByName && data_pokemon.pokemonByPSIDs.length > 0) {
+    if (data_pokemon?.pokemonByPSIDs && data_item?.itemsByPSID && data_nature?.naturesByName && data_move?.movesByPSID && data_pokemon.pokemonByPSIDs.length > 0) {
       let newMembers: MemberPokemon[] = [];
       // Attempting to add new members to team
       try {
@@ -229,7 +249,8 @@ const Import = ({
           data_pokemon.pokemonByPSIDs,
           data_item.itemsByPSID,
           data_nature.naturesByName,
-          filters.genFilter.gen,
+          data_move.movesByPSID,
+          filters.genFilter,
         );
       }
       // Handle various errors that could come from setsToMembers, e.g. invalid moves, abilities, etc.

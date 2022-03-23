@@ -17,6 +17,7 @@ type MemberDetailsMainProps = {
   member: MemberPokemon
   handlers: MemberDetailsHandlers
   gen: GenNum
+  natDexOn: boolean
   view: ReferencePanelView
 }
 
@@ -27,6 +28,7 @@ const MemberDetailsMain = ({
   member,
   handlers,
   gen,
+  natDexOn,
   view,
 }: MemberDetailsMainProps) => {
   return (
@@ -123,12 +125,12 @@ const MemberDetailsMain = ({
         header="Stats"
         title="Modify stats"
         content={<StatBox
-          nicknameRef={nicknameRef}
           refKey={refKey}
           focusRef={focusRef}
           member={member}
           handlers={handlers}
           gen={gen}
+          natDexOn={natDexOn}
           view={view}
         />}
 

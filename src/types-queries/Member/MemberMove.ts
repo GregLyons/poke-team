@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 import { GenerationNum } from "@pkmn/data";
 import { RequiresItemEdge } from "../Builder/helpers";
+import { GenNum } from "../entities";
 import { CapsTypeName, toTypeName, TypeName } from "../helpers";
 import { MemberEntity, MemberResult, MemberSpecificEntityVars } from "./helpers";
 import { MemberItem, requiresItemEdgeToMemberItem } from "./MemberItem";
@@ -33,7 +34,7 @@ export interface MemberMoveResult extends MemberResult {
 }
 
 export interface MemberMoveVars extends MemberSpecificEntityVars {
-  gen: GenerationNum
+  gen: GenNum
   psID: string
 
   contains: string

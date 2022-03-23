@@ -39,6 +39,7 @@ const MemberDetails = ({
   );
 
   const gen = filters.genFilter.gen;
+  const natDexOn = filters.genFilter.includeRemovedFromSwSh && filters.genFilter.includeRemovedFromBDSP;
 
   return (
     <section aria-labelledby="member-details" className="member-details__wrapper">
@@ -65,6 +66,7 @@ const MemberDetails = ({
           member={member}
           handlers={handlers}
           gen={gen}
+          natDexOn={natDexOn}
           view={view}
         />
       </ErrorBoundary>
