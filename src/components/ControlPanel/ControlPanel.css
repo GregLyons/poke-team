@@ -11,24 +11,10 @@
 
   /* Gap between entries so shadow shows through */
   transition: var(--bg-transition);
-  transition-property: border, background-color;
+  transition-property: border;
 
   /* Makes dropdowns originating in this div go over other content, e.g. Pokemon icons */
   /* z-index: 10; */
-}
-
-/* Glow between control panel and nav bars */
-.control-panel__wrapper.bg.--red {
-  border-top: 1px solid var(--red-bg);
-  border-bottom: 1px solid var(--red-bg);
-}
-.control-panel__wrapper.bg.--green {
-  border-top: 1px solid var(--green-bg);
-  border-bottom: 1px solid var(--green-bg);
-}
-.control-panel__wrapper.bg.--blue {
-  border-top: 1px solid var(--blue-bg);
-  border-bottom: 1px solid var(--blue-bg);
 }
 
 /* Arrangement */

@@ -1,4 +1,11 @@
+import { useEffect, useState } from "react";
+
 const AnalyzerHome = () => {
+  const [opacity, setOpacity] = useState<0 | 1>(0);
+  
+  useEffect(() => {
+    setOpacity(1);
+  }, []);
 
   return (
     <div
@@ -6,6 +13,9 @@ const AnalyzerHome = () => {
         section-home__wrapper
         analyzer-home
       `}
+      style={{
+        opacity,
+      }}
     >
       <h1 className="section-home__header">
         Analyzer
@@ -64,18 +74,20 @@ const AnalyzerHome = () => {
         <h2 id="analyzer-notes" className="section-home__section-header">
           Notes
         </h2>
-        <p className="section-home__text">
-          Before you can use this feature, you need to either build a team in the Builder, or import a team using the "IMPORT" button in the Control Panel.
-        </p>
-        <p className="section-home__text">
-          Hovering over a cell will highlight the Pokemon, abilities, items, etc. which contribute to that cell's value.
-        </p>
-        <p className="section-home__text">
-          Each cell/cell value is ranked from 1 to 5 (red to green/blue).
-          Take these rankings with a grain of salt; a low value does not necessarily mean your team is bad. 
-          Rather, they point out factors which can potentially pose a problem.
-          If you see a low value, consider whether your team has other ways to account for it, which aren't captured by the app, before changing your team.
-        </p>
+        <ul className="section-home__list">
+          <li className="section-home__list-item">
+            Before you can use this feature, you need to either build a team in the Builder, or import a team using the "IMPORT" button in the Control Panel.
+          </li>
+          <li className="section-home__list-item">
+            Hovering over a cell will highlight the Pokemon, abilities, items, etc. which contribute to that cell's value.
+          </li>
+          <li className="section-home__list-item">
+            Each cell/cell value is ranked from 1 to 5 (red to green/blue).
+            Take these rankings with a grain of salt; a low value does not necessarily mean your team is bad. 
+            Rather, they point out factors which can potentially pose a problem.
+            If you see a low value, consider whether your team has other ways to account for it, which aren't captured by the app, before changing your team.
+          </li>
+        </ul>
       </section>
     </div>
   );

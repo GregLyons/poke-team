@@ -21,6 +21,7 @@ const LinkButton = ({
     <Link
       to={to}
     >
+      {/* Button is only for decorative purpoes; users will actually interact with <Link> component. Make Button unfocusable so that it cannot be tabbed to */}
       <Button
         title={title}
         label={label}
@@ -31,6 +32,8 @@ const LinkButton = ({
         onClick={e => e}
         disabled={false}
         immediate={false}
+
+        unfocusable={true}
       />
     </Link>
   )

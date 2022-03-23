@@ -88,6 +88,9 @@ html {
   --bg-shadow-inset: -1px -1px 3px 1px;
   --bg-shadow-inset-pulse: -1px -1px 3px 2px;
   
+  --bg-shadow-none: inset var(--bg-shadow-inset) var(--dark3);
+  --bg-shadow-none-pulse: inset var(--bg-shadow-inset-pulse) var(--dark3);
+  
   --bg-shadow-red: inset var(--bg-shadow-inset) rgba(var(--red-bg-components), 0.8);
   --bg-shadow-red-pulse: inset var(--bg-shadow-inset-pulse) rgba(var(--red-bg-components), 1);
 

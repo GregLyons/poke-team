@@ -11,6 +11,8 @@ type ButtonProps = {
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
   disabled: boolean
   immediate: boolean
+
+  unfocusable?: boolean
 }
 
 const Button = ({
@@ -22,6 +24,8 @@ const Button = ({
   active,
   disabled,
   immediate,
+
+  unfocusable = false,
 }: ButtonProps) => {
   const [justClicked, setJustClicked] = useState(false);
   const isMounted = useIsMounted();
@@ -48,6 +52,10 @@ const Button = ({
       }}
       disabled={disabled}
       aria-disabled={disabled}
+
+      // Hide unfocusable button from tab index and from screen readers
+      tabIndex={unfocusable ? -1 : undefined}
+      aria-hidden={unfocusable}
     >
       {!disabled && label}
     </button>

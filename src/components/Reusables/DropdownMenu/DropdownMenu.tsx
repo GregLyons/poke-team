@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import FontAwesome from "react-fontawesome";
 import { useEventListener, useOnClickOutside, useWindowSize } from "usehooks-ts";
-import { classWithBGControl } from "../../../hooks/App/BGManager";
+import { BGColor, classWithBGControl } from "../../../hooks/App/BGManager";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import './DropdownMenu.css';
 
@@ -14,7 +14,7 @@ type DropdownMenuProps = {
   dropLeft?: boolean
 
   dropdownWidth: number | string
-  backgroundLight: 'red' | 'green' | 'blue'
+  backgroundLight: BGColor
 }
 
 function DropdownMenu({

@@ -1,5 +1,6 @@
 import { useLazyQuery } from "@apollo/client";
 import { useEffect, useMemo, useState } from "react";
+import { useIsMounted } from "usehooks-ts";
 import { Team, TeamAction } from "../../../../hooks/App/Team";
 import { InvalidAbilityError, InvalidItemError, InvalidMoveError, InvalidNatureError, InvalidStatsError, LateIntroductionError, PSIDNotFoundError, toPSID } from "../../../../types-queries/Import/helpers";
 import { ImportItemQuery, ImportItemVars, IMPORT_ITEM_QUERY } from "../../../../types-queries/Import/ImportItem";
@@ -36,6 +37,8 @@ const Import = ({
   const numOpenSlots = useMemo(() => {
     return team[filters.genFilter.gen].members.filter(d => d === null).length;
   }, [team, filters]);
+
+  const isMounted = useIsMounted();
 
   const [importState, setImportState] = useState<ImportState>({
     key: 'waiting',
@@ -121,7 +124,7 @@ const Import = ({
     };
   }
 
-  const returnToWaiting = () => setTimeout(() => setImportState({
+  const returnToWaiting = () => setTimeout(() => isMounted() && setImportState({
     key: 'waiting',
     messageComponent: (<>
       Waiting for import.

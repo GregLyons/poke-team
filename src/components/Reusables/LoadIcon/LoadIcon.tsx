@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import './LoadIcon.css';
 
 type LoadIconProps = {
-
+  opaque?: boolean
 };
 
 const LoadIcon = ({
-
+  opaque = false,
 }: LoadIconProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [diameter, setDiameter] = useState(0);
@@ -22,6 +22,9 @@ const LoadIcon = ({
     <div
       ref={wrapperRef}
       className="load-icon__wrapper"
+      style={{
+        opacity: opaque ? 0.9 : '',
+      }}
     >
       <div
         className="pokeball__wrapper"

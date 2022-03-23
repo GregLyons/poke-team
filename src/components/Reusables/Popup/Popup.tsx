@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useOnClickOutside, useWindowSize } from "usehooks-ts";
+import { useEventListener, useOnClickOutside, useWindowSize } from "usehooks-ts";
 import './Popup.css';
 
 
@@ -130,6 +130,17 @@ const Popup = ({
       right,
     };
   }, [orientation, nudge, triggerDim, contentDim, content, trigger, ]);
+
+  // Closes window when focus leaves the content
+  useEventListener('focusin', e => {
+    const el = contentRef?.current;
+
+    if (!el || el.contains(e.target as Node)) {
+      return;
+    }
+
+    setIsActive(false);
+  });
 
   return (
     <div

@@ -6,6 +6,7 @@
   height: 100%;
 
   padding-bottom: 1rem;
+  font-family: var(--monospace);
 }
 
 .planner-page__accordion-wrapper {

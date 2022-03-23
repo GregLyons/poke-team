@@ -1,4 +1,4 @@
-export type BGColor = 'red' | 'green' | 'blue';
+export type BGColor = 'red' | 'green' | 'blue' | 'none';
 
 export type BGManager = {
   bgColor: BGColor
@@ -6,7 +6,7 @@ export type BGManager = {
 }
 
 export const DEFAULT_BACKGROUND: BGManager = {
-  bgColor: 'red',
+  bgColor: 'none',
   pulsing: false,
 }
 
@@ -14,7 +14,7 @@ export const DEFAULT_BACKGROUND: BGManager = {
 export type BGAction = 
 | {
     type: 'change',
-    payload: 'red' | 'green' | 'blue',
+    payload: 'red' | 'green' | 'blue' | 'none',
   }
 | {
     type: 'toggle_pulse',
@@ -72,7 +72,7 @@ export function classWithBGShadow (className: string, bgManager: BGManager): str
   `.replaceAll(/\n/g, ' ');
 }
 
-export function classWithBGControl (className: string, color: 'red' | 'green' | 'blue'): string {
+export function classWithBGControl (className: string, color: BGColor): string {
   return `
     ${className}
     bg-control --${color}

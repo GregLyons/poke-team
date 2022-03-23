@@ -25,6 +25,7 @@ import CartView from './Builder/CartView/CartView';
 import QuickSearch from './Builder/QuickSearch/QuickSearch';
 import TeamView from './Builder/TeamView/TeamView';
 import ControlPanel from './ControlPanel/ControlPanel';
+import HomePage from './HomePage';
 import NavBar from './NavBar/NavBar';
 import AbilityPage from './Planner/Abilities/AbilityPage';
 import AbilitySearch from './Planner/Abilities/AbilitySearch';
@@ -124,7 +125,10 @@ function App() {
           <ErrorBoundary orientation="bottom">
             <Routes>
               {/* Routing for Home */}
-              <Route path="/" element={<div>Bill's PC</div>} />
+              <Route path="/" element={<HomePage 
+                bgManager={bgManager}
+                dispatchBGManager={dispatchBGManager}
+              />} />
 
               {/* Routing for Analyzer */}
               <Route path="/analyzer" element={<Analyzer

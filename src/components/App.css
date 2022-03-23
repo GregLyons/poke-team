@@ -59,6 +59,21 @@ main {
   text-align: justify;
   background-color: rgba(var(--dark3-components), 0.5);
   padding: 0.5em 1.5em 0.5em 1em;
+
+  transition: opacity 1.5s ease;
+}
+/* On home page, hide scroll bar */
+.home {
+  overflow-y: hidden;
+}
+.home h1 {
+  position: absolute;
+  width: fit-content;
+  top: 1rem;
+  left: 0;
+  right: 0;
+  margin: auto;
+  font-family: var(--monospace);
 }
 
 .section-home__section:not(:nth-of-type(1)) {
@@ -94,41 +109,47 @@ main {
 /* Colors based on section */
 .analyzer-home > h1,
 .analyzer-home h2 {
-  color: var(--red1);
+  color: var(--red-bg);
 }
 .analyzer-home .section-home__list {
-  box-shadow: inset var(--control-shadow-inset) rgba(var(--red1-components), 0.8);
+  border-bottom: 1px solid rgba(var(--red-bg-components), 0.4);
+  border-right: 1px solid rgba(var(--red-bg-components), 0.4);
+  box-shadow: 6px 6px 10px rgba(var(--red-bg-components), 0.2);
 }
 .analyzer-home .section-home__list-item::before {
   border-top: 0.25em solid transparent;
   border-bottom: 0.25em solid transparent;
-  border-left: 0.25em solid var(--red1);
+  border-left: 0.25em solid var(--red-bg);
 }
 
 .builder-home > h1,
 .builder-home h2 {
-  color: var(--green1);
+  color: var(--green-bg);
 }
 .builder-home .section-home__list {
-  box-shadow: inset var(--control-shadow-inset) rgba(var(--green1-components), 0.8);
+  border-bottom: 1px solid rgba(var(--green-bg-components), 0.4);
+  border-right: 1px solid rgba(var(--green-bg-components), 0.4);
+  box-shadow: 6px 6px 10px rgba(var(--green-bg-components), 0.2);
 }
 .builder-home .section-home__list-item::before {
   border-top: 0.25em solid transparent;
   border-bottom: 0.25em solid transparent;
-  border-left: 0.25em solid var(--green1);
+  border-left: 0.25em solid var(--green-bg);
 }
 
 .planner-home > h1,
 .planner-home h2 {
-  color: var(--blue1);
+  color: var(--blue-bg);
 }
 .planner-home .section-home__list {
-  box-shadow: inset var(--control-shadow-inset) rgba(var(--blue1-components), 0.8);
+  border-bottom: 1px solid rgba(var(--blue-bg-components), 0.4);
+  border-right: 1px solid rgba(var(--blue-bg-components), 0.4);
+  box-shadow: 6px 6px 10px rgba(var(--blue-bg-components), 0.2);
 }
 .planner-home .section-home__list-item::before {
   border-top: 0.25em solid transparent;
   border-bottom: 0.25em solid transparent;
-  border-left: 0.25em solid var(--blue1);
+  border-left: 0.25em solid var(--blue-bg);
 }
 
 /* #endregion */
@@ -166,6 +187,17 @@ main {
   );
   transition: left var(--bg-transition), opacity var(--bg-transition), width var(--bg-transition);
 }
+/* Hide gradient on --none */
+.--none.left-bg-panel::after {
+  background: linear-gradient(
+    to left,
+    rgba(var(--dark3-components), 0),
+    rgba(var(--dark3-components), 0.8),
+    rgba(var(--dark3-components), 1),
+    rgba(var(--dark3-components), 1)
+  );
+  transition: left var(--bg-transition), opacity var(--bg-transition), width var(--bg-transition);
+}
 .left-bg-panel.pulse::after {
   left: -5px;
   width: calc(100% - 5px);
@@ -176,6 +208,17 @@ main {
     to right,
     rgba(var(--dark2-components), 0),
     rgba(var(--dark2-components), 0.8),
+    rgba(var(--dark3-components), 1),
+    rgba(var(--dark3-components), 1)
+  );
+  transition: left var(--bg-transition), opacity var(--bg-transition), width var(--bg-transition);
+}
+/* Hide gradient on --none */
+.--none.right-bg-panel::after {
+  background: linear-gradient(
+    to right,
+    rgba(var(--dark3-components), 0),
+    rgba(var(--dark3-components), 0.8),
     rgba(var(--dark3-components), 1),
     rgba(var(--dark3-components), 1)
   );
@@ -194,10 +237,16 @@ main {
 
 /* Background color */
 
+.bg.--none,
 .bg.--red,
 .bg.--green,
 .bg.--blue {
+  -webkit-transition: background-color var(--bg-transition);
+  -ms-transition: background-color var(--bg-transition);
   transition: background-color var(--bg-transition);
+}
+.bg.--none {
+  background-color: var(--dark3);
 }
 .bg.--red {
   background-color: var(--red-bg);
@@ -209,17 +258,27 @@ main {
   background-color: var(--blue-bg);
 }
 
+.bg.--none.bg-shadow.--none,
 .bg.--red.bg-shadow.--red,
 .bg.--green.bg-shadow.--green,
 .bg.--blue.bg-shadow.--blue {
+  -webkit-transition: background-color var(--bg-transition), box-shadow var(--bg-transition);
+  -ms-transition: background-color var(--bg-transition), box-shadow var(--bg-transition);
   transition: background-color var(--bg-transition), box-shadow var(--bg-transition);
 }
 
 /* Box shadow along bottom and right based on background color */
+.bg-shadow.--none,
 .bg-shadow.--red,
 .bg-shadow.--green,
 .bg-shadow.--blue {
   transition: box-shadow var(--bg-transition);
+}
+.bg-shadow.--none {
+  box-shadow: var(--bg-shadow-none);
+}
+.bg-shadow.--none.pulse {
+  box-shadow: var(--bg-shadow-none-pulse);
 }
 .bg-shadow.--red {
   box-shadow: var(--bg-shadow-red);

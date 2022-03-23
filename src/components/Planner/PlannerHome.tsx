@@ -1,10 +1,21 @@
+import { useEffect, useState } from "react";
+
 const PlannerHome = () => {
+  const [opacity, setOpacity] = useState<0 | 1>(0);
+
+  useEffect(() => {
+    setOpacity(1);
+  }, []);
+
   return (
     <div
       className={`
         section-home__wrapper
         planner-home
       `}
+      style={{
+        opacity,
+      }}
     >
       <h1 className="section-home__header">
         Planner
