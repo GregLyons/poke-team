@@ -61,7 +61,7 @@ const TierFilterForm = ({
   const format = tierFilter.format;
 
   return (
-    <ErrorBoundary>
+    <ErrorBoundary orientation="bottom">
       <form className="tier-filter__wrapper">
         <fieldset className="tier-filter__buttons">
           <legend className="hidden-label">Select singles or doubles format, if applicable</legend>
@@ -97,7 +97,7 @@ const TierFilterForm = ({
           <DropdownMenu
             triggerID="tier_filter_trigger"
             label={'TIER FILTER'}
-            content={<fieldset>
+            content={<fieldset className="tier-filter__tier-list">
               <legend className="hidden-label">{format === 'singles' ? 'Singles' : 'Doubles'} tier filter</legend>
               {format === 'singles' 
                 ? SINGLES_TIERS.map(singlesTier => {
@@ -105,6 +105,7 @@ const TierFilterForm = ({
 
                     return (
                       <Checkbox
+                        key={singlesTier}
                         id={singlesTier + '_tierFilter'}
                         label={singlesTier}
                         title={checked
@@ -121,6 +122,7 @@ const TierFilterForm = ({
 
                   return (
                     <Checkbox
+                      key={doublesTier}
                       id={doublesTier + '_tierFilter'}
                       label={doublesTier}
                       title={checked

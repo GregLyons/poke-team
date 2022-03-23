@@ -68,7 +68,7 @@ const TeamColumnMember = ({
         --${teamFor}
       `}
     >
-      <ErrorBoundary>
+      <ErrorBoundary {...popupPositioning}>
         <div
           className={`
             team-column__icon

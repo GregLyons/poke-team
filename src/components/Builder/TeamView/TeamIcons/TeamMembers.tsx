@@ -29,7 +29,7 @@ const TeamMembers = ({
   return (
     <section aria-labelledby="team-members" className="team-members__wrapper">
       <h2 id="team-members" className="hidden-header">Select, add, or remove team members</h2>
-      <ErrorBoundary>
+      <ErrorBoundary orientation="bottom">
         <ul className="team-members__list">
           {team[filters.genFilter.gen].memberIcons.map((icon, idx) => {
             return (

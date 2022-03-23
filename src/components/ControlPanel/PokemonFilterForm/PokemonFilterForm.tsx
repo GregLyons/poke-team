@@ -115,7 +115,7 @@ const PokemonFilterForm = ({
     <>
     <section aria-labelledby="type-filter" className={classWithBGShadow("type-filter__cell", bgManager)}>
       <h2 id="type-filter" className="hidden-header">Type filter</h2>
-      <ErrorBoundary>
+      <ErrorBoundary orientation="bottom" nudge="left">
         <form className="type-filter__wrapper">
           <div className="type-filter__button">
             <label className="hidden-label" htmlFor="tpe_filter_reset">Reset type filter</label>
@@ -139,7 +139,7 @@ const PokemonFilterForm = ({
             <DropdownMenu
               triggerID="type_filter_trigger"
               label={'TYPE FILTER'}
-              content={<fieldset>
+              content={<fieldset className="type-filter__type-list">
                 <legend className="hidden-label">Type filter</legend>
                 {TYPENAMES.map(([typeName, typeGen]) => {
                   // Only show types present in this gen
@@ -174,7 +174,7 @@ const PokemonFilterForm = ({
     </section>
     <section aria-labelledby="stat-filter" className={classWithBGShadow("stat-filter__cell", bgManager)}>
       <h2 id="stat-filter" className="hidden-header">Stat filter</h2>
-      <ErrorBoundary>
+      <ErrorBoundary orientation="bottom" nudge="left">
         <form className="stat-filter__wrapper">
           <div className="stat-filter__button">
             <label htmlFor="stat_filter_reset" className="hidden-label">Reset stat filter</label>

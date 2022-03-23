@@ -178,7 +178,7 @@ const QuickSearch = ({
         {searchBar}
       </form>
       <div className="quick-search__results">
-        <ErrorBoundary>
+        <ErrorBoundary orientation="top">
           <div 
             className="quick-search__legend"
           >
@@ -292,7 +292,7 @@ const QuickSearch = ({
             </div>
           </div>
         </ErrorBoundary>
-        <ErrorBoundary>
+        <ErrorBoundary orientation="top">
           {loading
             ? <LoadIcon />
             : data && <QuickSearchEntries

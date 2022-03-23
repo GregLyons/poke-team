@@ -95,7 +95,7 @@ const TeamColumnNature = ({
 
 
   return (
-    <ErrorBoundary>
+    <ErrorBoundary {...popupPositioning}>
       {member && <Popup
         triggerID={`popup_trigger_${memberIdx}_nature`}
         trigger={

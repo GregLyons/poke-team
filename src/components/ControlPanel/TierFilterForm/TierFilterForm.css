@@ -29,4 +29,10 @@
   width: 100%;
 }
 
+.tier-filter__tier-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.25rem 1rem;
+}
+
 /* #endregion */

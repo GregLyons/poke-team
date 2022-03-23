@@ -20,6 +20,7 @@
 .popup-trigger.--active {
   background-color: rgba(var(--dark3-components), 0.9);
   border: 1px solid var(--light3);
+  text-decoration: underline;
 }
 
 .popup-content {

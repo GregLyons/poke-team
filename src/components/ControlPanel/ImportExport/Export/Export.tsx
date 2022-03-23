@@ -34,7 +34,7 @@ const Export = ({
       <label htmlFor="popup_export" className="hidden-label">Export your team</label>
       <Popup
         triggerID="popup_export"
-        trigger={<div>EXPORT</div>}
+        trigger={<div className="import-export__popup-trigger">EXPORT</div>}
         content={<div
           className="export__textbox-wrapper"
           title="Copy this team string to your clipboard."

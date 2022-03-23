@@ -45,4 +45,6 @@
   box-shadow: var(--control-shadow);
   padding: 0 1rem 0 1rem;
   border-radius: 0.5rem;
+
+  height: fit-content;
 }

@@ -43,13 +43,13 @@ const MemberDetails = ({
   return (
     <section aria-labelledby="member-details" className="member-details__wrapper">
       <h2 id="member-details" className="hidden-header" title={`Details for ${member.formattedPSID}.`}>Member details</h2>
-      <ErrorBoundary>
+      <ErrorBoundary orientation="right">
         <MemberDetailsCosmetic
           member={member}
           handlers={handlers}
         />
       </ErrorBoundary>
-      <ErrorBoundary>
+      <ErrorBoundary orientation="right">
         <MemberDetailsExtra
           nicknameRef={nicknameRef}
           member={member}
@@ -57,7 +57,7 @@ const MemberDetails = ({
           gen={gen}
         />
       </ErrorBoundary>
-      <ErrorBoundary>
+      <ErrorBoundary orientation="top">
         <MemberDetailsMain
           nicknameRef={nicknameRef}
           focusRef={focusRef}

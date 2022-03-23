@@ -122,7 +122,7 @@ const TeamColumnMove = ({
   if (error) { return <div>{error.message}</div> };
 
   return (
-    <ErrorBoundary>
+    <ErrorBoundary {...popupPositioning}>
       {member && <Popup
         triggerID={`popup_trigger_${memberIdx}_move_${moveIdx}`}
         trigger={<div

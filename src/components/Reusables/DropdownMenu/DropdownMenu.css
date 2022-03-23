@@ -33,6 +33,10 @@
   font-family: monospace;
   font-weight: 500;
 }
+.dropdown__trigger:hover .dropdown__title,
+.dropdown__trigger:focus .dropdown__title {
+  text-decoration: underline;
+}
 
 .dropdown__content-wrapper {
   position: absolute;

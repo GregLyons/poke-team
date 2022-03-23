@@ -36,7 +36,7 @@ const ControlPanel = ({
     >
       <section aria-labelledby="gen-filter" className={classWithBGShadow("gen-filter__cell", bgManager)}>
         <h2 id="gen-filter" className="hidden-header">Change generation</h2>
-        <ErrorBoundary>
+        <ErrorBoundary orientation="bottom" nudge="right">
           <GenFilterForm
             genFilter={filters.genFilter}
             dispatchGenFilter={dispatches.dispatchGenFilter}
@@ -45,7 +45,7 @@ const ControlPanel = ({
       </section>
       <section aria-labelledby="tier-filter" className={classWithBGShadow("tier-filter__cell", bgManager)}>
         <h2 id="tier-filter" className="hidden-header">Tier filter</h2>
-        <ErrorBoundary>
+        <ErrorBoundary orientation="bottom">
           <TierFilterForm
             genFilter={filters.genFilter}
             tierFilter={filters.tierFilter}
@@ -56,7 +56,7 @@ const ControlPanel = ({
       </section>
       <section aria-labelledby="team-display" className={classWithBGShadow("team-display__cell", bgManager)}>
         <h2 id="team-display" className="hidden-header">Team display</h2>
-        <ErrorBoundary>
+        <ErrorBoundary orientation="bottom" nudge="right">
           <TeamDisplay
             genFilter={filters.genFilter}
             team={team}
@@ -65,7 +65,7 @@ const ControlPanel = ({
       </section>
       <section aria-labelledby="import-export" className={classWithBGShadow("import-export__cell", bgManager)}>
         <h2 id="import-export" className="hidden-header">Import and export teams</h2>
-        <ErrorBoundary>
+        <ErrorBoundary orientation="bottom" nudge="left">
           <ImportExport
             dispatches={dispatches}
             filters={filters}

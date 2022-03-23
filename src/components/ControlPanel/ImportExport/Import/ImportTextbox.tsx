@@ -31,10 +31,11 @@ const ImportTextbox = ({
 
   return (
     <div className="import__textbox-wrapper">
+      <label htmlFor="import_input" className="hidden-label">Import textbox</label>
       <textarea
         className="import__input"
         name="import-team"
-        id=""
+        id="import_input"
         cols={40}
         rows={15}
         placeholder="Import Pokemon in PokePaste format (sets separated by two newline '\n' characters). Remaining slots in the current team will be filled in with the imported Pokemon until no more slots are available."
@@ -44,7 +45,9 @@ const ImportTextbox = ({
       <div className="import__bottom-wrapper">
         {messageDisplay}
         <div className="import__button">
+          <label htmlFor="import_button" className="hidden-label">Execute import</label>
           <Button
+            id="import_button"
             title="Import Pokemon."
             label="IMPORT"
 

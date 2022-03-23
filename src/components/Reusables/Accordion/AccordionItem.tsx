@@ -32,7 +32,7 @@ const AccordionItem = ({
 
   return (
     <li className={`accordion__item ${accordionContext}-accordion__item`}>
-      <ErrorBoundary>
+      <ErrorBoundary orientation="top">
         {optionsInTitle
           ? <AccordionOptionsTitle
               title={title}
@@ -73,7 +73,7 @@ const AccordionItem = ({
         aria-hidden={active ? "false" : "true"}
       >
         {/* Isolate error in accordion to item in which it occurs */}
-        <ErrorBoundary>
+        <ErrorBoundary orientation="top">
           {/* opened && content will be true so long as there is content to render and the element has been opened once */}
           {opened && content}
         </ErrorBoundary>

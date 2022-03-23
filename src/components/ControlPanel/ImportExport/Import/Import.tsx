@@ -371,7 +371,7 @@ const Import = ({
       <label htmlFor={triggerID} className="hidden-label">{triggerLabel}</label>
       <Popup
         triggerID={triggerID}
-        trigger={<div>IMPORT</div>}
+        trigger={<div className="import-export__popup-trigger">IMPORT</div>}
         content={<ImportTextbox 
           onImport={onImport}
           importState={importState}

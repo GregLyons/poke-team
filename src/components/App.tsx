@@ -103,7 +103,7 @@ function App() {
       <div role="presentation" className={classWithBG("left-bg-panel", bgManager)} />
       <header className={classWithBG(classWithBGShadow("header__bg-wrapper", bgManager), bgManager)} role="banner">
         {/* Last resort--should be error boundaries in appropriate places in children */}
-        <ErrorBoundary>
+        <ErrorBoundary orientation="bottom">
           <NavBar
             headerRef={controlPanelRef}
             navBarRef={navBarRef}
@@ -121,7 +121,7 @@ function App() {
       <main className={classWithBGShadow("", bgManager)} role="main">
         <div className="app">
           {/* Last resort--should be error boundaries in appropriate places in children */}
-          <ErrorBoundary>
+          <ErrorBoundary orientation="bottom">
             <Routes>
               {/* Routing for Home */}
               <Route path="/" element={<div>Bill's PC</div>} />

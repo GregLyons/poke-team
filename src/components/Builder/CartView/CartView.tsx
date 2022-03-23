@@ -174,7 +174,7 @@ const CartView = ({
     <div className={"cart-view__wrapper"}>
       <section aria-labelledby="cart-accordion" className={"cart-view-accordion__cell"}>
         <h2 id="cart-accordion" className="hidden-header">List of boxes from Planner and custom boxes.</h2>
-        <ErrorBoundary>
+        <ErrorBoundary orientation="right">
           <CartAccordion
             cart={cart}
             team={team}
@@ -185,7 +185,7 @@ const CartView = ({
       </section>
       <section aria-labelledby="cart-terminal" className={"cart-view-terminal__cell"}>
         <h2 id="cart-terminal" className="hidden-header">Controls for combining boxes.</h2>
-        <ErrorBoundary>
+        <ErrorBoundary orientation="left">
           <CartTerminal
             cart={cart}
             dispatches={dispatches}

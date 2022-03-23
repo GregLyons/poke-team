@@ -216,7 +216,7 @@ const CoverageView = ({
     >
       <section aria-labelledby="coverage-team" className="team-column__cell">
         <h2 id="coverage-team" className="hidden-header">Your team</h2>
-        <ErrorBoundary>
+        <ErrorBoundary orientation="right">
           <TeamColumn
             teamDispatch={dispatches.dispatchTeam}
             filters={filters}
@@ -233,7 +233,7 @@ const CoverageView = ({
       </section>
       <section aria-labelledby="coverage-type" className="type-matchup__cell">
         <h2 id="coverage-type" className="hidden-header">Your team's type matchups</h2>
-        <ErrorBoundary>
+        <ErrorBoundary orientation="right">
           {loading_matchupAbility || loading_matchupItem || loading_matchupType || loading_coverageMove
             ? <LoadIcon />
             : data_matchupAbility && data_matchupItem && data_matchupType && data_coverageMove
@@ -255,7 +255,7 @@ const CoverageView = ({
       </section>
       <section aria-labelledby="coverage-status" className="status-control__cell">
         <h2 id="coverage-status" className="hidden-header">Your team's ability to cause and resist status effects</h2>
-        <ErrorBoundary>
+        <ErrorBoundary orientation="left">
           {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
             ? <LoadIcon />
             : data_coverageAbility && data_coverageItem && data_coverageMove
@@ -276,7 +276,7 @@ const CoverageView = ({
       </section>
       <section aria-labelledby="coverage-field" className="field-control__cell">
         <h2 id="coverage-field" className="hidden-header">Your team's ability to create and mitigate hazards, weather, and terrain.</h2>
-        <ErrorBoundary>
+        <ErrorBoundary orientation="left">
           {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
             ? <LoadIcon />
             : data_coverageAbility && data_coverageItem && data_coverageMove
@@ -297,7 +297,7 @@ const CoverageView = ({
       </section>
       <section aria-labelledby="coverage-speed" className="speed-control__cell">
         <h2 id="coverage-speed" className="hidden-header">Your team's forms of speed control.</h2>
-        <ErrorBoundary>
+        <ErrorBoundary orientation="left">
           {loading_coverageAbility || loading_coverageItem || loading_coverageMove 
             ? <LoadIcon />
             : data_coverageAbility && data_coverageItem && data_coverageMove

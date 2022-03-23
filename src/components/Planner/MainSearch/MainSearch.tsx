@@ -14,7 +14,7 @@ const MainSearch = ({
   const filterRef = useRef<HTMLFormElement>(null);
   return (
     <div className="planner-search__wrapper">
-      <ErrorBoundary>
+      <ErrorBoundary orientation="bottom">
         <form
           ref={filterRef}
           role="search"
@@ -23,7 +23,7 @@ const MainSearch = ({
           {filterForm}
         </form>
       </ErrorBoundary>
-      <ErrorBoundary>
+      <ErrorBoundary orientation="top">
         <ul
           className="planner-search__results"
           style={{

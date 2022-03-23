@@ -102,7 +102,7 @@ const TeamColumnAbility = ({
   if (error) { return <div>{error.message}</div> };
 
   return (
-    <ErrorBoundary>
+    <ErrorBoundary {...popupPositioning}>
       {member && <Popup
         triggerID={`popup_trigger_${memberIdx}_ability`}
         trigger={

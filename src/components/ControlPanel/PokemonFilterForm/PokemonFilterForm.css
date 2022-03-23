@@ -25,6 +25,12 @@
   width: 100%;
 }
 
+.type-filter__type-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.25rem 1rem;
+}
+
 /* #endregion */
 
 /* Stat filter */

@@ -98,7 +98,7 @@ const ReferencePanel = ({
         <div className="reference-panel__header">
           {viewPanelMessage}
         </div>
-        <ErrorBoundary>
+        <ErrorBoundary orientation="left">
           <div className="reference-panel__content"
           >
             {(view?.mode === 'POKEMON') && <SavedPokemonView

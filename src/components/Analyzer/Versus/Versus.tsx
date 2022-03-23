@@ -116,7 +116,7 @@ const Versus = ({
     >
       <section aria-labelledby="versus-user-team" className="versus__user-team-cell">
         <h2 id="versus-user-team" className="hidden-header">Your team</h2>
-        <ErrorBoundary>
+        <ErrorBoundary orientation="right">
           <TeamColumn
             teamDispatch={dispatches.dispatchTeam}
             filters={filters}
@@ -134,7 +134,7 @@ const Versus = ({
       <div className="versus__matchup-cell">
         <section aria-labelledby="versus-controls" className="versus-controls__wrapper">
           <h2 id="versus-controls" className="hidden-header">Versus controls</h2>
-          <ErrorBoundary>
+          <ErrorBoundary orientation="bottom">
             <VersusControls
               dispatches={dispatches}
               filters={filters}
@@ -157,7 +157,7 @@ const Versus = ({
         </section>
         <section aria-labelledby="versus-matchup" className="versus-matchup__table-wrapper">
           <h2 id="versus-matchup" className="hidden-header">Matchup table</h2>
-          <ErrorBoundary>
+          <ErrorBoundary orientation="top">
             <VersusMatchup
               userPokemon={team[filters.genFilter.gen].members}
               enemyPokemon={enemyTeam[filters.genFilter.gen].members}
@@ -174,7 +174,7 @@ const Versus = ({
       </div>
       <section aria-labelledby="versus-enemy-team" className="versus__enemy-team-cell">
         <h2 id="versus-enemy-team" className="hidden-header">Enemy's team</h2>
-        <ErrorBoundary>
+        <ErrorBoundary orientation="left">
           <TeamColumn
             teamDispatch={dispatches.dispatchEnemyTeam}
             filters={filters}

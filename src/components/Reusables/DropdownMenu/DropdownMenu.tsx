@@ -32,7 +32,10 @@ function DropdownMenu({
 
   const { width: windowWidth, height: windowHeight } = useWindowSize();
 
+  const [triggerWidth, setTriggerWidth] = useState<null|number>(null);
   const [triggerHeight, setTriggerHeight] = useState<null|number>(null);
+  const [contentWidth, setContentWidth] = useState<null|number>(null);
+  const [contentHeight, setContentHeight] = useState<null|number>(null);
 
   const [isActive, setIsActive] = useState(false);
   const onClick = (e: React.MouseEvent) => {
@@ -46,12 +49,23 @@ function DropdownMenu({
   }
   useOnClickOutside(contentRef, handleClickOutside);
 
-  // Reset heights on window resize
+  // Reset heights on window resize and when content is rendered (isActive changes)
   useEffect(() => {
     setTimeout(() => {
-      triggerRef.current && setTriggerHeight(triggerRef.current.scrollHeight);
+      if (triggerRef.current) {
+        setTriggerWidth(triggerRef.current.scrollWidth);
+        setTriggerHeight(triggerRef.current.scrollHeight);
+      }
+      if (isActive && contentRef.current) {
+        setContentWidth(contentRef.current.scrollWidth);
+        setContentHeight(contentRef.current.scrollHeight);
+      }
     });
-  }, [windowWidth, windowHeight, triggerRef, setTriggerHeight]);
+  }, [windowWidth, windowHeight,
+    triggerRef, contentRef, isActive,
+    setTriggerHeight, setTriggerWidth,
+    setContentHeight, setContentWidth,
+  ]);
 
   // Closes window when focus leaves the content
   useEventListener('focusin', e => {
@@ -103,11 +117,11 @@ function DropdownMenu({
         style={{
           width: `max(${dropdownWidth}, min-content)`,
           height: 'auto',
-          top: triggerHeight 
+          top: triggerHeight !== null
             ? triggerHeight
             : '',
-          right: dropLeft
-            ? 0
+          left: triggerWidth !== null && contentWidth !== null && dropLeft
+            ? -contentWidth + triggerWidth
             : '',
           boxShadow: `
             5px 5px 2px 2px rgba(0, 0, 0, 0.8),
@@ -117,13 +131,13 @@ function DropdownMenu({
                 ? 'var(--bg-control-green)'
                 : 'var(--bg-control-red)'
             }
-          `
+          `,
         }}
       >
         <div
           className="dropdown__content-padder"
         >
-          <ErrorBoundary>
+          <ErrorBoundary orientation="bottom" nudge={dropLeft ? "left" : undefined}>
             {content}
           </ErrorBoundary>
         </div>

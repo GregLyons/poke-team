@@ -20,7 +20,9 @@ const ImportExport = ({
     <div
       className="import-export__wrapper"
     >
-      <ErrorBoundary>
+      <ErrorBoundary
+        orientation="bottom"
+      >
         <Import
           triggerID="popup_trigger_user_team"
           triggerLabel="Import your team"

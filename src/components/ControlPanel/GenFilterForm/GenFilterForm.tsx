@@ -39,7 +39,7 @@ const GenFilterForm = ({
   }
 
   return (
-    <ErrorBoundary>
+    <ErrorBoundary orientation="bottom" nudge="right">
       <form
         className="gen-filter__wrapper"
       >
