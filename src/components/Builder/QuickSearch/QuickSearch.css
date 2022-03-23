@@ -179,3 +179,15 @@
 .quick-search__entry:first-of-type > .quick-search__save-wrapper > .quick-search__save {
   background-color: rgba(var(--light3-components), 0.7);
 }
+
+.quick-search__page-change {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  position: relative;
+  width: 100%;
+  height: 2rem;
+
+  padding: 2rem;
+}

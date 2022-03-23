@@ -28,6 +28,7 @@ import {
 
 export type MoveSearchQuery = {
   moves: {
+    count: number
     edges: MoveSearchResult[]
   }
 }
@@ -60,6 +61,8 @@ export interface MoveSearchResult extends MainEntitySearchResult {
 }
 
 export interface MoveSearchVars extends EntitySearchVars, RemovedFromGameQueryVars {
+  offset: number
+
   maxAccuracy: number
   minAccuracy: number
   maxPower: number
@@ -78,7 +81,9 @@ export interface MoveSearchVars extends EntitySearchVars, RemovedFromGameQueryVa
 
 export const MOVE_SEARCH_QUERY = gql`
   query MoveSearchQuery(
-    $gen: Int! $limit: Int! $contains: String $startsWith: String
+    $gen: Int!
+    $limit: Int! $offset: Int!
+    $contains: String $startsWith: String
     $removedFromBDSP: Boolean $removedFromSwSh: Boolean
     $maxAccuracy: Int $minAccuracy: Int
     $maxPower: Int $minPower: Int
@@ -105,9 +110,10 @@ export const MOVE_SEARCH_QUERY = gql`
         types: $types
         variablePower: $variablePower
       } 
-      pagination: { limit: $limit }
+      pagination: { limit: $limit, offset: $offset }
     ) {
       id
+      count
       edges {
         node {
           id

@@ -70,7 +70,9 @@ const TypeSearch = ({
       gen: filters.genFilter.gen,
       contains: '',
       startsWith: '',
-      limit: 20,
+      limit: 5,
+      offset: 0,
+      
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
     },

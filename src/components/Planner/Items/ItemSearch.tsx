@@ -114,6 +114,7 @@ const ItemSearch = ({
       contains: '',
       startsWith: '',
       limit: 10,
+      offset: 0,
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
       itemClass: Array.from(ITEM_CLASS_MAP.keys()),

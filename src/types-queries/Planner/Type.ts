@@ -29,6 +29,7 @@ import {
 
 export type TypeSearchQuery = {
   types: {
+    count: number
     edges: TypeSearchResult[]
   }
 }
@@ -69,7 +70,10 @@ export interface TypeMatchupEdge {
 
 export interface TypeSearchVars extends EntitySearchVars, RemovedFromGameQueryVars {
   gen: GenNum
+
   limit: number
+  offset: number
+
   contains: string
   startsWith: string
   removedFromSwSh: false | null
@@ -77,13 +81,17 @@ export interface TypeSearchVars extends EntitySearchVars, RemovedFromGameQueryVa
 }
 
 export const TYPE_SEARCH_QUERY = gql`
-  query TypeSearchQuery($gen: Int! $limit: Int! $contains: String $startsWith: String $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
+  query TypeSearchQuery($gen: Int!
+    $limit: Int! $offset: Int!
+    $contains: String $startsWith: String
+    $removedFromSwSh: Boolean $removedFromBDSP: Boolean) {
     types(
       generation: $gen
       filter: { contains: $contains, startsWith: $startsWith }
-      pagination: { limit: $limit }
+      pagination: { limit: $limit, offset: $offset }
     ) {
       id
+      count
       edges {
         node {
           id

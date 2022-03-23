@@ -350,7 +350,7 @@ export function useDelayedQuery<SearchQuery, SearchVars>({
     queryTimer.current = setTimeout(() => { isMounted() && setDelayedQueryVars(queryVars) }, delay);
   }, [queryVars, delayedQueryVars, setDelayedQueryVars, queryTimer, delay, ]);
 
-  return { data, loading, error };
+  return { data, loading, error, };
 }
 
 /*
@@ -387,7 +387,7 @@ export function useListRender_icons<SearchQuery, SearchVars>(
 ): JSX.Element {
   const { data, loading, error } = useDelayedQuery<SearchQuery, SearchVars>({ query, queryVars, });
   
-  if (error) { return (<div>{error.message}</div>)}
+  if (error) { return (<div>{error.message}</div>); }
 
   return (
     <>

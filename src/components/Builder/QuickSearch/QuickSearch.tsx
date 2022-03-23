@@ -27,6 +27,8 @@ const QuickSearch = ({
     sortBy: 'ASC',
   });
 
+  const limit = 20;
+  const [offset, setOffset] = useState<number>(0);
 
   /*
     We need to combine three sets of query variables: the generation variables, the variables for the 'searchBar' ('startsWith'/'contains'), and the variables from PokemonFilter. We use our custom hook to combine the first two into 'removalVars', and then we capture all three in the variable 'queryVars'.
@@ -39,7 +41,8 @@ const QuickSearch = ({
     defaultSearchVars: {
       gen: filters.genFilter.gen,
 
-      limit: 20,
+      limit,
+      offset: offset,
       orderBy: pagination.orderBy,
       sortBy: pagination.sortBy,
 
@@ -85,7 +88,8 @@ const QuickSearch = ({
     return {
       ...removalVars,
       
-      limit: 20,
+      limit,
+      offset,
       orderBy: pagination.orderBy,
       sortBy: pagination.sortBy,
 
@@ -113,16 +117,26 @@ const QuickSearch = ({
       maxSpeed: filters.pokemonFilter.maxBaseStats.speed,
       minSpeed: filters.pokemonFilter.minBaseStats.speed,
     };
-  }, [removalVars, filters, pagination]);
+  }, [removalVars, filters, pagination, offset, ]);
 
   // #endregion
 
-  const { data, loading, error } = useDelayedQuery<PokemonQuickSearchQuery, PokemonQuickSearchVars>({
+  const { data, loading, error, } = useDelayedQuery<PokemonQuickSearchQuery, PokemonQuickSearchVars>({
     query: POKEMON_QUICKSEARCH_QUERY,
     queryVars,
     delay: 1000,
   });
 
+  const onNextPageClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.preventDefault();
+    setOffset(offset + limit);
+  };
+
+  const onPrevPageClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.preventDefault();
+    setOffset(offset - limit);
+  };
+  
   const onPaginationChangeClick = (e: React.MouseEvent<HTMLElement, MouseEvent>, orderBy: PokemonColumnName) => {
     e.preventDefault();
 
@@ -287,6 +301,11 @@ const QuickSearch = ({
                 filters={filters}
                 onSaveClick={onSaveClick}
                 focusedOnInput={focusedOnInput}
+
+                limit={limit}
+                offset={offset}
+                onNextPageClick={onNextPageClick}
+                onPrevPageClick={onPrevPageClick}
               />
           }
         </ErrorBoundary>

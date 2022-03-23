@@ -27,6 +27,7 @@ import {
 
 export type AbilitySearchQuery = {
   abilities: {
+    count: number
     edges: AbilitySearchResult[]
   }
 }
@@ -49,7 +50,9 @@ export interface AbilitySearchResult extends MainEntitySearchResult {
 
 export interface AbilitySearchVars extends EntitySearchVars, RemovedFromGameQueryVars {
   gen: GenNum
+
   limit: number
+  offset: number
   contains: string
   startsWith: string
 
@@ -59,15 +62,18 @@ export interface AbilitySearchVars extends EntitySearchVars, RemovedFromGameQuer
 
 export const ABILITY_SEARCH_QUERY = gql`
   query AbilitySearchQuery(
-    $gen: Int! $limit: Int! $contains: String $startsWith: String
+    $gen: Int!
+    $limit: Int! $offset: Int!
+    $contains: String $startsWith: String
     $removedFromBDSP: Boolean $removedFromSwSh: Boolean
   ) {
     abilities(
       generation: $gen 
       filter: { contains: $contains, startsWith: $startsWith }
-      pagination: { limit: $limit }
+      pagination: { limit: $limit, offset: $offset }
     ) {
       id
+      count
       edges {
         node {
           id

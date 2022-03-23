@@ -1,27 +1,27 @@
 import {
-    gql
+  gql
 } from '@apollo/client';
 import { GenNum, ItemClass } from '../entities';
 import {
-    DescriptionEdge,
-    DescriptionsEdge,
-    IconDatum,
-    IntroductionEdge,
-    itemIconEdgeToItemIconDatum,
-    itemRequiresPokemonEdgeToRequiredPokemonIconData,
-    PokemonIconDatum,
-    PokemonIconEdge,
-    pokemonIconEdgeToPokemonIconDatum,
-    TypeIconDatum,
-    TypeIconEdge,
-    typeIconEdgeToTypeIconDatum,
-    TypeName
+  DescriptionEdge,
+  DescriptionsEdge,
+  IconDatum,
+  IntroductionEdge,
+  itemIconEdgeToItemIconDatum,
+  itemRequiresPokemonEdgeToRequiredPokemonIconData,
+  PokemonIconDatum,
+  PokemonIconEdge,
+  pokemonIconEdgeToPokemonIconDatum,
+  TypeIconDatum,
+  TypeIconEdge,
+  typeIconEdgeToTypeIconDatum,
+  TypeName
 } from '../helpers';
 import {
-    CountField, EntityConnectionVars, EntityPageQueryName, EntityPageVars, EntitySearchVars,
-    MainEntityInSearch, MainEntityOnPage,
-    MainEntityPageResult, MainEntitySearchResult, MainToAuxConnectionEdge, MainToAuxConnectionOnPage, MainToIconConnectionEdge,
-    MainToIconConnectionOnPage, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
+  CountField, EntityConnectionVars, EntityPageQueryName, EntityPageVars, EntitySearchVars,
+  MainEntityInSearch, MainEntityOnPage,
+  MainEntityPageResult, MainEntitySearchResult, MainToAuxConnectionEdge, MainToAuxConnectionOnPage, MainToIconConnectionEdge,
+  MainToIconConnectionOnPage, RemovedFromGameQueryVars, VersionDependentDescriptionEdge
 } from './helpers';
 
 
@@ -30,6 +30,7 @@ import {
 
 export type ItemSearchQuery = {
   items: {
+    count: number
     edges: ItemSearchResult[]
   }
 }
@@ -52,21 +53,25 @@ export interface ItemSearchResult extends MainEntitySearchResult {
 }
 
 export interface ItemSearchVars extends EntitySearchVars, RemovedFromGameQueryVars {
+  offset: number
   itemClass: ItemClass[]
 }
 
 export const ITEM_SEARCH_QUERY = gql`
   query ItemSearchQuery(
-    $gen: Int! $limit: Int! $contains: String $startsWith: String
+    $gen: Int!
+    $limit: Int! $offset: Int!
+    $contains: String $startsWith: String
     $removedFromBDSP: Boolean $removedFromSwSh: Boolean
     $itemClass: [ItemClass!]
   ) {
     items(
       generation: $gen 
       filter: { contains: $contains, startsWith: $startsWith, class: $itemClass } 
-      pagination: { limit: $limit }
+      pagination: { limit: $limit, offset: $offset }
     ) {
       id
+      count
       edges {
         node {
           id

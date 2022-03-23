@@ -3,6 +3,7 @@ import { Team } from "../../../hooks/App/Team";
 import { PokemonQuickSearchQuery, QuickSearchPokemonEntry } from "../../../types-queries/Builder/QuickSearch";
 import { PokemonIconDatum } from "../../../types-queries/helpers";
 import { Filters } from "../../App";
+import Button from "../../Reusables/Button/Button";
 import './QuickSearch.css';
 import QuickSearchEntry from "./QuickSearchEntry";
 
@@ -12,38 +13,12 @@ type QuickSearchEntriesProps = {
   onSaveClick: (e: React.MouseEvent<HTMLElement, MouseEvent> | KeyboardEvent, pokemonIconDatum: PokemonIconDatum) => void
   team: Team
   focusedOnInput: boolean
+
+  limit: number
+  offset: number
+  onNextPageClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onPrevPageClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 }
-
-// type QuickSearchPokemonEntry = {
-//   pokemonIconDatum: PokemonIconDatum
-//   baseStatTotal: number
-//   tier: SinglesTier | DoublesTier
-// }
-
-// type QuickSearchPokemonEntryKey = 'psID' | 'hp' | 'attack' | 'defense' | 'specialAttack' | 'specialDefense' | 'speed' | 'baseStatTotal' | 'tier';
-
-// const sortHelper: (el1: number | string, el2: number | string) => number = (el1, el2) => {
-//   if (el1 > el2) return 1;
-//   else if (el1 === el2) return 0;
-//   return -1;
-// }
-
-// const sortPokemonByKey: (pagination: PokemonPaginationInput) => ((qspe1: QuickSearchPokemonEntry, qspe2: QuickSearchPokemonEntry) => number) = pagination => {
-//   const { orderBy, sortBy, } = pagination;
-//   const sign = sortBy === 'ASC' ? 1 : -1;
-//   return (qspe1: QuickSearchPokemonEntry, qspe2: QuickSearchPokemonEntry) => {
-//     switch(orderBy) {
-//       case 'psID':
-//         return sign * sortHelper(qspe1.pokemonIconDatum[orderBy], qspe2.pokemonIconDatum[orderBy]);
-//       case 'tier':
-//         return sign * compareTiers(qspe1.tier, qspe2.tier);
-//       case 'baseStatTotal':
-//         return sign * sortHelper(qspe1.baseStatTotal, qspe2.baseStatTotal);
-//       default:
-//         return sign * sortHelper(qspe1.pokemonIconDatum.baseStats[orderBy], qspe2.pokemonIconDatum.baseStats[orderBy]);
-//     }
-//   }
-// }
 
 const QuickSearchEntries = ({
   data,
@@ -51,7 +26,76 @@ const QuickSearchEntries = ({
   onSaveClick,
   team,
   focusedOnInput,
+
+  limit,
+  offset,
+  onNextPageClick,
+  onPrevPageClick,
 }: QuickSearchEntriesProps) => {
+  const count = data.pokemon.count;
+
+  const entries = data.pokemon.edges.map(edge => new QuickSearchPokemonEntry(edge));
+
+  // 'Enter' selects first entry
+  const onEnter = (event: KeyboardEvent) => {
+    if (!focusedOnInput) return;
+    if (event.code === 'Enter' && entries && entries.length > 0) onSaveClick(event, entries[0].pokemonIconDatum);
+  }
+  useEventListener('keydown', onEnter);
+
+  if (!data || data.pokemon.edges.length === 0) return (<div>Data not found for the query 'pokemon'.</div>);
+
+  return (<>
+    <ul
+      className="quick-search__entries-wrapper"
+    >
+      {entries && entries.map(entry => {
+        return (
+          <QuickSearchEntry
+            key={entry.pokemonIconDatum.id}
+            filters={filters}
+            pokemonIconDatum={entry.pokemonIconDatum}
+            baseStatTotal={entry.baseStatTotal}
+            onSaveClick={onSaveClick}
+            // We use an object to store the saved Pokemon, so that this check is log(n)
+            saved={team[filters.genFilter.gen].savedPokemon.quickSearch?.[entry.pokemonIconDatum.psID] !== undefined}
+          />
+        )
+      })}
+      <li className="quick-search__page-change">
+        <fieldset>
+          <legend className="hidden-label">Change page</legend>
+          <label htmlFor="quick_search_prev" className="hidden-label">Previous page</label>
+          <Button
+            title="Previous page"
+            label="PREV PAGE"
+            id="quick_search_prev"
+    
+            active={true}
+            onClick={onPrevPageClick}
+            disabled={offset - limit < 0}
+            immediate={true}
+          />
+          <label htmlFor="quick_search_next" className="hidden-label">Next page</label>
+          <Button
+            title="Next page"
+            label="NEXT PAGE"
+            id="quick_search_next"
+    
+            active={true}
+            onClick={onNextPageClick}
+            disabled={offset + limit > count}
+            immediate={true}
+          />
+        </fieldset>
+      </li>
+    </ul>
+  </>);
+}
+
+export default QuickSearchEntries;
+
+
   // // State for keeping track of when the entries need to be re-sorted or re-filtered
   // const [filtered, setFiltered] = useState(false);
   // const [sorted, setSorted] = useState(false);
@@ -123,36 +167,36 @@ const QuickSearchEntries = ({
   //   }
   // }, [setEntries, originalEntries, filtered, filters, data]);
 
-  const entries = data.pokemon.edges.map(edge => new QuickSearchPokemonEntry(edge));
 
-  // 'Enter' selects first entry
-  const onEnter = (event: KeyboardEvent) => {
-    if (!focusedOnInput) return;
-    if (event.code === 'Enter' && entries && entries.length > 0) onSaveClick(event, entries[0].pokemonIconDatum);
-  }
-  useEventListener('keydown', onEnter);
+  
 
-  if (!data || data.pokemon.edges.length === 0) return (<div>Data not found for the query 'pokemon'.</div>);
+// type QuickSearchPokemonEntry = {
+//   pokemonIconDatum: PokemonIconDatum
+//   baseStatTotal: number
+//   tier: SinglesTier | DoublesTier
+// }
 
-  return (
-    <ul
-      className="quick-search__entries-wrapper"
-    >
-      {entries && entries.map(entry => {
-        return (
-          <QuickSearchEntry
-            key={entry.pokemonIconDatum.id}
-            filters={filters}
-            pokemonIconDatum={entry.pokemonIconDatum}
-            baseStatTotal={entry.baseStatTotal}
-            onSaveClick={onSaveClick}
-            // We use an object to store the saved Pokemon, so that this check is log(n)
-            saved={team[filters.genFilter.gen].savedPokemon.quickSearch?.[entry.pokemonIconDatum.psID] !== undefined}
-          />
-        )
-      })}
-    </ul>
-  )
-}
+// type QuickSearchPokemonEntryKey = 'psID' | 'hp' | 'attack' | 'defense' | 'specialAttack' | 'specialDefense' | 'speed' | 'baseStatTotal' | 'tier';
 
-export default QuickSearchEntries;
+// const sortHelper: (el1: number | string, el2: number | string) => number = (el1, el2) => {
+//   if (el1 > el2) return 1;
+//   else if (el1 === el2) return 0;
+//   return -1;
+// }
+
+// const sortPokemonByKey: (pagination: PokemonPaginationInput) => ((qspe1: QuickSearchPokemonEntry, qspe2: QuickSearchPokemonEntry) => number) = pagination => {
+//   const { orderBy, sortBy, } = pagination;
+//   const sign = sortBy === 'ASC' ? 1 : -1;
+//   return (qspe1: QuickSearchPokemonEntry, qspe2: QuickSearchPokemonEntry) => {
+//     switch(orderBy) {
+//       case 'psID':
+//         return sign * sortHelper(qspe1.pokemonIconDatum[orderBy], qspe2.pokemonIconDatum[orderBy]);
+//       case 'tier':
+//         return sign * compareTiers(qspe1.tier, qspe2.tier);
+//       case 'baseStatTotal':
+//         return sign * sortHelper(qspe1.baseStatTotal, qspe2.baseStatTotal);
+//       default:
+//         return sign * sortHelper(qspe1.pokemonIconDatum.baseStats[orderBy], qspe2.pokemonIconDatum.baseStats[orderBy]);
+//     }
+//   }
+// }

@@ -4,6 +4,7 @@ import { CapsTypeName, NameEdge, PokemonColumnName, PokemonIconDatum, PokemonIco
 
 export type PokemonQuickSearchQuery = {
   pokemon: {
+    count: number
     edges: PokemonQuickSearchResult[]
   }
 }
@@ -35,6 +36,7 @@ export interface PokemonQuickSearchVars {
   gen: GenNum
 
   limit: number
+  offset: number
   orderBy: PokemonColumnName
   sortBy: SortByEnum
   
@@ -65,7 +67,7 @@ export const POKEMON_QUICKSEARCH_QUERY = gql`
   query PokemonSearchQuery(
     $gen: Int!
 
-    $limit: Int!, $orderBy: PokemonColumnName!, $sortBy: SortByEnum!
+    $limit: Int! $offset: Int!, $orderBy: PokemonColumnName!, $sortBy: SortByEnum!
 
     $contains: String $startsWith: String
     $removedFromBDSP: Boolean $removedFromSwSh: Boolean
@@ -101,11 +103,13 @@ export const POKEMON_QUICKSEARCH_QUERY = gql`
       }
       pagination: {
         limit: $limit
+        offset: $offset
         orderBy: $orderBy
         sortBy: $sortBy
       }
     ) {
       id
+      count
       edges {
         node {
           id
