@@ -3,7 +3,7 @@ import {
 } from 'react-router-dom';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
 import { TYPE_NAMES } from '../../../hooks/App/PokemonFilter';
-import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal, useListRender_icons } from '../../../hooks/Searches';
+import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal_pagination, useListRender_icons } from '../../../hooks/Searches';
 import { MoveCategory, MoveTargetClass, MOVE_CATEGORY_MAP, MOVE_TARGETCLASS_MAP, MOVE_TYPE_MAP } from '../../../types-queries/entities';
 import { CapsTypeName, toCapsTypeName } from '../../../types-queries/helpers';
 import {
@@ -15,6 +15,7 @@ import {
   ENUMCASE_TO_TITLECASE
 } from '../../../utils/constants';
 import { Dispatches, Filters } from '../../App';
+import Button from '../../Reusables/Button/Button';
 import Checkbox from '../../Reusables/Checkbox/Checkbox';
 import DoubleSlider from '../../Reusables/DoubleSlider/DoubleSlider';
 import DropdownMenu from '../../Reusables/DropdownMenu/DropdownMenu';
@@ -23,8 +24,16 @@ import SearchEntry from '../Entries/SearchEntry/SearchEntry';
 import { listToggleValue, rangeSelect, threeToggle } from '../helpers';
 import MainSearch from '../MainSearch/MainSearch';
 
-const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<MoveSearchQuery>) => {
+const listRender = (
+  limit: number,
+  offset: number,
+  onNextPageClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void, onPrevPageClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+) => (
+  { data, dispatches, filters, }: ListRenderArgsIcons<MoveSearchQuery>
+) => {
   if (!data || !data.moves) return (<div>Data not found for the query 'moves'.</div>);
+
+  const count = data.moves.count;
   
   return (
     <>
@@ -74,6 +83,33 @@ const listRender = ({ data, dispatches, filters, }: ListRenderArgsIcons<MoveSear
           />
         );
       })}
+      <li>
+        <fieldset className="planner-search__page-change">
+          <legend className="hidden-label">Change page</legend>
+          <label htmlFor="planner_ability_prev" className="hidden-label">Previous page</label>
+          <Button
+            title="Previous page"
+            label="PREV PAGE"
+            id="planner_ability_prev"
+    
+            active={true}
+            onClick={onPrevPageClick}
+            disabled={offset - limit < 0}
+            immediate={true}
+          />
+          <label htmlFor="planner_ability_next" className="hidden-label">Next page</label>
+          <Button
+            title="Next page"
+            label="NEXT PAGE"
+            id="planner_ability_next"
+    
+            active={true}
+            onClick={onNextPageClick}
+            disabled={offset + limit > count}
+            immediate={true}
+          />
+        </fieldset>
+      </li>
     </>
   );
 }
@@ -319,7 +355,7 @@ const MoveSearch = ({
   dispatches,
   filters,
 }: MoveSearchProps) => {
-  const { queryVars, filterForm, } = useListFilter_removal<MoveSearchVars>({
+  const { queryVars, filterForm, onNextPageClick, onPrevPageClick, } = useListFilter_removal_pagination<MoveSearchVars>({
     defaultSearchVars: {
       gen: filters.genFilter.gen,
       contains: '',
@@ -359,7 +395,7 @@ const MoveSearch = ({
     filters,
     MOVE_SEARCH_QUERY,
     queryVars,
-    listRender,
+    listRender(queryVars.limit, queryVars.offset, onNextPageClick, onPrevPageClick),
   );
 
   return (

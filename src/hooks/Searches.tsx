@@ -294,6 +294,59 @@ export function useListFilter_removal<SearchVars extends NameSearchVars & { remo
   };
 }
 
+export function useListFilter_removal_pagination<SearchVars extends NameSearchVars & { removedFromSwSh: boolean | null, removedFromBDSP: boolean | null, offset: number, limit: number, }>({
+  defaultSearchVars,
+  genFilter,
+  searchBarProps,
+  listFilter,
+}: {
+  defaultSearchVars: SearchVars,
+  genFilter: GenFilter,
+  searchBarProps: SearchBarProps,
+  listFilter: ({
+    queryVars,
+    setQueryVars,
+    searchBar,
+  }: ListFilterArgs<SearchVars>) => JSX.Element
+}): {
+  queryVars: SearchVars
+  filterForm: JSX.Element
+  focusedOnInput: boolean
+
+  onNextPageClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  onPrevPageClick: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+} {
+  const { queryVars, setQueryVars, searchBar, focusedOnInput, }= useRemovalConnectedSearchBar({defaultSearchVars, genFilter, searchBarProps, });
+
+  const onNextPageClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.preventDefault();
+    setQueryVars({
+      ...queryVars,
+      offset: queryVars.offset + queryVars.limit
+    });
+  };
+
+  const onPrevPageClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.preventDefault();
+    setQueryVars({
+      ...queryVars,
+      offset: queryVars.offset - queryVars.limit
+    });
+  };
+
+  return {
+    queryVars,
+    filterForm: listFilter({
+      queryVars,
+      setQueryVars,
+      searchBar
+    }),
+    focusedOnInput,
+    onNextPageClick,
+    onPrevPageClick,
+  };
+}
+
 // #endregion
 
 // List rendering
@@ -397,6 +450,6 @@ export function useListRender_icons<SearchQuery, SearchVars>(
       }
     </>
   )
-}
+};
 
 // #endregion

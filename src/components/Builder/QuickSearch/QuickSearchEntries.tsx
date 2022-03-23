@@ -62,8 +62,8 @@ const QuickSearchEntries = ({
           />
         )
       })}
-      <li className="quick-search__page-change">
-        <fieldset>
+      <li>
+        <fieldset className="quick-search__page-change">
           <legend className="hidden-label">Change page</legend>
           <label htmlFor="quick_search_prev" className="hidden-label">Previous page</label>
           <Button

@@ -20,6 +20,19 @@
   margin-top: 0.5rem;
 }
 
+.planner-search__page-change {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  position: relative;
+  width: 100%;
+  height: 2rem;
+
+  padding: 2rem;
+}
+
+
 /* #endregion */
 
 /* Filters */
