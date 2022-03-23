@@ -35,4 +35,33 @@
   list-style: none;
 }
 
+.nav-item a:focus {
+  outline: none;
+}
+
+.nav-item a:focus .button::after {
+  content: '';
+
+  top: 0;
+  left: -10%;
+
+  position: absolute;
+  width: 120%;
+  height: 100%;
+
+  border: 1px dashed var(--blue1);
+}
+.nav-item a:focus .button.--active::after {
+  content: '';
+
+  top: 0;
+  left: calc(-10% - 8px);
+
+  position: absolute;
+  width: calc(120% + 8px);
+  height: 100%;
+
+  border: 1px dashed var(--blue1);
+}
+
 /* #endregion */

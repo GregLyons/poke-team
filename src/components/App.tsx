@@ -1,8 +1,7 @@
 import {
   useMemo,
   useReducer,
-  useRef,
-  useState
+  useRef
 } from 'react';
 import {
   Route,
@@ -25,7 +24,7 @@ import CartView from './Builder/CartView/CartView';
 import QuickSearch from './Builder/QuickSearch/QuickSearch';
 import TeamView from './Builder/TeamView/TeamView';
 import ControlPanel from './ControlPanel/ControlPanel';
-import HomePage from './HomePage';
+import HomePage from './HomePage/HomePage';
 import NavBar from './NavBar/NavBar';
 import AbilityPage from './Planner/Abilities/AbilityPage';
 import AbilitySearch from './Planner/Abilities/AbilitySearch';
@@ -96,11 +95,10 @@ function App() {
       pokemonFilter,
     }
   }, [genFilter, tierFilter, pokemonFilter]);
-
-  const [selection, setSelection] = useState<boolean | null>(null);
   
   return (
     <>
+      <a href="#main" className="skip-main">Skip to main content</a>
       <div role="presentation" className={classWithBG("left-bg-panel", bgManager)} />
       <header className={classWithBG(classWithBGShadow("header__bg-wrapper", bgManager), bgManager)} role="banner">
         {/* Last resort--should be error boundaries in appropriate places in children */}
@@ -119,7 +117,7 @@ function App() {
           />
         </ErrorBoundary>
       </header>
-      <main className={classWithBGShadow("", bgManager)} role="main">
+      <main id="main" className={classWithBGShadow("", bgManager)} role="main">
         <div className="app">
           {/* Last resort--should be error boundaries in appropriate places in children */}
           <ErrorBoundary orientation="bottom">

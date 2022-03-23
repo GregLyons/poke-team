@@ -40,9 +40,18 @@
 
 }
 
-.planner__entry-row-name:hover {
+.planner__entry-row-name-container a:focus {
+  outline: none;
+}
+.planner-search__entry:focus-within .planner__entry-row-name,
+.planner-accordion__entry:focus-within .planner__entry-row-name {
+  transform: scale(1.05);
+}
+.planner__entry-row-name:hover,
+a:focus .planner__entry-row-name {
   color: var(--blue1);
   text-decoration: underline;
+  transform: scale(1.05);  
 }
 
 /* Data */
@@ -81,7 +90,7 @@
   grid-column: 3 / 4;
 
   padding-left: var(--entry-horizontal-padding);
-  padding-right: calc(2 * var(--entry-horizontal-padding));
+  padding-right: calc(4 * var(--entry-horizontal-padding));
 }
 
 /* #endregion */

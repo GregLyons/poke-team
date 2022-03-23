@@ -63,7 +63,7 @@ html {
 
   /* Fonts */
   --monospace: monospace;
-  --sans-serif: sans-serif;
+  --sans-serif: Verdana, Geneva, Tahoma, sans-serif;
 
   /* Shadows */
   --bg-shadow-gap: 1px;

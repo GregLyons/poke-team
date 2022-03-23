@@ -1,5 +1,6 @@
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 import Button from "../Button/Button";
+import './LinkButton.css';
 
 type LinkButtonProps = {
   to: string

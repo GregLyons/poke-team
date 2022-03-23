@@ -1,0 +1,15 @@
+.home {
+  overflow-y: hidden;
+}
+.home h1 {
+  position: absolute;
+  width: fit-content;
+  top: 1rem;
+  left: 0;
+  right: 0;
+  margin: auto;
+  font-family: var(--monospace);
+}
+.home h1 span {
+  color: var(--blue1);
+}
