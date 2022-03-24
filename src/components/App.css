@@ -154,8 +154,7 @@ a.skip-main:focus, a.skip-main:active {
   color: var(--red1);
 }
 .analyzer-home .section-home__list {
-  border-bottom: 1px solid rgba(var(--red-bg-components), 0.4);
-  border-right: 1px solid rgba(var(--red-bg-components), 0.4);
+  border: 1px solid rgba(var(--red-bg-components), 0.4);
   box-shadow: 6px 6px 10px rgba(var(--red-bg-components), 0.2);
 }
 .analyzer-home .section-home__list-item::before {
@@ -173,8 +172,7 @@ a.skip-main:focus, a.skip-main:active {
   color: var(--green1);
 }
 .builder-home .section-home__list {
-  border-bottom: 1px solid rgba(var(--green-bg-components), 0.4);
-  border-right: 1px solid rgba(var(--green-bg-components), 0.4);
+  border: 1px solid rgba(var(--green-bg-components), 0.4);
   box-shadow: 6px 6px 10px rgba(var(--green-bg-components), 0.2);
 }
 .builder-home .section-home__list-item::before {

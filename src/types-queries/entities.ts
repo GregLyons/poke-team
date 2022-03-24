@@ -607,6 +607,15 @@ export function computeStat ({
     // Gens 1 and 2, same as DV * 2--except for IV of 31 
     : ivOrDV * 2;
 
+
+  if (statName === 'speed') {
+    console.log('base', base);
+    console.log ('ev', ev);
+    console.log('iv', iv);
+    console.log('level', level);
+    console.log('natureMod', natureMod);
+  }
+
   if (statName === 'hp') {
     if (isShedinja) return 1;
 

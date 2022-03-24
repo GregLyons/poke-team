@@ -40,7 +40,7 @@
 .quick-search__legend {
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 10ch 60px minmax(20ch, min-content) 90px 8ch 50ch 1fr;
+  grid-template-columns: 10ch 60px minmax(20ch, min-content) 90px 8ch 50ch;
   align-items: center;
   gap: 0 24px;
 
@@ -50,6 +50,7 @@
   padding: 0.5rem 1rem 0.5rem 0.5rem;
 
   font-family: var(--monospace);
+  font-size: 0.9rem;
 }
 
 .quick-search__legend {
