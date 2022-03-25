@@ -17,6 +17,9 @@ import reportWebVitals from './reportWebVitals';
 const httpLink = createHttpLink({
   // URL for API
   uri: process.env.REACT_APP_BASE_URL,
+  fetchOptions: {
+    mode: 'no-cors'
+  },
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -32,7 +35,7 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
 });
 
 //#endregion
