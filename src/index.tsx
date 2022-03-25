@@ -23,9 +23,9 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      // To reader: process.env variables in Create React App aren't secure; use some other means to secure your API, e.g. Netlify environmental variables
+      // To reader: process.env variables in Create React App aren't secure; use some other means to secure your API
       // Works with basic authorization set up in `poke-gql`
-      authorization: process.env.REACT_APP_TEST_HEADER,
+      authorization: process.env.REACT_APP_AUTH_HEADER,
     }
   }
 })
