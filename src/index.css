@@ -77,6 +77,7 @@ html {
   --control-shadow-inset-pulse: 3px 3px 1px 1px;
   --control-shadow: inset var(--control-shadow-inset) rgba(0,0,0,0.2);
 
+  --bg-control-none: inset var(--control-shadow-inset) rgba(0,0,0,0.2);
   --bg-control-red: inset 2px 2px 2px 1px rgba(var(--red-bg-components), 0.5);
   --bg-control-green: inset 2px 2px 2px 1px rgba(var(--green-bg-components), 0.5);
   --bg-control-blue: inset 2px 2px 2px 1px rgba(var(--blue-bg-components), 0.5);

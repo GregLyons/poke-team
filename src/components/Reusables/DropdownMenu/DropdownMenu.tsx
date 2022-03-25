@@ -129,7 +129,9 @@ function DropdownMenu({
               ? 'var(--bg-control-blue)'
               : backgroundLight === 'green'
                 ? 'var(--bg-control-green)'
-                : 'var(--bg-control-red)'
+                : backgroundLight === 'red'
+                  ? 'var(--bg-control-red)'
+                  : 'var(--bg-control-none)'
             }
           `,
         }}
