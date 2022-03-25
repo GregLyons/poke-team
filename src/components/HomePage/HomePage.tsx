@@ -41,7 +41,7 @@ const HomePage = ({
             transition: 'opacity 2s ease',
           }}
         >
-          <h1>Welcome to <span>Bill's PC TEST</span></h1>
+          <h1>Welcome to <span>Bill's PC</span></h1>
           <LoadIcon opaque={true} />
         </div>
       </div>
