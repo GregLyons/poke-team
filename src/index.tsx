@@ -18,7 +18,7 @@ const httpLink = createHttpLink({
   // URL for API
   uri: process.env.REACT_APP_BASE_URL,
   fetchOptions: {
-    mode: 'no-cors'
+    mode: 'no-cors',
   },
 });
 
