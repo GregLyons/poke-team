@@ -17,17 +17,16 @@ import reportWebVitals from './reportWebVitals';
 const httpLink = createHttpLink({
   // URL for API
   uri: process.env.REACT_APP_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Credentials': true,
-  },
 });
 
 const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
+      mode: "no-cors",
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
       // To reader: process.env variables in Create React App aren't secure; use some other means to secure your API
       // Works with basic authorization set up in `poke-gql`
       authorization: process.env.REACT_APP_AUTH_HEADER,
