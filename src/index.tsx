@@ -14,7 +14,7 @@ import reportWebVitals from './reportWebVitals';
 //#region
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000',
+  uri: process.env.REACT_APP_BASE_URL,
 });
 
 const client = new ApolloClient({
