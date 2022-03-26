@@ -23,10 +23,10 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      mode: "no-cors",
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Credentials': true,
+      'Access-Control-Allow-Headers': 'Authorization,Accept,Accept-Language,Contet-Language,Content-Type',
       // To reader: process.env variables in Create React App aren't secure; use some other means to secure your API
       // Works with basic authorization set up in `poke-gql`
       authorization: process.env.REACT_APP_AUTH_HEADER,
