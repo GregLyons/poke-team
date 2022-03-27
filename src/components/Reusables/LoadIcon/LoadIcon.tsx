@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useWindowSize } from 'usehooks-ts';
 import './LoadIcon.css';
 
 type LoadIconProps = {
@@ -10,6 +11,7 @@ const LoadIcon = ({
 }: LoadIconProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [diameter, setDiameter] = useState(0);
+  const { width: windowWidth, height: windowHeight } = useWindowSize();
 
   useEffect(() => {
     if (wrapperRef.current) {
@@ -17,7 +19,7 @@ const LoadIcon = ({
       setDiameter(Math.min(wrapperWidth, wrapperHeight) / 3);
     }
     else setDiameter(0);
-  }, [wrapperRef, setDiameter]);
+  }, [wrapperRef, setDiameter, windowWidth, windowHeight, ]);
   return (
     <div
       ref={wrapperRef}

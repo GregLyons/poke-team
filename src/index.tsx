@@ -2,7 +2,6 @@ import {
   ApolloClient, ApolloProvider, createHttpLink,
   InMemoryCache
 } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter
@@ -10,7 +9,6 @@ import {
 import App from './components/App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-
 // Set up ApolloClient
 //#region
 
@@ -19,25 +17,8 @@ const httpLink = createHttpLink({
   uri: process.env.REACT_APP_BASE_URL,
 });
 
-const authLink = setContext((_, { headers }) => {
-  return {
-    headers: {
-      ...headers,
-      mode: "no-cors",
-      "Access-Control-Allow-Origin": "*",
-      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-      "Access-Control-Allow-Credentials": true,
-      "Access-Control-Allow-Headers": 'Authorization,Accept,Accept-Language,Content-Language,Content-Type',
-      'Authorization': process.env.REACT_APP_AUTH_HEADER,
-      // To reader: process.env variables in Create React App aren't secure; use some other means to secure your API
-      // Works with basic authorization set up in `poke-gql`
-      // authorization: process.env.REACT_APP_AUTH_HEADER,
-    }
-  }
-})
-
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: httpLink,
   cache: new InMemoryCache(),
 });
 
