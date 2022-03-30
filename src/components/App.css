@@ -145,11 +145,22 @@ a.skip-main:focus, a.skip-main:active {
 }
 
 /* Colors based on section */
+
+/* For parts of the app which are currently unusable (e.g. Cart with no saved boxes), there will be a note instructing the user on what to do in order to use the part. This note will contain the names of sections and widgets, which we'll highlight as we do in the home pages. */
+.analyzer__unusable-element-note,
+.builder__unusable-element-note,
+.planner__unusable-element-note {
+  padding-block: 1rem;
+  padding-inline: 1ch;
+}
+
 .analyzer-home h1,
 .analyzer-home h2,
+.analyzer__unusable-element-note .app-element-name.--section,
 .analyzer-home .app-element-name.--section {
   color: var(--red-bg);
 }
+.analyzer__unusable-element-note .app-element-name.--widget,
 .analyzer-home .app-element-name.--widget {
   color: var(--red1);
 }
@@ -165,9 +176,11 @@ a.skip-main:focus, a.skip-main:active {
 
 .builder-home h1,
 .builder-home h2,
+.builder__unusable-element-note .app-element-name.--section,
 .builder-home .app-element-name.--section {
   color: var(--green-bg);
 }
+.builder__unusable-element-note .app-element-name.--widget,
 .builder-home .app-element-name.--widget {
   color: var(--green1);
 }
@@ -183,9 +196,11 @@ a.skip-main:focus, a.skip-main:active {
 
 .planner-home h1,
 .planner-home h2,
+.planner__unusable-element-note .app-element-name.--section,
 .planner-home .app-element-name.--section {
   color: var(--blue-bg);
 }
+.planner__unusable-element-note .app-element-name.--widget,
 .planner-home .app-element-name.--widget {
   color: var(--blue1);
 }

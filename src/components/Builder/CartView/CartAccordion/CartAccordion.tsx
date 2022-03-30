@@ -66,10 +66,15 @@ const CartAccordion = ({
 
   return (
     <div className="cart-view-accordion__wrapper">
-      {accordionData.filter(d => d.content !== false).length > 0 && <Accordion
-        accordionContext="cart-view"
-        accordionData={accordionData}
-      />}
+      {accordionData.filter(d => d.content !== false).length > 0
+        ? <Accordion
+            accordionContext="cart-view"
+            accordionData={accordionData}
+          />
+        : <p className="builder__unusable-element-note">
+            There are currently no boxes saved to your <span className="app-element-name --section">Cart</span> for Gen {filters.genFilter.gen}. <span className="app-element-name --widget">SAVE</span> one or more non-empty boxes in the <span className="app-element-name --section">Planner</span> with this Gen selected in order to interact with them here.
+          </p>
+      }
     </div>
   );
 }

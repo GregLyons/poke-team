@@ -37,7 +37,7 @@ const ReferencePanel = ({
   let viewPanelMessage: string;
   switch(view?.mode) {
     case null:
-      viewPanelMessage = `Select a Pokemon or empty team slot to begin.`;
+      viewPanelMessage = `Nothing selected`;
       break;
       
     case 'POKEMON':
@@ -73,7 +73,7 @@ const ReferencePanel = ({
       break;
 
     default: 
-      viewPanelMessage = 'Saved Pokemon';
+      viewPanelMessage = 'Nothing selected';
   }
 
   let spreads: { evs: StatTable, ivs: StatTable, } | undefined

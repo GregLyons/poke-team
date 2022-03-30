@@ -55,6 +55,7 @@
   /* This keeps the icon track from overflowing .--note that each element of the track has a larger width than its container. Due to the track's absolute positioning, it will ignore the padding that already exists for the pokemon-icons-background element in its parent entry. */
   padding-right: 20px;
   padding-left: 5px;
+  padding-block: 0.25rem;
 
   box-shadow: var(--control-shadow);
 }
@@ -62,6 +63,7 @@
 .planner__pokemon-icons-reason {
   display: flex;
   align-items: center;
+  padding-top: 0.5rem;
   padding-left: 0.5rem;
 }
 

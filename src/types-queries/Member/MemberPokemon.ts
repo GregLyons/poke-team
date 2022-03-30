@@ -332,7 +332,6 @@ export class MemberPokemon extends MemberEntity {
   }
 
   public computeSpeed() {
-    console.log('speed for', this.psID);
     return computeStat({
       statName: 'speed',
       level: this.level,

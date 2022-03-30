@@ -18,7 +18,7 @@ const HomePage = ({
       payload: 'none',
     });
     toggleBGPulse(dispatchBGManager);
-  }, []);
+  }, [dispatchBGManager, ]);
 
   const [opacity, setOpacity] = useState<0 | 1>(0);
 

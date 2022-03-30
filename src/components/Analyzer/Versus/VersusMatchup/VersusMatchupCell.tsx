@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useIsFirstRender } from "usehooks-ts";
+import { useIsFirstRender, useIsMounted } from "usehooks-ts";
 import { MemberPSIDObject } from "../../../../types-queries/Analyzer/helpers";
 import { DamageMatchupResult, rateDamageMatchupResult, resultToStatPSIDs } from "../../../../utils/damageCalc";
 
@@ -118,15 +118,17 @@ const VersusMatchupCell = ({
   const [highlightChange, setHighlightChange] = useState<boolean>(false);
   const highlightTimer = useRef<NodeJS.Timeout>();
 
+  const isMounted = useIsMounted();
+
   // When significant change in cell occurs (number of hits changes, outcome goes from possible to guaranteed, etc.), highlight it briefly
   useEffect(() => {
     // If multiple changes happen within 2.5 seconds, want to overwrite the highlighting
     if (highlightTimer.current) clearTimeout(highlightTimer.current);
 
     setHighlightChange(true);
-    highlightTimer.current = setTimeout(() => setHighlightChange(false), 2500);
+    highlightTimer.current = setTimeout(() => isMounted() && setHighlightChange(false), 2500);
 
-  }, [userToEnemyGuaranteed, userToEnemyMinHitText, enemyToUserGuaranteed, enemyToUserMinHitText, result?.moveFirst, highlightTimer, ]);
+  }, [userToEnemyGuaranteed, userToEnemyMinHitText, enemyToUserGuaranteed, enemyToUserMinHitText, result?.moveFirst, highlightTimer, isMounted, ]);
   
   return (
     <td
@@ -165,7 +167,7 @@ const VersusMatchupCell = ({
           >
             U {userToEnemyGuaranteed} {userToEnemyMinHitText}
           </p>
-          <button className="versus-matchup__outspeed-wrapper">
+          <div className="versus-matchup__outspeed-wrapper">
             {result.moveFirst === true
               ? <div
                   title="You outspeed."
@@ -187,7 +189,7 @@ const VersusMatchupCell = ({
                     />
                   </>
             } 
-          </button>
+          </div>
           <p
             className="versus-matchup__enemy-to-user"
             title={result?.enemyToUser.moveInfo.map(([_, display]) => display).join('\n') || 'Cannot do damage.'}

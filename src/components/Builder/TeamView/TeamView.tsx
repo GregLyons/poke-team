@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useEventListener } from "usehooks-ts";
+import { useEventListener, useIsMounted } from "usehooks-ts";
 import { toggleBGPulse } from "../../../hooks/App/BGManager";
 import { Team } from "../../../hooks/App/Team";
 import { BaseStatName } from "../../../types-queries/entities";
@@ -133,6 +133,8 @@ const TeamView = ({
   filters,
   team,
 }: TeamViewProps) => {
+  const isMounted = useIsMounted();
+
   // Position of the currently selected member
   const [memberSlot, setMemberSlot] = useState<number | null>(null);
   // Determines what is shown in ReferencePanel
@@ -153,10 +155,10 @@ const TeamView = ({
     const firstInteractiveEl = wrapperEl.querySelector("button:not(:disabled), input") as HTMLElement;
 
     // If the 'Enter' key is pressed to complete a search, e.g. for selecting an Ability, then focusing immediately would cause the button in MemberDetails to be pressed _again_, reopening the view in ReferencePanel. Thus, we add a small delay to prevent this
-    if (firstInteractiveEl) setTimeout(() => firstInteractiveEl.focus(), 5);
+    if (firstInteractiveEl) setTimeout(() => isMounted() && firstInteractiveEl.focus(), 5);
 
     setRefKey(null);
-  }, [focusRef, setRefKey, ]);
+  }, [focusRef, setRefKey, isMounted, ]);
 
   // #endregion
 
@@ -221,8 +223,10 @@ const TeamView = ({
 
       // Select slot
       setMemberSlot(view.idx);
-      
-      focusPrevious();
+
+      // Selecting Pokemon will pull it up in member details, and this focuses on the nickname; this replaces focusPrevious
+      setTimeout(() => isMounted() && focusNickname(), 15);
+
       return setView(null);
     }
 
@@ -383,7 +387,7 @@ const TeamView = ({
         onHPSelect,
       },
     };
-  }, [dispatches, filters, memberSlot, setMemberSlot, view, setView, ]);
+  }, [dispatches, filters, memberSlot, setMemberSlot, view, setView, focusNickname, focusPrevious, isMounted, ]);
 
   const teamMembersClickHandlers: TeamMembersClickHandlers = useMemo(() => {
     // On clicking AddIcon, open up savedPokemon in ReferencePanel
@@ -416,7 +420,7 @@ const TeamView = ({
       onAddClick,
       onMemberClick,
     }
-  }, [setMemberSlot, setView, ]);
+  }, [setMemberSlot, setView, focusNickname, ]);
 
   const memberDetailHandlers: MemberDetailsHandlers = useMemo(() => {
     const onAbilityClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {

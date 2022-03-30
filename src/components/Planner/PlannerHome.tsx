@@ -60,7 +60,7 @@ const PlannerHome = () => {
           <p className="section-home__text">
             Search results always contain the name of the result, in addition to some other basic data.
             When applicable, results will also contain a list of Pokemon, represented by icons (e.g. a result in the <span className="app-element-name --section">Moves</span> tab will contain a list of Pokemon which know the corresponding move).
-            You can select one or more of these Pokemon, and then click the <span className="app-element-name --widget">SAVE TO BOX</span> button to save your selection for when you build your team in the Builder.
+            You can select one or more of these Pokemon, and then click the <span className="app-element-name --widget">SAVE TO BOX</span> button to save your selection for when you build your team in the <span className="app-element-name --section">Cart</span> in the <span className="app-element-name --section">Builder</span>.
             You can change the <span className="app-element-name --widget">Type Filter</span>, <span className="app-element-name --widget">Base Stat Filter</span>, and <span className="app-element-name --widget">Tier Filter</span> in the <span className="app-element-name --section">Control Panel</span> to filter Pokemon.
           </p>
         </section>

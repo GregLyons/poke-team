@@ -35,37 +35,46 @@ const PinnedBoxAccordion = ({
           clickHandlers={clickHandlers}
           titleText={note}
         />,
-        content: <PinnedBox
-          box={{
-            note,
-            pokemon,
-          }}
-          clickHandlers={clickHandlers}
-          filters={filters}
-          key={note}
-        />
+        content: pokemon.length > 0 
+        ? <PinnedBox
+            box={{
+              note,
+              pokemon,
+            }}
+            clickHandlers={clickHandlers}
+            filters={filters}
+            key={note}
+          />
+        : false as false
       }
     }).concat([{
       title: <PinnedBoxAccordionTitle
         titleText={'From Quick Search'}
       />,
-      content: <PinnedBox
-        box={{
-          note: 'From Quick Search',
-          pokemon: Object.values(team[filters.genFilter.gen].savedPokemon.quickSearch),
-        }}
-        clickHandlers={clickHandlers}
-        filters={filters}
-      />,
+      content: Object.values(team[filters.genFilter.gen].savedPokemon.quickSearch).length > 0
+        ? <PinnedBox
+            box={{
+              note: 'From Quick Search',
+              pokemon: Object.values(team[filters.genFilter.gen].savedPokemon.quickSearch),
+            }}
+            clickHandlers={clickHandlers}
+            filters={filters}
+          />
+        : false as false,
     }]);
   }, [filters, team, clickHandlers, ])
   return (
     <div className="team-view-accordion__wrapper">
-      <Accordion
-        accordionContext="pinned-boxes"
-        accordionData={accordionData}
-        optionsInTitle={true}
-      />
+      {accordionData.filter(d => d.content !== false).length > 0
+        ?  <Accordion
+            accordionContext="pinned-boxes"
+            accordionData={accordionData}
+            optionsInTitle={true}
+          />
+        : <p className="builder__unusable-element-note">
+            You currently have no Pokemon saved for Gen {filters.genFilter.gen}. Either <span className="app-element-name --widget">PIN</span> a box in the <span className="app-element-name --section">Cart</span> or <span className="app-element-name --widget">SAVE</span> a Pokemon in the <span className="app-element-name --section">Quick Search</span>.
+          </p>
+      }
     </div>
   )
 };

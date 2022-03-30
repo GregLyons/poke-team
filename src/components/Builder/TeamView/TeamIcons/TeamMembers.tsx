@@ -17,14 +17,11 @@ type TeamMembersProps = {
 }
 
 const TeamMembers = ({
-  focusRef,
-  refKey,
   slot,
   clickHandlers,
   team,
   dispatches,
   filters,
-  view,
 }: TeamMembersProps) => {
   return (
     <section aria-labelledby="team-members" className="team-members__wrapper">
@@ -34,9 +31,6 @@ const TeamMembers = ({
           {team[filters.genFilter.gen].memberIcons.map((icon, idx) => {
             return (
               <TeamMemberHolder
-                // Only pass focusRef down if the indices match
-                focusRef={view?.idx === idx ? focusRef : undefined}
-                refKey={refKey}
                 clickHandlers={clickHandlers}
                 // Use idx in key since we won't be changing size of array, or permuting its elements
                 key={idx}

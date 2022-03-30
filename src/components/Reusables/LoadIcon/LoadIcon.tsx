@@ -30,7 +30,7 @@ const LoadIcon = ({
     >
       <div
         className="pokeball__wrapper"
-        title="Loading..."
+        title={opaque ? '' : "Loading..."}
         style={{
           width: diameter,
           height: diameter,

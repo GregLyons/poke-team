@@ -147,13 +147,12 @@ const TeamColumnMember = ({
             />
           </div>
           {([0, 1, 2, 3] as (MoveSlot)[]).map(idx => (<div
+            key={idx}
             className={`
               team-column__move${idx + 1}
             `}
           >
             <TeamColumnMove
-              key={idx}
-
               teamDispatch={teamDispatch}
               filters={filters}
 

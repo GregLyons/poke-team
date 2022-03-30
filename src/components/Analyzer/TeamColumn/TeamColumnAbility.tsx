@@ -62,7 +62,7 @@ const TeamColumnAbility = ({
       ...queryVars,
       psID: member.psID,
     })
-  }, [member]);
+  }, [member, queryVars, setQueryVars, ]);
 
   const { data, loading, error } = useDelayedQuery<PopupAbilityQuery, PopupAbilityVars>({
     query: POPUP_ABILITY_QUERY,
