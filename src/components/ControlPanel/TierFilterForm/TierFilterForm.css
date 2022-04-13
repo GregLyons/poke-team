@@ -2,18 +2,34 @@
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 2fr;
+  gap: 0 1.5rem;
+  padding-left: 2rem;
 }
 
 .tier-filter__buttons {
   grid-row: 1 / 2;
   grid-column: 1 / 2;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 5ch;
+  gap: 0 1rem;
+  justify-items: center;
 
   position: relative;
   height: 3rem;
+}
+.tier-filter__singles {
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+}
+.tier-filter__doubles {
+  grid-row: 2 / 3;
+  grid-column: 1 / 2;
+}
+.tier-filter__vgc {
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
 }
 
 /* Tier select */
@@ -31,7 +47,7 @@
 
 .tier-filter__tier-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 0.25rem 1rem;
 }
 

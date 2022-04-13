@@ -1,6 +1,6 @@
 import { AbbreviatedBaseStatName, BaseStatName, StatTable } from "../../types-queries/entities";
 import { PokemonIconDatum, TypeName } from "../../types-queries/helpers";
-import { getTier, isSinglesTier } from "../../utils/smogonLogic";
+import { getTier, isDoublesTier, isSinglesTier, isVGCClass } from "../../utils/smogonLogic";
 import { GenFilter } from "./GenFilter";
 import { TierFilter } from "./TierFilter";
 
@@ -271,9 +271,15 @@ export const validatePokemon = ({
       )
       // Doubles mode
       || (
-        !isSinglesTier(tier)
+        isDoublesTier(tier)
         && tierFilter.format === 'doubles'
         && !tierFilter.doublesTiers[tier]
+      )
+      // VGC mode
+      || (
+        isVGCClass(tier)
+        && tierFilter.format === 'vgc'
+        && !tierFilter.vgcClasses[tier]
       )
     )
   ) return { validated: false, reason: 'tier', }

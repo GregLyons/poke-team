@@ -57,7 +57,7 @@ const QuickSearchEntry = ({
         ))}
       </div>
       <div className="quick-search__tier">
-        {getTier(filters.genFilter.gen, filters.tierFilter.format, pokemonIconDatum.psID)}
+        {getTier(filters.genFilter.gen, filters.tierFilter.format, pokemonIconDatum.psID).replace('Mythical', 'MYTH').replace('Restricted', 'REST').replace('Other', '')}
       </div>
       <div className="quick-search__stats">
         {Object.entries({ ...pokemonIconDatum.baseStats, baseStatTotal }).map(([key, value]: [string, number]) => {
