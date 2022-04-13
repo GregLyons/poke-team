@@ -1,4 +1,4 @@
-// List of 
+// List of restricted Pokemon
 const restricted = {
   mewtwo: true,
   mewtwomegax: true,
@@ -44,8 +44,7 @@ const restricted = {
   calyrexshadow: true,
 };
 
-export const isRestricted = (psID: string) => restricted.hasOwnProperty(psID);
-
+// List of mythical Pokemon
 const mythical = {
   mew: true,
   celebi: true,
@@ -82,6 +81,9 @@ const mythical = {
   melmetal: true,
   zarude: true,
 }
+
+// VGC logic
+export const isRestricted = (psID: string) => restricted.hasOwnProperty(psID);
 
 export const isMythical = (psID: string) => mythical.hasOwnProperty(psID);
 
