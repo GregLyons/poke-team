@@ -1,0 +1,56 @@
+// List of 
+const restricted = {
+  mewtwo: true,
+  lugia: true,
+  hooh: true,
+  kyogre: true,
+  groudon: true,
+  rayquaza: true,
+  dialga: true,
+  palkia: true,
+  giratina: true,
+  reshiram: true,
+  zekrom: true,
+  kyurem: true,
+  xerneas: true,
+  yveltal: true,
+  zygarde: true,
+  cosmog: true,
+  cosmoem: true,
+  solgaleo: true,
+  lunala: true,
+  necrozma: true,
+  zacian: true,
+  zamazenta: true,
+  eternatus: true,
+  calyrex: true,
+};
+
+export const isRestricted = (psID: string) => restricted[psID] !== undefined;
+
+const mythical = {
+  mew: true,
+  celebi: true,
+  jirachi: true,
+  deoxys: true,
+  manaphy: true,
+  phione: true,
+  darkrai: true,
+  shaymin: true,
+  arceus: true,
+  victini: true,
+  keldeo: true,
+  meloetta: true,
+  genesect: true,
+  diancie: true,
+  hoopa: true,
+  volcanion: true,
+  magearna: true,
+  marshadow: true,
+  zeraora: true,
+  meltan: true,
+  melmetal: true,
+  zarude: true,
+}
+
+export const isMythical = (psID: string) => mythical[psID] !== undefined;
