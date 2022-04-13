@@ -71,7 +71,7 @@ const mythical = {
   genesectdouse: true,
   genesectshock: true,
   diancie: true,
-  diancemega: true,
+  dianciemega: true,
   hoopa: true,
   hoopaunbound: true,
   volcanion: true,
