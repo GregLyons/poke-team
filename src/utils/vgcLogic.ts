@@ -80,6 +80,7 @@ const mythical = {
   meltan: true,
   melmetal: true,
   zarude: true,
+  zarudedada: true,
 }
 
 // VGC logic

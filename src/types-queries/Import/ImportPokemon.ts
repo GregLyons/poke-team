@@ -315,32 +315,35 @@ export const setsToMembers: (
     // Ability
     // #region
 
-    const abilityPSID = toPSID(set.ability);
-    if (abilityPSID) {
-      // If ability is valid for the Pokemon, assign it
-      if (memberResult.abilities.edges.map(edge => edge.node.psID).includes(abilityPSID)) {
-        const abilityResults = memberResult.abilities.edges.map(edge => edge.node);
-        const abilityIndex = abilityResults.map(d => d.psID).indexOf(abilityPSID);
-
-        // Shouldn't occur
-        if (abilityIndex === -1) throw new InvalidAbilityError(set.ability, memberPokemon.formattedName);
-
-        const abilityResult = abilityResults[abilityIndex];
-
-        const slot = memberResult.abilities.edges[abilityIndex].slot;
-
-        const memberAbility = new MemberAbility(abilityResult, gen, slot);
-
-        // Check if ability is late
-        if (memberAbility.introduced > gen) {
-          lateEntities = lateEntities.concat([memberAbility.formattedName, memberAbility.introduced]);
+    // Only check ability gen 3 on
+    if (gen >= 3) {
+      const abilityPSID = toPSID(set.ability);
+      if (abilityPSID) {
+        // If ability is valid for the Pokemon, assign it
+        if (memberResult.abilities.edges.map(edge => edge.node.psID).includes(abilityPSID)) {
+          const abilityResults = memberResult.abilities.edges.map(edge => edge.node);
+          const abilityIndex = abilityResults.map(d => d.psID).indexOf(abilityPSID);
+  
+          // Shouldn't occur
+          if (abilityIndex === -1) throw new InvalidAbilityError(set.ability, memberPokemon.formattedName);
+  
+          const abilityResult = abilityResults[abilityIndex];
+  
+          const slot = memberResult.abilities.edges[abilityIndex].slot;
+  
+          const memberAbility = new MemberAbility(abilityResult, gen, slot);
+  
+          // Check if ability is late
+          if (memberAbility.introduced > gen) {
+            lateEntities = lateEntities.concat([memberAbility.formattedName, memberAbility.introduced]);
+          }
+  
+          // Finally, assign ability
+          memberPokemon.assignAbility(memberAbility);
         }
-
-        // Finally, assign ability
-        memberPokemon.assignAbility(memberAbility);
+        // Otherwise, throw error
+        else throw new InvalidAbilityError(set.ability, memberPokemon.formattedName); 
       }
-      // Otherwise, throw error
-      else throw new InvalidAbilityError(set.ability, memberPokemon.formattedName); 
     }
 
     // #endregion
@@ -348,27 +351,30 @@ export const setsToMembers: (
     // Item
     // #region
 
-    const itemPSID = toPSID(set.item);
-    if (itemPSID) {
-      if (itemResults.map(d => d.psID).includes(itemPSID)) {
-        const itemIndex = itemResults.map(d => d.psID).indexOf(itemPSID);
-
-        // Shouldn't occur
-        if (itemIndex === -1) throw new InvalidItemError(set.item, memberPokemon.formattedName);
-
-        const itemResult = itemResults[itemIndex];
-
-        const memberItem = new MemberItem(itemResult, gen);
-
-        // Check if item is late
-        if (memberItem.introduced > gen) {
-          lateEntities = lateEntities.concat([memberItem.formattedName, memberItem.introduced]);
+    // Only check item gen 2 on
+    if (gen >= 2) {
+      const itemPSID = toPSID(set.item);
+      if (itemPSID) {
+        if (itemResults.map(d => d.psID).includes(itemPSID)) {
+          const itemIndex = itemResults.map(d => d.psID).indexOf(itemPSID);
+  
+          // Shouldn't occur
+          if (itemIndex === -1) throw new InvalidItemError(set.item, memberPokemon.formattedName);
+  
+          const itemResult = itemResults[itemIndex];
+  
+          const memberItem = new MemberItem(itemResult, gen);
+  
+          // Check if item is late
+          if (memberItem.introduced > gen) {
+            lateEntities = lateEntities.concat([memberItem.formattedName, memberItem.introduced]);
+          }
+  
+          // Finally, assign item
+          memberPokemon.assignItem(memberItem);
         }
-
-        // Finally, assign item
-        memberPokemon.assignItem(memberItem);
+        else throw new InvalidItemError(set.item, memberPokemon.formattedName);
       }
-      else throw new InvalidItemError(set.item, memberPokemon.formattedName);
     }
 
     // #endregion
@@ -436,28 +442,31 @@ export const setsToMembers: (
     // Nature
     // #region
 
-    const naturePSID = toPSID(set.nature || 'serious');
-    if (naturePSID) {
-      const natureName: NatureName = (naturePSID as NatureName);
-      if (natureName !== undefined && natureResults.map(d => d.name).includes(natureName)) {
-        const natureIndex = natureResults.map(d => d.name).indexOf(natureName);
-
-        // Shouldn't occur
-        if (natureIndex === -1) throw new InvalidItemError(set.nature, memberPokemon.formattedName);
-
-        const natureResult = natureResults[natureIndex];
-
-        const memberNature = new MemberNature(natureResult, gen);
-
-        // Check if item is late
-        if (memberNature.introduced > gen) {
-          lateEntities = lateEntities.concat([memberNature.formattedName, memberNature.introduced]);
+    // Only check nature gen 3 on
+    if (gen >= 3) {
+      const naturePSID = toPSID(set.nature || 'serious');
+      if (naturePSID) {
+        const natureName: NatureName = (naturePSID as NatureName);
+        if (natureName !== undefined && natureResults.map(d => d.name).includes(natureName)) {
+          const natureIndex = natureResults.map(d => d.name).indexOf(natureName);
+  
+          // Shouldn't occur
+          if (natureIndex === -1) throw new InvalidItemError(set.nature, memberPokemon.formattedName);
+  
+          const natureResult = natureResults[natureIndex];
+  
+          const memberNature = new MemberNature(natureResult, gen);
+  
+          // Check if item is late
+          if (memberNature.introduced > gen) {
+            lateEntities = lateEntities.concat([memberNature.formattedName, memberNature.introduced]);
+          }
+  
+          // Finally, assign item
+          memberPokemon.assignNature(memberNature);
         }
-
-        // Finally, assign item
-        memberPokemon.assignNature(memberNature);
+        else throw new InvalidNatureError(set.nature, memberPokemon.formattedName);
       }
-      else throw new InvalidNatureError(set.nature, memberPokemon.formattedName);
     }
 
     // #endregion

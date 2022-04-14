@@ -1,0 +1,25 @@
+Persian
+Ability: No Ability
+- Slash
+- Hyper Beam
+- Thunderbolt
+- Body Slam
+
+Hypno
+- Hypnosis
+- Thunder Wave
+- Psychic
+- Rest
+
+Golduck
+- Amnesia
+- Hydro Pump
+- Blizzard
+- Confusion
+
+Dragonite
+Ability: No Ability
+- Body Slam
+- Thunder Wave
+- Agility
+- Wrap
