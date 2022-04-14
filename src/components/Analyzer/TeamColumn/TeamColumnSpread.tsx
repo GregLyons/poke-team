@@ -129,6 +129,16 @@ const TeamColumnSpread = ({
                   numericalWidth={3}
                   step={spreadFor === 'EV' ? 4 : 1}
                 />
+                {/* Show StatExp in Gens 1 and 2 */}
+                {member.gen < 3 && spreadFor === 'EV'
+                  ? <span style={{
+                      minWidth: '7ch',
+                      textAlign: 'right',
+                    }}>
+                      &nbsp;&nbsp;{value * value}
+                    </span>
+                  : ''
+                }
               </div>
             </div>
           )

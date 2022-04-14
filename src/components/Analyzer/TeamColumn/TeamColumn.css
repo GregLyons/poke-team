@@ -208,4 +208,9 @@
   align-items: center;
 }
 
+.popup-spread__slider {
+  display: flex;
+  align-items: center;
+}
+
 /* #endregion */

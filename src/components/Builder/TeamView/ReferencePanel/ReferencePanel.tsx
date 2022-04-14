@@ -131,6 +131,7 @@ const ReferencePanel = ({
               filters={filters}
             />)}
             {(view?.mode === 'EV' || view?.mode === 'IV') && spreads && <SpreadView
+              gen={filters.genFilter.gen}
               focusRef={referencePanelFocus}
               handlers={handlers.spreadHandlers}
               spread={view?.mode === 'EV' ? spreads.evs : spreads.ivs}

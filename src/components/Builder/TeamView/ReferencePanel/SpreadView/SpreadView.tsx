@@ -1,5 +1,5 @@
 import { spreadSummary } from "../../../../../types-queries/Builder/helpers";
-import { BaseStatName, StatTable, toAbbreviatedBaseStatName, toFormattedBaseStatName } from "../../../../../types-queries/entities";
+import { BaseStatName, GenNum, StatTable, toAbbreviatedBaseStatName, toFormattedBaseStatName } from "../../../../../types-queries/entities";
 import Button from "../../../../Reusables/Button/Button";
 import Slider from "../../../../Reusables/Slider/Slider";
 import { SpreadHandlers } from "../../TeamView";
@@ -7,6 +7,7 @@ import './SpreadView.css';
 
 
 type SpreadViewProps = {
+  gen: GenNum
   focusRef: React.RefObject<HTMLDivElement>
   handlers: SpreadHandlers
   spread: StatTable
@@ -14,6 +15,7 @@ type SpreadViewProps = {
 }
 
 const SpreadView = ({
+  gen,
   focusRef,
   handlers,
   spread,
@@ -72,10 +74,20 @@ const SpreadView = ({
                     ? (newValue: number) => handlers.updateEV(statName, newValue)
                     : (newValue: number) => handlers.updateIV(statName, newValue)
                   }
-                  sliderWidth={'200px'}
+                  sliderWidth={gen < 3 ? '150px' : '200px'}
                   numericalWidth={3}
                   step={spreadFor === 'EV' ? 4 : 1}
                 />
+                {/* Show StatExp in Gens 1 and 2 */}
+                {gen < 3 && spreadFor === 'EV'
+                  ? <span style={{
+                      minWidth: '7ch',
+                      textAlign: 'right',
+                    }}>
+                      &nbsp;&nbsp;{value * value}
+                    </span>
+                  : ''
+                }
               </fieldset>
             </div>
           )
