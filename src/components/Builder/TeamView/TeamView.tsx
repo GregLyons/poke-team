@@ -468,8 +468,6 @@ const TeamView = ({
       e.preventDefault();
       if (memberSlot === null) return;
       
-      // EVs not present prior to gen 3
-      if (filters.genFilter.gen < 3) return setView(null);
       
       setRefKey('evs');
       return setView({ mode: 'EV', idx: 0, });

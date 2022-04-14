@@ -32,7 +32,8 @@ const StatBox = ({
 }: StatBoxProps) => {
   const hiddenPower: { type: TypeName, power: number, } = useMemo(() => {
     return ivsToHiddenPower(member?.ivs || (gen > 2 ? DEFAULT_IV_SPREAD : DEFAULT_DV_SPREAD), gen);
-  }, [gen, member, ])
+  }, [gen, member, ]);
+  
   return (<>
     {/* EVs */}
     <MemberDetailInnerBox
@@ -50,7 +51,6 @@ const StatBox = ({
       interactive={true}
 
       gen={gen}
-      minGen={3}
     />
 
     {/* IVs */}
