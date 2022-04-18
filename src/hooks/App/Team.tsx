@@ -72,6 +72,38 @@ const stateWithModifiedMember = (state: Team, gen: GenNum, modifiedMember: Membe
 // Exceptions
 // #region
 
+const getMaxAttackDVForGender = (modifiedMember: MemberPokemon) => {
+  const { gen, gender, femaleRate, } = modifiedMember;
+  if (gen > 2) return 31;
+  if (gen === 1 || gender !== 'F' || !femaleRate) return 15;
+  if (femaleRate < 0.2) {
+    return 1;
+  }
+  else if (femaleRate < 0.4) {
+    return 4;
+  }
+  else if (femaleRate < 0.6) {
+    return 7;
+  }
+  else if (femaleRate < 0.9) {
+    return 11;
+  }
+  else {
+    return 15;
+  }
+}
+
+const convertToValidShinyAttackDV = (attack: number, shiny: boolean | undefined) => {
+  if (!shiny) return attack;
+  if ([2, 3, 6, 7, 10, 11, 14, 15].includes(attack)) return attack;
+  else if (attack < 2) return 2;
+  else if (attack < 6) return 6;
+  else if (attack < 10) return 10;
+  else if (attack < 14) return 14;
+  else return attack;
+}
+
+// Marowak overflow glitch: if Gen 2 Marowak gets Thick Club and Swords Dance, then set Attack DV to 13 to prevent overflow.
 const check_marowakGSC = (modifiedMember: MemberPokemon) => {
   if (
     modifiedMember.gen === 2
@@ -79,7 +111,91 @@ const check_marowakGSC = (modifiedMember: MemberPokemon) => {
     && modifiedMember.item?.psID === 'thickclub'
     && modifiedMember.moveset.map(move => move?.psID).includes('swordsdance')
   ) {
-    modifiedMember.assignIV('attack', 13);
+    if (modifiedMember.gender === 'F') {
+      modifiedMember.assignIV('attack', 7);
+    }
+    else {
+      // Largest valid attack DV to prevent overflow
+      if (modifiedMember.shiny) {
+        modifiedMember.assignIV('attack', 11);
+      }
+      else {
+        modifiedMember.assignIV('attack', 13);
+      }
+    }
+  }
+}
+
+// When Gen 2 Pokemon is set to Shiny, set Attack DV to 15 and other DVs to 10.
+// If Pokemon is female with femaleRate 7:1, will set Pokemon to male
+const check_shinyDVs = (modifiedMember: MemberPokemon) => {
+  if (
+    modifiedMember.gen === 2
+    && modifiedMember.shiny
+  ) {
+    // Shiny, female, 7:1 femaleRate not possible
+    if (modifiedMember.femaleRate && modifiedMember.femaleRate < 0.2) {
+      modifiedMember.assignGender('M');
+    }
+
+    // Convert maximal attack DV based on gender, assuming shiny
+    modifiedMember.assignIV('attack', 
+      convertToValidShinyAttackDV(
+        getMaxAttackDVForGender(modifiedMember), true
+      )
+    );
+    modifiedMember.assignIV('defense', 10);
+    modifiedMember.assignIV('specialAttack', 10);
+    modifiedMember.assignIV('specialDefense', 10);
+    modifiedMember.assignIV('speed', 10);
+
+    if (modifiedMember.femaleRate < 0.2) modifiedMember.assignGender('M');
+  }
+  // If not shiny, set DVs to highest possible
+  else if (
+    modifiedMember.gen === 2
+    && !modifiedMember.shiny
+  ) {
+    // Convert maximal attack DV based on gender, assuming shiny
+    modifiedMember.assignIV('attack', 
+      getMaxAttackDVForGender(modifiedMember)
+    );
+    modifiedMember.assignIV('defense', 15);
+    modifiedMember.assignIV('specialAttack', 15);
+    modifiedMember.assignIV('specialDefense', 15);
+    modifiedMember.assignIV('speed', 15);
+
+    // Only raise SD/TC Marowak's attack DV to 13
+    check_marowakGSC(modifiedMember);
+  }
+}
+
+// When Gen 2 Pokemon gender is set to F, set Attack DV to maximum possible
+const check_genderDVs = (modifiedMember: MemberPokemon) => {
+  if (
+    modifiedMember.gen === 2
+    && modifiedMember.gender === 'F'
+  ) {
+    // Shiny, female 7:1 femaleRate not possible
+    if (modifiedMember.femaleRate && modifiedMember.femaleRate < 0.2) {
+      modifiedMember.assignShiny(false);
+    }
+    
+    // Convert maximal attack DV based on gender and shiny value
+    modifiedMember.assignIV('attack',
+      convertToValidShinyAttackDV(
+        getMaxAttackDVForGender(modifiedMember), modifiedMember.shiny
+      )
+    );
+  }
+  else if (
+    modifiedMember.gen === 2
+    && modifiedMember.gender !== 'F'
+  ) {
+    modifiedMember.assignIV('attack', convertToValidShinyAttackDV(15, modifiedMember.shiny));
+
+    // Only raise SD/TC Marowak's attack DV to 13
+    check_marowakGSC(modifiedMember);
   }
 }
 
@@ -482,6 +598,9 @@ export function teamReducer(state: Team, action: TeamAction): Team {
       modifiedMember = state[gen].members[idx]?.copy();
       if (!modifiedMember) return state;
       modifiedMember.toggleShiny();
+
+      check_shinyDVs(modifiedMember);
+
       return stateWithModifiedMember(state, gen, modifiedMember, idx);
 
     case 'assign_happiness':
@@ -501,7 +620,11 @@ export function teamReducer(state: Team, action: TeamAction): Team {
 
       modifiedMember = state[gen].members[idx]?.copy();
       if (!modifiedMember) return state;
+
       modifiedMember.assignGender(gender);
+
+      check_genderDVs(modifiedMember);
+
       return stateWithModifiedMember(state, gen, modifiedMember, idx);
 
     case 'assign_nature':
