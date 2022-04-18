@@ -69,6 +69,22 @@ const stateWithModifiedMember = (state: Team, gen: GenNum, modifiedMember: Membe
   }
 }
 
+// Exceptions
+// #region
+
+const check_marowakGSC = (modifiedMember: MemberPokemon) => {
+  if (
+    modifiedMember.gen === 2
+    && modifiedMember.psID === 'marowak'
+    && modifiedMember.item?.psID === 'thickclub'
+    && modifiedMember.moveset.map(move => move?.psID).includes('swordsdance')
+  ) {
+    modifiedMember.assignIV('attack', 13);
+  }
+}
+
+// #endregion
+
 export type TeamAction = 
 // Pin box from cart to team
 | {
@@ -420,6 +436,9 @@ export function teamReducer(state: Team, action: TeamAction): Team {
       modifiedMember = state[gen].members[idx]?.copy();
       if (!modifiedMember) return state;
       modifiedMember.assignItem(item);
+
+      check_marowakGSC(modifiedMember);
+      
       return stateWithModifiedMember(state, gen, modifiedMember, idx);
 
     case 'assign_move':
@@ -431,6 +450,9 @@ export function teamReducer(state: Team, action: TeamAction): Team {
       modifiedMember = state[gen].members[idx]?.copy();
       if (!modifiedMember) return state;
       modifiedMember.assignMove(move, moveIdx);
+
+      check_marowakGSC(modifiedMember);
+
       return stateWithModifiedMember(state, gen, modifiedMember, idx);
 
     case 'assign_nickname':

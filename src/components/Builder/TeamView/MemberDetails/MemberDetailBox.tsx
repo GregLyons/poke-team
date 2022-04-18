@@ -33,7 +33,10 @@ const MemberDetailBox = ({
   minGen,
   excludeGens,
 }: MemberDetailBoxProps) => {
-  const invalidGen = gen && minGen && excludeGens && (gen < minGen || excludeGens.includes(gen));
+  const invalidGen = gen && (
+    (minGen && gen < minGen)
+    || (excludeGens && excludeGens.includes(gen))
+  );
 
   return (
     <div
