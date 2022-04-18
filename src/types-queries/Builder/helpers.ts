@@ -1,17 +1,22 @@
-import { BaseStatName, StatTable, toAbbreviatedBaseStatName } from "../entities";
+import { BaseStatName, GenNum, StatTable, toAbbreviatedBaseStatName } from "../entities";
 import { IntroductionEdge, NameEdge } from "../helpers";
 
 // Formatting spreads 
 // #region
 
-export const spreadSummary = (spread: StatTable, defaultValue: number) => {
+export const spreadSummary = (spread: StatTable, defaultValue: number, gen: GenNum) => {
   let result: string = '';
 
   for (let [key, value] of Object.entries(spread)) {
     // Typeguard
     const statName = (key as BaseStatName);
     if (!statName) continue;
-    if (value !== defaultValue) {
+
+    if (gen === 1 && statName === 'specialDefense') continue;
+    else if (gen === 1 && statName === 'specialAttack' && value !== defaultValue) {
+      result += value + ' Spc / ';
+    }
+    else if (value !== defaultValue) {
       result += value + ' ' + toAbbreviatedBaseStatName(statName) + ' / ';
     }
   }

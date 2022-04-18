@@ -400,6 +400,20 @@ export class MemberPokemon extends MemberEntity {
     // Check that EV is in valid range
     if (newValue < 0 || newValue > 252) throw new Error(`Invalid value for ${stat} EV: ${newValue}.`);
 
+    // Special Attack and Special Defense EVs/StatExp shared in gens 1 and 2
+    if (stat === 'specialAttack' && this.gen < 3) {
+      this.evs = {
+        ...this.evs,
+        specialDefense: newValue,
+      }
+    }
+    else if (stat === 'specialDefense' && this.gen < 3) {
+      this.evs = {
+        ...this.evs,
+        specialAttack: newValue,
+      }
+    }
+
     // Check that EV total remains below 510 for Gens 3 onward
     const newEVTotal = Object.entries(this.evs).reduce((acc, curr) => {
       if ((curr[0] as BaseStatName) !== stat) return acc + curr[1];
@@ -438,7 +452,21 @@ export class MemberPokemon extends MemberEntity {
 
   public assignIV(stat: BaseStatName, newValue: number) {
     // Check that IV is in valid range; 0-31 Gen 3 onwards, 0-15 Gens 1 and 2
-    if (newValue < 0 || newValue > 31 || (newValue > 15 && [1, 2].includes(this.gen))) throw new Error(`Invalid value for ${stat} IV in Generation ${this.gen}: ${newValue}.`)
+    if (newValue < 0 || newValue > 31 || (newValue > 15 && [1, 2].includes(this.gen))) throw new Error(`Invalid value for ${stat} IV in Generation ${this.gen}: ${newValue}.`);
+
+    // Shiny Pokemon in gen 2 must have defense, speed, special = 10
+    if (
+      ['defense', 'speed', 'specialAttack', 'specialDefense'].includes(stat)
+      && this.gen === 2
+      && this.shiny
+      && newValue !== 10
+    ) return;
+
+    // DV mechanics
+    // #region
+
+    // If gen < 3, then HP DV depends on other DVs, and cannot be modified directly
+    if (stat === 'hp' && this.gen < 3) return;
 
     this.ivs = {
       ...this.ivs,
@@ -458,6 +486,30 @@ export class MemberPokemon extends MemberEntity {
         specialAttack: newValue,
       }
     }
+    
+    // If gen < 3, then HP DV is calculated based on other DVs
+    if (this.gen < 3) {
+      let newHP = 0;
+      const { attack, defense, speed, specialAttack } = this.ivs;
+      if (attack % 2 === 1) {
+        newHP += 8;
+      }
+      if (defense % 2 === 1) {
+        newHP += 4;
+      }
+      if (speed % 2 === 1) {
+        newHP += 2;
+      }
+      if (specialAttack % 2 === 1) {
+        newHP += 1;
+      }
+      this.ivs = {
+        ...this.ivs, 
+        hp: newHP,
+      }
+    }
+
+    // #endregion
 
     // Change 'this.hpType' to match with 'this.ivs'
     if (this.gen > 1) {
@@ -529,11 +581,11 @@ export class MemberPokemon extends MemberEntity {
   }
 
   public evsSummary() {
-    return spreadSummary(this.evs, 0);
+    return spreadSummary(this.evs, 0, this.gen);
   }
 
   public ivsSummary() {
-    return spreadSummary(this.ivs, this.gen > 2 ? 31 : 15);
+    return spreadSummary(this.ivs, this.gen > 2 ? 31 : 15, this.gen);
   }
 
   // For copying

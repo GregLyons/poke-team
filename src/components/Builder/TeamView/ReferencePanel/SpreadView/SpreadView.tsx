@@ -49,8 +49,23 @@ const SpreadView = ({
           // Type guard
           const statName = (key as BaseStatName);
           if (!statName) return;
-          const abbrStatName = toAbbreviatedBaseStatName(statName);
-          const formStatName = toFormattedBaseStatName(statName);
+
+          // HP DV based on other DVs
+          if (spreadFor === 'DV' && statName === 'hp' && gen < 3) return;
+
+          // Merge SpA/SpD in gen 1; in Gen 2, even if Special EVs/DVs are shared, they are still distinct
+          if (gen < 2 && statName === 'specialDefense') return;
+
+          let abbrStatName: string;
+          let formStatName: string;
+
+          abbrStatName = toAbbreviatedBaseStatName(statName);
+          formStatName = toFormattedBaseStatName(statName);
+
+          if (gen < 2 && statName === 'specialAttack') {
+            abbrStatName = 'Spc';
+            formStatName = 'Special';
+          }
           
           return (
             <div
@@ -94,7 +109,7 @@ const SpreadView = ({
         })}
       </div>
       <div className="spread-view__summary">
-        {spreadSummary(spread, defaultValue)}
+        {spreadSummary(spread, defaultValue, gen)}
       </div>
       <div className="spread-view__done">
         <label htmlFor={`spread-view_${spreadFor}_done`} className="hidden-label">Quit modifying {spreadFor}s</label>
