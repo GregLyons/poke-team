@@ -93,9 +93,11 @@ const getMaxAttackDVForGender = (modifiedMember: MemberPokemon) => {
   }
 }
 
+const SHINY_GEN2_VALID_ATTACK_DV = [2, 3, 6, 7, 10, 11, 14, 15];
+
 const convertToValidShinyAttackDV = (attack: number, shiny: boolean | undefined) => {
   if (!shiny) return attack;
-  if ([2, 3, 6, 7, 10, 11, 14, 15].includes(attack)) return attack;
+  if (SHINY_GEN2_VALID_ATTACK_DV.includes(attack)) return attack;
   else if (attack < 2) return 2;
   else if (attack < 6) return 6;
   else if (attack < 10) return 10;
@@ -197,6 +199,53 @@ const check_genderDVs = (modifiedMember: MemberPokemon) => {
     // Only raise SD/TC Marowak's attack DV to 13
     check_marowakGSC(modifiedMember);
   }
+}
+
+// Given Gen 2 Pokemon, compute its maximum valid Attack DV
+const getMaxValidGen2AttackDV = (modifiedMember: MemberPokemon) => {
+  let maxValidAttack = 15;
+
+  // If Pokemon is female, convert max attack DV based on femaleRate
+  if (modifiedMember.gender === 'F') {
+    maxValidAttack = getMaxAttackDVForGender(modifiedMember);
+  }
+
+  // If Pokemon is not shiny, then return true, otherwise return whether attack DV is valid for shiny
+  const validShinyDV = !modifiedMember.shiny || SHINY_GEN2_VALID_ATTACK_DV.includes(maxValidAttack);
+
+  // If valid shiny DV, return
+  if (validShinyDV) return maxValidAttack;
+
+  // maxValidAttack must be either 1 or 4, as getMaxAttackDVForGender returns 1, 4, 7, 11, or 15, the last three of which are valid shiny DVs
+  // maxValidAttack cannot be 1, because a female 7:1 shiny is not possible; it's already precluded by check_genderDVs and check_shinyDVs
+  // Thus, maxValidAttack must be 4, so we set to 3
+  if (maxValidAttack === 4) return 3;
+  // This last case shouldn't be possible, but we return something anyway
+  else return 15;
+}
+
+// Sets Gen 2 Pokemon's attack DVs to maximum valid value
+const reassignAttackDV = (modifiedMember: MemberPokemon) => {
+  // Only consider Gen 2 Pokemon
+  if (modifiedMember.gen !== 2) return;
+
+  const attack = modifiedMember.ivs.attack;
+  
+  /* Attack DV is invalid if:
+
+    (Pokemon is shiny AND invalid attack DV)
+      OR
+    (Pokemon is female AND attack DV larger than max possible for gender/femaleRate)
+  */
+  const invalid = (
+    (modifiedMember.shiny && !SHINY_GEN2_VALID_ATTACK_DV.includes(attack))
+    || (modifiedMember.gender === 'F' && attack > getMaxAttackDVForGender(modifiedMember))
+  );
+  
+  // If Attack DV is valid, do nothing
+  if (!invalid) return;
+  // Otherwise, set Attack DV to maximum valid attack DV
+  else modifiedMember.assignIV('attack', getMaxValidGen2AttackDV(modifiedMember));
 }
 
 // #endregion
@@ -349,6 +398,14 @@ export type TeamAction =
       idx: number
       stat: BaseStatName
       newValue: number
+    }
+  }
+// For Gen 2 specifically; determines whether attack DV is valid given gender/shiny value, and if invalid sets to maximum valid attack DV
+| {
+    type: 'reassign_attack_dv'
+    payload: {
+      gen: GenNum
+      idx: number
     }
   }
 | {
@@ -668,6 +725,23 @@ export function teamReducer(state: Team, action: TeamAction): Team {
       // If illegal IV value, then return original state
       try {
         modifiedMember.assignIV(stat, newValue);
+      }
+      catch {
+        return state;
+      }
+      
+      return stateWithModifiedMember(state, gen, modifiedMember, idx);
+
+    case 'reassign_attack_dv':
+      gen = action.payload.gen;
+      idx = action.payload.idx;
+
+      modifiedMember = state[gen].members[idx]?.copy();
+      if (!modifiedMember) return state;
+
+      // If attack DV invalid, attempt to reassign attack DV to maximum valid attack DV
+      try {
+        reassignAttackDV(modifiedMember);
       }
       catch {
         return state;

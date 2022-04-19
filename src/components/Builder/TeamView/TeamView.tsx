@@ -338,6 +338,19 @@ const TeamView = ({
 
     const onSpreadFinish = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       e.preventDefault();
+      if (memberSlot === null) return;
+
+      // In Gen 2, may need to re-assign Attack DV
+      if (filters.genFilter.gen === 2) {
+        dispatches.dispatchTeam({
+          type: 'reassign_attack_dv',
+          payload: {
+            gen: filters.genFilter.gen,
+            idx: memberSlot,
+          }
+        });
+      }
+
       focusPrevious();
       return setView(null);
     }

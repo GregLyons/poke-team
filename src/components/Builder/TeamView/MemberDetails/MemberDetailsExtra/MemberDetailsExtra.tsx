@@ -32,7 +32,7 @@ const MemberDetailsExtra = ({
   }
   // Males or females present, so 'N' excluded
   if (member.maleRate > 0 || member.femaleRate > 0) {
-    unavailableGenders = [false];
+    unavailableGenders = unavailableGenders.concat(false);
   }
 
   return (
