@@ -43,7 +43,7 @@
   transform-origin: center;
 }
 .three-toggle__button.--disabled {
-  filter: grayscale(2);
+  background-color: var(--dark1);
 }
 .three-toggle__button:not(.--disabled):hover,
 .three-toggle__button:not(.--disabled):focus,

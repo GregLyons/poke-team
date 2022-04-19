@@ -146,7 +146,19 @@ const TeamColumnSpread = ({
       </div>}
       {...popupPositioning}
 
-      onClose={onPopupClose}
+      onClose={() => {
+        onPopupClose();
+
+        // In Gen 2, re-assign attack DV
+        if (member.gen !== 2) return;
+        teamDispatch({
+          type: 'reassign_attack_dv',
+          payload: {
+            gen: member.gen,
+            idx: memberIdx,
+          }
+        });
+      }}
     />
   );
 };
