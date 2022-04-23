@@ -1,0 +1,55 @@
+Tyranitar (F) @ Leftovers
+Ability: Sand Stream
+EVs: 232 HP / 144 Atk / 132 Spe
+Adamant Nature
+- Taunt
+- Rock Slide
+- Earthquake
+- Toxic
+
+Zapdos @ Leftovers
+Ability: Pressure
+EVs: 252 HP / 28 Def / 228 SpD
+Calm Nature
+IVs: 2 Atk / 30 SpA
+- Thunderbolt
+- Hidden Power [Grass]
+- Thunder Wave
+- Toxic
+
+Snorlax @ Leftovers
+Ability: Immunity
+EVs: 112 HP / 76 Atk / 176 Def / 64 SpA / 80 SpD
+Sassy Nature
+- Body Slam
+- Fire Blast
+- Earthquake
+- Self-Destruct
+
+Swampert @ Leftovers
+Ability: Torrent
+EVs: 216 HP / 124 Def / 132 SpA / 36 Spe
+Quiet Nature
+- Hydro Pump
+- Ice Beam
+- Protect
+- Earthquake
+
+Skarmory @ Leftovers
+Ability: Keen Eye
+EVs: 252 HP / 14 Def / 182 SpD / 60 Spe
+Impish Nature
+IVs: 0 Atk
+- Toxic
+- Spikes
+- Whirlwind
+- Taunt
+
+Aerodactyl @ Choice Band
+Ability: Rock Head
+EVs: 4 HP / 252 Atk / 252 Spe
+Jolly Nature
+- Rock Slide
+- Earthquake
+- Hidden Power [Flying]
+- Double-Edge

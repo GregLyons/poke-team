@@ -1,0 +1,56 @@
+Pelipper (F) @ Damp Rock
+Ability: Drizzle
+EVs: 252 HP / 4 Def / 252 SpD
+Calm Nature
+- Hurricane
+- U-turn
+- Scald
+- Tailwind
+
+Ludicolo @ Life Orb
+Ability: Swift Swim
+EVs: 252 SpA / 4 SpD / 252 Spe
+Modest Nature
+IVs: 29 HP / 0 Atk
+- Rain Dance
+- Surf
+- Giga Drain
+- Ice Beam
+
+Ferrothorn @ Rocky Helmet
+Ability: Iron Barbs
+EVs: 252 Def / 252 SpD
+Careful Nature
+IVs: 0 Spe
+- Stealth Rock
+- Leechseed
+- Gyro Ball
+- Powerwhip
+
+Swampert @ Swampertite
+Ability: Damp
+EVs: 252 Atk / 252 Spe
+Adamant Nature
+- Waterfall
+- Earthquake
+- Superpower
+- Ice Punch
+
+Rotom-Wash @ Electrium Z
+Ability: Levitate
+EVs: 108 HP / 184 SpA / 216 Spe
+Timid Nature
+IVs: 0 Atk
+- Hydro Pump
+- Volt Switch
+- Thunder
+- Pain Split
+
+Tornadus-Therian (M) @ Assault Vest
+Ability: Regenerator
+EVs: 252 HP / 4 Atk / 252 Spe
+Hasty Nature
+- Hurricane
+- Superpower
+- Taunt
+- Defog

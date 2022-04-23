@@ -1,0 +1,56 @@
+Ninetales @ Heat Rock  
+Ability: Drought  
+EVs: 252 SpA / 4 SpD / 252 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Nasty Plot  
+- Fire Blast  
+- Solar Beam  
+- Extrasensory  
+
+Shiftry @ Life Orb  
+Ability: Chlorophyll  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Adamant Nature  
+- Swords Dance  
+- Leaf Blade  
+- Throat Chop  
+- Rock Slide  
+
+Salazzle (F) @ Leftovers  
+Ability: Oblivious  
+EVs: 252 SpA / 4 SpD / 252 Spe  
+Timid Nature  
+IVs: 0 Atk  
+- Nasty Plot  
+- Fire Blast  
+- Sludge Wave  
+- Substitute  
+
+Arcanine @ Life Orb  
+Ability: Justified  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Jolly Nature  
+- Morning Sun  
+- Flare Blitz  
+- Wild Charge  
+- Extreme Speed  
+
+Whimsicott @ Life Orb  
+Ability: Chlorophyll  
+EVs: 252 SpA / 4 SpD / 252 Spe  
+Modest Nature  
+IVs: 0 Atk  
+- Shadow Ball  
+- Growth  
+- Energy Ball  
+- Moonblast  
+
+Cinderace @ Expert Belt  
+Ability: Blaze  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Jolly Nature  
+- Pyro Ball  
+- U-turn  
+- High Jump Kick  
+- Court Change

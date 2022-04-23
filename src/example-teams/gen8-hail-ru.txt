@@ -1,0 +1,53 @@
+Vanilluxe @ Icy Rock
+Ability: Snow Warning
+EVs: 252 HP / 4 SpA / 252 Spe
+Hasty Nature
+- Aurora Veil
+- Taunt
+- Freeze-Dry
+- Explosion
+
+Beartic @ Life Orb
+Ability: Slush Rush
+EVs: 4 HP / 252 Atk / 252 Spe
+Jolly Nature
+- Swords Dance
+- Icicle Crash
+- Stone Edge
+- Play Rough
+
+Aurorus @ Icy Rock
+Ability: Snow Warning
+EVs: 252 HP / 4 Def / 252 SpD
+Calm Nature
+- Stealth Rock
+- Blizzard
+- Earth Power
+- Thunder Wave
+
+Arctozolt @ Life Orb
+Ability: Slush Rush
+EVs: 252 Atk / 32 SpA / 224 Spe
+Naive Nature
+- Bolt Beak
+- Icicle Crash
+- Freeze-Dry
+- Hydro Pump
+
+Arctovish @ Life Orb
+Ability: Slush Rush
+EVs: 244 Atk / 40 SpA / 224 Spe
+Naive Nature
+- Fishious Rend
+- Freeze-Dry
+- Icicle Crash
+- Stone Edge
+
+Sandslash-Alola @ Heavy Duty Boots
+Ability: Slush Rush
+EVs: 252 HP / 252 Def / 4 SpD
+Impish Nature
+- Stealth Rock
+- Rapid Spin
+- Iron Head
+- Knock Off

@@ -1,0 +1,35 @@
+Gengar
+- Hypnosis
+- Thunderbolt
+- Night Shade
+- Explosion
+
+Chansey
+- Ice Beam
+- Thunderbolt
+- Thunder Wave
+- Soft-Boiled
+
+Snorlax
+- Body Slam
+- Earthquake
+- Hyper Beam
+- Self-Destruct
+
+Exeggutor
+- Sleep Powder
+- Stun Spore
+- Psychic
+- Explosion
+
+Tauros
+- Body Slam
+- Earthquake
+- Hyper Beam
+- Blizzard
+
+Lapras
+- Blizzard
+- Thunderbolt
+- Body Slam
+- Confuse Ray

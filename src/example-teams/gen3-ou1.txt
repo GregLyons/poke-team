@@ -1,0 +1,54 @@
+Tyranitar @ Leftovers
+Ability: Sand Stream
+EVs: 240 HP / 152 SpA / 116 Spe
+Modest Nature
+IVs: 0 Atk
+- Crunch
+- Pursuit
+- Taunt
+- Toxic
+
+Suicune @ Leftovers
+Ability: Pressure
+EVs: 240 HP / 104 SpA / 164 Spe
+Modest Nature
+- Surf
+- Ice Beam
+- Roar
+- Calm Mind
+
+Snorlax @ Leftovers
+Ability: Immunity
+EVs: 112 HP / 76 Atk / 176 Def / 64 SpA / 80 SpD
+Sassy Nature
+- Body Slam
+- Fire Blast
+- Earthquake
+- Self-Destruct
+
+Cloyster (M) @ Leftovers
+Ability: Shell Armor
+EVs: 252 HP / 16 Def / 228 SpD / 12 Spe
+Relaxed Nature
+- Ice Beam
+- Explosion
+- Rapid Spin
+- Spikes
+
+Metagross @ Choice Band
+Ability: Clear Body
+EVs: 184 HP / 248 Atk / 76 Spe
+Adamant Nature
+- Meteor Mash
+- Explosion
+- Earthquake
+- Rock Slide
+
+Aerodactyl @ Choice Band
+Ability: Rock Head
+EVs: 4 HP / 252 Atk / 252 Spe
+Jolly Nature
+- Rock Slide
+- Earthquake
+- Hidden Power [Flying]
+- Double-Edge
