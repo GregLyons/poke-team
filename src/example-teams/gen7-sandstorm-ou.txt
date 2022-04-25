@@ -1,0 +1,54 @@
+Tyranitar @ Tyranitarite
+Ability: Sand Stream
+EVs: 252 Atk / 4 SpD / 252 Spe
+Jolly Nature
+-Dragon Dance
+-Stone Edge
+-Ice Punch
+-Fire Punch
+
+Hippowdon @ Smooth Rock
+Ability: Sand Stream
+EVs: 252 HP / 144 Def / 112 SpD
+Impish Nature
+-Stealth Rock
+-Earthquake
+-Slack Off
+-Whirlwind
+
+Excadrill @ Life Orb
+Ability: Sand Rush
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+-Earthquake
+-Iron Head
+-Rock Slide
+-Rapid Spin
+
+Breloom @ Focus Sash
+Ability: Technician
+EVs: 4 HP / 252 Atk / 252 Spe
+Adamant Nature
+-Spore
+-Bullet Seed
+-Mach Punch
+-Rock Tomb
+
+Gastrodon @ Leftovers
+Ability: Storm Drain
+EVs: 248 HP / 8 Def / 252 SpD
+Calm Nature
+IVs: 0 Atk
+-Scald
+-Recover
+-Toxic
+-Ice Beam
+
+Goodra @ Choice Band
+Ability: Sap Sipper
+EVs: 248 HP / 252 Atk / 8 SpD
+Adamant Nature
+-Outrage
+-Iron Tail
+-Fire Punch
+-Power Whip

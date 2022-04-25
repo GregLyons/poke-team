@@ -2,10 +2,9 @@ import {
   Outlet
 } from 'react-router-dom';
 import { removedFromBDSP, removedFromSwSh } from '../../../hooks/App/GenFilter';
-import { TYPE_NAMES } from '../../../hooks/App/PokemonFilter';
 import { ListFilterArgs, ListRenderArgsIcons, useListFilter_removal_pagination, useListRender_icons } from '../../../hooks/Searches';
 import { MoveCategory, MoveTargetClass, MOVE_CATEGORY_MAP, MOVE_TARGETCLASS_MAP, MOVE_TYPE_MAP } from '../../../types-queries/entities';
-import { CapsTypeName, toCapsTypeName } from '../../../types-queries/helpers';
+import { CapsTypeName } from '../../../types-queries/helpers';
 import {
   MoveInSearch, MoveSearchQuery,
   MoveSearchResult,
@@ -376,9 +375,9 @@ const MoveSearch = ({
       minPriority: -7,
 
       bypassAccuracy: null,
-      category: Array.from(MOVE_CATEGORY_MAP.keys()),
-      target: Array.from(MOVE_TARGETCLASS_MAP.keys()),
-      types: Array.from(TYPE_NAMES.map(toCapsTypeName)),
+      category: [],
+      target: [],
+      types: [],
       variablePower: null,
     },
     genFilter: filters.genFilter,

@@ -129,7 +129,7 @@ const Popup = ({
       left,
       right,
     };
-  }, [orientation, nudge, triggerDim, contentDim, content, trigger, ]);
+  }, [orientation, nudge, triggerDim, contentDim, ]);
 
   // Closes window when focus leaves the content
   useEventListener('focusin', e => {

@@ -92,7 +92,7 @@ const EffectSearch = ({
       contains: '',
       startsWith: '',
       limit: 100,
-      effectClass: Array.from(EFFECT_CLASS_MAP.keys()),
+      effectClass: [],
     },
     genFilter,
     searchBarProps: {

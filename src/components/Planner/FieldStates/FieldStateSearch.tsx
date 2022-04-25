@@ -175,12 +175,12 @@ const FieldStateSearch = ({
       startsWith: '',
       limit: 100,
 
-      fieldStateClass: Array.from(FIELDSTATE_CLASS_MAP.keys()),
+      fieldStateClass: [],
       maxDamagePercent: 100,
       minDamagePercent: 0,
       maxLayers: 3,
       grounded: null,
-      target: Array.from(FIELDSTATE_TARGETCLASS_MAP.keys()),
+      target: [],
     },
     genFilter,
     searchBarProps: {

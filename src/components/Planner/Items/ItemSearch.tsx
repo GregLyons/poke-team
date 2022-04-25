@@ -153,7 +153,7 @@ const ItemSearch = ({
       offset: 0,
       removedFromSwSh: removedFromSwSh(filters.genFilter),
       removedFromBDSP: removedFromBDSP(filters.genFilter),
-      itemClass: Array.from(ITEM_CLASS_MAP.keys()),
+      itemClass: [],
     },
     genFilter: filters.genFilter,
     searchBarProps: {

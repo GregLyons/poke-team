@@ -107,7 +107,7 @@ const TypeMatchup = ({
             type-matchup__icon
           `}
         >
-          Type
+          TYPE
         </th>
         <th
           scope="col"  

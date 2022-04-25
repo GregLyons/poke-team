@@ -69,7 +69,7 @@ const SpeedControl = ({
             aria-colindex={1}
             className="speed-control__name"
           >
-            Class
+            SPEED
           </th>
           <td
             scope="col"

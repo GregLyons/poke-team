@@ -16,7 +16,7 @@
   text-align: center;
 }
 .type-matchup__entry:not(:first-of-type) {
-  color: var(--light3);
+  color: var(--light2);
 }
 
 .type-matchup__icon,

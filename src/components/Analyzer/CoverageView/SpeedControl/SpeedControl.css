@@ -32,7 +32,6 @@
   padding: 0 1ch 0 1ch;
 }
 /* Center cells except names */
-.speed-control__entry:first-of-type > .speed-control__name,
 .speed-control__value {
   justify-content: center;
 }

@@ -73,7 +73,7 @@ const StatusControl = ({
             aria-colindex={1}
             className="status-control__name"
           >
-            Name
+            STATUS
           </th>
           <th
             scope="col"

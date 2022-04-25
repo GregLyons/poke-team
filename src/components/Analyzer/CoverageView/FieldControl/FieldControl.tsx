@@ -75,7 +75,7 @@ const FieldControl = ({
             aria-colindex={1}
             className="field-control__name"
           >
-            Name
+            FIELD
           </th>
           <th
             scope="col"
