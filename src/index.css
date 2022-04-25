@@ -10,7 +10,7 @@ html {
   --app-width: clamp(1024px, 90vw, 1440px);
 
   font-family: var(--monospace);
-  overflow: hidden;
+  overflow-x: hidden;
   line-height: 1.5;
   font-size: 16px;
 
@@ -67,7 +67,7 @@ html {
 
   /* Shadows */
   --bg-shadow-gap: 1px;
-  --cell-padding: clamp(4px, 0.6rem, 2vw);
+  --cell-padding: clamp(3px, 0.6rem, max(2vw, 3vh));
 
   --button-shadow: inset 0px -5px 1px 0 rgba(0, 0, 0, 0.2);
 
@@ -119,12 +119,12 @@ body {
 
 #root {
   display: grid;
-  grid-template-rows: var(--header-height) calc(100vh - var(--header-height));
+  grid-template-rows: var(--header-height) calc(max(100vh, 768px) - var(--header-height));
   grid-template-columns: 1fr var(--app-width) 1fr;
 
   position: relative;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
 
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
